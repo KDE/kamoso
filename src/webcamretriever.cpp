@@ -30,6 +30,8 @@ WebcamRetriever::WebcamRetriever(QObject* parent)
 void WebcamRetriever::run()
 {
 	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
+	if(!mVideoDevicePool->hasDevices())
+		return;
 	mVideoDevicePool->open();
 	mVideoDevicePool->setSize(mImageSize.width(), mImageSize.height());
 	
