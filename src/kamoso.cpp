@@ -45,7 +45,7 @@
 
 Kamoso::Kamoso(QWidget* parent)
   : KMainWindow(parent)
-  , splitter(new QSplitter(this))
+  , splitter(new QSplitter(Qt::Vertical, this))
 {
 	KConfigGroup general(KGlobal::config(), "General");
 	if(general.hasKey("PhotoUrl")) {
