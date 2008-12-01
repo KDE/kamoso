@@ -45,24 +45,24 @@
 
 Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 {
-	KConfigGroup general(KGlobal::mainComponent().config(), "General");
-	if(general.hasKey("PhotoUrl"))
-		theUrl=general.readEntry("PhotoUrl", KUrl());
-	else {
+	KConfigGroup general(KGlobal::config(), "General");
+	if(general.hasKey("PhotoUrl")) {
+		theUrl = general.readEntry("PhotoUrl", KUrl());
+	} else {
 		KDirSelectDialog dirs;
 		
 		if(dirs.exec()) {
-			theUrl=dirs.url();
+			theUrl = dirs.url();
 			general.writeEntry("PhotoUrl", theUrl);
 		} else
 			close();
 	}
 	
 	
-	QWidget *v=new QWidget(this);
-	QVBoxLayout *layout=new QVBoxLayout(v);
+	QWidget *v = new QWidget(this);
+	QVBoxLayout *layout = new QVBoxLayout(v);
 	
-	QListView* ourView=new ThumbnailView(v);
+	QListView *ourView = new ThumbnailView(v);
 	o=new KDirOperator(theUrl, v);
 
 	o->setInlinePreviewShown(true);
@@ -76,14 +76,14 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 	p->setIcon(KIcon("webcamreceive"));
 	connect(p, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 
-	QHBoxLayout *buttonsLayout=new QHBoxLayout;
+	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(p);
 	buttonsLayout->addStretch();
 	
-	webcam=new WebcamWidget(v);
+	webcam = new WebcamWidget(v);
 	webcam->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	QHBoxLayout* webcamLayout=new QHBoxLayout;
+	QHBoxLayout *webcamLayout = new QHBoxLayout;
 	webcamLayout->addItem(new QSpacerItem(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	webcamLayout->addWidget(webcam);
 	webcamLayout->addItem(new QSpacerItem(QSizePolicy::Expanding, QSizePolicy::Expanding));
@@ -101,7 +101,7 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 	
 	setCentralWidget(v);
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
-	KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
+	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
 }
@@ -127,7 +127,7 @@ void Kamoso::takePhoto()
 	white->showFullScreen();
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
-	KUrl photoPlace=theUrl;
+	KUrl photoPlace = theUrl;
 	photoPlace.addPath(QString("kamoso_%1.png").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 
 	webcam->takePhoto(photoPlace);
