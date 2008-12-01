@@ -28,6 +28,7 @@ WebcamWidget::WebcamWidget(QWidget* parent) : QLabel(parent)
 {
 	this->setMinimumSize(200,200);
 	setScaledContents(false);
+	setAlignment(Qt::AlignCenter);
 	setPixmap(KIcon("camera-web").pixmap(128,128));
 	mRetriever = new WebcamRetriever;
 	mRetriever->start();
