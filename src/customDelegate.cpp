@@ -25,16 +25,16 @@
 #include <QDebug>
 #include <KDirModel>
 
-CustomDelegate::CustomDelegate(QWidget* parent) : QItemDelegate(parent)
+CustomDelegate::CustomDelegate(QWidget *parent)
+  : QItemDelegate(parent)
 {
-
 }
 
-CustomDelegate::~CustomDelegate(){
-
+CustomDelegate::~CustomDelegate()
+{
 }
 
-void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const
+void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   painter->setRenderHint(QPainter::Antialiasing);
 
@@ -46,11 +46,12 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
   path.lineTo(QPoint(rect.width() + rect.left(), rect.top()));
   path.quadTo(QPoint(rect.width() / 4 + rect.left(), rect.height() / 4 + rect.top()), QPoint(rect.left(), option.rect.height() + rect.top()));
   path.lineTo(QPoint(rect.left(), rect.top()));
+
   painter->drawImage(rect, image);
-  painter->fillPath(path, QColor(255, 255, 255, 100));
+  painter->fillPath(path, QColor(255, 255, 255, 75));
 }
 
-QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const
+QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   return QSize(125,125);
 }
