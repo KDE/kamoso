@@ -43,7 +43,9 @@
 #include "countdownwidget.h"
 #include "customDelegate.h"
 
-Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
+Kamoso::Kamoso(QWidget* parent)
+  : KMainWindow(parent)
+  , splitter(new QSplitter(this))
 {
 	KConfigGroup general(KGlobal::config(), "General");
 	if(general.hasKey("PhotoUrl")) {
@@ -54,16 +56,20 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 		if(dirs.exec()) {
 			theUrl = dirs.url();
 			general.writeEntry("PhotoUrl", theUrl);
-		} else
+		} else {
 			close();
+		}
 	}
 	
 	
-	QWidget *v = new QWidget(this);
-	QVBoxLayout *layout = new QVBoxLayout(v);
+	QWidget *innerTopWidget = new QWidget(this);
+	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
+
+	QWidget *innerBottomWidget = new QWidget(this);
+	QVBoxLayout *layoutBottom = new QVBoxLayout(innerBottomWidget);
 	
-	QListView *ourView = new ThumbnailView(v);
-	o=new KDirOperator(theUrl, v);
+	QListView *ourView = new ThumbnailView(innerTopWidget);
+	o = new KDirOperator(theUrl, this);
 
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
@@ -71,7 +77,7 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 	o->setView(ourView);
 	ourView->setItemDelegate(new CustomDelegate(ourView));
 	
-	QPushButton *p = new QPushButton(v);
+	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
 	p->setIcon(KIcon("webcamreceive"));
 	connect(p, SIGNAL(clicked(bool)), SLOT(startCountdown()));
@@ -81,36 +87,41 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 	buttonsLayout->addWidget(p);
 	buttonsLayout->addStretch();
 	
-	webcam = new WebcamWidget(v);
-	webcam->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	webcam = new WebcamWidget(innerTopWidget);
 	QHBoxLayout *webcamLayout = new QHBoxLayout;
-	webcamLayout->addItem(new QSpacerItem(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	webcamLayout->addWidget(webcam);
-	webcamLayout->addItem(new QSpacerItem(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	
 	white = new WhiteWidget;
 	countdown = new CountdownWidget(this);
 	below = new QStackedLayout;
 	
-	layout->addLayout(webcamLayout);
-	layout->addLayout(buttonsLayout);
-	layout->addLayout(below);
+	layoutTop->addLayout(webcamLayout);
+	layoutTop->addLayout(buttonsLayout);
+	layoutBottom->addLayout(below);
 	
 	below->addWidget(o);
 	below->addWidget(countdown);
 	
-	setCentralWidget(v);
+	splitter->addWidget(innerTopWidget);
+	splitter->addWidget(innerBottomWidget);
+
+	setCentralWidget(splitter);
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
+
+	splitter->restoreState(general.readEntry("splitterState", QByteArray()));
 }
 
 Kamoso::~Kamoso()
 {
-	delete white;
-	delete player;
-	delete countdown;
+  KConfigGroup cg(KGlobal::config(), "General");
+  cg.writeEntry("splitterState", splitter->saveState());
+
+  delete white;
+  delete player;
+  delete countdown;
 }
 
 void Kamoso::startCountdown()

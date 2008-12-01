@@ -28,6 +28,7 @@ class WebcamWidget;
 class CountdownWidget;
 class KDirOperator;
 class QStackedLayout;
+class QSplitter;
 namespace Phonon { class MediaObject; }
 
 class Kamoso : public KMainWindow
@@ -47,6 +48,7 @@ class Kamoso : public KMainWindow
 		float brightBack;
 		
 		QStackedLayout *below;
+		QSplitter *splitter;
 		KDirOperator *o;
 		WhiteWidget *white;
 		WebcamWidget *webcam;
