@@ -20,6 +20,7 @@
 #include "customDelegate.h"
 #include <QItemDelegate>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPixmap>
 #include <QDebug>
 #include <KDirModel>
@@ -28,25 +29,28 @@ CustomDelegate::CustomDelegate(QWidget* parent) : QItemDelegate(parent)
 {
 
 }
+
 CustomDelegate::~CustomDelegate(){
 
 }
+
 void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const
 {
-	KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)) ;
-	QString url = file.url().pathOrUrl();
-	QImage image(url);
-	QRect rect = option.rect;
-	rect.setX(rect.x() +10);
-	rect.setY(rect.y() +20);
-	rect.setWidth(105);
-	rect.setHeight(105);
-	painter->setBrush(QBrush(QColor("#D9D7D6")));
-	painter->drawRect(option.rect);
- 	painter->drawImage(rect,image);
+  painter->setRenderHint(QPainter::Antialiasing);
 
+  KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole));
+  const QString url = file.url().pathOrUrl();
+  const QImage image(url);
+  const QRect rect = option.rect;
+  QPainterPath path(QPoint(0, 0));
+  path.lineTo(QPoint(option.rect.width(), 0));
+  path.quadTo(QPoint(option.rect.width() / 4, option.rect.height() / 4), QPoint(0, option.rect.height()));
+  path.lineTo(QPoint(0, 0));
+  painter->drawImage(rect, image);
+  painter->fillPath(path, QColor(255, 255, 255, 100));
 }
+
 QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const
 {
-	return QSize(125,125);
+  return QSize(125,125);
 }
