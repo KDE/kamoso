@@ -42,10 +42,10 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
   const QString url = file.url().pathOrUrl();
   const QImage image(url);
   const QRect rect = option.rect;
-  QPainterPath path(QPoint(0, 0));
-  path.lineTo(QPoint(option.rect.width(), 0));
-  path.quadTo(QPoint(option.rect.width() / 4, option.rect.height() / 4), QPoint(0, option.rect.height()));
-  path.lineTo(QPoint(0, 0));
+  QPainterPath path(QPoint(rect.left(), rect.top()));
+  path.lineTo(QPoint(rect.width() + rect.left(), rect.top()));
+  path.quadTo(QPoint(rect.width() / 4 + rect.left(), rect.height() / 4 + rect.top()), QPoint(rect.left(), option.rect.height() + rect.top()));
+  path.lineTo(QPoint(rect.left(), rect.top()));
   painter->drawImage(rect, image);
   painter->fillPath(path, QColor(255, 255, 255, 100));
 }
