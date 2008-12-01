@@ -22,7 +22,7 @@
 #include <QStackedLayout>
 #include <QListView>
 #include <QSplitter>
-#include <QToolButton>
+#include <QPushButton>
 #include <QTimer>
 #include <QItemDelegate>
 #include <KActionCollection>
@@ -69,18 +69,17 @@ Kamoso::Kamoso(QWidget* parent) : KMainWindow(parent)
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
 	o->setView(ourView);
-	o->setMinimumSize(150, 150);
-	o->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum));
 	ourView->setItemDelegate(new CustomDelegate(ourView));
 	
-	QToolButton *p = new QToolButton(v);
+	QPushButton *p = new QPushButton(v);
 	p->setText(i18n("Take a Picture"));
 	p->setIcon(KIcon("webcamreceive"));
-	p->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-	connect(p, SIGNAL(pressed()), SLOT(startCountdown()));
+	connect(p, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 
 	QHBoxLayout *buttonsLayout=new QHBoxLayout;
+	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(p);
+	buttonsLayout->addStretch();
 	
 	webcam=new WebcamWidget(v);
 	webcam->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
