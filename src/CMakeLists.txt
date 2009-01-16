@@ -4,6 +4,7 @@ include_directories(${KDE4_INCLUDES})
 add_subdirectory(avdevice)
 
 set(kamoso_SRCS
+	thumbnailview.cpp
 	kamoso.cpp
 	main.cpp
 	whitewidget.cpp

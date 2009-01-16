@@ -25,33 +25,59 @@
 #include <QDebug>
 #include <KDirModel>
 
-CustomDelegate::CustomDelegate(QWidget *parent)
-  : QItemDelegate(parent)
+KIcon CustomDelegate::m_unavailable;
+
+CustomDelegate::CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent)
+  : QItemDelegate(parent), m_repo(repo)
 {
+	if(m_unavailable.isNull())
+		m_unavailable=KIcon("user-away");
 }
 
 CustomDelegate::~CustomDelegate()
-{
-}
+{}
 
 void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-  painter->setRenderHint(QPainter::Antialiasing);
-
-  KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole));
-  const QString url = file.url().pathOrUrl();
-  const QImage image(url);
-  const QRect rect = option.rect;
-  QPainterPath path(QPoint(rect.left(), rect.top()));
-  path.lineTo(QPoint(rect.width() + rect.left(), rect.top()));
-  path.quadTo(QPoint(rect.width() / 4 + rect.left(), rect.height() / 4 + rect.top()), QPoint(rect.left(), option.rect.height() + rect.top()));
-  path.lineTo(QPoint(rect.left(), rect.top()));
-
-  painter->drawImage(rect, image);
-  painter->fillPath(path, QColor(255, 255, 255, 75));
+	const QRect& rect = option.rect;
+	painter->setRenderHint(QPainter::Antialiasing);
+	
+	KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole));
+	KUrl url = file.url();
+	
+	if(m_repo.contains(url))
+	{
+		QPainterPath path(QPoint(rect.left(), rect.top()));
+		path.lineTo(QPoint(rect.width() + rect.left(), rect.top()));
+		path.quadTo(QPoint(rect.width() / 4 + rect.left(), rect.height() / 4 + rect.top()),
+					QPoint(rect.left(), option.rect.height() + rect.top()));
+		path.lineTo(QPoint(rect.left(), rect.top()));
+		
+		painter->drawPixmap(rect, m_repo[url]);
+		painter->fillPath(path, QColor(255, 255, 255, 75));
+	}
+	else
+	{
+		emit pixmapNeeded(file, index, option.rect);
+		
+// 		painter->setBrush(Qt::blue);
+// 		painter->drawRect(rect);
+		
+		painter->drawPixmap(rect, m_unavailable.pixmap(rect.size()));
+	}
+	
+	if(option.showDecorationSelected)
+	{
+		
+		painter->setBrush(Qt::red);
+		painter->drawRect(rect);
+	}
 }
 
 QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-  return QSize(125,125);
+	Q_UNUSED(option);
+	Q_UNUSED(index);
+	return QSize(125,125);
 }
+

@@ -41,7 +41,6 @@
 #include "whitewidget.h"
 #include "webcamwidget.h"
 #include "countdownwidget.h"
-#include "customDelegate.h"
 
 Kamoso::Kamoso(QWidget* parent)
   : KMainWindow(parent)
@@ -68,14 +67,13 @@ Kamoso::Kamoso(QWidget* parent)
 	QWidget *innerBottomWidget = new QWidget(this);
 	QVBoxLayout *layoutBottom = new QVBoxLayout(innerBottomWidget);
 	
-	QListView *ourView = new ThumbnailView(innerTopWidget);
+	ThumbnailView *ourView = new ThumbnailView(innerTopWidget);
 	o = new KDirOperator(theUrl, this);
-
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
 	o->setView(ourView);
-	ourView->setItemDelegate(new CustomDelegate(ourView));
+	ourView->assignDelegate();
 	
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));

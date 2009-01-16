@@ -17,22 +17,31 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include "kamoso.h"
+#include "thumbnailview.h"
 
-int main(int argc, char *argv[])
+ThumbnailView::ThumbnailView(QWidget* parent) : QListView(parent)
 {
-	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "0.8", ki18n("A sweet girl attractor"),
-			 KAboutData::License_GPL, ki18n("(C) 2008-2009 Alex Fiestas and Aleix Pol"));
-	about.addAuthor( ki18n("Aleix Pol Gonzalez"), KLocalizedString(), "aleixpol@gmail.com" );
-	about.addAuthor( ki18n("Alex Fiestas"), KLocalizedString(), "alex@eyeos.org" );
-	KCmdLineArgs::init(argc, argv, &about);
-	KApplication app;
+}
+
+void ThumbnailView::previewAvailable(const KFileItem& file, const QPixmap& pic)
+{
+	m_repo.insert(file.url(), pic);
+	update(m_waiting.take(file.url()));
+}
+
+void ThumbnailView::assignDelegate()
+{
+	CustomDelegate* c=new CustomDelegate(m_repo, this);
+	connect(c, SIGNAL(pixmapNeeded(KFileItem,QModelIndex,QRect)), SLOT(retrievePixmap(KFileItem,QModelIndex,QRect)));
+	setItemDelegate(c);
+}
+
+void ThumbnailView::retrievePixmap(const KFileItem& file, const QModelIndex& idx, const QRect& rect)
+{
+	m_waiting.insert(file.url(), idx);
 	
-	Kamoso* widget = new Kamoso;
-	widget->show();
-	
-	return app.exec();
+	KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << file, rect.width(), rect.height(), 0, 0, true, false, 0);
+	connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)), SLOT(previewAvailable(KFileItem,QPixmap)));
+	job->setAutoDelete(true);
+	job->start();
 }

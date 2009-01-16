@@ -20,16 +20,33 @@
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
 
+#include <QListView>
+
+#include <kio/previewjob.h>
+#include "customDelegate.h"
+
 class ThumbnailView : public QListView
 {
+	Q_OBJECT
 	public:
-		ThumbnailView(QWidget* parent=0) : QListView(parent) {}
+		ThumbnailView(QWidget* parent=0);
+		
 		virtual QStyleOptionViewItem viewOptions () const
 		{
 			QStyleOptionViewItem options=QListView::viewOptions();
 			options.decorationPosition = QStyleOptionViewItem::Top;
 			return options;
 		}
+		
+		void assignDelegate();
+		
+	private slots:
+		void previewAvailable(const KFileItem& file, const QPixmap& pic);
+		void retrievePixmap(const KFileItem& it, const QModelIndex & idx, const QRect& rect);
+		
+	private:
+		QHash<KUrl, QPixmap> m_repo;
+		QMap<KUrl, QModelIndex> m_waiting;
 };
 
 #endif

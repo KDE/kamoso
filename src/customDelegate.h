@@ -21,14 +21,28 @@
 #define CUSTOMDELEGATE_H
 
 #include <QItemDelegate>
+#include <QHash>
+#include <KUrl>
+#include <KIcon>
+
+class KJob;
+class KFileItem;
 
 class CustomDelegate : public QItemDelegate
 {
 	Q_OBJECT
-		public:
-			CustomDelegate(QWidget *parent = 0);
-			~CustomDelegate();
-			void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
-			QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
+	public:
+		CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent = 0);
+		~CustomDelegate();
+		void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
+		QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
+	
+	signals:
+		void pixmapNeeded(const KFileItem& it, const QModelIndex& idx, const QRect&) const;
+		
+	private:
+		const QHash<KUrl, QPixmap>& m_repo;
+		static KIcon m_unavailable;
 };
+
 #endif
