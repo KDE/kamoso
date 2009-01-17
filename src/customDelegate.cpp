@@ -28,10 +28,10 @@
 KIcon CustomDelegate::m_unavailable;
 
 CustomDelegate::CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent)
-  : QItemDelegate(parent), m_repo(repo)
+	: QItemDelegate(parent), m_repo(repo)
 {
 	if(m_unavailable.isNull())
-		m_unavailable=KIcon("user-away");
+		m_unavailable=KIcon("image-missing");
 }
 
 CustomDelegate::~CustomDelegate()
@@ -40,35 +40,44 @@ CustomDelegate::~CustomDelegate()
 void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	const QRect& rect = option.rect;
-	painter->setRenderHint(QPainter::Antialiasing);
+	
+	QStyleOptionViewItemV4 opt(option);
+	QStyle *style = opt.widget->style();
 	
 	KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole));
 	KUrl url = file.url();
 	
+	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
+	
 	if(m_repo.contains(url))
 	{
-		QPainterPath path(QPoint(rect.left(), rect.top()));
-		path.lineTo(QPoint(rect.width() + rect.left(), rect.top()));
-		path.quadTo(QPoint(rect.width() / 4 + rect.left(), rect.height() / 4 + rect.top()),
-					QPoint(rect.left(), option.rect.height() + rect.top()));
-		path.lineTo(QPoint(rect.left(), rect.top()));
+		QSize s= m_repo[url].size();
+		QPoint topleft(rect.topLeft().x()+(rect.width()-s.width())/2,
+					   rect.topLeft().y()+(rect.height()-s.height())/2);
 		
-		painter->drawPixmap(rect, m_repo[url]);
-		painter->fillPath(path, QColor(255, 255, 255, 75));
+		QPainterPath path(topleft);
+		path.lineTo(QPoint(s.width()   + rect.left(), topleft.y()));
+		path.quadTo(QPoint(s.width()/4 + rect.left(), s.height()/4 + topleft.y()),
+					QPoint(topleft.x(), s.height() + topleft.y()));
+		path.lineTo(topleft);
+		
+		painter->drawPixmap(QRect(topleft, s), m_repo[url]);
+		painter->setRenderHint(QPainter::Antialiasing);
+		painter->fillPath(path, QColor(255, 255, 255, 25));
 	}
 	else
 	{
-		emit pixmapNeeded(file, index, option.rect);
+		emit pixmapNeeded(file, index, rect);
 		
-// 		painter->setBrush(Qt::blue);
-// 		painter->drawRect(rect);
-		
-		painter->drawPixmap(rect, m_unavailable.pixmap(rect.size()));
+		QPixmap pix = m_unavailable.pixmap(qMin(rect.width(), rect.height()));
+		QSize s=pix.size();
+		QPoint topleft(rect.topLeft().x()+(rect.width()-s.width())/2,
+					   rect.topLeft().y()+(rect.height()-s.height())/2);
+		painter->drawPixmap(QRect(topleft, s), pix);
 	}
 	
 	if(option.showDecorationSelected)
 	{
-		
 		painter->setBrush(Qt::red);
 		painter->drawRect(rect);
 	}
@@ -76,8 +85,7 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 
 QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	Q_UNUSED(option);
-	Q_UNUSED(index);
-	return QSize(125,125);
+	Q_UNUSED(option); Q_UNUSED(index);
+	return QSize(100, 75);
 }
 

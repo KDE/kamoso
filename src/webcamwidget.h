@@ -36,6 +36,9 @@ class WebcamWidget : public QLabel
 	public slots:
 		void slotUpdateImage();
 		bool takePhoto(const KUrl& destination);
+	
+	signals:
+		void photoTaken(const KUrl& dest);
 		
 	private:
 		WebcamRetriever* mRetriever;

@@ -51,6 +51,9 @@ bool WebcamWidget::takePhoto(const KUrl& dest)
 	bool ret = mRetriever->image().save(dest.toLocalFile());
 	mRetriever->lock().unlock();
 	
+	if(ret)
+		emit photoTaken(dest);
+	
 	return ret;
 }
 

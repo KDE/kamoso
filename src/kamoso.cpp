@@ -60,10 +60,9 @@ Kamoso::Kamoso(QWidget* parent)
 		}
 	}
 	
-	
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
-
+	
 	QWidget *innerBottomWidget = new QWidget(this);
 	QVBoxLayout *layoutBottom = new QVBoxLayout(innerBottomWidget);
 	
@@ -86,6 +85,7 @@ Kamoso::Kamoso(QWidget* parent)
 	buttonsLayout->addStretch();
 	
 	webcam = new WebcamWidget(innerTopWidget);
+	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
 	QHBoxLayout *webcamLayout = new QHBoxLayout;
 	webcamLayout->addWidget(webcam);
 	
@@ -141,6 +141,12 @@ void Kamoso::takePhoto()
 
 	webcam->takePhoto(photoPlace);
 	player->play();
+}
+
+void Kamoso::photoTaken(const KUrl& url)
+{
+	o->setCurrentItem(url.path());
+// 	qDebug() << "aaaaaaaa" << o->selectedItems() << url;
 }
 
 void Kamoso::restore()

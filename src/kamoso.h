@@ -37,12 +37,15 @@ class Kamoso : public KMainWindow
 	public:
 		Kamoso ( QWidget *parent=0 );
 		~Kamoso();
+		
 	public slots:
 		void takePhoto();
 		void startCountdown();
 		
 	private slots:
 		void restore();
+		void photoTaken(const KUrl& url);
+		
 	private:
 		KUrl theUrl;
 		float brightBack;
