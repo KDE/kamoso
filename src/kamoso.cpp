@@ -43,6 +43,7 @@
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
+#include "timedpushbutton.h"
 #include "countdownwidget.h"
 
 Kamoso::Kamoso(QWidget* parent)
@@ -74,6 +75,7 @@ Kamoso::Kamoso(QWidget* parent)
 	ourView->assignDelegate();
 	ourView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	ourView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	ourView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
@@ -95,10 +97,10 @@ Kamoso::Kamoso(QWidget* parent)
 	below = new QStackedLayout;
 	
 	QWidget* viewContainer=new QWidget;
-	scrollLeft = new QPushButton(KIcon("arrow-left"), QString(), viewContainer);
-	scrollRight = new QPushButton(KIcon("arrow-right"), QString(), viewContainer);
-	connect(scrollLeft, SIGNAL(clicked(bool)), SLOT(slotScrollLeft()));
-	connect(scrollRight, SIGNAL(clicked(bool)), SLOT(slotScrollRight()));
+	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(), viewContainer, 100);
+	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), viewContainer, 100);
+	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
+	connect(scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
 // 	scrollLeft->setEnabled(false);
 	
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
@@ -171,7 +173,7 @@ void Kamoso::slotScrollLeft()
 	int v=ourView->horizontalScrollBar()->value();
 	int min=ourView->horizontalScrollBar()->minimum();
 	int max=ourView->horizontalScrollBar()->maximum();
-	ourView->horizontalScrollBar()->setValue(qBound(min, v-1, max));
+	ourView->horizontalScrollBar()->setValue(qBound(min, v-10, max));
 }
 
 void Kamoso::slotScrollRight()
@@ -179,5 +181,5 @@ void Kamoso::slotScrollRight()
 	int v=ourView->horizontalScrollBar()->value();
 	int min=ourView->horizontalScrollBar()->minimum();
 	int max=ourView->horizontalScrollBar()->maximum();
-	ourView->horizontalScrollBar()->setValue(qBound(min, v+1, max));
+	ourView->horizontalScrollBar()->setValue(qBound(min, v+10, max));
 }

@@ -12,6 +12,7 @@ set(kamoso_SRCS
 	webcamwidget.cpp
 	customDelegate.cpp
 	webcamretriever.cpp
+	timedpushbutton.cpp
 )
 
 kde4_add_executable(kamoso ${kamoso_SRCS})
