@@ -29,6 +29,8 @@ class CountdownWidget;
 class KDirOperator;
 class QStackedLayout;
 class QSplitter;
+class QPushButton;
+class ThumbnailView;
 namespace Phonon { class MediaObject; }
 
 class Kamoso : public KMainWindow
@@ -45,6 +47,8 @@ class Kamoso : public KMainWindow
 	private slots:
 		void restore();
 		void photoTaken(const KUrl& url);
+		void slotScrollLeft();
+		void slotScrollRight();
 		
 	private:
 		KUrl theUrl;
@@ -56,6 +60,9 @@ class Kamoso : public KMainWindow
 		WebcamWidget *webcam;
 		CountdownWidget *countdown;
 		Phonon::MediaObject *player;
+		QPushButton* scrollLeft;
+		QPushButton* scrollRight;
+		ThumbnailView *ourView;
 };
 
 #endif

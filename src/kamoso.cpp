@@ -19,12 +19,15 @@
 
 #include "kamoso.h"
 #include <QLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QStackedLayout>
 #include <QListView>
 #include <QSplitter>
 #include <QPushButton>
 #include <QTimer>
 #include <QItemDelegate>
+#include <QScrollBar>
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
@@ -59,18 +62,18 @@ Kamoso::Kamoso(QWidget* parent)
 		}
 	}
 	
-	qDebug() << "using " << theUrl;
-	
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
-	ThumbnailView *ourView = new ThumbnailView(innerTopWidget);
+	ourView = new ThumbnailView(innerTopWidget);
 	o = new KDirOperator(theUrl, 0); //FIXME
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
 	o->setView(ourView);
 	ourView->assignDelegate();
+	ourView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	ourView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
@@ -91,12 +94,29 @@ Kamoso::Kamoso(QWidget* parent)
 	countdown = new CountdownWidget(this);
 	below = new QStackedLayout;
 	
+	QWidget* viewContainer=new QWidget;
+	scrollLeft = new QPushButton(KIcon("arrow-left"), QString(), viewContainer);
+	scrollRight = new QPushButton(KIcon("arrow-right"), QString(), viewContainer);
+	connect(scrollLeft, SIGNAL(clicked(bool)), SLOT(slotScrollLeft()));
+	connect(scrollRight, SIGNAL(clicked(bool)), SLOT(slotScrollRight()));
+// 	scrollLeft->setEnabled(false);
+	
+	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+	scrollRight->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+	
+	QHBoxLayout* viewLayout=new QHBoxLayout(viewContainer);
+	viewLayout->setMargin(0);
+	viewLayout->setSpacing(0);
+	viewLayout->addWidget(scrollLeft);
+	viewLayout->addWidget(ourView);
+	viewLayout->addWidget(scrollRight);
+	
+	below->addWidget(viewContainer);
+	below->addWidget(countdown);
+	
 	layoutTop->addLayout(webcamLayout);
 	layoutTop->addLayout(buttonsLayout);
 	layoutTop->addLayout(below);
-	
-	below->addWidget(ourView);
-	below->addWidget(countdown);
 	
 	setCentralWidget(innerTopWidget);
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
@@ -144,4 +164,20 @@ void Kamoso::restore()
 {
 	white->hide();
 	Solid::Control::PowerManager::setBrightness(brightBack);
+}
+
+void Kamoso::slotScrollLeft()
+{
+	int v=ourView->horizontalScrollBar()->value();
+	int min=ourView->horizontalScrollBar()->minimum();
+	int max=ourView->horizontalScrollBar()->maximum();
+	ourView->horizontalScrollBar()->setValue(qBound(min, v-1, max));
+}
+
+void Kamoso::slotScrollRight()
+{
+	int v=ourView->horizontalScrollBar()->value();
+	int min=ourView->horizontalScrollBar()->minimum();
+	int max=ourView->horizontalScrollBar()->maximum();
+	ourView->horizontalScrollBar()->setValue(qBound(min, v+1, max));
 }
