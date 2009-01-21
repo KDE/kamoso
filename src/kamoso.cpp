@@ -1,5 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008 by Aleix Pol <aleixpol@gmail.com>                             *
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
  *  Copyright (C) 2008 by Alex Fiestas <alex@eyeos.org>                              *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
@@ -43,8 +43,7 @@
 #include "countdownwidget.h"
 
 Kamoso::Kamoso(QWidget* parent)
-  : KMainWindow(parent)
-  , splitter(new QSplitter(Qt::Vertical, this))
+	: KMainWindow(parent)
 {
 	KConfigGroup general(KGlobal::config(), "General");
 	if(general.hasKey("PhotoUrl")) {
@@ -60,14 +59,13 @@ Kamoso::Kamoso(QWidget* parent)
 		}
 	}
 	
+	qDebug() << "using " << theUrl;
+	
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
-	QWidget *innerBottomWidget = new QWidget(this);
-	QVBoxLayout *layoutBottom = new QVBoxLayout(innerBottomWidget);
-	
 	ThumbnailView *ourView = new ThumbnailView(innerTopWidget);
-	o = new KDirOperator(theUrl, this);
+	o = new KDirOperator(theUrl, 0); //FIXME
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
@@ -95,31 +93,24 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	layoutTop->addLayout(webcamLayout);
 	layoutTop->addLayout(buttonsLayout);
-	layoutBottom->addLayout(below);
+	layoutTop->addLayout(below);
 	
-	below->addWidget(o);
+	below->addWidget(ourView);
 	below->addWidget(countdown);
 	
-	splitter->addWidget(innerTopWidget);
-	splitter->addWidget(innerBottomWidget);
-
-	setCentralWidget(splitter);
+	setCentralWidget(innerTopWidget);
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
-
-	splitter->restoreState(general.readEntry("splitterState", QByteArray()));
 }
 
 Kamoso::~Kamoso()
 {
-  KConfigGroup cg(KGlobal::config(), "General");
-  cg.writeEntry("splitterState", splitter->saveState());
-
-  delete white;
-  delete player;
-  delete countdown;
+	delete white;
+	delete player;
+	delete countdown;
+	delete o;
 }
 
 void Kamoso::startCountdown()

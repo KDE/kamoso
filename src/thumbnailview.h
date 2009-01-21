@@ -39,6 +39,7 @@ class ThumbnailView : public QListView
 		}
 		
 		void assignDelegate();
+		QSize sizeHint() const { return QSize(150,150); }
 		
 	private slots:
 		void previewAvailable(const KFileItem& file, const QPixmap& pic);

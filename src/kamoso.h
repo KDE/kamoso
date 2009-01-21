@@ -51,7 +51,6 @@ class Kamoso : public KMainWindow
 		float brightBack;
 		
 		QStackedLayout *below;
-		QSplitter *splitter;
 		KDirOperator *o;
 		WhiteWidget *white;
 		WebcamWidget *webcam;

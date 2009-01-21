@@ -26,6 +26,7 @@
 #include <KDirModel>
 
 KIcon CustomDelegate::m_unavailable;
+QColor shadowColor(100, 100, 100);
 
 CustomDelegate::CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent)
 	: QItemDelegate(parent), m_repo(repo)
@@ -61,7 +62,13 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 					QPoint(topleft.x(), s.height() + topleft.y()));
 		path.lineTo(topleft);
 		
-		painter->drawPixmap(QRect(topleft, s), m_repo[url]);
+		QRect pixRect(topleft, s);
+		pixRect.adjust(3,3, -7,-7);
+		QRect shadowRect=pixRect;
+		shadowRect.translate(3,3);
+		painter->setBrush(shadowColor);
+		painter->drawRect(shadowRect);
+		painter->drawPixmap(pixRect, m_repo[url]);
 		painter->setRenderHint(QPainter::Antialiasing);
 		painter->fillPath(path, QColor(255, 255, 255, 25));
 	}
@@ -86,6 +93,6 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	Q_UNUSED(option); Q_UNUSED(index);
-	return QSize(100, 75);
+	return QSize(150, 125);
 }
 
