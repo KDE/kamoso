@@ -67,18 +67,27 @@ void CountdownWidget::paintEvent (QPaintEvent* )
 	int rad=qMin(height()/2, 100);
 	int dist=width()/3;
 	
+	QColor green=Qt::green, yellow=Qt::yellow, red=Qt::red;
+	
 	switch(currentState) {
 		case Green:
-			painter.setPen(Qt::green);
-			painter.setBrush(Qt::green);
-			painter.drawEllipse(rect().center()+QPoint(dist, 0), rad, rad);
+			break;
 		case Yellow:
-			painter.setPen(Qt::yellow);
-			painter.setBrush(Qt::yellow);
-			painter.drawEllipse(rect().center(), rad, rad);
+			green=green.dark();
+			break;
 		case Red:
-			painter.setPen(Qt::red);
-			painter.setBrush(Qt::red);
-			painter.drawEllipse(rect().center()-QPoint(dist, 0), rad, rad);
+			green=green.dark();
+			yellow=yellow.dark();
+			break;
 	}
+	
+	painter.setPen(green);
+	painter.setBrush(green);
+	painter.drawEllipse(rect().center()+QPoint(dist, 0), rad, rad);
+	painter.setPen(yellow);
+	painter.setBrush(yellow);
+	painter.drawEllipse(rect().center(), rad, rad);
+	painter.setPen(red);
+	painter.setBrush(red);
+	painter.drawEllipse(rect().center()-QPoint(dist, 0), rad, rad);
 }
