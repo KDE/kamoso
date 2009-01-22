@@ -168,6 +168,8 @@ void Kamoso::restore()
 	Solid::Control::PowerManager::setBrightness(brightBack);
 }
 
+
+//TODO: Should make it exponential
 void Kamoso::slotScrollLeft()
 {
 	int v=ourView->horizontalScrollBar()->value();
