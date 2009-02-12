@@ -55,7 +55,7 @@ Kamoso::Kamoso(QWidget* parent)
 	} else {
 		KDirSelectDialog dirs;
 		
-		if(dirs.exec()) {
+		if(dirs.exec() && dirs.url().isValid()) {
 			theUrl = dirs.url();
 			general.writeEntry("PhotoUrl", theUrl);
 		} else {
