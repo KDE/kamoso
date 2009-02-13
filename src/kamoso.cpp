@@ -66,8 +66,6 @@ Kamoso::Kamoso(QWidget* parent)
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
-	qDebug() << "aaaaaaaa" << theUrl;
-	
 	ourView = new ThumbnailView(innerTopWidget);
 	o = new KDirOperator(theUrl, this); //FIXME
 	o->setInlinePreviewShown(true);
@@ -78,7 +76,8 @@ Kamoso::Kamoso(QWidget* parent)
 	ourView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	ourView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	ourView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-	
+	connect(ourView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
+
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
 	p->setIcon(KIcon("webcamreceive"));
@@ -186,4 +185,15 @@ void Kamoso::slotScrollRight()
 	int min=ourView->horizontalScrollBar()->minimum();
 	int max=ourView->horizontalScrollBar()->maximum();
 	ourView->horizontalScrollBar()->setValue(qBound(min, v+10, max));
+}
+
+void Kamoso::openThumbnail(const QModelIndex& idx) 
+{
+	QString filename= idx.data(Qt::DisplayRole).toString();
+	if (!filename.isEmpty())
+	{
+		KUrl path = theUrl;
+		path.addPath(filename);
+		QDesktopServices::openUrl(path);
+	}
 }

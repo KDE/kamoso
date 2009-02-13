@@ -21,6 +21,7 @@
 
 ThumbnailView::ThumbnailView(QWidget* parent) : QListView(parent)
 {
+	connect(this, SIGNAL(pressed (QModelIndex)), SLOT(updatexClick(QModelIndex)));
 }
 
 void ThumbnailView::previewAvailable(const KFileItem& file, const QPixmap& pic)
@@ -44,4 +45,31 @@ void ThumbnailView::retrievePixmap(const KFileItem& file, const QModelIndex& idx
 	connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)), SLOT(previewAvailable(KFileItem,QPixmap)));
 	job->setAutoDelete(true);
 	job->start();
+}
+
+void ThumbnailView::updatexClick(const QModelIndex & idx)
+{
+  Q_UNUSED(idx);
+  xClick= QCursor::pos().x(); 
+}
+
+void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
+{
+	if (event->buttons() && Qt::LeftButton)
+	{
+		int x= QCursor::pos().x(); 
+		int difx = (x - xClick);
+		int v = this->horizontalScrollBar()->value();
+		int min=this->horizontalScrollBar()->minimum();
+		int max=this->horizontalScrollBar()->maximum();
+		xClick= x;
+		setCursor(Qt::SizeHorCursor);
+		horizontalScrollBar()->setValue(qBound(min, v-difx, max));
+	}
+}
+
+void ThumbnailView::mouseReleaseEvent ( QMouseEvent * event ) 
+{
+    Q_UNUSED(event);
+    this->setCursor(QCursor(Qt::ArrowCursor));
 }

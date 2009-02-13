@@ -21,6 +21,10 @@
 #define THUMBNAILVIEW_H
 
 #include <QListView>
+#include <QMouseEvent>
+#include <QDesktopServices>
+#include <QScrollBar>
+#include <QCursor>
 
 #include <kio/previewjob.h>
 #include "customDelegate.h"
@@ -40,14 +44,20 @@ class ThumbnailView : public QListView
 		
 		void assignDelegate();
 		QSize sizeHint() const { return QSize(150,150); }
-		
+
+	protected:
+ 		virtual void mouseMoveEvent(QMouseEvent* event);
+		virtual void mouseReleaseEvent (QMouseEvent* event );
+
 	private slots:
 		void previewAvailable(const KFileItem& file, const QPixmap& pic);
 		void retrievePixmap(const KFileItem& it, const QModelIndex & idx, const QRect& rect);
-		
+		void updatexClick(const QModelIndex & idx);
+
 	private:
 		QHash<KUrl, QPixmap> m_repo;
 		QMap<KUrl, QModelIndex> m_waiting;
+		int xClick;
 };
 
 #endif

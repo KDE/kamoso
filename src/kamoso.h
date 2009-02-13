@@ -30,6 +30,7 @@ class KDirOperator;
 class QStackedLayout;
 class QSplitter;
 class QPushButton;
+class QModelIndex;
 class ThumbnailView;
 namespace Phonon { class MediaObject; }
 
@@ -39,7 +40,7 @@ class Kamoso : public KMainWindow
 	public:
 		Kamoso ( QWidget *parent=0 );
 		~Kamoso();
-		
+
 	public slots:
 		void takePhoto();
 		void startCountdown();
@@ -49,6 +50,7 @@ class Kamoso : public KMainWindow
 		void photoTaken(const KUrl& url);
 		void slotScrollLeft();
 		void slotScrollRight();
+		void openThumbnail(const QModelIndex& idx);
 		
 	private:
 		KUrl theUrl;
