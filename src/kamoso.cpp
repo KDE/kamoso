@@ -66,8 +66,10 @@ Kamoso::Kamoso(QWidget* parent)
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
+	qDebug() << "aaaaaaaa" << theUrl;
+	
 	ourView = new ThumbnailView(innerTopWidget);
-	o = new KDirOperator(theUrl, 0); //FIXME
+	o = new KDirOperator(theUrl, this); //FIXME
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
