@@ -45,6 +45,10 @@
 #include "webcamwidget.h"
 #include "timedpushbutton.h"
 #include "countdownwidget.h"
+#include <kdebug.h>
+#include <kconfigdialog.h>
+#include "settings.h"
+#include "ui_generalConfig.h"
 
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
@@ -82,11 +86,16 @@ Kamoso::Kamoso(QWidget* parent)
 	p->setText(i18n("Take a Picture"));
 	p->setIcon(KIcon("webcamreceive"));
 	connect(p, SIGNAL(clicked(bool)), SLOT(startCountdown()));
-
+//Configuration button
+	QPushButton *configBtn = new QPushButton(innerTopWidget);
+	configBtn->setText(i18n("Configure"));
+	connect(configBtn,SIGNAL(clicked(bool)),SLOT(configuration()));
+	
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(p);
 	buttonsLayout->addStretch();
+	buttonsLayout->addWidget(configBtn);
 	
 	webcam = new WebcamWidget(innerTopWidget);
 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
@@ -127,7 +136,37 @@ Kamoso::Kamoso(QWidget* parent)
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
 }
+void Kamoso::configuration()
+{
+	//If settings dialog is already open, return (and focus)
+	if(KConfigDialog::showDialog("settings")){
+		return;
+	}
+//Creating the kcm
+	KConfigDialog *dialog = new KConfigDialog(this,"settings",Settings::self());
+	dialog->resize(540,dialog->height());
+	
+	//Widget created with qt-designer
+	Ui::generalConfigWidget *page = new Ui::generalConfigWidget;
+	QWidget *widgetPage = new QWidget();
+	page->setupUi(widgetPage);
+	page->kcfg_PhotoUrl->setMode(KFile::Directory);
+// 	page->kcfg_PhotoUrl->setUrl(Settings::photoUrl);
+	//Simulating signal/slot action, needed because kurlrequester doens't have setUrl method
+	Q_EMIT(Settings::photoUrl);
+// 	connect(page->kcfg_PhotoUrl,SIGNAL(setUrl(const KUrl &)), this, SLOT(urlSelected(const KUrl &)));
+	
+	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
+ 	dialog->addPage(widgetPage,i18n("General"),"General");
+	
+ 	dialog->show();
+}
+void Kamoso::generalUpdated()
+{
+	qDebug() << "Settings New\n" << Settings::photoUrl();
+	Settings::self()->writeConfig();
+}
 Kamoso::~Kamoso()
 {
 	delete white;
