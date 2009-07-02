@@ -1,3 +1,4 @@
 File=kamosoSettings.kcfg
 ClassName=Settings
 Singleton=true
+Mutators=true

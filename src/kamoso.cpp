@@ -53,20 +53,20 @@
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
 {
-	KConfigGroup general(KGlobal::config(), "General");
-	if(general.hasKey("PhotoUrl")) {
-		theUrl = general.readEntry("PhotoUrl", KUrl());
+	qDebug() << Settings::photoUrl();
+	if(!Settings::photoUrl().isEmpty()) {
+		theUrl = Settings::photoUrl();
 	} else {
 		KDirSelectDialog dirs;
 		
 		if(dirs.exec() && dirs.url().isValid()) {
 			theUrl = dirs.url();
-			general.writeEntry("PhotoUrl", theUrl);
+			Settings::setPhotoUrl(theUrl);
 		} else {
 			close();
 		}
 	}
-	
+		
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
@@ -174,6 +174,7 @@ Kamoso::~Kamoso()
 	delete player;
 	delete countdown;
 	delete o;
+	Settings::self()->writeConfig();
 }
 
 void Kamoso::startCountdown()

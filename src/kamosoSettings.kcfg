@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
-                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-  <kcfgfile name="kamosorc"/>
-  <include>kglobalsettings.h</include>
-  <group name="General">
-    <entry name="SplitterSizes" type="IntList">
-      <label>How the main window is divided.</label>
-    </entry>
-    <entry name="PhotoUrl" type="Url" key="PhotoUrl">
-      <label>Where the photos are saved.</label>
-    </entry>
-  </group>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+		http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+	<kcfgfile name="kamosorc"/>
+	<include>kglobalsettings.h</include>
+	<group name="General">
+		<entry name="PhotoUrl" type="Url" key="PhotoUrl">
+			<label>Where the photos are saved.</label>
+		</entry>
+	</group>
+	<group name="PictureSettings">
+		<entry name="photoTime" type="Int" key="photoTime">
+			<label>How much seconds kamoso waits before make the picture.</label>
+			<default>5</default>
+		</entry>
+	</group>
 </kcfg>
