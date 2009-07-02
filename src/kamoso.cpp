@@ -166,6 +166,7 @@ void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::photoUrl();
 	Settings::self()->writeConfig();
+	o->setUrl(Settings::photoUrl(),false);
 }
 Kamoso::~Kamoso()
 {
