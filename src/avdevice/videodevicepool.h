@@ -34,6 +34,12 @@
 #include <kglobal.h>
 #include <solid/device.h>
 
+// Uncomment this line and comment out the include and using lines to 
+// revert to standard vector if you hit issues. It should all be fine though.
+// typedef QVector<Kopete::AV::VideoDevice> VideoDeviceVector;
+#include "videodevicevector.h"
+using Kopete::AV::VideoDeviceVector;
+
 namespace Kopete {
 
 namespace AV {
@@ -43,9 +49,6 @@ This class allows kopete to check for the existence, open, configure, test, set 
 
 @author Cláudio da Silveira Pinheiro
 */
-
-typedef QVector<Kopete::AV::VideoDevice> VideoDeviceVector;
-
 
 class KOPETE_EXPORT VideoDevicePool : public QObject
 {

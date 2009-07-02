@@ -20,8 +20,6 @@
 #ifndef KOPETE_AVVIDEODEVICELISTITEM_H
 #define KOPETE_AVVIDEODEVICELISTITEM_H
 
-//#include <config-kopete.h>
-
 #include <sys/time.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
@@ -215,13 +213,13 @@ struct rawbuffer // raw buffer
 class VideoDevice{
 public:
 	VideoDevice();
-	~VideoDevice();
+	virtual ~VideoDevice();
 	int setFileName(QString filename);
-	int open();
-	bool isOpen();
-	int checkDevice();
+	virtual int open();
+	virtual bool isOpen();
+	virtual int checkDevice();
 	int showDeviceCapabilities();
-	int initDevice();
+	virtual int initDevice();
 	int inputs();
 	int width();
 	int minWidth();
@@ -229,9 +227,9 @@ public:
 	int height();
 	int minHeight();
 	int maxHeight();
-	int setSize( int newwidth, int newheight);
+	virtual int setSize( int newwidth, int newheight);
 
-	pixel_format setPixelFormat(pixel_format newformat);
+	virtual pixel_format setPixelFormat(pixel_format newformat);
 	int pixelFormatCode(pixel_format pixelformat);
 	pixel_format pixelFormatForPalette( int palette );
 	int pixelFormatDepth(pixel_format pixelformat);
@@ -247,12 +245,12 @@ public:
 	int currentInput();
 	int selectInput(int input);
 	int setInputParameters();
-	int startCapturing();
-	int getFrame();
-	int getFrame(imagebuffer *imgbuffer);
-	int getImage(QImage *qimage);
-	int stopCapturing();
-	int close();
+	virtual int startCapturing();
+	virtual int getFrame();
+	virtual int getFrame(imagebuffer *imgbuffer);
+	virtual int getImage(QImage *qimage);
+	virtual int stopCapturing();
+	virtual int close();
 
 	float getBrightness();
 	float setBrightness(float brightness);

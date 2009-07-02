@@ -985,6 +985,9 @@ int VideoDevice::getFrame()
 				break;
 			case IO_METHOD_READ:
 // 				kDebug() << "Using IO_METHOD_READ.File descriptor: " << descriptor << " Buffer address: " << &m_currentbuffer.data[0] << " Size: " << m_currentbuffer.data.size();
+				if (m_currentbuffer.data.isEmpty())
+					return EXIT_FAILURE;
+
 				bytesread = read (descriptor, &m_currentbuffer.data[0], m_currentbuffer.data.size());
 				if (-1 == bytesread) // must verify this point with ov511 driver.
 				{
@@ -1027,8 +1030,10 @@ int VideoDevice::getFrame()
 /*				if (v4l2buffer.index < m_streambuffers)
 					return EXIT_FAILURE;*/ //it was an assert()
 // kDebug() << "m_rawbuffers[" << v4l2buffer.index << "].start: " << (void *)m_rawbuffers[v4l2buffer.index].start << "   Size: " << m_currentbuffer.data.size();
+				if (m_currentbuffer.data.isEmpty() || v4l2buffer.index < 0 || m_rawbuffers.size() <= v4l2buffer.index)
+					return EXIT_FAILURE;
 
-memcpy(&m_currentbuffer.data[0], m_rawbuffers[v4l2buffer.index].start, m_currentbuffer.data.size());
+				memcpy(&m_currentbuffer.data[0], m_rawbuffers[v4l2buffer.index].start, m_currentbuffer.data.size());
 				if (-1 == xioctl (VIDIOC_QBUF, &v4l2buffer))
 					return errnoReturn ("VIDIOC_QBUF");
 #endif
@@ -1053,6 +1058,9 @@ memcpy(&m_currentbuffer.data[0], m_rawbuffers[v4l2buffer.index].start, m_current
 								return errnoReturn ("VIDIOC_DQBUF");
 						}
 					}
+					if (m_rawbuffers.size() < m_streambuffers)
+						return EXIT_FAILURE;
+					
 					for (i = 0; i < m_streambuffers; ++i)
 						if (v4l2buffer.m.userptr == (unsigned long) m_rawbuffers[i].start && v4l2buffer.length == m_rawbuffers[i].length)
 							break;
@@ -1098,6 +1106,14 @@ int VideoDevice::getImage(QImage *qimage)
 	// do NOT delete qimage here, as it is received as a parameter
 	if (qimage->width() != width() || qimage->height() != height()) 
 		*qimage = QImage(width(), height(), QImage::Format_RGB32);
+
+	if (!m_currentbuffer.data.size())
+		{
+		//there is no data so if we continue something will try access it (as in bug 161536) and crash kopete
+		//perhaps we should look at having the interface reflect when the camera isn't available? as it thinks 
+		//it is for some reason, though the data size seems to be an ok check
+		return EXIT_FAILURE;
+		}
 
 	uchar *bits=qimage->bits();
 // kDebug() << "Capturing in " << pixelFormatName(m_currentbuffer.pixelformat);
