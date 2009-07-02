@@ -44,6 +44,8 @@ class Kamoso : public KMainWindow
 	public slots:
 		void takePhoto();
 		void startCountdown();
+		void configuration();
+		void generalUpdated();
 		
 	private slots:
 		void restore();
