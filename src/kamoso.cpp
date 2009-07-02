@@ -53,7 +53,10 @@
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
 {
-	qDebug() << Settings::photoUrl();
+	qDebug() << "Settings of camoso:";
+	qDebug() << "photoUrl: " << Settings::photoUrl();
+	qDebug() << "photoTime: " << Settings::photoTime();
+	
 	if(!Settings::photoUrl().isEmpty()) {
 		theUrl = Settings::photoUrl();
 	} else {
