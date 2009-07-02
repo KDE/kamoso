@@ -18,5 +18,6 @@ set(kamoso_SRCS
 )
 kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)
 kde4_add_ui_files(kamoso_SRCS generalConfig.ui)
+kde4_add_ui_files(kamoso_SRCS pictureConfig.ui)
 kde4_add_executable(kamoso ${kamoso_SRCS})
 target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} solidcontrol kopete_videodevice)

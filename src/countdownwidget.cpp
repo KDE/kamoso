@@ -21,7 +21,9 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QPainter>
+#include <QDebug>
 #include <qtimer.h>
+#include <settings.h>
 
 CountdownWidget::CountdownWidget(QWidget* parent) : QWidget(parent)
 {
@@ -39,11 +41,14 @@ void CountdownWidget::start()
 // 	else
 // 		background.fill(Qt::transparent);
 	currentState=Red;
-	
-	QTimer::singleShot(1*500, this, SLOT(currentYellow()));
-	QTimer::singleShot(2*500, this, SLOT(currentGreen()));
-	QTimer::singleShot(3*500, this, SLOT(hide()));
-	QTimer::singleShot(3*500, this, SIGNAL(finished()));
+	qDebug() << Settings::photoTime();
+	int timeInterval = Settings::photoTime()/3;
+	timeInterval = timeInterval*1000;//We need miliseconds
+	qDebug() << timeInterval;
+	QTimer::singleShot(1*timeInterval, this, SLOT(currentYellow()));
+	QTimer::singleShot(2*timeInterval, this, SLOT(currentGreen()));
+	QTimer::singleShot(3*timeInterval, this, SLOT(hide()));
+	QTimer::singleShot(3*timeInterval, this, SIGNAL(finished()));
 }
 
 void CountdownWidget::currentYellow()

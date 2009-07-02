@@ -49,6 +49,7 @@
 #include <kconfigdialog.h>
 #include "settings.h"
 #include "ui_generalConfig.h"
+#include "ui_pictureConfig.h"
 
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
@@ -154,15 +155,15 @@ void Kamoso::configuration()
 	QWidget *widgetPage = new QWidget();
 	page->setupUi(widgetPage);
 	page->kcfg_PhotoUrl->setMode(KFile::Directory);
-// 	page->kcfg_PhotoUrl->setUrl(Settings::photoUrl);
-	//Simulating signal/slot action, needed because kurlrequester doens't have setUrl method
 	Q_EMIT(Settings::photoUrl);
-// 	connect(page->kcfg_PhotoUrl,SIGNAL(setUrl(const KUrl &)), this, SLOT(urlSelected(const KUrl &)));
-	
+	dialog->addPage(widgetPage,i18n("General"),"ceneral");
 	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
- 	dialog->addPage(widgetPage,i18n("General"),"General");
-	
+	Ui::pictureConfigWidget *pagePicture = new Ui::pictureConfigWidget;
+	QWidget *widgetPicturePage = new QWidget();
+	pagePicture->setupUi(widgetPicturePage);
+	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
+	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"photoSettings");
  	dialog->show();
 }
 void Kamoso::generalUpdated()
