@@ -16,4 +16,4 @@ set(kamoso_SRCS
 )
 
 kde4_add_executable(kamoso ${kamoso_SRCS})
-target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} solidcontrol kopete_videodevice)
+target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} solidcontrol kopete_videodevice)
