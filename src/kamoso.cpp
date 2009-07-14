@@ -132,7 +132,7 @@ Kamoso::Kamoso(QWidget* parent)
 	layoutTop->addLayout(buttonsLayout);
 	layoutTop->addLayout(below);
 	
-	setCentralWidget(innerTopWidget);
+	this->setCentralWidget(innerTopWidget);
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
