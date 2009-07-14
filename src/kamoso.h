@@ -37,24 +37,12 @@ namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
 {
 	Q_OBJECT
+//Methods that aren't slots
 	public:
 		Kamoso ( QWidget *parent=0 );
 		void checkInitConfig();
 		~Kamoso();
 
-	public slots:
-		void takePhoto();
-		void startCountdown();
-		void configuration();
-		void generalUpdated();
-		
-	private slots:
-		void restore();
-		void photoTaken(const KUrl& url);
-		void slotScrollLeft();
-		void slotScrollRight();
-		void openThumbnail(const QModelIndex& idx);
-		
 	private:
 		KUrl saveUrl;
 		float brightBack;
@@ -68,6 +56,19 @@ class Kamoso : public KMainWindow
 		QPushButton* scrollLeft;
 		QPushButton* scrollRight;
 		ThumbnailView *customIconView;
+//Only slots
+	public slots:
+		void takePhoto();
+		void startCountdown();
+		void configuration();
+		void generalUpdated();
+		
+	private slots:
+		void restore();
+		void photoTaken(const KUrl& url);
+		void slotScrollLeft();
+		void slotScrollRight();
+		void openThumbnail(const QModelIndex& idx);
 };
 
 #endif

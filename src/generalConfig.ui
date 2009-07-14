@@ -26,7 +26,7 @@
     <string>Directory where kamoso save the photos</string>
    </property>
   </widget>
-  <widget class="KUrlRequester" name="kcfg_PhotoUrl">
+  <widget class="KUrlRequester" name="kcfg_saveUrl">
    <property name="geometry">
     <rect>
      <x>30</x>

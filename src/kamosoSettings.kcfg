@@ -6,7 +6,7 @@
 	<kcfgfile name="kamosorc"/>
 	<include>kglobalsettings.h</include>
 	<group name="General">
-		<entry name="PhotoUrl" type="Url" key="PhotoUrl">
+		<entry name="saveUrl" type="Url" key="saveUrl">
 			<label>Where the photos are saved.</label>
 		</entry>
 	</group>

@@ -55,7 +55,7 @@ Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
 {
 	qDebug() << "Settings of camoso:";
-	qDebug() << "photoUrl: " << Settings::photoUrl();
+	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 	
 	this->checkInitConfig();
@@ -132,14 +132,14 @@ Kamoso::Kamoso(QWidget* parent)
 
 void Kamoso::checkInitConfig()
 {
-	if(!Settings::photoUrl().isEmpty()) {
-		saveUrl = Settings::photoUrl();
+	if(!Settings::saveUrl().isEmpty()) {
+		saveUrl = Settings::saveUrl();
 	} else {
 		KDirSelectDialog dirs;
 		
 		if(dirs.exec() && dirs.url().isValid()) {
 			saveUrl = dirs.url();
-			Settings::setPhotoUrl(saveUrl);
+			Settings::setSaveUrl(saveUrl);
 		} else {
 			close();
 		}
@@ -161,8 +161,8 @@ void Kamoso::configuration()
 	Ui::generalConfigWidget *page = new Ui::generalConfigWidget;
 	QWidget *widgetPage = new QWidget();
 	page->setupUi(widgetPage);
-	page->kcfg_PhotoUrl->setMode(KFile::Directory);
-	Q_EMIT(Settings::photoUrl);
+	page->kcfg_saveUrl->setMode(KFile::Directory);
+	Q_EMIT(Settings::saveUrl);
 	dialog->addPage(widgetPage,i18n("General"),"ceneral");
 	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
@@ -175,9 +175,9 @@ void Kamoso::configuration()
 }
 void Kamoso::generalUpdated()
 {
-	qDebug() << "Settings New\n" << Settings::photoUrl();
+	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
-	dirOperator->setUrl(Settings::photoUrl(),false);
+	dirOperator->setUrl(Settings::saveUrl(),false);
 }
 Kamoso::~Kamoso()
 {
