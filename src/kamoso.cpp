@@ -81,10 +81,10 @@ Kamoso::Kamoso(QWidget* parent)
 	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
 	
-	QPushButton *p = new QPushButton(innerTopWidget);
-	p->setText(i18n("Take a Picture"));
-	p->setIcon(KIcon("webcamreceive"));
-	connect(p, SIGNAL(clicked(bool)), SLOT(startCountdown()));
+	QPushButton *takePictureBtn = new QPushButton(innerTopWidget);
+	takePictureBtn->setText(i18n("Take a Picture"));
+	takePictureBtn->setIcon(KIcon("webcamreceive"));
+	connect(takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 //Configuration button
 	QPushButton *configBtn = new QPushButton(innerTopWidget);
 	configBtn->setText(i18n("Configure"));
@@ -92,7 +92,7 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(p);
+	buttonsLayout->addWidget(takePictureBtn);
 	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(configBtn);
 	
