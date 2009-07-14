@@ -81,15 +81,18 @@ Kamoso::Kamoso(QWidget* parent)
 	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
 	
+	//Button which trhow the startCountDown action (take photo)
 	QPushButton *takePictureBtn = new QPushButton(innerTopWidget);
 	takePictureBtn->setText(i18n("Take a Picture"));
 	takePictureBtn->setIcon(KIcon("webcamreceive"));
 	connect(takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
-//Configuration button
+
+	//Configuration button (Show the configuration dialog)
 	QPushButton *configBtn = new QPushButton(innerTopWidget);
 	configBtn->setText(i18n("Configure"));
 	connect(configBtn,SIGNAL(clicked(bool)),SLOT(configuration()));
 	
+	//Layout that align the buttons
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch();
 	buttonsLayout->addWidget(takePictureBtn);
