@@ -66,7 +66,7 @@ class Kamoso : public KMainWindow
 		Phonon::MediaObject *player;
 		QPushButton* scrollLeft;
 		QPushButton* scrollRight;
-		ThumbnailView *ourView;
+		ThumbnailView *customIconView;
 };
 
 #endif

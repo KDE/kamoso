@@ -74,17 +74,17 @@ Kamoso::Kamoso(QWidget* parent)
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
-	ourView = new ThumbnailView(innerTopWidget);
+	customIconView = new ThumbnailView(innerTopWidget);
 	o = new KDirOperator(theUrl, this); //FIXME
 	o->setInlinePreviewShown(true);
 	o->setIconsZoom(50);
 	o->setMimeFilter(QStringList() << "image/png");
-	o->setView(ourView);
-	ourView->assignDelegate();
-	ourView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	ourView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	ourView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-	connect(ourView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
+	o->setView(customIconView);
+	customIconView->assignDelegate();
+	customIconView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	customIconView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
 
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
@@ -124,7 +124,7 @@ Kamoso::Kamoso(QWidget* parent)
 	viewLayout->setMargin(0);
 	viewLayout->setSpacing(0);
 	viewLayout->addWidget(scrollLeft);
-	viewLayout->addWidget(ourView);
+	viewLayout->addWidget(customIconView);
 	viewLayout->addWidget(scrollRight);
 	
 	below->addWidget(viewContainer);
@@ -218,18 +218,18 @@ void Kamoso::restore()
 //TODO: Should make it exponential
 void Kamoso::slotScrollLeft()
 {
-	int v=ourView->horizontalScrollBar()->value();
-	int min=ourView->horizontalScrollBar()->minimum();
-	int max=ourView->horizontalScrollBar()->maximum();
-	ourView->horizontalScrollBar()->setValue(qBound(min, v-10, max));
+	int v=customIconView->horizontalScrollBar()->value();
+	int min=customIconView->horizontalScrollBar()->minimum();
+	int max=customIconView->horizontalScrollBar()->maximum();
+	customIconView->horizontalScrollBar()->setValue(qBound(min, v-10, max));
 }
 
 void Kamoso::slotScrollRight()
 {
-	int v=ourView->horizontalScrollBar()->value();
-	int min=ourView->horizontalScrollBar()->minimum();
-	int max=ourView->horizontalScrollBar()->maximum();
-	ourView->horizontalScrollBar()->setValue(qBound(min, v+10, max));
+	int v=customIconView->horizontalScrollBar()->value();
+	int min=customIconView->horizontalScrollBar()->minimum();
+	int max=customIconView->horizontalScrollBar()->maximum();
+	customIconView->horizontalScrollBar()->setValue(qBound(min, v+10, max));
 }
 
 void Kamoso::openThumbnail(const QModelIndex& idx) 
