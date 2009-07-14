@@ -64,7 +64,7 @@ Kamoso::Kamoso(QWidget* parent)
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
 	customIconView = new ThumbnailView(innerTopWidget);
-	dirOperator = new KDirOperator(theUrl, this); //FIXME
+	dirOperator = new KDirOperator(saveUrl, this); //FIXME
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png");
@@ -133,13 +133,13 @@ Kamoso::Kamoso(QWidget* parent)
 void Kamoso::checkInitConfig()
 {
 	if(!Settings::photoUrl().isEmpty()) {
-		theUrl = Settings::photoUrl();
+		saveUrl = Settings::photoUrl();
 	} else {
 		KDirSelectDialog dirs;
 		
 		if(dirs.exec() && dirs.url().isValid()) {
-			theUrl = dirs.url();
-			Settings::setPhotoUrl(theUrl);
+			saveUrl = dirs.url();
+			Settings::setPhotoUrl(saveUrl);
 		} else {
 			close();
 		}
@@ -202,7 +202,7 @@ void Kamoso::takePhoto()
 	white->showFullScreen();
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
-	KUrl photoPlace = theUrl;
+	KUrl photoPlace = saveUrl;
 	photoPlace.addPath(QString("kamoso_%1.png").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 
 	webcam->takePhoto(photoPlace);
@@ -243,7 +243,7 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 	QString filename= idx.data(Qt::DisplayRole).toString();
 	if (!filename.isEmpty())
 	{
-		KUrl path = theUrl;
+		KUrl path = saveUrl;
 		path.addPath(filename);
 		QDesktopServices::openUrl(path);
 	}

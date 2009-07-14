@@ -56,7 +56,7 @@ class Kamoso : public KMainWindow
 		void openThumbnail(const QModelIndex& idx);
 		
 	private:
-		KUrl theUrl;
+		KUrl saveUrl;
 		float brightBack;
 		
 		QStackedLayout *below;
