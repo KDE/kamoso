@@ -39,6 +39,7 @@ class Kamoso : public KMainWindow
 	Q_OBJECT
 	public:
 		Kamoso ( QWidget *parent=0 );
+		void checkInitConfig();
 		~Kamoso();
 
 	public slots:

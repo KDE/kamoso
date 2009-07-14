@@ -58,18 +58,7 @@ Kamoso::Kamoso(QWidget* parent)
 	qDebug() << "photoUrl: " << Settings::photoUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 	
-	if(!Settings::photoUrl().isEmpty()) {
-		theUrl = Settings::photoUrl();
-	} else {
-		KDirSelectDialog dirs;
-		
-		if(dirs.exec() && dirs.url().isValid()) {
-			theUrl = dirs.url();
-			Settings::setPhotoUrl(theUrl);
-		} else {
-			close();
-		}
-	}
+	this->checkInitConfig();
 		
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
@@ -140,6 +129,24 @@ Kamoso::Kamoso(QWidget* parent)
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
 }
+
+void Kamoso::checkInitConfig()
+{
+	if(!Settings::photoUrl().isEmpty()) {
+		theUrl = Settings::photoUrl();
+	} else {
+		KDirSelectDialog dirs;
+		
+		if(dirs.exec() && dirs.url().isValid()) {
+			theUrl = dirs.url();
+			Settings::setPhotoUrl(theUrl);
+		} else {
+			close();
+		}
+	}
+}
+	
+
 void Kamoso::configuration()
 {
 	//If settings dialog is already open, return (and focus)
