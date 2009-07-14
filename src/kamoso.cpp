@@ -54,27 +54,33 @@
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
 {
+	//Check the initial and basic config, and ask for it they don't exist
+	this->checkInitConfig();
+	
+//Small debuggin to know the settings
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
-	
-	this->checkInitConfig();
-		
+
+//Start to create the structure of kamoso (interface level)
 	QWidget *innerTopWidget = new QWidget(this);
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
-	customIconView = new ThumbnailView(innerTopWidget);
+//Dir operator will show the previews
+	customIconView = new ThumbnailView(innerTopWidget);//Our custom icon view
 	dirOperator = new KDirOperator(saveUrl, this); //FIXME
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png");
 	dirOperator->setView(customIconView);
+	
+	//Tunning a bit the customIconView
 	customIconView->assignDelegate();
 	customIconView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	customIconView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
-
+	
 	QPushButton *p = new QPushButton(innerTopWidget);
 	p->setText(i18n("Take a Picture"));
 	p->setIcon(KIcon("webcamreceive"));
@@ -132,11 +138,11 @@ Kamoso::Kamoso(QWidget* parent)
 
 void Kamoso::checkInitConfig()
 {
+	//If kamoso doesn't know where to save the taken photos, ask for it
 	if(!Settings::saveUrl().isEmpty()) {
 		saveUrl = Settings::saveUrl();
 	} else {
 		KDirSelectDialog dirs;
-		
 		if(dirs.exec() && dirs.url().isValid()) {
 			saveUrl = dirs.url();
 			Settings::setSaveUrl(saveUrl);
