@@ -75,11 +75,11 @@ Kamoso::Kamoso(QWidget* parent)
 	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
 	
 	customIconView = new ThumbnailView(innerTopWidget);
-	o = new KDirOperator(theUrl, this); //FIXME
-	o->setInlinePreviewShown(true);
-	o->setIconsZoom(50);
-	o->setMimeFilter(QStringList() << "image/png");
-	o->setView(customIconView);
+	dirOperator = new KDirOperator(theUrl, this); //FIXME
+	dirOperator->setInlinePreviewShown(true);
+	dirOperator->setIconsZoom(50);
+	dirOperator->setMimeFilter(QStringList() << "image/png");
+	dirOperator->setView(customIconView);
 	customIconView->assignDelegate();
 	customIconView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	customIconView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -170,14 +170,14 @@ void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::photoUrl();
 	Settings::self()->writeConfig();
-	o->setUrl(Settings::photoUrl(),false);
+	dirOperator->setUrl(Settings::photoUrl(),false);
 }
 Kamoso::~Kamoso()
 {
 	delete white;
 	delete player;
 	delete countdown;
-	delete o;
+	delete dirOperator;
 	Settings::self()->writeConfig();
 }
 
@@ -204,8 +204,7 @@ void Kamoso::takePhoto()
 
 void Kamoso::photoTaken(const KUrl& url)
 {
-	o->setCurrentItem(url.path());
-// 	qDebug() << "aaaaaaaa" << o->selectedItems() << url;
+	dirOperator->setCurrentItem(url.path());
 }
 
 void Kamoso::restore()

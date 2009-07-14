@@ -59,7 +59,7 @@ class Kamoso : public KMainWindow
 		float brightBack;
 		
 		QStackedLayout *below;
-		KDirOperator *o;
+		KDirOperator *dirOperator;
 		WhiteWidget *white;
 		WebcamWidget *webcam;
 		CountdownWidget *countdown;
