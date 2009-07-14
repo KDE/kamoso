@@ -35,13 +35,13 @@ WhiteWidget::WhiteWidget(QWidget* parent)
 }
 
 
-void WhiteWidget::paintEvent (QPaintEvent* e)
+void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
 {
 	QPainter p(this);
 	
 	p.setBrush(Qt::white);
-	p.drawRect(e->rect());
-	p.drawText(e->rect().center(), i18n("Smile! :)"));
+	p.drawRect(paintEvent->rect());
+	p.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
 }
 
 void WhiteWidget::showEvent(QShowEvent * event)
