@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::init(argc, argv, &about);
 	KApplication app;
 	
-	Kamoso* widget = new Kamoso;
-	widget->show();
+	Kamoso* kamosoMain = new Kamoso;
+	kamosoMain->show();
 	
 	return app.exec();
 }
