@@ -50,6 +50,7 @@
 #include "settings.h"
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
+#include "whitewidgetmanager.h"
 
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
@@ -104,7 +105,7 @@ Kamoso::Kamoso(QWidget* parent)
 	QHBoxLayout *webcamLayout = new QHBoxLayout;
 	webcamLayout->addWidget(webcam);
 	
-	whiteWidgetManager = new WhiteWidget;
+	whiteWidgetManager = new WhiteWidgetManager(this);
 	countdown = new CountdownWidget(this);
 	below = new QStackedLayout;
 	
@@ -208,7 +209,7 @@ void Kamoso::takePhoto()
 	below->setCurrentIndex(0);
 	brightBack = Solid::Control::PowerManager::brightness();
 	Solid::Control::PowerManager::setBrightness(100);
-	whiteWidgetManager->showFullScreen();
+	whiteWidgetManager->showAll();
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
 	KUrl photoPlace = saveUrl;
@@ -225,7 +226,7 @@ void Kamoso::photoTaken(const KUrl& url)
 
 void Kamoso::restore()
 {
-	whiteWidgetManager->hide();
+	whiteWidgetManager->hideAll();
 	Solid::Control::PowerManager::setBrightness(brightBack);
 }
 

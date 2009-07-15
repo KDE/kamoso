@@ -17,58 +17,58 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSO_H
-#define KAMOSO_H
+#include "whitewidgetmanager.h"
+#include <QPaintEvent>
+#include <QPainter>
+#include <QTimer>
+#include <QDesktopWidget>
+#include <KLocale>
+#include <KWindowSystem>
+#include <QApplication>
+#include <QDebug>
 
-#include <KMainWindow>
-#include <KUrl>
-
-class WhiteWidgetManager;
-class WebcamWidget;
-class CountdownWidget;
-class KDirOperator;
-class QStackedLayout;
-class QSplitter;
-class QPushButton;
-class QModelIndex;
-class ThumbnailView;
-namespace Phonon { class MediaObject; }
-
-class Kamoso : public KMainWindow
+/**
+*This class create and manage 1 white widget per screen, creating an unified interface for all of them
+*/
+WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 {
-	Q_OBJECT
-//Methods that aren't slots
-	public:
-		Kamoso ( QWidget *parent=0 );
-		void checkInitConfig();
-		~Kamoso();
-
-	private:
-		KUrl saveUrl;
-		float brightBack;
-		
-		QStackedLayout *below;
-		KDirOperator *dirOperator;
-		WhiteWidgetManager *whiteWidgetManager;
-		WebcamWidget *webcam;
-		CountdownWidget *countdown;
-		Phonon::MediaObject *player;
-		QPushButton* scrollLeft;
-		QPushButton* scrollRight;
-		ThumbnailView *customIconView;
-//Only slots
-	public slots:
-		void takePhoto();
-		void startCountdown();
-		void configuration();
-		void generalUpdated();
-		
-	private slots:
-		void restore();
-		void photoTaken(const KUrl& url);
-		void slotScrollLeft();
-		void slotScrollRight();
-		void openThumbnail(const QModelIndex& idx);
-};
-
-#endif
+	qDebug() << "WhiteWidgetManager:  " << "WhiteWidgetManager has been instanced";
+	this->createWhiteWidgets();
+}
+void WhiteWidgetManager::createWhiteWidgets()
+{
+	qDebug() << "WhiteWidgetManager:  " << "Creating whiteWidgets";
+	WhiteWidget *whiteWidget;
+	QDesktopWidget *desktopInfo = qApp->desktop();
+	
+	qDebug() << "WhiteWidgetManager:  " << "Num of whidgets to be created: " << desktopInfo->numScreens();
+	for(uchar x=0;x<desktopInfo->numScreens();x++)
+	{
+ 		whiteWidget = new WhiteWidget;
+ 		whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
+		whitewidgetList.append(whiteWidget);
+	}
+}
+void WhiteWidgetManager::showAll()
+{
+	WhiteWidget *iteratorWidget;
+	foreach(iteratorWidget,whitewidgetList)
+	{
+		iteratorWidget->showFullScreen();
+	}
+}
+void WhiteWidgetManager::hideAll()
+{
+	WhiteWidget *iteratorWidget;
+	foreach(iteratorWidget,whitewidgetList)
+	{
+		iteratorWidget->hide();
+		delete iteratorWidget;
+	}
+	this->createWhiteWidgets();
+}
+// void WhiteWidgetManager::
+WhiteWidgetManager::~WhiteWidgetManager()
+{
+// 	qDeleteAll<>()
+}

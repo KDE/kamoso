@@ -10,6 +10,7 @@ set(kamoso_SRCS
 	kamoso.cpp
 	main.cpp
 	whitewidget.cpp
+	whitewidgetmanager.cpp
 	countdownwidget.cpp
 	webcamwidget.cpp
 	customDelegate.cpp
