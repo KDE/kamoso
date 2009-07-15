@@ -33,7 +33,7 @@ class TimedPushButton : public QPushButton
 		virtual void mousePressEvent (QMouseEvent*);
 		virtual void mouseReleaseEvent (QMouseEvent*);
 		
-		QTimer t;
+		QTimer timer;
 };
 
 #endif // TIMEDPUSHBUTTON_H

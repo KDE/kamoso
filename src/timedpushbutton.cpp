@@ -19,19 +19,19 @@
 TimedPushButton::TimedPushButton(const QIcon& icon, const QString& text, QWidget* parent, int interval)
 	: QPushButton(icon, text, parent)
 {
-	t.setInterval(interval);
-	connect(&t, SIGNAL(timeout()), SIGNAL(tick()));
+	timer.setInterval(interval);
+	connect(&timer, SIGNAL(timeout()), SIGNAL(tick()));
 }
 
 void TimedPushButton::mousePressEvent(QMouseEvent* e)
 {
-	t.start();
+	timer.start();
 	QPushButton::mousePressEvent(e);
 }
 
 void TimedPushButton::mouseReleaseEvent(QMouseEvent* e)
 {
-	t.stop();
+	timer.stop();
 	QPushButton::mouseReleaseEvent(e);
 }
 
