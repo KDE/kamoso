@@ -52,6 +52,8 @@
 #include "ui_pictureConfig.h"
 #include "whitewidgetmanager.h"
 
+const int max_exponential_value = 50;
+const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent)
 {
@@ -244,8 +246,9 @@ void Kamoso::slotScrollLeft()
 	int max=customIconView->horizontalScrollBar()->maximum();
 	customIconView->horizontalScrollBar()->setValue(qBound(min, v-m_exponentialValue, max));
 	
-	if(m_exponentialValue < 50){
-		m_exponentialValue += 5;
+	//If this code becomes 1 line larger, export it to a method
+	if(m_exponentialValue < max_exponential_value){
+		m_exponentialValue += exponential_increment;
 	}
 }
 
@@ -256,8 +259,8 @@ void Kamoso::slotScrollRight()
 	int max=customIconView->horizontalScrollBar()->maximum();
 	customIconView->horizontalScrollBar()->setValue(qBound(min, v+m_exponentialValue, max));
 	
-	if(m_exponentialValue < 50){
-		m_exponentialValue += 5;
+	if(m_exponentialValue < max_exponential_value){
+		m_exponentialValue += exponential_increment;
 	}
 }
 
