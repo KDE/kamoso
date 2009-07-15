@@ -28,6 +28,7 @@ class TimedPushButton : public QPushButton
 		
 	signals:
 		void tick();
+		void finished();
 	
 	private:
 		virtual void mousePressEvent (QMouseEvent*);

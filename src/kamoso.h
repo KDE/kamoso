@@ -56,6 +56,7 @@ class Kamoso : public KMainWindow
 		QPushButton* scrollLeft;
 		QPushButton* scrollRight;
 		ThumbnailView *customIconView;
+		int m_exponentialValue;
 //Only slots
 	public slots:
 		void takePhoto();
@@ -68,6 +69,7 @@ class Kamoso : public KMainWindow
 		void photoTaken(const KUrl& url);
 		void slotScrollLeft();
 		void slotScrollRight();
+		void slotScrollFinish();
 		void openThumbnail(const QModelIndex& idx);
 };
 

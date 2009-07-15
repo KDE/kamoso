@@ -32,6 +32,7 @@ void TimedPushButton::mousePressEvent(QMouseEvent* e)
 void TimedPushButton::mouseReleaseEvent(QMouseEvent* e)
 {
 	timer.stop();
+	Q_EMIT(finished());
 	QPushButton::mouseReleaseEvent(e);
 }
 

@@ -113,7 +113,9 @@ Kamoso::Kamoso(QWidget* parent)
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(), viewContainer, 100);
 	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), viewContainer, 100);
 	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
+	connect(scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
 	connect(scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
+	connect(scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
 // 	scrollLeft->setEnabled(false);
 	
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
@@ -138,6 +140,9 @@ Kamoso::Kamoso(QWidget* parent)
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
+	
+	//TODO: find a better place to init this 
+	m_exponentialValue = 0;
 }
 
 void Kamoso::checkInitConfig()
@@ -237,7 +242,11 @@ void Kamoso::slotScrollLeft()
 	int v=customIconView->horizontalScrollBar()->value();
 	int min=customIconView->horizontalScrollBar()->minimum();
 	int max=customIconView->horizontalScrollBar()->maximum();
-	customIconView->horizontalScrollBar()->setValue(qBound(min, v-10, max));
+	customIconView->horizontalScrollBar()->setValue(qBound(min, v-m_exponentialValue, max));
+	
+	if(m_exponentialValue < 50){
+		m_exponentialValue += 5;
+	}
 }
 
 void Kamoso::slotScrollRight()
@@ -245,9 +254,17 @@ void Kamoso::slotScrollRight()
 	int v=customIconView->horizontalScrollBar()->value();
 	int min=customIconView->horizontalScrollBar()->minimum();
 	int max=customIconView->horizontalScrollBar()->maximum();
-	customIconView->horizontalScrollBar()->setValue(qBound(min, v+10, max));
+	customIconView->horizontalScrollBar()->setValue(qBound(min, v+m_exponentialValue, max));
+	
+	if(m_exponentialValue < 50){
+		m_exponentialValue += 5;
+	}
 }
 
+void Kamoso::slotScrollFinish()
+{
+	m_exponentialValue = 0;
+}
 void Kamoso::openThumbnail(const QModelIndex& idx) 
 {
 	QString filename= idx.data(Qt::DisplayRole).toString();
