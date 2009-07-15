@@ -104,7 +104,7 @@ Kamoso::Kamoso(QWidget* parent)
 	QHBoxLayout *webcamLayout = new QHBoxLayout;
 	webcamLayout->addWidget(webcam);
 	
-	white = new WhiteWidget;
+	whiteWidgetManager = new WhiteWidget;
 	countdown = new CountdownWidget(this);
 	below = new QStackedLayout;
 	
@@ -190,7 +190,7 @@ void Kamoso::generalUpdated()
 }
 Kamoso::~Kamoso()
 {
-	delete white;
+	delete whiteWidgetManager;
 	delete player;
 	delete countdown;
 	delete dirOperator;
@@ -208,7 +208,7 @@ void Kamoso::takePhoto()
 	below->setCurrentIndex(0);
 	brightBack = Solid::Control::PowerManager::brightness();
 	Solid::Control::PowerManager::setBrightness(100);
-	white->showFullScreen();
+	whiteWidgetManager->showFullScreen();
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
 	KUrl photoPlace = saveUrl;
@@ -225,7 +225,7 @@ void Kamoso::photoTaken(const KUrl& url)
 
 void Kamoso::restore()
 {
-	white->hide();
+	whiteWidgetManager->hide();
 	Solid::Control::PowerManager::setBrightness(brightBack);
 }
 

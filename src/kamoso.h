@@ -49,7 +49,7 @@ class Kamoso : public KMainWindow
 		
 		QStackedLayout *below;
 		KDirOperator *dirOperator;
-		WhiteWidget *white;
+		WhiteWidget *whiteWidgetManager;
 		WebcamWidget *webcam;
 		CountdownWidget *countdown;
 		Phonon::MediaObject *player;
