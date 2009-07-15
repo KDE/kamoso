@@ -24,14 +24,10 @@
 #include <KLocale>
 #include <KWindowSystem>
 
-const int m_steps(10), m_ini(15);
 WhiteWidget::WhiteWidget(QWidget* parent)
 	: QWidget(parent)
 {
 	setAutoFillBackground(false);
-	m_timer = new QTimer(this);
-	
-	connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
 }
 
 
@@ -42,23 +38,4 @@ void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
 	painter.setBrush(Qt::white);
 	painter.drawRect(paintEvent->rect());
 	painter.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
-}
-
-void WhiteWidget::showEvent(QShowEvent * event)
-{
-	m_currentStep=0;
-	m_timer->start(30);
-}
-
-void WhiteWidget::closeEvent(QCloseEvent* event)
-{
-	m_timer->stop();
-}
-
-void WhiteWidget::tick()
-{
-	m_currentStep=qMin(m_currentStep+1, m_steps);
-	
-	if(KWindowSystem::compositingActive())
-		setWindowOpacity(1/m_currentStep);
 }

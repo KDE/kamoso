@@ -28,7 +28,12 @@ class WhiteWidgetManager : public QObject
 		~WhiteWidgetManager();
 		void showAll();
 		void hideAll();
+		int m_steps;
 	private:
 		void createWhiteWidgets();
 		QList<WhiteWidget*> whitewidgetList;
+		QTimer* m_timer;
+		int m_currentStep;
+	private slots:
+		void tick();
 };

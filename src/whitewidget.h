@@ -28,16 +28,6 @@ class WhiteWidget : public QWidget
 	public:
 		WhiteWidget(QWidget* parent=0);
 		virtual void paintEvent (QPaintEvent*);
-	
-	private slots:
-		void tick();
-		
-	private:
-		virtual void showEvent ( QShowEvent * event );
-		virtual void closeEvent (QCloseEvent* event);
-		
-		QTimer* m_timer;
-		int m_currentStep;
 };
 
 #endif
