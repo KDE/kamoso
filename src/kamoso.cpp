@@ -79,6 +79,8 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
  	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 	
+	//Configuration button
+	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
 //Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
