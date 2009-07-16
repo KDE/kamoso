@@ -66,8 +66,8 @@ Kamoso::Kamoso(QWidget* parent)
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 
-	Ui::mainWidget *mainWidgetUi = new Ui::mainWidget;
-		QWidget *mainWidget = new QWidget();
+	mainWidgetUi = new Ui::mainWidget;
+	mainWidget = new QWidget();
 	mainWidgetUi->setupUi(mainWidget);
 	
 	//Setting webcam in the first row, central spot
@@ -109,21 +109,14 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 
 	whiteWidgetManager = new WhiteWidgetManager(this);
-// 	countdown = new CountdownWidget(this);
+	countdown = new CountdownWidget(this);
+	countdown->hide();
+	mainWidgetUi->thirdRow->addWidget(countdown);
 	
-// 	stackedBelowLayout->addWidget(viewContainer);
-// 	stackedBelowLayout->addWidget(countdown);
-	
-// 	layoutTop->addLayout(webcamLayout);
-// 	layoutTop->addLayout(buttonsLayout);
-// 	layoutTop->addLayout(stackedBelowLayout);
-	
-// 	this->setCentralWidget(innerTopWidget);
-	
-// 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
-// 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
-// 	player = Phonon::createPlayer(Phonon::NotificationCategory);
-// 	player->setCurrentSource(soundFile);
+	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
+	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
+	player = Phonon::createPlayer(Phonon::NotificationCategory);
+	player->setCurrentSource(soundFile);
 	
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
@@ -190,12 +183,12 @@ Kamoso::~Kamoso()
 void Kamoso::startCountdown()
 {
 	countdown->start();
-	stackedBelowLayout->setCurrentIndex(1);
+	
 }
 
 void Kamoso::takePhoto()
 {
-	stackedBelowLayout->setCurrentIndex(0);
+// 	stackedBelowLayout->setCurrentIndex(0);
 	brightBack = Solid::Control::PowerManager::brightness();
 	Solid::Control::PowerManager::setBrightness(100);
 	whiteWidgetManager->showAll();

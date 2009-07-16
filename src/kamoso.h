@@ -22,6 +22,7 @@
 
 #include <KMainWindow>
 #include <KUrl>
+#include <ui_mainWidget.h>
 
 class WhiteWidgetManager;
 class WebcamWidget;
@@ -46,8 +47,7 @@ class Kamoso : public KMainWindow
 	private:
 		KUrl saveUrl;
 		float brightBack;
-		
-		QStackedLayout *stackedBelowLayout;
+
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *webcam;
@@ -56,6 +56,8 @@ class Kamoso : public KMainWindow
 		QPushButton* scrollLeft;
 		QPushButton* scrollRight;
 		ThumbnailView *customIconView;
+		Ui::mainWidget *mainWidgetUi;
+		QWidget *mainWidget;
 		int m_exponentialValue;
 //Only slots
 	public slots:
