@@ -70,13 +70,16 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidget = new QWidget();
 	mainWidgetUi->setupUi(mainWidget);
 	
+//First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	webcam = new WebcamWidget(mainWidgetUi->centralSpot);
 	
-	// 	//Button which trhow the startCountDown action (take photo)
+//Second row Stuff
+	//Setting kIcon and conection to the button who take the picture
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
  	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 	
+//Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
@@ -106,7 +109,6 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->thirdRow->addWidget(scrollLeft);
 	mainWidgetUi->thirdRow->addWidget(customIconView);
 	mainWidgetUi->thirdRow->addWidget(scrollRight);
-	this->setCentralWidget(mainWidget);
 
 	whiteWidgetManager = new WhiteWidgetManager(this);
 	countdown = new CountdownWidget(this);
@@ -120,6 +122,7 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
+	this->setCentralWidget(mainWidget);
 }
 
 void Kamoso::checkInitConfig()
@@ -138,13 +141,17 @@ void Kamoso::checkInitConfig()
 	}
 }
 	
-
+/**
+*This method is called when the configuration button is pushed.
+*Show the configuration KCM, and create it if is needed.
+*/
 void Kamoso::configuration()
 {
 	//If settings dialog is already open, return (and focus)
 	if(KConfigDialog::showDialog("settings")){
 		return;
 	}
+	
 //Creating the kcm
 	KConfigDialog *dialog = new KConfigDialog(this,"settings",Settings::self());
 	dialog->resize(540,dialog->height());
