@@ -183,12 +183,21 @@ Kamoso::~Kamoso()
 void Kamoso::startCountdown()
 {
 	countdown->start();
-	
+	//hidding all non-semaphore widgets
+	scrollLeft->hide();
+	scrollRight->hide();
+	customIconView->hide();
+	countdown->show();
 }
 
 void Kamoso::takePhoto()
 {
 // 	stackedBelowLayout->setCurrentIndex(0);
+	scrollLeft->show();
+	scrollRight->show();
+	customIconView->show();
+	countdown->hide();
+	
 	brightBack = Solid::Control::PowerManager::brightness();
 	Solid::Control::PowerManager::setBrightness(100);
 	whiteWidgetManager->showAll();
