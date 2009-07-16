@@ -47,7 +47,7 @@ class Kamoso : public KMainWindow
 		KUrl saveUrl;
 		float brightBack;
 		
-		QStackedLayout *below;
+		QStackedLayout *stackedBelowLayout;
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *webcam;

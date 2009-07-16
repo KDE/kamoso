@@ -65,11 +65,53 @@ Kamoso::Kamoso(QWidget* parent)
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 
-//Start to create the structure of kamoso (interface level)
-	QWidget *innerTopWidget = new QWidget(this);
-	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);
+//Interface of kamoso, from Top to Bottom
+//Layouts are filled when all his childs are created
+	QWidget *innerTopWidget = new QWidget(this);//General widget
+	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);//General layuout
 	
-//Dir operator will show the previews
+//First row of the interface
+	QHBoxLayout *webcamLayout = new QHBoxLayout;//First Horiz layout, webcam mainly
+	webcam = new WebcamWidget(innerTopWidget);//Who paint the webcam stuff
+	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
+	//Adding webcam to webcamLayout
+	webcamLayout->addWidget(webcam);
+	
+//Second row of the interface
+	//Layout that align the buttons (2 row of the app)
+	QHBoxLayout *buttonsLayout = new QHBoxLayout;
+	
+	//Button which trhow the startCountDown action (take photo)
+	QPushButton *takePictureBtn = new QPushButton(innerTopWidget);
+	takePictureBtn->setText(i18n("Take a Picture"));
+	takePictureBtn->setIcon(KIcon("webcamreceive"));
+	connect(takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
+
+	//Configuration button (Show the configuration dialog)
+	QPushButton *configBtn = new QPushButton(innerTopWidget);
+	configBtn->setText(i18n("Configure"));
+	connect(configBtn,SIGNAL(clicked(bool)),SLOT(configuration()));
+	
+	buttonsLayout->addStretch();
+	buttonsLayout->addWidget(takePictureBtn);
+	buttonsLayout->addStretch();
+	buttonsLayout->addWidget(configBtn);
+
+//Third row of the interface
+	stackedBelowLayout = new QStackedLayout;
+	QWidget* viewContainer=new QWidget;
+	QHBoxLayout* viewLayout=new QHBoxLayout(viewContainer);
+	viewLayout->setMargin(0);
+	viewLayout->setSpacing(0);
+	
+	//First column
+	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(), viewContainer, 100);
+	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
+	connect(scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
+		
+	//Second column
+	//Dir operator will show the previews
 	customIconView = new ThumbnailView(innerTopWidget);//Our custom icon view
 	dirOperator = new KDirOperator(saveUrl, this); //FIXME
 	dirOperator->setInlinePreviewShown(true);
@@ -84,60 +126,29 @@ Kamoso::Kamoso(QWidget* parent)
 	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
 	
-	//Button which trhow the startCountDown action (take photo)
-	QPushButton *takePictureBtn = new QPushButton(innerTopWidget);
-	takePictureBtn->setText(i18n("Take a Picture"));
-	takePictureBtn->setIcon(KIcon("webcamreceive"));
-	connect(takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
-
-	//Configuration button (Show the configuration dialog)
-	QPushButton *configBtn = new QPushButton(innerTopWidget);
-	configBtn->setText(i18n("Configure"));
-	connect(configBtn,SIGNAL(clicked(bool)),SLOT(configuration()));
-	
-	//Layout that align the buttons
-	QHBoxLayout *buttonsLayout = new QHBoxLayout;
-	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(takePictureBtn);
-	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(configBtn);
-	
-	webcam = new WebcamWidget(innerTopWidget);
-	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
-	QHBoxLayout *webcamLayout = new QHBoxLayout;
-	webcamLayout->addWidget(webcam);
-	
-	whiteWidgetManager = new WhiteWidgetManager(this);
-	countdown = new CountdownWidget(this);
-	below = new QStackedLayout;
-	
-	QWidget* viewContainer=new QWidget;
-	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(), viewContainer, 100);
+	//Third column
 	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), viewContainer, 100);
-	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
-	connect(scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
+	scrollRight->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 	connect(scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
 	connect(scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
-// 	scrollLeft->setEnabled(false);
 	
-	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-	scrollRight->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-	
-	QHBoxLayout* viewLayout=new QHBoxLayout(viewContainer);
-	viewLayout->setMargin(0);
-	viewLayout->setSpacing(0);
+	//Filling the view layout(third interface row)
 	viewLayout->addWidget(scrollLeft);
 	viewLayout->addWidget(customIconView);
 	viewLayout->addWidget(scrollRight);
 	
-	below->addWidget(viewContainer);
-	below->addWidget(countdown);
+	whiteWidgetManager = new WhiteWidgetManager(this);
+	countdown = new CountdownWidget(this);
+	
+	stackedBelowLayout->addWidget(viewContainer);
+	stackedBelowLayout->addWidget(countdown);
 	
 	layoutTop->addLayout(webcamLayout);
 	layoutTop->addLayout(buttonsLayout);
-	layoutTop->addLayout(below);
+	layoutTop->addLayout(stackedBelowLayout);
 	
 	this->setCentralWidget(innerTopWidget);
+	
 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
@@ -208,12 +219,12 @@ Kamoso::~Kamoso()
 void Kamoso::startCountdown()
 {
 	countdown->start();
-	below->setCurrentIndex(1);
+	stackedBelowLayout->setCurrentIndex(1);
 }
 
 void Kamoso::takePhoto()
 {
-	below->setCurrentIndex(0);
+	stackedBelowLayout->setCurrentIndex(0);
 	brightBack = Solid::Control::PowerManager::brightness();
 	Solid::Control::PowerManager::setBrightness(100);
 	whiteWidgetManager->showAll();
