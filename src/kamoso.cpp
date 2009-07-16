@@ -50,6 +50,7 @@
 #include "settings.h"
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
+#include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
 
 const int max_exponential_value = 50;
@@ -65,54 +66,24 @@ Kamoso::Kamoso(QWidget* parent)
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 
-//Interface of kamoso, from Top to Bottom
-//Layouts are filled when all his childs are created
-	QWidget *innerTopWidget = new QWidget(this);//General widget
-	QVBoxLayout *layoutTop = new QVBoxLayout(innerTopWidget);//General layuout
+	Ui::mainWidget *mainWidgetUi = new Ui::mainWidget;
+		QWidget *mainWidget = new QWidget();
+	mainWidgetUi->setupUi(mainWidget);
 	
-//First row of the interface
-	QHBoxLayout *webcamLayout = new QHBoxLayout;//First Horiz layout, webcam mainly
-	webcam = new WebcamWidget(innerTopWidget);//Who paint the webcam stuff
-	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
-	//Adding webcam to webcamLayout
-	webcamLayout->addWidget(webcam);
+	//Setting webcam in the first row, central spot
+	webcam = new WebcamWidget(mainWidgetUi->centralSpot);
 	
-//Second row of the interface
-	//Layout that align the buttons (2 row of the app)
-	QHBoxLayout *buttonsLayout = new QHBoxLayout;
+	// 	//Button which trhow the startCountDown action (take photo)
+	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
+ 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 	
-	//Button which trhow the startCountDown action (take photo)
-	QPushButton *takePictureBtn = new QPushButton(innerTopWidget);
-	takePictureBtn->setText(i18n("Take a Picture"));
-	takePictureBtn->setIcon(KIcon("webcamreceive"));
-	connect(takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
-
-	//Configuration button (Show the configuration dialog)
-	QPushButton *configBtn = new QPushButton(innerTopWidget);
-	configBtn->setText(i18n("Configure"));
-	connect(configBtn,SIGNAL(clicked(bool)),SLOT(configuration()));
-	
-	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(takePictureBtn);
-	buttonsLayout->addStretch();
-	buttonsLayout->addWidget(configBtn);
-
-//Third row of the interface
-	stackedBelowLayout = new QStackedLayout;
-	QWidget* viewContainer=new QWidget;
-	QHBoxLayout* viewLayout=new QHBoxLayout(viewContainer);
-	viewLayout->setMargin(0);
-	viewLayout->setSpacing(0);
-	
-	//First column
-	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(), viewContainer, 100);
+	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
 	connect(scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
-		
-	//Second column
+	
 	//Dir operator will show the previews
-	customIconView = new ThumbnailView(innerTopWidget);//Our custom icon view
+	customIconView = new ThumbnailView(mainWidget);//Our custom icon view
 	dirOperator = new KDirOperator(saveUrl, this); //FIXME
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
@@ -127,32 +98,32 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
 	
 	//Third column
-	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), viewContainer, 100);
+	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), mainWidget, 100);
 	scrollRight->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 	connect(scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
 	connect(scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
 	
-	//Filling the view layout(third interface row)
-	viewLayout->addWidget(scrollLeft);
-	viewLayout->addWidget(customIconView);
-	viewLayout->addWidget(scrollRight);
-	
+	mainWidgetUi->thirdRow->addWidget(scrollLeft);
+	mainWidgetUi->thirdRow->addWidget(customIconView);
+	mainWidgetUi->thirdRow->addWidget(scrollRight);
+	this->setCentralWidget(mainWidget);
+
 	whiteWidgetManager = new WhiteWidgetManager(this);
-	countdown = new CountdownWidget(this);
+// 	countdown = new CountdownWidget(this);
 	
-	stackedBelowLayout->addWidget(viewContainer);
-	stackedBelowLayout->addWidget(countdown);
+// 	stackedBelowLayout->addWidget(viewContainer);
+// 	stackedBelowLayout->addWidget(countdown);
 	
-	layoutTop->addLayout(webcamLayout);
-	layoutTop->addLayout(buttonsLayout);
-	layoutTop->addLayout(stackedBelowLayout);
+// 	layoutTop->addLayout(webcamLayout);
+// 	layoutTop->addLayout(buttonsLayout);
+// 	layoutTop->addLayout(stackedBelowLayout);
 	
-	this->setCentralWidget(innerTopWidget);
+// 	this->setCentralWidget(innerTopWidget);
 	
-	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
-	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
-	player = Phonon::createPlayer(Phonon::NotificationCategory);
-	player->setCurrentSource(soundFile);
+// 	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
+// 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
+// 	player = Phonon::createPlayer(Phonon::NotificationCategory);
+// 	player->setCurrentSource(soundFile);
 	
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;

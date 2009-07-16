@@ -18,6 +18,7 @@ set(kamoso_SRCS
 	timedpushbutton.cpp
 )
 kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)
+kde4_add_ui_files(kamoso_SRCS mainWidget.ui)
 kde4_add_ui_files(kamoso_SRCS generalConfig.ui)
 kde4_add_ui_files(kamoso_SRCS pictureConfig.ui)
 kde4_add_executable(kamoso ${kamoso_SRCS})
