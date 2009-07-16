@@ -81,6 +81,7 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
+	
 //Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
@@ -174,12 +175,20 @@ void Kamoso::configuration()
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"photoSettings");
  	dialog->show();
 }
+
+/**
+*This is called automatically by KCM when the configuration is updated
+*/
 void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
 	dirOperator->setUrl(Settings::saveUrl(),false);
 }
+
+/**
+*Destructor of Kamoso, save configuratoin and delete some stuff
+*/
 Kamoso::~Kamoso()
 {
 	delete whiteWidgetManager;
@@ -189,6 +198,9 @@ Kamoso::~Kamoso()
 	Settings::self()->writeConfig();
 }
 
+/**
+*When Take Picture button is pushed, this slot is called
+*/
 void Kamoso::startCountdown()
 {
 	countdown->start();
@@ -199,6 +211,9 @@ void Kamoso::startCountdown()
 	countdown->show();
 }
 
+/**
+*This Method is called when the countDown is over
+*/
 void Kamoso::takePhoto()
 {
 // 	stackedBelowLayout->setCurrentIndex(0);
