@@ -201,6 +201,7 @@ Kamoso::~Kamoso()
 /**
 *When Take Picture button is pushed, this slot is called
 */
+//TODO: Abstraction of what is called on pushBtn?
 void Kamoso::startCountdown()
 {
 	countdown->start();
@@ -233,12 +234,17 @@ void Kamoso::takePhoto()
 	webcam->takePhoto(photoPlace);
 	player->play();
 }
-
+/**
+*This method is called when the picture has been taken
+*/
 void Kamoso::photoTaken(const KUrl& url)
 {
 	dirOperator->setCurrentItem(url.path());
 }
 
+/**
+*This is called after sempahore has end
+*/
 void Kamoso::restore()
 {
 	whiteWidgetManager->hideAll();
