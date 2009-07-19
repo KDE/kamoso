@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Kamoso
+GenericName=Picture retriever
+Comment=Take any picture with your web cam
+Exec=kamoso
+MimeType=application/x-kamoso;
+Icon=kamoso
+Type=Application
+Terminal=false
+Categories=Qt;KDE;Graphics;
