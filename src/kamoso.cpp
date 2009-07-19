@@ -164,7 +164,7 @@ void Kamoso::configuration()
 	QWidget *widgetPage = new QWidget();
 	page->setupUi(widgetPage);
 	page->kcfg_saveUrl->setMode(KFile::Directory);
-	Q_EMIT(Settings::saveUrl);
+	Q_EMIT(Settings::saveUrl());
 	dialog->addPage(widgetPage,i18n("General"),"ceneral");
 	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
