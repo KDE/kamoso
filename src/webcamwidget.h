@@ -21,6 +21,8 @@
 #define WEBCAMWIDGET_H
 #include <QLabel>
 
+namespace KIO { class Job; }
+
 class KUrl;
 class WebcamRetriever;
 
@@ -36,6 +38,7 @@ class WebcamWidget : public QLabel
 	public slots:
 		void slotUpdateImage();
 		bool takePhoto(const KUrl& destination);
+		void emitKIOPhotoTaken(KIO::Job*, const KUrl&, const KUrl&, time_t, bool, bool);
 	
 	signals:
 		void photoTaken(const KUrl& dest);

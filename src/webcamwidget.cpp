@@ -22,6 +22,11 @@
 #include <QTimer>
 #include <KIcon>
 #include <KUrl>
+#include <KStandardDirs>
+#include <KApplication>
+#include <KTemporaryFile>
+#include <QDebug>
+#include <kio/copyjob.h>
 #include "webcamretriever.h"
 
 WebcamWidget::WebcamWidget(QWidget* parent) : QLabel(parent)
@@ -45,14 +50,27 @@ bool WebcamWidget::takePhoto(const KUrl& dest)
 {
 	if(!mRetriever->isAvailable())
 		return false;
-	Q_ASSERT(dest.isLocalFile()); //FIXME: Let it save using KIO when not local
+	
+	QString path;
+	if(dest.isLocalFile())
+		path=dest.toLocalFile();
+	else
+		path=KStandardDirs::locateLocal("appdata", "last.png");
 	
 	mRetriever->lock().lockForRead();
-	bool ret = mRetriever->image().save(dest.toLocalFile());
+	bool ret = mRetriever->image().save(path);
 	mRetriever->lock().unlock();
 	
-	if(ret)
-		emit photoTaken(dest);
+	if(ret) {
+		if(dest.isLocalFile())
+			emit photoTaken(dest);
+		else {
+			KIO::CopyJob* job=KIO::move(KUrl(path), dest);
+			connect(job, SIGNAL(copyingDone(KIO::Job*,KUrl,KUrl,time_t,bool,bool)),
+					this, SLOT(emitKIOPhotoTaken(KIO::Job*,KUrl,KUrl,time_t,bool,bool)));
+			job->start();
+		}
+	}
 	
 	return ret;
 }
@@ -68,4 +86,10 @@ void WebcamWidget::slotUpdateImage()
 QSize WebcamWidget::sizeHint() const
 {
 	return mRetriever->imageSize();
+}
+
+void WebcamWidget::emitKIOPhotoTaken(KIO::Job* job, const KUrl& from, const KUrl & to, time_t t, bool , bool )
+{
+	qDebug() << "xxxxxx2";
+	emit photoTaken(to);
 }
