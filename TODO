@@ -1,2 +1,22 @@
-- Reconsider WhiteWidget name
-- Try to remove all hardcoded values (or almost all)
+Kamoso 1.0:
+	-Update AVDEvice:
+		-Hacer nuestro fork instalable (modificar nombre)
+
+	-Controlar el video:
+		-Controlar el input
+			-Controlar FPS
+			-Configurar video (brillo, contraste etc). (auto mejor que mejor)
+			-Seleccionar el source
+		-Controlar el output
+			-Quitar memory leaks
+			-limpiar código
+	-Web 2.0:
+		-Subirla a una web de subir fotos.
+		-Videos a youtube
+
+	-General:
+		-Tunear interfaz
+			-Tuenar thumbnails view
+		-Usar KIO
+		-Full KDE
+
