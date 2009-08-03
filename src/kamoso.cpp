@@ -82,7 +82,7 @@ Kamoso::Kamoso(QWidget* parent)
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
 	
-//Third row stuff, [btn] <--view-> [btn]
+	//Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
 	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
@@ -251,8 +251,6 @@ void Kamoso::restore()
 	Solid::Control::PowerManager::setBrightness(brightBack);
 }
 
-
-//TODO: Should make it exponential
 void Kamoso::slotScrollLeft()
 {
 	int v=customIconView->horizontalScrollBar()->value();
@@ -282,6 +280,7 @@ void Kamoso::slotScrollFinish()
 {
 	m_exponentialValue = 0;
 }
+
 void Kamoso::openThumbnail(const QModelIndex& idx) 
 {
 	QString filename= idx.data(Qt::DisplayRole).toString();
