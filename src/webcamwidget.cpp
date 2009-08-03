@@ -66,6 +66,7 @@ bool WebcamWidget::takePhoto(const KUrl& dest)
 			emit photoTaken(dest);
 		else {
 			KIO::CopyJob* job=KIO::move(KUrl(path), dest);
+			job->setAutoDelete(true);
 			connect(job, SIGNAL(copyingDone(KIO::Job*,KUrl,KUrl,time_t,bool,bool)),
 					this, SLOT(emitKIOPhotoTaken(KIO::Job*,KUrl,KUrl,time_t,bool,bool)));
 			job->start();
@@ -90,6 +91,5 @@ QSize WebcamWidget::sizeHint() const
 
 void WebcamWidget::emitKIOPhotoTaken(KIO::Job* job, const KUrl& from, const KUrl & to, time_t t, bool , bool )
 {
-	qDebug() << "xxxxxx2";
 	emit photoTaken(to);
 }
