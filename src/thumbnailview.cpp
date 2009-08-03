@@ -49,8 +49,8 @@ void ThumbnailView::retrievePixmap(const KFileItem& file, const QModelIndex& idx
 
 void ThumbnailView::updatexClick(const QModelIndex & idx)
 {
-  Q_UNUSED(idx);
-  xClick= QCursor::pos().x(); 
+	Q_UNUSED(idx);
+	xClick= QCursor::pos().x(); 
 }
 
 void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
@@ -70,6 +70,6 @@ void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
 
 void ThumbnailView::mouseReleaseEvent ( QMouseEvent * event ) 
 {
-    Q_UNUSED(event);
-    this->setCursor(QCursor(Qt::ArrowCursor));
+	Q_UNUSED(event);
+	this->setCursor(QCursor(Qt::ArrowCursor));
 }
