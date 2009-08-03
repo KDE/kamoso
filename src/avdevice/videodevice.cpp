@@ -125,7 +125,7 @@ void VideoDevice::enumerateMenu (void)
 	memset (&querymenu, 0, sizeof (querymenu));
 	querymenu.id = queryctrl.id;
 
-	for (querymenu.index = queryctrl.minimum; querymenu.index <= queryctrl.maximum; querymenu.index++)
+	for (querymenu.index = queryctrl.minimum; querymenu.index <= (unsigned int) queryctrl.maximum; ++querymenu.index)
 	{
 		if (0 == xioctl (VIDIOC_QUERYMENU, &querymenu))
 		{
@@ -147,7 +147,11 @@ int VideoDevice::xioctl(int request, void *arg)
 {
 	int r;
 
+#ifdef HAVE_LIBV4L2
+	do r = v4l2_ioctl (descriptor, request, arg);
+#else
 	do r = ioctl (descriptor, request, arg);
+#endif
 	while (-1 == r && EINTR == errno);
 	return r;
 }
@@ -185,7 +189,11 @@ int VideoDevice::open()
 		kDebug() << "Device is already open";
 		return EXIT_SUCCESS;
 	}
+#ifdef HAVE_LIBV4L2
+	descriptor = ::v4l2_open (QFile::encodeName(full_filename), O_RDWR, 0);
+#else
 	descriptor = ::open (QFile::encodeName(full_filename), O_RDWR, 0);
+#endif
 	if(isOpen())
 	{
 		kDebug() << "File " << full_filename << " was opened successfuly";
@@ -772,7 +780,7 @@ pixel_format VideoDevice::setPixelFormat(pixel_format newformat)
 			}
 			else
 			{
-				if (fmt.fmt.pix.pixelformat == pixelFormatCode(newformat)) // Thih "if" (not what is contained within) is a fix for a bug in sn9c102 driver.
+				if (fmt.fmt.pix.pixelformat == (unsigned int) pixelFormatCode(newformat)) // Thih "if" (not what is contained within) is a fix for a bug in sn9c102 driver.
 				{
 					m_pixelformat = newformat;
 					ret = m_pixelformat;
@@ -988,7 +996,11 @@ int VideoDevice::getFrame()
 				if (m_currentbuffer.data.isEmpty())
 					return EXIT_FAILURE;
 
+#ifdef HAVE_LIBV4L2
+				bytesread = v4l2_read (descriptor, &m_currentbuffer.data[0], m_currentbuffer.data.size());
+#else
 				bytesread = read (descriptor, &m_currentbuffer.data[0], m_currentbuffer.data.size());
+#endif
 				if (-1 == bytesread) // must verify this point with ov511 driver.
 				{
 					kDebug() << "IO_METHOD_READ failed.";
@@ -1030,7 +1042,9 @@ int VideoDevice::getFrame()
 /*				if (v4l2buffer.index < m_streambuffers)
 					return EXIT_FAILURE;*/ //it was an assert()
 // kDebug() << "m_rawbuffers[" << v4l2buffer.index << "].start: " << (void *)m_rawbuffers[v4l2buffer.index].start << "   Size: " << m_currentbuffer.data.size();
-				if (m_currentbuffer.data.isEmpty() || v4l2buffer.index < 0 || m_rawbuffers.size() <= v4l2buffer.index)
+				if (m_currentbuffer.data.isEmpty() ||
+//					v4l2buffer.index < 0 ||  	// is always false: v4l2buffer.index is unsigned
+					(uint) m_rawbuffers.size() <= v4l2buffer.index)
 					return EXIT_FAILURE;
 
 				memcpy(&m_currentbuffer.data[0], m_rawbuffers[v4l2buffer.index].start, m_currentbuffer.data.size());
@@ -1058,7 +1072,7 @@ int VideoDevice::getFrame()
 								return errnoReturn ("VIDIOC_DQBUF");
 						}
 					}
-					if (m_rawbuffers.size() < m_streambuffers)
+					if ((unsigned int) m_rawbuffers.size() < m_streambuffers)
 						return EXIT_FAILURE;
 					
 					for (i = 0; i < m_streambuffers; ++i)
@@ -1355,7 +1369,7 @@ int VideoDevice::getImage(QImage *qimage)
 		int Rrange=255, Grange=255, Brange=255, Arange=255, globarange=255;
 
 // Finds minimum and maximum intensity for each color component
-		for(unsigned int loop=0;loop < qimage->numBytes();loop+=4)
+		for(unsigned int loop=0;loop < (unsigned int) qimage->numBytes();loop+=4)
 		{
 			R+=bits[loop];
 			G+=bits[loop+1];
@@ -1394,7 +1408,7 @@ int VideoDevice::getImage(QImage *qimage)
 			" Rmin: " << Rmin << " Gmin: " << Gmin << " Bmin: " << Bmin << " Amin: " << Amin << " globalmin: " << globalmin <<
 			" Rmax: " << Rmax << " Gmax: " << Gmax << " Bmax: " << Bmax << " Amax: " << Amax << " globalmax: " << globalmax ;
 
-		for(unsigned int loop=0;loop < qimage->numBytes();loop+=4)
+		for(unsigned int loop=0;loop < (unsigned int) qimage->numBytes();loop+=4)
 		{
 			bits[loop]   = (bits[loop]   - Rmin) * 255 / (Rrange);
 			bits[loop+1] = (bits[loop+1] - Gmin) * 255 / (Grange);
@@ -1434,7 +1448,11 @@ int VideoDevice::stopCapturing()
 						unsigned int loop;
 						for (loop = 0; loop < m_streambuffers; ++loop)
 						{
+#ifdef HAVE_LIBV4L2
+							if (v4l2_munmap(m_rawbuffers[loop].start,m_rawbuffers[loop].length) != 0)
+#else
 							if (munmap(m_rawbuffers[loop].start,m_rawbuffers[loop].length) != 0)
+#endif
 							{
 								kDebug() << "unable to munmap.";
 							}
@@ -1462,7 +1480,11 @@ int VideoDevice::close()
 	{
 		kDebug() << " Device is open. Trying to properly shutdown the device.";
 		stopCapturing();
+#ifdef HAVE_LIBV4L2
+		int ret = ::v4l2_close(descriptor);
+#else
 		int ret = ::close(descriptor);
+#endif
 		kDebug() << "::close() returns " << ret;
 	}
 	descriptor = -1;
@@ -1512,6 +1534,7 @@ float VideoDevice::setBrightness(float brightness)
 					CLEAR (control);
 					control.id = V4L2_CID_BRIGHTNESS;
 					control.value = (__s32)((queryctrl.maximum - queryctrl.minimum)*getBrightness());
+					control.value += queryctrl.minimum;
 
 					if (-1 == xioctl (VIDIOC_S_CTRL, &control))
 					{
@@ -1582,6 +1605,7 @@ float VideoDevice::setContrast(float contrast)
 					CLEAR (control);
 					control.id = V4L2_CID_CONTRAST;
 					control.value = (__s32)((queryctrl.maximum - queryctrl.minimum)*getContrast());
+					control.value += queryctrl.minimum;
 
 					if (-1 == xioctl (VIDIOC_S_CTRL, &control))
 					{
@@ -1652,6 +1676,7 @@ float VideoDevice::setSaturation(float saturation)
 					CLEAR (control);
 					control.id = V4L2_CID_SATURATION;
 					control.value = (__s32)((queryctrl.maximum - queryctrl.minimum)*getSaturation());
+					control.value += queryctrl.minimum;
 
 					if (-1 == xioctl (VIDIOC_S_CTRL, &control))
 					{
@@ -1722,6 +1747,7 @@ float VideoDevice::setWhiteness(float whiteness)
 					CLEAR (control);
 					control.id = V4L2_CID_WHITENESS;
 					control.value = (__s32)((queryctrl.maximum - queryctrl.minimum)*getWhiteness());
+					control.value += queryctrl.minimum;
 
 					if (-1 == xioctl (VIDIOC_S_CTRL, &control))
 					{
@@ -1792,6 +1818,7 @@ float VideoDevice::setHue(float hue)
 					CLEAR (control);
 					control.id = V4L2_CID_HUE;
 					control.value = (__s32)((queryctrl.maximum - queryctrl.minimum)*getHue());
+					control.value += queryctrl.minimum;
 
 					if (-1 == xioctl (VIDIOC_S_CTRL, &control))
 					{
@@ -2749,7 +2776,11 @@ int VideoDevice::initMmap()
 				return errnoReturn ("VIDIOC_QUERYBUF");
 
 			m_rawbuffers[m_streambuffers].length = v4l2buffer.length;
+#ifdef HAVE_LIBV4L2
+			m_rawbuffers[m_streambuffers].start = (uchar *) v4l2_mmap (NULL /* start anywhere */, v4l2buffer.length, PROT_READ | PROT_WRITE /* required */, MAP_SHARED /* recommended */, descriptor, v4l2buffer.m.offset);
+#else
 			m_rawbuffers[m_streambuffers].start = (uchar *) mmap (NULL /* start anywhere */, v4l2buffer.length, PROT_READ | PROT_WRITE /* required */, MAP_SHARED /* recommended */, descriptor, v4l2buffer.m.offset);
+#endif
 
 			if (MAP_FAILED == m_rawbuffers[m_streambuffers].start)
 			return errnoReturn ("mmap");

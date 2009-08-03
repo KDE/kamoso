@@ -1,12 +1,13 @@
 Kamoso 1.0:
-	-Update AVDEvice:
-		-Hacer nuestro fork instalable (modificar nombre)
+	[OK]-Update AVDEvice:
+		[OK]-Hacer nuestro fork instalable (modificar nombre)
 
 	-Controlar el video:
 		-Controlar el input
 			-Controlar FPS
 			-Configurar video (brillo, contraste etc). (auto mejor que mejor)
 			-Seleccionar el source
+			-Controlar las resoluciones
 		-Controlar el output
 			-Quitar memory leaks
 			-limpiar código

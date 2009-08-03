@@ -22,7 +22,7 @@ kde4_add_ui_files(kamoso_SRCS mainWidget.ui)
 kde4_add_ui_files(kamoso_SRCS generalConfig.ui)
 kde4_add_ui_files(kamoso_SRCS pictureConfig.ui)
 kde4_add_executable(kamoso ${kamoso_SRCS})
-target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} solidcontrol kopete_videodevice)
+target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} solidcontrol kamoso_videodevice)
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )

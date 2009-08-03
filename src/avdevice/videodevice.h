@@ -20,6 +20,8 @@
 #ifndef KOPETE_AVVIDEODEVICELISTITEM_H
 #define KOPETE_AVVIDEODEVICELISTITEM_H
 
+// #include <config-kopete.h>
+
 #include <sys/time.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
@@ -53,6 +55,10 @@
 #define VIDEO_MODE_PAL_N   5
 #define VIDEO_MODE_NTSC_JP 6
 #define __STRICT_ANSI__
+
+#ifdef HAVE_LIBV4L2
+#include <libv4l2.h>
+#endif // HAVE_V4L2
 
 #endif // __linux__
 
