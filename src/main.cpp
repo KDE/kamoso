@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 	about.addAuthor( ki18n("Aleix Pol Gonzalez"), KLocalizedString(), "aleixpol@gmail.com" );
 	about.addAuthor( ki18n("Alex Fiestas"), KLocalizedString(), "alex@eyeos.org" );
 	KCmdLineArgs::init(argc, argv, &about);
+	QApplication::setGraphicsSystem("raster");
 	KApplication app;
 	
 	Kamoso* kamosoMain = new Kamoso;
