@@ -26,6 +26,7 @@
 
 class WhiteWidgetManager;
 class WebcamWidget;
+class WebcamRetriever;
 class CountdownWidget;
 class KDirOperator;
 class QStackedLayout;
@@ -43,6 +44,7 @@ class Kamoso : public KMainWindow
 		Kamoso ( QWidget *parent=0 );
 		void checkInitConfig();
 		~Kamoso();
+		WebcamRetriever *videoRetriever;
 
 	private:
 		KUrl saveUrl;

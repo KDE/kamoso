@@ -25,11 +25,12 @@ const int refresh=10;
 
 WebcamRetriever::WebcamRetriever(QObject* parent)
 	: QThread(parent), mInitialized(false), mDone(false), mImageSize(640, 480)
-{}
+{
+	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
+}
 
 void WebcamRetriever::run()
 {
-	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
 	mVideoDevicePool->open();
 	mVideoDevicePool->setSize(mImageSize.width(), mImageSize.height());
 	if(!mVideoDevicePool->hasDevices())

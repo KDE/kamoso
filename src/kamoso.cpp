@@ -52,6 +52,8 @@
 #include "ui_pictureConfig.h"
 #include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
+#include "webcamretriever.h";
+#include "avdevice/videodevicepool.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -60,7 +62,7 @@ Kamoso::Kamoso(QWidget* parent)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
-	
+	videoRetriever = new WebcamRetriever();
 //Small debuggin to know the settings
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
@@ -70,6 +72,9 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidget = new QWidget();
 	mainWidgetUi->setupUi(mainWidget);
 	
+	videoRetriever->mVideoDevicePool->scanDevices();
+	videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
+
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	webcam = new WebcamWidget(mainWidgetUi->centralSpot);
