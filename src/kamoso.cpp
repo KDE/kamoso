@@ -222,10 +222,12 @@ void Kamoso::takePhoto()
 	scrollRight->show();
 	customIconView->show();
 	countdown->hide();
-	
-	brightBack = Solid::Control::PowerManager::brightness();
-	Solid::Control::PowerManager::setBrightness(100);
-	whiteWidgetManager->showAll();
+	qDebug () << "Flash state: " << mainWidgetUi->checkFlash->checkState();
+	if(mainWidgetUi->checkFlash->checkState() == 2){
+		brightBack = Solid::Control::PowerManager::brightness();
+		Solid::Control::PowerManager::setBrightness(100);
+		whiteWidgetManager->showAll();
+	}
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
 	KUrl photoPlace = saveUrl;
