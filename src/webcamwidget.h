@@ -30,11 +30,11 @@ class WebcamWidget : public QLabel
 {
 	Q_OBJECT
 	public:
-		WebcamWidget ( QWidget *parent=0 );
+		WebcamWidget ( QWidget *parent=0,WebcamRetriever *videoRetriever=NULL );
 		~WebcamWidget();
 		
 		QSize sizeHint() const;
-	
+		void setRetriever(WebcamRetriever *videoRetriever);
 	public slots:
 		void slotUpdateImage();
 		bool takePhoto(const KUrl& destination);

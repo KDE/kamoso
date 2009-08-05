@@ -45,7 +45,7 @@ class Kamoso : public KMainWindow
 		void checkInitConfig();
 		~Kamoso();
 		WebcamRetriever *videoRetriever;
-
+		int m_webcamId;
 	private:
 		KUrl saveUrl;
 		float brightBack;
@@ -67,13 +67,14 @@ class Kamoso : public KMainWindow
 		void startCountdown();
 		void configuration();
 		void generalUpdated();
-		
+		void webcamChanged(const int webcamId);
 	private slots:
 		void restore();
 		void photoTaken(const KUrl& url);
 		void slotScrollLeft();
 		void slotScrollRight();
 		void slotScrollFinish();
+		void retrieverFinished();
 		void openThumbnail(const QModelIndex& idx);
 };
 

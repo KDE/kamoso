@@ -52,7 +52,7 @@
 #include "ui_pictureConfig.h"
 #include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
-#include "webcamretriever.h";
+#include "webcamretriever.h"
 #include "avdevice/videodevicepool.h"
 
 const int max_exponential_value = 50;
@@ -62,7 +62,7 @@ Kamoso::Kamoso(QWidget* parent)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
-	videoRetriever = new WebcamRetriever();
+	videoRetriever = new WebcamRetriever(NULL,NULL);
 //Small debuggin to know the settings
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
@@ -74,10 +74,14 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	videoRetriever->mVideoDevicePool->scanDevices();
 	videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-
+	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
+	videoRetriever->start();
+	
+	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+	
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-	webcam = new WebcamWidget(mainWidgetUi->centralSpot);
+	webcam = new WebcamWidget(mainWidgetUi->centralSpot,videoRetriever);
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
@@ -131,6 +135,23 @@ Kamoso::Kamoso(QWidget* parent)
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
+}
+
+void Kamoso::retrieverFinished()
+{
+	qDebug() << "New Thread!";
+	delete videoRetriever;
+	videoRetriever = new WebcamRetriever(NULL,m_webcamId);
+	videoRetriever->start();
+	webcam->setRetriever(videoRetriever);
+}
+
+void Kamoso::webcamChanged(const int webcamId)
+{
+	m_webcamId = webcamId;
+	qDebug() << "webcamChanged";
+	connect(videoRetriever,SIGNAL(finished()),SLOT(retrieverFinished()));
+	videoRetriever->markDone();
 }
 
 void Kamoso::checkInitConfig()

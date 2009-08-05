@@ -31,7 +31,7 @@ class WebcamRetriever : public QThread
 {
 	Q_OBJECT
 	public:
-		WebcamRetriever(QObject* parent=0);
+		WebcamRetriever(QObject* parent=0, int webcamId=NULL);
 		
 		virtual void run();
 		bool isAvailable() const;
@@ -47,6 +47,7 @@ class WebcamRetriever : public QThread
 		void initialized();
 	
 	private:
+		int m_webcamId;
 		bool mInitialized;
 		bool mDone;
 		QImage mImage;

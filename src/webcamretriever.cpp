@@ -23,15 +23,16 @@
 
 const int refresh=10;
 
-WebcamRetriever::WebcamRetriever(QObject* parent)
+WebcamRetriever::WebcamRetriever(QObject* parent, int webcamId)
 	: QThread(parent), mInitialized(false), mDone(false), mImageSize(640, 480)
 {
 	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
+	m_webcamId = webcamId;
 }
 
 void WebcamRetriever::run()
 {
-	mVideoDevicePool->open();
+	mVideoDevicePool->open(m_webcamId);
 	mVideoDevicePool->setSize(mImageSize.width(), mImageSize.height());
 	if(!mVideoDevicePool->hasDevices())
 	return;
@@ -49,6 +50,7 @@ void WebcamRetriever::run()
 		emit imageReady();
 		msleep(refresh);
 	}
+	mVideoDevicePool->close();
 }
 
 bool WebcamRetriever::isAvailable() const

@@ -29,21 +29,25 @@
 #include <kio/copyjob.h>
 #include "webcamretriever.h"
 
-WebcamWidget::WebcamWidget(QWidget* parent) : QLabel(parent)
+WebcamWidget::WebcamWidget(QWidget* parent,WebcamRetriever *videoRetriever) : QLabel(parent)
 {
-	this->setMinimumSize(200,200);
-	setScaledContents(false);
-	setAlignment(Qt::AlignCenter);
-	setPixmap(KIcon("camera-web").pixmap(128,128));
-	mRetriever = new WebcamRetriever;
-	mRetriever->start();
-	connect(mRetriever, SIGNAL(imageReady()), SLOT(slotUpdateImage()));
+	setRetriever(videoRetriever);
 	qDebug("%d", mRetriever->isAvailable());
 }
 
 WebcamWidget::~WebcamWidget()
 {
 	mRetriever->markDone();
+}
+
+void WebcamWidget::setRetriever(WebcamRetriever *videoRetriever)
+{
+	this->setMinimumSize(200,200);
+	setScaledContents(false);
+	setAlignment(Qt::AlignCenter);
+	setPixmap(KIcon("camera-web").pixmap(128,128));
+	mRetriever = videoRetriever;
+	connect(mRetriever, SIGNAL(imageReady()), SLOT(slotUpdateImage()));
 }
 
 bool WebcamWidget::takePhoto(const KUrl& dest)
