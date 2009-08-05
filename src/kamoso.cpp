@@ -80,8 +80,6 @@ Kamoso::Kamoso(QWidget* parent)
 	checkWebcams();
 	videoRetriever->start();
 	
-	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
-	
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	webcam = new WebcamWidget(mainWidgetUi->centralSpot,videoRetriever);
@@ -153,6 +151,7 @@ void Kamoso::webcamRemoved(const QString & udi )
 void Kamoso::checkWebcams()
 {
 	//If the user only have one webcam, hide the chooser
+	videoRetriever->mLock.lockForWrite();
 	if(videoRetriever->mVideoDevicePool->size() < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
@@ -161,8 +160,10 @@ void Kamoso::checkWebcams()
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
+		connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 	}
 	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
+	videoRetriever->mLock.unlock();
 }
 
 void Kamoso::retrieverFinished()
