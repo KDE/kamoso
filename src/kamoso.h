@@ -62,6 +62,7 @@ class Kamoso : public KMainWindow
 		QWidget *mainWidget;
 		int m_exponentialValue;
 		void checkWebcams();
+		void checkWebcams2();
 //Only slots
 	public slots:
 		void takePhoto();

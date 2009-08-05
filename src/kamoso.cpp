@@ -145,13 +145,34 @@ void Kamoso::webcamAdded(const QString & udi )
 }
 void Kamoso::webcamRemoved(const QString & udi )
 {
-	
+	qDebug() << "A new webcam has been removed";
+	checkWebcams2();
+}
+
+void Kamoso::checkWebcams2()
+{
+	//If the user only have one webcam, hide the chooser
+	videoRetriever->mLock.lockForWrite();
+	qDebug () << "Num of webcams" << videoRetriever->mVideoDevicePool->size();
+	if((videoRetriever->mVideoDevicePool->size()-1) < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+	}else{
+		mainWidgetUi->chooseWebcamLbl->show();
+		mainWidgetUi->webcamCombo->show();
+		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
+// 		connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+	}
+	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
+	videoRetriever->mLock.unlock();
 }
 
 void Kamoso::checkWebcams()
 {
 	//If the user only have one webcam, hide the chooser
 	videoRetriever->mLock.lockForWrite();
+	qDebug () << "Num of webcams" << videoRetriever->mVideoDevicePool->size();
 	if(videoRetriever->mVideoDevicePool->size() < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
@@ -160,7 +181,7 @@ void Kamoso::checkWebcams()
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-		connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+// 		connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 	}
 	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
 	videoRetriever->mLock.unlock();
