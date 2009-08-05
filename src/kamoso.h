@@ -61,6 +61,7 @@ class Kamoso : public KMainWindow
 		Ui::mainWidget *mainWidgetUi;
 		QWidget *mainWidget;
 		int m_exponentialValue;
+		void checkWebcams();
 //Only slots
 	public slots:
 		void takePhoto();
@@ -68,6 +69,8 @@ class Kamoso : public KMainWindow
 		void configuration();
 		void generalUpdated();
 		void webcamChanged(const int webcamId);
+		void webcamAdded(const QString & udi );
+		void webcamRemoved(const QString & udi );
 	private slots:
 		void restore();
 		void photoTaken(const KUrl& url);

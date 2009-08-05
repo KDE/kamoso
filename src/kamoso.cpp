@@ -63,6 +63,10 @@ Kamoso::Kamoso(QWidget* parent)
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
 	videoRetriever = new WebcamRetriever(NULL,NULL);
+	videoRetriever->mVideoDevicePool->scanDevices();
+	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded(const QString&)));
+	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved(const QString&)));
+
 //Small debuggin to know the settings
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
@@ -72,16 +76,8 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidget = new QWidget();
 	mainWidgetUi->setupUi(mainWidget);
 	
-	videoRetriever->mVideoDevicePool->scanDevices();
-	//If the user only have one webcam, hide the chooser
-	if(videoRetriever->mVideoDevicePool->size() < 2){
-		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
-		mainWidgetUi->chooseWebcamLbl->hide();
-		mainWidgetUi->webcamCombo->hide();
-		
-	}
-	videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
+	//We've to investigate if is better call start before do the UI stuff
+	checkWebcams();
 	videoRetriever->start();
 	
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
@@ -142,6 +138,31 @@ Kamoso::Kamoso(QWidget* parent)
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
+}
+
+void Kamoso::webcamAdded(const QString & udi )
+{
+	qDebug() << "A new webcam has been added";
+	checkWebcams();
+}
+void Kamoso::webcamRemoved(const QString & udi )
+{
+	
+}
+
+void Kamoso::checkWebcams()
+{
+	//If the user only have one webcam, hide the chooser
+	if(videoRetriever->mVideoDevicePool->size() < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+	}else{
+		mainWidgetUi->chooseWebcamLbl->show();
+		mainWidgetUi->webcamCombo->show();
+		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
+	}
+	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
 }
 
 void Kamoso::retrieverFinished()
