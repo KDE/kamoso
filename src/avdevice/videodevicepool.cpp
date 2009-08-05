@@ -136,6 +136,16 @@ bool VideoDevicePool::isOpen()
 	return m_videodevice[currentDevice()].isOpen();
 }
 
+bool VideoDevicePool::checkDevice()
+{
+	if(m_videodevice[currentDevice()].isOpen() == true && m_videodevice[currentDevice()].numOfErrors < 5){
+		return true;
+	}else{
+		deviceRemoved(m_videodevice[currentDevice()].udi());
+		return false;
+	}
+}
+
 /*!
     \fn VideoDevicePool::showDeviceCapabilities(int device)
  */

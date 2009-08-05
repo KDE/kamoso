@@ -64,8 +64,9 @@ Kamoso::Kamoso(QWidget* parent)
 	this->checkInitConfig();
 	videoRetriever = new WebcamRetriever(NULL,NULL);
 	videoRetriever->mVideoDevicePool->scanDevices();
-	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded(const QString&)));
-	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved(const QString&)));
+	connect(videoRetriever,SIGNAL(videoDeviceError()),SLOT(videoDeviceError()));
+	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
+	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
 
 //Small debuggin to know the settings
 	qDebug() << "Settings of camoso:";
@@ -148,7 +149,7 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 }
 
-void Kamoso::webcamAdded(const QString & udi )
+void Kamoso::webcamAdded()
 {
 	qDebug() << "A new webcam has been added";
 	videoRetriever->mLock.lockForWrite();
@@ -166,9 +167,12 @@ void Kamoso::webcamAdded(const QString & udi )
 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
 	}
 }
-void Kamoso::webcamRemoved(const QString & udi )
+void Kamoso::webcamRemoved()
 {
 	qDebug() << "A new webcam has been removed";
+	if(videoRetriever->isRunning() == false){
+		restartRetriever();
+	}
 	videoRetriever->mLock.lockForWrite();
 	qDebug () << "Num of webcams" << videoRetriever->mVideoDevicePool->size()-1;
 	qDebug () << "Current Device: " << videoRetriever->mVideoDevicePool->currentDevice();
@@ -193,6 +197,29 @@ void Kamoso::retrieverFinished()
 	webcam->setRetriever(videoRetriever);
 }
 
+void Kamoso::restartRetriever()
+{
+	qDebug() << "New Thread!2";
+	delete videoRetriever;
+	videoRetriever = new WebcamRetriever(NULL,NULL);
+	videoRetriever->start();
+	webcam->setRetriever(videoRetriever);
+}
+
+void Kamoso::videoDeviceError()
+{
+	qDebug() << "Video Device Error";
+	if(videoRetriever->isRunning())
+	{
+		qDebug() << "Thread is currently running. spoting it and restarting";
+		videoRetriever->markDone();
+		connect(videoRetriever, SIGNAL(finished()), SLOT(restartRetriever()));
+	}else{
+		qDebug() << "Thread is not longuer running, restarting it";
+		restartRetriever();
+	}
+}
+
 void Kamoso::webcamChanged(const int webcamId)
 {
 	videoRetriever->mLock.lockForWrite();
@@ -201,8 +228,8 @@ void Kamoso::webcamChanged(const int webcamId)
 		videoRetriever->mLock.unlock();
 		m_webcamId = webcamId;
 		qDebug() << "webcamChanged";
-		connect(videoRetriever,SIGNAL(finished()),SLOT(retrieverFinished()));
 		videoRetriever->markDone();
+		connect(videoRetriever, SIGNAL(finished()), SLOT(retrieverFinished()));
 	}else{
 		videoRetriever->mLock.unlock();
 	}

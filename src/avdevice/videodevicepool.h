@@ -58,6 +58,7 @@ public:
 	int open();
 	int open(int device);
 	bool isOpen();
+	bool checkDevice();
 	int getFrame();
 	int width();
 	int minWidth();

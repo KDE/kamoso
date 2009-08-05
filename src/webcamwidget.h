@@ -37,6 +37,7 @@ class WebcamWidget : public QLabel
 		void setRetriever(WebcamRetriever *videoRetriever);
 	public slots:
 		void slotUpdateImage();
+		void mRetreiverFinished();
 		bool takePhoto(const KUrl& destination);
 		void emitKIOPhotoTaken(KIO::Job*, const KUrl&, const KUrl&, time_t, bool, bool);
 	

@@ -44,10 +44,10 @@ void WebcamWidget::setRetriever(WebcamRetriever *videoRetriever)
 {
 	this->setMinimumSize(200,200);
 	setScaledContents(false);
-	setAlignment(Qt::AlignCenter);
-	setPixmap(KIcon("camera-web").pixmap(128,128));
 	mRetriever = videoRetriever;
 	connect(mRetriever, SIGNAL(imageReady()), SLOT(slotUpdateImage()));
+	connect(mRetriever, SIGNAL(finished()), SLOT(mRetreiverFinished()));
+	connect(mRetriever, SIGNAL(videoDeviceError()), SLOT(mRetreiverFinished()));
 }
 
 bool WebcamWidget::takePhoto(const KUrl& dest)
@@ -86,6 +86,13 @@ void WebcamWidget::slotUpdateImage()
 	mRetriever->lock().lockForRead();
 	setPixmap(QPixmap::fromImage(mRetriever->image()));
 	mRetriever->lock().unlock();
+}
+
+void WebcamWidget::mRetreiverFinished()
+{
+	qDebug() << "Restarting webcamWidget";
+	setAlignment(Qt::AlignCenter);
+	setPixmap(KIcon("camera-web").pixmap(128,128));
 }
 
 QSize WebcamWidget::sizeHint() const

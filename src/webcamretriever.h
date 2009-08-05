@@ -36,7 +36,7 @@ class WebcamRetriever : public QThread
 		virtual void run();
 		bool isAvailable() const;
 		void markDone() { mDone=true; }
-		
+		void markDoneFail() { emit videoDeviceError(); mDone=true; }
 		QReadWriteLock & lock() { return mLock; }
 		const QImage& image() const { return mImage; }
 		QSize imageSize() const { return mImageSize; }
@@ -46,7 +46,7 @@ class WebcamRetriever : public QThread
 	signals:
 		void imageReady();
 		void initialized();
-	
+		void videoDeviceError();
 	private:
 		int m_webcamId;
 		bool mInitialized;

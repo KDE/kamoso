@@ -39,14 +39,19 @@ void WebcamRetriever::run()
 	}
 	mVideoDevicePool->startCapturing();
 	mInitialized=true;
-	
+	int returnValue;
 	emit initialized();
 	for(;!mDone;) {
 		mLock.lockForWrite();
-		mVideoDevicePool->getFrame();
-		mVideoDevicePool->getImage(&mImage);
-		mLock.unlock();
-		emit imageReady();
+		if(mVideoDevicePool->checkDevice() == true){
+			mVideoDevicePool->getFrame();
+			mVideoDevicePool->getImage(&mImage);
+			mLock.unlock();
+			emit imageReady();
+		}else{
+			qDebug() << "Device is not ok";
+			markDoneFail();
+		}
 		msleep(refresh);
 	}
 	mVideoDevicePool->close();

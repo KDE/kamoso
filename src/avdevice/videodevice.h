@@ -292,6 +292,7 @@ public:
 	QString full_filename;
 	videodev_driver m_driver;
 	int descriptor;
+	int numOfErrors;
 
 //protected:
 #if defined(__linux__) && defined(ENABLE_AV)

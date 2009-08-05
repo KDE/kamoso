@@ -162,7 +162,11 @@ int VideoDevice::xioctl(int request, void *arg)
 int VideoDevice::errnoReturn(const char* s)
 {
     /// @todo implement me
+	numOfErrors++,
 	fprintf (stderr, "%s error %d, %s\n",s, errno, strerror (errno));
+	if(numOfErrors > 5){
+		close();
+	}
 	return EXIT_FAILURE;
 }
 
@@ -184,6 +188,7 @@ int VideoDevice::open()
     /// @todo implement me
 
 	kDebug() << "called";
+	numOfErrors = 0;
 	if(-1 != descriptor)
 	{
 		kDebug() << "Device is already open";

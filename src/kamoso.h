@@ -68,8 +68,9 @@ class Kamoso : public KMainWindow
 		void configuration();
 		void generalUpdated();
 		void webcamChanged(const int webcamId);
-		void webcamAdded(const QString & udi );
-		void webcamRemoved(const QString & udi );
+		void webcamAdded();
+		void webcamRemoved();
+		void videoDeviceError();
 	private slots:
 		void restore();
 		void photoTaken(const KUrl& url);
@@ -77,6 +78,7 @@ class Kamoso : public KMainWindow
 		void slotScrollRight();
 		void slotScrollFinish();
 		void retrieverFinished();
+		void restartRetriever();
 		void openThumbnail(const QModelIndex& idx);
 };
 
