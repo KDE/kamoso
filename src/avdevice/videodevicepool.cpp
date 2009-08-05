@@ -486,6 +486,7 @@ int VideoDevicePool::getImage(QImage *qimage)
 			case PIXELFORMAT_UYVY   : break;
 			case PIXELFORMAT_YUV420P: break;
 			case PIXELFORMAT_YUV422P: break;
+			default: break;
 		}
 	}
 	kDebug() << "VideoDevicePool::getImage() exited successfuly.";
