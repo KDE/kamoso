@@ -21,7 +21,7 @@
 #include "avdevice/videodevicepool.h"
 #include <QTimer>
 
-const int refresh=10;
+const int refresh=1;
 
 WebcamRetriever::WebcamRetriever(QObject* parent, int webcamId)
 	: QThread(parent), mInitialized(false), mDone(false), mImageSize(640, 480)

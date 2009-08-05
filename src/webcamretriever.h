@@ -42,6 +42,7 @@ class WebcamRetriever : public QThread
 		QSize imageSize() const { return mImageSize; }
 
 		Kopete::AV::VideoDevicePool *mVideoDevicePool;
+		QReadWriteLock mLock;
 	signals:
 		void imageReady();
 		void initialized();
@@ -52,8 +53,6 @@ class WebcamRetriever : public QThread
 		bool mDone;
 		QImage mImage;
 		QSize mImageSize;
-		
-		QReadWriteLock mLock;
 };
 
 #endif // WEBCAMRETRIEVER_H
