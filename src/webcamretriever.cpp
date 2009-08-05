@@ -34,8 +34,9 @@ void WebcamRetriever::run()
 {
 	mVideoDevicePool->open(m_webcamId);
 	mVideoDevicePool->setSize(mImageSize.width(), mImageSize.height());
-	if(!mVideoDevicePool->hasDevices())
-	return;
+	if(!mVideoDevicePool->hasDevices()){
+		return;
+	}
 	mVideoDevicePool->startCapturing();
 	mInitialized=true;
 	
@@ -45,8 +46,6 @@ void WebcamRetriever::run()
 		mVideoDevicePool->getFrame();
 		mVideoDevicePool->getImage(&mImage);
 		mLock.unlock();
-		
-// 		qDebug() << "pim";
 		emit imageReady();
 		msleep(refresh);
 	}
