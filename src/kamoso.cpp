@@ -73,6 +73,13 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->setupUi(mainWidget);
 	
 	videoRetriever->mVideoDevicePool->scanDevices();
+	//If the user only have one webcam, hide the chooser
+	if(videoRetriever->mVideoDevicePool->size() < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+		
+	}
 	videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
 	m_webcamId = videoRetriever->mVideoDevicePool->currentDevice();
 	videoRetriever->start();
