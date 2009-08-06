@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 Exec=blubb
-Comment=Compile a file
+Comment=Send your photos to facebook
 Name=Facebook
 GenericName=Facebook
 ServiceTypes=Kamoso/Plugin

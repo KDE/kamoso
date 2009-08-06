@@ -16,36 +16,20 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "facebook.h"
-#include <KPluginFactory>
-#include <KAboutData>
-#include <KMimeType>
-#include <KDebug>
-#include <QAction>
+#include "kamosoplugin.h"
+#include <KUrl>
 
-K_PLUGIN_FACTORY(KDevExecuteFactory, registerPlugin<FacebookPlugin>(); )
-K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender", ki18n("Facebook support"), "0.1", ki18n("Allows to communicate with Facebook"), KAboutData::License_GPL)))
-
-FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
-	: KamosoPlugin(parent, args)
-{}
-
-QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
+class FacebookPlugin : public KamosoPlugin
 {
-	KMimeType::Ptr mime = KMimeType::findByUrl(url);
-	QAction* act=0;
-	mSelectedUrls.clear();
-	if(mime->name().startsWith("image/")) {
-		act=new QAction(i18n("Upload to Facebook..."), 0);
-		connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
+	Q_OBJECT
+	Q_INTERFACES(KamosoPlugin)
+	public:
+		FacebookPlugin(QObject* parent, const QVariantList& args);
+		virtual QAction* thumbnailsAction(const KUrl& url);
 		
-		mSelectedUrls=url;
-	}
-	return act;
-}
-
-void FacebookPlugin::uploadImage(bool )
-{
-	Q_ASSERT(!mSelectedUrls.isEmpty());
-	kDebug() << "uploading..." << mSelectedUrls;
-}
+	public slots:
+		void uploadImage(bool);
+		
+	private:
+		KUrl mSelectedUrls;
+};

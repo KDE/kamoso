@@ -16,36 +16,30 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "facebook.h"
-#include <KPluginFactory>
-#include <KAboutData>
-#include <KMimeType>
-#include <KDebug>
-#include <QAction>
+#ifndef KAMOSOPLUGIN_H
+#define KAMOSOPLUGIN_H
 
-K_PLUGIN_FACTORY(KDevExecuteFactory, registerPlugin<FacebookPlugin>(); )
-K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender", ki18n("Facebook support"), "0.1", ki18n("Allows to communicate with Facebook"), KAboutData::License_GPL)))
+#include <QObject>
+#include <QVariantList>
 
-FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
-	: KamosoPlugin(parent, args)
-{}
+class QAction;
+class KUrl;
 
-QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
+class KamosoPlugin : public QObject
 {
-	KMimeType::Ptr mime = KMimeType::findByUrl(url);
-	QAction* act=0;
-	mSelectedUrls.clear();
-	if(mime->name().startsWith("image/")) {
-		act=new QAction(i18n("Upload to Facebook..."), 0);
-		connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
+	Q_OBJECT
+	public:
+		KamosoPlugin(QObject* parent, const QVariantList& args);
+		virtual ~KamosoPlugin();
 		
-		mSelectedUrls=url;
-	}
-	return act;
-}
+		/** Action that it will appear in the thumbnails view's menu.
+			@p url Describes the item we need it for.
+			
+			@returns the action to be added. If a null action es returned,
+			nothing will be added
+		*/
+		virtual QAction* thumbnailsAction(const KUrl& url)=0;
+};
+Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
 
-void FacebookPlugin::uploadImage(bool )
-{
-	Q_ASSERT(!mSelectedUrls.isEmpty());
-	kDebug() << "uploading..." << mSelectedUrls;
-}
+#endif // KAMOSOPLUGIN_H

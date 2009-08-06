@@ -21,12 +21,16 @@
 #define PLUGINMANAGER_H
 #include <KPluginInfo>
 
+class KamosoPlugin;
+
 class PluginManager
 {
 	public:
 		static PluginManager* self();
 		KPluginInfo::List plugins();
+		~PluginManager();
 		
+		KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
 	private:
 		PluginManager();
 		

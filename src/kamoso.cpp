@@ -28,6 +28,7 @@
 #include <QTimer>
 #include <QItemDelegate>
 #include <QScrollBar>
+#include <QMenu>
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
@@ -36,17 +37,17 @@
 #include <KFileItemDelegate>
 #include <KLocale>
 #include <Phonon/MediaObject>
-#include <kfilepreviewgenerator.h>
+#include <KFilePreviewGenerator>
 #include <solid/control/powermanager.h>
 #include <solid/powermanagement.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
+#include <KConfigDialog>
+#include <KDebug>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
 #include "timedpushbutton.h"
 #include "countdownwidget.h"
-#include <kdebug.h>
-#include <kconfigdialog.h>
 #include "settings.h"
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
@@ -56,6 +57,7 @@
 #include "avdevice/videodevicepool.h"
 #include <kpluginselector.h>
 #include "pluginmanager.h"
+#include "kamosoplugin.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -414,5 +416,11 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
-	
+	foreach(const KPluginInfo& info, PluginManager::self()->plugins()) {
+		KamosoPlugin* p=PluginManager::self()->loadPlugin(info, this);
+		QAction* action=p->thumbnailsAction(item.url());
+		if(action) {
+			menu->addAction(action);
+		}
+	}
 }

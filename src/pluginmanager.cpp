@@ -21,10 +21,12 @@
 #include <KPluginInfo>
 #include <KServiceTypeTrader>
 
+#include "kamosoplugin.h"
+#include <KMessageBox>
+
 struct PluginManager::Private
 {
 	static PluginManager* mInstance;
-	KPluginInfo::List m_plugins;
 };
 
 PluginManager* PluginManager::Private::mInstance=0;
@@ -37,12 +39,26 @@ PluginManager* PluginManager::self()
 
 PluginManager::PluginManager()
 	: d(new Private)
+{}
+
+PluginManager::~PluginManager()
 {
-	d->m_plugins=KPluginInfo::fromServices(
-		KServiceTypeTrader::self()->query("Kamoso/Plugin", QString()));
+	delete d;
 }
 
 KPluginInfo::List PluginManager::plugins()
 {
-	return d->m_plugins;
+	return KPluginInfo::fromServices(
+		KServiceTypeTrader::self()->query("Kamoso/Plugin", QString()));
+}
+
+KamosoPlugin* PluginManager::loadPlugin(const KPluginInfo& pluginInfo, QObject* parent)
+{
+	QString error;
+	KamosoPlugin* plugin=pluginInfo.service()->createInstance<KamosoPlugin>(parent, QVariantList(), &error);
+	
+	if(!plugin)
+		KMessageBox::error(0, error, i18n("Error while loading the plugin '%1'", pluginInfo.name()));
+	
+	return plugin;
 }
