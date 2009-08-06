@@ -36,6 +36,7 @@ PluginManager* PluginManager::self()
 }
 
 PluginManager::PluginManager()
+	: d(new Private)
 {
 	d->m_plugins=KPluginInfo::fromServices(
 		KServiceTypeTrader::self()->query("Kamoso/Plugin", QString()));

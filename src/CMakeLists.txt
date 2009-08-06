@@ -4,6 +4,7 @@
 include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(avdevice)
+add_subdirectory(plugins)
 
 set(kamoso_SRCS 
 	thumbnailview.cpp
@@ -28,3 +29,5 @@ target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LI
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install(FILES kamosoplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
+

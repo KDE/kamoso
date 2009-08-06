@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=Compile a file
+Name=Facebook
+GenericName=Facebook
+ServiceTypes=Kamoso/Plugin
+X-KDE-Library=facebooksender
+X-KDE-PluginInfo-Name=Facebook
+X-KDE-PluginInfo-Author=Aleix Pol
+X-KDE-PluginInfo-Version=0.00000001
+X-KDE-PluginInfo-License=GPL
