@@ -35,7 +35,7 @@ class QPushButton;
 class QModelIndex;
 class ThumbnailView;
 namespace Phonon { class MediaObject; }
-
+namespace Kopete { namespace AV { class VideoDevicePool; } }
 class Kamoso : public KMainWindow
 {
 	Q_OBJECT
@@ -61,6 +61,7 @@ class Kamoso : public KMainWindow
 		Ui::mainWidget *mainWidgetUi;
 		QWidget *mainWidget;
 		int m_exponentialValue;
+		Kopete::AV::VideoDevicePool *mVideoDevicePool;
 //Only slots
 	public slots:
 		void takePhoto();

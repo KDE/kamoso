@@ -64,6 +64,7 @@ Kamoso::Kamoso(QWidget* parent)
 	this->checkInitConfig();
 	videoRetriever = new WebcamRetriever(NULL,NULL);
 	videoRetriever->mVideoDevicePool->scanDevices();
+	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
 	connect(videoRetriever,SIGNAL(videoDeviceError()),SLOT(videoDeviceError()));
 	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
 	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
@@ -78,14 +79,14 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->setupUi(mainWidget);
 	
 	//We've to investigate if is better call start before do the UI stuff
-	if(videoRetriever->mVideoDevicePool->size() < 2){
+	if(mVideoDevicePool->size() < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
 	}else{
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
-		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
+		mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
 	}
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
