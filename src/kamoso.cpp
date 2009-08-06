@@ -54,6 +54,8 @@
 #include "whitewidgetmanager.h"
 #include "webcamretriever.h"
 #include "avdevice/videodevicepool.h"
+#include <kpluginselector.h>
+#include "pluginmanager.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -116,6 +118,8 @@ Kamoso::Kamoso(QWidget* parent)
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png");
 	dirOperator->setView(customIconView);
+	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
+			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
 	
 	//Tunning a bit the customIconView
 	customIconView->assignDelegate();
@@ -262,12 +266,13 @@ void Kamoso::configuration()
 		return;
 	}
 	
-//Creating the kcm
+	//Creating the kcm
 	KConfigDialog *dialog = new KConfigDialog(this,"settings",Settings::self());
 	dialog->resize(540,dialog->height());
 	
 	//Widget created with qt-designer
-	Ui::generalConfigWidget *page = new Ui::generalConfigWidget;
+	//TODO: Check page and pagePicture leaking
+	Ui::generalConfigWidget *page = new Ui::generalConfigWidget();
 	QWidget *widgetPage = new QWidget();
 	page->setupUi(widgetPage);
 	page->kcfg_saveUrl->setMode(KFile::Directory);
@@ -280,7 +285,13 @@ void Kamoso::configuration()
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"photoSettings");
- 	dialog->show();
+	
+	//TODO: Use the designer and so on
+	KPluginSelector* selector=new KPluginSelector(dialog);
+	selector->addPlugins(PluginManager::self()->plugins());
+	dialog->addPage(widgetPicturePage, i18n("Plugins"), "plugins");
+	
+	dialog->show();
 }
 
 /**
@@ -399,4 +410,9 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 		path.addPath(filename);
 		QDesktopServices::openUrl(path);
 	}
+}
+
+void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
+{
+	
 }
