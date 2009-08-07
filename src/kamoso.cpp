@@ -58,6 +58,7 @@
 #include <kpluginselector.h>
 #include "pluginmanager.h"
 #include "kamosoplugin.h"
+#include <KMessageBox>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -410,12 +411,17 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 	{
 		KUrl path = saveUrl;
 		path.addPath(filename);
-		QDesktopServices::openUrl(path);
+		bool b=QDesktopServices::openUrl(path);
+		if(!b)
+			KMessageBox::error(this, "Could not open %1", path.prettyUrl());
 	}
 }
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
+	menu->addSeparator();
+	menu->addAction(i18n("Open"), this, SLOT(openThumbnail(QModelIndex)));
+	
 	foreach(const KPluginInfo& info, PluginManager::self()->plugins()) {
 		KamosoPlugin* p=PluginManager::self()->loadPlugin(info, this);
 		QAction* action=p->thumbnailsAction(item.url());
