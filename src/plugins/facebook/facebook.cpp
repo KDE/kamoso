@@ -23,12 +23,29 @@
 #include <KDebug>
 #include <QAction>
 
+//Copied from the facebook kipiplugin
+// #include "fbtalker.h"
+#include "fbalbum.h"
+
 K_PLUGIN_FACTORY(KDevExecuteFactory, registerPlugin<FacebookPlugin>(); )
-K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender", ki18n("Facebook support"), "0.1", ki18n("Allows to communicate with Facebook"), KAboutData::License_GPL)))
+K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender",
+		ki18n("Facebook support"), "0.1", ki18n("Allows to communicate with Facebook"),
+		KAboutData::License_GPL)))
+
+using namespace KIPIFacebookPlugin;
 
 FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
-	: KamosoPlugin(parent, args)
-{}
+	: KamosoPlugin(parent, args), talk(0)
+{
+	talk.authenticate(QString(), QString(), 0);
+	
+	connect(&talk, SIGNAL(signalLoginDone(int,QString)),
+			this, SLOT(loginDone(int,QString)));
+	connect(&talk, SIGNAL(signalListAlbumsDone(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)),
+			this, SLOT(albumList(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)));
+	connect(&talk, SIGNAL(signalCreateAlbumDone(int,QString,long long)),
+			this, SLOT(albumCreated(int,QString,long long)));
+}
 
 QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
 {
@@ -44,8 +61,45 @@ QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
 	return act;
 }
 
-void FacebookPlugin::uploadImage(bool )
+void FacebookPlugin::uploadImage(bool)
 {
 	Q_ASSERT(!mSelectedUrls.isEmpty());
 	kDebug() << "uploading..." << mSelectedUrls;
+	
+	Q_ASSERT(mSelectedUrls.isLocalFile()); //TODO: Move to temp otherwise
+	
+// 	bool c=talk.addPhoto(mSelectedUrls.toLocalFile(), m_id, "Hola");
+// 	Q_ASSERT(c && "could not add the photo to the album");
+}
+
+void FacebookPlugin::loginDone(int , QString )
+{
+	qDebug() << "logged in";
+	talk.listAlbums();
+}
+
+void FacebookPlugin::albumList(int errCode, const QString& errMsg, const QList<FbAlbum>& albums)
+{
+	m_id=-1;
+	foreach(const FbAlbum& album, albums) {
+		if(album.title=="Kamoso") {
+			m_id=album.id;
+			break;
+		}
+	}
+	
+	if(m_id=-1) {
+		FbAlbum album;
+		album.title=i18n("Kamoso");
+		album.description=i18n("Photos taken with the webcam");
+		
+		talk.createAlbum(album);
+	}
+	qDebug() << "listed" << m_id;
+}
+
+
+void FacebookPlugin::albumCreated(int errCode, const QString& error, long long albumId)
+{
+	m_id=albumId;
 }

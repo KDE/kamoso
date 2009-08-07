@@ -16,28 +16,16 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoplugin.h"
-#include <KUrl>
-#include "fbtalker.h"
+#ifndef FACEBOOKTEST_H
+#define FACEBOOKTEST_H
 
-namespace KIPIFacebookPlugin { class FbAlbum; }
+#include <QObject>
 
-class FacebookPlugin : public KamosoPlugin
+class FacebookTest : public QObject
 {
 	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
-	public:
-		FacebookPlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const KUrl& url);
-		
-	public slots:
-		void uploadImage(bool);
-		void albumList(int, const QString&, const QList< KIPIFacebookPlugin::FbAlbum >&);
-		void loginDone(int,QString);
-		void albumCreated(int, const QString&, long long);
-		
-	private:
-		KIPIFacebookPlugin::FbTalker talk;
-		KUrl mSelectedUrls;
-		long int m_id;
+	private slots:
+		void uploadPhoto();
 };
+
+#endif // FACEBOOKTEST_H

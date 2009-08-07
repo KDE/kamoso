@@ -16,28 +16,18 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoplugin.h"
-#include <KUrl>
-#include "fbtalker.h"
+#include "facebooktest.h"
+#include "facebook.h"
 
-namespace KIPIFacebookPlugin { class FbAlbum; }
+#include <qtest_kde.h>
+#include <QAction>
 
-class FacebookPlugin : public KamosoPlugin
+QTEST_KDEMAIN_CORE( FacebookTest )
+
+void FacebookTest::uploadPhoto()
 {
-	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
-	public:
-		FacebookPlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const KUrl& url);
-		
-	public slots:
-		void uploadImage(bool);
-		void albumList(int, const QString&, const QList< KIPIFacebookPlugin::FbAlbum >&);
-		void loginDone(int,QString);
-		void albumCreated(int, const QString&, long long);
-		
-	private:
-		KIPIFacebookPlugin::FbTalker talk;
-		KUrl mSelectedUrls;
-		long int m_id;
-};
+	FacebookPlugin p(0, QVariantList());
+	QAction* a=p.thumbnailsAction(KUrl("file:///home/kde-devel/imatges/kamoso_03132009_191309.png"));
+	a->trigger();
+}
+
