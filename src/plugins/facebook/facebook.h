@@ -39,5 +39,5 @@ class FacebookPlugin : public KamosoPlugin
 	private:
 		KIPIFacebookPlugin::FbTalker talk;
 		KUrl mSelectedUrls;
-		long int m_id;
+		void sendPhoto(long long album);
 };

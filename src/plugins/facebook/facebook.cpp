@@ -37,8 +37,6 @@ using namespace KIPIFacebookPlugin;
 FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args), talk(0)
 {
-	talk.authenticate(QString(), QString(), 0);
-	
 	connect(&talk, SIGNAL(signalLoginDone(int,QString)),
 			this, SLOT(loginDone(int,QString)));
 	connect(&talk, SIGNAL(signalListAlbumsDone(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)),
@@ -68,38 +66,58 @@ void FacebookPlugin::uploadImage(bool)
 	
 	Q_ASSERT(mSelectedUrls.isLocalFile()); //TODO: Move to temp otherwise
 	
-// 	bool c=talk.addPhoto(mSelectedUrls.toLocalFile(), m_id, "Hola");
-// 	Q_ASSERT(c && "could not add the photo to the album");
+	KConfig cfg(KGlobal::mainComponent());
+	KConfigGroup cfgGroup=cfg.group("Facebook");
+	QString sessionKey=cfgGroup.readEntry("Key", QString());
+	QString sessionSecret=cfgGroup.readEntry("Secret", QString());
+	uint sessionExpires=cfgGroup.readEntry("Expires", 0);
+	
+	talk.authenticate(sessionKey, sessionSecret, sessionExpires);
 }
 
 void FacebookPlugin::loginDone(int , QString )
 {
-	qDebug() << "logged in";
+	KConfig cfg(KGlobal::mainComponent());
+	KConfigGroup cfgGroup=cfg.group("Facebook");
+	cfgGroup.writeEntry("Key", talk.getSessionKey());
+	cfgGroup.writeEntry("Secret", talk.getSessionSecret());
+	cfgGroup.writeEntry("Expires", talk.getSessionExpires());
+	cfgGroup.sync();
+	
+	qDebug() << "logged in" << talk.getSessionExpires();
 	talk.listAlbums();
 }
 
 void FacebookPlugin::albumList(int errCode, const QString& errMsg, const QList<FbAlbum>& albums)
 {
-	m_id=-1;
+	long long id=-1;
 	foreach(const FbAlbum& album, albums) {
-		if(album.title=="Kamoso") {
-			m_id=album.id;
+		if(album.title==i18n("Kamoso")) {
+			id=album.id;
 			break;
 		}
 	}
 	
-	if(m_id=-1) {
+	if(id==-1) {
 		FbAlbum album;
 		album.title=i18n("Kamoso");
 		album.description=i18n("Photos taken with the webcam");
 		
 		talk.createAlbum(album);
-	}
-	qDebug() << "listed" << m_id;
+	} else
+		sendPhoto(id);
+	qDebug() << "listed" << id;
 }
 
 
 void FacebookPlugin::albumCreated(int errCode, const QString& error, long long albumId)
 {
-	m_id=albumId;
+	sendPhoto(albumId);
+	qDebug() << "album created" << albumId;
+}
+
+void FacebookPlugin::sendPhoto(long long album)
+{
+	bool c=talk.addPhoto(mSelectedUrls.toLocalFile(), album, "Hola");
+	Q_ASSERT(c && "could not add the photo to the album");
 }
