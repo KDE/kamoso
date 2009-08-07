@@ -5,4 +5,6 @@ KamosoPlugin::KamosoPlugin(QObject* parent, const QVariantList& args)
 {}
 
 KamosoPlugin::~KamosoPlugin()
-{}
+{
+	qDebug("deleting");
+}

@@ -23,16 +23,17 @@
 
 class KamosoPlugin;
 
-class PluginManager
+class PluginManager : public QObject
 {
 	public:
 		static PluginManager* self();
-		KPluginInfo::List plugins();
+		KPluginInfo::List pluginInfo() const;
+		QList<KamosoPlugin*> plugins();
 		~PluginManager();
 		
-		KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
 	private:
 		PluginManager();
+		static KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
 		
 		struct Private;
 		Private* d;

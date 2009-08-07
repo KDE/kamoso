@@ -27,6 +27,7 @@
 struct PluginManager::Private
 {
 	static PluginManager* mInstance;
+	QList<KamosoPlugin*> plugins;
 };
 
 PluginManager* PluginManager::Private::mInstance=0;
@@ -46,7 +47,7 @@ PluginManager::~PluginManager()
 	delete d;
 }
 
-KPluginInfo::List PluginManager::plugins()
+KPluginInfo::List PluginManager::pluginInfo() const
 {
 	return KPluginInfo::fromServices(
 		KServiceTypeTrader::self()->query("Kamoso/Plugin", QString()));
@@ -61,4 +62,13 @@ KamosoPlugin* PluginManager::loadPlugin(const KPluginInfo& pluginInfo, QObject* 
 		KMessageBox::error(0, error, i18n("Error while loading the plugin '%1'", pluginInfo.name()));
 	
 	return plugin;
+}
+
+QList< KamosoPlugin* > PluginManager::plugins()
+{
+	if(d->plugins.isEmpty()) {
+		foreach(const KPluginInfo& pinfo, pluginInfo())
+			d->plugins.append(loadPlugin(pinfo, this));
+	}
+	return d->plugins;
 }

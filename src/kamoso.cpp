@@ -291,7 +291,7 @@ void Kamoso::configuration()
 	
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);
-	selector->addPlugins(PluginManager::self()->plugins());
+	selector->addPlugins(PluginManager::self()->pluginInfo());
 	dialog->addPage(selector, i18n("Plugin List"), "plugins");
 	
 	dialog->show();
@@ -420,13 +420,14 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
 	menu->addSeparator();
-	menu->addAction(i18n("Open"), this, SLOT(openThumbnail(QModelIndex)));
+	menu->addAction(i18n("Open"), this, SLOT(openThumbnail()));
 	
-	foreach(const KPluginInfo& info, PluginManager::self()->plugins()) {
-		KamosoPlugin* p=PluginManager::self()->loadPlugin(info, this);
+	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
 		QAction* action=p->thumbnailsAction(item.url());
-		if(action) {
+		if(!action->parent())
+			action->setParent(menu);
+		
+		if(action)
 			menu->addAction(action);
-		}
 	}
 }
