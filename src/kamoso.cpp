@@ -28,6 +28,7 @@
 #include <QTimer>
 #include <QItemDelegate>
 #include <QScrollBar>
+#include <QMenu>
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
@@ -36,17 +37,17 @@
 #include <KFileItemDelegate>
 #include <KLocale>
 #include <Phonon/MediaObject>
-#include <kfilepreviewgenerator.h>
+#include <KFilePreviewGenerator>
 #include <solid/control/powermanager.h>
 #include <solid/powermanagement.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
+#include <KConfigDialog>
+#include <KDebug>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
 #include "timedpushbutton.h"
 #include "countdownwidget.h"
-#include <kdebug.h>
-#include <kconfigdialog.h>
 #include "settings.h"
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
@@ -54,6 +55,10 @@
 #include "whitewidgetmanager.h"
 #include "webcamretriever.h"
 #include "avdevice/videodevicepool.h"
+#include <kpluginselector.h>
+#include "pluginmanager.h"
+#include "kamosoplugin.h"
+#include <KMessageBox>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -117,6 +122,8 @@ Kamoso::Kamoso(QWidget* parent)
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png");
 	dirOperator->setView(customIconView);
+	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
+			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
 	
 	//Tunning a bit the customIconView
 	customIconView->assignDelegate();
@@ -263,12 +270,13 @@ void Kamoso::configuration()
 		return;
 	}
 	
-//Creating the kcm
+	//Creating the kcm
 	KConfigDialog *dialog = new KConfigDialog(this,"settings",Settings::self());
 	dialog->resize(540,dialog->height());
 	
 	//Widget created with qt-designer
-	Ui::generalConfigWidget *page = new Ui::generalConfigWidget;
+	//TODO: Check page and pagePicture leaking
+	Ui::generalConfigWidget *page = new Ui::generalConfigWidget();
 	QWidget *widgetPage = new QWidget();
 	page->setupUi(widgetPage);
 	page->kcfg_saveUrl->setMode(KFile::Directory);
@@ -281,7 +289,13 @@ void Kamoso::configuration()
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"photoSettings");
- 	dialog->show();
+	
+	//TODO: Use the designer and so on
+	KPluginSelector* selector=new KPluginSelector(dialog);
+	selector->addPlugins(PluginManager::self()->pluginInfo());
+	dialog->addPage(selector, i18n("Plugin List"), "plugins");
+	
+	dialog->show();
 }
 
 /**
@@ -398,6 +412,23 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 	{
 		KUrl path = saveUrl;
 		path.addPath(filename);
-		QDesktopServices::openUrl(path);
+		bool b=QDesktopServices::openUrl(path);
+		if(!b)
+			KMessageBox::error(this, "Could not open %1", path.prettyUrl());
+	}
+}
+
+void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
+{
+	menu->addSeparator();
+	menu->addAction(i18n("Open"), this, SLOT(openThumbnail()));
+	
+	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
+		QAction* action=p->thumbnailsAction(item.url());
+		if(!action->parent())
+			action->setParent(menu);
+		
+		if(action)
+			menu->addAction(action);
 	}
 }

@@ -34,6 +34,7 @@ class QSplitter;
 class QPushButton;
 class QModelIndex;
 class ThumbnailView;
+class KFileItem;
 namespace Phonon { class MediaObject; }
 namespace Kopete { namespace AV { class VideoDevicePool; } }
 class Kamoso : public KMainWindow
@@ -72,6 +73,7 @@ class Kamoso : public KMainWindow
 		void webcamAdded();
 		void webcamRemoved();
 		void videoDeviceError();
+		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
 	private slots:
 		void restore();
 		void photoTaken(const KUrl& url);

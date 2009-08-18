@@ -12,8 +12,9 @@ Kamoso 1.0:
 			-Quitar memory leaks
 			-limpiar código
 	-Web 2.0:
-		-Subirla a una web de subir fotos.
+		-[OK. Facebook] Subirla a una web de subir fotos.
 		-Videos a youtube
+		-Crear interfaz para notificar el estado de los plugins (si estan trabajando)
 
 	-General:
 		-Tunear interfaz
