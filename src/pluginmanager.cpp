@@ -26,7 +26,10 @@
 
 struct PluginManager::Private
 {
+	/** From singleton pattern. */
 	static PluginManager* mInstance;
+	
+	/** list of plugin instances */
 	QList<KamosoPlugin*> plugins;
 };
 
@@ -67,6 +70,9 @@ KamosoPlugin* PluginManager::loadPlugin(const KPluginInfo& pluginInfo, QObject* 
 QList< KamosoPlugin* > PluginManager::plugins()
 {
 	if(d->plugins.isEmpty()) {
+		//If we don't have plugins, we instanciate them all at once so that
+		//we can call them at any time. All the instances stay in memory until the
+		//program is unloaded (until the singleton closes.
 		foreach(const KPluginInfo& pinfo, pluginInfo())
 			d->plugins.append(loadPlugin(pinfo, this));
 	}
