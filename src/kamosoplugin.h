@@ -21,11 +21,12 @@
 
 #include <QObject>
 #include <QVariantList>
+#include "kdemacros.h"
 
 class QAction;
 class KUrl;
 
-class KamosoPlugin : public QObject
+class KDE_EXPORT KamosoPlugin : public QObject
 {
 	Q_OBJECT
 	public:
