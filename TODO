@@ -1,7 +1,10 @@
 Kamoso 1.0:
 	[OK]-Update AVDEvice:
 		[OK]-Hacer nuestro fork instalable (modificar nombre)
-
+	
+	- Arreglar cabeceras
+		- Queremos GPL2+? GPL3+? GPL2+3?
+	
 	-Controlar el video:
 		-Controlar el input
 			-Controlar FPS
@@ -17,8 +20,8 @@ Kamoso 1.0:
 		-Crear interfaz para notificar el estado de los plugins (si estan trabajando)
 
 	-General:
-		-Tunear interfaz
+		-Tunear interfaz << ESPECIFICAR
 			-Tuenar thumbnails view
-		-Usar KIO
+		-[OK] Usar KIO
 		-Full KDE
 
