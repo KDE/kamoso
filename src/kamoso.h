@@ -83,6 +83,8 @@ class Kamoso : public KMainWindow
 		void retrieverFinished();
 		void restartRetriever();
 		void openThumbnail(const QModelIndex& idx);
+		
+		void busyChange(bool);
 };
 
 #endif

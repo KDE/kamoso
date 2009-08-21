@@ -58,6 +58,7 @@ void FacebookPlugin::uploadImage(bool)
 	kDebug() << "uploading..." << mSelectedUrls;
 	
 	FacebookJob* job=new FacebookJob(mSelectedUrls);
+	emit jobCreated(job);
 	job->exec();
 }
 

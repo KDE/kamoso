@@ -155,6 +155,9 @@ Kamoso::Kamoso(QWidget* parent)
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
+	
+	busyChange(false);
+	connect(PluginManager::self(), SIGNAL(busyState(bool)), SLOT(busyChange(bool)));
 }
 
 void Kamoso::webcamAdded()
@@ -431,4 +434,12 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 		if(action)
 			menu->addAction(action);
 	}
+}
+
+void Kamoso::busyChange(bool isBusy)
+{
+	if(isBusy)
+		setCaption(i18n("Kamoso - Working..."));
+	else
+		setCaption(i18n("Kamoso"));
 }

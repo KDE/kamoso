@@ -18,6 +18,7 @@
 
 #include "kamosoplugin.h"
 #include <KUrl>
+#include <KJob>
 #include "fbtalker.h"
 
 namespace KIPIFacebookPlugin { class FbAlbum; }

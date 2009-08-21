@@ -23,6 +23,8 @@
 
 #include "kamosoplugin.h"
 #include <KMessageBox>
+#include <KJob>
+#include <KDebug>
 
 struct PluginManager::Private
 {
@@ -31,6 +33,8 @@ struct PluginManager::Private
 	
 	/** list of plugin instances */
 	QList<KamosoPlugin*> plugins;
+	
+	int runningJobs;
 };
 
 PluginManager* PluginManager::Private::mInstance=0;
@@ -43,7 +47,9 @@ PluginManager* PluginManager::self()
 
 PluginManager::PluginManager()
 	: d(new Private)
-{}
+{
+	d->runningJobs=0;
+}
 
 PluginManager::~PluginManager()
 {
@@ -61,7 +67,9 @@ KamosoPlugin* PluginManager::loadPlugin(const KPluginInfo& pluginInfo, QObject* 
 	QString error;
 	KamosoPlugin* plugin=pluginInfo.service()->createInstance<KamosoPlugin>(parent, QVariantList(), &error);
 	
-	if(!plugin)
+	if(plugin)
+		connect(plugin, SIGNAL(jobCreated(KJob*)), PluginManager::self(), SLOT(addJob(KJob*)));
+	else
 		KMessageBox::error(0, error, i18n("Error while loading the plugin '%1'", pluginInfo.name()));
 	
 	return plugin;
@@ -77,4 +85,24 @@ QList< KamosoPlugin* > PluginManager::plugins()
 			d->plugins.append(loadPlugin(pinfo, this));
 	}
 	return d->plugins;
+}
+
+void PluginManager::addJob(KJob* job)
+{
+	kDebug() << "Job Added" << job;
+	d->runningJobs++;
+	connect(job, SIGNAL(result(KJob*)), SLOT(removeJob(KJob*)));
+	
+	emit busyState(true);
+}
+
+void PluginManager::removeJob(KJob* job)
+{
+	kDebug() << "Job Finnished" << job;
+	
+	//TODO: Notify about job errors.
+	
+	d->runningJobs--;
+	if(d->runningJobs==0)
+		emit busyState(false);
 }
