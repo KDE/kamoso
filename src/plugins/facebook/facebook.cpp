@@ -35,15 +35,8 @@ K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender"
 using namespace KIPIFacebookPlugin;
 
 FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
-	: KamosoPlugin(parent, args), talk(0)
-{
-	connect(&talk, SIGNAL(signalLoginDone(int,QString)),
-			this, SLOT(loginDone(int,QString)));
-	connect(&talk, SIGNAL(signalListAlbumsDone(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)),
-			this, SLOT(albumList(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)));
-	connect(&talk, SIGNAL(signalCreateAlbumDone(int,QString,long long)),
-			this, SLOT(albumCreated(int,QString,long long)));
-}
+	: KamosoPlugin(parent, args)
+{}
 
 QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
 {
@@ -64,8 +57,25 @@ void FacebookPlugin::uploadImage(bool)
 	Q_ASSERT(!mSelectedUrls.isEmpty());
 	kDebug() << "uploading..." << mSelectedUrls;
 	
-	Q_ASSERT(mSelectedUrls.isLocalFile()); //TODO: Move to temp otherwise
+	FacebookJob* job=new FacebookJob(mSelectedUrls);
+	job->exec();
+}
+
+FacebookJob::FacebookJob(const KUrl& url, QObject* parent)
+	: KJob(parent), url(url), talk(0)
+{
+	Q_ASSERT(url.isLocalFile()); //TODO: Move to temp otherwise
 	
+	connect(&talk, SIGNAL(signalLoginDone(int,QString)),
+			this, SLOT(loginDone(int,QString)));
+	connect(&talk, SIGNAL(signalListAlbumsDone(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)),
+			this, SLOT(albumList(int,QString,QList<KIPIFacebookPlugin::FbAlbum>)));
+	connect(&talk, SIGNAL(signalCreateAlbumDone(int,QString,long long)),
+			this, SLOT(albumCreated(int,QString,long long)));
+}
+
+void FacebookJob::start()
+{
 	KConfig cfg(KGlobal::mainComponent());
 	KConfigGroup cfgGroup=cfg.group("Facebook");
 	QString sessionKey=cfgGroup.readEntry("Key", QString());
@@ -75,7 +85,7 @@ void FacebookPlugin::uploadImage(bool)
 	talk.authenticate(sessionKey, sessionSecret, sessionExpires);
 }
 
-void FacebookPlugin::loginDone(int , QString )
+void FacebookJob::loginDone(int, const QString& )
 {
 	KConfig cfg(KGlobal::mainComponent());
 	KConfigGroup cfgGroup=cfg.group("Facebook");
@@ -88,7 +98,7 @@ void FacebookPlugin::loginDone(int , QString )
 	talk.listAlbums();
 }
 
-void FacebookPlugin::albumList(int errCode, const QString& errMsg, const QList<FbAlbum>& albums)
+void FacebookJob::albumList(int errCode, const QString& errMsg, const QList<FbAlbum>& albums)
 {
 	long long id=-1;
 	foreach(const FbAlbum& album, albums) {
@@ -110,14 +120,16 @@ void FacebookPlugin::albumList(int errCode, const QString& errMsg, const QList<F
 }
 
 
-void FacebookPlugin::albumCreated(int errCode, const QString& error, long long albumId)
+void FacebookJob::albumCreated(int errCode, const QString& error, long long albumId)
 {
 	sendPhoto(albumId);
 	qDebug() << "album created" << albumId;
 }
 
-void FacebookPlugin::sendPhoto(long long album)
+void FacebookJob::sendPhoto(long long album)
 {
-	bool c=talk.addPhoto(mSelectedUrls.toLocalFile(), album, "Hola");
+	bool c=talk.addPhoto(url.toLocalFile(), album, url.fileName());
 	Q_ASSERT(c && "could not add the photo to the album");
+	
+	emit emitResult();
 }

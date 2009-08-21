@@ -32,12 +32,25 @@ class FacebookPlugin : public KamosoPlugin
 		
 	public slots:
 		void uploadImage(bool);
-		void albumList(int, const QString&, const QList< KIPIFacebookPlugin::FbAlbum >&);
-		void loginDone(int,QString);
-		void albumCreated(int, const QString&, long long);
 		
 	private:
-		KIPIFacebookPlugin::FbTalker talk;
 		KUrl mSelectedUrls;
+};
+
+class FacebookJob : public KJob
+{
+	Q_OBJECT
+	public:
+		FacebookJob(const KUrl& url, QObject* parent=0);
+		virtual void start();
+		
+	private slots:
+		void albumList(int, const QString&, const QList<KIPIFacebookPlugin::FbAlbum>&);
+		void loginDone(int, const QString&);
+		void albumCreated(int, const QString&, long long);
+	private:
 		void sendPhoto(long long album);
+		KUrl url;
+		
+		KIPIFacebookPlugin::FbTalker talk;
 };
