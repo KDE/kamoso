@@ -35,6 +35,12 @@ private:
 	static DeviceManager* s_instance;
 	void addDevice(Solid::Device device);
 	void removeDevice(Solid::Device device);
+private slots:
+	void deviceAdded(const QString &udi);
+	void deviceRemoved(const QString &udi);
+signals:
+	void deviceRegistered( const QString & udi );
+	void deviceUnregistered( const QString & udi );
 };
 
 #endif // DEVICEMANAGER_H

@@ -72,7 +72,6 @@ class Kamoso : public KMainWindow
 		void webcamChanged(const int webcamId);
 		void webcamAdded();
 		void webcamRemoved();
-		void videoDeviceError();
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
 	private slots:
 		void restore();
@@ -80,9 +79,8 @@ class Kamoso : public KMainWindow
 		void slotScrollLeft();
 		void slotScrollRight();
 		void slotScrollFinish();
-		void retrieverFinished();
-		void restartRetriever();
 		void openThumbnail(const QModelIndex& idx);
+    void fillKcomboDevice();
 };
 
 #endif

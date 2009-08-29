@@ -71,11 +71,10 @@ Kamoso::Kamoso(QWidget* parent)
 // 	videoRetriever->mVideoDevicePool->scanDevices();
 // 	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
 // 	connect(videoRetriever,SIGNAL(videoDeviceError()),SLOT(videoDeviceError()));
-// 	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
-// 	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
 
-//Small debuggin to know the settings
 	DeviceManager *deviceManager = DeviceManager::self();
+	connect(deviceManager,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
+	connect(deviceManager,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
 	
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
@@ -102,10 +101,8 @@ Kamoso::Kamoso(QWidget* parent)
 		}
 		
 	}
-	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+// 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
-// 	videoRetriever->start();
-	
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 // 	webcam = new WebcamWidget(mainWidgetUi->centralSpot,videoRetriever);
@@ -169,72 +166,42 @@ Kamoso::Kamoso(QWidget* parent)
 void Kamoso::webcamAdded()
 {
 	qDebug() << "A new webcam has been added";
-// 	videoRetriever->mLock.lockForWrite();
-// 	qDebug () << "Num of webcams" << videoRetriever->mVideoDevicePool->size();
-// 	qDebug () << "Current Device: " << videoRetriever->mVideoDevicePool->currentDevice();
-// 	if(videoRetriever->mVideoDevicePool->size() < 2){
-// 		videoRetriever->mLock.unlock();
-// 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
-// 		mainWidgetUi->chooseWebcamLbl->hide();
-// 		mainWidgetUi->webcamCombo->hide();
-// 	}else{
-// 		videoRetriever->mLock.unlock();
-// 		mainWidgetUi->chooseWebcamLbl->show();
-// 		mainWidgetUi->webcamCombo->show();
+	if(DeviceManager::self()->numberOfDevices() < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+	}else{
+		mainWidgetUi->chooseWebcamLbl->show();
+		mainWidgetUi->webcamCombo->show();
 // 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-// 	}
+		fillKcomboDevice();
+	}
+}
+
+void Kamoso::fillKcomboDevice()
+{
+	mainWidgetUi->webcamCombo->clear();
+	DeviceManager *deviceManager = DeviceManager::self();
+	for(int x=0;x<deviceManager->numberOfDevices();x++)
+	{
+		mainWidgetUi->webcamCombo->addItem(deviceManager->m_deviceList[x].getDescription(),
+											deviceManager->m_deviceList[x].getUdi());
+		qDebug() << deviceManager->m_deviceList[x].getDescription();
+		qDebug() << deviceManager->m_deviceList[x].getUdi();
+	}
+	
 }
 void Kamoso::webcamRemoved()
 {
-// 	qDebug() << "A new webcam has been removed";
-// 	if(videoRetriever->isRunning() == false){
-// 		restartRetriever();
-// 	}
-// 	videoRetriever->mLock.lockForWrite();
-// 	qDebug () << "Num of webcams" << videoRetriever->mVideoDevicePool->size()-1;
-// 	qDebug () << "Current Device: " << videoRetriever->mVideoDevicePool->currentDevice();
-// 	if((videoRetriever->mVideoDevicePool->size()-1) < 2){
-// 		videoRetriever->mLock.unlock();
-// 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
-// 		mainWidgetUi->chooseWebcamLbl->hide();
-// 		mainWidgetUi->webcamCombo->hide();
-// 	}else{
-// 		//The combo is already showed (should be),so onlyupdate the content is required.
-// 		videoRetriever->mLock.unlock();
-// 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-// 	}
-}
-
-void Kamoso::retrieverFinished()
-{
-// 	qDebug() << "New Thread!";
-// 	delete videoRetriever;
-// 	videoRetriever = new WebcamRetriever(NULL,m_webcamId);
-// 	videoRetriever->start();
-// 	webcam->setRetriever(videoRetriever);
-}
-
-void Kamoso::restartRetriever()
-{
-// 	qDebug() << "New Thread!2";
-// 	delete videoRetriever;
-// 	videoRetriever = new WebcamRetriever(NULL,NULL);
-// 	videoRetriever->start();
-// 	webcam->setRetriever(videoRetriever);
-}
-
-void Kamoso::videoDeviceError()
-{
-// 	qDebug() << "Video Device Error";
-// 	if(videoRetriever->isRunning())
-// 	{
-// 		qDebug() << "Thread is currently running. spoting it and restarting";
-// 		videoRetriever->markDone();
-// 		connect(videoRetriever, SIGNAL(finished()), SLOT(restartRetriever()));
-// 	}else{
-// 		qDebug() << "Thread is not longuer running, restarting it";
-// 		restartRetriever();
-// 	}
+	qDebug() << "webcam removed";
+	if((DeviceManager::self()->numberOfDevices()-1) < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+	}else{
+		//The combo is already showed (should be),so onlyupdate the content is required.
+		fillKcomboDevice();
+	}
 }
 
 void Kamoso::webcamChanged(const int webcamId)

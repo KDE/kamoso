@@ -37,13 +37,24 @@ DeviceManager::DeviceManager()
 	}
 	//Connect to solid events to get new devices.
 
-// 	connect( Solid::DeviceNotifier::instance(), SIGNAL(deviceAddecd(const QString&)), SLOT(deviceAdded(const QString &)) );
-//  connect( Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
+	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
+	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
 }
 
 void DeviceManager::addDevice(Solid::Device device)
 {
 	m_deviceList.append(Device(device));
+}
+
+void DeviceManager::deviceAdded(const QString &udi)
+{
+	Solid::Device device( udi );
+	if(device.is<Solid::Video>())
+	{
+		qDebug() << "Adding new Device";
+		addDevice(device);
+		emit deviceRegistered(udi);
+	}
 }
 
 int DeviceManager::numberOfDevices()
@@ -54,7 +65,26 @@ int DeviceManager::numberOfDevices()
 void DeviceManager::removeDevice(Solid::Device device)
 {
 	//TODO: implement remove device
-// 	m_deviceList.append(Device(device));
+	for(int x=0;x < m_deviceList.size();x++)
+	{
+		if(m_deviceList[x].getUdi() == device.udi())
+		{
+			m_deviceList.removeAt(x);
+			break;
+		}
+	}
+}
+void DeviceManager::deviceRemoved(const QString &udi)
+{
+	for(int x=0;x < m_deviceList.size();x++)
+	{
+		if(m_deviceList[x].getUdi() == udi)
+		{
+			m_deviceList.removeAt(x);
+			emit deviceUnregistered(udi);
+			break;
+		}
+	}
 }
 DeviceManager* DeviceManager::self()
 {
