@@ -1,7 +1,6 @@
 
 include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-add_subdirectory(avdevice)
 add_subdirectory(plugins)
 
 set(kamoso_SRCS 
@@ -13,7 +12,6 @@ set(kamoso_SRCS
 	countdownwidget.cpp
 	webcamwidget.cpp
 	customDelegate.cpp
-	webcamretriever.cpp
 	timedpushbutton.cpp
 	pluginmanager.cpp
 	device.cpp
