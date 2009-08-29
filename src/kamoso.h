@@ -35,6 +35,7 @@ class QPushButton;
 class QModelIndex;
 class ThumbnailView;
 class KFileItem;
+class Player;
 namespace Phonon { class MediaObject; }
 namespace Kopete { namespace AV { class VideoDevicePool; } }
 class Kamoso : public KMainWindow
@@ -53,7 +54,7 @@ class Kamoso : public KMainWindow
 
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
-		WebcamWidget *webcam;
+		Player *webcam;
 		CountdownWidget *countdown;
 		Phonon::MediaObject *player;
 		QPushButton* scrollLeft;

@@ -53,7 +53,6 @@
 #include "ui_pictureConfig.h"
 #include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
-#include "webcamretriever.h"
 #include "devicemanager.h"
 #include <kpluginselector.h>
 #include "pluginmanager.h"
@@ -105,7 +104,10 @@ Kamoso::Kamoso(QWidget* parent)
 
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-// 	webcam = new WebcamWidget(mainWidgetUi->centralSpot,videoRetriever);
+	webcam = new Player();
+	webcam->setParent(mainWidgetUi->centralSpot);
+	webcam->setMinimumSize(640,480);
+	webcam->playFile("v4l2://:caching=5");
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
