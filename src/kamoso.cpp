@@ -75,6 +75,8 @@ Kamoso::Kamoso(QWidget* parent)
 // 	connect(videoRetriever->mVideoDevicePool,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
 
 //Small debuggin to know the settings
+	DeviceManager *deviceManager = DeviceManager::self();
+	
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
@@ -84,15 +86,22 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->setupUi(mainWidget);
 	
 	//We've to investigate if is better call start before do the UI stuff
-// 	if(mVideoDevicePool->size() < 2){
-// 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
-// 		mainWidgetUi->chooseWebcamLbl->hide();
-// 		mainWidgetUi->webcamCombo->hide();
-// 	}else{
-// 		mainWidgetUi->chooseWebcamLbl->show();
-// 		mainWidgetUi->webcamCombo->show();
-// 		mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
-// 	}
+	if(deviceManager->numberOfDevices() < 2){
+		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		mainWidgetUi->chooseWebcamLbl->hide();
+		mainWidgetUi->webcamCombo->hide();
+	}else{
+		mainWidgetUi->chooseWebcamLbl->show();
+		mainWidgetUi->webcamCombo->show();
+		for(int x=0;x<deviceManager->numberOfDevices();x++)
+		{
+			mainWidgetUi->webcamCombo->addItem(deviceManager->m_deviceList[x].getDescription(),
+												deviceManager->m_deviceList[x].getUdi());
+			qDebug() << deviceManager->m_deviceList[x].getDescription();
+			qDebug() << deviceManager->m_deviceList[x].getUdi();
+		}
+		
+	}
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
 // 	videoRetriever->start();

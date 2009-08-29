@@ -17,24 +17,22 @@
 
 */
 
-#ifndef DEVICEMANAGER_H
-#define DEVICEMANAGER_H
+#ifndef DEVICE_H
+#define DEVICE_H
 
-#include <QtCore/QObject>
-#include "device.h"
-
-class DeviceManager : public QObject
+#include <solid/device.h>
+class Device
 {
-Q_OBJECT
 public:
-	static DeviceManager* self();
-	int numberOfDevices();
-	QList<Device> m_deviceList;
+	Device(Solid::Device);
+	~Device();
+	QString getDescription();
+	QString getUdi();
 private:
-	DeviceManager();
-	static DeviceManager* s_instance;
-	void addDevice(Solid::Device device);
-	void removeDevice(Solid::Device device);
+	QString queryv4lInfo();
+	QString m_description;
+    QString m_udi;
+	QString filePath;
 };
 
-#endif // DEVICEMANAGER_H
+#endif

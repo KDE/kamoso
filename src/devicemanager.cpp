@@ -18,15 +18,44 @@
 */
 
 #include "devicemanager.h"
+#include <solid/device.h>
+#include <solid/devicenotifier.h>
+#include <solid/deviceinterface.h>
+#include <solid/video.h>
+
+#include "device.h"
+#include <QDebug>
 
 DeviceManager *DeviceManager::s_instance = NULL;
 
 DeviceManager::DeviceManager()
 {
-// 	connect( Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
+	//Checking current connected devices
+	foreach (Solid::Device device,
+			Solid::Device::listFromType(Solid::DeviceInterface::Video, QString())) {
+		addDevice(device);
+	}
+	//Connect to solid events to get new devices.
+
+// 	connect( Solid::DeviceNotifier::instance(), SIGNAL(deviceAddecd(const QString&)), SLOT(deviceAdded(const QString &)) );
 //  connect( Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
 }
 
+void DeviceManager::addDevice(Solid::Device device)
+{
+	m_deviceList.append(Device(device));
+}
+
+int DeviceManager::numberOfDevices()
+{
+	return m_deviceList.size();
+}
+
+void DeviceManager::removeDevice(Solid::Device device)
+{
+	//TODO: implement remove device
+// 	m_deviceList.append(Device(device));
+}
 DeviceManager* DeviceManager::self()
 {
 	if(s_instance == NULL)
