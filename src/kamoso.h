@@ -67,6 +67,7 @@ class Kamoso : public KMainWindow
 //Only slots
 	public slots:
 		void takePhoto();
+		void startVideo();
 		void startCountdown();
 		void configuration();
 		void generalUpdated();

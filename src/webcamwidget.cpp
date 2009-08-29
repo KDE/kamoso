@@ -146,7 +146,19 @@ bool Player::takePhoto(const KUrl &dest)
 	}
 	return raise(&_vlcexcep);
 }
-
+void Player::recordVideo()
+{
+// 	qDebug() << "Player::recording!\n\n\n\n\n";
+// 	QString option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=std{access=file,mux=ogg,dst='/home/nasete/cod3s/cpp/vlcTest/pop.ogv'}");
+// 	libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+// 	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
+// 	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
+// 	libvlc_media_player_stop(_mp,&_vlcexcep);
+// 	_mp = libvlc_media_player_new_from_media(_m,&_vlcexcep);
+// 	playFile("v4l2://:caching=5");
+// 	raise(&_vlcexcep);
+// 	
+}
 bool Player::raise(libvlc_exception_t * ex)
 {
     if (libvlc_exception_raised (ex))

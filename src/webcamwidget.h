@@ -37,6 +37,7 @@ public:
 public slots:
     void playFile(QString file);
 	bool takePhoto(const KUrl &dest);
+	void recordVideo();
 signals:
 	void photoTaken(const KUrl& dest);
 

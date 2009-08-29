@@ -66,10 +66,6 @@ Kamoso::Kamoso(QWidget* parent)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
-// 	videoRetriever = new WebcamRetriever(NULL,NULL);
-// 	videoRetriever->mVideoDevicePool->scanDevices();
-// 	mVideoDevicePool = Kopete::AV::VideoDevicePool::self();
-// 	connect(videoRetriever,SIGNAL(videoDeviceError()),SLOT(videoDeviceError()));
 
 	DeviceManager *deviceManager = DeviceManager::self();
 	connect(deviceManager,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
@@ -100,7 +96,6 @@ Kamoso::Kamoso(QWidget* parent)
 		}
 		
 	}
-// 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
@@ -112,7 +107,7 @@ Kamoso::Kamoso(QWidget* parent)
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
- 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
+ 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startVideo()));
 	
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
@@ -178,6 +173,12 @@ void Kamoso::webcamAdded()
 // 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
 		fillKcomboDevice();
 	}
+}
+
+void Kamoso::startVideo()
+{
+	qDebug() << "Starting to record video!!!";
+	webcam->recordVideo();
 }
 
 void Kamoso::fillKcomboDevice()
