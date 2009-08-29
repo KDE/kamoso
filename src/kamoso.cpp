@@ -102,7 +102,7 @@ Kamoso::Kamoso(QWidget* parent)
 	webcam = new Player();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile("v4l2://:caching=5");
+	webcam->playFile("v4l2:///dev/video1:caching=5");
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
@@ -209,17 +209,11 @@ void Kamoso::webcamRemoved()
 
 void Kamoso::webcamChanged(const int webcamId)
 {
-// 	videoRetriever->mLock.lockForWrite();
-// 	qDebug() << "Current Device: " << videoRetriever->mVideoDevicePool->currentDevice() << "New device: " << webcamId;
-// 	if(videoRetriever->mVideoDevicePool->currentDevice() != webcamId && webcamId > -1){
-// 		videoRetriever->mLock.unlock();
-// 		m_webcamId = webcamId;
-// 		qDebug() << "webcamChanged";
-// 		videoRetriever->markDone();
-// 		connect(videoRetriever, SIGNAL(finished()), SLOT(retrieverFinished()));
-// 	}else{
-// 		videoRetriever->mLock.unlock();
-// 	}
+	delete webcam;
+	webcam = new Player();
+	webcam->setParent(mainWidgetUi->centralSpot);
+	webcam->setMinimumSize(640,480);
+	webcam->playFile("v4l2://:caching=5");
 }
 
 void Kamoso::checkInitConfig()
