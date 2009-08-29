@@ -16,6 +16,7 @@ set(kamoso_SRCS
 	webcamretriever.cpp
 	timedpushbutton.cpp
 	pluginmanager.cpp
+	devicemanager.cpp
 )
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui)
