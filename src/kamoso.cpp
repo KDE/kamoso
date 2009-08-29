@@ -102,12 +102,12 @@ Kamoso::Kamoso(QWidget* parent)
 	webcam = new Player();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile("v4l2:///dev/video1:caching=5");
+	webcam->playFile("v4l2://:caching=5");
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
- 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startVideo()));
+ 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(takePhoto()));
 	
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
