@@ -89,10 +89,11 @@ Kamoso::Kamoso(QWidget* parent)
 		mainWidgetUi->webcamCombo->show();
 		for(int x=0;x<deviceManager->numberOfDevices();x++)
 		{
-			mainWidgetUi->webcamCombo->addItem(deviceManager->m_deviceList[x].getDescription(),
-												deviceManager->m_deviceList[x].getUdi());
-			qDebug() << deviceManager->m_deviceList[x].getDescription();
-			qDebug() << deviceManager->m_deviceList[x].getUdi();
+			QList <Device> deviceList = deviceManager->devices();
+			mainWidgetUi->webcamCombo->addItem(deviceList[x].getDescription(),
+												deviceList[x].getUdi());
+			qDebug() << deviceList[x].getDescription();
+			qDebug() << deviceList[x].getUdi();
 		}
 		
 	}
@@ -187,10 +188,11 @@ void Kamoso::fillKcomboDevice()
 	DeviceManager *deviceManager = DeviceManager::self();
 	for(int x=0;x<deviceManager->numberOfDevices();x++)
 	{
-		mainWidgetUi->webcamCombo->addItem(deviceManager->m_deviceList[x].getDescription(),
-											deviceManager->m_deviceList[x].getUdi());
-		qDebug() << deviceManager->m_deviceList[x].getDescription();
-		qDebug() << deviceManager->m_deviceList[x].getUdi();
+		QList <Device> deviceList = deviceManager->devices();
+		mainWidgetUi->webcamCombo->addItem(deviceList[x].getDescription(),
+											deviceList[x].getUdi());
+		qDebug() << deviceList[x].getDescription();
+		qDebug() << deviceList[x].getUdi();
 	}
 	
 }

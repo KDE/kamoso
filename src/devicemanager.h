@@ -29,12 +29,13 @@ Q_OBJECT
 public:
 	static DeviceManager* self();
 	int numberOfDevices();
-	QList<Device> m_deviceList;
+	const QList <Device> devices();
 private:
 	DeviceManager();
 	static DeviceManager* s_instance;
 	void addDevice(Solid::Device device);
 	void removeDevice(Solid::Device device);
+	QList<Device> m_deviceList;
 private slots:
 	void deviceAdded(const QString &udi);
 	void deviceRemoved(const QString &udi);

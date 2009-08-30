@@ -86,6 +86,10 @@ void DeviceManager::deviceRemoved(const QString &udi)
 		}
 	}
 }
+const QList <Device> DeviceManager::devices()
+{
+	return m_deviceList;
+}
 DeviceManager* DeviceManager::self()
 {
 	if(s_instance == NULL)
