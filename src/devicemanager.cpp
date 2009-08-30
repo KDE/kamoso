@@ -62,7 +62,7 @@ void DeviceManager::addDevice(const Solid::Device device)
 	m_deviceList.append(Device(device));
 }
 
-void DeviceManager::removeDevice(Solid::Device device)
+void DeviceManager::removeDevice(const Solid::Device device)
 {
 	QList <Device> ::iterator i;
 	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
@@ -97,7 +97,6 @@ void DeviceManager::deviceAdded(const QString &udi)
 	Solid::Device device( udi );
 	if(device.is<Solid::Video>())
 	{
-		qDebug() << "Adding new Device";
 		addDevice(device);
 		emit deviceRegistered(udi);
 	}
