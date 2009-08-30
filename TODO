@@ -22,9 +22,15 @@ Kamoso 1.0:
 		-Usar KIO
 		-Full KDE
 
-Kamoso libAv backend:
-	-Study what information we can get from a v4l2 device (we'll need some).
-	-Remove kopeteAv library
-	-Create a visualitation widget
-	-Be able to take pictures
-	-Be able to grab videos
+Kamoso libVlc backend:
+	[Ok]-Study what information we can get from a v4l2 device (we'll need some).
+	[OK]-Remove kopeteAv library
+	[OK]-Create a visualitation widget
+	[OK]-Be able to take pictures
+	[OK]-Be able to grab videos
+	-Clean the code, or write it in the good way
+		-DeviceManager
+		-Device
+		-Player
+	-Merge into master
+	-Add effects
