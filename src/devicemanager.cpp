@@ -41,9 +41,55 @@ DeviceManager::DeviceManager()
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
 }
 
+/*
+*Public methods
+*/
+const QList <Device> DeviceManager::devices()
+{
+	return m_deviceList;
+}
+
+int DeviceManager::numberOfDevices()
+{
+	return m_deviceList.size();
+}
+
+/*
+*Private methods
+*/
 void DeviceManager::addDevice(const Solid::Device device)
 {
 	m_deviceList.append(Device(device));
+}
+
+void DeviceManager::removeDevice(Solid::Device device)
+{
+	QList <Device> ::iterator i;
+	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
+	{
+		if(i->getUdi() == device.udi())
+		{
+			m_deviceList.erase(i);
+			break;
+		}
+	}
+}
+
+/*
+*QT Slots 
+*/
+void DeviceManager::deviceRemoved(const QString &udi)
+{
+	QList <Device> ::iterator i;
+	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
+	{
+		if(i->getUdi() == udi)
+		{
+			m_deviceList.erase(i);
+			emit deviceUnregistered(udi);
+			break;
+		}
+	}
 }
 
 void DeviceManager::deviceAdded(const QString &udi)
@@ -57,39 +103,9 @@ void DeviceManager::deviceAdded(const QString &udi)
 	}
 }
 
-int DeviceManager::numberOfDevices()
-{
-	return m_deviceList.size();
-}
-
-void DeviceManager::removeDevice(Solid::Device device)
-{
-	//TODO: implement remove device
-	for(int x=0;x < m_deviceList.size();x++)
-	{
-		if(m_deviceList[x].getUdi() == device.udi())
-		{
-			m_deviceList.removeAt(x);
-			break;
-		}
-	}
-}
-void DeviceManager::deviceRemoved(const QString &udi)
-{
-	for(int x=0;x < m_deviceList.size();x++)
-	{
-		if(m_deviceList[x].getUdi() == udi)
-		{
-			m_deviceList.removeAt(x);
-			emit deviceUnregistered(udi);
-			break;
-		}
-	}
-}
-const QList <Device> DeviceManager::devices()
-{
-	return m_deviceList;
-}
+/*
+*Singleton
+*/
 DeviceManager* DeviceManager::self()
 {
 	if(s_instance == NULL)
