@@ -41,7 +41,7 @@ DeviceManager::DeviceManager()
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
 }
 
-void DeviceManager::addDevice(Solid::Device device)
+void DeviceManager::addDevice(const Solid::Device device)
 {
 	m_deviceList.append(Device(device));
 }

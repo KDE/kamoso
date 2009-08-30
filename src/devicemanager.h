@@ -33,7 +33,7 @@ public:
 private:
 	DeviceManager();
 	static DeviceManager* s_instance;
-	void addDevice(Solid::Device device);
+	void addDevice(const Solid::Device device);
 	void removeDevice(Solid::Device device);
 	QList<Device> m_deviceList;
 private slots:
