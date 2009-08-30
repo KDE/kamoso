@@ -71,7 +71,7 @@ class Kamoso : public KMainWindow
 		void startCountdown();
 		void configuration();
 		void generalUpdated();
-		void webcamChanged(const int webcamId);
+		void webcamChanged();
 		void webcamAdded();
 		void webcamRemoved();
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);

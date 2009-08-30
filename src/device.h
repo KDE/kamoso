@@ -24,15 +24,15 @@
 class Device
 {
 public:
-	Device(Solid::Device);
+	Device(const Solid::Device*);
 	~Device();
-	QString getDescription();
-	QString getUdi();
+	QString description();
+	QString udi();
 private:
 	QString queryv4lInfo();
 	QString m_description;
     QString m_udi;
-	QString filePath;
+	QString m_path;
 };
 
 #endif

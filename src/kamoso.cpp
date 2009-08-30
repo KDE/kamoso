@@ -90,10 +90,10 @@ Kamoso::Kamoso(QWidget* parent)
 		for(int x=0;x<deviceManager->numberOfDevices();x++)
 		{
 			QList <Device> deviceList = deviceManager->devices();
-			mainWidgetUi->webcamCombo->addItem(deviceList[x].getDescription(),
-												deviceList[x].getUdi());
-			qDebug() << deviceList[x].getDescription();
-			qDebug() << deviceList[x].getUdi();
+			mainWidgetUi->webcamCombo->addItem(deviceList[x].description(),
+												deviceList[x].udi());
+			qDebug() << deviceList[x].description();
+			qDebug() << deviceList[x].udi();
 		}
 		
 	}
@@ -189,10 +189,10 @@ void Kamoso::fillKcomboDevice()
 	for(int x=0;x<deviceManager->numberOfDevices();x++)
 	{
 		QList <Device> deviceList = deviceManager->devices();
-		mainWidgetUi->webcamCombo->addItem(deviceList[x].getDescription(),
-											deviceList[x].getUdi());
-		qDebug() << deviceList[x].getDescription();
-		qDebug() << deviceList[x].getUdi();
+		mainWidgetUi->webcamCombo->addItem(deviceList[x].description(),
+											deviceList[x].udi());
+		qDebug() << deviceList[x].description();
+		qDebug() << deviceList[x].udi();
 	}
 	
 }
@@ -209,7 +209,7 @@ void Kamoso::webcamRemoved()
 	}
 }
 
-void Kamoso::webcamChanged(const int webcamId)
+void Kamoso::webcamChanged()
 {
 	delete webcam;
 	webcam = new Player();

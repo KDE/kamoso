@@ -59,7 +59,7 @@ int DeviceManager::numberOfDevices()
 */
 void DeviceManager::addDevice(const Solid::Device device)
 {
-	m_deviceList.append(Device(device));
+	m_deviceList.append(Device(&device));
 }
 
 void DeviceManager::removeDevice(const Solid::Device device)
@@ -67,7 +67,7 @@ void DeviceManager::removeDevice(const Solid::Device device)
 	QList <Device> ::iterator i;
 	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
 	{
-		if(i->getUdi() == device.udi())
+		if(i->udi() == device.udi())
 		{
 			m_deviceList.erase(i);
 			break;
@@ -83,7 +83,7 @@ void DeviceManager::deviceRemoved(const QString &udi)
 	QList <Device> ::iterator i;
 	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
 	{
-		if(i->getUdi() == udi)
+		if(i->udi() == udi)
 		{
 			m_deviceList.erase(i);
 			emit deviceUnregistered(udi);
