@@ -114,7 +114,7 @@ Kamoso::Kamoso(QWidget* parent)
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
- 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(takePhoto()));
+ 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 	
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
