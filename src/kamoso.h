@@ -65,6 +65,7 @@ class Kamoso : public KMainWindow
 		QWidget *mainWidget;
 		DeviceManager *deviceManager;
 		int m_exponentialValue;
+		bool recording;
 //Only slots
 	public slots:
 		void takePhoto();

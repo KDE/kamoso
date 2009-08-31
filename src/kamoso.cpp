@@ -112,6 +112,11 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
  	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
 	
+	//Capture video, connect signal->slot
+	mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
+	connect(mainWidgetUi->makeVideo, SIGNAL(clicked(bool)), SLOT(startVideo()));
+
+	
 	//Configuration button
 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
 	
@@ -163,6 +168,7 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 	
 	busyChange(false);
+	recording = false;
 	connect(PluginManager::self(), SIGNAL(busyState(bool)), SLOT(busyChange(bool)));
 }
 
@@ -183,8 +189,21 @@ void Kamoso::webcamAdded()
 
 void Kamoso::startVideo()
 {
-	qDebug() << "Starting to record video!!!";
-	webcam->recordVideo();
+	if(!recording){
+		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
+		webcam->recordVideo();
+		recording = true;
+	}else{
+		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
+		recording = false;
+		
+		QString mrl = QString();
+		mrl.append("v4l2://");
+		mrl.append(deviceManager->getPlayingDevicePath());
+		mrl.append(":caching=5");
+	
+		webcam->playFile(mrl.toAscii());
+	}
 }
 
 void Kamoso::fillKcomboDevice()
@@ -223,7 +242,6 @@ void Kamoso::webcamChanged(int index)
 	deviceManager->webcamPlaying(udi);
 	QString mrl = QString();
 	mrl.append("v4l2://");
-	
 	mrl.append(deviceManager->getPlayingDevicePath());
 	mrl.append(":caching=5");
 	
