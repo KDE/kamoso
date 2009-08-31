@@ -2,13 +2,13 @@
 
 pkgname=kamoso-git
 _pkgname=kamoso
-pkgver=20090805
+pkgver=20090831
 pkgrel=1
 pkgdesc="A webcam application to attract sweet girls to kde"
 url="http://gitorious.org/kamoso/"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('kdebase')
+depends=('kdebase-workspace' 'vlc')
 makedepends=('cmake' 'git' 'automoc4')
 conflicts=()
 
