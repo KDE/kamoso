@@ -36,6 +36,7 @@ class QModelIndex;
 class ThumbnailView;
 class KFileItem;
 class WebcamWidget;
+class DeviceManager;
 
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
@@ -62,6 +63,7 @@ class Kamoso : public KMainWindow
 		ThumbnailView *customIconView;
 		Ui::mainWidget *mainWidgetUi;
 		QWidget *mainWidget;
+		DeviceManager *deviceManager;
 		int m_exponentialValue;
 //Only slots
 	public slots:

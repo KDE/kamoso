@@ -67,7 +67,7 @@ Kamoso::Kamoso(QWidget* parent)
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
 
-	DeviceManager *deviceManager = DeviceManager::self();
+	deviceManager = DeviceManager::self();
 	connect(deviceManager,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
 	connect(deviceManager,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
 	
@@ -87,14 +87,12 @@ Kamoso::Kamoso(QWidget* parent)
 	}else{
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
-		for(int x=0;x<deviceManager->numberOfDevices();x++)
+		QList <Device> deviceList = deviceManager->devices();
+		QList <Device> ::iterator i;
+		for(i=deviceList.begin();i!=deviceList.end();++i)
 		{
-			QList <Device> deviceList = deviceManager->devices();
-			mainWidgetUi->webcamCombo->addItem(deviceList[x].description(),
-												deviceList[x].udi());
-			qDebug() << deviceList[x].description();
-			qDebug() << deviceList[x].udi();
-			qDebug() << "PAAAAAAAAAAAATH: \n\n" << deviceList[x].path();
+			mainWidgetUi->webcamCombo->addItem(i->description(),
+												i->udi());
 		}
 	}
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
@@ -173,7 +171,7 @@ Kamoso::Kamoso(QWidget* parent)
 void Kamoso::webcamAdded()
 {
 	qDebug() << "A new webcam has been added";
-	if(DeviceManager::self()->numberOfDevices() < 2){
+	if(deviceManager->numberOfDevices() < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
@@ -195,22 +193,19 @@ void Kamoso::startVideo()
 void Kamoso::fillKcomboDevice()
 {
 	mainWidgetUi->webcamCombo->clear();
-	DeviceManager *deviceManager = DeviceManager::self();
-	for(int x=0;x<deviceManager->numberOfDevices();x++)
+	QList <Device> deviceList = deviceManager->devices();
+	QList <Device> ::iterator i;
+	for(i=deviceList.begin();i!=deviceList.end();++i)
 	{
-		QList <Device> deviceList = deviceManager->devices();
-		mainWidgetUi->webcamCombo->addItem(deviceList[x].description(),
-											deviceList[x].udi());
-		qDebug() << deviceList[x].description();
-		qDebug() << deviceList[x].udi();
-		qDebug() << deviceList[x].path();
+		mainWidgetUi->webcamCombo->addItem(i->description(),
+											i->udi());
 	}
 	
 }
 void Kamoso::webcamRemoved()
 {
 	qDebug() << "webcam removed";
-	if((DeviceManager::self()->numberOfDevices()-1) < 2){
+	if((deviceManager->numberOfDevices()-1) < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
