@@ -88,8 +88,7 @@ Kamoso::Kamoso(QWidget* parent)
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
 	}
-	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
-
+	
 	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
@@ -105,6 +104,8 @@ Kamoso::Kamoso(QWidget* parent)
 	webcam->playFile(mrl.toAscii());
 
 	fillKcomboDevice();
+	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+	
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
@@ -198,7 +199,7 @@ void Kamoso::fillKcomboDevice()
 		//If kamoso is using this device, set it as currentIndex
 		if(i->udi() == deviceManager->getPlayingDeviceUdi())
 		{
-			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->findData(i->udi()));
+			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
 		}
 	}
 	
@@ -216,7 +217,7 @@ void Kamoso::webcamRemoved()
 	}
 }
 
-void Kamoso::webcamChanged()
+void Kamoso::webcamChanged(int index)
 {
 	delete webcam;
 	webcam = new WebcamWidget();
