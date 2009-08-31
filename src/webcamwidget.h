@@ -40,7 +40,6 @@ public slots:
 	void recordVideo();
 signals:
 	void photoTaken(const KUrl& dest);
-
 };
 #endif
 

@@ -87,27 +87,24 @@ Kamoso::Kamoso(QWidget* parent)
 	}else{
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
-		QList <Device> deviceList = deviceManager->devices();
-		QList <Device> ::iterator i;
-		for(i=deviceList.begin();i!=deviceList.end();++i)
-		{
-			mainWidgetUi->webcamCombo->addItem(i->description(),
-												i->udi());
-		}
 	}
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
+	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	QString mrl = QString();
 	mrl.append("v4l2://");
-	mrl.append("/dev/video");
+	mrl.append(deviceManager->getDefaultDevicePath());
 	mrl.append(":caching=5");
-	
+	emit webcamPlaying(deviceManager->getDefaultDeviceUdi());
+
 	webcam = new WebcamWidget();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
 	webcam->playFile(mrl.toAscii());
+
+	fillKcomboDevice();
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
@@ -198,6 +195,11 @@ void Kamoso::fillKcomboDevice()
 	{
 		mainWidgetUi->webcamCombo->addItem(i->description(),
 											i->udi());
+		//If kamoso is using this device, set it as currentIndex
+		if(i->udi() == deviceManager->getPlayingDeviceUdi())
+		{
+			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->findData(i->udi()));
+		}
 	}
 	
 }
