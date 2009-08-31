@@ -33,6 +33,7 @@ public:
 	QString getDefaultDevicePath();
 	QString getDefaultDeviceUdi();
 	QString getPlayingDeviceUdi();
+	QString getPlayingDevicePath();
 private:
 	DeviceManager();
 	static DeviceManager* s_instance;
@@ -40,6 +41,7 @@ private:
 	void removeDevice(Solid::Device device);
 	QList<Device> m_deviceList;
 	QString m_playingUdi;
+	QString m_playingPath;
 public slots:
 	void webcamPlaying(const QString &udi);
 private slots:

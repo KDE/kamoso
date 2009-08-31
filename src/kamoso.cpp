@@ -219,11 +219,14 @@ void Kamoso::webcamRemoved()
 
 void Kamoso::webcamChanged(int index)
 {
-	delete webcam;
-	webcam = new WebcamWidget();
-	webcam->setParent(mainWidgetUi->centralSpot);
-	webcam->setMinimumSize(640,480);
-	webcam->playFile("v4l2://:caching=5");
+	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
+	deviceManager->webcamPlaying(udi);
+	QString mrl = QString();
+	mrl.append("v4l2://");
+	mrl.append(deviceManager->getPlayingDevicePath());
+	mrl.append(":caching=5");
+	
+	webcam->playFile(mrl.toAscii());
 }
 
 void Kamoso::checkInitConfig()

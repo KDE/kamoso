@@ -71,6 +71,11 @@ QString DeviceManager::getPlayingDeviceUdi()
 	return m_playingUdi;
 }
 
+QString DeviceManager::getPlayingDevicePath()
+{
+	return m_playingPath;
+}
+
 /*
 *Private methods
 */
@@ -129,6 +134,8 @@ void DeviceManager::webcamPlaying(const QString &udi)
 		if(i->udi() == udi)
 		{
 			i->playing(true);
+			m_playingUdi = i->udi();
+			m_playingPath = i->path();
 		}
 	}
 }
