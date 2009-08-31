@@ -18,22 +18,18 @@ class QSlider;
 
 class WebcamWidget : public QWidget
 {
-    Q_OBJECT
-    QSlider *_positionSlider;
-    QSlider *_volumeSlider;
-    QFrame *_videoWidget;
-    QTimer *poller;
+Q_OBJECT
+public:
+	WebcamWidget();
+	~WebcamWidget();
+	bool raise(libvlc_exception_t * ex);
     bool _isPlaying;
     libvlc_exception_t _vlcexcep;
     libvlc_instance_t *_vlcinstance;
     libvlc_media_player_t *m_mp;
     libvlc_media_t *_m;
-
-public:
-    WebcamWidget();
-    ~WebcamWidget();
-    bool raise(libvlc_exception_t * ex);
-
+private:
+	QString m_filePath;
 public slots:
     void playFile(QString file);
 	bool takePhoto(const KUrl &dest);

@@ -75,8 +75,13 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::playFile(QString file)
 {
+	m_filePath = file;
+	QString mrl = QString();
+	mrl.append("v4l2://");
+	mrl.append(m_filePath.toAscii());
+	mrl.append(":caching=5");
 	/* Create a new LibVLC media descriptor */
-	_m = libvlc_media_new (_vlcinstance, file.toAscii(), &_vlcexcep);
+	_m = libvlc_media_new (_vlcinstance, mrl.toAscii(), &_vlcexcep);
 	raise(&_vlcexcep);
     
 	libvlc_media_player_set_media (m_mp, _m, &_vlcexcep);
@@ -128,16 +133,15 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 }
 void WebcamWidget::recordVideo()
 {
-// 	qDebug() << "WebcamWidget::recording!\n\n\n\n\n";
-// 	QString option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=std{access=file,mux=ogg,dst='/home/nasete/cod3s/cpp/vlcTest/pop.ogv'}");
-// 	libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
-// 	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
-// 	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
-// 	libvlc_media_player_stop(_mp,&_vlcexcep);
-// 	_mp = libvlc_media_player_new_from_media(_m,&_vlcexcep);
-// 	playFile("v4l2://:caching=5");
-// 	raise(&_vlcexcep);
-// 	
+	qDebug() << "WebcamWidget::recording!\n\n\n\n\n";
+	QString option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=std{access=file,mux=ogg,dst='/home/nasete/pop.ogv'}");
+	libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
+	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
+	libvlc_media_player_stop(m_mp,&_vlcexcep);
+	m_mp = libvlc_media_player_new_from_media(_m,&_vlcexcep);
+	playFile("");
+	raise(&_vlcexcep);
 }
 bool WebcamWidget::raise(libvlc_exception_t * ex)
 {

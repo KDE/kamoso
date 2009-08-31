@@ -92,16 +92,12 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-	QString mrl = QString();
-	mrl.append("v4l2://");
-	mrl.append(deviceManager->getDefaultDevicePath());
-	mrl.append(":caching=5");
 	emit webcamPlaying(deviceManager->getDefaultDeviceUdi());
 
 	webcam = new WebcamWidget();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile(mrl.toAscii());
+	webcam->playFile(deviceManager->getDefaultDevicePath());
 
 	fillKcomboDevice();
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
@@ -196,13 +192,7 @@ void Kamoso::startVideo()
 	}else{
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
 		recording = false;
-		
-		QString mrl = QString();
-		mrl.append("v4l2://");
-		mrl.append(deviceManager->getPlayingDevicePath());
-		mrl.append(":caching=5");
-	
-		webcam->playFile(mrl.toAscii());
+		webcam->playFile(deviceManager->getPlayingDevicePath());
 	}
 }
 
@@ -240,12 +230,8 @@ void Kamoso::webcamChanged(int index)
 {
 	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
 	deviceManager->webcamPlaying(udi);
-	QString mrl = QString();
-	mrl.append("v4l2://");
-	mrl.append(deviceManager->getPlayingDevicePath());
-	mrl.append(":caching=5");
-	
-	webcam->playFile(mrl.toAscii());
+
+	webcam->playFile(deviceManager->getPlayingDevicePath());
 }
 
 void Kamoso::checkInitConfig()
