@@ -7,7 +7,7 @@ Kamoso 1.0:
 	
 	-Controlar el video:
 		-Controlar el input
-			-Controlar FPS
+			[OK]-Controlar FPS
 			-Configurar video (brillo, contraste etc). (auto mejor que mejor)
 			-Seleccionar el source
 			-Controlar las resoluciones
@@ -27,14 +27,5 @@ Kamoso 1.0:
 		-Full KDE
 
 Kamoso libVlc backend:
-	[Ok]-Study what information we can get from a v4l2 device (we'll need some).
-	[OK]-Remove kopeteAv library
-	[OK]-Create a visualitation widget
-	[OK]-Be able to take pictures
-	[OK]-Be able to grab videos
-	-Clean the code, or write it in the good way
-		-DeviceManager
-		-Device
-		-Player
-	-Merge into master
-	-Add effects
+	-Fix the usage of KIO
+	-Do WebcamSelection working again
