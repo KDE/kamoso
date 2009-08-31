@@ -39,6 +39,8 @@ DeviceManager::DeviceManager()
 
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
 	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
+	
+// 	m_playingUdi = NULL;
 }
 
 /*
@@ -54,11 +56,27 @@ int DeviceManager::numberOfDevices()
 	return m_deviceList.size();
 }
 
+QString DeviceManager::getDefaultDevicePath()
+{
+	return m_deviceList.first().path();
+}
+
+QString DeviceManager::getDefaultDeviceUdi()
+{
+	return m_deviceList.first().udi();
+}
+
+QString DeviceManager::getPlayingDeviceUdi()
+{
+	return m_playingUdi;
+}
+
 /*
 *Private methods
 */
 void DeviceManager::addDevice(const Solid::Device device)
 {
+	
 	m_deviceList.append(Device(&device));
 }
 
@@ -99,6 +117,19 @@ void DeviceManager::deviceAdded(const QString &udi)
 	{
 		addDevice(device);
 		emit deviceRegistered(udi);
+	}
+}
+
+void DeviceManager::webcamPlaying(const QString &udi)
+{
+	m_playingUdi = udi;
+	QList <Device> ::iterator i;
+	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
+	{
+		if(i->udi() == udi)
+		{
+			i->playing(true);
+		}
 	}
 }
 

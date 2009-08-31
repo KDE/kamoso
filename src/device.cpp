@@ -22,6 +22,11 @@ Device::Device(const Solid::Device *device)
 	}
 }
 
+void Device::playing(bool play)
+{
+	m_playing = play;
+}
+
 QString Device::path()
 {
 	return m_path;

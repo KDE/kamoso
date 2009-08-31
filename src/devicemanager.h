@@ -30,12 +30,18 @@ public:
 	static DeviceManager* self();
 	int numberOfDevices();
 	const QList <Device> devices();
+	QString getDefaultDevicePath();
+	QString getDefaultDeviceUdi();
+	QString getPlayingDeviceUdi();
 private:
 	DeviceManager();
 	static DeviceManager* s_instance;
 	void addDevice(const Solid::Device device);
 	void removeDevice(Solid::Device device);
 	QList<Device> m_deviceList;
+	QString m_playingUdi;
+public slots:
+	void webcamPlaying(const QString &udi);
 private slots:
 	void deviceAdded(const QString &udi);
 	void deviceRemoved(const QString &udi);
