@@ -21,15 +21,24 @@
 #define PLUGINMANAGER_H
 #include <KPluginInfo>
 
+class KJob;
 class KamosoPlugin;
 
 class PluginManager : public QObject
 {
+	Q_OBJECT
 	public:
 		static PluginManager* self();
 		KPluginInfo::List pluginInfo() const;
 		QList<KamosoPlugin*> plugins();
 		~PluginManager();
+	
+	signals:
+		void busyState(bool isBusy);
+	
+	private slots:
+		void addJob(KJob* job);
+		void removeJob(KJob*);
 		
 	private:
 		PluginManager();

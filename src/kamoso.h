@@ -81,7 +81,8 @@ class Kamoso : public KMainWindow
 		void slotScrollRight();
 		void slotScrollFinish();
 		void openThumbnail(const QModelIndex& idx);
-    void fillKcomboDevice();
+		void fillKcomboDevice();
+		void busyChange(bool);
 };
 
 #endif

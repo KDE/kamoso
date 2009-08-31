@@ -23,6 +23,7 @@
 #include <QVariantList>
 #include "kdemacros.h"
 
+class KJob;
 class QAction;
 class KUrl;
 
@@ -40,6 +41,9 @@ class KDE_EXPORT KamosoPlugin : public QObject
 			nothing will be added
 		*/
 		virtual QAction* thumbnailsAction(const KUrl& url)=0;
+	
+	signals:
+		void jobCreated(KJob* job);
 };
 Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
 
