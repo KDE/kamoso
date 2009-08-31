@@ -206,7 +206,7 @@ void Kamoso::fillKcomboDevice()
 }
 void Kamoso::webcamRemoved()
 {
-	qDebug() << "webcam removed";
+	qDebug() << "\n\n\n\n\n\n\n\n\n\nwebcam removed";
 	if((deviceManager->numberOfDevices()-1) < 2){
 		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
@@ -223,6 +223,7 @@ void Kamoso::webcamChanged(int index)
 	deviceManager->webcamPlaying(udi);
 	QString mrl = QString();
 	mrl.append("v4l2://");
+	
 	mrl.append(deviceManager->getPlayingDevicePath());
 	mrl.append(":caching=5");
 	
