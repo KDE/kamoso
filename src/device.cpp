@@ -22,6 +22,11 @@ Device::Device(const Solid::Device *device)
 	}
 }
 
+QString Device::path()
+{
+	return m_path;
+}
+
 QString Device::description()
 {
 	return m_description;

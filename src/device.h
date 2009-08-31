@@ -28,6 +28,7 @@ public:
 	~Device();
 	QString description();
 	QString udi();
+	QString path();
 private:
 	QString queryv4lInfo();
 	QString m_description;

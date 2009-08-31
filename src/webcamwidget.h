@@ -16,7 +16,7 @@ class QSlider;
 
 #define POSITION_RESOLUTION 10000
 
-class Player : public QWidget
+class WebcamWidget : public QWidget
 {
     Q_OBJECT
     QSlider *_positionSlider;
@@ -26,12 +26,12 @@ class Player : public QWidget
     bool _isPlaying;
     libvlc_exception_t _vlcexcep;
     libvlc_instance_t *_vlcinstance;
-    libvlc_media_player_t *_mp;
+    libvlc_media_player_t *m_mp;
     libvlc_media_t *_m;
 
 public:
-    Player();
-    ~Player();
+    WebcamWidget();
+    ~WebcamWidget();
     bool raise(libvlc_exception_t * ex);
 
 public slots:

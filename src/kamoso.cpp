@@ -94,16 +94,22 @@ Kamoso::Kamoso(QWidget* parent)
 												deviceList[x].udi());
 			qDebug() << deviceList[x].description();
 			qDebug() << deviceList[x].udi();
+			qDebug() << "PAAAAAAAAAAAATH: \n\n" << deviceList[x].path();
 		}
-		
 	}
+	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-	webcam = new Player();
+	QString mrl = QString();
+	mrl.append("v4l2://");
+	mrl.append("/dev/video");
+	mrl.append(":caching=5");
+	
+	webcam = new WebcamWidget();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile("v4l2://:caching=5");
+	webcam->playFile(mrl.toAscii());
 	
 //Second row Stuff
 	//Setting kIcon and conection to the button who take the picture
@@ -171,9 +177,10 @@ void Kamoso::webcamAdded()
 	}else{
 		mainWidgetUi->chooseWebcamLbl->show();
 		mainWidgetUi->webcamCombo->show();
-// 		videoRetriever->mVideoDevicePool->fillDeviceKComboBox(mainWidgetUi->webcamCombo);
 		fillKcomboDevice();
 	}
+	
+	webcamChanged();
 }
 
 void Kamoso::startVideo()
@@ -193,6 +200,7 @@ void Kamoso::fillKcomboDevice()
 											deviceList[x].udi());
 		qDebug() << deviceList[x].description();
 		qDebug() << deviceList[x].udi();
+		qDebug() << deviceList[x].path();
 	}
 	
 }
@@ -207,12 +215,13 @@ void Kamoso::webcamRemoved()
 		//The combo is already showed (should be),so onlyupdate the content is required.
 		fillKcomboDevice();
 	}
+	webcamChanged();
 }
 
 void Kamoso::webcamChanged()
 {
 	delete webcam;
-	webcam = new Player();
+	webcam = new WebcamWidget();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
 	webcam->playFile("v4l2://:caching=5");
