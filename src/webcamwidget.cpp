@@ -114,15 +114,15 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	}
 	libvlc_video_take_snapshot(m_mp, path.toAscii(),640,480, &_vlcexcep);
 	if(raise(&_vlcexcep)){
-// 		if(dest.isLocalFile())
+		if(dest.isLocalFile())
 			emit photoTaken(dest);
-// 		else {
-// 			KIO::CopyJob* job=KIO::move(KUrl(path), dest);
-// 			job->setAutoDelete(true);
-// 			connect(job, SIGNAL(copyingDone(KIO::Job*,KUrl,KUrl,time_t,bool,bool)),
-// 					this, SLOT(emitKIOPhotoTaken(KIO::Job*,KUrl,KUrl,time_t,bool,bool)));
-// 			job->start();
-// 		}
+		else {
+			KIO::CopyJob* job=KIO::move(KUrl(path), dest);
+			job->setAutoDelete(true);
+			connect(job, SIGNAL(copyingDone(KIO::Job*,KUrl,KUrl,time_t,bool,bool)),
+					this, SLOT(emitKIOPhotoTaken(KIO::Job*,KUrl,KUrl,time_t,bool,bool)));
+			job->start();
+		}
 	}
 	return raise(&_vlcexcep);
 }
