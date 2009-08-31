@@ -171,8 +171,9 @@ Kamoso::Kamoso(QWidget* parent)
 void Kamoso::webcamAdded()
 {
 	qDebug() << "A new webcam has been added";
+	//If ther'e less than 2 devices (0 or more).
 	if(deviceManager->numberOfDevices() < 2){
-		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		//At the monent there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
 	}else{
@@ -180,8 +181,6 @@ void Kamoso::webcamAdded()
 		mainWidgetUi->webcamCombo->show();
 		fillKcomboDevice();
 	}
-	
-	webcamChanged();
 }
 
 void Kamoso::startVideo()
@@ -213,7 +212,6 @@ void Kamoso::webcamRemoved()
 		//The combo is already showed (should be),so onlyupdate the content is required.
 		fillKcomboDevice();
 	}
-	webcamChanged();
 }
 
 void Kamoso::webcamChanged()
