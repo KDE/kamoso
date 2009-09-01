@@ -243,6 +243,7 @@ void Kamoso::checkInitConfig()
 		saveUrl = Settings::saveUrl();
 	} else {
 		KDirSelectDialog dirs;
+		dirs.showButton(KDialog::Cancel,false);
 		if(dirs.exec() && dirs.url().isValid()) {
 			saveUrl = dirs.url();
 			Settings::setSaveUrl(saveUrl);
