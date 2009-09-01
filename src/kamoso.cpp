@@ -247,8 +247,6 @@ void Kamoso::checkInitConfig()
 		if(dirs.exec() && dirs.url().isValid()) {
 			saveUrl = dirs.url();
 			Settings::setSaveUrl(saveUrl);
-		} else {
-			close();
 		}
 	}
 }
