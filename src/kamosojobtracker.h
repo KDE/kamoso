@@ -17,32 +17,29 @@
 
 */
 
-#ifndef PLUGINMANAGER_H
-#define PLUGINMANAGER_H
-#include <KPluginInfo>
+#ifndef KAMOSOJOBTRACKER_H
+#define KAMOSOJOBTRACKER_H
+#include <QWidget>
 
-class KJob;
 class KamosoJob;
-class KamosoPlugin;
+class KJob;
 
-class PluginManager : public QObject
+class KamosoJobTracker
+	: public QWidget
 {
 	Q_OBJECT
 	public:
-		static PluginManager* self();
-		KPluginInfo::List pluginInfo() const;
-		QList<KamosoPlugin*> plugins();
-		~PluginManager();
+		KamosoJobTracker(QWidget* parent = 0, Qt::WindowFlags f = 0);
 		
-	signals:
-		void jobAdded(KamosoJob* job);
+	public slots:
+		void registerJob(KamosoJob* job);
+		void unregisterJob(KJob* job);
+		
+		virtual QSize sizeHint() const;
+		virtual void paintEvent(QPaintEvent* );
 		
 	private:
-		PluginManager();
-		KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
-		
-		struct Private;
-		Private* d;
+		QList<KamosoJob*> mJobs;
 };
 
-#endif // PLUGINMANAGER_H
+#endif

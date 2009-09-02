@@ -17,32 +17,9 @@
 
 */
 
-#ifndef PLUGINMANAGER_H
-#define PLUGINMANAGER_H
-#include <KPluginInfo>
+#include "kamosojob.h"
 
-class KJob;
-class KamosoJob;
-class KamosoPlugin;
 
-class PluginManager : public QObject
-{
-	Q_OBJECT
-	public:
-		static PluginManager* self();
-		KPluginInfo::List pluginInfo() const;
-		QList<KamosoPlugin*> plugins();
-		~PluginManager();
-		
-	signals:
-		void jobAdded(KamosoJob* job);
-		
-	private:
-		PluginManager();
-		KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
-		
-		struct Private;
-		Private* d;
-};
-
-#endif // PLUGINMANAGER_H
+KamosoJob::KamosoJob(QObject* parent)
+	: KJob(parent)
+{}

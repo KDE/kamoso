@@ -85,7 +85,6 @@ class Kamoso : public KMainWindow
 		void slotScrollFinish();
 		void openThumbnail(const QModelIndex& idx);
 		void fillKcomboDevice();
-		void busyChange(bool);
 	signals:
 		void webcamPlaying(const QString&);
 };

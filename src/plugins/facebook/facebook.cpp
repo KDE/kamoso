@@ -27,8 +27,8 @@
 // #include "fbtalker.h"
 #include "fbalbum.h"
 
-K_PLUGIN_FACTORY(KDevExecuteFactory, registerPlugin<FacebookPlugin>(); )
-K_EXPORT_PLUGIN(KDevExecuteFactory(KAboutData("facebooksender", "facebooksender",
+K_PLUGIN_FACTORY(KamosoFacebookFactory, registerPlugin<FacebookPlugin>(); )
+K_EXPORT_PLUGIN(KamosoFacebookFactory(KAboutData("facebooksender", "facebooksender",
 		ki18n("Facebook support"), "0.1", ki18n("Allows to communicate with Facebook"),
 		KAboutData::License_GPL)))
 
@@ -38,16 +38,23 @@ FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args)
 {}
 
-QAction* FacebookPlugin::thumbnailsAction(const KUrl& url)
+QAction* FacebookPlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
-	KMimeType::Ptr mime = KMimeType::findByUrl(url);
+	bool added=false;
 	QAction* act=0;
 	mSelectedUrls.clear();
-	if(mime->name().startsWith("image/")) {
-		act=new QAction(i18n("Upload to Facebook..."), 0);
-		connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
+	foreach(const KUrl& url, urls)
+	{
+		KMimeType::Ptr mime = KMimeType::findByUrl(url);
 		
-		mSelectedUrls=url;
+		if(mime->name().startsWith("image/")) {
+			if(!added) {
+				act=new QAction(i18n("Upload to Facebook..."), 0);
+				connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
+			}
+			
+			mSelectedUrls.append(url);
+		}
 	}
 	return act;
 }
@@ -57,13 +64,14 @@ void FacebookPlugin::uploadImage(bool)
 	Q_ASSERT(!mSelectedUrls.isEmpty());
 	kDebug() << "uploading..." << mSelectedUrls;
 	
-	FacebookJob* job=new FacebookJob(mSelectedUrls);
-	emit jobCreated(job);
-	job->exec();
+	foreach(const KUrl& url, mSelectedUrls) {
+		FacebookJob* job=new FacebookJob(url);
+		emit jobCreated(job);
+	}
 }
 
 FacebookJob::FacebookJob(const KUrl& url, QObject* parent)
-	: KJob(parent), url(url), talk(0)
+	: KamosoJob(parent), url(url), talk(0)
 {
 	Q_ASSERT(url.isLocalFile()); //TODO: Move to temp otherwise
 	
@@ -86,8 +94,15 @@ void FacebookJob::start()
 	talk.authenticate(sessionKey, sessionSecret, sessionExpires);
 }
 
-void FacebookJob::loginDone(int, const QString& )
+void FacebookJob::loginDone(int errCode, const QString& error)
 {
+	if(errCode!=0) {
+		setError(errCode);
+		setErrorText(error);
+		emitResult();
+		return;
+	}
+	
 	KConfig cfg(KGlobal::mainComponent());
 	KConfigGroup cfgGroup=cfg.group("Facebook");
 	cfgGroup.writeEntry("Key", talk.getSessionKey());
@@ -101,6 +116,13 @@ void FacebookJob::loginDone(int, const QString& )
 
 void FacebookJob::albumList(int errCode, const QString& errMsg, const QList<FbAlbum>& albums)
 {
+	if(errCode!=0) {
+		setError(errCode);
+		setErrorText(errMsg);
+		emitResult();
+		return;
+	}
+	
 	long long id=-1;
 	foreach(const FbAlbum& album, albums) {
 		if(album.title==i18n("Kamoso")) {
@@ -123,6 +145,13 @@ void FacebookJob::albumList(int errCode, const QString& errMsg, const QList<FbAl
 
 void FacebookJob::albumCreated(int errCode, const QString& error, long long albumId)
 {
+	if(errCode!=0) {
+		setError(errCode);
+		setErrorText(error);
+		emitResult();
+		return;
+	}
+	
 	sendPhoto(albumId);
 	qDebug() << "album created" << albumId;
 }
@@ -133,4 +162,14 @@ void FacebookJob::sendPhoto(long long album)
 	Q_ASSERT(c && "could not add the photo to the album");
 	
 	emit emitResult();
+}
+
+KIcon FacebookJob::icon() const
+{
+	return KIcon("player-volume");
+}
+
+QList<KUrl> FacebookJob::urls() const
+{
+	return QList<KUrl>() << url;
 }

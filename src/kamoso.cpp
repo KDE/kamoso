@@ -58,6 +58,8 @@
 #include "pluginmanager.h"
 #include "kamosoplugin.h"
 #include <KMessageBox>
+#include <KStatusBar>
+#include "kamosojobtracker.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -127,7 +129,7 @@ Kamoso::Kamoso(QWidget* parent)
 	dirOperator = new KDirOperator(saveUrl, this); //FIXME
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
-	dirOperator->setMimeFilter(QStringList() << "image/png");
+	dirOperator->setMimeFilter(QStringList() << "image/png" << "video/ogg");
 	dirOperator->setView(customIconView);
 	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
 			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
@@ -163,9 +165,11 @@ Kamoso::Kamoso(QWidget* parent)
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
 	
-	busyChange(false);
 	recording = false;
-	connect(PluginManager::self(), SIGNAL(busyState(bool)), SLOT(busyChange(bool)));
+	
+	KamosoJobTracker* tracker=new KamosoJobTracker(statusBar());
+	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
+	statusBar()->addWidget(tracker);
 }
 
 void Kamoso::webcamAdded()
@@ -407,29 +411,23 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 		path.addPath(filename);
 		bool b=QDesktopServices::openUrl(path);
 		if(!b)
-			KMessageBox::error(this, "Could not open %1", path.prettyUrl());
+			KMessageBox::error(this, i18n("Could not open %1", path.prettyUrl()));
 	}
 }
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
 	menu->addSeparator();
+	#warning fix openThumbnail slot. not working
 	menu->addAction(i18n("Open"), this, SLOT(openThumbnail()));
 	
 	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
-		QAction* action=p->thumbnailsAction(item.url());
+		#warning make it possible to deal with many url at the same time
+		QAction* action=p->thumbnailsAction(QList<KUrl>() << item.url());
 		if(!action->parent())
 			action->setParent(menu);
 		
 		if(action)
 			menu->addAction(action);
 	}
-}
-
-void Kamoso::busyChange(bool isBusy)
-{
-	if(isBusy)
-		setCaption(i18n("Kamoso - Working..."));
-	else
-		setCaption(i18n("Kamoso"));
 }

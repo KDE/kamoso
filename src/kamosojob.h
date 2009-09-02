@@ -1,4 +1,5 @@
-/*
+
+class KIcon;/*
     <one line to give the program's name and a brief idea of what it does.>
     Copyright (C) <year>  <name of author>
 
@@ -17,32 +18,20 @@
 
 */
 
-#ifndef PLUGINMANAGER_H
-#define PLUGINMANAGER_H
-#include <KPluginInfo>
+#ifndef KAMOSOJOB_H
+#define KAMOSOJOB_H
 
-class KJob;
-class KamosoJob;
-class KamosoPlugin;
+#include <KJob>
+class KUrl;
 
-class PluginManager : public QObject
+class KDE_EXPORT KamosoJob : public KJob
 {
 	Q_OBJECT
 	public:
-		static PluginManager* self();
-		KPluginInfo::List pluginInfo() const;
-		QList<KamosoPlugin*> plugins();
-		~PluginManager();
-		
-	signals:
-		void jobAdded(KamosoJob* job);
-		
-	private:
-		PluginManager();
-		KamosoPlugin* loadPlugin(const KPluginInfo& pluginInfo, QObject* parent);
-		
-		struct Private;
-		Private* d;
+		KamosoJob(QObject* parent = 0);
+		virtual void start()=0;
+		virtual QList<KUrl> urls() const=0;
+		virtual KIcon icon() const=0;
 };
 
-#endif // PLUGINMANAGER_H
+#endif // KAMOSOJOB_H

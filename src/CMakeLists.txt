@@ -16,11 +16,12 @@ set(kamoso_SRCS
 	pluginmanager.cpp
 	device.cpp
 	devicemanager.cpp
+	kamosojobtracker.cpp 
 )
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui)
 
-kde4_add_library(kamosoplugin SHARED kamosoplugin.cpp)
+kde4_add_library(kamosoplugin SHARED kamosojob.cpp kamosoplugin.cpp)
 target_link_libraries(kamosoplugin ${KDE4_KDEUI_LIBS})
 
 kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)

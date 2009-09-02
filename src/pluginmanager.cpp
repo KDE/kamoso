@@ -68,7 +68,7 @@ KamosoPlugin* PluginManager::loadPlugin(const KPluginInfo& pluginInfo, QObject* 
 	KamosoPlugin* plugin=pluginInfo.service()->createInstance<KamosoPlugin>(parent, QVariantList(), &error);
 	
 	if(plugin)
-		connect(plugin, SIGNAL(jobCreated(KJob*)), PluginManager::self(), SLOT(addJob(KJob*)));
+		connect(plugin, SIGNAL(jobCreated(KamosoJob*)), SIGNAL(jobAdded(KamosoJob*)));
 	else
 		KMessageBox::error(0, error, i18n("Error while loading the plugin '%1'", pluginInfo.name()));
 	
@@ -85,24 +85,4 @@ QList< KamosoPlugin* > PluginManager::plugins()
 			d->plugins.append(loadPlugin(pinfo, this));
 	}
 	return d->plugins;
-}
-
-void PluginManager::addJob(KJob* job)
-{
-	kDebug() << "Job Added" << job;
-	d->runningJobs++;
-	connect(job, SIGNAL(result(KJob*)), SLOT(removeJob(KJob*)));
-	
-	emit busyState(true);
-}
-
-void PluginManager::removeJob(KJob* job)
-{
-	kDebug() << "Job Finnished" << job;
-	
-	//TODO: Notify about job errors.
-	
-	d->runningJobs--;
-	if(d->runningJobs==0)
-		emit busyState(false);
 }

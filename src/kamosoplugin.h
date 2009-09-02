@@ -23,9 +23,10 @@
 #include <QVariantList>
 #include "kdemacros.h"
 
-class KJob;
 class QAction;
+class KJob;
 class KUrl;
+class KamosoJob;
 
 class KDE_EXPORT KamosoPlugin : public QObject
 {
@@ -37,13 +38,13 @@ class KDE_EXPORT KamosoPlugin : public QObject
 		/** Action that it will appear in the thumbnails view's menu.
 			@p url Describes the item we need it for.
 			
-			@returns the action to be added. If a null action es returned,
+			@returns the action to be added. If a null action is returned,
 			nothing will be added
 		*/
-		virtual QAction* thumbnailsAction(const KUrl& url)=0;
+		virtual QAction* thumbnailsAction(const QList<KUrl>& url)=0;
 	
 	signals:
-		void jobCreated(KJob* job);
+		void jobCreated(KamosoJob* job);
 };
 Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
 

@@ -19,6 +19,7 @@
 #include "kamosoplugin.h"
 #include <KUrl>
 #include <KJob>
+#include <kamosojob.h>
 #include "fbtalker.h"
 
 namespace KIPIFacebookPlugin { class FbAlbum; }
@@ -29,22 +30,24 @@ class FacebookPlugin : public KamosoPlugin
 	Q_INTERFACES(KamosoPlugin)
 	public:
 		FacebookPlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const KUrl& url);
+		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		
 	public slots:
 		void uploadImage(bool);
 		
 	private:
-		KUrl mSelectedUrls;
+		QList<KUrl> mSelectedUrls;
 };
 
-class FacebookJob : public KJob
+class FacebookJob : public KamosoJob
 {
 	Q_OBJECT
 	public:
 		FacebookJob(const KUrl& url, QObject* parent=0);
 		virtual void start();
 		
+		virtual QList< KUrl > urls() const;
+		virtual KIcon icon() const;
 	private slots:
 		void albumList(int, const QString&, const QList<KIPIFacebookPlugin::FbAlbum>&);
 		void loginDone(int, const QString&);
