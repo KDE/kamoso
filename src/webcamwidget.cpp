@@ -1,10 +1,10 @@
 /*************************************************************************************
- *  Copyright (C) 2008 by Aleix Pol <aleixpol@gmail.com>                             *
- *  Copyright (C) 2008 by Alex Fiestas <alex@eyeos.org>                              *
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@gmail.com>                        *
+ *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
- *  as published by the Free Software Foundation; either version 3                   *
+ *  as published by the Free Software Foundation; either version 2                   *
  *  of the License, or (at your option) any later version.                           *
  *                                                                                   *
  *  This program is distributed in the hope that it will be useful,                  *
@@ -42,7 +42,7 @@ WebcamWidget::WebcamWidget()
 			"-I", "dummy", /* Don't use any interface */
 			"--ignore-config", /* Don't use VLC's config */
 			"--extraintf=logger", //log anything
-			"--verbose=2", //be much more verbose then normal for debugging purpose
+			"--verbose=0", //be much more verbose then normal for debugging purpose
 			"--plugin-path=C:\\vlc-0.9.9-win32\\plugins\\" };
 
 	_isPlaying=false;
@@ -79,7 +79,7 @@ void WebcamWidget::playFile(QString file)
 	QString mrl = QString();
 	mrl.append("v4l2://");
 	mrl.append(m_filePath.toAscii());
-	mrl.append(":caching=51");
+	mrl.append(":caching=100");
 	/* Create a new LibVLC media descriptor */
 	_m = libvlc_media_new (_vlcinstance, mrl.toAscii(), &_vlcexcep);
 	raise(&_vlcexcep);
@@ -131,20 +131,14 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	}
 	return raise(&_vlcexcep);
 }
-void WebcamWidget::recordVideo(const KUrl &dest)
+void WebcamWidget::recordVideo(const KUrl &dest,bool sound)
 {
-// 	QString path;
-// 	if(dest.isLocalFile())
-// 	{
-// 		path = dest.toLocalFile();
-// 	}else{
-// 		path=KStandardDirs::locateLocal("appdata","last.png");
-// 	}
-
-	qDebug() << "WebcamWidget::recording!\n\n\n\n\n";
-	QString option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=std{access=file,mux=ogg,dst='"+dest.path().toAscii()+"'}");
-	qDebug() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << option.toAscii();
-// 	libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+	QString option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest.path().toAscii()+"}'}");
+	if(sound == true){
+		libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+		libvlc_media_add_option(_m,"alsa-caching=100",&_vlcexcep);
+	}
+	libvlc_media_add_option(_m,"sout-display-delay=40",&_vlcexcep);
 	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
 	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
 	libvlc_media_player_stop(m_mp,&_vlcexcep);

@@ -2,18 +2,18 @@ Kamoso 1.0:
 	[OK]-Update AVDEvice:
 		[OK]-Hacer nuestro fork instalable (modificar nombre)
 	
-	- Arreglar cabeceras
-		- Queremos GPL2+? GPL3+? GPL2+3?
+	[OK]- Arreglar cabeceras
+		[OK]- Queremos GPL2+? GPL3+? GPL2+3?
 	
 	-Controlar el video:
 		-Controlar el input
 			[OK]-Controlar FPS
 			-Configurar video (brillo, contraste etc). (auto mejor que mejor)
-			-Seleccionar el source
+			[OK]-Seleccionar el source
 			-Controlar las resoluciones
-		-Controlar el output
-			-Quitar memory leaks
-			-limpiar código
+		[OK]-Controlar el output
+			[OK]-Quitar memory leaks
+			[Ok]-limpiar código
 	-Web 2.0:
 		-[OK. Facebook] Subirla a una web de subir fotos.
 		-Videos a youtube
@@ -25,7 +25,8 @@ Kamoso 1.0:
 			-Tuenar thumbnails view
 		-[OK] Usar KIO
 		-Full KDE
+	[OK]-Añadir un default si el usuario no selecciona directorio (standar Pictures, si no home?)
 
 Kamoso libVlc backend:
 	-Fix the usage of KIO
-	-Do WebcamSelection working again
+	[OK]-Do WebcamSelection working again

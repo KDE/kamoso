@@ -1,10 +1,10 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008 by Alex Fiestas <alex@eyeos.org>                              *
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@gmail.com>                        *
+ *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
- *  as published by the Free Software Foundation; either version 3                   *
+ *  as published by the Free Software Foundation; either version 2                   *
  *  of the License, or (at your option) any later version.                           *
  *                                                                                   *
  *  This program is distributed in the hope that it will be useful,                  *
@@ -193,7 +193,12 @@ void Kamoso::startVideo()
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
-		webcam->recordVideo(photoPlace);
+		if(mainWidgetUi->videoSound->checkState() == 2)
+		{
+			webcam->recordVideo(photoPlace,true);
+		}else{
+			webcam->recordVideo(photoPlace,false);
+		}
 		recording = true;
 	}else{
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
@@ -247,11 +252,10 @@ void Kamoso::checkInitConfig()
 		saveUrl = Settings::saveUrl();
 	} else {
 		KDirSelectDialog dirs;
+		dirs.showButton(KDialog::Cancel,false);
 		if(dirs.exec() && dirs.url().isValid()) {
 			saveUrl = dirs.url();
 			Settings::setSaveUrl(saveUrl);
-		} else {
-			close();
 		}
 	}
 }
