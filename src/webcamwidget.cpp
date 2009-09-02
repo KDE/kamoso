@@ -42,7 +42,7 @@ WebcamWidget::WebcamWidget()
 			"-I", "dummy", /* Don't use any interface */
 			"--ignore-config", /* Don't use VLC's config */
 			"--extraintf=logger", //log anything
-			"--verbose=2", //be much more verbose then normal for debugging purpose
+			"--verbose=0", //be much more verbose then normal for debugging purpose
 			"--plugin-path=C:\\vlc-0.9.9-win32\\plugins\\" };
 
 	_isPlaying=false;
