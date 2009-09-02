@@ -131,23 +131,14 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	}
 	return raise(&_vlcexcep);
 }
-void WebcamWidget::recordVideo(const KUrl &dest)
+void WebcamWidget::recordVideo(const KUrl &dest,bool sound)
 {
-// 	QString path;
-// 	if(dest.isLocalFile())
-// 	{
-// 		path = dest.toLocalFile();
-// 	}else{
-// 		path=KStandardDirs::locateLocal("appdata","last.png");
-// 	}
-
-	qDebug() << "WebcamWidget::recording!\n\n\n\n\n";
-// 	QString option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=std{access=file,mux=ogg,dst='"+dest.path().toAscii()+"'}");
 	QString option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest.path().toAscii()+"}'}");
-	qDebug() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << option.toAscii();
-	libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+	if(sound == true){
+		libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
+		libvlc_media_add_option(_m,"alsa-caching=100",&_vlcexcep);
+	}
 	libvlc_media_add_option(_m,"sout-display-delay=40",&_vlcexcep);
-	libvlc_media_add_option(_m,"alsa-caching=100",&_vlcexcep);
 	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
 	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
 	libvlc_media_player_stop(m_mp,&_vlcexcep);

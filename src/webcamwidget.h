@@ -33,7 +33,7 @@ private:
 public slots:
     void playFile(QString file);
 	bool takePhoto(const KUrl &dest);
-	void recordVideo(const KUrl &dest);
+	void recordVideo(const KUrl& dest, bool sound);
 signals:
 	void photoTaken(const KUrl& dest);
 };

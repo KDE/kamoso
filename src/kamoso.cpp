@@ -189,7 +189,12 @@ void Kamoso::startVideo()
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
-		webcam->recordVideo(photoPlace);
+		if(mainWidgetUi->videoSound->checkState() == 2)
+		{
+			webcam->recordVideo(photoPlace,true);
+		}else{
+			webcam->recordVideo(photoPlace,false);
+		}
 		recording = true;
 	}else{
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
