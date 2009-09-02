@@ -1,10 +1,10 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008 by Alex Fiestas <alex@eyeos.org>                              *
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@gmail.com>                        *
+ *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
- *  as published by the Free Software Foundation; either version 3                   *
+ *  as published by the Free Software Foundation; either version 2                   *
  *  of the License, or (at your option) any later version.                           *
  *                                                                                   *
  *  This program is distributed in the hope that it will be useful,                  *
