@@ -30,7 +30,7 @@ class Device
 		QString udi() const;
 		QString path() const;
 		
-		#warning afiestas: really useful? it's never read
+		#warning afiestas: really useful? it is never read
 		void setPlaying(bool state);
 	private:
 		QString queryv4lInfo();
