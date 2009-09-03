@@ -45,6 +45,7 @@ public slots:
 signals:
 	void photoTaken(const KUrl& dest);
 private:
+	QString phononCaptureDevice();
 	class Private;
 	Private* d;
 };
