@@ -17,77 +17,19 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSO_H
-#define KAMOSO_H
-
-#include <KMainWindow>
+#include "kamosoplugin.h"
 #include <KUrl>
-#include <ui_mainWidget.h>
 
-class WhiteWidgetManager;
-class WebcamWidget;
-class WebcamRetriever;
-class CountdownWidget;
-class KDirOperator;
-class QStackedLayout;
-class QSplitter;
-class QPushButton;
-class QModelIndex;
-class ThumbnailView;
-class KFileItem;
-class WebcamWidget;
-class DeviceManager;
-
-namespace Phonon { class MediaObject; }
-class Kamoso : public KMainWindow
+class ExecutePlugin : public KamosoPlugin
 {
 	Q_OBJECT
-//Methods that aren't slots
+	Q_INTERFACES(KamosoPlugin)
 	public:
-		Kamoso ( QWidget *parent=0 );
-		void checkInitConfig();
-		~Kamoso();
-		WebcamRetriever *videoRetriever;
-		int m_webcamId;
-	private:
-		KUrl saveUrl;
-		float brightBack;
-
-		KDirOperator *dirOperator;
-		WhiteWidgetManager *whiteWidgetManager;
-		WebcamWidget *webcam;
-		CountdownWidget *countdown;
-		Phonon::MediaObject *player;
-		QPushButton* scrollLeft;
-		QPushButton* scrollRight;
-		ThumbnailView *customIconView;
-		Ui::mainWidget *mainWidgetUi;
-		QWidget *mainWidget;
-		DeviceManager *deviceManager;
-		int m_exponentialValue;
-		bool recording;
-//Only slots
+		ExecutePlugin(QObject* parent, const QVariantList& args);
+		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
+		
 	public slots:
-		void takePhoto();
-		void startVideo();
-		void startCountdown();
-		void configuration();
-		void generalUpdated();
-		void webcamChanged(int index);
-		void webcamAdded();
-		void webcamRemoved();
-		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
-	private slots:
-		void restore();
-		void photoTaken(const KUrl& url);
-		void slotScrollLeft();
-		void slotScrollRight();
-		void slotScrollFinish();
-		void openThumbnail(const QModelIndex& idx);
-		void openThumbnail(const QList<KUrl>& url);
-		void fillKcomboDevice();
-	signals:
-		void webcamPlaying(const QString&);
+		void execute(bool);
+	private:
+		QList<KUrl> mSelectedUrls;
 };
-
-#endif

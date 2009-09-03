@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=Open any file in an external application
+Name=Execute
+GenericName=Execute
+ServiceTypes=Kamoso/Plugin
+X-KDE-Library=execute
+X-KDE-PluginInfo-Name=Execute
+X-KDE-PluginInfo-Author=Aleix Pol
+X-KDE-PluginInfo-Version=0.00000001
+X-KDE-PluginInfo-License=GPL

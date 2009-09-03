@@ -18,7 +18,6 @@
  *************************************************************************************/
 
 #include "pluginmanager.h"
-#include <QList>
 #include <KPluginInfo>
 #include <KServiceTypeTrader>
 
@@ -33,7 +32,7 @@ struct PluginManager::Private
 	static PluginManager* mInstance;
 	
 	/** list of plugin instances */
-	QList<KamosoPlugin*> plugins;
+	QMap<QString, KamosoPlugin*> plugins;
 	
 	int runningJobs;
 };
@@ -83,7 +82,13 @@ QList< KamosoPlugin* > PluginManager::plugins()
 		//we can call them at any time. All the instances stay in memory until the
 		//program is unloaded (until the singleton closes.
 		foreach(const KPluginInfo& pinfo, pluginInfo())
-			d->plugins.append(loadPlugin(pinfo, this));
+			d->plugins.insert(pinfo.name(), loadPlugin(pinfo, this));
 	}
-	return d->plugins;
+	return d->plugins.values();
+}
+
+KamosoPlugin* PluginManager::pluginFromName(const QString& name) const
+{
+	Q_ASSERT(d->plugins.contains(name));
+	return d->plugins.value(name);
 }

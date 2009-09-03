@@ -33,6 +33,7 @@ class PluginManager : public QObject
 		KPluginInfo::List pluginInfo() const;
 		QList<KamosoPlugin*> plugins();
 		~PluginManager();
+		KamosoPlugin* pluginFromName(const QString& name) const;
 		
 	signals:
 		void jobAdded(KamosoJob* job);

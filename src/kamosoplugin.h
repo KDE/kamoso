@@ -42,7 +42,8 @@ class KDE_EXPORT KamosoPlugin : public QObject
 			@returns the action to be added. If a null action is returned,
 			nothing will be added
 		*/
-		virtual QAction* thumbnailsAction(const QList<KUrl>& url)=0;
+		bool executeContextMenuAction(const QList<KUrl>& urls);
+		virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
 	
 	signals:
 		void jobCreated(KamosoJob* job);

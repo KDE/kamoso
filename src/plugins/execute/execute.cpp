@@ -16,24 +16,47 @@
  *  along with this program; if not, write to the Free Software                      *
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
-#include "kamosoplugin.h"
+
+#include "execute.h"
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KIcon>
+#include <KUrl>
 #include <QAction>
+#include <QDesktopServices>
+#include <KMessageBox>
 
-KamosoPlugin::KamosoPlugin(QObject* parent, const QVariantList& args)
-	: QObject(parent)
+K_PLUGIN_FACTORY(KamosoExecuteFactory, registerPlugin<ExecutePlugin>(); )
+K_EXPORT_PLUGIN(KamosoExecuteFactory(KAboutData("execute", "execute",
+		ki18n("Execute"), "0.1", ki18n("Runs a visor for the specified file."),
+		KAboutData::License_GPL)))
+
+ExecutePlugin::ExecutePlugin(QObject* parent, const QVariantList& args)
+	: KamosoPlugin(parent, args)
 {}
 
-KamosoPlugin::~KamosoPlugin()
-{}
-
-bool KamosoPlugin::executeContextMenuAction(const QList< KUrl >& urls)
+QAction* ExecutePlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
-	QAction* a=thumbnailsAction(urls);
-	if(a)
-		a->trigger();
-	bool ret=(a!=0);
-	delete a;
-	return ret;
+	QAction* act=0;
+	mSelectedUrls.clear();
+	foreach(const KUrl& url, urls)
+	{
+		if(!act) {
+			act=new QAction(KIcon("system-run"), i18n("Open..."), 0);
+			connect(act, SIGNAL(triggered(bool)), SLOT(execute(bool)));
+		}
+		
+		mSelectedUrls.append(url);
+	}
+	return act;
 }
 
-#include "kamosoplugin.moc"
+void ExecutePlugin::execute(bool)
+{
+	foreach(const KUrl& path, mSelectedUrls) {
+		bool corr=QDesktopServices::openUrl(path);
+		
+		if(!corr)
+			KMessageBox::error(0, i18n("Could not open %1", path.prettyUrl()));
+	}
+}

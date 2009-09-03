@@ -408,22 +408,30 @@ void Kamoso::slotScrollFinish()
 
 void Kamoso::openThumbnail(const QModelIndex& idx) 
 {
-	QString filename= idx.data(Qt::DisplayRole).toString();
+	QString filename;
+	if(idx.isValid())
+		filename=idx.data(Qt::DisplayRole).toString();
+	else if(!customIconView->selectionModel()->selectedIndexes().isEmpty()) {
+		QModelIndex aux=customIconView->selectionModel()->selectedIndexes().first();
+		filename=aux.data(Qt::DisplayRole).toString();
+	}
+	
 	if (!filename.isEmpty())
 	{
 		KUrl path = saveUrl;
 		path.addPath(filename);
-		bool b=QDesktopServices::openUrl(path);
-		if(!b)
-			KMessageBox::error(this, i18n("Could not open %1", path.prettyUrl()));
+		openThumbnail(QList<KUrl>() << path);
 	}
+}
+
+void Kamoso::openThumbnail(const QList<KUrl>& url)
+{
+	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
 }
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
 	menu->addSeparator();
-	#warning fix openThumbnail slot. not working
-	menu->addAction(i18n("Open"), this, SLOT(openThumbnail()));
 	
 	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
 		#warning make it possible to deal with many url at the same time

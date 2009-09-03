@@ -44,7 +44,6 @@ FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
 
 QAction* FacebookPlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
-	bool added=false;
 	QAction* act=0;
 	mSelectedUrls.clear();
 	foreach(const KUrl& url, urls)
@@ -52,7 +51,7 @@ QAction* FacebookPlugin::thumbnailsAction(const QList<KUrl>& urls)
 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
 		
 		if(mime->name().startsWith("image/")) {
-			if(!added) {
+			if(!act) {
 				act=new QAction(KIcon("facebook"), i18n("Upload to Facebook..."), 0);
 				connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
 			}
