@@ -81,8 +81,10 @@ QList< KamosoPlugin* > PluginManager::plugins()
 		//If we don't have plugins, we instanciate them all at once so that
 		//we can call them at any time. All the instances stay in memory until the
 		//program is unloaded (until the singleton closes.
-		foreach(const KPluginInfo& pinfo, pluginInfo())
+		foreach(const KPluginInfo& pinfo, pluginInfo()) {
+			Q_ASSERT(!d->plugins.contains(pinfo.name()));
 			d->plugins.insert(pinfo.name(), loadPlugin(pinfo, this));
+		}
 	}
 	return d->plugins.values();
 }

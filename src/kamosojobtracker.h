@@ -30,6 +30,9 @@ class KamosoJobTracker
 	Q_OBJECT
 	public:
 		KamosoJobTracker(QWidget* parent = 0, Qt::WindowFlags f = 0);
+		virtual void mousePressEvent(QMouseEvent* ev);
+		virtual void mouseMoveEvent(QMouseEvent* );
+		virtual void leaveEvent(QEvent* );
 		
 	public slots:
 		void registerJob(KamosoJob* job);
@@ -37,9 +40,14 @@ class KamosoJobTracker
 		
 		virtual QSize sizeHint() const;
 		virtual void paintEvent(QPaintEvent* );
-		
+	signals:
+		void jobClicked(KamosoJob* job);
+	
 	private:
+		void setSelectedJob(int newselection);
+		int jobPerPosition(const QPoint& pos);
 		QList<KamosoJob*> mJobs;
+		int m_selectedJob;
 };
 
 #endif

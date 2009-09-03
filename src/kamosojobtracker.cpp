@@ -24,14 +24,18 @@
 #include <KUrl>
 #include <KNotification>
 #include <KLocale>
+#include <QMouseEvent>
 
 KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
-	: QWidget(parent, f)
-{}
+	: QWidget(parent, f), m_selectedJob(-1)
+{
+	setMouseTracking(true);
+}
 
 void KamosoJobTracker::registerJob(KamosoJob* job)
 {
 	connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
+	connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
 	mJobs.append(job);
 	job->start();
 	updateGeometry();
@@ -66,8 +70,55 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 	QPainter p(this);
 	
 	int i=0;
+	QPixmap alphamask(iconSide, iconSide);
+	alphamask.fill(Qt::gray);
 	foreach(KamosoJob* job, mJobs) {
-		QRect target((iconSide+separation)*i++, 0, iconSide, iconSide);
-		p.drawPixmap(target, job->icon().pixmap(target.size()));
+		QRect target((iconSide+separation)*i, 0, iconSide, iconSide);
+		if(i==m_selectedJob) //Make it nicer
+			p.drawRect(target);
+		
+		int completedPix=(job->percent()*iconSide)/100;
+		QRect source(0,0, iconSide, completedPix);
+		QRect sourceRest(0,completedPix, iconSide, iconSide-completedPix);
+		QRect comptarget((iconSide+separation)*i, 0, iconSide, completedPix);
+		QRect resttarget((iconSide+separation)*i, completedPix, iconSide, iconSide-completedPix);
+		
+		QPixmap icon=job->icon().pixmap(target.size());
+		p.drawPixmap(comptarget, icon, source);
+		
+		icon.setAlphaChannel(alphamask);
+		p.drawPixmap(resttarget, icon, sourceRest);
+		i++;
+	}
+}
+
+void KamosoJobTracker::mousePressEvent(QMouseEvent* ev)
+{
+	int i=jobPerPosition(ev->pos());
+	if(i>=0 && i<mJobs.size())
+		 emit jobClicked(mJobs[i]);
+}
+
+int KamosoJobTracker::jobPerPosition(const QPoint& pos)
+{
+	int x=pos.x();
+	return x/(iconSide+separation);
+}
+
+void KamosoJobTracker::mouseMoveEvent(QMouseEvent* ev)
+{
+	setSelectedJob(jobPerPosition(ev->pos()));
+}
+
+void KamosoJobTracker::leaveEvent(QEvent*)
+{
+	setSelectedJob(-1);
+}
+
+void KamosoJobTracker::setSelectedJob(int newselection)
+{
+	if(newselection!=m_selectedJob) {
+		m_selectedJob=newselection;
+		repaint();
 	}
 }

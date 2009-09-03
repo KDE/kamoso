@@ -37,6 +37,7 @@ class ThumbnailView;
 class KFileItem;
 class WebcamWidget;
 class DeviceManager;
+class KamosoJob;
 
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
@@ -77,9 +78,12 @@ class Kamoso : public KMainWindow
 		void webcamAdded();
 		void webcamRemoved();
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
+		void thumbnailAdded();
+		void selectLast();
+		void selectJob(KamosoJob*);
+		
 	private slots:
 		void restore();
-		void photoTaken(const KUrl& url);
 		void slotScrollLeft();
 		void slotScrollRight();
 		void slotScrollFinish();
