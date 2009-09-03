@@ -68,9 +68,9 @@ void YoutubePlugin::upload(bool)
 	g_type_init();
 	GDataYouTubeService* service;
 	service == NULL;
-	const char* lol = "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg";
-	const char* bar = "ytapi-GNOME-Totem-444fubtt";
-	service = gdata_youtube_service_new(lol,bar);
+	const char* develId = "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg";
+	const char* clientId = "ytapi-GNOME-Totem-444fubtt";
+	service = gdata_youtube_service_new(develId,clientId);
 	if(service == NULL){
 		qDebug() << "KAKA PA TOS";
 	}else{
