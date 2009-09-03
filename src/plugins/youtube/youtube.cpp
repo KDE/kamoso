@@ -70,17 +70,18 @@ void YoutubePlugin::upload(bool)
 	service == NULL;
 	const char* develId = "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg";
 	const char* clientId = "ytapi-GNOME-Totem-444fubtt";
+	const char * filePath = "REPLACEME";
 	service = gdata_youtube_service_new(develId,clientId);
 	if(service == NULL){
-		qDebug() << "KAKA PA TOS";
+		qDebug() << "FAIL";
 	}else{
-		qDebug() << "ALALAL";
+		qDebug() << "CORRECT!";
 	}
 	if(gdata_service_authenticate(GDATA_SERVICE(service),"tetasnor","12344321",NULL,NULL))
 	{
 		qDebug() << "Autenticated!!!!\n\n\n\n\n\n\n\n";
  		GDataYouTubeVideo *video = gdata_youtube_video_new(NULL);
-		GFile *file = g_file_new_for_path("/home/nasete/Pictures/Webcam/kamoso_03212009_172157.ogv");
+		GFile *file = g_file_new_for_path(filePath);
 		gdata_youtube_service_upload_video(service,video,file,NULL,NULL);
 	}else{
 		qDebug() << "Ressadasdasdaduuuult: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
