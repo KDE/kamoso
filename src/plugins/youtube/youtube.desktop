@@ -2,11 +2,11 @@
 Type=Service
 Exec=blubb
 Comment=Upload videos directly to youtube
-Name=Execute
-GenericName=Execute
+Name=Youtube
+GenericName=Youtube
 ServiceTypes=Kamoso/Plugin
 X-KDE-Library=youtube
-X-KDE-PluginInfo-Name=Execute
+X-KDE-PluginInfo-Name=Youtube
 X-KDE-PluginInfo-Author=Alex Fiestas
 X-KDE-PluginInfo-Version=0.00000001
 X-KDE-PluginInfo-License=GPL
