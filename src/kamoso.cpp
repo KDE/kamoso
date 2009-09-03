@@ -428,10 +428,11 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
 		#warning make it possible to deal with many url at the same time
 		QAction* action=p->thumbnailsAction(QList<KUrl>() << item.url());
-		if(!action->parent())
-			action->setParent(menu);
 		
-		if(action)
+		if(action) {
+			if(!action->parent())
+				action->setParent(menu);
 			menu->addAction(action);
+		}
 	}
 }
