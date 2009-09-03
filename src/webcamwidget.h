@@ -38,8 +38,6 @@ public:
 	WebcamWidget(QWidget* parent);
 	~WebcamWidget();
 	
-private:
-	QString m_filePath;
 public slots:
     void playFile(const QString& file);
 	bool takePhoto(const KUrl &dest);

@@ -89,9 +89,8 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::playFile(const QString& file)
 {
-	m_filePath = file;
 	QByteArray mrl("v4l2://");
-	mrl.append(m_filePath.toAscii());
+	mrl.append(file.toAscii());
 	mrl.append(":caching=100");
 	/* Create a new LibVLC media descriptor */
 	d->_m = libvlc_media_new (d->_vlcinstance, mrl, &d->_vlcexcep);
