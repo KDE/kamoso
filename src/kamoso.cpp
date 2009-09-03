@@ -174,44 +174,39 @@ Kamoso::Kamoso(QWidget* parent)
 void Kamoso::webcamAdded()
 {
 	qDebug() << "A new webcam has been added";
-	//If ther'e less than 2 devices (0 or more).
-	if(deviceManager->numberOfDevices() < 2){
-		//At the monent there are only 2 widgets to hidden, maybe a container is needed here.
-		mainWidgetUi->chooseWebcamLbl->hide();
-		mainWidgetUi->webcamCombo->hide();
-	}else{
-		mainWidgetUi->chooseWebcamLbl->show();
-		mainWidgetUi->webcamCombo->show();
+	
+	bool comboShown=deviceManager->numberOfDevices()>1;
+	
+	mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
+	mainWidgetUi->webcamCombo->setVisible(comboShown);
+	
+	if(comboShown)
 		fillKcomboDevice();
-	}
 }
 
 void Kamoso::startVideo()
 {
 	if(!recording){
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
+		
+		#warning use tmp if saveUrl is not local so that we can move afterwards if remote
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
-		if(mainWidgetUi->videoSound->checkState() == 2)
-		{
-			webcam->recordVideo(photoPlace,true);
-		}else{
-			webcam->recordVideo(photoPlace,false);
-		}
-		recording = true;
-	}else{
+		bool withSound=mainWidgetUi->videoSound->checkState() == Qt::Checked;
+		webcam->recordVideo(photoPlace, withSound);
+	} else {
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
-		recording = false;
 		webcam->playFile(deviceManager->playingDevicePath());
 	}
+	recording = !recording;
 }
 
 void Kamoso::fillKcomboDevice()
 {
 	mainWidgetUi->webcamCombo->clear();
 	QList <Device> deviceList = deviceManager->devices();
-	QList <Device> ::iterator i;
-	for(i=deviceList.begin();i!=deviceList.end();++i)
+	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
+	for(i=deviceList.constBegin();i!=iEnd;++i)
 	{
 		mainWidgetUi->webcamCombo->addItem(i->description(),
 											i->udi());
@@ -225,9 +220,8 @@ void Kamoso::fillKcomboDevice()
 }
 void Kamoso::webcamRemoved()
 {
-	qDebug() << "\n\n\n\n\n\n\n\n\n\nwebcam removed";
 	if((deviceManager->numberOfDevices()-1) < 2){
-		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
+		//At the moment there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
 	}else{
