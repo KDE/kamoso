@@ -36,13 +36,15 @@
 #include <KDirSelectDialog>
 #include <KFileItemDelegate>
 #include <KLocale>
-#include <Phonon/MediaObject>
-#include <KFilePreviewGenerator>
-#include <solid/control/powermanager.h>
-#include <solid/powermanagement.h>
 #include <KStandardDirs>
 #include <KConfigDialog>
 #include <KDebug>
+#include <KPluginSelector>
+#include <KMessageBox>
+#include <KStatusBar>
+#include <Phonon/MediaObject>
+#include <solid/control/powermanager.h>
+#include <solid/powermanagement.h>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
@@ -54,11 +56,8 @@
 #include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
 #include "devicemanager.h"
-#include <kpluginselector.h>
 #include "pluginmanager.h"
 #include "kamosoplugin.h"
-#include <KMessageBox>
-#include <KStatusBar>
 #include "kamosojobtracker.h"
 
 const int max_exponential_value = 50;
@@ -94,12 +93,12 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-	emit webcamPlaying(deviceManager->getDefaultDeviceUdi());
+	emit webcamPlaying(deviceManager->defaultDeviceUdi());
 
 	webcam = new WebcamWidget();
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile(deviceManager->getDefaultDevicePath());
+	webcam->playFile(deviceManager->defaultDevicePath());
 
 	fillKcomboDevice();
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
@@ -203,7 +202,7 @@ void Kamoso::startVideo()
 	}else{
 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
 		recording = false;
-		webcam->playFile(deviceManager->getPlayingDevicePath());
+		webcam->playFile(deviceManager->playingDevicePath());
 	}
 }
 
@@ -217,7 +216,7 @@ void Kamoso::fillKcomboDevice()
 		mainWidgetUi->webcamCombo->addItem(i->description(),
 											i->udi());
 		//If kamoso is using this device, set it as currentIndex
-		if(i->udi() == deviceManager->getPlayingDeviceUdi())
+		if(i->udi() == deviceManager->playingDeviceUdi())
 		{
 			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
 		}
@@ -242,7 +241,7 @@ void Kamoso::webcamChanged(int index)
 	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
 	deviceManager->webcamPlaying(udi);
 
-	webcam->playFile(deviceManager->getPlayingDevicePath());
+	webcam->playFile(deviceManager->playingDevicePath());
 }
 
 void Kamoso::checkInitConfig()

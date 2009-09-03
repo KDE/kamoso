@@ -20,6 +20,7 @@
 #include "device.h"
 #include <solid/video.h>
 #include <QDebug>
+
 Device::Device(const Solid::Device *device)
 {
 	m_udi = device->udi();
@@ -40,28 +41,26 @@ Device::Device(const Solid::Device *device)
 	}
 }
 
-void Device::playing(bool play)
+Device::~Device()
+{}
+
+void Device::setPlaying(bool play)
 {
 	m_playing = play;
 }
 
-QString Device::path()
+QString Device::path() const
 {
 	return m_path;
 }
 
-QString Device::description()
+QString Device::description() const
 {
 	return m_description;
 }
 
-QString Device::udi()
+QString Device::udi() const
 {
 	return m_udi;
-}
-
-Device::~Device()
-{
-
 }
 

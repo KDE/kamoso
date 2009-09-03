@@ -46,32 +46,32 @@ DeviceManager::DeviceManager()
 /*
 *Public methods
 */
-const QList <Device> DeviceManager::devices()
+QList<Device> DeviceManager::devices() const
 {
 	return m_deviceList;
 }
 
-int DeviceManager::numberOfDevices()
+int DeviceManager::numberOfDevices() const
 {
 	return m_deviceList.size();
 }
 
-QString DeviceManager::getDefaultDevicePath()
+QString DeviceManager::defaultDevicePath() const
 {
 	return m_deviceList.first().path();
 }
 
-QString DeviceManager::getDefaultDeviceUdi()
+QString DeviceManager::defaultDeviceUdi() const
 {
 	return m_deviceList.first().udi();
 }
 
-QString DeviceManager::getPlayingDeviceUdi()
+QString DeviceManager::playingDeviceUdi() const
 {
 	return m_playingUdi;
 }
 
-QString DeviceManager::getPlayingDevicePath()
+QString DeviceManager::playingDevicePath() const
 {
 	return m_playingPath;
 }
@@ -79,13 +79,12 @@ QString DeviceManager::getPlayingDevicePath()
 /*
 *Private methods
 */
-void DeviceManager::addDevice(const Solid::Device device)
+void DeviceManager::addDevice(const Solid::Device& device)
 {
-	
 	m_deviceList.append(Device(&device));
 }
 
-void DeviceManager::removeDevice(const Solid::Device device)
+void DeviceManager::removeDevice(const Solid::Device& device)
 {
 	QList <Device> ::iterator i;
 	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
@@ -133,7 +132,7 @@ void DeviceManager::webcamPlaying(const QString &udi)
 	{
 		if(i->udi() == udi)
 		{
-			i->playing(true);
+			i->setPlaying(true);
 			m_playingUdi = i->udi();
 			m_playingPath = i->path();
 		}

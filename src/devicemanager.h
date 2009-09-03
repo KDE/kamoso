@@ -28,28 +28,32 @@ class DeviceManager : public QObject
 Q_OBJECT
 public:
 	static DeviceManager* self();
-	int numberOfDevices();
-	const QList <Device> devices();
-	QString getDefaultDevicePath();
-	QString getDefaultDeviceUdi();
-	QString getPlayingDeviceUdi();
-	QString getPlayingDevicePath();
-private:
-	DeviceManager();
-	static DeviceManager* s_instance;
-	void addDevice(const Solid::Device device);
-	void removeDevice(Solid::Device device);
-	QList<Device> m_deviceList;
-	QString m_playingUdi;
-	QString m_playingPath;
+	int numberOfDevices() const;
+	QList<Device> devices() const;
+	QString defaultDevicePath() const;
+	QString defaultDeviceUdi() const;
+	QString playingDeviceUdi() const;
+	QString playingDevicePath() const;
+	
 public slots:
 	void webcamPlaying(const QString &udi);
+	
 private slots:
 	void deviceAdded(const QString &udi);
 	void deviceRemoved(const QString &udi);
+	
 signals:
 	void deviceRegistered( const QString & udi );
 	void deviceUnregistered( const QString & udi );
+	
+private:
+	DeviceManager();
+	static DeviceManager* s_instance;
+	void addDevice(const Solid::Device& device);
+	void removeDevice(const Solid::Device& device);
+	QList<Device> m_deviceList;
+	QString m_playingUdi;
+	QString m_playingPath;
 };
 
 #endif // DEVICEMANAGER_H
