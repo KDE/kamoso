@@ -77,9 +77,10 @@ class Kamoso : public KMainWindow
 		void webcamAdded();
 		void webcamRemoved();
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
+		void columnsThumbnailsView(const QModelIndex& index, int start, int end);
+		void selectLast();
 	private slots:
 		void restore();
-		void photoTaken(const KUrl& url);
 		void slotScrollLeft();
 		void slotScrollRight();
 		void slotScrollFinish();

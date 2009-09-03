@@ -63,14 +63,14 @@
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent)
+	: KMainWindow(parent), recording(false)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
 
 	deviceManager = DeviceManager::self();
-	connect(deviceManager,SIGNAL(deviceRegistered(const QString&)),SLOT(webcamAdded()));
-	connect(deviceManager,SIGNAL(deviceUnregistered(const QString&)),SLOT(webcamRemoved()));
+	connect(deviceManager,SIGNAL(deviceRegistered(QString)),SLOT(webcamAdded()));
+	connect(deviceManager,SIGNAL(deviceUnregistered(QString)),SLOT(webcamRemoved()));
 	
 	qDebug() << "Settings of camoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
@@ -99,7 +99,8 @@ Kamoso::Kamoso(QWidget* parent)
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
 	webcam->playFile(deviceManager->defaultDevicePath());
-
+// 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
+	
 	fillKcomboDevice();
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 	
@@ -125,11 +126,12 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	//Dir operator will show the previews
 	customIconView = new ThumbnailView(mainWidget);//Our custom icon view
-	dirOperator = new KDirOperator(saveUrl, this); //FIXME
+	dirOperator = new KDirOperator(saveUrl, this);
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png" << "video/ogg");
 	dirOperator->setView(customIconView);
+	dirOperator->actionCollection()->action("by date")->trigger();
 	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
 			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
 	
@@ -138,7 +140,10 @@ Kamoso::Kamoso(QWidget* parent)
 	customIconView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	customIconView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)), SLOT(openThumbnail(QModelIndex)));
+	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)),
+			SLOT(openThumbnail(QModelIndex)));
+	connect(customIconView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
+			SLOT(columnsThumbnailsView(QModelIndex, int, int)));
 	
 	//Third column
 	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), mainWidget, 100);
@@ -163,8 +168,6 @@ Kamoso::Kamoso(QWidget* parent)
 	//TODO: find a better place to init this 
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
-	
-	recording = false;
 	
 	KamosoJobTracker* tracker=new KamosoJobTracker(statusBar());
 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
@@ -352,13 +355,6 @@ void Kamoso::takePhoto()
 	webcam->takePhoto(photoPlace);
 	player->play();
 }
-/**
-*This method is called when the picture has been taken
-*/
-void Kamoso::photoTaken(const KUrl& url)
-{
-	dirOperator->setCurrentItem(url.path());
-}
 
 /**
 *This is called after sempahore has end
@@ -436,4 +432,20 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 			menu->addAction(action);
 		}
 	}
+}
+
+void Kamoso::columnsThumbnailsView(const QModelIndex&, int start, int end)
+{
+	QTimer::singleShot(0, this, SLOT(selectLast()));
+}
+
+void Kamoso::selectLast()
+{
+	customIconView->horizontalScrollBar()->setValue(customIconView->horizontalScrollBar()->maximum());
+	
+	QModelIndex idx=customIconView->model()->index(customIconView->model()->rowCount()-1, 0);
+	
+	if(idx.isValid())
+		customIconView->selectionModel()->setCurrentIndex(idx,
+							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
