@@ -225,7 +225,7 @@ void Kamoso::webcamRemoved()
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
 	}else{
-		//The combo is already showed (should be),so onlyupdate the content is required.
+		//The combo is already shown (should be),so onlyupdate the content is required.
 		fillKcomboDevice();
 	}
 }

@@ -44,7 +44,7 @@ WebcamWidget::WebcamWidget()
 			"--extraintf=logger", //log anything
 			"--verbose=0", //be much more verbose then normal for debugging purpose
 			"--plugin-path=C:\\vlc-0.9.9-win32\\plugins\\" };
-
+	#warning these arguments don't really make sense
 	_isPlaying=false;
 
 	//Initialize an instance of vlc
@@ -73,15 +73,14 @@ WebcamWidget::~WebcamWidget()
 	raise (&_vlcexcep);
 }
 
-void WebcamWidget::playFile(QString file)
+void WebcamWidget::playFile(const QString& file)
 {
 	m_filePath = file;
-	QString mrl = QString();
-	mrl.append("v4l2://");
+	QByteArray mrl("v4l2://");
 	mrl.append(m_filePath.toAscii());
 	mrl.append(":caching=100");
 	/* Create a new LibVLC media descriptor */
-	_m = libvlc_media_new (_vlcinstance, mrl.toAscii(), &_vlcexcep);
+	_m = libvlc_media_new (_vlcinstance, mrl, &_vlcexcep);
 	raise(&_vlcexcep);
 
 	libvlc_media_player_set_media (m_mp, _m, &_vlcexcep);
@@ -111,14 +110,13 @@ void WebcamWidget::playFile(QString file)
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
 	QString path;
-	if(dest.isLocalFile())
-	{
+	if(dest.isLocalFile()) {
 		path = dest.toLocalFile();
-	}else{
+	} else {
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
 	libvlc_video_take_snapshot(m_mp, path.toAscii(),640,480, &_vlcexcep);
-	if(raise(&_vlcexcep)){
+	if(raise(&_vlcexcep)) {
 		if(dest.isLocalFile())
 			emit photoTaken(dest);
 		else {
@@ -131,16 +129,20 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	}
 	return raise(&_vlcexcep);
 }
-void WebcamWidget::recordVideo(const KUrl &dest,bool sound)
+void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 {
-	QString option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest.path().toAscii()+"}'}");
+	#warning make dest KIO aware
+	QByteArray dest=desturl.path().toAscii();
+	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest+"}'}");
 	if(sound == true){
 		libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
 		libvlc_media_add_option(_m,"alsa-caching=100",&_vlcexcep);
 	}
+	
+	#warning shouldn't we raise all these exceptions?
 	libvlc_media_add_option(_m,"sout-display-delay=40",&_vlcexcep);
 	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
-	libvlc_media_add_option(_m,option.toAscii(),&_vlcexcep);
+	libvlc_media_add_option(_m,option,&_vlcexcep);
 	libvlc_media_player_stop(m_mp,&_vlcexcep);
 	m_mp = libvlc_media_player_new_from_media(_m,&_vlcexcep);
 	libvlc_media_player_set_drawable(m_mp, this->winId(), &_vlcexcep );
@@ -153,8 +155,7 @@ bool WebcamWidget::raise(libvlc_exception_t * ex)
 	{
 		qDebug() << "error: %s\n" << libvlc_exception_get_message(ex);
 		return false;
-    }else{
-		return true;
 	}
+	return true;
 }
 
