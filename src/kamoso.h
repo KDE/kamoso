@@ -77,7 +77,7 @@ class Kamoso : public KMainWindow
 		void webcamAdded();
 		void webcamRemoved();
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
-		void columnsThumbnailsView(const QModelIndex& index, int start, int end);
+		void thumbnailAdded();
 		void selectLast();
 	private slots:
 		void restore();

@@ -143,7 +143,7 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)),
 			SLOT(openThumbnail(QModelIndex)));
 	connect(customIconView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
-			SLOT(columnsThumbnailsView(QModelIndex, int, int)));
+			SLOT(thumbnailAdded()));
 	
 	//Third column
 	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), mainWidget, 100);
@@ -434,7 +434,7 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 	}
 }
 
-void Kamoso::columnsThumbnailsView(const QModelIndex&, int start, int end)
+void Kamoso::thumbnailAdded()
 {
 	QTimer::singleShot(0, this, SLOT(selectLast()));
 }
