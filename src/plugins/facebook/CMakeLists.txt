@@ -1,3 +1,5 @@
+add_subdirectory(icons)
+
 set(facebook_SRCS
 	facebook.cpp
 	

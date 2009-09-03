@@ -65,8 +65,9 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 {
 	QPainter p(this);
 	
-	for(int i=0; i<mJobs.size(); ++i) {
-		QRect target((iconSide+separation)*i, 0, iconSide, iconSide);
-		p.drawPixmap(target, mJobs[i]->icon().pixmap(target.size()));
+	int i=0;
+	foreach(KamosoJob* job, mJobs) {
+		QRect target((iconSide+separation)*i++, 0, iconSide, iconSide);
+		p.drawPixmap(target, job->icon().pixmap(target.size()));
 	}
 }

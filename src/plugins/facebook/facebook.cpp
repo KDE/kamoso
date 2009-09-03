@@ -38,7 +38,9 @@ using namespace KIPIFacebookPlugin;
 
 FacebookPlugin::FacebookPlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args)
-{}
+{
+	KIconLoader::global()->addAppDir("kamoso_facebook");
+}
 
 QAction* FacebookPlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
@@ -51,7 +53,7 @@ QAction* FacebookPlugin::thumbnailsAction(const QList<KUrl>& urls)
 		
 		if(mime->name().startsWith("image/")) {
 			if(!added) {
-				act=new QAction(i18n("Upload to Facebook..."), 0);
+				act=new QAction(KIcon("facebook"), i18n("Upload to Facebook..."), 0);
 				connect(act, SIGNAL(triggered(bool)), SLOT(uploadImage(bool)));
 			}
 			
@@ -168,7 +170,7 @@ void FacebookJob::sendPhoto(long long album)
 
 KIcon FacebookJob::icon() const
 {
-	return KIcon("player-volume");
+	return KIcon("facebook");
 }
 
 QList<KUrl> FacebookJob::urls() const
