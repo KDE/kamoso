@@ -133,24 +133,25 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	} else {
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
+	
 	libvlc_video_take_snapshot(d->m_mp, path.toAscii(),640,480, &d->_vlcexcep);
-	if(d->raise(&d->_vlcexcep)) {
-		if(dest.isLocalFile())
-			emit photoTaken(dest);
-		else {
-			KIO::CopyJob* job=KIO::move(KUrl(path), dest);
-			job->setAutoDelete(true);
-			connect(job, SIGNAL(copyingDone(KIO::Job*,KUrl,KUrl,time_t,bool,bool)),
-					this, SLOT(emitKIOPhotoTaken(KIO::Job*,KUrl,KUrl,time_t,bool,bool)));
-			job->start();
-		}
+	if(d->raise(&d->_vlcexcep) && !dest.isLocalFile()) {
+		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
+		job->setAutoDelete(true);
+		job->start();
 	}
 	return d->raise(&d->_vlcexcep);
 }
-void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
+void WebcamWidget::recordVideo(const KUrl &desturl, bool sound)
 {
 	#warning make dest KIO aware
-	QByteArray dest=desturl.path().toAscii();
+	QByteArray dest;
+	if(desturl.isLocalFile()) {
+		dest=desturl.path().toAscii();
+	} else {
+		dest=KStandardDirs::locateLocal("appdata","last.ogv").toAscii();
+	}
+	
 	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest+"}'}");
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
@@ -167,7 +168,12 @@ void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
 	libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
 	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
-	d->raise(&d->_vlcexcep);
+	
+	if(d->raise(&d->_vlcexcep) && !desturl.isLocalFile()) {
+		KIO::CopyJob* job=KIO::move(KUrl(dest), desturl);
+		job->setAutoDelete(true);
+		job->start();
+	}
 }
 
 QString WebcamWidget::phononCaptureDevice()
@@ -176,11 +182,9 @@ QString WebcamWidget::phononCaptureDevice()
 	QVariant variantList =  m_modelData.first().property("deviceAccessList");
 	PhononDeviceAccessList accessList = variantList.value<PhononDeviceAccessList>();
 	QList <QPair <QByteArray, QString > >::const_iterator i, iEnd=accessList.constEnd();
-	for(i=accessList.constBegin();i!=iEnd;++i) {
-		if(i->first == "alsa") {
-			if(!i->second.contains("phonon")) {
-				return i->second;
-			}
+	for(i=accessList.constBegin(); i!=iEnd; ++i) {
+		if(i->first == "alsa" && !i->second.contains("phonon")) {
+			return i->second;
 		}
 	}
 }
@@ -193,4 +197,3 @@ bool WebcamWidget::Private::raise(libvlc_exception_t * ex)
 	}
 	return true;
 }
-

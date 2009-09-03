@@ -17,9 +17,6 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-/* libVLC and Qt sample code
- * Copyright © 2009 Alexander Maringer <maringer@maringer-it.de>
- */
 #ifndef WEBCAMWIDGET_H
 #define WEBCAMWIDGET_H
 
@@ -31,6 +28,8 @@ class QTimer;
 class QFrame;
 class QSlider;
 
+namespace KIO { class Job; }
+
 class WebcamWidget : public QWidget
 {
 Q_OBJECT
@@ -39,11 +38,10 @@ public:
 	~WebcamWidget();
 	
 public slots:
-    void playFile(const QString& file);
+	void playFile(const QString& file);
 	bool takePhoto(const KUrl &dest);
 	void recordVideo(const KUrl& dest, bool sound);
-signals:
-	void photoTaken(const KUrl& dest);
+	
 private:
 	QString phononCaptureDevice();
 	class Private;
