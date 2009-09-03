@@ -142,6 +142,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	}
 	return d->raise(&d->_vlcexcep);
 }
+
 void WebcamWidget::recordVideo(const KUrl &desturl, bool sound)
 {
 	#warning make dest KIO aware
@@ -187,6 +188,8 @@ QString WebcamWidget::phononCaptureDevice()
 			return i->second;
 		}
 	}
+	
+	return QString();
 }
 bool WebcamWidget::Private::raise(libvlc_exception_t * ex)
 {
