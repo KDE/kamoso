@@ -20,6 +20,7 @@
 /* libVLC and Qt sample code
  * Copyright © 2009 Alexander Maringer <maringer@maringer-it.de>
  */
+
 #include "webcamwidget.h"
 
 #include <QVBoxLayout>
@@ -33,9 +34,20 @@
 #include <KTemporaryFile>
 #include <QDebug>
 #include <kio/copyjob.h>
+#include <vlc/vlc.h>
 
-WebcamWidget::WebcamWidget()
-: QWidget()
+struct WebcamWidget::Private
+{
+	bool raise(libvlc_exception_t * ex);
+	bool _isPlaying;
+	libvlc_exception_t _vlcexcep;
+	libvlc_instance_t *_vlcinstance;
+	libvlc_media_player_t *m_mp;
+	libvlc_media_t *_m;
+};
+
+WebcamWidget::WebcamWidget(QWidget* parent)
+	: QWidget(parent), d(new Private)
 {
 	//preparation of the vlc command
 	const char * const vlc_args[] = {
@@ -44,33 +56,35 @@ WebcamWidget::WebcamWidget()
 			"--extraintf=logger", //log anything
 			"--verbose=0", //be much more verbose then normal for debugging purpose
 			"--plugin-path=C:\\vlc-0.9.9-win32\\plugins\\" };
-	#warning these arguments don't really make sense
-	_isPlaying=false;
+	#warning these arguments dont really make sense
+	d->_isPlaying=false;
 
 	//Initialize an instance of vlc
 	//a structure for the exception is neede for this initalization
-	libvlc_exception_init(&_vlcexcep);
+	libvlc_exception_init(&d->_vlcexcep);
 
 	//create a new libvlc instance
-	_vlcinstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args,&_vlcexcep);  //tricky calculation of the char space used
-	raise (&_vlcexcep);
+	d->_vlcinstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args,&d->_vlcexcep);  //tricky calculation of the char space used
+	d->raise(&d->_vlcexcep);
     
 	// Create a media player playing environement 
-	m_mp = libvlc_media_player_new (_vlcinstance, &_vlcexcep);
-	raise (&_vlcexcep);
+	d->m_mp = libvlc_media_player_new (d->_vlcinstance, &d->_vlcexcep);
+	d->raise(&d->_vlcexcep);
 }
 
 //desctructor
 WebcamWidget::~WebcamWidget()
 {
 	/* Stop playing */
-	libvlc_media_player_stop (m_mp, &_vlcexcep);
+	libvlc_media_player_stop (d->m_mp, &d->_vlcexcep);
 
 	/* Free the media_player */
-	libvlc_media_player_release (m_mp);
+	libvlc_media_player_release (d->m_mp);
 
-	libvlc_release (_vlcinstance);
-	raise (&_vlcexcep);
+	libvlc_release (d->_vlcinstance);
+	d->raise(&d->_vlcexcep);
+	
+	delete d;
 }
 
 void WebcamWidget::playFile(const QString& file)
@@ -80,11 +94,11 @@ void WebcamWidget::playFile(const QString& file)
 	mrl.append(m_filePath.toAscii());
 	mrl.append(":caching=100");
 	/* Create a new LibVLC media descriptor */
-	_m = libvlc_media_new (_vlcinstance, mrl, &_vlcexcep);
-	raise(&_vlcexcep);
+	d->_m = libvlc_media_new (d->_vlcinstance, mrl, &d->_vlcexcep);
+	d->raise(&d->_vlcexcep);
 
-	libvlc_media_player_set_media (m_mp, _m, &_vlcexcep);
-	raise(&_vlcexcep);
+	libvlc_media_player_set_media (d->m_mp, d->_m, &d->_vlcexcep);
+	d->raise(&d->_vlcexcep);
     
 	/* Get our media instance to use our window */
 	#if defined(Q_OS_WIN)
@@ -94,16 +108,16 @@ void WebcamWidget::playFile(const QString& file)
 		libvlc_media_player_set_drawable(_mp, this->winId(), &_vlcexcep );
 		//libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
 	#else //Linux
-		libvlc_media_player_set_drawable(m_mp, this->winId(), &_vlcexcep );
+		libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
 		//libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 	#endif
-	raise(&_vlcexcep);
+	d->raise(&d->_vlcexcep);
 
 	/* Play */
-	libvlc_media_player_play (m_mp, &_vlcexcep );
-	raise(&_vlcexcep);
+	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
+	d->raise(&d->_vlcexcep);
 
-	_isPlaying=true;
+	d->_isPlaying=true;
 }
 
 //TODO: Restore Kio support
@@ -115,8 +129,8 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	} else {
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
-	libvlc_video_take_snapshot(m_mp, path.toAscii(),640,480, &_vlcexcep);
-	if(raise(&_vlcexcep)) {
+	libvlc_video_take_snapshot(d->m_mp, path.toAscii(),640,480, &d->_vlcexcep);
+	if(d->raise(&d->_vlcexcep)) {
 		if(dest.isLocalFile())
 			emit photoTaken(dest);
 		else {
@@ -127,7 +141,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 			job->start();
 		}
 	}
-	return raise(&_vlcexcep);
+	return d->raise(&d->_vlcexcep);
 }
 void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 {
@@ -135,21 +149,22 @@ void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 	QByteArray dest=desturl.path().toAscii();
 	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest+"}'}");
 	if(sound == true){
-		libvlc_media_add_option(_m,"input-slave=alsa://",&_vlcexcep);
-		libvlc_media_add_option(_m,"alsa-caching=100",&_vlcexcep);
+		libvlc_media_add_option(d->_m,"input-slave=alsa://",&d->_vlcexcep);
+		libvlc_media_add_option(d->_m,"alsa-caching=100",&d->_vlcexcep);
 	}
 	
-	#warning shouldn't we raise all these exceptions?
-	libvlc_media_add_option(_m,"sout-display-delay=40",&_vlcexcep);
-	libvlc_media_add_option(_m,"v4l2-standard=0",&_vlcexcep);
-	libvlc_media_add_option(_m,option,&_vlcexcep);
-	libvlc_media_player_stop(m_mp,&_vlcexcep);
-	m_mp = libvlc_media_player_new_from_media(_m,&_vlcexcep);
-	libvlc_media_player_set_drawable(m_mp, this->winId(), &_vlcexcep );
-	libvlc_media_player_play (m_mp, &_vlcexcep );
-	raise(&_vlcexcep);
+	#warning shouldnt we raise all these exceptions?
+	libvlc_media_add_option(d->_m,"sout-display-delay=40",&d->_vlcexcep);
+	libvlc_media_add_option(d->_m,"v4l2-standard=0",&d->_vlcexcep);
+	libvlc_media_add_option(d->_m,option,&d->_vlcexcep);
+	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
+	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
+	libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
+	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
+	d->raise(&d->_vlcexcep);
 }
-bool WebcamWidget::raise(libvlc_exception_t * ex)
+
+bool WebcamWidget::Private::raise(libvlc_exception_t * ex)
 {
 	if (libvlc_exception_raised (ex))
 	{
