@@ -94,6 +94,7 @@ void FacebookJob::start()
 	QString sessionSecret=cfgGroup.readEntry("Secret", QString());
 	uint sessionExpires=cfgGroup.readEntry("Expires", 0);
 	
+	setPercent(0);
 	talk.authenticate(sessionKey, sessionSecret, sessionExpires);
 }
 
@@ -126,6 +127,7 @@ void FacebookJob::albumList(int errCode, const QString& errMsg, const QList<FbAl
 		return;
 	}
 	
+	setPercent(25);
 	long long id=-1;
 	foreach(const FbAlbum& album, albums) {
 		if(album.title==i18n("Kamoso")) {
@@ -154,16 +156,16 @@ void FacebookJob::albumCreated(int errCode, const QString& error, long long albu
 		emitResult();
 		return;
 	}
-	
+	setPercent(50);
 	sendPhoto(albumId);
 	qDebug() << "album created" << albumId;
 }
 
 void FacebookJob::sendPhoto(long long album)
 {
+	setPercent(75);
 	bool c=talk.addPhoto(url.toLocalFile(), album, url.fileName());
 	Q_ASSERT(c && "could not add the photo to the album");
-	
 	emit emitResult();
 }
 
