@@ -24,6 +24,7 @@
 #include <KUrl>
 #include <KNotification>
 #include <KLocale>
+#include <QMouseEvent>
 
 KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
 	: QWidget(parent, f)
@@ -70,4 +71,17 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 		QRect target((iconSide+separation)*i++, 0, iconSide, iconSide);
 		p.drawPixmap(target, job->icon().pixmap(target.size()));
 	}
+}
+
+void KamosoJobTracker::mousePressEvent(QMouseEvent* ev)
+{
+	int i=jobPerPosition(ev->pos());
+	if(i>=0 && i<mJobs.size())
+		 emit jobClicked(mJobs[i]);
+}
+
+int KamosoJobTracker::jobPerPosition(const QPoint& pos)
+{
+	int x=pos.x();
+	return x/(iconSide+separation);
 }

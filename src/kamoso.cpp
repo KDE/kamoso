@@ -59,6 +59,7 @@
 #include "pluginmanager.h"
 #include "kamosoplugin.h"
 #include "kamosojobtracker.h"
+#include "kamosojob.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -171,6 +172,7 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	KamosoJobTracker* tracker=new KamosoJobTracker(statusBar());
 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
+	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
 	statusBar()->addWidget(tracker);
 }
 
@@ -448,4 +450,13 @@ void Kamoso::selectLast()
 	if(idx.isValid())
 		customIconView->selectionModel()->setCurrentIndex(idx,
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
+}
+
+void Kamoso::selectJob(KamosoJob* job)
+{
+	QStringList urls;
+	foreach(const KUrl& url, job->urls())
+		urls.append(url.pathOrUrl());
+	
+	dirOperator->setCurrentItems(urls);
 }
