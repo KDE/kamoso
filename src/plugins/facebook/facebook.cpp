@@ -94,7 +94,7 @@ void FacebookJob::start()
 	QString sessionSecret=cfgGroup.readEntry("Secret", QString());
 	uint sessionExpires=cfgGroup.readEntry("Expires", 0);
 	
-	setPercent(0);
+	setPercent(20);
 	talk.authenticate(sessionKey, sessionSecret, sessionExpires);
 }
 

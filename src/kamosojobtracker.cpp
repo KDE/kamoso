@@ -35,6 +35,7 @@ KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
 void KamosoJobTracker::registerJob(KamosoJob* job)
 {
 	connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
+	connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
 	mJobs.append(job);
 	job->start();
 	updateGeometry();
@@ -69,12 +70,24 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 	QPainter p(this);
 	
 	int i=0;
+	QPixmap alphamask(iconSide, iconSide);
+	alphamask.fill(Qt::gray);
 	foreach(KamosoJob* job, mJobs) {
 		QRect target((iconSide+separation)*i, 0, iconSide, iconSide);
 		if(i==m_selectedJob) //Make it nicer
 			p.drawRect(target);
 		
-		p.drawPixmap(target, job->icon().pixmap(target.size()));
+		int completedPix=(job->percent()*iconSide)/100;
+		QRect source(0,0, iconSide, completedPix);
+		QRect sourceRest(0,completedPix, iconSide, iconSide-completedPix);
+		QRect comptarget((iconSide+separation)*i, 0, iconSide, completedPix);
+		QRect resttarget((iconSide+separation)*i, completedPix, iconSide, iconSide-completedPix);
+		
+		QPixmap icon=job->icon().pixmap(target.size());
+		p.drawPixmap(comptarget, icon, source);
+		
+		icon.setAlphaChannel(alphamask);
+		p.drawPixmap(resttarget, icon, sourceRest);
 		i++;
 	}
 }
