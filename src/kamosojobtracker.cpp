@@ -27,8 +27,10 @@
 #include <QMouseEvent>
 
 KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
-	: QWidget(parent, f)
-{}
+	: QWidget(parent, f), m_selectedJob(-1)
+{
+	setMouseTracking(true);
+}
 
 void KamosoJobTracker::registerJob(KamosoJob* job)
 {
@@ -68,8 +70,12 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 	
 	int i=0;
 	foreach(KamosoJob* job, mJobs) {
-		QRect target((iconSide+separation)*i++, 0, iconSide, iconSide);
+		QRect target((iconSide+separation)*i, 0, iconSide, iconSide);
+		if(i==m_selectedJob) //Make it nicer
+			p.drawRect(target);
+		
 		p.drawPixmap(target, job->icon().pixmap(target.size()));
+		i++;
 	}
 }
 
@@ -84,4 +90,22 @@ int KamosoJobTracker::jobPerPosition(const QPoint& pos)
 {
 	int x=pos.x();
 	return x/(iconSide+separation);
+}
+
+void KamosoJobTracker::mouseMoveEvent(QMouseEvent* ev)
+{
+	setSelectedJob(jobPerPosition(ev->pos()));
+}
+
+void KamosoJobTracker::leaveEvent(QEvent*)
+{
+	setSelectedJob(-1);
+}
+
+void KamosoJobTracker::setSelectedJob(int newselection)
+{
+	if(newselection!=m_selectedJob) {
+		m_selectedJob=newselection;
+		repaint();
+	}
 }
