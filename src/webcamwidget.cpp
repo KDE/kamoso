@@ -35,6 +35,11 @@
 #include <QDebug>
 #include <kio/copyjob.h>
 #include <vlc/vlc.h>
+#include <objectdescriptionmodel.h>
+#include <phonon/backendcapabilities.h>
+
+typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
+ Q_DECLARE_METATYPE(PhononDeviceAccessList)
 
 struct WebcamWidget::Private
 {
@@ -149,7 +154,9 @@ void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 	QByteArray dest=desturl.path().toAscii();
 	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest+"}'}");
 	if(sound == true){
-		libvlc_media_add_option(d->_m,"input-slave=alsa://",&d->_vlcexcep);
+		QByteArray inputAlsa("input-slave=alsa://");
+		inputAlsa.append(phononCaptureDevice());
+		libvlc_media_add_option(d->_m,inputAlsa,&d->_vlcexcep);
 		libvlc_media_add_option(d->_m,"alsa-caching=100",&d->_vlcexcep);
 	}
 	
@@ -164,6 +171,20 @@ void WebcamWidget::recordVideo(const KUrl &desturl,bool sound)
 	d->raise(&d->_vlcexcep);
 }
 
+QString WebcamWidget::phononCaptureDevice()
+{
+	const QList<Phonon::AudioCaptureDevice> &m_modelData = Phonon::BackendCapabilities::availableAudioCaptureDevices();
+	QVariant variantList =  m_modelData.first().property("deviceAccessList");
+	PhononDeviceAccessList accessList = variantList.value<PhononDeviceAccessList>();
+	QList <QPair <QByteArray, QString > >::const_iterator i, iEnd=accessList.constEnd();
+	for(i=accessList.constBegin();i!=iEnd;++i) {
+		if(i->first == "alsa") {
+			if(!i->second.contains("phonon")) {
+				return i->second;
+			}
+		}
+	}
+}
 bool WebcamWidget::Private::raise(libvlc_exception_t * ex)
 {
 	if (libvlc_exception_raised (ex))
