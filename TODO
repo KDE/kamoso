@@ -17,9 +17,9 @@ Kamoso 1.0:
 	-Web 2.0:
 		-[OK. Facebook] Subirla a una web de subir fotos.
 		-Videos a youtube
-		-Crear interfaz para notificar el estado de los plugins (si estan trabajando)
+		-[OK] Crear interfaz para notificar el estado de los plugins (si estan trabajando)
 			-[OK] Crear sistema para la notificación del estado de plugins. Uso de KJob
-			-Crear una interfaz bonita. Es feo que salga en el titulo de la ventana.
+			-[OK] Crear una interfaz bonita. Es feo que salga en el titulo de la ventana.
 	-General:
 		-Tunear interfaz << ESPECIFICA!!!
 			-Tuenar thumbnails view
