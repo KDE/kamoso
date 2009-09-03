@@ -20,12 +20,12 @@
 #include "kamosoplugin.h"
 #include <KUrl>
 
-class ExecutePlugin : public KamosoPlugin
+class YoutubePlugin : public KamosoPlugin
 {
 	Q_OBJECT
 	Q_INTERFACES(KamosoPlugin)
 	public:
-		ExecutePlugin(QObject* parent, const QVariantList& args);
+		YoutubePlugin(QObject* parent, const QVariantList& args);
 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		
 	public slots:

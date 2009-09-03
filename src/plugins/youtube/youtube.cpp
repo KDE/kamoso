@@ -27,16 +27,16 @@
 #include <KMessageBox>
 #include <KMimeType>
 
-K_PLUGIN_FACTORY(KamosoExecuteFactory, registerPlugin<ExecutePlugin>(); )
-K_EXPORT_PLUGIN(KamosoExecuteFactory(KAboutData("Youtube", "youtube",
+K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
+K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("Youtube", "youtube",
 		ki18n("Youtube"), "0.1", ki18n("Upload videos directly to youtube"),
 		KAboutData::License_GPL)))
 
-ExecutePlugin::ExecutePlugin(QObject* parent, const QVariantList& args)
+YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args)
 {}
 
-QAction* ExecutePlugin::thumbnailsAction(const QList<KUrl>& urls)
+QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
 	QAction* act=0;
 	mSelectedUrls.clear();
@@ -54,7 +54,7 @@ QAction* ExecutePlugin::thumbnailsAction(const QList<KUrl>& urls)
 	return act;
 }
 
-void ExecutePlugin::upload(bool)
+void YoutubePlugin::upload(bool)
 {
 	foreach(const KUrl& path, mSelectedUrls) {
 		bool corr=QDesktopServices::openUrl(path);
