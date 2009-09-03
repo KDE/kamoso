@@ -28,5 +28,5 @@ Kamoso 1.0:
 	[OK]-Añadir un default si el usuario no selecciona directorio (standar Pictures, si no home?)
 
 Kamoso libVlc backend:
-	-Fix the usage of KIO
-	[OK]-Do WebcamSelection working again
+	[OK] -Fix the usage of KIO
+	[OK] -Do WebcamSelection working again
