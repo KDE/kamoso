@@ -1,4 +1,6 @@
-find_package(LibGCal)
+find_package(LibGCal REQUIRED)
+find_package(GLIB2 REQUIRED)
+
 message(STATUS "caca ${LIBGCAL_INCLUDE_DIRS}")
 include_directories( ${LIBGCAL_INCLUDE_DIRS} )
 set(youtube_SRCS youtube.cpp)

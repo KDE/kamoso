@@ -24,6 +24,8 @@
 #include <KUrl>
 #include <ui_mainWidget.h>
 
+class QRadioButton;
+class ShootMode;
 class WhiteWidgetManager;
 class WebcamWidget;
 class WebcamRetriever;
@@ -48,12 +50,40 @@ class Kamoso : public KMainWindow
 		Kamoso ( QWidget *parent=0 );
 		void checkInitConfig();
 		~Kamoso();
-		WebcamRetriever *videoRetriever;
-		int m_webcamId;
+		
+//Only slots
+	public slots:
+		void takePhoto();
+		void startVideo(bool recording);
+		void startCountdown();
+		void configuration();
+		void generalUpdated();
+		void webcamChanged(int index);
+		void webcamAdded();
+		void webcamRemoved();
+		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
+		void thumbnailAdded();
+		void selectLast();
+		void selectJob(KamosoJob*);
+		void changeMode(bool);
+		
+	private slots:
+		void restore();
+		void slotScrollLeft();
+		void slotScrollRight();
+		void slotScrollFinish();
+		void openThumbnail(const QModelIndex& idx);
+		void openThumbnail(const QList<KUrl>& url);
+		void fillKcomboDevice();
+	signals:
+		void webcamPlaying(const QString&);
+		
 	private:
 		KUrl saveUrl;
 		float brightBack;
 
+		WebcamRetriever *videoRetriever;
+		int m_webcamId;
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *webcam;
@@ -66,32 +96,8 @@ class Kamoso : public KMainWindow
 		QWidget *mainWidget;
 		DeviceManager *deviceManager;
 		int m_exponentialValue;
-		bool recording;
-//Only slots
-	public slots:
-		void takePhoto();
-		void startVideo();
-		void startCountdown();
-		void configuration();
-		void generalUpdated();
-		void webcamChanged(int index);
-		void webcamAdded();
-		void webcamRemoved();
-		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
-		void thumbnailAdded();
-		void selectLast();
-		void selectJob(KamosoJob*);
-		
-	private slots:
-		void restore();
-		void slotScrollLeft();
-		void slotScrollRight();
-		void slotScrollFinish();
-		void openThumbnail(const QModelIndex& idx);
-		void openThumbnail(const QList<KUrl>& url);
-		void fillKcomboDevice();
-	signals:
-		void webcamPlaying(const QString&);
+		QList<ShootMode*> m_modes;
+		QList<QRadioButton*> m_modesRadio;
 };
 
 #endif

@@ -5,8 +5,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package(KDE4 REQUIRED)
 find_package(LibV4L2 REQUIRED)
 find_package(VLC REQUIRED)
-find_package(LibGCal REQUIRED)
-find_package(GLIB2 REQUIRED)
 
 # include(MacroLogFeature)
 # include(MacroBoolTo01)

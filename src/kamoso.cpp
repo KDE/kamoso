@@ -60,11 +60,14 @@
 #include "kamosoplugin.h"
 #include "kamosojobtracker.h"
 #include "kamosojob.h"
+#include "photoshootmode.h"
+#include "videoshootmode.h"
+#include <QRadioButton>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent), recording(false)
+	: KMainWindow(parent)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
@@ -107,17 +110,24 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	
 //Second row Stuff
-	//Setting kIcon and conection to the button who take the picture
-	mainWidgetUi->takePictureBtn->setIcon(KIcon("webcamreceive"));
- 	connect(mainWidgetUi->takePictureBtn, SIGNAL(clicked(bool)), SLOT(startCountdown()));
+	m_modes.append(new PhotoShootMode(this));
+	m_modes.append(new VideoShootMode(this));
 	
-	//Capture video, connect signal->slot
-	mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
-	connect(mainWidgetUi->makeVideo, SIGNAL(clicked(bool)), SLOT(startVideo()));
-
+	bool first=false;
+	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
 	
-	//Configuration button
-	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration()));
+	foreach(ShootMode* mode, m_modes) {
+		m_modesRadio += new QRadioButton(mainWidgetUi->modes);
+		m_modesRadio.last()->setIcon(mode->icon());
+		m_modesRadio.last()->setChecked(first);
+		modesLayout->addWidget(m_modesRadio.last());
+		
+		first=false;
+		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
+	}
+	
+// 	//Configuration button
+// 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration())); //TODO ADD again
 	
 	//Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
@@ -189,21 +199,20 @@ void Kamoso::webcamAdded()
 		fillKcomboDevice();
 }
 
-void Kamoso::startVideo()
+void Kamoso::startVideo(bool recording)
 {
 	if(!recording){
-		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
+// 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
 		
 		#warning use tmp if saveUrl is not local so that we can move afterwards if remote
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
-		bool withSound=mainWidgetUi->videoSound->checkState() == Qt::Checked;
+		bool withSound=true; //TODO: Make it configurable
 		webcam->recordVideo(photoPlace, withSound);
 	} else {
-		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
+// 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
 		webcam->playFile(deviceManager->playingDevicePath());
 	}
-	recording = !recording;
 }
 
 void Kamoso::fillKcomboDevice()
@@ -343,8 +352,8 @@ void Kamoso::takePhoto()
 	scrollRight->show();
 	customIconView->show();
 	countdown->hide();
-	qDebug () << "Flash state: " << mainWidgetUi->checkFlash->checkState();
-	if(mainWidgetUi->checkFlash->checkState() == 2){
+	
+	if(false/*mainWidgetUi->checkFlash->checkState() == 2*/){
 		brightBack = Solid::Control::PowerManager::brightness();
 		Solid::Control::PowerManager::setBrightness(100);
 		whiteWidgetManager->showAll();
@@ -459,4 +468,23 @@ void Kamoso::selectJob(KamosoJob* job)
 		urls.append(url.pathOrUrl());
 	
 	dirOperator->setCurrentItems(urls);
+}
+
+void Kamoso::changeMode(bool clicked)
+{
+	int i=0;
+	bool found=false;
+	foreach(QRadioButton* butt, m_modesRadio) {
+		if(found=butt->isChecked())
+			break;
+		i++;
+	}
+	
+	if(found) {
+		ShootMode* o=m_modes[i];
+		
+		delete mainWidgetUi->actions->layout();
+		new QHBoxLayout(mainWidgetUi->actions);
+		mainWidgetUi->actions->layout()->addWidget(o->mainAction());
+	}
 }

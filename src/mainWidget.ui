@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
-    <height>816</height>
+    <width>737</width>
+    <height>679</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,68 +121,9 @@
       <number>20</number>
      </property>
      <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="takePictureBtn">
-       <property name="text">
-        <string>Take a Picture</string>
-       </property>
-       <property name="shortcut">
-        <string>Alt+T</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkFlash">
-       <property name="toolTip">
-        <string extracomment="Take the picture with or without flash"/>
-       </property>
-       <property name="text">
-        <string>Shoot With Flash</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="makeVideo">
-       <property name="text">
-        <string>Record a video</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="videoSound">
-       <property name="text">
-        <string>Record video with sound</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
+      <widget class="QGroupBox" name="modes">
+       <property name="title">
+        <string/>
        </property>
       </widget>
      </item>
@@ -200,9 +141,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="configureBtn">
-       <property name="text">
-        <string>Configuration</string>
+      <widget class="QGroupBox" name="actions">
+       <property name="title">
+        <string/>
        </property>
       </widget>
      </item>
@@ -214,11 +155,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
