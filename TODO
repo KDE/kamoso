@@ -1,32 +1,7 @@
-Kamoso 1.0:
-	[OK]-Update AVDEvice:
-		[OK]-Hacer nuestro fork instalable (modificar nombre)
-	
-	[OK]- Arreglar cabeceras
-		[OK]- Queremos GPL2+? GPL3+? GPL2+3?
-	
-	-Controlar el video:
-		-Controlar el input
-			[OK]-Controlar FPS
-			-Configurar video (brillo, contraste etc). (auto mejor que mejor)
-			[OK]-Seleccionar el source
-			-Controlar las resoluciones
-		[OK]-Controlar el output
-			[OK]-Quitar memory leaks
-			[Ok]-limpiar código
-	-Web 2.0:
-		-[OK. Facebook] Subirla a una web de subir fotos.
-		-Videos a youtube
-		-[OK] Crear interfaz para notificar el estado de los plugins (si estan trabajando)
-			-[OK] Crear sistema para la notificación del estado de plugins. Uso de KJob
-			-[OK] Crear una interfaz bonita. Es feo que salga en el titulo de la ventana.
-	-General:
-		-Tunear interfaz << ESPECIFICA!!!
-			-Tuenar thumbnails view
-		-[OK] Usar KIO
-		-Full KDE
-	[OK]-Añadir un default si el usuario no selecciona directorio (standar Pictures, si no home?)
-
-Kamoso libVlc backend:
-	[OK] -Fix the usage of KIO
-	[OK] -Do WebcamSelection working again
+Todo to reach 1.0 release:
+	[AP]-Remove context menu entries
+	[AP]-Job manager
+	[AF]-Youtube
+	[OK]-Use KDE capture device
+	[AP]-Implement "modes"
+	[AF]-Implement "Rafaga" mode
