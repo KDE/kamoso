@@ -36,6 +36,7 @@ QWidget* VideoShootMode::mainAction()
 {
 	QPushButton* action = new QPushButton(controller());
 	action->setIcon(icon());
+	action->setIconSize(QSize(32,32));
 	action->setToolTip(name());
 	action->setCheckable(true);
 	

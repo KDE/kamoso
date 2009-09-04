@@ -22,8 +22,8 @@
 
 #include <KMainWindow>
 #include <KUrl>
-#include <ui_mainWidget.h>
 
+class QToolButton;
 class QRadioButton;
 class ShootMode;
 class WhiteWidgetManager;
@@ -40,8 +40,9 @@ class KFileItem;
 class WebcamWidget;
 class DeviceManager;
 class KamosoJob;
-
+namespace Ui { class mainWidget;}
 namespace Phonon { class MediaObject; }
+
 class Kamoso : public KMainWindow
 {
 	Q_OBJECT
@@ -97,7 +98,7 @@ class Kamoso : public KMainWindow
 		DeviceManager *deviceManager;
 		int m_exponentialValue;
 		QList<ShootMode*> m_modes;
-		QList<QRadioButton*> m_modesRadio;
+		QList<QPushButton*> m_modesRadio;
 };
 
 #endif

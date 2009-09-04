@@ -63,6 +63,7 @@
 #include "photoshootmode.h"
 #include "videoshootmode.h"
 #include <QRadioButton>
+#include <QPushButton>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -76,7 +77,7 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(deviceManager,SIGNAL(deviceRegistered(QString)),SLOT(webcamAdded()));
 	connect(deviceManager,SIGNAL(deviceUnregistered(QString)),SLOT(webcamRemoved()));
 	
-	qDebug() << "Settings of camoso:";
+	qDebug() << "Settings of kamoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
 
@@ -85,14 +86,9 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->setupUi(mainWidget);
 	
 	//We've to investigate if is better call start before do the UI stuff
-	if(deviceManager->numberOfDevices() < 2){
-		//At the money there are only 2 widgets to hidden, maybe a container is needed here.
-		mainWidgetUi->chooseWebcamLbl->hide();
-		mainWidgetUi->webcamCombo->hide();
-	}else{
-		mainWidgetUi->chooseWebcamLbl->show();
-		mainWidgetUi->webcamCombo->show();
-	}
+	bool comboShown=deviceManager->numberOfDevices() > 1;
+	mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
+	mainWidgetUi->webcamCombo->setVisible(comboShown);
 	
 	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
@@ -116,14 +112,15 @@ Kamoso::Kamoso(QWidget* parent)
 	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
 	
 	foreach(ShootMode* mode, m_modes) {
-		m_modesRadio += new QRadioButton(mainWidgetUi->modes);
+		m_modesRadio += new QPushButton(mainWidgetUi->modes);
 		m_modesRadio.last()->setIcon(mode->icon());
+		m_modesRadio.last()->setIconSize(QSize(32,32));
 		modesLayout->addWidget(m_modesRadio.last());
 		
 		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
 	}
-	m_modesRadio.first()->setChecked(true);
-	changeMode(true);
+	m_modesRadio.first()->setDown(true);
+	changeMode(false);
 	
 // 	//Configuration button
 // 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration())); //TODO ADD again
@@ -471,27 +468,31 @@ void Kamoso::selectJob(KamosoJob* job)
 
 void Kamoso::changeMode(bool pressed)
 {
-	if(!pressed)
+	if(pressed)
 		return;
+	
+	QPushButton* tb=qobject_cast<QPushButton*>(sender());
+	if(!tb)
+		tb=m_modesRadio.first();
 	
 	int i=0;
 	bool found=false;
-	foreach(QRadioButton* butt, m_modesRadio) {
-		found=butt->isChecked();
-		if(found)
-			break;
-		i++;
+	foreach(QPushButton* butt, m_modesRadio) {
+		found = found || (butt==tb);
+		if(!found)
+			i++;
+		butt->setDown(false);
 	}
+	tb->setDown(true);
 	
 	if(found) {
 		ShootMode* o=m_modes[i];
 		QWidget* w=o->mainAction();
 		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 		
-		delete mainWidgetUi->actions->layout();
-		QHBoxLayout* actionLayout=new QHBoxLayout(mainWidgetUi->actions);
-		actionLayout->addItem(new QSpacerItem(0,0));
-		actionLayout->addWidget(w);
-		actionLayout->addItem(new QSpacerItem(0,0));
+		QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
+		delete v->takeAt(1)->widget();
+		
+		v->insertWidget(1, w);
 	}
 }
