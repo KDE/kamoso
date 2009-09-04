@@ -122,6 +122,9 @@ Kamoso::Kamoso(QWidget* parent)
 	m_modesRadio.first()->setDown(true);
 	changeMode(false);
 	
+	mainWidgetUi->configure->setIcon(KIcon("configure"));
+	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(configuration()));
+	
 // 	//Configuration button
 // 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration())); //TODO ADD again
 	
