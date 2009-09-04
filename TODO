@@ -2,7 +2,7 @@ Todo to reach 1.0 release:
 	[AP]-Remove context menu entries
 +	[AP]-Job manager
 	[AF]-Youtube
-	[OK]-Use KDE capture device
-	[AP]-Implement "modes"
-	[AF]-Implement "Rafaga" mode
++	[AF]-Use KDE capture device
++	[AP]-Implement "modes"
+	[AF]-Implement burst mode
 	[--]-Make surre it works with KDE 4.3
