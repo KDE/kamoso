@@ -45,7 +45,7 @@ QWidget* PhotoShootMode::mainAction()
 
 QIcon PhotoShootMode::icon() const
 {
-	return KIcon("webcamrecieve");
+	return KIcon("webcamreceive");
 }
 
 QString PhotoShootMode::name() const

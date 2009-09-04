@@ -113,18 +113,17 @@ Kamoso::Kamoso(QWidget* parent)
 	m_modes.append(new PhotoShootMode(this));
 	m_modes.append(new VideoShootMode(this));
 	
-	bool first=false;
 	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
 	
 	foreach(ShootMode* mode, m_modes) {
 		m_modesRadio += new QRadioButton(mainWidgetUi->modes);
 		m_modesRadio.last()->setIcon(mode->icon());
-		m_modesRadio.last()->setChecked(first);
 		modesLayout->addWidget(m_modesRadio.last());
 		
-		first=false;
 		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
 	}
+	m_modesRadio.first()->setChecked(true);
+	changeMode(true);
 	
 // 	//Configuration button
 // 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration())); //TODO ADD again
@@ -470,21 +469,29 @@ void Kamoso::selectJob(KamosoJob* job)
 	dirOperator->setCurrentItems(urls);
 }
 
-void Kamoso::changeMode(bool clicked)
+void Kamoso::changeMode(bool pressed)
 {
+	if(!pressed)
+		return;
+	
 	int i=0;
 	bool found=false;
 	foreach(QRadioButton* butt, m_modesRadio) {
-		if(found=butt->isChecked())
+		found=butt->isChecked();
+		if(found)
 			break;
 		i++;
 	}
 	
 	if(found) {
 		ShootMode* o=m_modes[i];
+		QWidget* w=o->mainAction();
+		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 		
 		delete mainWidgetUi->actions->layout();
-		new QHBoxLayout(mainWidgetUi->actions);
-		mainWidgetUi->actions->layout()->addWidget(o->mainAction());
+		QHBoxLayout* actionLayout=new QHBoxLayout(mainWidgetUi->actions);
+		actionLayout->addItem(new QSpacerItem(0,0));
+		actionLayout->addWidget(w);
+		actionLayout->addItem(new QSpacerItem(0,0));
 	}
 }
