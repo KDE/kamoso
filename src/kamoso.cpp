@@ -62,6 +62,7 @@
 #include "kamosojob.h"
 #include "photoshootmode.h"
 #include "videoshootmode.h"
+#include "burstshootmode.h"
 #include <QRadioButton>
 #include <QPushButton>
 
@@ -107,6 +108,7 @@ Kamoso::Kamoso(QWidget* parent)
 	
 //Second row Stuff
 	m_modes.append(new PhotoShootMode(this));
+	m_modes.append(new BurstShootMode(this));
 	m_modes.append(new VideoShootMode(this));
 	
 	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
