@@ -28,7 +28,10 @@
 BurstShootMode::BurstShootMode(Kamoso* camera)
 	: ShootMode(camera)
 {}
-
+BurstShootMode::~BurstShootMode()
+{
+	delete m_action;
+}
 QWidget* BurstShootMode::mainAction()
 {
 	m_action = new QPushButton(controller());

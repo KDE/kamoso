@@ -28,7 +28,7 @@ class BurstShootMode : public ShootMode
 	Q_OBJECT
 	public:
 		BurstShootMode(Kamoso* camera);
-		
+		~BurstShootMode();
 // 		virtual QList<QAction*> actions();
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
