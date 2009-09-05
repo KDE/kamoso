@@ -200,13 +200,11 @@ void Kamoso::webcamAdded()
 void Kamoso::startVideo(bool recording)
 {
 	if(!recording){
-// 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 		bool withSound=true; //TODO: Make it configurable
 		webcam->recordVideo(photoPlace, withSound);
 	} else {
-// 		mainWidgetUi->makeVideo->setIcon(KIcon("media-record"));
 		webcam->playFile(deviceManager->playingDevicePath());
 	}
 }
