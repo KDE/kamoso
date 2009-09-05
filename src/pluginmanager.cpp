@@ -86,6 +86,7 @@ QList< KamosoPlugin* > PluginManager::plugins()
 			d->plugins.insert(pinfo.name(), loadPlugin(pinfo, this));
 		}
 	}
+	
 	return d->plugins.values();
 }
 

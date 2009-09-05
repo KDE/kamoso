@@ -125,9 +125,6 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->configure->setIcon(KIcon("configure"));
 	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(configuration()));
 	
-// 	//Configuration button
-// 	connect(mainWidgetUi->configureBtn, SIGNAL(clicked(bool)), SLOT(configuration())); //TODO ADD again
-	
 	//Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
 	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
@@ -497,5 +494,6 @@ void Kamoso::changeMode(bool pressed)
 		delete v->takeAt(1)->widget();
 		
 		v->insertWidget(1, w);
+		w->setFocus();
 	}
 }
