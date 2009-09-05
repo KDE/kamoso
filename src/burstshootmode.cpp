@@ -54,7 +54,7 @@ void BurstShootMode::startBurstMode()
 
 QIcon BurstShootMode::icon() const
 {
-	return KIcon("webcamreceive");
+	return KIcon("code-block");
 }
 
 QString BurstShootMode::name() const
