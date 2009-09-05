@@ -168,11 +168,11 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->thirdRow->addWidget(scrollRight);
 
 	whiteWidgetManager = new WhiteWidgetManager(this);
-	countdown = new CountdownWidget(this);
-	countdown->hide();
-	mainWidgetUi->thirdRow->addWidget(countdown);
+	m_countdown = new CountdownWidget(this);
+	m_countdown->hide();
+	mainWidgetUi->thirdRow->addWidget(m_countdown);
 	
-	connect(countdown, SIGNAL(finished()), SLOT(takePhoto()));
+	connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
 	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
 	player = Phonon::createPlayer(Phonon::NotificationCategory);
 	player->setCurrentSource(soundFile);
@@ -324,7 +324,7 @@ Kamoso::~Kamoso()
 {
 	delete whiteWidgetManager;
 	delete player;
-	delete countdown;
+	delete m_countdown;
 	delete dirOperator;
 	Settings::self()->writeConfig();
 }
@@ -335,12 +335,12 @@ Kamoso::~Kamoso()
 //TODO: Abstraction of what is called on pushBtn?
 void Kamoso::startCountdown()
 {
-	countdown->start();
+	m_countdown->start();
 	//hidding all non-semaphore widgets
 	scrollLeft->hide();
 	scrollRight->hide();
 	customIconView->hide();
-	countdown->show();
+	m_countdown->show();
 }
 
 /**
@@ -352,7 +352,7 @@ void Kamoso::takePhoto()
 	scrollLeft->show();
 	scrollRight->show();
 	customIconView->show();
-	countdown->hide();
+	m_countdown->hide();
 	
 	if(false/*mainWidgetUi->checkFlash->checkState() == 2*/){
 		brightBack = Solid::Control::PowerManager::brightness();
@@ -500,4 +500,9 @@ void Kamoso::changeMode(bool pressed)
 		
 		v->insertWidget(1, w);
 	}
+}
+
+CountdownWidget * Kamoso::countdown() const
+{
+	return m_countdown;
 }

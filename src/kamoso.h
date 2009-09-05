@@ -50,8 +50,9 @@ class Kamoso : public KMainWindow
 	public:
 		Kamoso ( QWidget *parent=0 );
 		void checkInitConfig();
+		CountdownWidget *countdown() const;
 		~Kamoso();
-		
+
 //Only slots
 	public slots:
 		void takePhoto();
@@ -88,7 +89,7 @@ class Kamoso : public KMainWindow
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *webcam;
-		CountdownWidget *countdown;
+		CountdownWidget *m_countdown;
 		Phonon::MediaObject *player;
 		QPushButton* scrollLeft;
 		QPushButton* scrollRight;
@@ -99,6 +100,7 @@ class Kamoso : public KMainWindow
 		int m_exponentialValue;
 		QList<ShootMode*> m_modes;
 		QList<QPushButton*> m_modesRadio;
+		ShootMode *m_activeMode;
 };
 
 #endif

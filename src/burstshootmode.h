@@ -21,10 +21,11 @@
 #define BURSTSHOOTMODE_H
 
 #include "shootmode.h"
-
+#include <QPushButton>
 
 class BurstShootMode : public ShootMode
 {
+	Q_OBJECT
 	public:
 		BurstShootMode(Kamoso* camera);
 		
@@ -32,6 +33,10 @@ class BurstShootMode : public ShootMode
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
 		virtual QString name() const;
+	public slots:
+		void startBurstMode();
+	private:
+		QPushButton *m_action;
 };
 
 #endif // BURSTSHOOTMODE_H

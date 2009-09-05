@@ -18,6 +18,7 @@
 */
 
 #include "burstshootmode.h"
+#include "countdownwidget.h"
 #include <KIcon>
 #include <KLocalizedString>
 #include <QAction>
@@ -30,13 +31,22 @@ BurstShootMode::BurstShootMode(Kamoso* camera)
 
 QWidget* BurstShootMode::mainAction()
 {
-	QPushButton* action = new QPushButton(controller());
-	action->setIcon(icon());
-	action->setIconSize(QSize(32,32));
-	action->setToolTip(name());
-	
-	connect(action, SIGNAL(clicked()), controller(), SLOT(startCountdown()));
-	return action;
+	m_action = new QPushButton(controller());
+	m_action->setIcon(icon());
+	m_action->setIconSize(QSize(32,32));
+	m_action->setToolTip(name());
+	m_action->setCheckable(true);
+	connect(m_action, SIGNAL(clicked()), this, SLOT(startBurstMode()));
+	connect(controller()->countdown(),SIGNAL(finished()),this,SLOT(startBurstMode()));
+	return m_action;
+}
+
+void BurstShootMode::startBurstMode()
+{
+	if(m_action->isChecked() == true)
+	{
+		controller()->startCountdown();
+	}
 }
 
 QIcon BurstShootMode::icon() const
