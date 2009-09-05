@@ -201,8 +201,6 @@ void Kamoso::startVideo(bool recording)
 {
 	if(!recording){
 // 		mainWidgetUi->makeVideo->setIcon(KIcon("media-playback-stop"));
-		
-		#warning use tmp if saveUrl is not local so that we can move afterwards if remote
 		KUrl photoPlace = saveUrl;
 		photoPlace.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 		bool withSound=true; //TODO: Make it configurable
