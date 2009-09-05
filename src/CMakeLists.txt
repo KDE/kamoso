@@ -4,6 +4,7 @@ include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR} ${VLC_INCLUDE_D
 add_subdirectory(plugins)
 
 set(kamoso_SRCS
+	burstshootmode.cpp
 	videoshootmode.cpp
 	photoshootmode.cpp
 	shootmode.cpp 
