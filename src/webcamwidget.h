@@ -40,8 +40,8 @@ public:
 public slots:
 	void playFile(const QString& file);
 	bool takePhoto(const KUrl &dest);
-	void recordVideo(const KUrl& dest, bool sound);
-	
+	void recordVideo(bool sound);
+	void stopRecording(const KUrl& destUrl);
 private:
 	QString phononCaptureDevice();
 	class Private;

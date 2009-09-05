@@ -28,6 +28,7 @@
 #include <QSlider>
 #include <QTimer>
 #include <QFrame>
+#include <QDateTime>
 #include <KUrl>
 #include <KStandardDirs>
 #include <KApplication>
@@ -45,6 +46,7 @@ struct WebcamWidget::Private
 {
 	bool raise(libvlc_exception_t * ex);
 	bool _isPlaying;
+	QByteArray videoTmpPath;
 	libvlc_exception_t _vlcexcep;
 	libvlc_instance_t *_vlcinstance;
 	libvlc_media_player_t *m_mp;
@@ -142,17 +144,11 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	return d->raise(&d->_vlcexcep);
 }
 
-void WebcamWidget::recordVideo(const KUrl &desturl, bool sound)
+void WebcamWidget::recordVideo(bool sound)
 {
-	#warning make dest KIO aware
-	QByteArray dest;
-	if(desturl.isLocalFile()) {
-		dest=desturl.path().toAscii();
-	} else {
-		dest=KStandardDirs::locateLocal("appdata","last.ogv").toAscii();
-	}
-	
-	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+dest+"}'}");
+	#warning replace /tmp/ by api
+	d->videoTmpPath = QString("/tmp/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
+	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+d->videoTmpPath+"}'}");
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
 		inputAlsa.append(phononCaptureDevice());
@@ -168,9 +164,13 @@ void WebcamWidget::recordVideo(const KUrl &desturl, bool sound)
 	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
 	libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
 	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
-	
-	if(d->raise(&d->_vlcexcep) && !desturl.isLocalFile()) {
-		KIO::CopyJob* job=KIO::move(KUrl(dest), desturl);
+}
+
+void WebcamWidget::stopRecording(const KUrl &destUrl)
+{
+	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
+	if(d->raise(&d->_vlcexcep)) {
+		KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
 		job->setAutoDelete(true);
 		job->start();
 	}
