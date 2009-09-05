@@ -372,7 +372,7 @@ void Kamoso::takePhoto()
 void Kamoso::restore()
 {
 	whiteWidgetManager->hideAll();
-	Solid::Control::PowerManager::setBrightness(brightBack);
+// 	Solid::Control::PowerManager::setBrightness(brightBack);
 }
 
 void Kamoso::slotScrollLeft()
