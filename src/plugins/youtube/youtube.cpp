@@ -31,10 +31,11 @@
 #include <QDesktopServices>
 #include <kwallet.h>
 #include "youtube.h"
-#include "youtubemanager.h"
+// #include "youtubemanager.h"
+#include "youtubejob.h"
 #include "src/plugins/youtube/ui_auth.h"
+#include "src/plugins/youtube/ui_videoInfo.h"
 
-#define YOUTUBE_DEVELOPER_KEY "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg"
 using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
@@ -84,21 +85,69 @@ void YoutubePlugin::upload()
 // 		}
 // 	}
 	//Until we've config dialog for plugins, this is the best I can do
-	if(!showDialog()){
+	if(!askNewData()){
 		return;
 	}
+// 	showVideoDialog();
 	login();
 }
 
+void YoutubePlugin::showVideoDialog()
+{
+	Ui::videoForm *videoForm = new Ui::videoForm;
+	QWidget *videoWidget = new QWidget();
+	videoForm->setupUi(videoWidget);
+
+	KDialog *dialog = new KDialog();
+	dialog->setMainWidget(videoWidget);
+	dialog->setCaption(i18n("Youtube authentification:"));
+	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
+	dialog->setMinimumWidth(300);
+	int response = dialog->exec();
+	if(response == QDialog::Accepted){
+		if(videoForm->descriptionText->toPlainText().size() > 0){
+			videoDesc = videoForm->descriptionText->toPlainText();
+		}
+		if(videoForm->titleText->text().size() > 0){
+			videoTitle = videoForm->titleText->text();
+		}
+		if(videoForm->tagText->text().size() > 0){
+			videoTags = videoForm->tagText->text();
+		}
+	}
+}
 void YoutubePlugin::login()
 {
 	#warning where the hell we've to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
 	m_wallet->readMap("youtubeAuth",authInfo);
-	m_manager = new YoutubeManager(authInfo["username"].toAscii(),authInfo["password"].toAscii(),QByteArray(YOUTUBE_DEVELOPER_KEY));
-	connect(m_manager,SIGNAL(authenticated(bool)),this,SLOT(authenticated(bool)));
-	m_manager->login();
-// 	authenticated(true);
+
+	KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
+	QByteArray data("Email=");
+	data.append(authInfo["username"].toAscii());
+	data.append("&Passwd=");
+	data.append(authInfo["password"].toAscii());
+	data.append("&service=youtube&source=Kamoso");
+	KIO::TransferJob *loginJob = KIO::http_post(url,data,KIO::HideProgressInfo);
+	loginJob->addMetaData("cookies","none");
+	loginJob->addMetaData("content-type","Content-Type:application/x-www-form-urlencoded");
+	connect(loginJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(loginDone(KIO::Job *, const QByteArray &)));
+	loginJob->start();
+}
+
+void YoutubePlugin::loginDone(KIO::Job *job, const QByteArray &data)
+{
+	delete job;
+	qDebug() << "LoginDone, data received\n";
+	qDebug() << data.data();
+	if(data.at(0) == 'E'){
+		authenticated(false);
+	}else{
+		QList<QByteArray> tokens = data.split('\n');
+		m_authToken = tokens.first().remove(0,5);
+		qDebug() << "Final AuthToken: " << m_authToken.data();
+		authenticated(true);
+	}
 }
 
 bool YoutubePlugin::showDialog()
@@ -106,7 +155,7 @@ bool YoutubePlugin::showDialog()
 	KDialog *dialog = new KDialog();
 
 	dialog->setMainWidget(m_authWidget);
-	dialog->setCaption(i18n("Received files directory:"));
+	dialog->setCaption(i18n("Youtube authentification:"));
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(300);
 	int response = dialog->exec();
@@ -138,7 +187,9 @@ void YoutubePlugin::authenticated(bool auth)
 		return;
 	}
 	foreach(const KUrl& path, mSelectedUrls) {
-// 		m_manager->upload(path);
+		showVideoDialog();
+		YoutubeJob* job=new YoutubeJob(path,m_authToken);
+		emit jobCreated(job);
 	}
 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
 }

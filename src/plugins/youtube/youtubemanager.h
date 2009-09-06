@@ -28,7 +28,6 @@ class YoutubeManager : public QObject
 	Q_OBJECT
 	public:
 		YoutubeManager(QByteArray username,QByteArray password, QByteArray developerKey);
-		void login();
 		void upload(const KUrl &path);
 
 		//Getters
@@ -42,7 +41,6 @@ class YoutubeManager : public QObject
 		void setDeveloperKey(QByteArray developerKey);
 		void setAuthToken(QByteArray authToken);
 	public slots:
-		void loginDone(KIO::Job *, const QByteArray &);
 		void fileOpened(KIO::Job *, const QByteArray &);
 		void uploadDone(KIO::Job *, const QByteArray &);
 		void moreData(KIO::Job *, const QByteArray &);
@@ -56,7 +54,6 @@ class YoutubeManager : public QObject
 		KIO::TransferJob *openFileJob;
 		KIO::TransferJob *uploadJob;
 	signals:
-		void authenticated(bool);
 		void uploadDone(bool);
 };
 
