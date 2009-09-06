@@ -44,14 +44,19 @@ void YoutubeManager::upload(QByteArray *uploadPath)
 {
 	qDebug() << "File To Upload: " << uploadPath->data();
 	KUrl url(*uploadPath);
-	KIO::TransferJob *getFileContentJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
-	connect(getFileContentJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
-	getFileContentJob->start();
+// 	KIO::TransferJob *getFileContentJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
+	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
+	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
+	openFileJob->start();
 }
 
 void YoutubeManager::fileOpened(KIO::Job *job, const QByteArray &data)
 {
-	delete job;
+	qDebug() << "fileOPened!!";
+	job->suspend();
+	disconnect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
+	connect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(moreData(KIO::Job *, const QByteArray &)));
+
 	QByteArray extraHeaders("");
 	extraHeaders.append("Authorization: GoogleLogin auth=");
 	extraHeaders.append(m_authToken.data());
@@ -92,18 +97,46 @@ finalData.append("</entry>");
 	finalData.append("\r\n");
 	finalData.append("\r\n");
 	finalData.append(data);
-	finalData.append("\r\n");
-	finalData.append("--foobarfoo--");
-
 
 	KUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
-	KIO::TransferJob *uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
+	uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
 	uploadJob->addMetaData("cookies","none");
 	uploadJob->addMetaData("connection","close");
 	uploadJob->addMetaData("customHTTPHeader",extraHeaders.data());
 	uploadJob->addMetaData("content-type","Content-Type: multipart/related; boundary=\"foobarfoo\"");
+	uploadJob->setAsyncDataEnabled(true);
+	connect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadNeedData()));
 	connect(uploadJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(uploadDone(KIO::Job *, const QByteArray &)));
 	uploadJob->start();
+}
+void YoutubeManager::moreData(KIO::Job *job, const QByteArray &data)
+{
+	job->suspend();
+	if(data.size() == 0){
+		qDebug() << "Data is zero, going to end this!";
+		disconnect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadNeedData()));
+		connect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadFinal()));
+
+		QByteArray final("\r\n");
+		final.append("--foobarfoo--");
+		uploadJob->sendAsyncData(final);
+	}else{
+		qDebug() << "Sending more data....";
+		uploadJob->sendAsyncData(data);
+	}
+}
+
+void YoutubeManager::uploadFinal()
+{
+	//Sending an empty QByteArray the job ends
+	qDebug() << "Sendind the empty packed";
+	uploadJob->sendAsyncData(QByteArray());
+}
+
+void YoutubeManager::uploadNeedData()
+{
+	qDebug() << "openFile job resumed!";
+	openFileJob->resume();
 }
 
 void YoutubeManager::uploadDone(KIO::Job *job, const QByteArray &data)

@@ -45,11 +45,16 @@ class YoutubeManager : public QObject
 		void loginDone(KIO::Job *, const QByteArray &);
 		void fileOpened(KIO::Job *, const QByteArray &);
 		void uploadDone(KIO::Job *, const QByteArray &);
+		void moreData(KIO::Job *, const QByteArray &);
+		void uploadNeedData();
+		void uploadFinal();
 	private:
 		QByteArray m_username;
 		QByteArray m_password;
 		QByteArray m_developerKey;
 		QByteArray m_authToken;
+		KIO::TransferJob *openFileJob;
+		KIO::TransferJob *uploadJob;
 	signals:
 		void authenticated(bool);
 		void uploadDone(bool);
