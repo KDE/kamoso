@@ -27,14 +27,7 @@
 #include <KMessageBox>
 #include <KMimeType>
 #include <QDebug>
-#include <glib.h>
-#include <glib-object.h>
 
-extern "C" {
-	#include <gdata/services/youtube/gdata-youtube-service.h>
-	#include <gcal.h>
-#include <gcalendar.h>
-}
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
 K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("Youtube", "youtube",
@@ -65,25 +58,5 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 
 void YoutubePlugin::upload(bool)
 {
-	g_type_init();
-	GDataYouTubeService* service;
-	service == NULL;
-	const char* develId = "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg";
-	const char* clientId = "ytapi-GNOME-Totem-444fubtt";
-	const char * filePath = "REPLACEME";
-	service = gdata_youtube_service_new(develId,clientId);
-	if(service == NULL){
-		qDebug() << "FAIL";
-	}else{
-		qDebug() << "CORRECT!";
-	}
-	if(gdata_service_authenticate(GDATA_SERVICE(service),"tetasnor","12344321",NULL,NULL))
-	{
-		qDebug() << "Autenticated!!!!\n\n\n\n\n\n\n\n";
- 		GDataYouTubeVideo *video = gdata_youtube_video_new(NULL);
-		GFile *file = g_file_new_for_path(filePath);
-		gdata_youtube_service_upload_video(service,video,file,NULL,NULL);
-	}else{
-		qDebug() << "Ressadasdasdaduuuult: \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	}
+	
 }
