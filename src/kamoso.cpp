@@ -295,6 +295,7 @@ void Kamoso::configuration()
 	
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);
+// 	selector->
 	selector->addPlugins(PluginManager::self()->pluginInfo());
 	dialog->addPage(selector, i18n("Plugin List"), "plugins");
 	

@@ -34,7 +34,7 @@
 #include "youtubemanager.h"
 #include "src/plugins/youtube/ui_auth.h"
 
-
+#define YOUTUBE_DEVELOPER_KEY "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg"
 using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
@@ -78,10 +78,14 @@ void YoutubePlugin::upload()
 		}
 	}
 	m_wallet->setFolder("youtubeKamoso");
-	if(!m_wallet->hasEntry("youtubeAuth")){
-		if(!showDialog()){
-			return;
-		}
+// 	if(!m_wallet->hasEntry("youtubeAuth")){
+// 		if(!showDialog()){
+// 			return;
+// 		}
+// 	}
+	//Until we've config dialog for plugins, this is the best I can do
+	if(!showDialog()){
+		return;
 	}
 	login();
 }
@@ -91,8 +95,7 @@ void YoutubePlugin::login()
 	#warning where the hell we've to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
 	m_wallet->readMap("youtubeAuth",authInfo);
-	QByteArray developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
-	m_manager = new YoutubeManager(authInfo["username"].toAscii(),authInfo["password"].toAscii(),developerKey);
+	m_manager = new YoutubeManager(authInfo["username"].toAscii(),authInfo["password"].toAscii(),QByteArray(YOUTUBE_DEVELOPER_KEY));
 	connect(m_manager,SIGNAL(authenticated(bool)),this,SLOT(authenticated(bool)));
 	m_manager->login();
 // 	authenticated(true);
@@ -107,7 +110,9 @@ bool YoutubePlugin::showDialog()
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(300);
 	int response = dialog->exec();
-
+	if(response == QDialog::Rejected){
+		return false;
+	}
 	while((m_auth->usernameText->displayText() == "" || m_auth->passwordText->displayText() == "") && response == QDialog::Accepted )
 	{
 		response = dialog->exec();
