@@ -20,6 +20,7 @@
 #include "kamosojobtracker.h"
 #include "kamosojob.h"
 #include <QPainter>
+#include <QDebug>
 #include <KIcon>
 #include <KUrl>
 #include <KNotification>
@@ -34,6 +35,7 @@ KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
 
 void KamosoJobTracker::registerJob(KamosoJob* job)
 {
+	qDebug() << "Register job received!!!";
 	connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
 	connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
 	mJobs.append(job);

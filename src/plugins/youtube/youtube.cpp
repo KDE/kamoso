@@ -201,7 +201,6 @@ void YoutubePlugin::authenticated(bool auth)
 		YoutubeJob* job=new YoutubeJob(path,m_authToken,videoInfo);
 		emit jobCreated(job);
 	}
-// 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
 }
 
 bool YoutubePlugin::askNewData()
@@ -212,8 +211,4 @@ bool YoutubePlugin::askNewData()
 	m_auth->usernameText->setText(authInfo["username"]);
 	m_auth->passwordText->setText(authInfo["password"]);
 	return showDialog();
-}
-void YoutubePlugin::uploadDone(bool auth)
-{
-	qDebug() << "UploadDone: " << auth;
 }

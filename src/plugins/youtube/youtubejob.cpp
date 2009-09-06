@@ -22,6 +22,7 @@
 #include <KIO/Job>
 #include <KUrl>
 #include <KIcon>
+#include <KToolInvocation>
 
 #define YOUTUBE_DEVELOPER_KEY "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg"
 #include <KLocalizedString>
@@ -145,6 +146,8 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 	dataStr.contains(rx);
 	qDebug() << rx.cap(1);
 	url.setUrl(rx.cap(1));
+	qDebug() << url.url();
+	KToolInvocation::invokeBrowser(url.url());
 	emit emitResult();
 }
 

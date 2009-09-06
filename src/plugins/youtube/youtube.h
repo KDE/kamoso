@@ -37,7 +37,6 @@ class YoutubePlugin : public KamosoPlugin
 	public slots:
 		void upload();
 		void authenticated(bool);
-		void uploadDone(bool);
 		void loginDone(KIO::Job *job, const QByteArray &data);
 	private:
 		QList<KUrl> mSelectedUrls;
