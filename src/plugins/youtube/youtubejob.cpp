@@ -138,9 +138,13 @@ void YoutubeJob::uploadNeedData()
 
 void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 {
-	delete job;
+	job->suspend();
 	qDebug() << "Upload Response" << data.data();
-// 	data.split();
+	QString dataStr(data);
+	QRegExp rx("<media:player url='(\\S+)'/>");
+	dataStr.contains(rx);
+	qDebug() << rx.cap(1);
+	url.setUrl(rx.cap(1));
 	emit emitResult();
 }
 
@@ -153,11 +157,16 @@ void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
 		videoInfo["videoTitle"] = i18n("Video recorded using Kamoso");
 	}
 	if(videoInfo["videoDesc"].size() > 0){
+		
+	}else{
 		videoInfo["videoDesc"] = i18n("This video has been recorded using Kamoso, a KDE software to play with webcams!");
 	}
 	if(videoInfo["videoTags"].size() > 0){
+		
+	}else{
 		videoInfo["videoTags"] = "KDE, Kamoso";
 	}
+		
 	m_videoInfo = videoInfo;
 }
 
