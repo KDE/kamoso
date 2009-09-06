@@ -16,36 +16,31 @@
  *  along with this program; if not, write to the Free Software                      *
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
-
-#include "kamosoplugin.h"
-#include <KUrl>
-#include "src/plugins/youtube/ui_auth.h"
-#include <kwallet.h>
+#include <kamosojob.h>
 #include <KIO/Job>
+#include <QMap>
+#include <QString>
 
-class YoutubePlugin : public KamosoPlugin
+class YoutubeJob : public KamosoJob
 {
 	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
 	public:
-		YoutubePlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
-		bool showDialog();
-		QMap<QString, QString> showVideoDialog();
-		bool askNewData();
-		void login();
+		YoutubeJob(const KUrl& url, QByteArray& authKey, QMap<QString, QString>& videoInfo, QObject* parent=0);
+		virtual void start();
+		virtual QList< KUrl > urls() const;
+		virtual KIcon icon() const;
 	public slots:
-		void upload();
-		void authenticated(bool);
-		void uploadDone(bool);
-		void loginDone(KIO::Job *job, const QByteArray &data);
+		void fileOpened(KIO::Job *, const QByteArray &);
+		void uploadDone(KIO::Job *, const QByteArray &);
+		void moreData(KIO::Job *, const QByteArray &);
+		void uploadNeedData();
+		void uploadFinal();
 	private:
-		QList<KUrl> mSelectedUrls;
-		Ui::authWidget *m_auth;
-		QWidget *m_authWidget;
-		KWallet::Wallet *m_wallet;
-		QString videoTitle;
-		QString videoDesc;
-		QString videoTags;
+		void setVideoInfo(QMap<QString, QString>& videoInfo);
+		KIO::TransferJob *openFileJob;
+		KIO::TransferJob *uploadJob;
 		QByteArray m_authToken;
+		QByteArray developerKey;
+		KUrl url;
+		QMap<QString, QString> m_videoInfo;
 };
