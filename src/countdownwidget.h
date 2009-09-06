@@ -34,6 +34,7 @@ class CountdownWidget : public QWidget
 		virtual void start();
 		virtual void paintEvent (QPaintEvent*);
 		virtual void mousePressEvent (QMouseEvent*) { emit pressed(); }
+		void start(int timeInterval);
 		
 	public slots:
 		void currentYellow();

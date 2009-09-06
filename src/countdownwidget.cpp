@@ -37,11 +37,15 @@ CountdownWidget::CountdownWidget(QWidget* parent) : QWidget(parent)
 
 void CountdownWidget::start()
 {
-	currentState=Red;
 	qDebug() << Settings::photoTime();
 	int timeInterval = Settings::photoTime()/3;
+	start(timeInterval);
+}
+
+void CountdownWidget::start(int timeInterval)
+{
+	currentState=Red;
 	timeInterval = timeInterval*1000;//We need miliseconds
-	qDebug() << timeInterval;
 	QTimer::singleShot(1*timeInterval, this, SLOT(currentYellow()));
 	QTimer::singleShot(2*timeInterval, this, SLOT(currentGreen()));
 	QTimer::singleShot(3*timeInterval, this, SLOT(hide()));
