@@ -24,7 +24,7 @@
 Device::Device(const Solid::Device *device)
 {
 	m_udi = device->udi();
-	m_description = device->description();
+	m_description = device->product();
 
 	const Solid::Video *solidVideoDevice = device->as<Solid::Video>();
 	if (solidVideoDevice)
