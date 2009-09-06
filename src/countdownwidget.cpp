@@ -37,12 +37,6 @@ CountdownWidget::CountdownWidget(QWidget* parent) : QWidget(parent)
 
 void CountdownWidget::start()
 {
-// 	if(!KWindowSystem::compositingActive())
-// 	{
-// 		background=QPixmap::grabWindow(QApplication::desktop()->winId());
-// 	}
-// 	else
-// 		background.fill(Qt::transparent);
 	currentState=Red;
 	qDebug() << Settings::photoTime();
 	int timeInterval = Settings::photoTime()/3;
