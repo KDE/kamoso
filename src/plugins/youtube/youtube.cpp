@@ -20,18 +20,19 @@
 #include "youtube.h"
 #include <KPluginFactory>
 #include <KAboutData>
+#include <KMimeType>
 #include <KIcon>
 #include <KUrl>
-#include <QAction>
-#include <QDesktopServices>
 #include <KMessageBox>
-#include <KMimeType>
-#include <QDebug>
 
+#include <QAction>
+#include <QDebug>
+#include <QDesktopServices>
+#include "youtubemanager.h"
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
-K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("Youtube", "youtube",
-		ki18n("Youtube"), "0.1", ki18n("Upload videos directly to youtube"),
+K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
+		ki18n("Youtube"), "0.1", ki18n("Runs a visor for the specified file."),
 		KAboutData::License_GPL)))
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
@@ -58,5 +59,28 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 
 void YoutubePlugin::upload(bool)
 {
+	QByteArray username("tetasnor");
+	QByteArray password("12344321");
+	QByteArray developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
+	m_manager = new YoutubeManager(username,password,developerKey);
+	connect(m_manager,SIGNAL(authenticated(bool)),this,SLOT(authenticated(bool)));
+	m_manager->login();
+// 	authenticated(true);
+}
+
+void YoutubePlugin::authenticated(bool auth)
+{
+	qDebug() << "Authentification: " << auth ;
+	if(auth == false){
+		//TODO to be done
+		return;
+	}
 	
+	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
+	m_manager->upload(new QByteArray(""));
+}
+
+void YoutubePlugin::uploadDone(bool auth)
+{
+	qDebug() << "UploadDone: " << auth;
 }

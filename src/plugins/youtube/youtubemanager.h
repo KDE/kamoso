@@ -17,23 +17,42 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoplugin.h"
-#include <KUrl>
-#include "youtubemanager.h"
+#ifndef YOUTUBEMANAGER_H
+#define YOUTUBEMANAGER_H
+#include <qbytearray.h>
+#include <QObject>
+#include <KIO/Job>
 
-class YoutubePlugin : public KamosoPlugin
+class YoutubeManager : public QObject
 {
 	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
 	public:
-		YoutubePlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
-		
+		YoutubeManager(QByteArray username,QByteArray password, QByteArray developerKey);
+		void login();
+		void upload(QByteArray *path);
+
+		//Getters
+		QByteArray username() const;
+		QByteArray password() const;
+		QByteArray developerKey() const;
+		QByteArray authToken() const;
+		//Setters
+		void setUsername(QByteArray username);
+		void setPassword(QByteArray password);
+		void setDeveloperKey(QByteArray developerKey);
+		void setAuthToken(QByteArray authToken);
 	public slots:
-		void upload(bool);
+		void loginDone(KIO::Job *, const QByteArray &);
+		void fileOpened(KIO::Job *, const QByteArray &);
+		void uploadDone(KIO::Job *, const QByteArray &);
+	private:
+		QByteArray m_username;
+		QByteArray m_password;
+		QByteArray m_developerKey;
+		QByteArray m_authToken;
+	signals:
 		void authenticated(bool);
 		void uploadDone(bool);
-	private:
-		QList<KUrl> mSelectedUrls;
-		YoutubeManager *m_manager;
 };
+
+#endif // YOUTUBEMANAGER_H
