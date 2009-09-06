@@ -19,7 +19,6 @@
 
 #include "kamosoplugin.h"
 #include <KUrl>
-#include "youtubemanager.h"
 #include "src/plugins/youtube/ui_auth.h"
 #include <kwallet.h>
 #include <KIO/Job>
@@ -32,7 +31,7 @@ class YoutubePlugin : public KamosoPlugin
 		YoutubePlugin(QObject* parent, const QVariantList& args);
 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		bool showDialog();
-		void showVideoDialog();
+		QMap<QString, QString> showVideoDialog();
 		bool askNewData();
 		void login();
 	public slots:
@@ -42,7 +41,6 @@ class YoutubePlugin : public KamosoPlugin
 		void loginDone(KIO::Job *job, const QByteArray &data);
 	private:
 		QList<KUrl> mSelectedUrls;
-		YoutubeManager *m_manager;
 		Ui::authWidget *m_auth;
 		QWidget *m_authWidget;
 		KWallet::Wallet *m_wallet;

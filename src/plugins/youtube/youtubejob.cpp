@@ -24,11 +24,13 @@
 #include <KIcon>
 
 #define YOUTUBE_DEVELOPER_KEY "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg"
+#include <KLocalizedString>
 
-YoutubeJob::YoutubeJob(const KUrl& url, QByteArray authKey, QObject* parent)
-	: KamosoJob(parent), url(url)
+YoutubeJob::YoutubeJob(const KUrl& url, QByteArray& authKey, QMap<QString, QString>& videoInfo,QObject* parent)
+	: KamosoJob(parent), url(url),m_authToken(authKey)
 {
-	m_authToken = authKey;
+// 	m_authToken = authKey;
+	setVideoInfo(videoInfo);
 	developerKey = QByteArray(YOUTUBE_DEVELOPER_KEY);
 }
 
@@ -72,14 +74,14 @@ finalData.append("<entry xmlns=\"http://www.w3.org/2005/Atom\"\r\n");
   finalData.append("xmlns:media=\"http://search.yahoo.com/mrss/\"\r\n");
   finalData.append("xmlns:yt=\"http://gdata.youtube.com/schemas/2007\">\r\n");
   finalData.append("<media:group>\r\n");
-    finalData.append("<media:title type=\"plain\">Bad Wedding Toast</media:title>\r\n");
+    finalData.append("<media:title type=\"plain\">"+m_videoInfo["videoTitle"]+"</media:title>\r\n");
     finalData.append("<media:description type=\"plain\">\r\n");
-      finalData.append("I gave a bad toast at my friend's wedding.\r\n");
+      finalData.append(m_videoInfo["videoDesc"]+"\r\n");
     finalData.append("</media:description>\r\n");
-    finalData.append("<media:category\r\n");
+	finalData.append("<media:category\r\n");
       finalData.append("scheme=\"http://gdata.youtube.com/schemas/2007/categories.cat\">People\r\n");
     finalData.append("</media:category>\r\n");
-    finalData.append("<media:keywords>toast, wedding</media:keywords>\r\n");
+    finalData.append("<media:keywords>"+m_videoInfo["videoTags"]+"</media:keywords>\r\n");
   finalData.append("</media:group>\r\n");
 finalData.append("</entry>");
 	finalData.append("\r\n");
@@ -136,8 +138,26 @@ void YoutubeJob::uploadNeedData()
 
 void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 {
+	delete job;
 	qDebug() << "Upload Response" << data.data();
 	emit emitResult();
+}
+
+void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
+{
+	//This method will parse the content in the near future
+	if(videoInfo["videoTitle"].size() > 0){
+		
+	}else{
+		videoInfo["videoTitle"] = i18n("Video recorded using Kamoso");
+	}
+	if(videoInfo["videoDesc"].size() > 0){
+		videoInfo["videoDesc"] = i18n("This video has been recorded using Kamoso, a KDE software to play with webcams!");
+	}
+	if(videoInfo["videoTags"].size() > 0){
+		videoInfo["videoTags"] = "KDE, Kamoso";
+	}
+	m_videoInfo = videoInfo;
 }
 
 KIcon YoutubeJob::icon() const

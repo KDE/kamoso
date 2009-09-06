@@ -18,12 +18,14 @@
  *************************************************************************************/
 #include <kamosojob.h>
 #include <KIO/Job>
+#include <QMap>
+#include <QString>
 
 class YoutubeJob : public KamosoJob
 {
 	Q_OBJECT
 	public:
-		YoutubeJob(const KUrl& url, QByteArray authKey, QObject* parent=0);
+		YoutubeJob(const KUrl& url, QByteArray& authKey, QMap<QString, QString>& videoInfo, QObject* parent=0);
 		virtual void start();
 		virtual QList< KUrl > urls() const;
 		virtual KIcon icon() const;
@@ -34,9 +36,11 @@ class YoutubeJob : public KamosoJob
 		void uploadNeedData();
 		void uploadFinal();
 	private:
+		void setVideoInfo(QMap<QString, QString>& videoInfo);
 		KIO::TransferJob *openFileJob;
 		KIO::TransferJob *uploadJob;
 		QByteArray m_authToken;
 		QByteArray developerKey;
 		KUrl url;
+		QMap<QString, QString> m_videoInfo;
 };

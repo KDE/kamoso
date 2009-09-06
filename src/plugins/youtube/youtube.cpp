@@ -88,11 +88,11 @@ void YoutubePlugin::upload()
 	if(!askNewData()){
 		return;
 	}
-// 	showVideoDialog();
+
 	login();
 }
 
-void YoutubePlugin::showVideoDialog()
+QMap<QString, QString> YoutubePlugin::showVideoDialog()
 {
 	Ui::videoForm *videoForm = new Ui::videoForm;
 	QWidget *videoWidget = new QWidget();
@@ -104,17 +104,20 @@ void YoutubePlugin::showVideoDialog()
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(300);
 	int response = dialog->exec();
+	
+	QMap<QString, QString> videoInfo;
 	if(response == QDialog::Accepted){
 		if(videoForm->descriptionText->toPlainText().size() > 0){
-			videoDesc = videoForm->descriptionText->toPlainText();
+			videoInfo["videoDesc"] = videoForm->descriptionText->toPlainText();
 		}
 		if(videoForm->titleText->text().size() > 0){
-			videoTitle = videoForm->titleText->text();
+			videoInfo["videoTitle"] = videoForm->titleText->text();
 		}
 		if(videoForm->tagText->text().size() > 0){
-			videoTags = videoForm->tagText->text();
+			videoInfo["videoTags"] = videoForm->tagText->text();
 		}
 	}
+	return videoInfo;
 }
 void YoutubePlugin::login()
 {
@@ -186,12 +189,13 @@ void YoutubePlugin::authenticated(bool auth)
 		}
 		return;
 	}
+	QMap<QString, QString> videoInfo;
 	foreach(const KUrl& path, mSelectedUrls) {
-		showVideoDialog();
-		YoutubeJob* job=new YoutubeJob(path,m_authToken);
+		videoInfo = showVideoDialog();
+		YoutubeJob* job=new YoutubeJob(path,m_authToken,videoInfo);
 		emit jobCreated(job);
 	}
-	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
+// 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
 }
 
 bool YoutubePlugin::askNewData()
