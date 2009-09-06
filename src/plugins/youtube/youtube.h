@@ -21,6 +21,7 @@
 #include <KUrl>
 #include "youtubemanager.h"
 #include "src/plugins/youtube/ui_auth.h"
+#include <kwallet.h>
 
 class YoutubePlugin : public KamosoPlugin
 {
@@ -30,8 +31,10 @@ class YoutubePlugin : public KamosoPlugin
 		YoutubePlugin(QObject* parent, const QVariantList& args);
 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		bool showDialog();
+		bool askNewData();
+		void login();
 	public slots:
-		void upload(bool);
+		void upload();
 		void authenticated(bool);
 		void uploadDone(bool);
 	private:
@@ -39,4 +42,5 @@ class YoutubePlugin : public KamosoPlugin
 		YoutubeManager *m_manager;
 		Ui::authWidget *m_auth;
 		QWidget *m_authWidget;
+		KWallet::Wallet *m_wallet;
 };

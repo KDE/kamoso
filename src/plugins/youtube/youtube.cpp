@@ -60,7 +60,7 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 		if(mime->name().startsWith("video/")) {
 			if(!act) {
 				act=new QAction(KIcon("system-run"), i18n("Upload to youtube"), 0);
-				connect(act, SIGNAL(triggered(bool)), SLOT(upload(bool)));
+				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
 			}
 		}
 		mSelectedUrls.append(url);
@@ -68,29 +68,29 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 	return act;
 }
 
-void YoutubePlugin::upload(bool)
+void YoutubePlugin::upload()
 {
- 	KWallet::Wallet *wallet = Wallet::openWallet(Wallet::NetworkWallet(),qApp->activeWindow()->winId());
-	if(!wallet->hasFolder("youtubeKamoso")){
-		if(!wallet->createFolder("youtubeKamoso")){
+ 	m_wallet = Wallet::openWallet(Wallet::NetworkWallet(),qApp->activeWindow()->winId());
+	if(!m_wallet->hasFolder("youtubeKamoso")){
+		if(!m_wallet->createFolder("youtubeKamoso")){
 			//TODO: Error reporting here
 			return;
 		}
 	}
-	wallet->setFolder("youtubeKamoso");
-	if(!wallet->hasEntry("youtubeAuth")){
+	m_wallet->setFolder("youtubeKamoso");
+	if(!m_wallet->hasEntry("youtubeAuth")){
 		if(!showDialog()){
 			return;
 		}
-		QMap<QString, QString> toSave;
-		toSave["username"] = m_auth->usernameText->text();
-		toSave["password"] = m_auth->passwordText->text();
-		wallet->writeMap("youtubeAuth",toSave);
-		wallet->sync();
 	}
-	QMap<QString, QString> authInfo;
-	wallet->readMap("youtubeAuth",authInfo);
+	login();
+}
+
+void YoutubePlugin::login()
+{
 	#warning where the hell we've to put the developerKey? in a define?
+	QMap<QString, QString> authInfo;
+	m_wallet->readMap("youtubeAuth",authInfo);
 	QByteArray developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
 	m_manager = new YoutubeManager(authInfo["username"].toAscii(),authInfo["password"].toAscii(),developerKey);
 	connect(m_manager,SIGNAL(authenticated(bool)),this,SLOT(authenticated(bool)));
@@ -115,6 +115,11 @@ bool YoutubePlugin::showDialog()
 			return false;
 		}
 	}
+	QMap<QString, QString> toSave;
+	toSave["username"] = m_auth->usernameText->text();
+	toSave["password"] = m_auth->passwordText->text();
+	m_wallet->writeMap("youtubeAuth",toSave);
+	m_wallet->sync();
 	return true;
 }
 
@@ -122,7 +127,9 @@ void YoutubePlugin::authenticated(bool auth)
 {
 	qDebug() << "Authentification: " << auth ;
 	if(auth == false){
-		showDialog();
+		if(askNewData()){
+			login();
+		}
 		return;
 	}
 	foreach(const KUrl& path, mSelectedUrls) {
@@ -131,6 +138,15 @@ void YoutubePlugin::authenticated(bool auth)
 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
 }
 
+bool YoutubePlugin::askNewData()
+{
+	QMap<QString, QString> authInfo;
+	m_wallet->readMap("youtubeAuth",authInfo);
+	
+	m_auth->usernameText->setText(authInfo["username"]);
+	m_auth->passwordText->setText(authInfo["password"]);
+	return showDialog();
+}
 void YoutubePlugin::uploadDone(bool auth)
 {
 	qDebug() << "UploadDone: " << auth;
