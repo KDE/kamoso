@@ -337,6 +337,17 @@ void Kamoso::startCountdown()
 	m_countdown->show();
 }
 
+#warning afiestas: should I add a defualt argument instead? code duplication is evil :(
+void Kamoso::startCountdown(int timeInterval)
+{
+	m_countdown->start(timeInterval);
+	//hidding all non-semaphore widgets
+	scrollLeft->hide();
+	scrollRight->hide();
+	customIconView->hide();
+	m_countdown->show();
+}
+
 /**
 *This Method is called when the countDown is over
 */

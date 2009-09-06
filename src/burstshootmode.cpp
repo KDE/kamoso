@@ -24,6 +24,7 @@
 #include <QAction>
 #include "kamoso.h"
 #include <QPushButton>
+#include <settings.h>
 
 BurstShootMode::BurstShootMode(Kamoso* camera)
 	: ShootMode(camera)
@@ -45,7 +46,11 @@ void BurstShootMode::startBurstMode()
 {
 	if(m_action->isChecked() == true)
 	{
-		controller()->startCountdown();
+		int interval = Settings::photoTime()/3;
+		if(interval < 1){
+			interval = 1;
+		}
+		controller()->startCountdown(interval);
 	}
 }
 

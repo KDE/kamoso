@@ -58,6 +58,7 @@ class Kamoso : public KMainWindow
 		void takePhoto();
 		void startVideo(bool recording);
 		void startCountdown();
+		void startCountdown(int timeInterval);
 		void configuration();
 		void generalUpdated();
 		void webcamChanged(int index);
