@@ -40,10 +40,9 @@ void YoutubeManager::login()
 	loginJob->start();
 }
 
-void YoutubeManager::upload(QByteArray *uploadPath)
+void YoutubeManager::upload(const KUrl &url)
 {
-	qDebug() << "File To Upload: " << uploadPath->data();
-	KUrl url(*uploadPath);
+	qDebug() << "File To Upload: " << url.path();
 // 	KIO::TransferJob *getFileContentJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
 	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
 	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));

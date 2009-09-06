@@ -75,9 +75,10 @@ void YoutubePlugin::authenticated(bool auth)
 		//TODO to be done
 		return;
 	}
-	
+	foreach(const KUrl& path, mSelectedUrls) {
+		m_manager->upload(path);
+	}
 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
-	m_manager->upload(new QByteArray(""));
 }
 
 void YoutubePlugin::uploadDone(bool auth)

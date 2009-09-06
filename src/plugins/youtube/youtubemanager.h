@@ -29,7 +29,7 @@ class YoutubeManager : public QObject
 	public:
 		YoutubeManager(QByteArray username,QByteArray password, QByteArray developerKey);
 		void login();
-		void upload(QByteArray *path);
+		void upload(const KUrl &path);
 
 		//Getters
 		QByteArray username() const;
