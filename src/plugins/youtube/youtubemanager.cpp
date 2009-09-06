@@ -32,7 +32,11 @@ YoutubeManager::YoutubeManager(QByteArray username,QByteArray password, QByteArr
 void YoutubeManager::login()
 {
 	KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
-	QByteArray data("Email=tetasnor&Passwd=12344321&service=youtube&source=Kamoso");
+	QByteArray data("Email=");
+	data.append(username());
+	data.append("&Passwd=");
+	data.append(password());
+	data.append("&service=youtube&source=Kamoso");
 	KIO::TransferJob *loginJob = KIO::http_post(url,data,KIO::HideProgressInfo);
 	loginJob->addMetaData("cookies","none");
 	loginJob->addMetaData("content-type","Content-Type:application/x-www-form-urlencoded");
