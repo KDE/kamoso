@@ -17,18 +17,25 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "youtube.h"
 #include <KPluginFactory>
 #include <KAboutData>
 #include <KMimeType>
 #include <KIcon>
 #include <KUrl>
+#include <KDialog>
 #include <KMessageBox>
 
 #include <QAction>
+#include <QApplication>
 #include <QDebug>
 #include <QDesktopServices>
+#include <kwallet.h>
+#include "youtube.h"
 #include "youtubemanager.h"
+#include "src/plugins/youtube/ui_auth.h"
+
+
+using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
 K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
@@ -37,7 +44,11 @@ K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args)
-{}
+{
+	m_auth = new Ui::authWidget;
+	m_authWidget = new QWidget();
+	m_auth->setupUi(m_authWidget);
+}
 
 QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
@@ -59,24 +70,63 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 
 void YoutubePlugin::upload(bool)
 {
-	QByteArray username("tetasnor");
-	QByteArray password("12344321");
+ 	KWallet::Wallet *wallet = Wallet::openWallet(Wallet::NetworkWallet(),qApp->activeWindow()->winId());
+	if(!wallet->hasFolder("youtubeKamoso")){
+		if(!wallet->createFolder("youtubeKamoso")){
+			//TODO: Error reporting here
+			return;
+		}
+	}
+	wallet->setFolder("youtubeKamoso");
+	if(!wallet->hasEntry("youtubeAuth")){
+		if(!showDialog()){
+			return;
+		}
+		QMap<QString, QString> toSave;
+		toSave["username"] = m_auth->usernameText->text();
+		toSave["password"] = m_auth->passwordText->text();
+		wallet->writeMap("youtubeAuth",toSave);
+		wallet->sync();
+	}
+	QMap<QString, QString> authInfo;
+	wallet->readMap("youtubeAuth",authInfo);
+	#warning where the hell we've to put the developerKey? in a define?
 	QByteArray developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
-	m_manager = new YoutubeManager(username,password,developerKey);
+	m_manager = new YoutubeManager(authInfo["username"].toAscii(),authInfo["password"].toAscii(),developerKey);
 	connect(m_manager,SIGNAL(authenticated(bool)),this,SLOT(authenticated(bool)));
 	m_manager->login();
 // 	authenticated(true);
+}
+
+bool YoutubePlugin::showDialog()
+{
+	KDialog *dialog = new KDialog();
+
+	dialog->setMainWidget(m_authWidget);
+	dialog->setCaption(i18n("Received files directory:"));
+	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
+	dialog->setMinimumWidth(300);
+	int response = dialog->exec();
+
+	while((m_auth->usernameText->displayText() == "" || m_auth->passwordText->displayText() == "") && response == QDialog::Accepted )
+	{
+		response = dialog->exec();
+		if(response == QDialog::Rejected){
+			return false;
+		}
+	}
+	return true;
 }
 
 void YoutubePlugin::authenticated(bool auth)
 {
 	qDebug() << "Authentification: " << auth ;
 	if(auth == false){
-		//TODO to be done
+		showDialog();
 		return;
 	}
 	foreach(const KUrl& path, mSelectedUrls) {
-		m_manager->upload(path);
+// 		m_manager->upload(path);
 	}
 	connect(m_manager,SIGNAL(uploadDone(bool)),this,SLOT(uploadDone(bool)));
 }

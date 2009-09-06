@@ -24,6 +24,8 @@
 
 YoutubeManager::YoutubeManager(QByteArray username,QByteArray password, QByteArray developerKey)
 {
+	qDebug() << username;
+	qDebug() << password;
 	setUsername(username);
 	setPassword(password);
 	setDeveloperKey(developerKey);
