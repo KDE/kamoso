@@ -140,6 +140,7 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 {
 	delete job;
 	qDebug() << "Upload Response" << data.data();
+// 	data.split();
 	emit emitResult();
 }
 

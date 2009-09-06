@@ -102,7 +102,10 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 	dialog->setMainWidget(videoWidget);
 	dialog->setCaption(i18n("Youtube authentification:"));
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
-	dialog->setMinimumWidth(300);
+	dialog->setMinimumWidth(425);
+	dialog->setMinimumHeight(315);
+	dialog->setMaximumWidth(425);
+	dialog->setMaximumHeight(315);
 	int response = dialog->exec();
 	
 	QMap<QString, QString> videoInfo;
@@ -161,6 +164,9 @@ bool YoutubePlugin::showDialog()
 	dialog->setCaption(i18n("Youtube authentification:"));
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(300);
+	dialog->setMaximumWidth(300);
+	dialog->setMinimumHeight(110);
+	dialog->setMaximumHeight(110);
 	int response = dialog->exec();
 	if(response == QDialog::Rejected){
 		return false;
