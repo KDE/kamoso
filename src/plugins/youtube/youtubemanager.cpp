@@ -44,6 +44,7 @@ void YoutubeManager::upload(const KUrl &url)
 {
 	qDebug() << "File To Upload: " << url.path();
 // 	KIO::TransferJob *getFileContentJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
+
 	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
 	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
 	openFileJob->start();
@@ -53,6 +54,9 @@ void YoutubeManager::fileOpened(KIO::Job *job, const QByteArray &data)
 {
 	qDebug() << "fileOPened!!";
 	job->suspend();
+	#warning do something to evade the cast? like adding a metadata?
+	KIO::SimpleJob *simpleJob = static_cast<KIO::SimpleJob*>(job);
+	
 	disconnect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
 	connect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(moreData(KIO::Job *, const QByteArray &)));
 
@@ -65,7 +69,8 @@ void YoutubeManager::fileOpened(KIO::Job *job, const QByteArray &data)
 	extraHeaders.append("X-GData-Key: key=");
 	extraHeaders.append(developerKey().data());
 	extraHeaders.append("\r\n");
-	extraHeaders.append("Slug: kamoso_06332009_053348.ogv");
+	extraHeaders.append("Slug: ");
+	extraHeaders.append(simpleJob->url().fileName());
 
 	QByteArray finalData("--foobarfoo");
 	finalData.append("\r\n");
