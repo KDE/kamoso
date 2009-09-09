@@ -1,5 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@gmail.com>                        *
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
  *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
