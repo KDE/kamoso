@@ -64,3 +64,7 @@ QString BurstShootMode::name() const
 	return i18n("Take pictures");
 }
 
+QStringList BurstShootMode::thumbnailsViewMimeTypes() const
+{
+	return QStringList() << "image/png";
+}

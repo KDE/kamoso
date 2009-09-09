@@ -54,3 +54,8 @@ QString VideoShootMode::name() const
 {
 	return i18n("Take a video");
 }
+
+QStringList VideoShootMode::thumbnailsViewMimeTypes() const
+{
+	return QStringList() << "video/ogg";
+}

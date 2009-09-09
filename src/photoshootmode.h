@@ -32,6 +32,7 @@ class PhotoShootMode : public ShootMode
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
 		virtual QString name() const;
+		virtual QStringList thumbnailsViewMimeTypes() const;
 };
 
 #endif // PHOTOSHOOTMODE_H

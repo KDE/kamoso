@@ -69,7 +69,7 @@
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent)
+	: KMainWindow(parent),dirOperator(0)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
@@ -138,7 +138,8 @@ Kamoso::Kamoso(QWidget* parent)
 	dirOperator = new KDirOperator(saveUrl, this);
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
-	dirOperator->setMimeFilter(QStringList() << "image/png" << "video/ogg");
+	dirOperator->setMimeFilter(m_modes.first()->thumbnailsViewMimeTypes());
+	dirOperator->updateDir();
 	dirOperator->setView(customIconView);
 	dirOperator->actionCollection()->action("by date")->trigger();
 	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
@@ -481,7 +482,7 @@ void Kamoso::changeMode(bool pressed)
 {
 	if(pressed)
 		return;
-	
+
 	QPushButton* tb=qobject_cast<QPushButton*>(sender());
 	if(!tb)
 		tb=m_modesRadio.first();
@@ -498,7 +499,12 @@ void Kamoso::changeMode(bool pressed)
 	
 	if(found) {
 		ShootMode* o=m_modes[i];
+		qDebug() << o->thumbnailsViewMimeTypes();
 		QWidget* w=o->mainAction();
+		if(dirOperator) {
+			dirOperator->setMimeFilter(o->thumbnailsViewMimeTypes());
+			dirOperator->updateDir();
+		}
 		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 		
 		QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());

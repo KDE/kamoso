@@ -32,6 +32,7 @@ class BurstShootMode : public ShootMode
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
 		virtual QString name() const;
+		virtual QStringList thumbnailsViewMimeTypes() const;
 	public slots:
 		void startBurstMode();
 	private:

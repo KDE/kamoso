@@ -54,3 +54,7 @@ QString PhotoShootMode::name() const
 	return i18n("Take pictures");
 }
 
+QStringList PhotoShootMode::thumbnailsViewMimeTypes() const
+{
+	return QStringList() << "image/png";
+}

@@ -39,6 +39,7 @@ class ShootMode : public QObject
 		/** @returns the main action associated to the shooting mode */
 		virtual QWidget* mainAction()=0;
 		
+		virtual QStringList thumbnailsViewMimeTypes() const=0;
 		/** @returns some more actions associated to the shooting mode */
 // 		virtual QList<QAction*> actions()=0;
 		
