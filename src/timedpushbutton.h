@@ -27,7 +27,7 @@ class TimedPushButton : public QPushButton
 {
 	Q_OBJECT
 	public:
-		TimedPushButton(const QIcon&, const QString&, QWidget* parent, int interval);
+		TimedPushButton(QWidget* parent, int interval=100);
 		
 	signals:
 		void tick();

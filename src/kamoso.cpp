@@ -81,7 +81,7 @@ Kamoso::Kamoso(QWidget* parent)
 	qDebug() << "photoTime: " << Settings::photoTime();
 
 	mainWidgetUi = new Ui::mainWidget;
-	mainWidget = new QWidget();
+	mainWidget = new QWidget(this);
 	mainWidgetUi->setupUi(mainWidget);
 	
 	//We've to investigate if is better call start before do the UI stuff
@@ -114,7 +114,7 @@ Kamoso::Kamoso(QWidget* parent)
 	foreach(ShootMode* mode, m_modes) {
 		m_modesRadio += new QPushButton(mainWidgetUi->modes);
 		m_modesRadio.last()->setIcon(mode->icon());
-		m_modesRadio.last()->setIconSize(QSize(32,32));
+		m_modesRadio.last()->setIconSize(QSize(20,20));
 		m_modesRadio.last()->setCheckable(true);
 		m_modesRadio.last()->setAutoExclusive(true);
 		modesLayout->addWidget(m_modesRadio.last());
@@ -127,43 +127,39 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->configure->setIcon(KIcon("configure"));
 	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
 	
-	//Third row stuff, [btn] <--view-> [btn]
-	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
-	scrollLeft->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-	connect(scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
-	connect(scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
-	
+	//Third row
 	//Dir operator will show the previews
-	customIconView = new ThumbnailView(mainWidget);//Our custom icon view
+	thumbnailView = new ThumbnailView(this);
+	thumbnailView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	thumbnailView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	dirOperator = new KDirOperator(saveUrl, this);
+	dirOperator->setMinimumHeight(100);
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
 	dirOperator->setMimeFilter(QStringList() << "image/png" << "video/ogg");
-	dirOperator->setView(customIconView);
+	dirOperator->setView(thumbnailView);
 	dirOperator->actionCollection()->action("by date")->trigger();
 	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
 			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
 	
 	//Tunning a bit the customIconView
-	customIconView->assignDelegate();
-	customIconView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	customIconView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	customIconView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-	connect(customIconView, SIGNAL(doubleClicked(QModelIndex)),
+	thumbnailView->assignDelegate();
+	connect(thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
 			SLOT(openThumbnail(QModelIndex)));
-	connect(customIconView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
+	connect(thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
 			SLOT(thumbnailAdded()));
+	mainWidgetUi->thirdRow->insertWidget(1, dirOperator);
 	
-	//Third column
-	scrollRight = new TimedPushButton(KIcon("arrow-right"), QString(), mainWidget, 100);
-	scrollRight->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
-	connect(scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
-	connect(scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
+	//Arrows
+	mainWidgetUi->scrollLeft->setIcon(KIcon("arrow-left"));
+	mainWidgetUi->scrollRight->setIcon(KIcon("arrow-right"));
+	mainWidgetUi->scrollLeft->setText(QString());
+	mainWidgetUi->scrollRight->setText(QString());
+	connect(mainWidgetUi->scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
+	connect(mainWidgetUi->scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
+	connect(mainWidgetUi->scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
+	connect(mainWidgetUi->scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
 	
-	mainWidgetUi->thirdRow->addWidget(scrollLeft);
-	mainWidgetUi->thirdRow->addWidget(customIconView);
-	mainWidgetUi->thirdRow->addWidget(scrollRight);
-
 	whiteWidgetManager = new WhiteWidgetManager(this);
 	m_countdown = new CountdownWidget(this);
 	m_countdown->hide();
@@ -328,24 +324,18 @@ Kamoso::~Kamoso()
 *When Take Picture button is pushed, this slot is called
 */
 //TODO: Abstraction of what is called on pushBtn?
-void Kamoso::startCountdown()
-{
-	m_countdown->start();
-	//hidding all non-semaphore widgets
-	scrollLeft->hide();
-	scrollRight->hide();
-	customIconView->hide();
-	m_countdown->show();
-}
-
-#warning afiestas: should I add a defualt argument instead? code duplication is evil :(
 void Kamoso::startCountdown(int timeInterval)
 {
+	if(timeInterval<0) {
+		qDebug() << Settings::photoTime();
+		timeInterval = Settings::photoTime()/3;
+	}
+	
 	m_countdown->start(timeInterval);
 	//hidding all non-semaphore widgets
-	scrollLeft->hide();
-	scrollRight->hide();
-	customIconView->hide();
+	mainWidgetUi->scrollLeft->hide();
+	mainWidgetUi->scrollRight->hide();
+	thumbnailView->hide();
 	m_countdown->show();
 }
 
@@ -354,10 +344,9 @@ void Kamoso::startCountdown(int timeInterval)
 */
 void Kamoso::takePhoto()
 {
-// 	stackedBelowLayout->setCurrentIndex(0);
-	scrollLeft->show();
-	scrollRight->show();
-	customIconView->show();
+	mainWidgetUi->scrollLeft->show();
+	mainWidgetUi->scrollRight->show();
+	thumbnailView->show();
 	m_countdown->hide();
 	
 	if(m_flashEnabled){
@@ -385,10 +374,10 @@ void Kamoso::restore()
 
 void Kamoso::slotScrollLeft()
 {
-	int v=customIconView->horizontalScrollBar()->value();
-	int min=customIconView->horizontalScrollBar()->minimum();
-	int max=customIconView->horizontalScrollBar()->maximum();
-	customIconView->horizontalScrollBar()->setValue(qBound(min, v-m_exponentialValue, max));
+	int v=thumbnailView->horizontalScrollBar()->value();
+	int min=thumbnailView->horizontalScrollBar()->minimum();
+	int max=thumbnailView->horizontalScrollBar()->maximum();
+	thumbnailView->horizontalScrollBar()->setValue(qBound(min, v-m_exponentialValue, max));
 	
 	//If this code becomes 1 line larger, export it to a method
 	if(m_exponentialValue < max_exponential_value){
@@ -398,10 +387,10 @@ void Kamoso::slotScrollLeft()
 
 void Kamoso::slotScrollRight()
 {
-	int v=customIconView->horizontalScrollBar()->value();
-	int min=customIconView->horizontalScrollBar()->minimum();
-	int max=customIconView->horizontalScrollBar()->maximum();
-	customIconView->horizontalScrollBar()->setValue(qBound(min, v+m_exponentialValue, max));
+	int v=thumbnailView->horizontalScrollBar()->value();
+	int min=thumbnailView->horizontalScrollBar()->minimum();
+	int max=thumbnailView->horizontalScrollBar()->maximum();
+	thumbnailView->horizontalScrollBar()->setValue(qBound(min, v+m_exponentialValue, max));
 	
 	if(m_exponentialValue < max_exponential_value){
 		m_exponentialValue += exponential_increment;
@@ -418,8 +407,8 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 	QString filename;
 	if(idx.isValid())
 		filename=idx.data(Qt::DisplayRole).toString();
-	else if(!customIconView->selectionModel()->selectedIndexes().isEmpty()) {
-		QModelIndex aux=customIconView->selectionModel()->selectedIndexes().first();
+	else if(!thumbnailView->selectionModel()->selectedIndexes().isEmpty()) {
+		QModelIndex aux=thumbnailView->selectionModel()->selectedIndexes().first();
 		filename=aux.data(Qt::DisplayRole).toString();
 	}
 	
@@ -459,12 +448,13 @@ void Kamoso::thumbnailAdded()
 
 void Kamoso::selectLast()
 {
-	customIconView->horizontalScrollBar()->setValue(customIconView->horizontalScrollBar()->maximum());
+	ThumbnailView* v=thumbnailView;
+	v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->maximum());
 	
-	QModelIndex idx=customIconView->model()->index(customIconView->model()->rowCount()-1, 0);
+	QModelIndex idx=v->model()->index(v->model()->rowCount()-1, 0);
 	
 	if(idx.isValid())
-		customIconView->selectionModel()->setCurrentIndex(idx,
+		v->selectionModel()->setCurrentIndex(idx,
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
@@ -487,13 +477,12 @@ void Kamoso::changeMode(bool pressed)
 		tb=m_modesRadio.first();
 	
 	int i=0;
-	bool found=false;
 	foreach(QPushButton* butt, m_modesRadio) {
-		found = found || (butt==tb);
-		if(!found)
-			i++;
+		if(butt==tb)
+			break;
+		i++;
 	}
-	Q_ASSERT(found);
+	Q_ASSERT(i<m_modesRadio.size());
 	
 	m_activeMode=m_modes[i];
 	QWidget* w=m_activeMode->mainAction();

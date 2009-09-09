@@ -31,11 +31,11 @@ class CountdownWidget : public QWidget
 		
 		QSize sizeHint() const { return QSize(100,100); }
 		
-		virtual void start();
 		virtual void paintEvent (QPaintEvent*);
 		virtual void mousePressEvent (QMouseEvent*) { emit pressed(); }
-		void start(int timeInterval);
 		
+		void start(int timeInterval);
+	
 	public slots:
 		void currentYellow();
 		void currentGreen();

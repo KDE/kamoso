@@ -26,20 +26,12 @@
 #include <QPainter>
 #include <QDebug>
 #include <qtimer.h>
-#include <settings.h>
 
 CountdownWidget::CountdownWidget(QWidget* parent) : QWidget(parent)
 {
 	connect(this, SIGNAL(pressed()), SLOT(hide()));
 	
 	currentState=Red;
-}
-
-void CountdownWidget::start()
-{
-	qDebug() << Settings::photoTime();
-	int timeInterval = Settings::photoTime()/3;
-	start(timeInterval);
 }
 
 void CountdownWidget::start(int timeInterval)

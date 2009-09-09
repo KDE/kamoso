@@ -60,8 +60,7 @@ class Kamoso : public KMainWindow
 //Only slots
 	public slots:
 		void takePhoto();
-		void startCountdown();
-		void startCountdown(int timeInterval);
+		void startCountdown(int timeInterval=-1);
 		void configuration();
 		void generalUpdated();
 		void webcamChanged(int index);
@@ -98,9 +97,6 @@ class Kamoso : public KMainWindow
 		WebcamWidget *webcam;
 		CountdownWidget *m_countdown;
 		Phonon::MediaObject *player;
-		QPushButton* scrollLeft;
-		QPushButton* scrollRight;
-		ThumbnailView *customIconView;
 		Ui::mainWidget *mainWidgetUi;
 		QWidget *mainWidget;
 		DeviceManager *deviceManager;
@@ -109,6 +105,7 @@ class Kamoso : public KMainWindow
 		QList<QPushButton*> m_modesRadio;
 		ShootMode *m_activeMode;
 		bool m_flashEnabled;
+		ThumbnailView* thumbnailView;
 };
 
 #endif
