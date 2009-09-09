@@ -175,7 +175,7 @@ void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
 
 KIcon YoutubeJob::icon() const
 {
-	return KIcon("facebook");
+	return KIcon("youtube");
 }
 
 QList<KUrl> YoutubeJob::urls() const
