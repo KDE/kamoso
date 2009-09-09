@@ -100,7 +100,7 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 
 	KDialog *dialog = new KDialog();
 	dialog->setMainWidget(videoWidget);
-	dialog->setCaption(i18n("Youtube authentification:"));
+	dialog->setCaption(i18n("Video information:"));
 	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
 	dialog->setMinimumWidth(425);
 	dialog->setMinimumHeight(315);
