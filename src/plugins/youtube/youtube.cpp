@@ -24,7 +24,7 @@
 #include <KUrl>
 #include <KDialog>
 #include <KMessageBox>
-#include <kio/passworddialog.h>
+#include <kpassworddialog.h>
 
 #include <QAction>
 #include <QApplication>
@@ -34,7 +34,6 @@
 #include "youtube.h"
 // #include "youtubemanager.h"
 #include "youtubejob.h"
-#include "src/plugins/youtube/ui_auth.h"
 #include "src/plugins/youtube/ui_videoInfo.h"
 
 using KWallet::Wallet;
@@ -73,19 +72,16 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 void YoutubePlugin::upload()
 {
  	m_wallet = Wallet::openWallet(Wallet::NetworkWallet(),qApp->activeWindow()->winId());
-	if(!m_wallet->hasFolder("youtubeKamoso")){
-		if(!m_wallet->createFolder("youtubeKamoso")){
-			//TODO: Error reporting here
-			return;
+	if(m_wallet != NULL){
+		if(!m_wallet->hasFolder("youtubeKamoso")){
+			if(!m_wallet->createFolder("youtubeKamoso")){
+				//TODO: Error reporting here
+				return;
+			}
 		}
+		m_wallet->setFolder("youtubeKamoso");
 	}
-	m_wallet->setFolder("youtubeKamoso");
-// 	if(!m_wallet->hasEntry("youtubeAuth")){
-// 		if(!showDialog()){
-// 			return;
-// 		}
-// 	}
-	//Until we've config dialog for plugins, this is the best I can do
+
 	if(!showDialog()){
 		return;
 	}
@@ -159,18 +155,25 @@ void YoutubePlugin::loginDone(KIO::Job *job, const QByteArray &data)
 
 bool YoutubePlugin::showDialog()
 {
-	QMap<QString, QString> authInfo;
-	m_wallet->readMap("youtubeAuth",authInfo);
-	
-	bool keep = true;
-	QString caption = QString("Authentication for youtube");
-	QString server = QString("http://www.youtube.com");
-	KIO::PasswordDialog *dialog = new KIO::PasswordDialog(i18n("You need to supply a username and a password to be able to upload videos to yuoutube"),authInfo["username"],keep);
-	dialog->setCaption(server);
-	dialog->addCommentLine(i18n("Server"),server);
-	dialog->setPassword(authInfo["password"]);
-	dialog->setKeepPassword(true);
+	bool keep = false;
 
+	QString server = QString("http://www.youtube.com");
+	KPasswordDialog *dialog = 0;
+	
+	
+	if(m_wallet == NULL) {
+		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowUsernameLine);
+	}else{
+		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowKeepPassword | KPasswordDialog::ShowUsernameLine);
+		QMap<QString, QString> authInfo;
+		m_wallet->readMap("youtubeAuth",authInfo);
+		dialog->setPassword(authInfo["password"]);
+		dialog->setUsername(authInfo["username"]);
+		dialog->setKeepPassword(true);
+	}
+	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to yuoutube"));
+	dialog->addCommentLine(i18n("Server")+": ",server);
+	dialog->setCaption(i18n("Authentication for ")+"youtube");
 	int response = dialog->exec();
 	if(response == QDialog::Rejected){
 		return false;
@@ -183,11 +186,10 @@ bool YoutubePlugin::showDialog()
 		}
 	}
 
-	QMap<QString, QString> toSave;
-	toSave["username"] = dialog->username();
-	toSave["password"] = dialog->password();
-	
-	if(keep == true) {
+	if(keep == true && m_wallet != NULL) {
+		QMap<QString, QString> toSave;
+		toSave["username"] = dialog->username();
+		toSave["password"] = dialog->password();
 		m_wallet->writeMap("youtubeAuth",toSave);
 		m_wallet->sync();
 	}
