@@ -18,8 +18,8 @@
  *************************************************************************************/
 
 #include "kamosoplugin.h"
+#include <KPasswordDialog>
 #include <KUrl>
-#include "src/plugins/youtube/ui_auth.h"
 #include <kwallet.h>
 #include <KIO/Job>
 
@@ -39,11 +39,10 @@ class YoutubePlugin : public KamosoPlugin
 		void loginDone(KIO::Job *job, const QByteArray &data);
 	private:
 		QList<KUrl> mSelectedUrls;
-		Ui::authWidget *m_auth;
-		QWidget *m_authWidget;
 		KWallet::Wallet *m_wallet;
 		QString videoTitle;
 		QString videoDesc;
 		QString videoTags;
 		QByteArray m_authToken;
+		KPasswordDialog *dialog;
 };

@@ -46,9 +46,7 @@ K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
 	: KamosoPlugin(parent, args)
 {
-	m_auth = new Ui::authWidget;
-	m_authWidget = new QWidget();
-	m_auth->setupUi(m_authWidget);
+	dialog = 0;
 }
 
 QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
@@ -85,7 +83,6 @@ void YoutubePlugin::upload()
 	if(!showDialog()){
 		return;
 	}
-
 	login();
 }
 
@@ -123,7 +120,12 @@ void YoutubePlugin::login()
 {
 	#warning where the hell we\'ve to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
-	m_wallet->readMap("youtubeAuth",authInfo);
+	if(m_wallet != NULL) {
+		m_wallet->readMap("youtubeAuth",authInfo);
+	}else{
+		authInfo["username"] = dialog->username();
+		authInfo["password"] = dialog->password();
+	}
 
 	KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
 	QByteArray data("Email=");
@@ -155,11 +157,7 @@ void YoutubePlugin::loginDone(KIO::Job *job, const QByteArray &data)
 
 bool YoutubePlugin::showDialog()
 {
-	bool keep = false;
-
 	QString server = QString("http://www.youtube.com");
-	KPasswordDialog *dialog = 0;
-	
 	
 	if(m_wallet == NULL) {
 		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowUsernameLine);
@@ -174,6 +172,7 @@ bool YoutubePlugin::showDialog()
 	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to yuoutube"));
 	dialog->addCommentLine(i18n("Server")+": ",server);
 	dialog->setCaption(i18n("Authentication for ")+"youtube");
+
 	int response = dialog->exec();
 	if(response == QDialog::Rejected){
 		return false;
@@ -186,7 +185,7 @@ bool YoutubePlugin::showDialog()
 		}
 	}
 
-	if(keep == true && m_wallet != NULL) {
+	if(dialog->keepPassword() == true &&  m_wallet != NULL) {
 		QMap<QString, QString> toSave;
 		toSave["username"] = dialog->username();
 		toSave["password"] = dialog->password();
