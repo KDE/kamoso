@@ -27,7 +27,7 @@ QTEST_KDEMAIN_CORE( FacebookTest )
 void FacebookTest::uploadPhoto()
 {
 	FacebookPlugin p(0, QVariantList());
-	QAction* a=p.thumbnailsAction(KUrl("file:///home/kde-devel/imatges/kamoso_03132009_191309.png"));
+	QAction* a=p.thumbnailsAction(QList<KUrl>() << KUrl("file:///home/kde-devel/imatges/kamoso_03132009_191309.png"));
 	a->trigger();
 }
 
