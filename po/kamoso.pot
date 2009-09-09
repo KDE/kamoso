@@ -1,0 +1,284 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-09-09 21:59+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/burstshootmode.cpp:64 src/photoshootmode.cpp:56
+msgid "Take pictures"
+msgstr ""
+
+#: src/kamoso.cpp:277
+msgid "General"
+msgstr ""
+
+#: src/kamoso.cpp:284
+msgid "Photo Settings"
+msgstr ""
+
+#: src/kamoso.cpp:290
+msgid "Plugin List"
+msgstr ""
+
+#: src/kamoso.cpp:512
+msgid "Settings"
+msgstr ""
+
+#: src/kamosojobtracker.cpp:57
+msgid ", "
+msgstr ""
+
+#: src/kamosojobtracker.cpp:57
+#, kde-format
+msgid "Done: %1"
+msgstr ""
+
+#: src/main.cpp:27
+msgid "A sweet girl attractor"
+msgstr ""
+
+#: src/main.cpp:28
+msgid "(C) 2008-2009 Alex Fiestas and Aleix Pol"
+msgstr ""
+
+#: src/main.cpp:29
+msgid "Aleix Pol Gonzalez"
+msgstr ""
+
+#: src/main.cpp:30
+msgid "Alex Fiestas"
+msgstr ""
+
+#: src/photoshootmode.cpp:30
+msgid "Use flash"
+msgstr ""
+
+#: src/pluginmanager.cpp:73
+#, kde-format
+msgid "Error while loading the plugin '%1'"
+msgstr ""
+
+#: src/videoshootmode.cpp:31
+msgid "Record audio"
+msgstr ""
+
+#: src/videoshootmode.cpp:66
+msgid "Take a video"
+msgstr ""
+
+#: src/whitewidget.cpp:40
+msgid "Smile! :)"
+msgstr ""
+
+#: src/plugins/execute/execute.cpp:31
+msgid "Execute"
+msgstr ""
+
+#: src/plugins/execute/execute.cpp:31 src/plugins/trash/trash.cpp:35
+#: src/plugins/youtube/youtube.cpp:43
+msgid "Runs a visor for the specified file."
+msgstr ""
+
+#: src/plugins/execute/execute.cpp:45
+msgid "Open..."
+msgstr ""
+
+#: src/plugins/execute/execute.cpp:60
+#, kde-format
+msgid "Could not open %1"
+msgstr ""
+
+#: src/plugins/facebook/facebook.cpp:34
+msgid "Facebook support"
+msgstr ""
+
+#: src/plugins/facebook/facebook.cpp:34
+msgid "Allows to communicate with Facebook"
+msgstr ""
+
+#: src/plugins/facebook/facebook.cpp:55
+msgid "Upload to Facebook..."
+msgstr ""
+
+#: src/plugins/facebook/facebook.cpp:133 src/plugins/facebook/facebook.cpp:141
+msgid "Kamoso"
+msgstr ""
+
+#: src/plugins/facebook/facebook.cpp:142
+msgid "Photos taken with the webcam"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:45
+msgid "Facebook New Album"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:58
+msgid "Title of the album that will be created (required)."
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:62
+msgid "Location of the album that will be created (optional)."
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:66
+msgid "Description of the album that will be created (optional)."
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:71
+msgid "Privacy setting of the album that will be created (required)."
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:73
+msgid "Only Friends"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:75
+msgid "Friends of Friends"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:77
+msgid "My Networks and Friends"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:79
+msgid "Everyone"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:82
+msgid "Title:"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:83
+msgid "Location:"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:84
+msgid "Description:"
+msgstr ""
+
+#: src/plugins/facebook/fbalbum.cpp:85
+msgid "Privacy:"
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:179
+msgid "Validate previous session..."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:199
+msgid "Logging in to Facebook service..."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:390
+msgid ""
+"Please follow the instructions in the browser window. Press \"OK\" when done."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:392
+msgid "Facebook Application Authorization"
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:700
+msgid "The service is not available at this time."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:703
+msgid "The application has reached the maximum number of requests allowed."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:706
+msgid "Invalid session key or session expired. Try to log in again."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:709
+msgid "Invalid album ID."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:712
+msgid "Album is full."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:715
+msgid "Missing or invalid file."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:718
+msgid "Too many unapproved photos pending."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:878
+msgid ""
+"Please follow the instructions in the browser window. Press \"Yes\" if you "
+"have authenticated and \"No\" if you failed."
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:880
+msgid "Facebook Service Web Authorization"
+msgstr ""
+
+#: src/plugins/facebook/fbtalker.cpp:889
+msgid "Canceled by user."
+msgstr ""
+
+#: src/plugins/trash/trash.cpp:35
+msgid "Trash"
+msgstr ""
+
+#: src/plugins/trash/trash.cpp:49
+msgid "Move to trash..."
+msgstr ""
+
+#: src/plugins/trash/trash.cpp:61
+msgid "Are you sure you want to delete these files?"
+msgstr ""
+
+#: src/plugins/trash/trash.cpp:62
+msgid "Move to Trash"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:43
+msgid "Youtube"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:61
+msgid "Upload to youtube"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:97
+msgid "Video information:"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:172
+msgid ""
+"You need to supply a username and a password to be able to upload videos to "
+"yuoutube"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:173
+msgid "Server"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:174
+msgid "Authentication for "
+msgstr ""
+
+#: src/plugins/youtube/youtubejob.cpp:158
+msgid "Video recorded using Kamoso"
+msgstr ""
+
+#: src/plugins/youtube/youtubejob.cpp:164
+msgid ""
+"This video has been recorded using Kamoso, a KDE software to play with "
+"webcams!"
+msgstr ""

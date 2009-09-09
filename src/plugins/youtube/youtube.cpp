@@ -118,7 +118,7 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 }
 void YoutubePlugin::login()
 {
-	#warning where the hell we\'ve to put the developerKey? in a define?
+	#warning where the hell we have to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
 	if(m_wallet != NULL) {
 		m_wallet->readMap("youtubeAuth",authInfo);
