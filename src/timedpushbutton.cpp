@@ -19,8 +19,8 @@
 
 #include "timedpushbutton.h"
 
-TimedPushButton::TimedPushButton(const QIcon& icon, const QString& text, QWidget* parent, int interval)
-	: QPushButton(icon, text, parent)
+TimedPushButton::TimedPushButton(QWidget* parent, int interval)
+	: QPushButton(parent)
 {
 	timer.setInterval(interval);
 	connect(&timer, SIGNAL(timeout()), SIGNAL(tick()));

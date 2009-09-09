@@ -25,7 +25,6 @@
 #include "kdemacros.h"
 
 class QAction;
-class KJob;
 class KUrl;
 class KamosoJob;
 

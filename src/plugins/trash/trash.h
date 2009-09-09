@@ -17,27 +17,23 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef TIMEDPUSHBUTTON_H
-#define TIMEDPUSHBUTTON_H
+#include "kamosoplugin.h"
+#include <KUrl>
 
-#include <QPushButton>
-#include <QTimer>
+class KJob;
 
-class TimedPushButton : public QPushButton
+class TrashPlugin : public KamosoPlugin
 {
 	Q_OBJECT
+	Q_INTERFACES(KamosoPlugin)
 	public:
-		TimedPushButton(QWidget* parent, int interval=100);
+		TrashPlugin(QObject* parent, const QVariantList& args);
+		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		
-	signals:
-		void tick();
-		void finished();
-	
+	public slots:
+		void trash(bool);
+		void slotResult(KJob *);
+		
 	private:
-		virtual void mousePressEvent (QMouseEvent*);
-		virtual void mouseReleaseEvent (QMouseEvent*);
-		
-		QTimer timer;
+		QList<KUrl> mSelectedUrls;
 };
-
-#endif // TIMEDPUSHBUTTON_H

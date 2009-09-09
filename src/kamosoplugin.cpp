@@ -21,7 +21,9 @@
 
 KamosoPlugin::KamosoPlugin(QObject* parent, const QVariantList& args)
 	: QObject(parent)
-{}
+{
+	Q_UNUSED(args); //We do not need that (yet?)
+}
 
 KamosoPlugin::~KamosoPlugin()
 {}

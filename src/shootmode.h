@@ -41,7 +41,7 @@ class ShootMode : public QObject
 		
 		virtual QStringList thumbnailsViewMimeTypes() const=0;
 		/** @returns some more actions associated to the shooting mode */
-// 		virtual QList<QAction*> actions()=0;
+		virtual QList<QAction*> actions()=0;
 		
 		/** */
 		Kamoso* controller() const;

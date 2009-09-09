@@ -17,27 +17,61 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef TIMEDPUSHBUTTON_H
-#define TIMEDPUSHBUTTON_H
+#include "trash.h"
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KIcon>
+#include <KUrl>
+#include <KMessageBox>
+#include <kio/job.h>
+#include <kio/copyjob.h>
 
-#include <QPushButton>
-#include <QTimer>
+#include <QAction>
+#include <QDesktopServices>
+#include <kjobuidelegate.h>
 
-class TimedPushButton : public QPushButton
+K_PLUGIN_FACTORY(KamosoTrashFactory, registerPlugin<TrashPlugin>(); )
+K_EXPORT_PLUGIN(KamosoTrashFactory(KAboutData("trash", "trash",
+		ki18n("Trash"), "0.1", ki18n("Runs a visor for the specified file."),
+		KAboutData::License_GPL)))
+
+TrashPlugin::TrashPlugin(QObject* parent, const QVariantList& args)
+	: KamosoPlugin(parent, args)
+{}
+
+QAction* TrashPlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
-	Q_OBJECT
-	public:
-		TimedPushButton(QWidget* parent, int interval=100);
+	QAction* act=0;
+	mSelectedUrls.clear();
+	foreach(const KUrl& url, urls)
+	{
+		if(!act) {
+			act=new QAction(KIcon("trash-empty"), i18n("Move to trash..."), 0);
+			connect(act, SIGNAL(triggered(bool)), SLOT(trash(bool)));
+		}
 		
-	signals:
-		void tick();
-		void finished();
-	
-	private:
-		virtual void mousePressEvent (QMouseEvent*);
-		virtual void mouseReleaseEvent (QMouseEvent*);
-		
-		QTimer timer;
-};
+		mSelectedUrls.append(url);
+	}
+	return act;
+}
 
-#endif // TIMEDPUSHBUTTON_H
+void TrashPlugin::trash(bool)
+{
+	int res=KMessageBox::warningContinueCancel(0,
+						i18n("Are you sure you want to delete these files?"),
+						i18n("Move to Trash"));
+	
+	if(res==KMessageBox::Continue) {
+		KIO::CopyJob *job = KIO::trash(mSelectedUrls);
+		connect( job, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob *)));
+		
+		//TODO: Eventually move to KamosoJob
+		job->start();
+	}
+}
+
+void TrashPlugin::slotResult(KJob* job)
+{
+	if ( job->error() )
+		job->uiDelegate()->showErrorMessage();
+}

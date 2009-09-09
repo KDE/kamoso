@@ -1,5 +1,6 @@
+add_subdirectory(icons)
+
 set(youtube_SRCS youtube.cpp youtubejob.cpp)
-	
 
 set(youtube_UI videoInfo.ui)
 kde4_add_ui_files(youtube_SRCS ${youtube_UI})

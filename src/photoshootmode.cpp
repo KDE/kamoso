@@ -26,12 +26,14 @@
 
 PhotoShootMode::PhotoShootMode(Kamoso* camera)
 	: ShootMode(camera)
-{}
-
-// QList<QAction*> PhotoShootMode::actions()
-// {
-// 	return QList<QAction*>();
-// }
+{
+	QAction* flash=new QAction(KIcon("weather-clear"), i18n("Use flash"), this);
+	flash->setCheckable(true);
+	flash->setChecked(controller()->isFlashEnabled());
+	connect(flash, SIGNAL(triggered(bool)), controller(), SLOT(setFlashEnabled(bool)));
+	
+	mActions += flash;
+}
 
 QWidget* PhotoShootMode::mainAction()
 {

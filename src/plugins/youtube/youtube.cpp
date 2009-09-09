@@ -44,9 +44,9 @@ K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
 		KAboutData::License_GPL)))
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
-	: KamosoPlugin(parent, args)
+	: KamosoPlugin(parent, args), dialog(0)
 {
-	dialog = 0;
+	KIconLoader::global()->addAppDir("kamoso_youtube");
 }
 
 QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
@@ -58,7 +58,7 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
 		if(mime->name().startsWith("video/")) {
 			if(!act) {
-				act=new QAction(KIcon("system-run"), i18n("Upload to youtube"), 0);
+				act=new QAction(KIcon("youtube"), i18n("Upload to youtube"), 0);
 				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
 			}
 		}
@@ -104,13 +104,13 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 	
 	QMap<QString, QString> videoInfo;
 	if(response == QDialog::Accepted){
-		if(videoForm->descriptionText->toPlainText().size() > 0){
+		if(!videoForm->descriptionText->toPlainText().isEmpty()){
 			videoInfo["videoDesc"] = videoForm->descriptionText->toPlainText();
 		}
-		if(videoForm->titleText->text().size() > 0){
+		if(!videoForm->titleText->text().isEmpty()){
 			videoInfo["videoTitle"] = videoForm->titleText->text();
 		}
-		if(videoForm->tagText->text().size() > 0){
+		if(!videoForm->tagText->text().isEmpty()){
 			videoInfo["videoTags"] = videoForm->tagText->text();
 		}
 	}

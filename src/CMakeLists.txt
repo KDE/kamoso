@@ -1,5 +1,5 @@
 
-include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR} ${VLC_INCLUDE_DIRS})
+include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${VLC_INCLUDE_DIRS})
 
 add_subdirectory(plugins)
 

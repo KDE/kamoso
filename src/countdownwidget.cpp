@@ -18,82 +18,69 @@
  *************************************************************************************/
 
 #include "countdownwidget.h"
-#include <QShowEvent>
 
-#include <KWindowSystem>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QPainter>
 #include <QDebug>
-#include <qtimer.h>
-#include <settings.h>
+#include <QTimeLine>
 
-CountdownWidget::CountdownWidget(QWidget* parent) : QWidget(parent)
-{
-	connect(this, SIGNAL(pressed()), SLOT(hide()));
-	
-	currentState=Red;
-}
+static const int colorCount=3;
+static const QColor colors[colorCount]={ Qt::red, Qt::yellow, Qt::green };
 
-void CountdownWidget::start()
-{
-	qDebug() << Settings::photoTime();
-	int timeInterval = Settings::photoTime()/3;
-	start(timeInterval);
-}
+CountdownWidget::CountdownWidget(QWidget* parent)
+	: QWidget(parent)
+{}
 
 void CountdownWidget::start(int timeInterval)
 {
-	currentState=Red;
-	timeInterval = timeInterval*1000;//We need miliseconds
-	QTimer::singleShot(1*timeInterval, this, SLOT(currentYellow()));
-	QTimer::singleShot(2*timeInterval, this, SLOT(currentGreen()));
-	QTimer::singleShot(3*timeInterval, this, SLOT(hide()));
-	QTimer::singleShot(3*timeInterval, this, SIGNAL(finished()));
+	timeInterval = 3*timeInterval*1000;//We need miliseconds
+	QTimeLine *timer=new QTimeLine(timeInterval, this);
+	connect(timer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
+	connect(timer, SIGNAL(finished()), this, SLOT(hide()));
+	connect(timer, SIGNAL(finished()), this, SIGNAL(finished()));
+	
+	timer->setCurveShape(QTimeLine::LinearCurve); //FIXME
+	timer->start();
 }
 
-void CountdownWidget::currentYellow()
+void CountdownWidget::tick(qreal progress)
 {
-	currentState=Yellow;
+	mProgress=progress;
 	repaint();
 }
 
-void CountdownWidget::currentGreen()
-{
-	currentState=Green;
-	repaint();
-}
-
-void CountdownWidget::paintEvent (QPaintEvent* )
+void CountdownWidget::paintEvent(QPaintEvent* )
 {
 	QPainter painter(this);
+	painter.setRenderHint(QPainter::Antialiasing);
 	
-// 	painter.drawPixmap(ev->rect(), background);
+	const int margin=5;
+	int rad=height()/2-margin;
+	int dist=(width()-rad*colorCount)/(colorCount-1);
 	
-	int rad=qMin(height()/2, 100);
-	int dist=width()/3;
+	int current=int(mProgress*colorCount);
+	qDebug() << "XXXX " << left;
 	
-	QColor green=Qt::green, yellow=Qt::yellow, red=Qt::red;
-	
-	switch(currentState) {
-		case Green:
-			break;
-		case Yellow:
-			green=green.dark();
-			break;
-		case Red:
-			green=green.dark();
-			yellow=yellow.dark();
-			break;
+	for(int i=0; i<colorCount; i++) {
+		QColor color=colors[i];
+		if(i>=current)
+			color=color.dark(125);
+		
+		QPointF tl(margin+dist*i+rad, margin+height()/2);
+		
+		painter.setPen(color);
+		painter.setBrush(color);
+		painter.drawEllipse(tl, rad, rad);
+		
+		if(current==i) {
+			QColor color=colors[i];
+			painter.setPen(color);
+			painter.setBrush(color);
+			
+			double progUnit=1./colorCount;
+			double prog=(mProgress-i*progUnit)/progUnit;
+			
+			painter.drawEllipse(tl, rad*prog, rad*prog);
+		}
 	}
-	
-	painter.setPen(green);
-	painter.setBrush(green);
-	painter.drawEllipse(rect().center()+QPoint(dist, 0), rad, rad);
-	painter.setPen(yellow);
-	painter.setBrush(yellow);
-	painter.drawEllipse(rect().center(), rad, rad);
-	painter.setPen(red);
-	painter.setBrush(red);
-	painter.drawEllipse(rect().center()-QPoint(dist, 0), rad, rad);
 }
