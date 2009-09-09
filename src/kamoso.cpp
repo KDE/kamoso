@@ -108,6 +108,7 @@ Kamoso::Kamoso(QWidget* parent)
 		m_modesRadio.last()->setIconSize(QSize(20,20));
 		m_modesRadio.last()->setCheckable(true);
 		m_modesRadio.last()->setAutoExclusive(true);
+		m_modesRadio.last()->setToolTip(mode->name());
 		modesLayout->addWidget(m_modesRadio.last());
 		
 		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
