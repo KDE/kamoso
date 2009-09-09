@@ -63,8 +63,6 @@
 #include "photoshootmode.h"
 #include "videoshootmode.h"
 #include "burstshootmode.h"
-#include <QRadioButton>
-#include <QPushButton>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -117,12 +115,14 @@ Kamoso::Kamoso(QWidget* parent)
 		m_modesRadio += new QPushButton(mainWidgetUi->modes);
 		m_modesRadio.last()->setIcon(mode->icon());
 		m_modesRadio.last()->setIconSize(QSize(32,32));
+		m_modesRadio.last()->setCheckable(true);
+		m_modesRadio.last()->setAutoExclusive(true);
 		modesLayout->addWidget(m_modesRadio.last());
 		
 		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
 	}
-	m_modesRadio.first()->setDown(true);
-	changeMode(false);
+	m_modesRadio.first()->setChecked(true);
+	changeMode(true);
 	
 	mainWidgetUi->configure->setIcon(KIcon("configure"));
 	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
@@ -479,7 +479,7 @@ void Kamoso::selectJob(KamosoJob* job)
 
 void Kamoso::changeMode(bool pressed)
 {
-	if(pressed)
+	if(!pressed)
 		return;
 	
 	QPushButton* tb=qobject_cast<QPushButton*>(sender());
@@ -492,21 +492,18 @@ void Kamoso::changeMode(bool pressed)
 		found = found || (butt==tb);
 		if(!found)
 			i++;
-		butt->setDown(false);
 	}
-	tb->setDown(true);
+	Q_ASSERT(found);
 	
-	if(found) {
-		m_activeMode=m_modes[i];
-		QWidget* w=m_activeMode->mainAction();
-		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
-		
-		QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
-		delete v->takeAt(1)->widget();
-		
-		v->insertWidget(1, w);
-		w->setFocus();
-	}
+	m_activeMode=m_modes[i];
+	QWidget* w=m_activeMode->mainAction();
+	w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
+	
+	QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
+	delete v->takeAt(1)->widget();
+	
+	v->insertWidget(1, w);
+	w->setFocus();
 }
 
 CountdownWidget * Kamoso::countdown() const
