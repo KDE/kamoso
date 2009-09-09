@@ -36,7 +36,7 @@
 #include <QDebug>
 #include <kio/copyjob.h>
 #include <vlc/vlc.h>
-#include <objectdescriptionmodel.h>
+#include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
 
 typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
