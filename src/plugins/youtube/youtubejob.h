@@ -41,7 +41,7 @@ class YoutubeJob : public KamosoJob
 		KIO::TransferJob *openFileJob;
 		KIO::TransferJob *uploadJob;
 		QByteArray m_authToken;
-		QByteArray developerKey;
+		static const QByteArray developerKey;
 		KUrl url;
 		QMap<QString, QString> m_videoInfo;
 };

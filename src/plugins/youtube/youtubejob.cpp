@@ -24,15 +24,13 @@
 #include <KIcon>
 #include <KToolInvocation>
 
-#define YOUTUBE_DEVELOPER_KEY "AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg"
+const QByteArray YoutubeJob::developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
 #include <KLocalizedString>
 
 YoutubeJob::YoutubeJob(const KUrl& url, QByteArray& authKey, QMap<QString, QString>& videoInfo,QObject* parent)
-	: KamosoJob(parent), url(url),m_authToken(authKey)
+	: KamosoJob(parent), m_authToken(authKey), url(url)
 {
-// 	m_authToken = authKey;
 	setVideoInfo(videoInfo);
-	developerKey = QByteArray(YOUTUBE_DEVELOPER_KEY);
 }
 
 void YoutubeJob::start()
@@ -154,18 +152,20 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
 {
 	//This method will parse the content in the near future
-	if(videoInfo["videoTitle"].size() > 0){
-		
+	if(!videoInfo["videoTitle"].isEmpty()){
+		//TODO: Scape
 	}else{
 		videoInfo["videoTitle"] = i18n("Video recorded using Kamoso");
 	}
-	if(videoInfo["videoDesc"].size() > 0){
-		
+	
+	if(!videoInfo["videoDesc"].isEmpty()){
+		//TODO: Scape
 	}else{
 		videoInfo["videoDesc"] = i18n("This video has been recorded using Kamoso, a KDE software to play with webcams!");
 	}
-	if(videoInfo["videoTags"].size() > 0){
-		
+	
+	if(!videoInfo["videoTags"].isEmpty()){
+		//TODO: Scape
 	}else{
 		videoInfo["videoTags"] = "KDE, Kamoso";
 	}
