@@ -52,11 +52,14 @@ class Kamoso : public KMainWindow
 		void checkInitConfig();
 		CountdownWidget *countdown() const;
 		~Kamoso();
+		bool isFlashEnabled() const { return m_flashEnabled; }
+		
+		void startVideo(bool withSound);
+		void stopVideo();
 
 //Only slots
 	public slots:
 		void takePhoto();
-		void startVideo(bool recording);
 		void startCountdown();
 		void startCountdown(int timeInterval);
 		void configuration();
@@ -67,8 +70,11 @@ class Kamoso : public KMainWindow
 		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
 		void thumbnailAdded();
 		void selectLast();
+		void settingsMenu(bool);
 		void selectJob(KamosoJob*);
 		void changeMode(bool);
+		
+		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		
 	private slots:
 		void restore();
@@ -102,6 +108,7 @@ class Kamoso : public KMainWindow
 		QList<ShootMode*> m_modes;
 		QList<QPushButton*> m_modesRadio;
 		ShootMode *m_activeMode;
+		bool m_flashEnabled;
 };
 
 #endif

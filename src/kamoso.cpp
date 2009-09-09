@@ -69,7 +69,7 @@
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent)
+	: KMainWindow(parent), m_flashEnabled(true)
 {
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
@@ -125,7 +125,7 @@ Kamoso::Kamoso(QWidget* parent)
 	changeMode(false);
 	
 	mainWidgetUi->configure->setIcon(KIcon("configure"));
-	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(configuration()));
+	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
 	
 	//Third row stuff, [btn] <--view-> [btn]
 	scrollLeft = new TimedPushButton(KIcon("arrow-left"), QString(),mainWidget, 100);
@@ -197,17 +197,17 @@ void Kamoso::webcamAdded()
 		fillKcomboDevice();
 }
 
-void Kamoso::startVideo(bool recording)
+void Kamoso::startVideo(bool sound)
 {
-	if(recording){
-		bool withSound=true; //TODO: Make it configurable
-		webcam->recordVideo(withSound);
-	} else {
-		KUrl finalPath = saveUrl;
-		finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
-		webcam->stopRecording(finalPath);
-		webcam->playFile(deviceManager->playingDevicePath());
-	}
+	webcam->recordVideo(sound);
+}
+
+void Kamoso::stopVideo()
+{
+	KUrl finalPath = saveUrl;
+	finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
+	webcam->stopRecording(finalPath);
+	webcam->playFile(deviceManager->playingDevicePath());
 }
 
 void Kamoso::fillKcomboDevice()
@@ -360,7 +360,7 @@ void Kamoso::takePhoto()
 	customIconView->show();
 	m_countdown->hide();
 	
-	if(false/*mainWidgetUi->checkFlash->checkState() == 2*/){
+	if(m_flashEnabled){
 		brightBack = Solid::Control::PowerManager::brightness();
 		Solid::Control::PowerManager::setBrightness(100);
 		whiteWidgetManager->showAll();
@@ -497,8 +497,8 @@ void Kamoso::changeMode(bool pressed)
 	tb->setDown(true);
 	
 	if(found) {
-		ShootMode* o=m_modes[i];
-		QWidget* w=o->mainAction();
+		m_activeMode=m_modes[i];
+		QWidget* w=m_activeMode->mainAction();
 		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 		
 		QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
@@ -512,4 +512,17 @@ void Kamoso::changeMode(bool pressed)
 CountdownWidget * Kamoso::countdown() const
 {
 	return m_countdown;
+}
+
+void Kamoso::settingsMenu(bool )
+{
+	QList<QAction*> actions=m_activeMode->actions();
+	QMenu m;
+	if(!actions.isEmpty()) {
+		m.addActions(actions);
+		m.addSeparator();
+	}
+	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
+	
+	m.exec(mainWidgetUi->configure->geometry().bottomLeft());
 }

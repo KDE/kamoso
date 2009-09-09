@@ -25,13 +25,20 @@
 
 class VideoShootMode : public ShootMode
 {
+	Q_OBJECT
 	public:
 		VideoShootMode(Kamoso* camera);
 		
-// 		virtual QList<QAction*> actions();
+		virtual QList<QAction*> actions() { return mActions; }
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
 		virtual QString name() const;
+	
+	public slots:
+		void videoPressed(bool pressed);
+	
+	private:
+		QList<QAction*> mActions;
 };
 
 #endif // VIDEOSHOOTMODE_H

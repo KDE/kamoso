@@ -22,15 +22,17 @@
 #include <KIcon>
 #include <KLocalizedString>
 #include "kamoso.h"
+#include <QAction>
 
 VideoShootMode::VideoShootMode(Kamoso* camera)
 	: ShootMode(camera)
-{}
-
-// QList<QAction*> VideoShootMode::actions()
-// {
-// 	return QList<QAction*>();
-// }
+{
+	QAction* sound=new QAction(KIcon("audio-input-microphone"), i18n("Record audio"), this);
+	sound->setCheckable(true);
+	sound->setChecked(true);
+	
+	mActions += sound;
+}
 
 QWidget* VideoShootMode::mainAction()
 {
@@ -41,8 +43,16 @@ QWidget* VideoShootMode::mainAction()
 	action->setCheckable(true);
 	
 	#warning TODO
-	connect(action, SIGNAL(clicked(bool)), controller(), SLOT(startVideo(bool)));
+	connect(action, SIGNAL(clicked(bool)), this, SLOT(videoPressed(bool)));
 	return action;
+}
+
+void VideoShootMode::videoPressed(bool pressed)
+{
+	if(pressed)
+		controller()->startVideo(mActions.first()->isChecked());
+	else
+		controller()->stopVideo();
 }
 
 QIcon VideoShootMode::icon() const

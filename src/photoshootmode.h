@@ -28,10 +28,12 @@ class PhotoShootMode : public ShootMode
 	public:
 		PhotoShootMode(Kamoso* camera);
 		
-// 		virtual QList<QAction*> actions();
+		virtual QList<QAction*> actions() { return mActions; }
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;
 		virtual QString name() const;
+	private:
+		QList<QAction*> mActions;
 };
 
 #endif // PHOTOSHOOTMODE_H
