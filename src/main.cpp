@@ -24,10 +24,10 @@
 
 int main(int argc, char *argv[])
 {
-	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "0.8", ki18n("A sweet girl attractor"),
+	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "1.0", ki18n("Webcam picture retriever"),
 			 KAboutData::License_GPL, ki18n("(C) 2008-2009 Alex Fiestas and Aleix Pol"));
-	about.addAuthor( ki18n("Aleix Pol Gonzalez"), KLocalizedString(), "aleixpol@gmail.com" );
-	about.addAuthor( ki18n("Alex Fiestas"), KLocalizedString(), "alex@eyeos.org" );
+	about.addAuthor( ki18n("Aleix Pol Gonzalez"), KLocalizedString("Semaphore hacker"), "aleixpol@kde.org" );
+	about.addAuthor( ki18n("Alex Fiestas"), KLocalizedString("Coffee drinker"), "alex@eyeos.org" );
 	KCmdLineArgs::init(argc, argv, &about);
 	QApplication::setGraphicsSystem("raster");
 	KApplication app;
