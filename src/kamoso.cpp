@@ -513,5 +513,5 @@ void Kamoso::settingsMenu(bool )
 	}
 	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
 	
-	m.exec(mainWidgetUi->configure->geometry().bottomLeft());
+	m.exec(mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
