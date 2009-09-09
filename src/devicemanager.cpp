@@ -139,6 +139,11 @@ void DeviceManager::webcamPlaying(const QString &udi)
 	}
 }
 
+bool DeviceManager::hasDevices() const
+{
+	return !m_deviceList.isEmpty();
+}
+
 /*
 *Singleton
 */

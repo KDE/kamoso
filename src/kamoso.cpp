@@ -83,12 +83,14 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
-	emit webcamPlaying(deviceManager->defaultDeviceUdi());
-
+	
 	webcam = new WebcamWidget(this);
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
-	webcam->playFile(deviceManager->defaultDevicePath());
+	if(deviceManager->hasDevices()) {
+		webcam->playFile(deviceManager->defaultDevicePath());
+		emit webcamPlaying(deviceManager->defaultDeviceUdi());
+	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
 	
 	fillKcomboDevice();

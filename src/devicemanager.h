@@ -34,6 +34,7 @@ public:
 	QString defaultDeviceUdi() const;
 	QString playingDeviceUdi() const;
 	QString playingDevicePath() const;
+	bool hasDevices() const;
 	
 public slots:
 	void webcamPlaying(const QString &udi);
