@@ -19,14 +19,7 @@
 
 #include "kamoso.h"
 #include <QLayout>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QStackedLayout>
-#include <QListView>
-#include <QSplitter>
 #include <QPushButton>
-#include <QTimer>
-#include <QItemDelegate>
 #include <QScrollBar>
 #include <QMenu>
 #include <KActionCollection>
@@ -34,7 +27,6 @@
 #include <KConfigGroup>
 #include <KDirOperator>
 #include <KDirSelectDialog>
-#include <KFileItemDelegate>
 #include <KLocale>
 #include <KStandardDirs>
 #include <KConfigDialog>
@@ -44,7 +36,6 @@
 #include <KStatusBar>
 #include <Phonon/MediaObject>
 #include <solid/control/powermanager.h>
-#include <solid/powermanagement.h>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
@@ -336,6 +327,7 @@ void Kamoso::startCountdown(int timeInterval)
 	mainWidgetUi->scrollLeft->hide();
 	mainWidgetUi->scrollRight->hide();
 	thumbnailView->hide();
+	dirOperator->hide();
 	m_countdown->show();
 }
 
@@ -346,6 +338,7 @@ void Kamoso::takePhoto()
 {
 	mainWidgetUi->scrollLeft->show();
 	mainWidgetUi->scrollRight->show();
+	dirOperator->show();
 	thumbnailView->show();
 	m_countdown->hide();
 	

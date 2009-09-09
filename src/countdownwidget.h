@@ -26,26 +26,22 @@ class CountdownWidget : public QWidget
 {
 	Q_OBJECT
 	public:
-		enum State { Red, Yellow, Green };
 		CountdownWidget(QWidget* parent=0);
 		
 		QSize sizeHint() const { return QSize(100,100); }
 		
 		virtual void paintEvent (QPaintEvent*);
-		virtual void mousePressEvent (QMouseEvent*) { emit pressed(); }
 		
 		void start(int timeInterval);
 	
-	public slots:
-		void currentYellow();
-		void currentGreen();
+	private slots:
+		void tick(qreal progress);
 		
 	signals:
 		void finished();
-		void pressed();
+		
 	private:
-		QPixmap background;
-		State currentState;
+		qreal mProgress;
 };
 
 #endif // COUNTDOWNWIDGET_H
