@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Directory where kamoso save the photos</string>
+    <string>Directory where kamoso saves the photos</string>
    </property>
   </widget>
   <widget class="KUrlRequester" name="kcfg_saveUrl">
