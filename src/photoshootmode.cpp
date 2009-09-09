@@ -27,7 +27,7 @@
 PhotoShootMode::PhotoShootMode(Kamoso* camera)
 	: ShootMode(camera)
 {
-	QAction* flash=new QAction(KIcon("weather-clear"), i18n("Use flash"), this);
+	QAction* flash=new QAction(KIcon("weather-clear"), i18n("Use Flash"), this);
 	flash->setCheckable(true);
 	flash->setChecked(controller()->isFlashEnabled());
 	connect(flash, SIGNAL(triggered(bool)), controller(), SLOT(setFlashEnabled(bool)));
