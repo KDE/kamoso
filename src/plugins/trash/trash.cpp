@@ -32,7 +32,7 @@
 
 K_PLUGIN_FACTORY(KamosoTrashFactory, registerPlugin<TrashPlugin>(); )
 K_EXPORT_PLUGIN(KamosoTrashFactory(KAboutData("trash", "trash",
-		ki18n("Trash"), "0.1", ki18n("Runs a visor for the specified file."),
+		ki18n("Trash"), "0.1", ki18n("Moves the specified file to trash."),
 		KAboutData::License_GPL)))
 
 TrashPlugin::TrashPlugin(QObject* parent, const QVariantList& args)

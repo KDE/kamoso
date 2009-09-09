@@ -54,7 +54,7 @@ void KamosoJobTracker::unregisterJob(KJob* kjob)
 		foreach(const KUrl& url, job->urls()) {
 			urls += url.prettyUrl();
 		}
-		KNotification::event(KNotification::Notification, i18n("Done: %1", urls.join(i18n(", "))),
+		KNotification::event(KNotification::Notification, i18n("Done: %1", urls.join(i18nc("Used to join urls", ", "))),
 							 job->icon().pixmap(48,48));
 	} else
 		KNotification::event(KNotification::Error, job->errorString());

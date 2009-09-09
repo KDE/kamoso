@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
 {
 	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "1.0", ki18n("Webcam picture retriever"),
 			 KAboutData::License_GPL, ki18n("(C) 2008-2009 Alex Fiestas and Aleix Pol"));
-	about.addAuthor( ki18n("Aleix Pol Gonzalez"), KLocalizedString("Semaphore hacker"), "aleixpol@kde.org" );
-	about.addAuthor( ki18n("Alex Fiestas"), KLocalizedString("Coffee drinker"), "alex@eyeos.org" );
+	about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
+	about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
 	KCmdLineArgs::init(argc, argv, &about);
 	QApplication::setGraphicsSystem("raster");
 	KApplication app;

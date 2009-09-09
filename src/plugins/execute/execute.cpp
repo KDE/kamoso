@@ -28,7 +28,7 @@
 
 K_PLUGIN_FACTORY(KamosoExecuteFactory, registerPlugin<ExecutePlugin>(); )
 K_EXPORT_PLUGIN(KamosoExecuteFactory(KAboutData("execute", "execute",
-		ki18n("Execute"), "0.1", ki18n("Runs a visor for the specified file."),
+		ki18n("Execute"), "0.1", ki18n("Runs a viewer for the specified file."),
 		KAboutData::License_GPL)))
 
 ExecutePlugin::ExecutePlugin(QObject* parent, const QVariantList& args)

@@ -512,6 +512,7 @@ void Kamoso::settingsMenu(bool )
 		m.addSeparator();
 	}
 	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
+// 	m.addAction(KIcon("about"), i18n("About Kamoso..."), this, SLOT(showAboutApplication()));
 	
 	m.exec(mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }

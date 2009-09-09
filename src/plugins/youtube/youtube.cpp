@@ -40,7 +40,7 @@ using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
 K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
-		ki18n("Youtube"), "0.1", ki18n("Runs a visor for the specified file."),
+		ki18n("Youtube"), "0.1", ki18n("Uploads files to youtube"),
 		KAboutData::License_GPL)))
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
