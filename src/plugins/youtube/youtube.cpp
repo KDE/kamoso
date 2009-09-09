@@ -24,6 +24,7 @@
 #include <KUrl>
 #include <KDialog>
 #include <KMessageBox>
+#include <kio/passworddialog.h>
 
 #include <QAction>
 #include <QApplication>
@@ -85,7 +86,7 @@ void YoutubePlugin::upload()
 // 		}
 // 	}
 	//Until we've config dialog for plugins, this is the best I can do
-	if(!askNewData()){
+	if(!showDialog()){
 		return;
 	}
 
@@ -124,7 +125,7 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 }
 void YoutubePlugin::login()
 {
-	#warning where the hell we've to put the developerKey? in a define?
+	#warning where the hell we\'ve to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
 	m_wallet->readMap("youtubeAuth",authInfo);
 
@@ -158,31 +159,38 @@ void YoutubePlugin::loginDone(KIO::Job *job, const QByteArray &data)
 
 bool YoutubePlugin::showDialog()
 {
-	KDialog *dialog = new KDialog();
+	QMap<QString, QString> authInfo;
+	m_wallet->readMap("youtubeAuth",authInfo);
+	
+	bool keep = true;
+	QString caption = QString("Authentication for youtube");
+	QString server = QString("http://www.youtube.com");
+	KIO::PasswordDialog *dialog = new KIO::PasswordDialog(i18n("You need to supply a username and a password to be able to upload videos to yuoutube"),authInfo["username"],keep);
+	dialog->setCaption(server);
+	dialog->addCommentLine(i18n("Server"),server);
+	dialog->setPassword(authInfo["password"]);
+	dialog->setKeepPassword(true);
 
-	dialog->setMainWidget(m_authWidget);
-	dialog->setCaption(i18n("Youtube authentification:"));
-	dialog->setButtons(KDialog::Ok | KDialog::Cancel);
-	dialog->setMinimumWidth(300);
-	dialog->setMaximumWidth(300);
-	dialog->setMinimumHeight(110);
-	dialog->setMaximumHeight(110);
 	int response = dialog->exec();
 	if(response == QDialog::Rejected){
 		return false;
 	}
-	while((m_auth->usernameText->displayText() == "" || m_auth->passwordText->displayText() == "") && response == QDialog::Accepted )
+	while((dialog->username() == "" || dialog->password() == "") && response == QDialog::Accepted )
 	{
 		response = dialog->exec();
 		if(response == QDialog::Rejected){
 			return false;
 		}
 	}
+
 	QMap<QString, QString> toSave;
-	toSave["username"] = m_auth->usernameText->text();
-	toSave["password"] = m_auth->passwordText->text();
-	m_wallet->writeMap("youtubeAuth",toSave);
-	m_wallet->sync();
+	toSave["username"] = dialog->username();
+	toSave["password"] = dialog->password();
+	
+	if(keep == true) {
+		m_wallet->writeMap("youtubeAuth",toSave);
+		m_wallet->sync();
+	}
 	return true;
 }
 
@@ -190,7 +198,7 @@ void YoutubePlugin::authenticated(bool auth)
 {
 	qDebug() << "Authentification: " << auth ;
 	if(auth == false){
-		if(askNewData()){
+		if(showDialog()){
 			login();
 		}
 		return;
@@ -201,14 +209,4 @@ void YoutubePlugin::authenticated(bool auth)
 		YoutubeJob* job=new YoutubeJob(path,m_authToken,videoInfo);
 		emit jobCreated(job);
 	}
-}
-
-bool YoutubePlugin::askNewData()
-{
-	QMap<QString, QString> authInfo;
-	m_wallet->readMap("youtubeAuth",authInfo);
-	
-	m_auth->usernameText->setText(authInfo["username"]);
-	m_auth->passwordText->setText(authInfo["password"]);
-	return showDialog();
 }

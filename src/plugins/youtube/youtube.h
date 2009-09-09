@@ -32,7 +32,6 @@ class YoutubePlugin : public KamosoPlugin
 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		bool showDialog();
 		QMap<QString, QString> showVideoDialog();
-		bool askNewData();
 		void login();
 	public slots:
 		void upload();
