@@ -17,36 +17,23 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSOPLUGIN_H
-#define KAMOSOPLUGIN_H
+#include "kamosoplugin.h"
+#include <KUrl>
 
-#include <QObject>
-#include <QVariantList>
-#include "kdemacros.h"
+class KJob;
 
-class QAction;
-class KUrl;
-class KamosoJob;
-
-class KDE_EXPORT KamosoPlugin : public QObject
+class TrashPlugin : public KamosoPlugin
 {
 	Q_OBJECT
+	Q_INTERFACES(KamosoPlugin)
 	public:
-		KamosoPlugin(QObject* parent, const QVariantList& args);
-		virtual ~KamosoPlugin();
+		TrashPlugin(QObject* parent, const QVariantList& args);
+		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
 		
-		/** Action that it will appear in the thumbnails view's menu.
-			@p url Describes the item we need it for.
-			
-			@returns the action to be added. If a null action is returned,
-			nothing will be added
-		*/
-		bool executeContextMenuAction(const QList<KUrl>& urls);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
-	
-	signals:
-		void jobCreated(KamosoJob* job);
+	public slots:
+		void trash(bool);
+		void slotResult(KJob *);
+		
+	private:
+		QList<KUrl> mSelectedUrls;
 };
-Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
-
-#endif // KAMOSOPLUGIN_H

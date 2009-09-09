@@ -17,36 +17,61 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSOPLUGIN_H
-#define KAMOSOPLUGIN_H
+#include "trash.h"
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KIcon>
+#include <KUrl>
+#include <KMessageBox>
+#include <kio/job.h>
+#include <kio/copyjob.h>
 
-#include <QObject>
-#include <QVariantList>
-#include "kdemacros.h"
+#include <QAction>
+#include <QDesktopServices>
+#include <kjobuidelegate.h>
 
-class QAction;
-class KUrl;
-class KamosoJob;
+K_PLUGIN_FACTORY(KamosoTrashFactory, registerPlugin<TrashPlugin>(); )
+K_EXPORT_PLUGIN(KamosoTrashFactory(KAboutData("trash", "trash",
+		ki18n("Trash"), "0.1", ki18n("Runs a visor for the specified file."),
+		KAboutData::License_GPL)))
 
-class KDE_EXPORT KamosoPlugin : public QObject
+TrashPlugin::TrashPlugin(QObject* parent, const QVariantList& args)
+	: KamosoPlugin(parent, args)
+{}
+
+QAction* TrashPlugin::thumbnailsAction(const QList<KUrl>& urls)
 {
-	Q_OBJECT
-	public:
-		KamosoPlugin(QObject* parent, const QVariantList& args);
-		virtual ~KamosoPlugin();
+	QAction* act=0;
+	mSelectedUrls.clear();
+	foreach(const KUrl& url, urls)
+	{
+		if(!act) {
+			act=new QAction(KIcon("trash-empty"), i18n("Move to trash..."), 0);
+			connect(act, SIGNAL(triggered(bool)), SLOT(trash(bool)));
+		}
 		
-		/** Action that it will appear in the thumbnails view's menu.
-			@p url Describes the item we need it for.
-			
-			@returns the action to be added. If a null action is returned,
-			nothing will be added
-		*/
-		bool executeContextMenuAction(const QList<KUrl>& urls);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
-	
-	signals:
-		void jobCreated(KamosoJob* job);
-};
-Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
+		mSelectedUrls.append(url);
+	}
+	return act;
+}
 
-#endif // KAMOSOPLUGIN_H
+void TrashPlugin::trash(bool)
+{
+	int res=KMessageBox::warningContinueCancel(0,
+						i18n("Are you sure you want to delete these files?"),
+						i18n("Move to Trash"));
+	
+	if(res==KMessageBox::Continue) {
+		KIO::CopyJob *job = KIO::trash(mSelectedUrls);
+		connect( job, SIGNAL(result(KJob *)), this, SLOT(slotResult(KJob *)));
+		
+		//TODO: Eventually move to KamosoJob
+		job->start();
+	}
+}
+
+void TrashPlugin::slotResult(KJob* job)
+{
+	if ( job->error() )
+		job->uiDelegate()->showErrorMessage();
+}

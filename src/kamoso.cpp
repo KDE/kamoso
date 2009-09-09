@@ -438,7 +438,7 @@ void Kamoso::openThumbnail(const QList<KUrl>& url)
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
-	menu->addSeparator();
+	menu->clear();
 	
 	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
 		#warning make it possible to deal with many url at the same time
