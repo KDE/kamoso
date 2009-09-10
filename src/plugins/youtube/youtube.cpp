@@ -40,7 +40,7 @@ using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
 K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("youtube", "youtube",
-		ki18n("Youtube"), "0.1", ki18n("Uploads files to youtube"),
+		ki18n("YouTube"), "0.1", ki18n("Uploads files to YouTube"),
 		KAboutData::License_GPL)))
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
@@ -58,7 +58,7 @@ QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
 		if(mime->name().startsWith("video/")) {
 			if(!act) {
-				act=new QAction(KIcon("youtube"), i18n("Upload to youtube"), 0);
+				act=new QAction(KIcon("youtube"), i18n("Upload to YouTube"), 0);
 				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
 			}
 		}
@@ -169,7 +169,7 @@ bool YoutubePlugin::showDialog()
 		dialog->setUsername(authInfo["username"]);
 		dialog->setKeepPassword(true);
 	}
-	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to yuoutube"));
+	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to YouTube"));
 	dialog->addCommentLine(i18n("Server")+": ",server);
 	dialog->setCaption(i18n("Authentication for ")+"youtube");
 
