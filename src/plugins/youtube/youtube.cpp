@@ -118,14 +118,9 @@ QMap<QString, QString> YoutubePlugin::showVideoDialog()
 }
 void YoutubePlugin::login()
 {
-	#warning where the hell we have to put the developerKey? in a define?
 	QMap<QString, QString> authInfo;
-	if(m_wallet != NULL) {
-		m_wallet->readMap("youtubeAuth",authInfo);
-	}else{
-		authInfo["username"] = dialog->username();
-		authInfo["password"] = dialog->password();
-	}
+	authInfo["username"] = dialog->username();
+	authInfo["password"] = dialog->password();
 
 	KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
 	QByteArray data("Email=");
