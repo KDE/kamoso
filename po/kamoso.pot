@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-09 21:59+0200\n"
+"POT-Creation-Date: 2009-09-12 18:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,27 +16,28 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/burstshootmode.cpp:64 src/photoshootmode.cpp:56
+#: src/burstshootmode.cpp:63 src/photoshootmode.cpp:72
 msgid "Take pictures"
 msgstr ""
 
-#: src/kamoso.cpp:277
+#: src/kamoso.cpp:280
 msgid "General"
 msgstr ""
 
-#: src/kamoso.cpp:284
+#: src/kamoso.cpp:287
 msgid "Photo Settings"
 msgstr ""
 
-#: src/kamoso.cpp:290
+#: src/kamoso.cpp:293
 msgid "Plugin List"
 msgstr ""
 
-#: src/kamoso.cpp:512
+#: src/kamoso.cpp:518
 msgid "Settings"
 msgstr ""
 
 #: src/kamosojobtracker.cpp:57
+msgctxt "Used to join urls"
 msgid ", "
 msgstr ""
 
@@ -46,7 +47,7 @@ msgid "Done: %1"
 msgstr ""
 
 #: src/main.cpp:27
-msgid "A sweet girl attractor"
+msgid "Webcam picture retriever"
 msgstr ""
 
 #: src/main.cpp:28
@@ -57,12 +58,20 @@ msgstr ""
 msgid "Aleix Pol Gonzalez"
 msgstr ""
 
+#: src/main.cpp:29
+msgid "Semaphore hacker"
+msgstr ""
+
 #: src/main.cpp:30
 msgid "Alex Fiestas"
 msgstr ""
 
-#: src/photoshootmode.cpp:30
-msgid "Use flash"
+#: src/main.cpp:30
+msgid "Coffee drinker"
+msgstr ""
+
+#: src/photoshootmode.cpp:31
+msgid "Use Flash"
 msgstr ""
 
 #: src/pluginmanager.cpp:73
@@ -71,7 +80,7 @@ msgid "Error while loading the plugin '%1'"
 msgstr ""
 
 #: src/videoshootmode.cpp:31
-msgid "Record audio"
+msgid "Record Audio"
 msgstr ""
 
 #: src/videoshootmode.cpp:66
@@ -86,9 +95,8 @@ msgstr ""
 msgid "Execute"
 msgstr ""
 
-#: src/plugins/execute/execute.cpp:31 src/plugins/trash/trash.cpp:35
-#: src/plugins/youtube/youtube.cpp:43
-msgid "Runs a visor for the specified file."
+#: src/plugins/execute/execute.cpp:31
+msgid "Runs a viewer for the specified file."
 msgstr ""
 
 #: src/plugins/execute/execute.cpp:45
@@ -235,6 +243,10 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
+#: src/plugins/trash/trash.cpp:35
+msgid "Moves the specified file to trash."
+msgstr ""
+
 #: src/plugins/trash/trash.cpp:49
 msgid "Move to trash..."
 msgstr ""
@@ -248,11 +260,15 @@ msgid "Move to Trash"
 msgstr ""
 
 #: src/plugins/youtube/youtube.cpp:43
-msgid "Youtube"
+msgid "YouTube"
+msgstr ""
+
+#: src/plugins/youtube/youtube.cpp:43
+msgid "Uploads files to YouTube"
 msgstr ""
 
 #: src/plugins/youtube/youtube.cpp:61
-msgid "Upload to youtube"
+msgid "Upload to YouTube"
 msgstr ""
 
 #: src/plugins/youtube/youtube.cpp:97
@@ -262,7 +278,7 @@ msgstr ""
 #: src/plugins/youtube/youtube.cpp:172
 msgid ""
 "You need to supply a username and a password to be able to upload videos to "
-"yuoutube"
+"YouTube"
 msgstr ""
 
 #: src/plugins/youtube/youtube.cpp:173
