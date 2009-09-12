@@ -371,7 +371,9 @@ void Kamoso::stopCountdown()
 void Kamoso::restore()
 {
 	whiteWidgetManager->hideAll();
-// 	Solid::Control::PowerManager::setBrightness(brightBack);
+	if(m_flashEnabled) {
+		Solid::Control::PowerManager::setBrightness(brightBack);
+	}
 }
 
 void Kamoso::slotScrollLeft()
