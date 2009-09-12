@@ -29,23 +29,30 @@ static const QColor colors[colorCount]={ Qt::red, Qt::yellow, Qt::green };
 
 CountdownWidget::CountdownWidget(QWidget* parent)
 	: QWidget(parent)
-{}
+{
+	mTimer=new QTimeLine(0, this);
+	connect(mTimer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
+	connect(mTimer, SIGNAL(finished()), this, SLOT(hide()));
+	connect(mTimer, SIGNAL(finished()), this, SIGNAL(finished()));
+	
+	mTimer->setCurveShape(QTimeLine::LinearCurve); //FIXME
+}
 
 void CountdownWidget::start(int timeInterval)
 {
-	QTimeLine *timer=new QTimeLine(timeInterval, this);
-	connect(timer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
-	connect(timer, SIGNAL(finished()), this, SLOT(hide()));
-	connect(timer, SIGNAL(finished()), this, SIGNAL(finished()));
-	
-	timer->setCurveShape(QTimeLine::LinearCurve); //FIXME
-	timer->start();
+	mTimer->setDuration(timeInterval);
+	mTimer->start();
 }
 
 void CountdownWidget::tick(qreal progress)
 {
 	mProgress=progress;
 	repaint();
+}
+
+void CountdownWidget::hideEvent(QHideEvent* )
+{
+	mTimer->stop();
 }
 
 void CountdownWidget::paintEvent(QPaintEvent* )

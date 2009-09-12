@@ -23,6 +23,7 @@
 #include <QAction>
 #include "kamoso.h"
 #include <QPushButton>
+#include "countdownwidget.h"
 
 PhotoShootMode::PhotoShootMode(Kamoso* camera)
 	: ShootMode(camera)
@@ -37,13 +38,28 @@ PhotoShootMode::PhotoShootMode(Kamoso* camera)
 
 QWidget* PhotoShootMode::mainAction()
 {
-	QPushButton* action = new QPushButton(controller());
-	action->setIcon(icon());
-	action->setIconSize(QSize(32,32));
-	action->setToolTip(name());
+	mTrigger = new QPushButton(controller());
+	mTrigger->setIcon(icon());
+	mTrigger->setIconSize(QSize(32,32));
+	mTrigger->setToolTip(name());
+	mTrigger->setCheckable(true);
 	
-	connect(action, SIGNAL(clicked()), controller(), SLOT(startCountdown()));
-	return action;
+	connect(mTrigger, SIGNAL(clicked(bool)), this, SLOT(shootClicked(bool)));
+	connect(controller()->countdown(), SIGNAL(finished()), SLOT(release()));
+	return mTrigger;
+}
+
+void PhotoShootMode::release()
+{
+	mTrigger->setChecked(false);
+}
+
+void PhotoShootMode::shootClicked(bool pressed)
+{
+	if(pressed)
+		controller()->startCountdown();
+	else
+		controller()->stopCountdown();
 }
 
 QIcon PhotoShootMode::icon() const

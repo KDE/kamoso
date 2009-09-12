@@ -77,6 +77,7 @@ class Kamoso : public KMainWindow
 		void changeMode(bool);
 		
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
+		void stopCountdown();
 		
 	private slots:
 		void restore();

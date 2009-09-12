@@ -21,10 +21,13 @@
 #define PHOTOSHOOTMODE_H
 
 #include "shootmode.h"
+#include <QPointer>
 
+class QPushButton;
 
 class PhotoShootMode : public ShootMode
 {
+	Q_OBJECT
 	public:
 		PhotoShootMode(Kamoso* camera);
 		
@@ -34,8 +37,13 @@ class PhotoShootMode : public ShootMode
 		virtual QString name() const;
 		virtual QStringList thumbnailsViewMimeTypes() const;
 		
+	private slots:
+		void shootClicked(bool pressed);
+		void release();
+		
 	private:
 		QList<QAction*> mActions;
+		QPointer<QPushButton> mTrigger;
 };
 
 #endif // PHOTOSHOOTMODE_H

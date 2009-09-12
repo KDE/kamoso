@@ -60,6 +60,9 @@ const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent),dirOperator(0), m_flashEnabled(true)
 {
+	m_countdown = new CountdownWidget(this);
+	m_countdown->hide();
+	
 	//Check the initial and basic config, and ask for it they don't exist
 	this->checkInitConfig();
 
@@ -157,8 +160,6 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(mainWidgetUi->scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
 	
 	whiteWidgetManager = new WhiteWidgetManager(this);
-	m_countdown = new CountdownWidget(this);
-	m_countdown->hide();
 	mainWidgetUi->thirdRow->addWidget(m_countdown);
 	
 	connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
@@ -339,11 +340,7 @@ void Kamoso::startCountdown(qreal minimumTime)
 */
 void Kamoso::takePhoto()
 {
-	mainWidgetUi->scrollLeft->show();
-	mainWidgetUi->scrollRight->show();
-	dirOperator->show();
-	thumbnailView->show();
-	m_countdown->hide();
+	stopCountdown();
 	
 	if(m_flashEnabled){
 		brightBack = Solid::Control::PowerManager::brightness();
@@ -357,6 +354,15 @@ void Kamoso::takePhoto()
 
 	webcam->takePhoto(photoPlace);
 	player->play();
+}
+
+void Kamoso::stopCountdown()
+{
+	mainWidgetUi->scrollLeft->show();
+	mainWidgetUi->scrollRight->show();
+	dirOperator->show();
+	thumbnailView->show();
+	m_countdown->hide();
 }
 
 /**
@@ -514,3 +520,4 @@ void Kamoso::settingsMenu(bool )
 	
 	m.exec(mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
+

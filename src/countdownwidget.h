@@ -22,6 +22,7 @@
 
 #include <QWidget>
 
+class QTimeLine;
 class CountdownWidget : public QWidget
 {
 	Q_OBJECT
@@ -31,6 +32,7 @@ class CountdownWidget : public QWidget
 		QSize sizeHint() const { return QSize(100,100); }
 		
 		virtual void paintEvent (QPaintEvent*);
+		virtual void hideEvent(QHideEvent* );
 		
 		void start(int timeInterval);
 	
@@ -42,6 +44,7 @@ class CountdownWidget : public QWidget
 		
 	private:
 		qreal mProgress;
+		QTimeLine* mTimer;
 };
 
 #endif // COUNTDOWNWIDGET_H
