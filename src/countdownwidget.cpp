@@ -53,6 +53,7 @@ void CountdownWidget::tick(qreal progress)
 void CountdownWidget::hideEvent(QHideEvent* )
 {
 	mTimer->stop();
+	mTimer->setCurrentTime(0);
 }
 
 void CountdownWidget::paintEvent(QPaintEvent* )
