@@ -154,15 +154,15 @@ bool YoutubePlugin::showDialog()
 {
 	QString server = QString("http://www.youtube.com");
 	
-	if(m_wallet == NULL) {
-		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowUsernameLine);
-	}else{
+	if(m_wallet != NULL) {
 		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowKeepPassword | KPasswordDialog::ShowUsernameLine);
 		QMap<QString, QString> authInfo;
 		m_wallet->readMap("youtubeAuth",authInfo);
 		dialog->setPassword(authInfo["password"]);
 		dialog->setUsername(authInfo["username"]);
 		dialog->setKeepPassword(true);
+	}else{
+		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowUsernameLine);
 	}
 	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to YouTube"));
 	dialog->addCommentLine(i18n("Server")+": ",server);
