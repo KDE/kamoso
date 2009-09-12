@@ -90,8 +90,11 @@ QList< KamosoPlugin* > PluginManager::plugins()
 	return d->plugins.values();
 }
 
-KamosoPlugin* PluginManager::pluginFromName(const QString& name) const
+KamosoPlugin* PluginManager::pluginFromName(const QString& name)
 {
+	if(!d->plugins.contains(name))
+		plugins();
+	
 	Q_ASSERT(d->plugins.contains(name));
 	return d->plugins.value(name);
 }
