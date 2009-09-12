@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Service
 Exec=blubb
-Comment=Upload videos directly to youtube
-Name=Youtube
-GenericName=Youtube
+Comment=Upload videos directly to YouTube
+Name=YouTube
+GenericName=YouTube
 ServiceTypes=Kamoso/Plugin
 X-KDE-Library=youtube
 X-KDE-PluginInfo-Name=Youtube

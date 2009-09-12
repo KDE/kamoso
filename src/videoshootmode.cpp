@@ -28,7 +28,7 @@
 VideoShootMode::VideoShootMode(Kamoso* camera)
 	: ShootMode(camera)
 {
-	QAction* sound=new QAction(KIcon("audio-input-microphone"), i18n("Record audio"), this);
+	QAction* sound=new QAction(KIcon("audio-input-microphone"), i18n("Record Audio"), this);
 	sound->setCheckable(true);
 	sound->setChecked(true);
 	

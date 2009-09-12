@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Time until take the photo:</string>
+        <string>Time until the photo is taken:</string>
        </property>
       </widget>
      </item>
