@@ -60,7 +60,10 @@ class Kamoso : public KMainWindow
 //Only slots
 	public slots:
 		void takePhoto();
-		void startCountdown(int timeInterval=-1);
+		
+		/** Starts a countdown before we take a picture.
+			@param minimumTime in miliseconds */
+		void startCountdown(qreal minimumTime=0);
 		void configuration();
 		void generalUpdated();
 		void webcamChanged(int index);

@@ -22,6 +22,7 @@
 
 #include "shootmode.h"
 #include <QPushButton>
+#include <QPointer>
 
 class BurstShootMode : public ShootMode
 {
@@ -33,10 +34,13 @@ class BurstShootMode : public ShootMode
 		virtual QIcon icon() const;
 		virtual QString name() const;
 		virtual QStringList thumbnailsViewMimeTypes() const;
-	public slots:
-		void startBurstMode();
+		
+	private slots:
+		void stateChanged(bool);
+		void keepTaking();
+		
 	private:
-		QPushButton *m_action;
+		bool mWorking;
 };
 
 #endif // BURSTSHOOTMODE_H

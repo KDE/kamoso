@@ -320,14 +320,12 @@ Kamoso::~Kamoso()
 *When Take Picture button is pushed, this slot is called
 */
 //TODO: Abstraction of what is called on pushBtn?
-void Kamoso::startCountdown(int timeInterval)
+void Kamoso::startCountdown(qreal minimumTime)
 {
-	if(timeInterval<0) {
-		qDebug() << Settings::photoTime();
-		timeInterval = Settings::photoTime()/3;
-	}
+	qDebug() << Settings::photoTime();
+	int time = qMax(minimumTime, 1000.*Settings::photoTime());
 	
-	m_countdown->start(timeInterval);
+	m_countdown->start(time);
 	//hidding all non-semaphore widgets
 	mainWidgetUi->scrollLeft->hide();
 	mainWidgetUi->scrollRight->hide();

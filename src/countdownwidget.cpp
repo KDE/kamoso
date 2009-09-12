@@ -33,7 +33,6 @@ CountdownWidget::CountdownWidget(QWidget* parent)
 
 void CountdownWidget::start(int timeInterval)
 {
-	timeInterval = 3*timeInterval*1000;//We need miliseconds
 	QTimeLine *timer=new QTimeLine(timeInterval, this);
 	connect(timer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
 	connect(timer, SIGNAL(finished()), this, SLOT(hide()));
@@ -59,7 +58,6 @@ void CountdownWidget::paintEvent(QPaintEvent* )
 	int dist=(width()-rad*colorCount)/(colorCount-1);
 	
 	int current=int(mProgress*colorCount);
-	qDebug() << "XXXX " << left;
 	
 	for(int i=0; i<colorCount; i++) {
 		QColor color=colors[i];

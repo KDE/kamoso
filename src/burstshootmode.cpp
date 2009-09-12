@@ -18,13 +18,12 @@
  *************************************************************************************/
 
 #include "burstshootmode.h"
-#include "countdownwidget.h"
 #include <KIcon>
 #include <KLocalizedString>
 #include <QAction>
-#include "kamoso.h"
 #include <QPushButton>
-#include <settings.h>
+#include "kamoso.h"
+#include "countdownwidget.h"
 
 BurstShootMode::BurstShootMode(Kamoso* camera)
 	: ShootMode(camera)
@@ -32,26 +31,26 @@ BurstShootMode::BurstShootMode(Kamoso* camera)
 
 QWidget* BurstShootMode::mainAction()
 {
-	m_action = new QPushButton(controller());
+	QPushButton* m_action = new QPushButton(controller());
 	m_action->setIcon(icon());
 	m_action->setIconSize(QSize(32,32));
 	m_action->setToolTip(name());
 	m_action->setCheckable(true);
-	connect(m_action, SIGNAL(clicked()), this, SLOT(startBurstMode()));
-	connect(controller()->countdown(),SIGNAL(finished()),this,SLOT(startBurstMode()));
+	connect(m_action, SIGNAL(clicked(bool)), this, SLOT(stateChanged(bool)));
+	connect(controller()->countdown(), SIGNAL(finished()), SLOT(keepTaking()));
 	return m_action;
 }
 
-void BurstShootMode::startBurstMode()
+void BurstShootMode::stateChanged(bool pressed)
 {
-	if(m_action->isChecked() == true)
-	{
-		int interval = Settings::photoTime()/3;
-		if(interval < 1){
-			interval = 1;
-		}
-		controller()->startCountdown(interval);
-	}
+	mWorking=pressed;
+	keepTaking();
+}
+
+void BurstShootMode::keepTaking()
+{
+	if(mWorking)
+		controller()->startCountdown(1000);
 }
 
 QIcon BurstShootMode::icon() const
