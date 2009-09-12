@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-09-09 21:59+0200\n"
+"POT-Creation-Date: 2009-09-12 18:48+0200\n"
 "PO-Revision-Date: 2009-09-10 02:31+0100\n"
 "Last-Translator: Panagiotis Papadopoulos <pano_90@gmx.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -18,30 +18,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
-#: src/burstshootmode.cpp:64
-#: src/photoshootmode.cpp:56
+#: src/burstshootmode.cpp:63 src/photoshootmode.cpp:72
 #, fuzzy
 msgid "Take pictures"
 msgstr "Bilder aufnehmen"
 
-#: src/kamoso.cpp:277
+#: src/kamoso.cpp:280
 msgid "General"
 msgstr "Allgemein"
 
-#: src/kamoso.cpp:284
+#: src/kamoso.cpp:287
 #, fuzzy
 msgid "Photo Settings"
 msgstr "Foto-Einstellungen"
 
-#: src/kamoso.cpp:290
+#: src/kamoso.cpp:293
 msgid "Plugin List"
 msgstr "Modulliste"
 
-#: src/kamoso.cpp:512
+#: src/kamoso.cpp:518
 msgid "Settings"
 msgstr "Einstellungen"
 
 #: src/kamosojobtracker.cpp:57
+#, fuzzy
+#| msgid ", "
+msgctxt "Used to join urls"
 msgid ", "
 msgstr ", "
 
@@ -51,7 +53,7 @@ msgid "Done: %1"
 msgstr "Fertig: %1"
 
 #: src/main.cpp:27
-msgid "A sweet girl attractor"
+msgid "Webcam picture retriever"
 msgstr ""
 
 #: src/main.cpp:28
@@ -62,13 +64,21 @@ msgstr "(C) 2008-2009 Alex Fiestas und Aleix Pol"
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
+#: src/main.cpp:29
+msgid "Semaphore hacker"
+msgstr ""
+
 #: src/main.cpp:30
 msgid "Alex Fiestas"
 msgstr "Alex Fiestas"
 
-#: src/photoshootmode.cpp:30
+#: src/main.cpp:30
+msgid "Coffee drinker"
+msgstr ""
+
+#: src/photoshootmode.cpp:31
 #, fuzzy
-msgid "Use flash"
+msgid "Use Flash"
 msgstr "Blitz verwenden"
 
 #: src/pluginmanager.cpp:73
@@ -78,7 +88,7 @@ msgstr "Beim Laden des Moduls „%1“ ist ein Fehler aufgetreten."
 
 #: src/videoshootmode.cpp:31
 #, fuzzy
-msgid "Record audio"
+msgid "Record Audio"
 msgstr "Audio aufnehmen"
 
 #: src/videoshootmode.cpp:66
@@ -94,9 +104,7 @@ msgid "Execute"
 msgstr "Ausführen"
 
 #: src/plugins/execute/execute.cpp:31
-#: src/plugins/trash/trash.cpp:35
-#: src/plugins/youtube/youtube.cpp:43
-msgid "Runs a visor for the specified file."
+msgid "Runs a viewer for the specified file."
 msgstr ""
 
 #: src/plugins/execute/execute.cpp:45
@@ -120,8 +128,7 @@ msgstr ""
 msgid "Upload to Facebook..."
 msgstr ""
 
-#: src/plugins/facebook/facebook.cpp:133
-#: src/plugins/facebook/facebook.cpp:141
+#: src/plugins/facebook/facebook.cpp:133 src/plugins/facebook/facebook.cpp:141
 msgid "Kamoso"
 msgstr "Kamoso"
 
@@ -196,7 +203,8 @@ msgid "Logging in to Facebook service..."
 msgstr ""
 
 #: src/plugins/facebook/fbtalker.cpp:390
-msgid "Please follow the instructions in the browser window. Press \"OK\" when done."
+msgid ""
+"Please follow the instructions in the browser window. Press \"OK\" when done."
 msgstr ""
 
 #: src/plugins/facebook/fbtalker.cpp:392
@@ -211,7 +219,8 @@ msgstr "Der Dienst ist zur Zeit nicht verfügbar."
 #: src/plugins/facebook/fbtalker.cpp:703
 #, fuzzy
 msgid "The application has reached the maximum number of requests allowed."
-msgstr "Die Anwendung hat die maximale erlaubte Anzahl an Forderungen erreicht."
+msgstr ""
+"Die Anwendung hat die maximale erlaubte Anzahl an Forderungen erreicht."
 
 #: src/plugins/facebook/fbtalker.cpp:706
 msgid "Invalid session key or session expired. Try to log in again."
@@ -237,8 +246,13 @@ msgstr ""
 
 #: src/plugins/facebook/fbtalker.cpp:878
 #, fuzzy
-msgid "Please follow the instructions in the browser window. Press \"Yes\" if you have authenticated and \"No\" if you failed."
-msgstr "Bitte befolgen Sie die Anweisungen im Fenster des Webbrowsers. Drücken Sie „Yes“, falls Sie authentifiziert worden sind und „Nein“, falls dies fehlgeschlagen ist."
+msgid ""
+"Please follow the instructions in the browser window. Press \"Yes\" if you "
+"have authenticated and \"No\" if you failed."
+msgstr ""
+"Bitte befolgen Sie die Anweisungen im Fenster des Webbrowsers. Drücken Sie "
+"„Yes“, falls Sie authentifiziert worden sind und „Nein“, falls dies "
+"fehlgeschlagen ist."
 
 #: src/plugins/facebook/fbtalker.cpp:880
 msgid "Facebook Service Web Authorization"
@@ -251,6 +265,10 @@ msgstr ""
 #: src/plugins/trash/trash.cpp:35
 msgid "Trash"
 msgstr "Mülleimer"
+
+#: src/plugins/trash/trash.cpp:35
+msgid "Moves the specified file to trash."
+msgstr ""
 
 #: src/plugins/trash/trash.cpp:49
 msgid "Move to trash..."
@@ -265,12 +283,19 @@ msgid "Move to Trash"
 msgstr "In den Müll verschieben"
 
 #: src/plugins/youtube/youtube.cpp:43
-msgid "Youtube"
+#, fuzzy
+#| msgid "Youtube"
+msgid "YouTube"
 msgstr "YouTube"
+
+#: src/plugins/youtube/youtube.cpp:43
+#, fuzzy
+msgid "Uploads files to YouTube"
+msgstr "Hochgeladen zu YouTube"
 
 #: src/plugins/youtube/youtube.cpp:61
 #, fuzzy
-msgid "Upload to youtube"
+msgid "Upload to YouTube"
 msgstr "Hochgeladen zu YouTube"
 
 #: src/plugins/youtube/youtube.cpp:97
@@ -278,7 +303,9 @@ msgid "Video information:"
 msgstr "Video-Informationen:"
 
 #: src/plugins/youtube/youtube.cpp:172
-msgid "You need to supply a username and a password to be able to upload videos to yuoutube"
+msgid ""
+"You need to supply a username and a password to be able to upload videos to "
+"YouTube"
 msgstr ""
 
 #: src/plugins/youtube/youtube.cpp:173
@@ -296,6 +323,9 @@ msgstr "Video mit Kamoso aufgenommen "
 
 #: src/plugins/youtube/youtubejob.cpp:164
 #, fuzzy
-msgid "This video has been recorded using Kamoso, a KDE software to play with webcams!"
-msgstr "Dieses Video ist mit Kamoso, einem KDE-Programm, um mit Webcams zu spielen, aufgenommen worden"
-
+msgid ""
+"This video has been recorded using Kamoso, a KDE software to play with "
+"webcams!"
+msgstr ""
+"Dieses Video ist mit Kamoso, einem KDE-Programm, um mit Webcams zu spielen, "
+"aufgenommen worden"
