@@ -29,15 +29,12 @@ class Device
 		QString description() const;
 		QString udi() const;
 		QString path() const;
-		
-		#warning afiestas: really useful? it is never read
-		void setPlaying(bool state);
+	
 	private:
 		QString queryv4lInfo();
 		QString m_description;
 		QString m_udi;
 		QString m_path;
-		bool m_playing;
 };
 
 #endif

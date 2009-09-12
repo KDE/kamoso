@@ -44,11 +44,6 @@ Device::Device(const Solid::Device *device)
 Device::~Device()
 {}
 
-void Device::setPlaying(bool play)
-{
-	m_playing = play;
-}
-
 QString Device::path() const
 {
 	return m_path;

@@ -132,7 +132,6 @@ void DeviceManager::webcamPlaying(const QString &udi)
 	{
 		if(i->udi() == udi)
 		{
-			i->setPlaying(true);
 			m_playingUdi = i->udi();
 			m_playingPath = i->path();
 		}
