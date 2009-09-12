@@ -35,6 +35,11 @@ VideoShootMode::VideoShootMode(Kamoso* camera)
 	mActions += sound;
 }
 
+void VideoShootMode::deactivate()
+{
+	//Do nothing at the moment
+}
+
 QWidget* VideoShootMode::mainAction()
 {
 	QPushButton* action = new QPushButton(controller());

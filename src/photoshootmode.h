@@ -36,6 +36,7 @@ class PhotoShootMode : public ShootMode
 		virtual QIcon icon() const;
 		virtual QString name() const;
 		virtual QStringList thumbnailsViewMimeTypes() const;
+		virtual void deactivate();
 		
 	private slots:
 		void shootClicked(bool pressed);

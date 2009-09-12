@@ -28,7 +28,7 @@ class VideoShootMode : public ShootMode
 	Q_OBJECT
 	public:
 		VideoShootMode(Kamoso* camera);
-		
+		virtual void deactivate();
 		virtual QList<QAction*> actions() { return mActions; }
 		virtual QWidget* mainAction();
 		virtual QIcon icon() const;

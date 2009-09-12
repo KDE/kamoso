@@ -58,7 +58,7 @@
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent),dirOperator(0), m_flashEnabled(true)
+	: KMainWindow(parent),dirOperator(0), m_flashEnabled(true),m_activeMode(0)
 {
 	m_countdown = new CountdownWidget(this);
 	m_countdown->hide();
@@ -487,7 +487,10 @@ void Kamoso::changeMode(bool pressed)
 		i++;
 	}
 	Q_ASSERT(i<m_modesRadio.size());
-	
+
+	if(m_activeMode) {
+		m_activeMode->deactivate();
+	}
 	m_activeMode=m_modes[i];
 	if(dirOperator) {
 		dirOperator->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());

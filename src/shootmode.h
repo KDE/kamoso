@@ -43,6 +43,9 @@ class ShootMode : public QObject
 		/** @returns some more actions associated to the shooting mode */
 		virtual QList<QAction*> actions()=0;
 		
+		/** Deactivate the mode, is like a destructor */
+		virtual void deactivate()=0;
+
 		/** */
 		Kamoso* controller() const;
 	
