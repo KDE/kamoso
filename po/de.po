@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-09-12 18:48+0200\n"
-"PO-Revision-Date: 2009-09-10 02:31+0100\n"
+"PO-Revision-Date: 2009-09-13 00:05+0200\n"
 "Last-Translator: Panagiotis Papadopoulos <pano_90@gmx.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,6 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: src/burstshootmode.cpp:63 src/photoshootmode.cpp:72
-#, fuzzy
 msgid "Take pictures"
 msgstr "Bilder aufnehmen"
 
@@ -28,7 +27,6 @@ msgid "General"
 msgstr "Allgemein"
 
 #: src/kamoso.cpp:287
-#, fuzzy
 msgid "Photo Settings"
 msgstr "Foto-Einstellungen"
 
@@ -41,7 +39,6 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: src/kamosojobtracker.cpp:57
-#, fuzzy
 #| msgid ", "
 msgctxt "Used to join urls"
 msgid ", "
@@ -74,7 +71,7 @@ msgstr "Alex Fiestas"
 
 #: src/main.cpp:30
 msgid "Coffee drinker"
-msgstr ""
+msgstr "Kaffeetrinker"
 
 #: src/photoshootmode.cpp:31
 #, fuzzy
@@ -87,9 +84,8 @@ msgid "Error while loading the plugin '%1'"
 msgstr "Beim Laden des Moduls „%1“ ist ein Fehler aufgetreten."
 
 #: src/videoshootmode.cpp:31
-#, fuzzy
 msgid "Record Audio"
-msgstr "Audio aufnehmen"
+msgstr "Ton aufnehmen"
 
 #: src/videoshootmode.cpp:66
 msgid "Take a video"
@@ -126,51 +122,50 @@ msgstr ""
 
 #: src/plugins/facebook/facebook.cpp:55
 msgid "Upload to Facebook..."
-msgstr ""
+msgstr "Auf Facebook hochladen ..."
 
 #: src/plugins/facebook/facebook.cpp:133 src/plugins/facebook/facebook.cpp:141
 msgid "Kamoso"
 msgstr "Kamoso"
 
 #: src/plugins/facebook/facebook.cpp:142
-#, fuzzy
 msgid "Photos taken with the webcam"
 msgstr "Mit der Webcam aufgenommene Fotos"
 
 #: src/plugins/facebook/fbalbum.cpp:45
 msgid "Facebook New Album"
-msgstr ""
+msgstr "Neues Facebook-Album"
 
 #: src/plugins/facebook/fbalbum.cpp:58
 #, fuzzy
 msgid "Title of the album that will be created (required)."
-msgstr "Name des Albums, dass erstellt werden wird (benötigt)"
+msgstr "Titel des zu erstellenden Albums (benötigt)."
 
 #: src/plugins/facebook/fbalbum.cpp:62
 msgid "Location of the album that will be created (optional)."
-msgstr ""
+msgstr "Ort an dem das Album erstellt wird (optional)."
 
 #: src/plugins/facebook/fbalbum.cpp:66
 msgid "Description of the album that will be created (optional)."
-msgstr ""
+msgstr "Beschreibung des Albums, das erstellt wird (optional)."
 
 #: src/plugins/facebook/fbalbum.cpp:71
+#, fuzzy
 msgid "Privacy setting of the album that will be created (required)."
 msgstr ""
+"Einstellungen zur Privatsphäre des Albums das erstellt wird (benötigt)."
 
 #: src/plugins/facebook/fbalbum.cpp:73
-#, fuzzy
 msgid "Only Friends"
 msgstr "Nur Freunde"
 
 #: src/plugins/facebook/fbalbum.cpp:75
 msgid "Friends of Friends"
-msgstr ""
+msgstr "Freunde von Freunden"
 
 #: src/plugins/facebook/fbalbum.cpp:77
-#, fuzzy
 msgid "My Networks and Friends"
-msgstr "Meine Netzwerke und Freunden"
+msgstr "Mein Netzwerk und Freunde"
 
 #: src/plugins/facebook/fbalbum.cpp:79
 msgid "Everyone"
@@ -178,10 +173,9 @@ msgstr "Jeder"
 
 #: src/plugins/facebook/fbalbum.cpp:82
 msgid "Title:"
-msgstr "Name:"
+msgstr "Titel:"
 
 #: src/plugins/facebook/fbalbum.cpp:83
-#, fuzzy
 msgid "Location:"
 msgstr "Ort:"
 
@@ -191,76 +185,71 @@ msgstr "Beschreibung:"
 
 #: src/plugins/facebook/fbalbum.cpp:85
 msgid "Privacy:"
-msgstr ""
+msgstr "Privatsphäre:"
 
 #: src/plugins/facebook/fbtalker.cpp:179
 #, fuzzy
 msgid "Validate previous session..."
-msgstr "Vorherige Sitzung überprüfen ..."
+msgstr "Überprüfe vorangegangene Sitzung ..."
 
 #: src/plugins/facebook/fbtalker.cpp:199
 msgid "Logging in to Facebook service..."
-msgstr ""
+msgstr "Anmeldung am Facebook-Dienst ..."
 
 #: src/plugins/facebook/fbtalker.cpp:390
 msgid ""
 "Please follow the instructions in the browser window. Press \"OK\" when done."
 msgstr ""
+"Bitte folgen Sie den Anweisungen im Browserfenster und drücken Sie „Ok“ wenn "
+"Sie fertig sind."
 
 #: src/plugins/facebook/fbtalker.cpp:392
 msgid "Facebook Application Authorization"
-msgstr ""
+msgstr "Facebook-Anwendungsautorisierung"
 
 #: src/plugins/facebook/fbtalker.cpp:700
-#, fuzzy
 msgid "The service is not available at this time."
-msgstr "Der Dienst ist zur Zeit nicht verfügbar."
+msgstr "Der Dienst ist zurzeit nicht verfügbar."
 
 #: src/plugins/facebook/fbtalker.cpp:703
-#, fuzzy
 msgid "The application has reached the maximum number of requests allowed."
-msgstr ""
-"Die Anwendung hat die maximale erlaubte Anzahl an Forderungen erreicht."
+msgstr "Die Anwendung hat die maximal erlaubte Anzahl von Anfragen erreicht."
 
 #: src/plugins/facebook/fbtalker.cpp:706
 msgid "Invalid session key or session expired. Try to log in again."
 msgstr ""
 
 #: src/plugins/facebook/fbtalker.cpp:709
-#, fuzzy
 msgid "Invalid album ID."
 msgstr "Ungültige Album-ID."
 
 #: src/plugins/facebook/fbtalker.cpp:712
 msgid "Album is full."
-msgstr ""
+msgstr "Das Album ist voll."
 
 #: src/plugins/facebook/fbtalker.cpp:715
-#, fuzzy
 msgid "Missing or invalid file."
 msgstr "Fehlende oder ungültige Datei."
 
 #: src/plugins/facebook/fbtalker.cpp:718
 msgid "Too many unapproved photos pending."
-msgstr ""
+msgstr "Zu viele ungenehmigte Fotos anstehend."
 
 #: src/plugins/facebook/fbtalker.cpp:878
-#, fuzzy
 msgid ""
 "Please follow the instructions in the browser window. Press \"Yes\" if you "
 "have authenticated and \"No\" if you failed."
 msgstr ""
-"Bitte befolgen Sie die Anweisungen im Fenster des Webbrowsers. Drücken Sie "
-"„Yes“, falls Sie authentifiziert worden sind und „Nein“, falls dies "
-"fehlgeschlagen ist."
+"Bitte folgen Sie den Anweisungen im Browser-Fenster. Drücken Sie „Ja“, wenn "
+"Sie angemeldet sind und „Nein“ wenn Sie sich nicht anmelden konnten."
 
 #: src/plugins/facebook/fbtalker.cpp:880
 msgid "Facebook Service Web Authorization"
-msgstr ""
+msgstr "Web-Autorisierung für Facebook-Dienst"
 
 #: src/plugins/facebook/fbtalker.cpp:889
 msgid "Canceled by user."
-msgstr ""
+msgstr "Vom Benutzer abgebrochen."
 
 #: src/plugins/trash/trash.cpp:35
 msgid "Trash"
@@ -268,7 +257,7 @@ msgstr "Mülleimer"
 
 #: src/plugins/trash/trash.cpp:35
 msgid "Moves the specified file to trash."
-msgstr ""
+msgstr "Wirft die angegebene Datei in den Müll."
 
 #: src/plugins/trash/trash.cpp:49
 msgid "Move to trash..."
@@ -283,20 +272,17 @@ msgid "Move to Trash"
 msgstr "In den Müll verschieben"
 
 #: src/plugins/youtube/youtube.cpp:43
-#, fuzzy
 #| msgid "Youtube"
 msgid "YouTube"
 msgstr "YouTube"
 
 #: src/plugins/youtube/youtube.cpp:43
-#, fuzzy
 msgid "Uploads files to YouTube"
-msgstr "Hochgeladen zu YouTube"
+msgstr "Lädt Dateien auf YouTube hoch"
 
 #: src/plugins/youtube/youtube.cpp:61
-#, fuzzy
 msgid "Upload to YouTube"
-msgstr "Hochgeladen zu YouTube"
+msgstr "Auf YouTube hochladen"
 
 #: src/plugins/youtube/youtube.cpp:97
 msgid "Video information:"
@@ -307,6 +293,8 @@ msgid ""
 "You need to supply a username and a password to be able to upload videos to "
 "YouTube"
 msgstr ""
+"Sie müssen einen Benutzernamen und Passwort angeben, damit Sie Videos auf "
+"YouTube hochladen können."
 
 #: src/plugins/youtube/youtube.cpp:173
 msgid "Server"
@@ -317,9 +305,8 @@ msgid "Authentication for "
 msgstr ""
 
 #: src/plugins/youtube/youtubejob.cpp:158
-#, fuzzy
 msgid "Video recorded using Kamoso"
-msgstr "Video mit Kamoso aufgenommen "
+msgstr "Mit Kamoso aufgenommenes Video"
 
 #: src/plugins/youtube/youtubejob.cpp:164
 #, fuzzy
@@ -329,3 +316,4 @@ msgid ""
 msgstr ""
 "Dieses Video ist mit Kamoso, einem KDE-Programm, um mit Webcams zu spielen, "
 "aufgenommen worden"
+
