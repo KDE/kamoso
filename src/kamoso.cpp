@@ -64,7 +64,7 @@
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent),dirOperator(0), m_flashEnabled(true),m_activeMode(0)
+	: KMainWindow(parent),dirOperator(0), m_activeMode(0), m_flashEnabled(true)
 {
 	m_countdown = new CountdownWidget(this);
 	m_countdown->hide();
@@ -287,20 +287,20 @@ void Kamoso::configuration()
 	page->setupUi(widgetPage);
 	page->kcfg_saveUrl->setMode(KFile::Directory);
 	Q_EMIT(Settings::saveUrl());
-	dialog->addPage(widgetPage,i18n("General"),"ceneral");
+	dialog->addPage(widgetPage,i18n("General"),"configure");
 	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
 	Ui::pictureConfigWidget *pagePicture = new Ui::pictureConfigWidget;
 	QWidget *widgetPicturePage = new QWidget();
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
-	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"photoSettings");
+	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
 	
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);
 // 	selector->
 	selector->addPlugins(PluginManager::self()->pluginInfo());
-	dialog->addPage(selector, i18n("Plugin List"), "plugins");
+	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
 	
 	dialog->show();
 }
