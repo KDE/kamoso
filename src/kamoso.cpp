@@ -18,6 +18,12 @@
  *************************************************************************************/
 
 #include "kamoso.h"
+#include "config-nepomuk.h"
+#ifdef HAVE_NEPOMUK
+	#include <Nepomuk/ResourceManager>
+	#include <Nepomuk/Resource>
+	#include <Nepomuk/Tag>
+#endif
 #include <QLayout>
 #include <QPushButton>
 #include <QScrollBar>
@@ -175,6 +181,10 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
 	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
 	statusBar()->addWidget(tracker);
+
+	#ifdef HAVE_NEPOMUK
+		Nepomuk::ResourceManager::instance()->init();
+	#endif
 }
 
 void Kamoso::webcamAdded()

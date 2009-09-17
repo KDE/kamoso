@@ -23,6 +23,13 @@
 
 #include "webcamwidget.h"
 
+#include "config-nepomuk.h"
+#ifdef HAVE_NEPOMUK
+	#include <Nepomuk/ResourceManager>
+	#include <Nepomuk/Resource>
+	#include <Nepomuk/Tag>
+#endif
+
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QSlider>
@@ -38,6 +45,7 @@
 #include <vlc/vlc.h>
 #include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
+#include <KLocalizedString>
 
 typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
  Q_DECLARE_METATYPE(PhononDeviceAccessList)
@@ -138,10 +146,31 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	libvlc_video_take_snapshot(d->m_mp, path.toAscii().data(),640,480, &d->_vlcexcep);
 	if(d->raise(&d->_vlcexcep) && !dest.isLocalFile()) {
 		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
+		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
 		job->setAutoDelete(true);
 		job->start();
+	} else {
+		fileSaved(dest);
 	}
 	return d->raise(&d->_vlcexcep);
+}
+
+void WebcamWidget::fileSaved(const KUrl &dest) {
+	#ifdef HAVE_NEPOMUK
+		if(Nepomuk::ResourceManager::instance()->initialized()) {
+			qDebug() << dest;
+			Nepomuk::Tag tag("kamoso");
+			Nepomuk::Resource file(QUrl(dest.toLocalFile()));
+			file.addTag(tag);
+			file.addTag(tag);//Maybe is my computer, but I need to do ths twice, I'll it investigate later
+		}
+	#endif
+}
+
+void WebcamWidget::fileSaved(KJob *job)
+{
+	KIO::CopyJob *copy = static_cast<KIO::CopyJob *>(job);
+	fileSaved(copy->destUrl());
 }
 
 void WebcamWidget::recordVideo(bool sound)
@@ -171,6 +200,7 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
 	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
 	if(d->raise(&d->_vlcexcep)) {
 		KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
+		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
 		job->setAutoDelete(true);
 		job->start();
 	}
