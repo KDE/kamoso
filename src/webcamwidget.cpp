@@ -115,14 +115,13 @@ void WebcamWidget::playFile(const QString& file)
     
 	/* Get our media instance to use our window */
 	#if defined(Q_OS_WIN)
-		libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(this->winId()), &_vlcexcep );
+// 		libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(this->winId()), &_vlcexcep );
 		//libvlc_media_player_set_hwnd(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 	#elif defined(Q_OS_MAC)
-		libvlc_media_player_set_drawable(_mp, this->winId(), &_vlcexcep );
+// 		libvlc_media_player_set_drawable(_mp, this->winId(), &_vlcexcep );
 		//libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
 	#else //Linux
-		libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
-		//libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
+		libvlc_media_player_set_xwindow(d->m_mp, this->winId(), &d->_vlcexcep );
 	#endif
 	d->raise(&d->_vlcexcep);
 
@@ -191,7 +190,7 @@ void WebcamWidget::recordVideo(bool sound)
 	libvlc_media_add_option(d->_m,option,&d->_vlcexcep);
 	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
 	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
-	libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
+	libvlc_media_player_set_xwindow(d->m_mp, this->winId(), &d->_vlcexcep );
 	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
 }
 
