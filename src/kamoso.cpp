@@ -111,6 +111,10 @@ Kamoso::Kamoso(QWidget* parent)
 	m_modes.append(new BurstShootMode(this));
 	m_modes.append(new VideoShootMode(this));
 	
+	mainWidgetUi->modes->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	mainWidgetUi->actions->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	mainWidgetUi->configure->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+		
 	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
 	
 	foreach(ShootMode* mode, m_modes) {
@@ -220,7 +224,7 @@ void Kamoso::fillKcomboDevice()
 	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
 	for(i=deviceList.constBegin();i!=iEnd;++i)
 	{
-		mainWidgetUi->webcamCombo->addItem(i->description(),
+        mainWidgetUi->webcamCombo->addItem(QString("%1 - %2").arg(i->vendor(), i->description()),
 											i->udi());
 		//If kamoso is using this device, set it as currentIndex
 		if(i->udi() == deviceManager->playingDeviceUdi())

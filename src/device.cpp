@@ -32,7 +32,13 @@ Device::Device(const Solid::Device *device)
 		QStringList protocols = solidVideoDevice->supportedProtocols();
 		if ( protocols.contains( "video4linux" ) )
 		{
+            Solid::Device vendorDevice = *device;
+            while ( vendorDevice.isValid() && vendorDevice.vendor().isEmpty() ) {
+                vendorDevice = Solid::Device(vendorDevice.parentUdi());
+            }
+            m_vendor = vendorDevice.vendor();
 			QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
+			qDebug() << drivers;
 			if ( drivers.contains( "video4linux" ) )
 			{
 				m_path = solidVideoDevice->driverHandle( "video4linux" ).toString();
@@ -59,3 +65,7 @@ QString Device::udi() const
 	return m_udi;
 }
 
+QString Device::vendor() const
+{
+    return m_vendor;
+}
