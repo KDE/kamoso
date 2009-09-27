@@ -224,7 +224,7 @@ void Kamoso::fillKcomboDevice()
 	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
 	for(i=deviceList.constBegin();i!=iEnd;++i)
 	{
-        mainWidgetUi->webcamCombo->addItem(QString("%1 - %2").arg(i->vendor(), i->description()),
+        mainWidgetUi->webcamCombo->addItem(i18nc("display vendor and device description","%1 - %2",i->vendor(), i->description()),
 											i->udi());
 		//If kamoso is using this device, set it as currentIndex
 		if(i->udi() == deviceManager->playingDeviceUdi())
