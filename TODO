@@ -1,8 +1,8 @@
 Todo to reach 1.0 release:
-	[AP]-Remove context menu entries
++	[AP]-Remove context menu entries
 +	[AP]-Job manager
-	[AF]-Youtube
++	[AF]-Youtube
 +	[AF]-Use KDE capture device
 +	[AP]-Implement "modes"
-	[AF]-Implement burst mode
-	[--]-Make surre it works with KDE 4.3
++	[AF]-Implement burst mode
++	[AF]-Make surre it works with KDE 4.3
