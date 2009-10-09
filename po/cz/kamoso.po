@@ -1,0 +1,316 @@
+# German translations for PACKAGE package
+# German messages for PACKAGE.
+# Copyright (C) 2009 This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Panagiotis Papadopoulos <pano_90@gmx.net>, 2009.
+# Pavel Fric <pavelfric@seznam.cz>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-09-12 18:48+0200\n"
+"PO-Revision-Date: 2009-09-29 21:45+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: src/burstshootmode.cpp:63 src/photoshootmode.cpp:72
+msgid "Take pictures"
+msgstr "Sejmout obrázky"
+
+#: src/kamoso.cpp:280
+msgid "General"
+msgstr "Obecné"
+
+#: src/kamoso.cpp:287
+msgid "Photo Settings"
+msgstr "Nastavení pro fotografie"
+
+#: src/kamoso.cpp:293
+msgid "Plugin List"
+msgstr "Seznam přídavných modulů"
+
+#: src/kamoso.cpp:518
+msgid "Settings"
+msgstr "Nastavení"
+
+#: src/kamosojobtracker.cpp:57
+#| msgid ", "
+msgctxt "Used to join urls"
+msgid ", "
+msgstr ", "
+
+#: src/kamosojobtracker.cpp:57, kde-format
+msgid "Done: %1"
+msgstr "Hotovo: %1"
+
+#: src/main.cpp:27
+msgid "Webcam picture retriever"
+msgstr "Program pro získávání obrázků z webové kamery"
+
+#: src/main.cpp:28
+msgid "(C) 2008-2009 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2009 Alex Fiestas a Aleix Pol"
+
+#: src/main.cpp:29
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:29
+msgid "Semaphore hacker"
+msgstr "Lamač semaphore"
+
+#: src/main.cpp:30
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:30
+msgid "Coffee drinker"
+msgstr "Piják kafe"
+
+#: src/photoshootmode.cpp:31
+msgid "Use Flash"
+msgstr "Použít blesk"
+
+#: src/pluginmanager.cpp:73
+#, kde-format
+msgid "Error while loading the plugin '%1'"
+msgstr "Chyba při nahrávání přídavného modulu '%1'"
+
+#: src/videoshootmode.cpp:31
+msgid "Record Audio"
+msgstr "Nahrávat zvuk"
+
+#: src/videoshootmode.cpp:66
+msgid "Take a video"
+msgstr "Snímat video"
+
+#: src/whitewidget.cpp:40
+msgid "Smile! :)"
+msgstr "Úsměv! :-)"
+
+#: src/plugins/execute/execute.cpp:31
+msgid "Execute"
+msgstr "Provést"
+
+#: src/plugins/execute/execute.cpp:31
+msgid "Runs a viewer for the specified file."
+msgstr "Spustí prohlížeč pro určený soubor."
+
+#: src/plugins/execute/execute.cpp:45
+msgid "Open..."
+msgstr "Otevřít..."
+
+#: src/plugins/execute/execute.cpp:60
+#, kde-format
+msgid "Could not open %1"
+msgstr "Nepodařilo se otevřít %1"
+
+#: src/plugins/facebook/facebook.cpp:34
+msgid "Facebook support"
+msgstr "Podpora pro Facebook"
+
+#: src/plugins/facebook/facebook.cpp:34
+msgid "Allows to communicate with Facebook"
+msgstr "Umožní spojit se se službou Facebook"
+
+#: src/plugins/facebook/facebook.cpp:55
+msgid "Upload to Facebook..."
+msgstr "Nahrát na Facebook..."
+
+#: src/plugins/facebook/facebook.cpp:133 src/plugins/facebook/facebook.cpp:141
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/plugins/facebook/facebook.cpp:142
+msgid "Photos taken with the webcam"
+msgstr "S webovou kamerou sejmuté fotografie"
+
+#: src/plugins/facebook/fbalbum.cpp:45
+msgid "Facebook New Album"
+msgstr "Nové album na službě Facebook"
+
+#: src/plugins/facebook/fbalbum.cpp:58
+msgid "Title of the album that will be created (required)."
+msgstr "Název alba, které bude vytvořeno (vyžadováno)."
+
+#: src/plugins/facebook/fbalbum.cpp:62
+msgid "Location of the album that will be created (optional)."
+msgstr "Umístění alba, které bude vytvořeno (volitelné)."
+
+#: src/plugins/facebook/fbalbum.cpp:66
+msgid "Description of the album that will be created (optional)."
+msgstr "Popis alba, které bude vytvořeno (volitelné)."
+
+#: src/plugins/facebook/fbalbum.cpp:71
+msgid "Privacy setting of the album that will be created (required)."
+msgstr "Nastavení soukromí pro album, které bude vytvořeno (vyžadováno)."
+
+#: src/plugins/facebook/fbalbum.cpp:73
+msgid "Only Friends"
+msgstr "Pouze přátelé"
+
+#: src/plugins/facebook/fbalbum.cpp:75
+msgid "Friends of Friends"
+msgstr "Přátelé našich přátel"
+
+#: src/plugins/facebook/fbalbum.cpp:77
+msgid "My Networks and Friends"
+msgstr "Moje síť a přátelé"
+
+#: src/plugins/facebook/fbalbum.cpp:79
+msgid "Everyone"
+msgstr "Každý"
+
+#: src/plugins/facebook/fbalbum.cpp:82
+msgid "Title:"
+msgstr "Název:"
+
+#: src/plugins/facebook/fbalbum.cpp:83
+msgid "Location:"
+msgstr "Umístění:"
+
+#: src/plugins/facebook/fbalbum.cpp:84
+msgid "Description:"
+msgstr "Popis:"
+
+#: src/plugins/facebook/fbalbum.cpp:85
+msgid "Privacy:"
+msgstr "Soukromí:"
+
+#: src/plugins/facebook/fbtalker.cpp:179
+msgid "Validate previous session..."
+msgstr "Potvrdit platnost předchozího sezení..."
+
+#: src/plugins/facebook/fbtalker.cpp:199
+msgid "Logging in to Facebook service..."
+msgstr "Přihlášení ke službě Facebook..."
+
+#: src/plugins/facebook/fbtalker.cpp:390
+msgid ""
+"Please follow the instructions in the browser window. Press \"OK\" when done."
+msgstr ""
+"Následujte, prosím, pokyny v okně prohlížeče. Stiskněte „OK“, "
+"až budete hotový."
+
+#: src/plugins/facebook/fbtalker.cpp:392
+msgid "Facebook Application Authorization"
+msgstr "Schválení aplikace Facebook"
+
+#: src/plugins/facebook/fbtalker.cpp:700
+msgid "The service is not available at this time."
+msgstr "Služba v současnosti není dostupná."
+
+#: src/plugins/facebook/fbtalker.cpp:703
+msgid "The application has reached the maximum number of requests allowed."
+msgstr "Aplikace dosáhla největšího povoleného počtu požadavků."
+
+#: src/plugins/facebook/fbtalker.cpp:706
+msgid "Invalid session key or session expired. Try to log in again."
+msgstr ""
+"Buď není platný klíč k sezení, nebo sezení vypršelo. Pokuste se přihlásit "
+"znovu."
+
+#: src/plugins/facebook/fbtalker.cpp:709
+msgid "Invalid album ID."
+msgstr "Neplatné ID alba."
+
+#: src/plugins/facebook/fbtalker.cpp:712
+msgid "Album is full."
+msgstr "Album je plné."
+
+#: src/plugins/facebook/fbtalker.cpp:715
+msgid "Missing or invalid file."
+msgstr "Chybějící nebo neplatný soubor."
+
+#: src/plugins/facebook/fbtalker.cpp:718
+msgid "Too many unapproved photos pending."
+msgstr "Příliš mnoho fotografií je neschváleno."
+
+#: src/plugins/facebook/fbtalker.cpp:878
+msgid ""
+"Please follow the instructions in the browser window. Press \"Yes\" if you "
+"have authenticated and \"No\" if you failed."
+msgstr ""
+"Následujte, prosím, pokyny v okně prohlížeče. Stiskněte „Ano“, pokud "
+"jste se přihlásil a „Ne“, pokud se vám nepodařilo se přihlásit."
+
+#: src/plugins/facebook/fbtalker.cpp:880
+msgid "Facebook Service Web Authorization"
+msgstr "Ověření webu pro službu Facebook"
+
+#: src/plugins/facebook/fbtalker.cpp:889
+msgid "Canceled by user."
+msgstr "Zrušeno uživatelem."
+
+#: src/plugins/trash/trash.cpp:35
+msgid "Trash"
+msgstr "Koš"
+
+#: src/plugins/trash/trash.cpp:35
+msgid "Moves the specified file to trash."
+msgstr "Přesune určený soubor do koše."
+
+#: src/plugins/trash/trash.cpp:49
+msgid "Move to trash..."
+msgstr "Přesunout do koše..."
+
+#: src/plugins/trash/trash.cpp:61
+msgid "Are you sure you want to delete these files?"
+msgstr "Opravdu chcete smazat tyto soubory?"
+
+#: src/plugins/trash/trash.cpp:62
+msgid "Move to Trash"
+msgstr "Přesunout do koše"
+
+#: src/plugins/youtube/youtube.cpp:43
+#| msgid "Youtube"
+msgid "YouTube"
+msgstr "YouTube"
+
+#: src/plugins/youtube/youtube.cpp:43
+msgid "Uploads files to YouTube"
+msgstr "Nahraje soubory na službu YouTube"
+
+#: src/plugins/youtube/youtube.cpp:61
+msgid "Upload to YouTube"
+msgstr "Nahrát na YouTube"
+
+#: src/plugins/youtube/youtube.cpp:97
+msgid "Video information:"
+msgstr "Informace o videu:"
+
+#: src/plugins/youtube/youtube.cpp:172
+msgid ""
+"You need to supply a username and a password to be able to upload videos to "
+"YouTube"
+msgstr ""
+"Musíte zadat uživatelovo jméno a heslo, abyste mohl nahrát videa "
+"na YouTube."
+
+#: src/plugins/youtube/youtube.cpp:173
+msgid "Server"
+msgstr "Server"
+
+#: src/plugins/youtube/youtube.cpp:174
+msgid "Authentication for "
+msgstr "Schválení"
+
+#: src/plugins/youtube/youtubejob.cpp:158
+msgid "Video recorded using Kamoso"
+msgstr "Video nahrané pomocí  Kamosa"
+
+#: src/plugins/youtube/youtubejob.cpp:164
+msgid ""
+"This video has been recorded using Kamoso, a KDE software to play with "
+"webcams!"
+msgstr ""
+"Toto video bylo nahráno pomocí Kamosa, programem prostředí KDE pro hraní si "
+"s webovými kamerami!"
+
+
