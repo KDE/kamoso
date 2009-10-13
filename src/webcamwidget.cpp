@@ -176,7 +176,7 @@ void WebcamWidget::recordVideo(bool sound)
 {
 	#warning replace /tmp/ by api
 	d->videoTmpPath = QString("/tmp/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
-	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+d->videoTmpPath+"}'}");
+	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{audio-sync,vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+d->videoTmpPath+"}'}");
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
 		inputAlsa.append(phononCaptureDevice());
