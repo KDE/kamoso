@@ -21,8 +21,6 @@
 #define WEBCAMWIDGET_H
 
 #include <QWidget>
-#include <KJob>
-
 class KUrl;
 class QVBoxLayout;
 class QPushButton;
@@ -44,9 +42,6 @@ public slots:
 	bool takePhoto(const KUrl &dest);
 	void recordVideo(bool sound);
 	void stopRecording(const KUrl& destUrl);
-	void fileSaved(KJob *);
-	void fileSaved(const KUrl &dest);
-
 private:
 	QString phononCaptureDevice();
 	class Private;

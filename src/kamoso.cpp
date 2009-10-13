@@ -18,12 +18,6 @@
  *************************************************************************************/
 
 #include "kamoso.h"
-#include "config-nepomuk.h"
-#ifdef HAVE_NEPOMUK
-	#include <Nepomuk/ResourceManager>
-	#include <Nepomuk/Resource>
-	#include <Nepomuk/Tag>
-#endif
 #include <QLayout>
 #include <QPushButton>
 #include <QScrollBar>
@@ -111,10 +105,6 @@ Kamoso::Kamoso(QWidget* parent)
 	m_modes.append(new BurstShootMode(this));
 	m_modes.append(new VideoShootMode(this));
 	
-	mainWidgetUi->modes->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	mainWidgetUi->actions->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	mainWidgetUi->configure->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-		
 	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
 	
 	foreach(ShootMode* mode, m_modes) {
@@ -185,10 +175,6 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
 	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
 	statusBar()->addWidget(tracker);
-
-	#ifdef HAVE_NEPOMUK
-		Nepomuk::ResourceManager::instance()->init();
-	#endif
 }
 
 void Kamoso::webcamAdded()
@@ -224,7 +210,7 @@ void Kamoso::fillKcomboDevice()
 	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
 	for(i=deviceList.constBegin();i!=iEnd;++i)
 	{
-		mainWidgetUi->webcamCombo->addItem(i18nc("display vendor and device description","%1 - %2",i->vendor(), i->description()),
+		mainWidgetUi->webcamCombo->addItem(i->description(),
 											i->udi());
 		//If kamoso is using this device, set it as currentIndex
 		if(i->udi() == deviceManager->playingDeviceUdi())
