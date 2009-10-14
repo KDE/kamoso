@@ -102,6 +102,8 @@ void WebcamWidget::playFile(const QString& file)
 	d->_m = libvlc_media_new (d->_vlcinstance, mrl, &d->_vlcexcep);
 	d->raise(&d->_vlcexcep);
 
+	libvlc_media_add_option(d->_m,"v4l2-controls-reset",&d->_vlcexcep);
+
 	libvlc_media_player_set_media (d->m_mp, d->_m, &d->_vlcexcep);
 	d->raise(&d->_vlcexcep);
     
@@ -158,7 +160,6 @@ void WebcamWidget::recordVideo(bool sound)
 	
 	#warning shouldnt we raise all these exceptions?
 	libvlc_media_add_option(d->_m,"sout-display-delay=40",&d->_vlcexcep);
-	libvlc_media_add_option(d->_m,"v4l2-standard=0",&d->_vlcexcep);
 	libvlc_media_add_option(d->_m,option,&d->_vlcexcep);
 	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
 	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
