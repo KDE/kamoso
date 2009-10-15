@@ -13,7 +13,7 @@
 	<group name="PictureSettings">
 		<entry name="photoTime" type="Double" key="photoTime">
 			<label>How much seconds kamoso waits before make the picture.</label>
-			<default>20</default>
+			<default>2</default>
 		</entry>
 	</group>
 </kcfg>
