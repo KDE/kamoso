@@ -51,6 +51,7 @@
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
 #include "ui_mainWidget.h"
+#include "ui_videoConfig.h"
 #include "whitewidgetmanager.h"
 #include "devicemanager.h"
 #include "pluginmanager.h"
@@ -299,6 +300,11 @@ void Kamoso::configuration()
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
+	
+	Ui::webcamConfigWidget *pageWebcam = new Ui::webcamConfigWidget;
+	QWidget *widgetWebcamPage = new QWidget();
+	pageWebcam->setupUi(widgetWebcamPage);
+	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
 	
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);

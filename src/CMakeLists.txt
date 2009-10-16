@@ -26,7 +26,7 @@ set(kamoso_SRCS
 	kamosojobtracker.cpp 
 )
 
-set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui)
+set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui videoConfig.ui)
 
 kde4_add_library(kamosoplugin SHARED kamosojob.cpp kamosoplugin.cpp)
 target_link_libraries(kamosoplugin ${KDE4_KDEUI_LIBS})
