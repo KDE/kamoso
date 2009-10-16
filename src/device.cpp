@@ -53,17 +53,18 @@ Device::Device(const Solid::Device *device)
 
 	KConfig configFile("kamosoDevices");
 
-	if(!configFile.hasGroup(m_udi)) {
-		qDebug() << "Creating new config for device: " << m_udi;
+//No matter if we already have or not those values, readEntry must have a default value
+// 	if(!configFile.hasGroup(m_udi)) {
+// 		qDebug() << "Creating new config for device: " << m_udi;
 		config = configFile.group(m_udi);
-		setBrightness(1.0);
-		setContrast(1.0);
-		setSaturation(1.0);
-		setGamma(1.0);
-		setHue(0);
-	}else{
-		config = configFile.group(m_udi);
-	}
+// 		setBrightness(1.0);
+// 		setContrast(1.0);
+// 		setSaturation(1.0);
+// 		setGamma(1.0);
+// 		setHue(0);
+// 	}else{
+// 		config = configFile.group(m_udi);
+// 	}
 }
 
 Device::~Device()
@@ -116,30 +117,25 @@ void Device::setHue(int level)
 
 float Device::brightness() const
 {
-	float f;
-	return config.readEntry("brightness",f);
+	return config.readEntry("brightness",1.0f);
 }
 
 float Device::contrast() const
 {
-	float f;
-	return config.readEntry("contrast",f);
+	return config.readEntry("contrast",1.0f);
 }
 
 float Device::saturation() const
 {
-	float f;
-	return config.readEntry("saturation",f);
+	return config.readEntry("saturation",1.0f);
 }
 
 float Device::gamma() const
 {
-	float f;
-	return config.readEntry("gamma",f);
+	return config.readEntry("gamma",1.0f);
 }
 
 int Device::hue() const
 {
-	int i;
-	return config.readEntry("hue",i);
+	return config.readEntry("hue",0);
 }
