@@ -73,7 +73,7 @@ QString DeviceManager::defaultDeviceUdi() const
 
 Device DeviceManager::playingDevice() const
 {
-	return m_device;
+	return m_playingDevice;
 }
 
 QString DeviceManager::playingDeviceUdi() const
@@ -141,9 +141,9 @@ void DeviceManager::webcamPlaying(const QString &udi)
 		qDebug() << device.udi();
 		if(device.udi() == udi) {
 			qDebug() << "EQuals!";
-			m_device = device;
+			m_playingDevice = device;
 			m_playingUdi = udi;
-			m_playingPath = m_device.path();
+			m_playingPath = m_playingDevice.path();
 			break;
 		}
 	}
