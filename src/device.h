@@ -21,6 +21,8 @@
 #define DEVICE_H
 
 #include <solid/device.h>
+#include <KConfigGroup>
+
 class Device
 {
 	public:
@@ -30,13 +32,23 @@ class Device
 		QString udi() const;
 		QString path() const;
 		QString vendor() const;
-        
+        void setBrightness(float level);
+		void setContrast(float level);
+		void setSaturation(float level);
+		void setGamma(float level);
+		void setHue(int level);
+		float brightness() const;
+		float contrast() const;
+		float saturation() const;
+		float gamma() const;
+		int hue() const;
 	private:
 		QString queryv4lInfo();
 		QString m_description;
 		QString m_udi;
 		QString m_path;
 		QString m_vendor;
+		KConfigGroup config;
 };
 
 #endif
