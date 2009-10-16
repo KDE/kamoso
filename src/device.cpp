@@ -22,6 +22,9 @@
 #include <KConfig>
 #include <QDebug>
 
+Device::Device()
+{}
+
 Device::Device(const Solid::Device *device)
 {
 	m_udi = device->udi();

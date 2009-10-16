@@ -26,6 +26,7 @@
 class Device
 {
 	public:
+		Device();
 		Device(const Solid::Device*);
 		~Device();
 		QString description() const;
