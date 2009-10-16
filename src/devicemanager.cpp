@@ -56,6 +56,11 @@ int DeviceManager::numberOfDevices() const
 	return m_deviceList.size();
 }
 
+Device DeviceManager::defaultDevice() const
+{
+	return m_deviceList.first();
+}
+
 QString DeviceManager::defaultDevicePath() const
 {
 	return m_deviceList.first().path();
@@ -64,6 +69,11 @@ QString DeviceManager::defaultDevicePath() const
 QString DeviceManager::defaultDeviceUdi() const
 {
 	return m_deviceList.first().udi();
+}
+
+Device DeviceManager::playingDevice() const
+{
+	return m_device;
 }
 
 QString DeviceManager::playingDeviceUdi() const
@@ -132,8 +142,9 @@ void DeviceManager::webcamPlaying(const QString &udi)
 	{
 		if(i->udi() == udi)
 		{
-			m_playingUdi = i->udi();
-			m_playingPath = i->path();
+			m_device = *i;
+			m_playingUdi = m_device.udi();
+			m_playingPath = m_device.path();
 		}
 	}
 }
