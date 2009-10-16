@@ -140,7 +140,6 @@ void DeviceManager::webcamPlaying(const QString &udi)
 	foreach(device,m_deviceList) {
 		qDebug() << device.udi();
 		if(device.udi() == udi) {
-			qDebug() << "EQuals!";
 			m_playingDevice = device;
 			m_playingUdi = udi;
 			m_playingPath = m_playingDevice.path();
