@@ -56,7 +56,7 @@ int DeviceManager::numberOfDevices() const
 	return m_deviceList.size();
 }
 
-Device DeviceManager::defaultDevice() const
+const Device& DeviceManager::defaultDevice()
 {
 	return m_deviceList.first();
 }
@@ -71,7 +71,7 @@ QString DeviceManager::defaultDeviceUdi() const
 	return m_deviceList.first().udi();
 }
 
-Device DeviceManager::playingDevice() const
+const Device& DeviceManager::playingDevice()
 {
 	return m_playingDevice;
 }

@@ -30,11 +30,11 @@ public:
 	static DeviceManager* self();
 	int numberOfDevices() const;
 	QList<Device> devices() const;
-	Device defaultDevice() const;
+	const Device& defaultDevice();
 	QString defaultDevicePath() const;
 	QString defaultDeviceUdi() const;
 
-	Device playingDevice() const;
+	const Device& playingDevice();
 	QString playingDeviceUdi() const;
 	QString playingDevicePath() const;
 	bool hasDevices() const;
