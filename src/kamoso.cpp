@@ -306,6 +306,14 @@ void Kamoso::configuration()
 	pageWebcam->setupUi(widgetWebcamPage);
 	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
 	
+	//the values are in X.X form while the sliders use integer so we device by 100;
+	const Device device = deviceManager->playingDevice();
+	pageWebcam->brightnessSlider->setValue(device.brightness()*100);
+	pageWebcam->contrastSlider->setValue(device.contrast()*100);
+	pageWebcam->saturationSlider->setValue(device.saturation()*100);
+	pageWebcam->gammaSlider->setValue(device.gamma()*100);
+	pageWebcam->hueSlider->setValue(device.hue());
+	
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);
 // 	selector->
