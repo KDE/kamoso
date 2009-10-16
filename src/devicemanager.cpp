@@ -136,15 +136,15 @@ void DeviceManager::deviceAdded(const QString &udi)
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
-	m_playingUdi = udi;
-	QList <Device> ::iterator i;
-	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
-	{
-		if(i->udi() == udi)
-		{
-			m_device = *i;
-			m_playingUdi = m_device.udi();
+	Device device;
+	foreach(device,m_deviceList) {
+		qDebug() << device.udi();
+		if(device.udi() == udi) {
+			qDebug() << "EQuals!";
+			m_device = device;
+			m_playingUdi = udi;
 			m_playingPath = m_device.path();
+			break;
 		}
 	}
 }
