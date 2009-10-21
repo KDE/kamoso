@@ -29,14 +29,12 @@ class Device
 		QString description() const;
 		QString udi() const;
 		QString path() const;
-		QString vendor() const;
-        
+	
 	private:
 		QString queryv4lInfo();
 		QString m_description;
 		QString m_udi;
 		QString m_path;
-		QString m_vendor;
 };
 
 #endif

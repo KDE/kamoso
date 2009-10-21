@@ -23,13 +23,6 @@
 
 #include "webcamwidget.h"
 
-#include "config-nepomuk.h"
-#ifdef HAVE_NEPOMUK
-	#include <Nepomuk/ResourceManager>
-	#include <Nepomuk/Resource>
-	#include <Nepomuk/Tag>
-#endif
-
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QSlider>
@@ -45,7 +38,6 @@
 #include <vlc/vlc.h>
 #include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
-#include <KLocalizedString>
 
 typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
  Q_DECLARE_METATYPE(PhononDeviceAccessList)
@@ -110,18 +102,21 @@ void WebcamWidget::playFile(const QString& file)
 	d->_m = libvlc_media_new (d->_vlcinstance, mrl, &d->_vlcexcep);
 	d->raise(&d->_vlcexcep);
 
+	libvlc_media_add_option(d->_m,"v4l2-controls-reset",&d->_vlcexcep);
+
 	libvlc_media_player_set_media (d->m_mp, d->_m, &d->_vlcexcep);
 	d->raise(&d->_vlcexcep);
     
 	/* Get our media instance to use our window */
 	#if defined(Q_OS_WIN)
-// 		libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(this->winId()), &_vlcexcep );
+		libvlc_media_player_set_drawable(_mp, reinterpret_cast<unsigned int>(this->winId()), &_vlcexcep );
 		//libvlc_media_player_set_hwnd(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 	#elif defined(Q_OS_MAC)
-// 		libvlc_media_player_set_drawable(_mp, this->winId(), &_vlcexcep );
+		libvlc_media_player_set_drawable(_mp, this->winId(), &_vlcexcep );
 		//libvlc_media_player_set_agl (_mp, _videoWidget->winId(), &_vlcexcep); // for vlc 1.0
 	#else //Linux
-		libvlc_media_player_set_xwindow(d->m_mp, this->winId(), &d->_vlcexcep );
+		libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
+		//libvlc_media_player_set_xwindow(_mp, _videoWidget->winId(), &_vlcexcep ); // for vlc 1.0
 	#endif
 	d->raise(&d->_vlcexcep);
 
@@ -145,31 +140,10 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	libvlc_video_take_snapshot(d->m_mp, path.toAscii().data(),640,480, &d->_vlcexcep);
 	if(d->raise(&d->_vlcexcep) && !dest.isLocalFile()) {
 		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
-		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
 		job->setAutoDelete(true);
 		job->start();
-	} else {
-		fileSaved(dest);
 	}
 	return d->raise(&d->_vlcexcep);
-}
-
-void WebcamWidget::fileSaved(const KUrl &dest) {
-	#ifdef HAVE_NEPOMUK
-		if(Nepomuk::ResourceManager::instance()->initialized()) {
-			qDebug() << dest;
-			Nepomuk::Tag tag("kamoso");
-			Nepomuk::Resource file(QUrl(dest.toLocalFile()));
-			file.addTag(tag);
-			file.addTag(tag);//Maybe is my computer, but I need to do ths twice, I'll it investigate later
-		}
-	#endif
-}
-
-void WebcamWidget::fileSaved(KJob *job)
-{
-	KIO::CopyJob *copy = static_cast<KIO::CopyJob *>(job);
-	fileSaved(copy->destUrl());
 }
 
 void WebcamWidget::recordVideo(bool sound)
@@ -186,11 +160,10 @@ void WebcamWidget::recordVideo(bool sound)
 	
 	#warning shouldnt we raise all these exceptions?
 	libvlc_media_add_option(d->_m,"sout-display-delay=40",&d->_vlcexcep);
-	libvlc_media_add_option(d->_m,"v4l2-standard=0",&d->_vlcexcep);
 	libvlc_media_add_option(d->_m,option,&d->_vlcexcep);
 	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
 	d->m_mp = libvlc_media_player_new_from_media(d->_m,&d->_vlcexcep);
-	libvlc_media_player_set_xwindow(d->m_mp, this->winId(), &d->_vlcexcep );
+	libvlc_media_player_set_drawable(d->m_mp, this->winId(), &d->_vlcexcep );
 	libvlc_media_player_play (d->m_mp, &d->_vlcexcep );
 }
 
@@ -199,7 +172,6 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
 	libvlc_media_player_stop(d->m_mp,&d->_vlcexcep);
 	if(d->raise(&d->_vlcexcep)) {
 		KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
-		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
 		job->setAutoDelete(true);
 		job->start();
 	}
