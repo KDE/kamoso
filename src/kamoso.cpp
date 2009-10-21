@@ -62,18 +62,11 @@ Kamoso::Kamoso(QWidget* parent)
 {
 	m_countdown = new CountdownWidget(this);
 	m_countdown->hide();
-	
-	//Check the initial and basic config, and ask for it they don't exist
-	this->checkInitConfig();
 
 	deviceManager = DeviceManager::self();
 	connect(deviceManager,SIGNAL(deviceRegistered(QString)),SLOT(webcamAdded()));
 	connect(deviceManager,SIGNAL(deviceUnregistered(QString)),SLOT(webcamRemoved()));
 	
-	qDebug() << "Settings of kamoso:";
-	qDebug() << "saveUrl: " << Settings::saveUrl();
-	qDebug() << "photoTime: " << Settings::photoTime();
-
 	mainWidgetUi = new Ui::mainWidget;
 	mainWidget = new QWidget(this);
 	mainWidgetUi->setupUi(mainWidget);
@@ -129,7 +122,7 @@ Kamoso::Kamoso(QWidget* parent)
 	thumbnailView = new ThumbnailView(this);
 	thumbnailView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	thumbnailView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	dirOperator = new KDirOperator(saveUrl, this);
+	dirOperator = new KDirOperator(KUrl(), this);
 	dirOperator->setMinimumHeight(100);
 	dirOperator->setInlinePreviewShown(true);
 	dirOperator->setIconsZoom(50);
@@ -175,6 +168,20 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
 	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
 	statusBar()->addWidget(tracker);
+	
+	QTimer::singleShot(0, this, SLOT(initialize()));
+}
+
+void Kamoso::initialize()
+{
+	//Check the initial and basic config, and ask for it it doesn't exist
+	checkInitConfig();
+	
+	qDebug() << "Settings of kamoso:";
+	qDebug() << "saveUrl: " << Settings::saveUrl();
+	qDebug() << "photoTime: " << Settings::photoTime();
+	
+	dirOperator->setUrl(Settings::saveUrl(), false);
 }
 
 void Kamoso::webcamAdded()
@@ -197,7 +204,7 @@ void Kamoso::startVideo(bool sound)
 
 void Kamoso::stopVideo()
 {
-	KUrl finalPath = saveUrl;
+	KUrl finalPath = Settings::saveUrl();
 	finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 	webcam->stopRecording(finalPath);
 	webcam->playFile(deviceManager->playingDevicePath());
@@ -243,15 +250,16 @@ void Kamoso::webcamChanged(int index)
 void Kamoso::checkInitConfig()
 {
 	//If kamoso doesn't know where to save the taken photos, ask for it
-	if(!Settings::saveUrl().isEmpty()) {
-		saveUrl = Settings::saveUrl();
-	} else {
+	if(Settings::saveUrl().isEmpty()) {
 		KDirSelectDialog dirs;
-		dirs.showButton(KDialog::Cancel,false);
-		if(dirs.exec() && dirs.url().isValid()) {
-			saveUrl = dirs.url();
-			Settings::setSaveUrl(saveUrl);
-		}
+		dirs.showButton(KDialog::Cancel, false);
+		
+		KUrl url;
+		if(dirs.exec() && dirs.url().isValid())
+			url=dirs.url();
+		else
+			url=QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+		Settings::setSaveUrl(url);
 	}
 }
 	
@@ -302,7 +310,7 @@ void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
-	dirOperator->setUrl(Settings::saveUrl(),false);
+	dirOperator->setUrl(Settings::saveUrl(), false);
 }
 
 /**
@@ -349,7 +357,7 @@ void Kamoso::takePhoto()
 	}
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
-	KUrl photoPlace = saveUrl;
+	KUrl photoPlace = Settings::saveUrl();
 	photoPlace.addPath(QString("kamoso_%1.png").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 
 	webcam->takePhoto(photoPlace);
@@ -418,7 +426,7 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 	
 	if (!filename.isEmpty())
 	{
-		KUrl path = saveUrl;
+		KUrl path = Settings::saveUrl();
 		path.addPath(filename);
 		openThumbnail(QList<KUrl>() << path);
 	}
