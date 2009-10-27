@@ -21,7 +21,7 @@
 #define DEVICE_H
 
 #include <solid/device.h>
-#include <KConfigGroup>
+#include <KConfig>
 
 class Device
 {
@@ -49,7 +49,7 @@ class Device
 		QString m_udi;
 		QString m_path;
 		QString m_vendor;
-		KConfigGroup config;
+		KConfig* config;
 };
 
 #endif
