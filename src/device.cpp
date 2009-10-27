@@ -19,7 +19,7 @@
 
 #include "device.h"
 #include <solid/video.h>
-#include <KConfig>
+#include <KConfigGroup>
 #include <QDebug>
 
 Device::Device()
@@ -51,20 +51,7 @@ Device::Device(const Solid::Device *device)
 	}
 
 
-	KConfig configFile("kamosoDevices");
-
-//No matter if we already have or not those values, readEntry must have a default value
-// 	if(!configFile.hasGroup(m_udi)) {
-// 		qDebug() << "Creating new config for device: " << m_udi;
-		config = configFile.group(m_udi);
-// 		setBrightness(1.0);
-// 		setContrast(1.0);
-// 		setSaturation(1.0);
-// 		setGamma(1.0);
-// 		setHue(0);
-// 	}else{
-// 		config = configFile.group(m_udi);
-// 	}
+	config = new KConfig("kamosoDevices");
 }
 
 Device::~Device()
@@ -92,50 +79,52 @@ QString Device::vendor() const
 
 void Device::setBrightness(float level)
 {
-	config.writeEntry("brightness",level);
+	qDebug() << "New brightness " << level;
+	config->group(m_udi).writeEntry("brightness",level);
+	config->sync();
 }
 
 void Device::setContrast(float level)
 {
-	config.writeEntry("contrast",level);
+	config->group(m_udi).writeEntry("contrast",level);
 }
 
 void Device::setSaturation(float level)
 {
-	config.writeEntry("saturation",level);
+	config->group(m_udi).writeEntry("saturation",level);
 }
 
 void Device::setGamma(float level)
 {
-	config.writeEntry("gamma",level);
+	config->group(m_udi).writeEntry("gamma",level);
 }
 
 void Device::setHue(int level)
 {
-	config.writeEntry("hue",level);
+	config->group(m_udi).writeEntry("hue",level);
 }
 
 float Device::brightness() const
 {
-	return config.readEntry("brightness",1.0f);
+	return config->group(m_udi).readEntry("brightness",1.0f);
 }
 
 float Device::contrast() const
 {
-	return config.readEntry("contrast",1.0f);
+	return config->group(m_udi).readEntry("contrast",1.0f);
 }
 
 float Device::saturation() const
 {
-	return config.readEntry("saturation",1.0f);
+	return config->group(m_udi).readEntry("saturation",1.0f);
 }
 
 float Device::gamma() const
 {
-	return config.readEntry("gamma",1.0f);
+	return config->group(m_udi).readEntry("gamma",1.0f);
 }
 
 int Device::hue() const
 {
-	return config.readEntry("hue",0);
+	return config->group(m_udi).readEntry("hue",0);
 }
