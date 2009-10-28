@@ -33,15 +33,15 @@ class Device
 		QString udi() const;
 		QString path() const;
 		QString vendor() const;
-        void setBrightness(float level);
-		void setContrast(float level);
-		void setSaturation(float level);
-		void setGamma(float level);
+        void setBrightness(int level);
+		void setContrast(int level);
+		void setSaturation(int level);
+		void setGamma(int level);
 		void setHue(int level);
-		float brightness() const;
-		float contrast() const;
-		float saturation() const;
-		float gamma() const;
+		int brightness() const;
+		int contrast() const;
+		int saturation() const;
+		int gamma() const;
 		int hue() const;
 	private:
 		QString queryv4lInfo();

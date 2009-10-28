@@ -71,51 +71,59 @@ QString Device::vendor() const
 	return m_vendor;
 }
 
-void Device::setBrightness(float level)
+void Device::setBrightness(int level)
 {
 	qDebug() << "New brightness " << level;
 	config->group(m_udi).writeEntry("brightness",level);
 	config->sync();
 }
 
-void Device::setContrast(float level)
+void Device::setContrast(int level)
 {
+	qDebug() << "New contrast " << level;
 	config->group(m_udi).writeEntry("contrast",level);
+	config->sync();
 }
 
-void Device::setSaturation(float level)
+void Device::setSaturation(int level)
 {
+	qDebug() << "New saturation " << level;
 	config->group(m_udi).writeEntry("saturation",level);
+	config->sync();
 }
 
-void Device::setGamma(float level)
+void Device::setGamma(int level)
 {
+	qDebug() << "new gamma" << level;
 	config->group(m_udi).writeEntry("gamma",level);
+	config->sync();
 }
 
 void Device::setHue(int level)
 {
+	qDebug() << "new hue" << level;
 	config->group(m_udi).writeEntry("hue",level);
+	config->sync();
 }
 
-float Device::brightness() const
+int Device::brightness() const
 {
-	return config->group(m_udi).readEntry("brightness",1.0f);
+	return config->group(m_udi).readEntry("brightness",100);
 }
 
-float Device::contrast() const
+int Device::contrast() const
 {
-	return config->group(m_udi).readEntry("contrast",1.0f);
+	return config->group(m_udi).readEntry("contrast",100);
 }
 
-float Device::saturation() const
+int Device::saturation() const
 {
-	return config->group(m_udi).readEntry("saturation",1.0f);
+	return config->group(m_udi).readEntry("saturation",100);
 }
 
-float Device::gamma() const
+int Device::gamma() const
 {
-	return config->group(m_udi).readEntry("gamma",1.0f);
+	return config->group(m_udi).readEntry("gamma",100);
 }
 
 int Device::hue() const

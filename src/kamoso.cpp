@@ -296,8 +296,8 @@ void Kamoso::configuration()
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
-	
-	Ui::webcamConfigWidget *pageWebcam = new Ui::webcamConfigWidget;
+
+	pageWebcam = new Ui::webcamConfigWidget;
 	QWidget *widgetWebcamPage = new QWidget();
 	pageWebcam->setupUi(widgetWebcamPage);
 	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
@@ -305,10 +305,10 @@ void Kamoso::configuration()
 	//the values are in X.X form while the sliders use integer so we device by 100;
 	Device device = deviceManager->playingDevice();
 	qDebug() << "Dialog brightness" << device.brightness();
-	pageWebcam->brightnessSlider->setValue(device.brightness()*100);
-	pageWebcam->contrastSlider->setValue(device.contrast()*100);
-	pageWebcam->saturationSlider->setValue(device.saturation()*100);
-	pageWebcam->gammaSlider->setValue(device.gamma()*100);
+	pageWebcam->brightnessSlider->setValue(device.brightness());
+	pageWebcam->contrastSlider->setValue(device.contrast());
+	pageWebcam->saturationSlider->setValue(device.saturation());
+	pageWebcam->gammaSlider->setValue(device.gamma());
 	pageWebcam->hueSlider->setValue(device.hue());
 
 	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
@@ -332,14 +332,15 @@ void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
-	dirOperator->setUrl(Settings::saveUrl(),false);
-	Device device = deviceManager->playingDevice();
 	dirOperator->setUrl(Settings::saveUrl(), false);
-	// 	device.setBrightness(Settings::brightness() / 100);
-// 	device.setContrast(Settings::contrast() / 100);
-// 	device.setSaturation(Settings::saturation() / 100);
-// 	device.setGamma(Settings::gamma() / 100);
-// 	device.setHue(Settings::hue() / 100);
+
+	Device device = deviceManager->playingDevice();
+	
+	device.setBrightness(pageWebcam->brightnessSlider->value());
+	device.setContrast(pageWebcam->contrastSlider->value());
+	device.setSaturation(pageWebcam->saturationSlider->value());
+	device.setGamma(pageWebcam->gammaSlider->value());
+	device.setHue(pageWebcam->hueSlider->value());
 }
 
 /**

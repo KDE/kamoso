@@ -41,7 +41,7 @@ class WebcamWidget;
 class DeviceManager;
 class KamosoJob;
 class WebcamDialog;
-namespace Ui { class mainWidget;}
+namespace Ui { class mainWidget; class webcamConfigWidget;}
 namespace Phonon { class MediaObject; }
 
 class Kamoso : public KMainWindow
@@ -76,7 +76,6 @@ class Kamoso : public KMainWindow
 		void settingsMenu(bool);
 		void selectJob(KamosoJob*);
 		void changeMode(bool);
-		void webcamValueChanged();
 
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
@@ -105,6 +104,7 @@ class Kamoso : public KMainWindow
 		CountdownWidget *m_countdown;
 		Phonon::MediaObject *player;
 		Ui::mainWidget *mainWidgetUi;
+		Ui::webcamConfigWidget *pageWebcam;
 		QWidget *mainWidget;
 		DeviceManager *deviceManager;
 		int m_exponentialValue;
