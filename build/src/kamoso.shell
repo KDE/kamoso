@@ -1,4 +1,0 @@
-#!/bin/sh
-# created by cmake, don't edit, changes will be lost
-
-LD_LIBRARY_PATH=/home/nasete/cod3s/cpp/kamoso/build/lib/./:/home/nasete/cod3s/cpp/kde/bin/lib:/home/nasete/cod3s/cpp/kde/bin/lib:/home/nasete/cod3s/cpp/kde/bin/qt/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH} "/home/nasete/cod3s/cpp/kamoso/build/src/kamoso" "$@"
