@@ -23,7 +23,8 @@ set(kamoso_SRCS
 	pluginmanager.cpp
 	device.cpp
 	devicemanager.cpp
-	kamosojobtracker.cpp 
+	kamosojobtracker.cpp
+	webcamdialog.cpp
 )
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui videoConfig.ui)

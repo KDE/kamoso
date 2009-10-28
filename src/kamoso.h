@@ -40,6 +40,7 @@ class KFileItem;
 class WebcamWidget;
 class DeviceManager;
 class KamosoJob;
+class WebcamDialog;
 namespace Ui { class mainWidget;}
 namespace Phonon { class MediaObject; }
 
@@ -75,7 +76,8 @@ class Kamoso : public KMainWindow
 		void settingsMenu(bool);
 		void selectJob(KamosoJob*);
 		void changeMode(bool);
-		
+		void webcamValueChanged();
+
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
 		
@@ -110,6 +112,7 @@ class Kamoso : public KMainWindow
 		ShootMode *m_activeMode;
 		bool m_flashEnabled;
 		ThumbnailView* thumbnailView;
+		WebcamDialog* dialog;
 };
 
 #endif
