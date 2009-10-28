@@ -1,0 +1,14 @@
+SOURCES:
+/home/nasete/cod3s/cpp/kamoso/src/plugins/facebook/facebook.cpp;/home/nasete/cod3s/cpp/kamoso/src/plugins/facebook/fbtalker.cpp;/home/nasete/cod3s/cpp/kamoso/src/plugins/facebook/mpform.cpp
+MOC_COMPILE_DEFINITIONS:
+_BSD_SOURCE
+MOC_DEFINITIONS:
+ -D_BSD_SOURCE
+MOC_INCLUDES:
+/home/nasete/cod3s/cpp/kamoso/build;/home/nasete/cod3s/cpp/kde/bin/include;/home/nasete/cod3s/cpp/kde/bin/include/KDE;/home/nasete/cod3s/cpp/kde/bin/qt/include/phonon;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtXmlPatterns;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtWebKit;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtHelp;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtAssistant;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtDBus;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtTest;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtUiTools;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtScript;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtSvg;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtXml;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtSql;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtOpenGL;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtNetwork;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtDesigner;/home/nasete/cod3s/cpp/kde/bin/qt/include/Qt3Support;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtGui;/home/nasete/cod3s/cpp/kde/bin/qt/include/QtCore;/home/nasete/cod3s/cpp/kde/bin/qt/include/Qt;/home/nasete/cod3s/cpp/kde/bin/qt/mkspecs/default;/home/nasete/cod3s/cpp/kde/bin/qt/include;/usr/include;/home/nasete/cod3s/cpp/kamoso/src;/home/nasete/cod3s/cpp/kamoso/build/src;/home/nasete/cod3s/cpp/kamoso/src/plugins/youtube
+CMAKE_INCLUDE_DIRECTORIES_PROJECT_BEFORE:
+
+CMAKE_BINARY_DIR:
+/home/nasete/cod3s/cpp/kamoso/build
+CMAKE_SOURCE_DIR:
+/home/nasete/cod3s/cpp/kamoso

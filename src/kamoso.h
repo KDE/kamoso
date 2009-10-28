@@ -82,6 +82,8 @@ class Kamoso : public KMainWindow
 		void stopCountdown();
 		
 	private slots:
+		void initialize();
+		
 		void restore();
 		void slotScrollLeft();
 		void slotScrollRight();
@@ -93,7 +95,6 @@ class Kamoso : public KMainWindow
 		void webcamPlaying(const QString&);
 		
 	private:
-		KUrl saveUrl;
 		float brightBack;
 
 		WebcamRetriever *videoRetriever;

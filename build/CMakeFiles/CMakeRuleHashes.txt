@@ -1,0 +1,26 @@
+# Hashes of file build rules.
+898699cacfd398bff2d5b74b38d3400d CMakeFiles/uninstall
+d41d8cd98f00b204e9800998ecf8427e po/ca/CMakeFiles/pofiles
+8081a1afc3ce19cc47cd7f1bda64d67c po/ca/kamoso.gmo
+d41d8cd98f00b204e9800998ecf8427e po/cz/CMakeFiles/pofiles
+ce2aaf6744d10108f85e1be943fff223 po/cz/kamoso.gmo
+d41d8cd98f00b204e9800998ecf8427e po/de/CMakeFiles/pofiles
+65e2ee3093850bd48800a52468c33d5c po/de/kamoso.gmo
+d41d8cd98f00b204e9800998ecf8427e po/el/CMakeFiles/pofiles
+2efd245ca474dbcf47c9726132270de3 po/el/kamoso.gmo
+d41d8cd98f00b204e9800998ecf8427e po/es/CMakeFiles/pofiles
+b99496c00cbca2b262dc8026d067f50b po/es/kamoso.gmo
+e70f31f724480c12e6b527f3530b9687 src/CMakeFiles/kamoso_automoc
+d501722cbb3df31a4c90f91709d3e1b1 src/CMakeFiles/kamosoplugin_automoc
+bc27c985a5d5d2ecbcf0a626b9cea587 src/plugins/execute/CMakeFiles/execute_automoc
+d41d8cd98f00b204e9800998ecf8427e src/plugins/facebook/CMakeFiles/buildtests
+888819b66b3c8348fa20b75bae469ba0 src/plugins/facebook/CMakeFiles/facebooksender_automoc
+2124758230ec13dd73fa992ac9aa1d08 src/plugins/facebook/CMakeFiles/facebooktest_automoc
+e9f0b72ab0a6b7f0fd6b29d7085317d3 src/plugins/trash/CMakeFiles/trash_automoc
+adcbb445fbd941329f07652b18c7ce65 src/plugins/youtube/CMakeFiles/youtube_automoc
+6b589f01bd0c270b2ca8067695624609 src/plugins/youtube/ui_videoInfo.h
+d55b5f74adbe2bc11a5daf1c6f8e94e4 src/settings.h
+f56ad6c981f560676aa18ada5b1be5fa src/ui_generalConfig.h
+d256a6c42265505801b9f9ffc7c01860 src/ui_mainWidget.h
+da919bbccf0035e0e903f3c068a31c5a src/ui_pictureConfig.h
+a1967bd293ea7edc75b1e9c3a4d8a513 src/ui_videoConfig.h
