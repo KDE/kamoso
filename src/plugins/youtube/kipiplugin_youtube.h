@@ -18,43 +18,34 @@
  *************************************************************************************/
 
 #include <KPasswordDialog>
-#include <KJob>
-#include <KIO/Job>
-#include <QMap>
-#include <QString>
+#include <KUrl>
 #include <kwallet.h>
+#include <KIO/Job>
+#include <libkipi/plugin.h>
 
-class YoutubeJob : public KJob
+class YoutubePlugin : public KIPI::Plugin
 {
 	Q_OBJECT
+// 	Q_INTERFACES(KamosoPlugin)
 	public:
-		YoutubeJob(const KUrl& url, QObject* parent=0);
-		virtual void start();
-		bool showDialog();
-		QMap<QString, QString> showVideoDialog();
-		void login();
-	public slots:
-		void fileOpened(KIO::Job *, const QByteArray &);
-		void uploadDone(KIO::Job *, const QByteArray &);
-		void moreData(KIO::Job *, const QByteArray &);
-		void uploadNeedData();
-		void uploadFinal();
-		void authenticated(bool);
-		void loginDone(KIO::Job *job, const QByteArray &data);
-	private:
-		void setVideoInfo(QMap<QString, QString>& videoInfo);
-		KIO::TransferJob *openFileJob;
-		KIO::TransferJob *uploadJob;
-		QByteArray m_authToken;
-		static const QByteArray developerKey;
-		KUrl url;
-		QMap<QString, QString> m_videoInfo;
-		void checkWallet();
+		YoutubePlugin(QObject* parent, const QVariantList& args);
+// 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
+// 		void login();
+		
+	virtual KIPI::Category category(KAction* action) const;
+	virtual void setup(QWidget* widget);
 
-		QList<KUrl> mSelectedUrls;
-		KWallet::Wallet *m_wallet;
-		QString videoTitle;
-		QString videoDesc;
-		QString videoTags;
-		KPasswordDialog *dialog;
+	public slots:
+// 		void upload();
+// 		void authenticated(bool);
+// 		void loginDone(KIO::Job *job, const QByteArray &data);
+	private:
+// 		QList<KUrl> mSelectedUrls;
+// 		KWallet::Wallet *m_wallet;
+// 		QString videoTitle;
+// 		QString videoDesc;
+// 		QString videoTags;
+// 		QByteArray m_authToken;
+// 		KPasswordDialog *dialog;
 };
+

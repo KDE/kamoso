@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Exec=blubb
+Comment=Upload videos directly to YouTube
+Name=YouTube
+GenericName=YouTube
+ServiceTypes=KIPI/Plugin
+X-KDE-Library=kipiplugin_youtube
+X-KDE-PluginInfo-Name=Youtube
+X-KDE-PluginInfo-Author=Alex Fiestas
+X-KDE-PluginInfo-Version=0.00000001
+X-KDE-PluginInfo-License=GPL

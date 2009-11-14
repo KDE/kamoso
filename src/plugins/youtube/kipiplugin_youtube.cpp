@@ -17,44 +17,60 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <KPasswordDialog>
-#include <KJob>
-#include <KIO/Job>
-#include <QMap>
-#include <QString>
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KMimeType>
+#include <KIcon>
+#include <KUrl>
+#include <KDialog>
+#include <KMessageBox>
+#include <kpassworddialog.h>
+
+#include <QAction>
+#include <QApplication>
+#include <QDebug>
+#include <QDesktopServices>
 #include <kwallet.h>
+#include "kipiplugin_youtube.h"
+#include "youtubejob.h"
 
-class YoutubeJob : public KJob
+using KWallet::Wallet;
+
+K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
+K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("kipiplugin_youtube", "kipiplugin_youtube",
+		ki18n("YouTube"), "0.1", ki18n("Uploads files to YouTube"),
+		KAboutData::License_GPL)))
+
+YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
+	: KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
 {
-	Q_OBJECT
-	public:
-		YoutubeJob(const KUrl& url, QObject* parent=0);
-		virtual void start();
-		bool showDialog();
-		QMap<QString, QString> showVideoDialog();
-		void login();
-	public slots:
-		void fileOpened(KIO::Job *, const QByteArray &);
-		void uploadDone(KIO::Job *, const QByteArray &);
-		void moreData(KIO::Job *, const QByteArray &);
-		void uploadNeedData();
-		void uploadFinal();
-		void authenticated(bool);
-		void loginDone(KIO::Job *job, const QByteArray &data);
-	private:
-		void setVideoInfo(QMap<QString, QString>& videoInfo);
-		KIO::TransferJob *openFileJob;
-		KIO::TransferJob *uploadJob;
-		QByteArray m_authToken;
-		static const QByteArray developerKey;
-		KUrl url;
-		QMap<QString, QString> m_videoInfo;
-		void checkWallet();
+	KIconLoader::global()->addAppDir("kamoso_youtube");
+}
 
-		QList<KUrl> mSelectedUrls;
-		KWallet::Wallet *m_wallet;
-		QString videoTitle;
-		QString videoDesc;
-		QString videoTags;
-		KPasswordDialog *dialog;
-};
+// QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
+// {
+// 	QAction* act=0;
+// 	mSelectedUrls.clear();
+// 	foreach(const KUrl& url, urls)
+// 	{
+// 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
+// 		if(mime->name().startsWith("video/")) {
+// 			if(!act) {
+// 				act=new QAction(KIcon("youtube"), i18n("Upload to YouTube"), 0);
+// 				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
+// 			}
+// 		}
+// 		mSelectedUrls.append(url);
+// 	}
+// 	return act;
+// }
+
+KIPI::Category YoutubePlugin::category(KAction* action) const
+{
+	return KIPI::ExportPlugin;
+}
+
+void YoutubePlugin::setup(QWidget* widget)
+{
+	KIPI::Plugin::setup(widget);
+}
