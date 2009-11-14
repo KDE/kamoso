@@ -17,37 +17,25 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSOJOBTRACKER_H
-#define KAMOSOJOBTRACKER_H
-#include <QWidget>
-#include <KUrl>
+#ifndef KIPIACTION_H
+#define KIPIACTION_H
 
-class KJob;
+#include <QAction>
+#include <libkipi/pluginloader.h>
 
-class KamosoJobTracker
-	: public QWidget
+class Kamoso;
+class KipiAction : public QAction
 {
 	Q_OBJECT
 	public:
-		KamosoJobTracker(QWidget* parent = 0, Qt::WindowFlags f = 0);
-		virtual void mousePressEvent(QMouseEvent* ev);
-		virtual void mouseMoveEvent(QMouseEvent* );
-		virtual void leaveEvent(QEvent* );
+		KipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent);
 		
 	public slots:
-		void registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon);
-		void unregisterJob(KJob* job);
+		void runJob();
 		
-		virtual QSize sizeHint() const;
-		virtual void paintEvent(QPaintEvent* );
-	signals:
-		void jobClicked(KJob* job);
-	
 	private:
-		void setSelectedJob(int newselection);
-		int jobPerPosition(const QPoint& pos);
-		QMap<KJob*, QPair<KUrl::List, QIcon> > mJobs;
-		int m_selectedJob;
+		KIPI::PluginLoader::Info* pluginInfo;
+		Kamoso* mKamoso; 
 };
 
 #endif

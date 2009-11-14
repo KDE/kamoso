@@ -18,11 +18,11 @@
  *************************************************************************************/
 
 #include "kamosojobtracker.h"
-#include "kamosojob.h"
 #include <QPainter>
 #include <QDebug>
 #include <KIcon>
 #include <KUrl>
+#include <KJob>
 #include <KNotification>
 #include <KLocale>
 #include <QMouseEvent>
@@ -33,29 +33,29 @@ KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
 	setMouseTracking(true);
 }
 
-void KamosoJobTracker::registerJob(KamosoJob* job)
+void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon)
 {
+	Q_ASSERT(!mJobs.contains(job));
 	qDebug() << "Register job received!!!";
 	connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
 	connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
-	mJobs.append(job);
+	mJobs.insert(job, qMakePair(urls, icon));
 	job->start();
 	updateGeometry();
 }
 
-void KamosoJobTracker::unregisterJob(KJob* kjob)
+void KamosoJobTracker::unregisterJob(KJob* job)
 {
-	KamosoJob* job=static_cast<KamosoJob*>(kjob);
-	mJobs.removeAll(job);
+	mJobs.remove(job);
 	updateGeometry();
 	
 	if(job->error()==0) {
 		QStringList urls;
-		foreach(const KUrl& url, job->urls()) {
+		foreach(const KUrl& url, mJobs.value(job).first) {
 			urls += url.prettyUrl();
 		}
 		KNotification::event(KNotification::Notification, i18n("Done: %1", urls.join(i18nc("Used to join urls", ", "))),
-							 job->icon().pixmap(48,48));
+							 mJobs.value(job).second.pixmap(48,48));
 	} else
 		KNotification::event(KNotification::Error, job->errorString());
 }
@@ -74,7 +74,7 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 	int i=0;
 	QPixmap alphamask(iconSide, iconSide);
 	alphamask.fill(Qt::gray);
-	foreach(KamosoJob* job, mJobs) {
+	foreach(KJob* job, mJobs.keys()) {
 		QRect target((iconSide+separation)*i, 0, iconSide, iconSide);
 		if(i==m_selectedJob) //Make it nicer
 			p.drawRect(target);
@@ -85,7 +85,7 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 		QRect comptarget((iconSide+separation)*i, 0, iconSide, completedPix);
 		QRect resttarget((iconSide+separation)*i, completedPix, iconSide, iconSide-completedPix);
 		
-		QPixmap icon=job->icon().pixmap(target.size());
+		QPixmap icon=mJobs.value(job).second.pixmap(target.size());
 		p.drawPixmap(comptarget, icon, source);
 		
 		icon.setAlphaChannel(alphamask);
@@ -98,7 +98,7 @@ void KamosoJobTracker::mousePressEvent(QMouseEvent* ev)
 {
 	int i=jobPerPosition(ev->pos());
 	if(i>=0 && i<mJobs.size())
-		 emit jobClicked(mJobs[i]);
+		 emit jobClicked(mJobs.keys()[i]);
 }
 
 int KamosoJobTracker::jobPerPosition(const QPoint& pos)

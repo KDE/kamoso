@@ -17,37 +17,23 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSOJOBTRACKER_H
-#define KAMOSOJOBTRACKER_H
-#include <QWidget>
-#include <KUrl>
+#include "kipiaction.h"
+#include <libkipi/plugin.h>
+#include <libkipi/exportinterface.h>
+#include "kamoso.h"
+#include "kamosojobtracker.h"
 
-class KJob;
-
-class KamosoJobTracker
-	: public QWidget
+KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent)
+	: QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo)
 {
-	Q_OBJECT
-	public:
-		KamosoJobTracker(QWidget* parent = 0, Qt::WindowFlags f = 0);
-		virtual void mousePressEvent(QMouseEvent* ev);
-		virtual void mouseMoveEvent(QMouseEvent* );
-		virtual void leaveEvent(QEvent* );
-		
-	public slots:
-		void registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon);
-		void unregisterJob(KJob* job);
-		
-		virtual QSize sizeHint() const;
-		virtual void paintEvent(QPaintEvent* );
-	signals:
-		void jobClicked(KJob* job);
-	
-	private:
-		void setSelectedJob(int newselection);
-		int jobPerPosition(const QPoint& pos);
-		QMap<KJob*, QPair<KUrl::List, QIcon> > mJobs;
-		int m_selectedJob;
-};
+	connect(this, SIGNAL(trigger()), SLOT(runJob()));
+}
 
-#endif
+void KipiAction::runJob()
+{
+	KIPI::Plugin* p=pluginInfo->plugin();
+	KIPI::ExportInterface* ep=qobject_cast< KIPI::ExportInterface* >(p);
+	
+	KJob* job=ep->exportFiles(i18n("Kamoso"));
+	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems().urlList(), pluginInfo->icon());
+}

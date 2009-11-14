@@ -36,6 +36,8 @@
 #include <KStatusBar>
 #include <Phonon/MediaObject>
 #include <solid/control/powermanager.h>
+#include <libkipi/plugin.h>
+#include <libkipi/pluginloader.h>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
@@ -54,8 +56,8 @@
 #include "photoshootmode.h"
 #include "videoshootmode.h"
 #include "burstshootmode.h"
-#include <libkipi/plugin.h>
-#include <libkipi/pluginloader.h>
+#include "kipiaction.h"
+#include <KPluginInfo>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -168,13 +170,14 @@ Kamoso::Kamoso(QWidget* parent)
 	m_exponentialValue = 0;
 	this->setCentralWidget(mainWidget);
 	
-	KamosoJobTracker* tracker=new KamosoJobTracker(statusBar());
+	mTracker=new KamosoJobTracker(statusBar());
 // 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
-	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
-	statusBar()->addWidget(tracker);
+	connect(mTracker, SIGNAL(jobClicked(KJob*)), SLOT(selectJob(KJob*)));
+	statusBar()->addWidget(mTracker);
 	
 	QTimer::singleShot(0, this, SLOT(initialize()));
-	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this));
+	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
+// 	Q_ASSERT(!mPluginLoader->pluginList().isEmpty());
 // 	connect(mPluginLoader, SIGNAL(plug(KIPI::PluginLoader::Info*)),this, SLOT(pluginPlug(KIPI::PluginLoader::Info*)));
 // 	connect(mPluginLoader,SIGNAL(replug()),this,SLOT(replug()));
 }
@@ -461,16 +464,19 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
 	menu->clear();
 	
-// 	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, pluginList) {
-// 		#warning make it possible to deal with many url at the same time
-// 		QAction* action=p->thumbnailsAction(QList<KUrl>() << item.url());
-// 		
-// 		if(action) {
-// 			if(!action->parent())
-// 				action->setParent(menu);
-// 			menu->addAction(action);
-// 		}
-// 	}
+	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
+		QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
+		qDebug() << "XXXX" << pluginInfo->name() << pluginMime;
+		
+		foreach(const QString& supportedPlugin, pluginMime) {
+			if(item.mimeTypePtr()->is(supportedPlugin)) {
+				KipiAction* action=new KipiAction(pluginInfo, menu);
+				
+				menu->addAction(action);
+				break;
+			}
+		}
+	}
 }
 
 void Kamoso::thumbnailAdded()
@@ -490,13 +496,14 @@ void Kamoso::selectLast()
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
-void Kamoso::selectJob(KamosoJob* job)
+void Kamoso::selectJob(KJob* job)
 {
-	QStringList urls;
-	foreach(const KUrl& url, job->urls())
-		urls.append(url.pathOrUrl());
-	
-	dirOperator->setCurrentItems(urls);
+	//TODO: port
+// 	QStringList urls;
+// 	foreach(const KUrl& url, job->urls())
+// 		urls.append(url.pathOrUrl());
+// 	
+// 	dirOperator->setCurrentItems(urls);
 }
 
 void Kamoso::changeMode(bool pressed)
