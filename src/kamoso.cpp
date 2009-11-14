@@ -52,7 +52,6 @@
 #include "kipiinterface.h"
 #include "kamosoplugin.h"
 #include "kamosojobtracker.h"
-#include "kamosojob.h"
 #include "photoshootmode.h"
 #include "videoshootmode.h"
 #include "burstshootmode.h"
