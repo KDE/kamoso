@@ -23,22 +23,40 @@
 #include <KUrl>
 #include <KIcon>
 #include <KToolInvocation>
+#include <KLocalizedString>
+#include <QApplication>
+#include "src/plugins/youtube/ui_videoInfo.h"
 
 const QByteArray YoutubeJob::developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
-#include <KLocalizedString>
 
-YoutubeJob::YoutubeJob(const KUrl& url, QByteArray& authKey, QMap<QString, QString>& videoInfo,QObject* parent)
-	: KamosoJob(parent), m_authToken(authKey), url(url)
+using KWallet::Wallet;
+YoutubeJob::YoutubeJob(const KUrl& url, QObject* parent)
+	: KJob(parent), m_authToken(0), url(url), dialog(0)
 {
-	setVideoInfo(videoInfo);
 }
 
 void YoutubeJob::start()
 {
-	qDebug() << "File To Upload: " << url.path();
-	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
-	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
-	openFileJob->start();
+	checkWallet();
+}
+
+void YoutubeJob::checkWallet()
+{
+	m_wallet = Wallet::openWallet(Wallet::NetworkWallet(),qApp->activeWindow()->winId());
+	if(m_wallet != NULL){
+		if(!m_wallet->hasFolder("youtubeKamoso")){
+			if(!m_wallet->createFolder("youtubeKamoso")){
+				//TODO: Error reporting here
+				return;
+			}
+		}
+		m_wallet->setFolder("youtubeKamoso");
+	}
+
+	if(!showDialog()){
+		return;
+	}
+	login();
 }
 
 void YoutubeJob::fileOpened(KIO::Job *job, const QByteArray &data)
@@ -92,7 +110,7 @@ finalData.append("</entry>");
 	finalData.append("\r\n");
 	finalData.append("\r\n");
 	finalData.append(data);
-
+	qDebug() << finalData;
 	KUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
 	uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
 	uploadJob->addMetaData("cookies","none");
@@ -118,6 +136,7 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
 		uploadJob->sendAsyncData(final);
 	}else{
 		qDebug() << "Sending more data....";
+		qDebug() << data;
 		uploadJob->sendAsyncData(data);
 	}
 }
@@ -173,12 +192,124 @@ void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
 	m_videoInfo = videoInfo;
 }
 
-KIcon YoutubeJob::icon() const
+QMap<QString, QString> YoutubeJob::showVideoDialog()
 {
-	return KIcon("youtube");
+	Ui::videoForm *videoForm = new Ui::videoForm;
+	QWidget *videoWidget = new QWidget();
+	videoForm->setupUi(videoWidget);
+
+	KDialog *dialog = new KDialog();
+	dialog->setMainWidget(videoWidget);
+	dialog->setCaption(i18n("Video information:"));
+	dialog->setButtons(KDialog::Ok);
+	dialog->setMinimumWidth(425);
+	dialog->setMinimumHeight(315);
+	dialog->setMaximumWidth(425);
+	dialog->setMaximumHeight(315);
+	int response = dialog->exec();
+	
+	QMap<QString, QString> videoInfo;
+	if(response == QDialog::Accepted){
+		if(!videoForm->descriptionText->toPlainText().isEmpty()){
+			videoInfo["videoDesc"] = videoForm->descriptionText->toPlainText();
+		}
+		if(!videoForm->titleText->text().isEmpty()){
+			videoInfo["videoTitle"] = videoForm->titleText->text();
+		}
+		if(!videoForm->tagText->text().isEmpty()){
+			videoInfo["videoTags"] = videoForm->tagText->text();
+		}
+	}
+	return videoInfo;
+}
+void YoutubeJob::login()
+{
+	QMap<QString, QString> authInfo;
+	authInfo["username"] = dialog->username();
+	authInfo["password"] = dialog->password();
+
+	KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
+	QByteArray data("Email=");
+	data.append(authInfo["username"].toAscii());
+	data.append("&Passwd=");
+	data.append(authInfo["password"].toAscii());
+	data.append("&service=youtube&source=Kamoso");
+	KIO::TransferJob *loginJob = KIO::http_post(url,data,KIO::HideProgressInfo);
+	loginJob->addMetaData("cookies","none");
+	loginJob->addMetaData("content-type","Content-Type:application/x-www-form-urlencoded");
+	connect(loginJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(loginDone(KIO::Job *, const QByteArray &)));
+	loginJob->start();
 }
 
-QList<KUrl> YoutubeJob::urls() const
+void YoutubeJob::loginDone(KIO::Job *job, const QByteArray &data)
 {
-	return QList<KUrl>() << url;
+	delete job;
+	qDebug() << "LoginDone, data received\n";
+	qDebug() << data.data();
+	if(data.at(0) == 'E'){
+		authenticated(false);
+	}else{
+		QList<QByteArray> tokens = data.split('\n');
+		m_authToken = tokens.first().remove(0,5);
+		qDebug() << "Final AuthToken: " << m_authToken.data();
+		authenticated(true);
+	}
+}
+
+bool YoutubeJob::showDialog()
+{
+	QString server = QString("http://www.youtube.com");
+	
+	if(m_wallet != NULL) {
+		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowKeepPassword | KPasswordDialog::ShowUsernameLine);
+		QMap<QString, QString> authInfo;
+		m_wallet->readMap("youtubeAuth",authInfo);
+		dialog->setPassword(authInfo["password"]);
+		dialog->setUsername(authInfo["username"]);
+		dialog->setKeepPassword(true);
+	}else{
+		dialog = new KPasswordDialog(0L,KPasswordDialog::ShowUsernameLine);
+	}
+	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to YouTube"));
+	dialog->addCommentLine(i18n("Server")+": ",server);
+	dialog->setCaption(i18n("Authentication for ")+"youtube");
+
+	int response = dialog->exec();
+	if(response == QDialog::Rejected){
+		return false;
+	}
+	while((dialog->username() == "" || dialog->password() == "") && response == QDialog::Accepted )
+	{
+		response = dialog->exec();
+		if(response == QDialog::Rejected){
+			return false;
+		}
+	}
+
+	if(dialog->keepPassword() == true &&  m_wallet != NULL) {
+		QMap<QString, QString> toSave;
+		toSave["username"] = dialog->username();
+		toSave["password"] = dialog->password();
+		m_wallet->writeMap("youtubeAuth",toSave);
+		m_wallet->sync();
+	}
+	return true;
+}
+
+void YoutubeJob::authenticated(bool auth)
+{
+	qDebug() << "Authentification: " << auth ;
+	if(auth == false){
+		if(showDialog()){
+			login();
+		}
+		return;
+	}
+	QMap<QString, QString> videoInfo;
+	m_videoInfo = showVideoDialog();
+
+	qDebug() << "File To Upload: " << url.path();
+	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
+	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
+	openFileJob->start();
 }

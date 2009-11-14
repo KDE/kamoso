@@ -17,19 +17,35 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoplugin.h"
+#include <KPasswordDialog>
 #include <KUrl>
+#include <kwallet.h>
+#include <KIO/Job>
+#include <libkipi/plugin.h>
 
-class ExecutePlugin : public KamosoPlugin
+class YoutubePlugin : public KIPI::Plugin
 {
 	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
+// 	Q_INTERFACES(KamosoPlugin)
 	public:
-		ExecutePlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
+		YoutubePlugin(QObject* parent, const QVariantList& args);
+// 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
+// 		void login();
 		
+	virtual KIPI::Category category(KAction* action) const;
+	virtual void setup(QWidget* widget);
+
 	public slots:
-		void execute(bool);
+// 		void upload();
+// 		void authenticated(bool);
+// 		void loginDone(KIO::Job *job, const QByteArray &data);
 	private:
-		QList<KUrl> mSelectedUrls;
+// 		QList<KUrl> mSelectedUrls;
+// 		KWallet::Wallet *m_wallet;
+// 		QString videoTitle;
+// 		QString videoDesc;
+// 		QString videoTags;
+// 		QByteArray m_authToken;
+// 		KPasswordDialog *dialog;
 };
+

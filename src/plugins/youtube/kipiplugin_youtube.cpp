@@ -17,32 +17,60 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoplugin.h"
-#include <KPasswordDialog>
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KMimeType>
+#include <KIcon>
 #include <KUrl>
-#include <kwallet.h>
-#include <KIO/Job>
+#include <KDialog>
+#include <KMessageBox>
+#include <kpassworddialog.h>
 
-class YoutubePlugin : public KamosoPlugin
+#include <QAction>
+#include <QApplication>
+#include <QDebug>
+#include <QDesktopServices>
+#include <kwallet.h>
+#include "kipiplugin_youtube.h"
+#include "youtubejob.h"
+
+using KWallet::Wallet;
+
+K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
+K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("kipiplugin_youtube", "kipiplugin_youtube",
+		ki18n("YouTube"), "0.1", ki18n("Uploads files to YouTube"),
+		KAboutData::License_GPL)))
+
+YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
+	: KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
 {
-	Q_OBJECT
-	Q_INTERFACES(KamosoPlugin)
-	public:
-		YoutubePlugin(QObject* parent, const QVariantList& args);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
-		bool showDialog();
-		QMap<QString, QString> showVideoDialog();
-		void login();
-	public slots:
-		void upload();
-		void authenticated(bool);
-		void loginDone(KIO::Job *job, const QByteArray &data);
-	private:
-		QList<KUrl> mSelectedUrls;
-		KWallet::Wallet *m_wallet;
-		QString videoTitle;
-		QString videoDesc;
-		QString videoTags;
-		QByteArray m_authToken;
-		KPasswordDialog *dialog;
-};
+	KIconLoader::global()->addAppDir("kamoso_youtube");
+}
+
+// QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
+// {
+// 	QAction* act=0;
+// 	mSelectedUrls.clear();
+// 	foreach(const KUrl& url, urls)
+// 	{
+// 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
+// 		if(mime->name().startsWith("video/")) {
+// 			if(!act) {
+// 				act=new QAction(KIcon("youtube"), i18n("Upload to YouTube"), 0);
+// 				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
+// 			}
+// 		}
+// 		mSelectedUrls.append(url);
+// 	}
+// 	return act;
+// }
+
+KIPI::Category YoutubePlugin::category(KAction* action) const
+{
+	return KIPI::ExportPlugin;
+}
+
+void YoutubePlugin::setup(QWidget* widget)
+{
+	KIPI::Plugin::setup(widget);
+}
