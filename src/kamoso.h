@@ -26,6 +26,7 @@
 #include <KAction>
 #include <libkipi/pluginloader.h>
 
+class KamosoJobTracker;
 class QToolButton;
 class QRadioButton;
 class ShootMode;
@@ -42,7 +43,6 @@ class ThumbnailView;
 class KFileItem;
 class WebcamWidget;
 class DeviceManager;
-class KamosoJob;
 namespace Ui { class mainWidget;}
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
@@ -59,6 +59,7 @@ class Kamoso : public KMainWindow
 		void startVideo(bool withSound);
 		void stopVideo();
 		KFileItemList selectedItems();
+		KamosoJobTracker* tracker() const { return mTracker; }
 
 //Only slots
 	public slots:
@@ -76,7 +77,7 @@ class Kamoso : public KMainWindow
 		void thumbnailAdded();
 		void selectLast();
 		void settingsMenu(bool);
-		void selectJob(KamosoJob*);
+		void selectJob(KJob*);
 		void changeMode(bool);
 		
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
@@ -117,6 +118,7 @@ class Kamoso : public KMainWindow
 		ThumbnailView* thumbnailView;
 		KIPI::PluginLoader* mPluginLoader;
 		QList<KAction*> kipiActions;
+		KamosoJobTracker* mTracker;
 };
 
 #endif

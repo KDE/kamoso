@@ -23,6 +23,7 @@ set(kamoso_SRCS
 	kipiinterface.cpp
 	kamosoimagecollectionshared.cpp
 	infoshared.cpp
+	kipiaction.cpp
 )
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui)
