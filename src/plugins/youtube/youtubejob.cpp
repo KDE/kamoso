@@ -30,8 +30,8 @@
 const QByteArray YoutubeJob::developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
 
 using KWallet::Wallet;
-YoutubeJob::YoutubeJob(const KUrl& url, QObject* parent)
-	: KJob(parent), m_authToken(0), url(url), dialog(0)
+YoutubeJob::YoutubeJob(const KUrl::List& url, QObject* parent)
+	: KJob(parent), m_authToken(0), m_url(url), dialog(0)
 {
 }
 
@@ -162,7 +162,8 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 	QRegExp rx("<media:player url='(\\S+)'/>");
 	dataStr.contains(rx);
 	qDebug() << rx.cap(1);
-	url.setUrl(rx.cap(1));
+// 	url.setUrl(rx.cap(1));
+	KUrl url = rx.cap(1);
 	qDebug() << url.url();
 	KToolInvocation::invokeBrowser(url.url());
 	emit emitResult();
@@ -306,10 +307,12 @@ void YoutubeJob::authenticated(bool auth)
 		return;
 	}
 	QMap<QString, QString> videoInfo;
-	m_videoInfo = showVideoDialog();
-
-	qDebug() << "File To Upload: " << url.path();
-	openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
-	connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
-	openFileJob->start();
+	foreach(const KUrl& url, m_url) {
+		m_videoInfo = showVideoDialog();
+		qDebug() << "File To Upload: " << url.path();
+		openFileJob = KIO::get(url,KIO::NoReload,KIO::HideProgressInfo);
+		connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
+		openFileJob->start();
+    }
+	emit emitResult();
 }

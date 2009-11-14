@@ -28,7 +28,7 @@ class YoutubeJob : public KJob
 {
 	Q_OBJECT
 	public:
-		YoutubeJob(const KUrl& url, QObject* parent=0);
+		YoutubeJob(const KUrl::List& url, QObject* parent=0);
 		virtual void start();
 		bool showDialog();
 		QMap<QString, QString> showVideoDialog();
@@ -47,7 +47,7 @@ class YoutubeJob : public KJob
 		KIO::TransferJob *uploadJob;
 		QByteArray m_authToken;
 		static const QByteArray developerKey;
-		KUrl url;
+		KUrl::List m_url;
 		QMap<QString, QString> m_videoInfo;
 		void checkWallet();
 

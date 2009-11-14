@@ -22,11 +22,12 @@
 #include <kwallet.h>
 #include <KIO/Job>
 #include <libkipi/plugin.h>
+#include <libkipi/exportinterface.h>
 
-class YoutubePlugin : public KIPI::Plugin
+class YoutubePlugin : public KIPI::Plugin, public KIPI::ExportInterface
 {
 	Q_OBJECT
-// 	Q_INTERFACES(KamosoPlugin)
+	Q_INTERFACES(KIPI::ExportInterface)
 	public:
 		YoutubePlugin(QObject* parent, const QVariantList& args);
 // 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
@@ -34,7 +35,9 @@ class YoutubePlugin : public KIPI::Plugin
 		
 	virtual KIPI::Category category(KAction* action) const;
 	virtual void setup(QWidget* widget);
-
+	
+    virtual KJob* exportFiles(const QString& albumname);
+	
 	public slots:
 // 		void upload();
 // 		void authenticated(bool);
