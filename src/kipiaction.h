@@ -28,7 +28,7 @@ class KipiAction : public QAction
 {
 	Q_OBJECT
 	public:
-		KipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent);
+		KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent);
 		
 	public slots:
 		void runJob();

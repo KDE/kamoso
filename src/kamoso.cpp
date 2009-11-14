@@ -465,11 +465,10 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 	
 	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
 		QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
-		qDebug() << "XXXX" << pluginInfo->name() << pluginMime;
 		
 		foreach(const QString& supportedPlugin, pluginMime) {
 			if(item.mimeTypePtr()->is(supportedPlugin)) {
-				KipiAction* action=new KipiAction(pluginInfo, menu);
+				KipiAction* action=new KipiAction(pluginInfo, this, menu);
 				
 				menu->addAction(action);
 				break;

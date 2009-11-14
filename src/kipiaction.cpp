@@ -20,19 +20,20 @@
 #include "kipiaction.h"
 #include <libkipi/plugin.h>
 #include <libkipi/exportinterface.h>
+#include <QDebug>
 #include "kamoso.h"
 #include "kamosojobtracker.h"
 
-KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent)
-	: QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo)
+KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent)
+	: QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo), mKamoso(ui)
 {
-	connect(this, SIGNAL(trigger()), SLOT(runJob()));
+	connect(this, SIGNAL(triggered()), SLOT(runJob()));
 }
 
 void KipiAction::runJob()
 {
 	KIPI::Plugin* p=pluginInfo->plugin();
-	KIPI::ExportInterface* ep=qobject_cast< KIPI::ExportInterface* >(p);
+	KIPI::ExportInterface* ep=static_cast<KIPI::ExportInterface*>(p);
 	
 	KJob* job=ep->exportFiles(i18n("Kamoso"));
 	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems().urlList(), pluginInfo->icon());
