@@ -93,7 +93,6 @@ class Kamoso : public KMainWindow
 		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
 		void pluginPlug(KIPI::PluginLoader::Info*);
-		void replug();
 	signals:
 		void webcamPlaying(const QString&);
 		
