@@ -33,7 +33,7 @@ KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject
 void KipiAction::runJob()
 {
 	KIPI::Plugin* p=pluginInfo->plugin();
-	KIPI::ExportInterface* ep=static_cast<KIPI::ExportInterface*>(p);
+	KIPI::ExportInterface* ep=dynamic_cast<KIPI::ExportInterface*>(p);
 	
 	KJob* job=ep->exportFiles(i18n("Kamoso"));
 	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems().urlList(), pluginInfo->icon());
