@@ -47,13 +47,15 @@
 #include "ui_mainWidget.h"
 #include "whitewidgetmanager.h"
 #include "devicemanager.h"
-#include "pluginmanager.h"
+#include "kipiinterface.h"
 #include "kamosoplugin.h"
 #include "kamosojobtracker.h"
 #include "kamosojob.h"
 #include "photoshootmode.h"
 #include "videoshootmode.h"
 #include "burstshootmode.h"
+#include <libkipi/plugin.h>
+#include <libkipi/pluginloader.h>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -136,6 +138,8 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	//Tunning a bit the customIconView
 	thumbnailView->assignDelegate();
+	thumbnailView->setSelectionRectVisible(true);
+	thumbnailView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect(thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
 			SLOT(openThumbnail(QModelIndex)));
 	connect(thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
@@ -165,11 +169,29 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 	
 	KamosoJobTracker* tracker=new KamosoJobTracker(statusBar());
-	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
+// 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
 	connect(tracker, SIGNAL(jobClicked(KamosoJob*)), SLOT(selectJob(KamosoJob*)));
 	statusBar()->addWidget(tracker);
 	
 	QTimer::singleShot(0, this, SLOT(initialize()));
+	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this));
+// 	connect(mPluginLoader, SIGNAL(plug(KIPI::PluginLoader::Info*)),this, SLOT(pluginPlug(KIPI::PluginLoader::Info*)));
+// 	connect(mPluginLoader,SIGNAL(replug()),this,SLOT(replug()));
+}
+
+KFileItemList Kamoso::selectedItems()
+{
+	return dirOperator->selectedItems();
+}
+
+void Kamoso::pluginPlug(KIPI::PluginLoader::Info* info)
+{
+	qDebug() << info->name();
+	qDebug() << info->plugin()->actions().length();
+	QList<KAction*> actions = info->plugin()->actions();
+	Q_FOREACH(KAction* action, actions) {
+		qDebug() << action->text();
+	}
 }
 
 void Kamoso::initialize()
@@ -295,11 +317,9 @@ void Kamoso::configuration()
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
 	
 	//TODO: Use the designer and so on
-	KPluginSelector* selector=new KPluginSelector(dialog);
-// 	selector->
-	selector->addPlugins(PluginManager::self()->pluginInfo());
-	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
-	
+// 	KPluginSelector* selector=new KPluginSelector(dialog);
+// 	selector->addPlugins(PluginManager::self()->pluginInfo());
+// 	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
 	dialog->show();
 }
 
@@ -434,23 +454,23 @@ void Kamoso::openThumbnail(const QModelIndex& idx)
 
 void Kamoso::openThumbnail(const QList<KUrl>& url)
 {
-	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
+// 	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
 }
 
 void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 {
 	menu->clear();
 	
-	foreach(KamosoPlugin* p, PluginManager::self()->plugins()) {
-		#warning make it possible to deal with many url at the same time
-		QAction* action=p->thumbnailsAction(QList<KUrl>() << item.url());
-		
-		if(action) {
-			if(!action->parent())
-				action->setParent(menu);
-			menu->addAction(action);
-		}
-	}
+// 	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, pluginList) {
+// 		#warning make it possible to deal with many url at the same time
+// 		QAction* action=p->thumbnailsAction(QList<KUrl>() << item.url());
+// 		
+// 		if(action) {
+// 			if(!action->parent())
+// 				action->setParent(menu);
+// 			menu->addAction(action);
+// 		}
+// 	}
 }
 
 void Kamoso::thumbnailAdded()

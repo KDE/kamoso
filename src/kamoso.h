@@ -22,6 +22,9 @@
 
 #include <KMainWindow>
 #include <KUrl>
+#include <KFileItemList>
+#include <KAction>
+#include <libkipi/pluginloader.h>
 
 class QToolButton;
 class QRadioButton;
@@ -42,7 +45,6 @@ class DeviceManager;
 class KamosoJob;
 namespace Ui { class mainWidget;}
 namespace Phonon { class MediaObject; }
-
 class Kamoso : public KMainWindow
 {
 	Q_OBJECT
@@ -56,6 +58,7 @@ class Kamoso : public KMainWindow
 		
 		void startVideo(bool withSound);
 		void stopVideo();
+		KFileItemList selectedItems();
 
 //Only slots
 	public slots:
@@ -89,6 +92,8 @@ class Kamoso : public KMainWindow
 		void openThumbnail(const QModelIndex& idx);
 		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
+		void pluginPlug(KIPI::PluginLoader::Info*);
+		void replug();
 	signals:
 		void webcamPlaying(const QString&);
 		
@@ -111,6 +116,8 @@ class Kamoso : public KMainWindow
 		ShootMode *m_activeMode;
 		bool m_flashEnabled;
 		ThumbnailView* thumbnailView;
+		KIPI::PluginLoader* mPluginLoader;
+		QList<KAction*> kipiActions;
 };
 
 #endif
