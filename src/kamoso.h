@@ -100,8 +100,6 @@ class Kamoso : public KMainWindow
 		
 	private:
 		float brightBack;
-
-		WebcamRetriever *videoRetriever;
 		int m_webcamId;
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
