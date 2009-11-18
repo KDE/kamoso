@@ -185,20 +185,11 @@ void WebcamWidget::retro(vlc_object_t* object)
 		counter --;
 	}
 }
-void WebcamWidget::initDevice()
-{
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
-	if(found){
-		setBrightness(d->brightness);
-	}else{
-		qDebug() << "Not found :(";
-	}
-}
+
 void WebcamWidget::playing()
 {
 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 	retro(d->vlcMainObject);
-// 	initDevice();
 }
 void WebcamWidget::playFile(const Device &device)
 {

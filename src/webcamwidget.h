@@ -60,7 +60,6 @@ private:
 	WebcamWidget(QWidget* parent);
 	static WebcamWidget* s_instance;
 	QByteArray phononCaptureDevice();
-	void initDevice();
 	void newMedia();
 	void setDevice(const Device &device);
 	float convertAdjustValue(int level);
