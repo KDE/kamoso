@@ -17,6 +17,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
+#ifndef YOUTUBEJOB_H
+#define YOUTUBEJOB_H
+
 #include <KPasswordDialog>
 #include <KJob>
 #include <KIO/Job>
@@ -28,7 +31,7 @@ class YoutubeJob : public KJob
 {
 	Q_OBJECT
 	public:
-		YoutubeJob(const KUrl::List& url, QObject* parent=0);
+		YoutubeJob(const KUrl& url, QObject* parent=0);
 		virtual void start();
 		bool showDialog();
 		QMap<QString, QString> showVideoDialog();
@@ -47,7 +50,7 @@ class YoutubeJob : public KJob
 		KIO::TransferJob *uploadJob;
 		QByteArray m_authToken;
 		static const QByteArray developerKey;
-		KUrl::List m_url;
+		KUrl m_url;
 		QMap<QString, QString> m_videoInfo;
 		void checkWallet();
 
@@ -58,3 +61,4 @@ class YoutubeJob : public KJob
 		QString videoTags;
 		KPasswordDialog *dialog;
 };
+#endif

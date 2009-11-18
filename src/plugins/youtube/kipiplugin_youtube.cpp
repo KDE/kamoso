@@ -34,6 +34,7 @@
 #include "kipiplugin_youtube.h"
 #include "youtubejob.h"
 #include <libkipi/interface.h>
+#include "youtubejobcomposite.h"
 
 using KWallet::Wallet;
 
@@ -69,7 +70,11 @@ YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
 KJob* YoutubePlugin::exportFiles(const QString& albumname)
 {
 	KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
-	return new YoutubeJob(interface->currentSelection().images());
+	YoutubeJobComposite* job = new YoutubeJobComposite();
+	foreach(const KUrl& url, interface->currentSelection().images()) {
+		job->addYoutubeJob(new YoutubeJob(url));
+	}
+	return job;
 }
 
 KIPI::Category YoutubePlugin::category(KAction* action) const
