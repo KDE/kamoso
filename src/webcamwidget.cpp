@@ -154,8 +154,6 @@ WebcamWidget::~WebcamWidget()
 
 	libvlc_media_player_release (d->player);
 
-	libvlc_media_release(d->media);
-
 	libvlc_release (d->vlcInstance);
 	
 	delete d;
