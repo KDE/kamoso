@@ -334,30 +334,29 @@ void Kamoso::configuration()
 	dialog->show();
 }
 
-
 void Kamoso::brightnessChanged(int level)
 {
-
+	webcam->setBrightness(level);
 }
 
 void Kamoso::contrastChanged(int level)
 {
-
+	webcam->setContrast(level);
 }
 
 void Kamoso::gammaChanged(int level)
 {
-
+	webcam->setGamma(level);
 }
 
 void Kamoso::hueChanged(int level)
 {
-
+	webcam->setHue(level);
 }
 
 void Kamoso::saturationChanged(int level)
 {
-
+	webcam->setSaturation(level);
 }
 
 

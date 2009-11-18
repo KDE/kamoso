@@ -50,6 +50,10 @@ public slots:
 	void fileSaved(KJob *);
 	void fileSaved(const KUrl &dest);
 	void setBrightness(int level);
+	void setSaturation(int level);
+	void setGamma(int level);
+	void setContrast(int level);
+	void setHue(int level);
 	void playing();
 	void retro(vlc_object_t *obj);
 private:
@@ -59,6 +63,7 @@ private:
 	void initDevice();
 	void newMedia();
 	void setDevice(const Device &device);
+	float convertAdjustValue(int level);
 	class Private;
 	Private* d;
 };

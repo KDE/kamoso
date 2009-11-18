@@ -144,7 +144,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 	d->eventManager = libvlc_media_player_event_manager(d->player,&d->vlcException);
 	d->raise(&d->vlcException);
 	
-	d->effects.append("adjust");
+// 	d->effects.append("adjust");
 }
 
 //desctructor
@@ -200,7 +200,7 @@ void WebcamWidget::playing()
 {
 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 	retro(d->vlcMainObject);
-	initDevice();
+// 	initDevice();
 }
 void WebcamWidget::playFile(const Device &device)
 {
@@ -338,19 +338,38 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
-	float result;
-	result = (float)level / 100.0f;
-	qDebug() << result;
-// 	d->device.setBrightness(result);
 	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
-	var_SetFloat(found,"brightness",result);
+	var_SetFloat(found,"brightness",convertAdjustValue(level));
+}
+void WebcamWidget::setContrast(int level)
+{
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	var_SetFloat(found,"contrast",convertAdjustValue(level));
+}
+void WebcamWidget::setSaturation(int level)
+{
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	var_SetFloat(found,"saturation",convertAdjustValue(level));
+}
+void WebcamWidget::setGamma(int level)
+{
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	var_SetFloat(found,"gamma",convertAdjustValue(level));
+}
+void WebcamWidget::setHue(int level)
+{
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	var_SetFloat(found,"hue",level);
+}
+float WebcamWidget::convertAdjustValue(int level){
+	return (float)level / 100.0f;
 }
 void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
 	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
-	
+
 	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
 	d->raise(&d->vlcException);
 
@@ -358,6 +377,17 @@ void WebcamWidget::newMedia()
 	foreach(QString effect,d->effects) {
 		effectString.append(effect+":");
 	}
+	
+	//The adjust effect is an special case, since we need it preconfigured
+	//Maybe we'll need a map of maps to save effects properties
+	effectString.append("adjust{");
+	effectString.append("brightness="+QString::number(convertAdjustValue(d->device.brightness()))+",");
+	effectString.append("saturation="+QString::number(convertAdjustValue(d->device.saturation()))+",");
+	effectString.append("gamma="+QString::number(convertAdjustValue(d->device.gamma()))+",");
+	effectString.append("contrast="+QString::number(convertAdjustValue(d->device.contrast()))+",");
+	effectString.append("hue="+QString::number(d->device.hue()));
+	effectString.append("}");
+	qDebug() << effectString;
 	libvlc_media_add_option(d->media,"video-filter="+effectString.toAscii(),&d->vlcException);
 	libvlc_media_add_option(d->media,"sout-transcode-vfilter="+effectString.toAscii(),&d->vlcException);
 	d->raise(&d->vlcException);
