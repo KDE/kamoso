@@ -45,7 +45,7 @@ void WebcamDialog::setPageWebcamConfigManager(PageWebcamConfigManager* webcamMan
 void WebcamDialog::updateSettings()
 {
 	Q_ASSERT(!configManager);
-	if(KConfigDialog::hasChanged() == true || configManager->hasChanged() == true) {
+	if(hasChanged() == true) {
 		qDebug() << "Settings changed";
 		configManager->updateDefaultValues();
 		settingsChangedSlot();
