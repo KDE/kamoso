@@ -17,26 +17,20 @@
 
 */
 
-#ifndef WEBCAMDIALOG_H
-#define WEBCAMDIALOG_H
+#ifndef PAGEWEBCAMCONFIGMANAGER_H
+#define PAGEWEBCAMCONFIGMANAGER_H
 
-#include <KConfigDialog>
-#include "pagewebcamconfigmanager.h"
+#include "ui_videoConfig.h"
 
-class WebcamDialog : public KConfigDialog
+struct Private;
+class PageWebcamConfigManager
 {
-Q_OBJECT
 public:
-	WebcamDialog(QWidget *parent, const QString& name,
-                 KConfigSkeleton *config);
-	~WebcamDialog();
-	void setPageWebcamConfigManager(PageWebcamConfigManager* webcamManager);
-public slots:
-	virtual void updateSettings();
-protected:
-    virtual bool hasChanged();
+	PageWebcamConfigManager(Ui::webcamConfigWidget* pageWebcam);
+	bool hasChanged();
+	void updateDefaultValues();
 private:
-	PageWebcamConfigManager* configManager;
+	Private* d;
 };
 
-#endif // WEBCAMDIALOG_H
+#endif // PAGEWEBCAMCONFIGMANAGER_H

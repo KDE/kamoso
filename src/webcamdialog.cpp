@@ -22,18 +22,32 @@
 #include "webcamdialog.h"
 
 WebcamDialog::WebcamDialog( QWidget *parent, const QString& name, KConfigSkeleton *config ): 
-				KConfigDialog(parent,name,config)
+				KConfigDialog(parent,name,config),configManager(0)
 {
 	
 }
-void WebcamDialog::webcamValueChanged()
+WebcamDialog::~WebcamDialog()
 {
-	qDebug() << "webcamValueCHanged!!!";
-	enableButtonApply(true);
+	delete configManager;
 }
 bool WebcamDialog::hasChanged()
 {
-// 	return true;
-	return KConfigDialog::hasChanged();
+	Q_ASSERT(!configManager);
+	if(KConfigDialog::hasChanged() == true || configManager->hasChanged() == true) {
+		return true;
+	}
+	return false;
 }
-
+void WebcamDialog::setPageWebcamConfigManager(PageWebcamConfigManager* webcamManager)
+{
+	configManager = webcamManager;
+}
+void WebcamDialog::updateSettings()
+{
+	Q_ASSERT(!configManager);
+	if(KConfigDialog::hasChanged() == true || configManager->hasChanged() == true) {
+		qDebug() << "Settings changed";
+		configManager->updateDefaultValues();
+		settingsChangedSlot();
+	}
+}

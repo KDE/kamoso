@@ -56,6 +56,7 @@
 #include "videoshootmode.h"
 #include "burstshootmode.h"
 #include "webcamdialog.h"
+#include "pagewebcamconfigmanager.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -298,24 +299,32 @@ void Kamoso::configuration()
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
 
 	pageWebcam = new Ui::webcamConfigWidget;
+
 	QWidget *widgetWebcamPage = new QWidget();
 	pageWebcam->setupUi(widgetWebcamPage);
 	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
 
 	//the values are in X.X form while the sliders use integer so we device by 100;
 	Device device = deviceManager->playingDevice();
-	qDebug() << "Dialog brightness" << device.brightness();
 	pageWebcam->brightnessSlider->setValue(device.brightness());
 	pageWebcam->contrastSlider->setValue(device.contrast());
 	pageWebcam->saturationSlider->setValue(device.saturation());
 	pageWebcam->gammaSlider->setValue(device.gamma());
 	pageWebcam->hueSlider->setValue(device.hue());
 
-	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
-	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
-	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
-	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
-	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(webcamValueChanged()));
+	PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
+	dialog->setPageWebcamConfigManager(configManager);
+	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+
+	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),this,SLOT(brightnessChanged(int)));
+	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),this,SLOT(contrastChanged(int)));
+	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),this,SLOT(saturationChanged(int)));
+	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),this,SLOT(gammaChanged(int)));
+	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),this,SLOT(hueChanged(int)));
 
 	//TODO: Use the designer and so on
 	KPluginSelector* selector=new KPluginSelector(dialog);
@@ -324,6 +333,33 @@ void Kamoso::configuration()
 	
 	dialog->show();
 }
+
+
+void Kamoso::brightnessChanged(int level)
+{
+
+}
+
+void Kamoso::contrastChanged(int level)
+{
+
+}
+
+void Kamoso::gammaChanged(int level)
+{
+
+}
+
+void Kamoso::hueChanged(int level)
+{
+
+}
+
+void Kamoso::saturationChanged(int level)
+{
+
+}
+
 
 /**
 *This is called automatically by KCM when the configuration is updated

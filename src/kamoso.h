@@ -90,6 +90,11 @@ class Kamoso : public KMainWindow
 		void openThumbnail(const QModelIndex& idx);
 		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
+		void brightnessChanged(int);
+		void contrastChanged(int);
+		void hueChanged(int);
+		void saturationChanged(int);
+		void gammaChanged(int);
 	signals:
 		void webcamPlaying(const QString&);
 		
