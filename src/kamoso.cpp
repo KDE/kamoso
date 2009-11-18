@@ -83,11 +83,11 @@ Kamoso::Kamoso(QWidget* parent)
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	
-	webcam = new WebcamWidget(this);
+	webcam = WebcamWidget::createInstance(this);
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
 	if(deviceManager->hasDevices()) {
-		webcam->playFile(deviceManager->defaultDevicePath());
+		webcam->playFile(deviceManager->defaultDevice());
 		emit webcamPlaying(deviceManager->defaultDeviceUdi());
 	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
@@ -210,7 +210,7 @@ void Kamoso::stopVideo()
 	KUrl finalPath = Settings::saveUrl();
 	finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 	webcam->stopRecording(finalPath);
-	webcam->playFile(deviceManager->playingDevicePath());
+	webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::fillKcomboDevice()
@@ -247,7 +247,7 @@ void Kamoso::webcamChanged(int index)
 	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
 	deviceManager->webcamPlaying(udi);
 
-	webcam->playFile(deviceManager->playingDevicePath());
+	webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::checkInitConfig()

@@ -20,7 +20,11 @@
 #ifndef WEBCAMWIDGET_H
 #define WEBCAMWIDGET_H
 
+#include "device.h"
 #include <QWidget>
+#include <KJob>
+#include "vlc/libvlc.h"
+
 class KUrl;
 class QVBoxLayout;
 class QPushButton;
@@ -34,16 +38,27 @@ class WebcamWidget : public QWidget
 {
 Q_OBJECT
 public:
-	WebcamWidget(QWidget* parent);
+	static WebcamWidget* createInstance(QWidget *parent);
+	static WebcamWidget* self();
 	~WebcamWidget();
 	
 public slots:
-	void playFile(const QString& file);
+	void playFile(const Device& device);
 	bool takePhoto(const KUrl &dest);
 	void recordVideo(bool sound);
 	void stopRecording(const KUrl& destUrl);
+	void fileSaved(KJob *);
+	void fileSaved(const KUrl &dest);
+	void setBrightness(int level);
+	void playing();
+	void retro(vlc_object_t *obj);
 private:
-	QString phononCaptureDevice();
+	WebcamWidget(QWidget* parent);
+	static WebcamWidget* s_instance;
+	QByteArray phononCaptureDevice();
+	void initDevice();
+	void newMedia();
+	void setDevice(const Device &device);
 	class Private;
 	Private* d;
 };
