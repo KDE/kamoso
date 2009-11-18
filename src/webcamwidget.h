@@ -51,8 +51,8 @@ public slots:
 	void fileSaved(const KUrl &dest);
 	void setBrightness(int level);
 	void setSaturation(int level);
-	void setGamma(int level);
 	void setContrast(int level);
+	void setGamma(int level);
 	void setHue(int level);
 	void playing();
 	void retro(vlc_object_t *obj);

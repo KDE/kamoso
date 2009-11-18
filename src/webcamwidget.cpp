@@ -382,9 +382,9 @@ void WebcamWidget::newMedia()
 	//Maybe we'll need a map of maps to save effects properties
 	effectString.append("adjust{");
 	effectString.append("brightness="+QString::number(convertAdjustValue(d->device.brightness()))+",");
+	effectString.append("contrast="+QString::number(convertAdjustValue(d->device.contrast()))+",");
 	effectString.append("saturation="+QString::number(convertAdjustValue(d->device.saturation()))+",");
 	effectString.append("gamma="+QString::number(convertAdjustValue(d->device.gamma()))+",");
-	effectString.append("contrast="+QString::number(convertAdjustValue(d->device.contrast()))+",");
 	effectString.append("hue="+QString::number(d->device.hue()));
 	effectString.append("}");
 	qDebug() << effectString;

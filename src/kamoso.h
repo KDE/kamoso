@@ -92,9 +92,9 @@ class Kamoso : public KMainWindow
 		void fillKcomboDevice();
 		void brightnessChanged(int);
 		void contrastChanged(int);
-		void hueChanged(int);
 		void saturationChanged(int);
 		void gammaChanged(int);
+		void hueChanged(int);
 	signals:
 		void webcamPlaying(const QString&);
 		

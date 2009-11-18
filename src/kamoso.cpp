@@ -314,6 +314,7 @@ void Kamoso::configuration()
 
 	PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
 	dialog->setPageWebcamConfigManager(configManager);
+
 	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
 	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
 	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
@@ -344,6 +345,11 @@ void Kamoso::contrastChanged(int level)
 	webcam->setContrast(level);
 }
 
+void Kamoso::saturationChanged(int level)
+{
+	webcam->setSaturation(level);
+}
+
 void Kamoso::gammaChanged(int level)
 {
 	webcam->setGamma(level);
@@ -353,12 +359,6 @@ void Kamoso::hueChanged(int level)
 {
 	webcam->setHue(level);
 }
-
-void Kamoso::saturationChanged(int level)
-{
-	webcam->setSaturation(level);
-}
-
 
 /**
 *This is called automatically by KCM when the configuration is updated
