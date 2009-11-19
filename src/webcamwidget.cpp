@@ -357,7 +357,8 @@ void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
-	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
+	mrl.append(":caching=100 :no-video-title-show");
+// 	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
 
 	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
 	d->raise(&d->vlcException);
