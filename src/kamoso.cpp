@@ -410,7 +410,6 @@ Kamoso::~Kamoso()
 	delete player;
 	delete m_countdown;
 	delete dirOperator;
-	delete dialog;
 	Settings::self()->writeConfig();
 }
 
