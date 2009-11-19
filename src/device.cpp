@@ -19,7 +19,11 @@
 
 #include "device.h"
 #include <solid/video.h>
+#include <KConfigGroup>
 #include <QDebug>
+
+Device::Device()
+{}
 
 Device::Device(const Solid::Device *device)
 {
@@ -39,6 +43,9 @@ Device::Device(const Solid::Device *device)
 			}
 		}
 	}
+
+
+	config = new KConfig("kamosoDevices");
 }
 
 Device::~Device()
@@ -59,3 +66,67 @@ QString Device::udi() const
 	return m_udi;
 }
 
+QString Device::vendor() const
+{
+	return m_vendor;
+}
+
+void Device::setBrightness(int level)
+{
+	qDebug() << "New brightness " << level;
+	config->group(m_udi).writeEntry("brightness",level);
+	config->sync();
+}
+
+void Device::setContrast(int level)
+{
+	qDebug() << "New contrast " << level;
+	config->group(m_udi).writeEntry("contrast",level);
+	config->sync();
+}
+
+void Device::setSaturation(int level)
+{
+	qDebug() << "New saturation " << level;
+	config->group(m_udi).writeEntry("saturation",level);
+	config->sync();
+}
+
+void Device::setGamma(int level)
+{
+	qDebug() << "new gamma" << level;
+	config->group(m_udi).writeEntry("gamma",level);
+	config->sync();
+}
+
+void Device::setHue(int level)
+{
+	qDebug() << "new hue" << level;
+	config->group(m_udi).writeEntry("hue",level);
+	config->sync();
+}
+
+int Device::brightness() const
+{
+	return config->group(m_udi).readEntry("brightness",100);
+}
+
+int Device::contrast() const
+{
+	return config->group(m_udi).readEntry("contrast",100);
+}
+
+int Device::saturation() const
+{
+	return config->group(m_udi).readEntry("saturation",100);
+}
+
+int Device::gamma() const
+{
+	return config->group(m_udi).readEntry("gamma",100);
+}
+
+int Device::hue() const
+{
+	return config->group(m_udi).readEntry("hue",0);
+}

@@ -47,6 +47,7 @@
 #include "ui_generalConfig.h"
 #include "ui_pictureConfig.h"
 #include "ui_mainWidget.h"
+#include "ui_videoConfig.h"
 #include "whitewidgetmanager.h"
 #include "devicemanager.h"
 #include "kipiinterface.h"
@@ -57,6 +58,8 @@
 #include "burstshootmode.h"
 #include "kipiaction.h"
 #include <KPluginInfo>
+#include "webcamdialog.h"
+#include "pagewebcamconfigmanager.h"
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -83,11 +86,11 @@ Kamoso::Kamoso(QWidget* parent)
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	
-	webcam = new WebcamWidget(this);
+	webcam = WebcamWidget::createInstance(this);
 	webcam->setParent(mainWidgetUi->centralSpot);
 	webcam->setMinimumSize(640,480);
 	if(deviceManager->hasDevices()) {
-		webcam->playFile(deviceManager->defaultDevicePath());
+		webcam->playFile(deviceManager->defaultDevice());
 		emit webcamPlaying(deviceManager->defaultDeviceUdi());
 	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
@@ -231,7 +234,7 @@ void Kamoso::stopVideo()
 	KUrl finalPath = Settings::saveUrl();
 	finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
 	webcam->stopRecording(finalPath);
-	webcam->playFile(deviceManager->playingDevicePath());
+	webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::fillKcomboDevice()
@@ -268,7 +271,7 @@ void Kamoso::webcamChanged(int index)
 	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
 	deviceManager->webcamPlaying(udi);
 
-	webcam->playFile(deviceManager->playingDevicePath());
+	webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::checkInitConfig()
@@ -299,7 +302,7 @@ void Kamoso::configuration()
 	}
 	
 	//Creating the kcm
-	KConfigDialog *dialog = new KConfigDialog(this,"settings",Settings::self());
+	dialog = new WebcamDialog(this,"settings",Settings::self());
 	dialog->resize(540,dialog->height());
 	
 	//Widget created with qt-designer
@@ -309,6 +312,7 @@ void Kamoso::configuration()
 	page->setupUi(widgetPage);
 	page->kcfg_saveUrl->setMode(KFile::Directory);
 	Q_EMIT(Settings::saveUrl());
+
 	dialog->addPage(widgetPage,i18n("General"),"configure");
 	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
 
@@ -317,12 +321,66 @@ void Kamoso::configuration()
 	pagePicture->setupUi(widgetPicturePage);
 	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
 	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
-	
+
+	pageWebcam = new Ui::webcamConfigWidget;
+
+	QWidget *widgetWebcamPage = new QWidget();
+	pageWebcam->setupUi(widgetWebcamPage);
+	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
+
+	//the values are in X.X form while the sliders use integer so we device by 100;
+	Device device = deviceManager->playingDevice();
+	pageWebcam->brightnessSlider->setValue(device.brightness());
+	pageWebcam->contrastSlider->setValue(device.contrast());
+	pageWebcam->saturationSlider->setValue(device.saturation());
+	pageWebcam->gammaSlider->setValue(device.gamma());
+	pageWebcam->hueSlider->setValue(device.hue());
+
+	PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
+	dialog->setPageWebcamConfigManager(configManager);
+
+	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+
+	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),this,SLOT(brightnessChanged(int)));
+	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),this,SLOT(contrastChanged(int)));
+	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),this,SLOT(saturationChanged(int)));
+	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),this,SLOT(gammaChanged(int)));
+	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),this,SLOT(hueChanged(int)));
+
 	//TODO: Use the designer and so on
 // 	KPluginSelector* selector=new KPluginSelector(dialog);
 // 	selector->addPlugins(PluginManager::self()->pluginInfo());
 // 	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
 	dialog->show();
+}
+
+void Kamoso::brightnessChanged(int level)
+{
+	webcam->setBrightness(level);
+}
+
+void Kamoso::contrastChanged(int level)
+{
+	webcam->setContrast(level);
+}
+
+void Kamoso::saturationChanged(int level)
+{
+	webcam->setSaturation(level);
+}
+
+void Kamoso::gammaChanged(int level)
+{
+	webcam->setGamma(level);
+}
+
+void Kamoso::hueChanged(int level)
+{
+	webcam->setHue(level);
 }
 
 /**
@@ -333,6 +391,14 @@ void Kamoso::generalUpdated()
 	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
 	dirOperator->setUrl(Settings::saveUrl(), false);
+
+	Device device = deviceManager->playingDevice();
+	
+	device.setBrightness(pageWebcam->brightnessSlider->value());
+	device.setContrast(pageWebcam->contrastSlider->value());
+	device.setSaturation(pageWebcam->saturationSlider->value());
+	device.setGamma(pageWebcam->gammaSlider->value());
+	device.setHue(pageWebcam->hueSlider->value());
 }
 
 /**
@@ -344,6 +410,7 @@ Kamoso::~Kamoso()
 	delete player;
 	delete m_countdown;
 	delete dirOperator;
+	delete dialog;
 	Settings::self()->writeConfig();
 }
 

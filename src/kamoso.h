@@ -43,7 +43,9 @@ class ThumbnailView;
 class KFileItem;
 class WebcamWidget;
 class DeviceManager;
-namespace Ui { class mainWidget;}
+class KamosoJob;
+class WebcamDialog;
+namespace Ui { class mainWidget; class webcamConfigWidget;}
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
 {
@@ -79,7 +81,7 @@ class Kamoso : public KMainWindow
 		void settingsMenu(bool);
 		void selectJob(KJob*);
 		void changeMode(bool);
-		
+
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
 		
@@ -94,13 +96,16 @@ class Kamoso : public KMainWindow
 		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
 		void pluginPlug(KIPI::PluginLoader::Info*);
+		void brightnessChanged(int);
+		void contrastChanged(int);
+		void saturationChanged(int);
+		void gammaChanged(int);
+		void hueChanged(int);
 	signals:
 		void webcamPlaying(const QString&);
 		
 	private:
 		float brightBack;
-
-		WebcamRetriever *videoRetriever;
 		int m_webcamId;
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
@@ -108,6 +113,7 @@ class Kamoso : public KMainWindow
 		CountdownWidget *m_countdown;
 		Phonon::MediaObject *player;
 		Ui::mainWidget *mainWidgetUi;
+		Ui::webcamConfigWidget *pageWebcam;
 		QWidget *mainWidget;
 		DeviceManager *deviceManager;
 		int m_exponentialValue;
@@ -119,6 +125,7 @@ class Kamoso : public KMainWindow
 		KIPI::PluginLoader* mPluginLoader;
 		QList<KAction*> kipiActions;
 		KamosoJobTracker* mTracker;
+		WebcamDialog* dialog;
 };
 
 #endif

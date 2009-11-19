@@ -1,5 +1,8 @@
+include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${VLC_INCLUDE_DIRS} ${KIPI_INCLUDE_DIR} /usr/include/vlc/plugins)
 
-include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${VLC_INCLUDE_DIRS} ${KIPI_INCLUDE_DIR})
+if (NEPOMUK_FOUND)
+	include_directories(${NEPOMUK_INCLUDES})
+endif(NEPOMUK_FOUND)
 
 add_subdirectory(plugins)
 
@@ -24,17 +27,24 @@ set(kamoso_SRCS
 	kamosoimagecollectionshared.cpp
 	infoshared.cpp
 	kipiaction.cpp
+	webcamdialog.cpp
+	pagewebcamconfigmanager.cpp
 )
 
-set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui)
+set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui videoConfig.ui)
 
 kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)
 kde4_add_ui_files(kamoso_SRCS ${kamoso_UI})
 kde4_add_executable(kamoso ${kamoso_SRCS})
+
+configure_file(config-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-nepomuk.h)
 target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LIBS}
 		${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} ${KDE4_KUTILS_LIBS} ${VLC_LIBRARIES} ${KIPI_LIBRARIES} solidcontrol)
+
+if(HAVE_NEPOMUK)
+	target_link_libraries(kamoso ${NEPOMUK_LIBRARIES})
+endif(HAVE_NEPOMUK)
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install(FILES kamosoplugin.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
-
