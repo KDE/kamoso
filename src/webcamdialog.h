@@ -33,6 +33,8 @@ public:
 	void setPageWebcamConfigManager(PageWebcamConfigManager* webcamManager);
 public slots:
 	virtual void updateSettings();
+protected slots:
+	virtual void updateWidgetsDefault();
 protected:
     virtual bool hasChanged();
 private:
