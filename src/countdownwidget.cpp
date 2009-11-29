@@ -63,11 +63,11 @@ void CountdownWidget::paintEvent(QPaintEvent* )
 	
 	const int margin=5;
 	int rad=height()/2-margin;
-	int dist=(width()-rad*colorCount())/(colorCount()-1);
+	int dist=(width()-rad*colorCount)/(colorCount-1);
 	
-	int current=int(mProgress*colorCount());
+	int current=int(mProgress*colorCount);
 	
-	for(int i=0; i<colorCount(); i++) {
+	for(int i=0; i<colorCount; i++) {
 		QColor color=colors[i];
 		if(i>=current)
 			color=color.dark(125);
@@ -83,7 +83,7 @@ void CountdownWidget::paintEvent(QPaintEvent* )
 			painter.setPen(color);
 			painter.setBrush(color);
 			
-			double progUnit=1./colorCount();
+			double progUnit=1./colorCount;
 			double prog=(mProgress-i*progUnit)/progUnit;
 			
 			painter.drawEllipse(tl, rad*prog, rad*prog);
