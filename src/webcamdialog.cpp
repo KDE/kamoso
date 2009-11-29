@@ -51,3 +51,10 @@ void WebcamDialog::updateSettings()
 		settingsChangedSlot();
 	}
 }
+
+void WebcamDialog::updateWidgetsDefault()
+{
+	qDebug() << "updates widget!";
+	KConfigDialog::updateWidgetsDefault();
+	configManager->updateWidgetsDefault();
+}

@@ -285,7 +285,7 @@ void Kamoso::checkInitConfig()
 		if(dirs.exec() && dirs.url().isValid())
 			url=dirs.url();
 		else
-			url=QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+			url=QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 		Settings::setSaveUrl(url);
 	}
 }

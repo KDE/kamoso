@@ -29,6 +29,7 @@ public:
 	PageWebcamConfigManager(Ui::webcamConfigWidget* pageWebcam);
 	bool hasChanged();
 	void updateDefaultValues();
+	void updateWidgetsDefault();
 private:
 	Private* d;
 };
