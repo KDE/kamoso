@@ -24,8 +24,8 @@
 #include <QDebug>
 #include <QTimeLine>
 
-static const int colorCount=3;
-static const QColor colors[colorCount]={ Qt::red, Qt::yellow, Qt::green };
+static const int numberOfColours=3;
+static const QColor colors[numberOfColours]={ Qt::red, Qt::yellow, Qt::green };
 
 CountdownWidget::CountdownWidget(QWidget* parent)
 	: QWidget(parent)
@@ -63,11 +63,11 @@ void CountdownWidget::paintEvent(QPaintEvent* )
 	
 	const int margin=5;
 	int rad=height()/2-margin;
-	int dist=(width()-rad*colorCount)/(colorCount-1);
+	int dist=(width()-rad*numberOfColours)/(numberOfColours-1);
 	
-	int current=int(mProgress*colorCount);
+	int current=int(mProgress*numberOfColours);
 	
-	for(int i=0; i<colorCount; i++) {
+	for(int i=0; i<numberOfColours; i++) {
 		QColor color=colors[i];
 		if(i>=current)
 			color=color.dark(125);
@@ -83,7 +83,7 @@ void CountdownWidget::paintEvent(QPaintEvent* )
 			painter.setPen(color);
 			painter.setBrush(color);
 			
-			double progUnit=1./colorCount;
+			double progUnit=1./numberOfColours;
 			double prog=(mProgress-i*progUnit)/progUnit;
 			
 			painter.drawEllipse(tl, rad*prog, rad*prog);
