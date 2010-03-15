@@ -3,4 +3,8 @@ Type=ServiceType
 X-KDE-ServiceType=Kamoso/Plugin
 X-KDE-Derived=KPluginInfo
 Name=Kamoso Plugin
+Name[pt]='Plugin' do Kamoso
+Name[sv]=Kamoso-insticksprogram
+Name[uk]=Додаток Kamoso
+Name[x-test]=xxKamoso Pluginxx
 
