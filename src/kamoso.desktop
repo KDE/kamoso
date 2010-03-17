@@ -1,18 +1,22 @@
 [Desktop Entry]
 Name=Kamoso
+Name[cs]=Kamoso
 Name[es]=Kamoso
+Name[nds]=Kamoso
 Name[pt]=Kamoso
 Name[sv]=Kamoso
 Name[uk]=Kamoso
 Name[x-test]=xxKamosoxx
 GenericName=Picture retriever
 GenericName[es]=Capturador de imágenes
+GenericName[nds]=Bildgrieper
 GenericName[pt]=Receptor de imagens
 GenericName[sv]=Bildlagring
 GenericName[uk]=Програма для створення знімків
 GenericName[x-test]=xxPicture retrieverxx
 Comment=Take any picture with your web cam
 Comment[es]=Hacer una foto con su cámara web
+Comment[nds]=Jichtenseen Bild mit Dien Nettkamera opnehmen
 Comment[pt]=Tire quaisquer fotografias com a sua Web Cam
 Comment[sv]=Ta en bild med webbkamera
 Comment[uk]=Створіть знімок за допомогою вашої веб-камери
