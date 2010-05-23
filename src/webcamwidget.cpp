@@ -126,7 +126,8 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 			"-I", "dummy", /* Don't use any interface */
 			"--ignore-config", /* Don't use VLC's config */
 			"--extraintf=logger", //log anything
-			"--verbose=0" //be much more verbose then normal for debugging purpose
+			"--verbose=0",
+			"--no-osd"//be much more verbose then normal for debugging purpose
 			};
 
 	//Initialize an instance of vlc
