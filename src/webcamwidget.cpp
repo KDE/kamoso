@@ -160,38 +160,12 @@ WebcamWidget::~WebcamWidget()
 	delete d;
 }
 
-int counter = 0;
-void WebcamWidget::retro(vlc_object_t* object)
-{
-	counter ++;
-	QString tabs("");
-	for(int x=0;x < counter;x++) {
-		tabs.append("    ");
-	}
-	vlc_list_t* list =  vlc_list_children(object);
-	for( int i = 0; i < list->i_count ; i++ )
-	{
-// 		qDebug() << "=" << list->p_values[i].p_object->psz_object_type << "=";
-		if(strcmp("video output",list->p_values[i].p_object->psz_object_type) == 0) {
-			qDebug() << tabs << "Insideeeeeeeeeeeeeeee";
-			d->videoOutput = list->p_values[i].p_object;
-// 			var_SetString(list->p_values[i].p_object,"video-filter","wave:invert");
-			sleep(1);
-		}
-		if(strcmp("filter",list->p_values[i].p_object->psz_object_type) == 0) {
-			qDebug() << list->p_values[i].p_object->psz_object_type;
-		}
-		qDebug() << tabs << list->p_values[i].p_object->psz_object_type;
-		retro(list->p_values[i].p_object);
-		counter --;
-	}
-}
-
 void WebcamWidget::playing()
 {
 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
-	retro(d->vlcMainObject);
+	d->videoOutput = d->vlcMainObject;
 }
+
 void WebcamWidget::playFile(const Device &device)
 {
 	qDebug() << "playFile called" << device.path();;
@@ -358,8 +332,8 @@ void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
-	mrl.append(":caching=100 :no-video-title-show");
-// 	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
+// 	mrl.append(":caching=100 :no-video-title-show");
+	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
 
 	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
 	d->raise(&d->vlcException);

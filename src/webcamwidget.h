@@ -55,7 +55,7 @@ public slots:
 	void setGamma(int level);
 	void setHue(int level);
 	void playing();
-	void retro(vlc_object_t *obj);
+
 private:
 	WebcamWidget(QWidget* parent);
 	static WebcamWidget* s_instance;
