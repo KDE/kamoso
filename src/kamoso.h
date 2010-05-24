@@ -101,6 +101,7 @@ class Kamoso : public KMainWindow
 		void saturationChanged(int);
 		void gammaChanged(int);
 		void hueChanged(int);
+		void autoincFilename(KUrl& filename);
 	signals:
 		void webcamPlaying(const QString&);
 		
