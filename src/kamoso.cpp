@@ -34,6 +34,7 @@
 #include <KPluginSelector>
 #include <KMessageBox>
 #include <KStatusBar>
+#include <KIO/NetAccess>
 #include <Phonon/MediaObject>
 #include <solid/control/powermanager.h>
 #include <libkipi/plugin.h>
@@ -232,7 +233,12 @@ void Kamoso::startVideo(bool sound)
 void Kamoso::stopVideo()
 {
 	KUrl finalPath = Settings::saveUrl();
-	finalPath.addPath(QString("kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
+	finalPath.addPath(QString("video_1.avi"));
+
+	while(KIO::NetAccess::exists( finalPath, KIO::NetAccess::DestinationSide, this )) {
+		autoincFilename(finalPath);
+	}
+
 	webcam->stopRecording(finalPath);
 	webcam->playFile(deviceManager->playingDevice());
 }
@@ -446,7 +452,11 @@ void Kamoso::takePhoto()
 	QTimer::singleShot(1000, this, SLOT(restore()));
 	
 	KUrl photoPlace = Settings::saveUrl();
-	photoPlace.addPath(QString("kamoso_%1.png").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")));
+	photoPlace.addPath(QString("picture_1.png"));
+
+	while(KIO::NetAccess::exists( photoPlace, KIO::NetAccess::DestinationSide, this )) {
+		autoincFilename(photoPlace);
+	}
 
 	webcam->takePhoto(photoPlace);
 	player->play();
@@ -625,3 +635,38 @@ void Kamoso::settingsMenu(bool )
 	m.exec(mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
 
+//Code taken from ksnapshot, thanks guys :p
+void Kamoso::autoincFilename(KUrl &filename)
+{
+    // Extract the filename from the path
+    QString name= filename.fileName();
+
+    // If the name contains a number then increment it
+    QRegExp numSearch( "(^|[^\\d])(\\d+)" ); // we want to match as far left as possible, and when the number is at the start of the name
+
+    // Does it have a number?
+    int start = numSearch.lastIndexIn( name );
+    if (start != -1) {
+        // It has a number, increment it
+        start = numSearch.pos( 2 ); // we are only interested in the second group
+        QString numAsStr = numSearch.capturedTexts()[ 2 ];
+        QString number = QString::number( numAsStr.toInt() + 1 );
+        number = number.rightJustified( numAsStr.length(), '0' );
+        name.replace( start, numAsStr.length(), number );
+    }
+    else {
+        // no number
+        start = name.lastIndexOf('.');
+        if (start != -1) {
+            // has a . somewhere, e.g. it has an extension
+            name.insert(start, '1');
+        }
+        else {
+            // no extension, just tack it on to the end
+            name += '1';
+        }
+    }
+
+    //Rebuild the path
+    filename.setFileName( name );
+}

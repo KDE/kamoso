@@ -235,8 +235,8 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
-	d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
-	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,scale=1,acodec=vorb,ab=328,channels=2,samplerate=44100}:std{access=file,mux=ogg,dst="+d->videoTmpPath+"}'}");
+	d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.avi").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
+	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=xvid,vb=1800,ab=252,acodec=vorb,samplerate=44100,fps=25}:std{access=file,mux=avi,dst="+d->videoTmpPath+"}'}");
 
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
@@ -246,6 +246,9 @@ void WebcamWidget::recordVideo(bool sound)
 		d->raise(&d->vlcException);
 
 		libvlc_media_add_option(d->media,"alsa-caching=100",&d->vlcException);
+		d->raise(&d->vlcException);
+
+		libvlc_media_add_option(d->media,"alsa-samplerate=44100",&d->vlcException);
 		d->raise(&d->vlcException);
 	}
 
@@ -268,7 +271,6 @@ void WebcamWidget::recordVideo(bool sound)
 	d->raise(&d->vlcException);
 
 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
-	
 	libvlc_media_player_play (d->player, &d->vlcException );
 	d->raise(&d->vlcException);
 }
