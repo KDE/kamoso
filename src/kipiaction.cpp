@@ -36,5 +36,5 @@ void KipiAction::runJob()
 	KIPI::ExportInterface* ep=dynamic_cast<KIPI::ExportInterface*>(p);
 	
 	KJob* job=ep->exportFiles(i18n("Kamoso"));
-	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems().urlList(), KIcon()/*, pluginInfo->icon()*/);
+	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems().urlList(), icon());
 }
