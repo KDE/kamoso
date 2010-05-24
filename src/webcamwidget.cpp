@@ -97,9 +97,9 @@ struct WebcamWidget::Private
 
 void callback( const libvlc_event_t *ev, void *param )
 {
-	if(ev->type == libvlc_MediaPlayerPositionChanged) {
-		WebcamWidget::self()->playing();
-	}
+// 	if(ev->type == libvlc_MediaPlayerPositionChanged) {
+// 		WebcamWidget::self()->playing();
+// 	}
 }
 
 WebcamWidget *WebcamWidget::s_instance = NULL;
@@ -145,7 +145,8 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 	d->eventManager = libvlc_media_player_event_manager(d->player,&d->vlcException);
 	d->raise(&d->vlcException);
 	
-// 	d->effects.append("adjust");
+	d->effects.append("adjust");
+// 	d->effects.append("wave");
 }
 
 //desctructor
@@ -163,8 +164,7 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::playing()
 {
-	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
-	d->videoOutput = d->vlcMainObject;
+// 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 }
 
 void WebcamWidget::playFile(const Device &device)
@@ -180,7 +180,7 @@ void WebcamWidget::playFile(const Device &device)
 
 	libvlc_media_player_set_xwindow(d->player, this->winId(), &d->vlcException );
 	d->raise(&d->vlcException);
-	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
+// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 
 	/* Play */
 	libvlc_media_player_play (d->player, &d->vlcException );
@@ -270,7 +270,7 @@ void WebcamWidget::recordVideo(bool sound)
 	libvlc_media_player_set_xwindow(d->player, this->winId(), &d->vlcException );
 	d->raise(&d->vlcException);
 
-	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
+// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 	libvlc_media_player_play (d->player, &d->vlcException );
 	d->raise(&d->vlcException);
 }
@@ -305,27 +305,27 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
 	var_SetFloat(found,"brightness",convertAdjustValue(level));
 }
 void WebcamWidget::setContrast(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
 	var_SetFloat(found,"contrast",convertAdjustValue(level));
 }
 void WebcamWidget::setSaturation(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
 	var_SetFloat(found,"saturation",convertAdjustValue(level));
 }
 void WebcamWidget::setGamma(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
 	var_SetFloat(found,"gamma",convertAdjustValue(level));
 }
 void WebcamWidget::setHue(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->videoOutput,"adjust",FIND_CHILD);
+	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
 	var_SetFloat(found,"hue",level);
 }
 float WebcamWidget::convertAdjustValue(int level){
@@ -335,8 +335,7 @@ void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
-// 	mrl.append(":caching=100 :no-video-title-show");
-	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
+	mrl.append(":caching=100 :v4l2-controls-reset");
 
 	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
 	d->raise(&d->vlcException);
@@ -358,6 +357,8 @@ void WebcamWidget::newMedia()
 	qDebug() << effectString;
 	libvlc_media_add_option(d->media,"video-filter="+effectString.toAscii(),&d->vlcException);
 	libvlc_media_add_option(d->media,"sout-transcode-vfilter="+effectString.toAscii(),&d->vlcException);
+	libvlc_media_add_option(d->media,"vout-filter=transform",&d->vlcException);
+	libvlc_media_add_option(d->media,"transform-type=vflip",&d->vlcException);
 	d->raise(&d->vlcException);
 }
 
