@@ -145,7 +145,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 	d->eventManager = libvlc_media_player_event_manager(d->player,&d->vlcException);
 	d->raise(&d->vlcException);
 	
-// 	d->effects.append("adjust");
+	d->effects.append("adjust");
 }
 
 //desctructor
@@ -335,8 +335,7 @@ void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
-// 	mrl.append(":caching=100 :no-video-title-show");
-	mrl.append(":caching=100 :no-video-title-show :v4l2-controls-reset");
+	mrl.append(":caching=100 :v4l2-controls-reset");
 
 	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
 	d->raise(&d->vlcException);
@@ -358,6 +357,8 @@ void WebcamWidget::newMedia()
 	qDebug() << effectString;
 	libvlc_media_add_option(d->media,"video-filter="+effectString.toAscii(),&d->vlcException);
 	libvlc_media_add_option(d->media,"sout-transcode-vfilter="+effectString.toAscii(),&d->vlcException);
+	libvlc_media_add_option(d->media,"vout-filter=transform",&d->vlcException);
+	libvlc_media_add_option(d->media,"transform-type=vflip",&d->vlcException);
 	d->raise(&d->vlcException);
 }
 
