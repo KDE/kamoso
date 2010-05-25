@@ -151,6 +151,8 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 //desctructor
 WebcamWidget::~WebcamWidget()
 {
+	libvlc_media_release(d->media);
+
 	#warning We have to implement an asynchronous shut down for vlc!
 	libvlc_media_player_stop (d->player, &d->vlcException);
 
@@ -158,7 +160,7 @@ WebcamWidget::~WebcamWidget()
 
 	libvlc_release (d->vlcInstance);
 
-	delete d;
+// 	delete d;
 }
 
 void WebcamWidget::playing()
