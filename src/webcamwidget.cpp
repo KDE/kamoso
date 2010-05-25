@@ -91,7 +91,6 @@ struct WebcamWidget::Private
 	libvlc_media_t *media;
 	libvlc_event_manager_t *eventManager;
 	vlc_object_t *vlcMainObject;
-	vlc_object_t *videoOutput;
 	int brightness;
 };
 
