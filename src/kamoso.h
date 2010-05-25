@@ -110,7 +110,7 @@ class Kamoso : public KMainWindow
 		int m_webcamId;
 		KDirOperator *dirOperator;
 		WhiteWidgetManager *whiteWidgetManager;
-		WebcamWidget *webcam;
+		WebcamWidget *m_webcam;
 		CountdownWidget *m_countdown;
 		Phonon::MediaObject *player;
 		Ui::mainWidget *mainWidgetUi;

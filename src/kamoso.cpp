@@ -87,11 +87,11 @@ Kamoso::Kamoso(QWidget* parent)
 //First row Stuff, at the moment only webcam is placed here
 	//Setting webcam in the first row, central spot
 	
-	webcam = WebcamWidget::createInstance(this);
-	webcam->setParent(mainWidgetUi->centralSpot);
-	webcam->setMinimumSize(640,480);
+	m_webcam = WebcamWidget::createInstance(this);
+	m_webcam->setParent(mainWidgetUi->centralSpot);
+	m_webcam->setMinimumSize(640,480);
 	if(deviceManager->hasDevices()) {
-		webcam->playFile(deviceManager->defaultDevice());
+		m_webcam->playFile(deviceManager->defaultDevice());
 		emit webcamPlaying(deviceManager->defaultDeviceUdi());
 	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
@@ -227,7 +227,7 @@ void Kamoso::webcamAdded()
 
 void Kamoso::startVideo(bool sound)
 {
-	webcam->recordVideo(sound);
+	m_webcam->recordVideo(sound);
 }
 
 void Kamoso::stopVideo()
@@ -239,8 +239,8 @@ void Kamoso::stopVideo()
 		autoincFilename(finalPath);
 	}
 
-	webcam->stopRecording(finalPath);
-	webcam->playFile(deviceManager->playingDevice());
+	m_webcam->stopRecording(finalPath);
+	m_webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::fillKcomboDevice()
@@ -277,7 +277,7 @@ void Kamoso::webcamChanged(int index)
 	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
 	deviceManager->webcamPlaying(udi);
 
-	webcam->playFile(deviceManager->playingDevice());
+	m_webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::checkInitConfig()
@@ -366,27 +366,27 @@ void Kamoso::configuration()
 
 void Kamoso::brightnessChanged(int level)
 {
-	webcam->setBrightness(level);
+	m_webcam->setBrightness(level);
 }
 
 void Kamoso::contrastChanged(int level)
 {
-	webcam->setContrast(level);
+	m_webcam->setContrast(level);
 }
 
 void Kamoso::saturationChanged(int level)
 {
-	webcam->setSaturation(level);
+	m_webcam->setSaturation(level);
 }
 
 void Kamoso::gammaChanged(int level)
 {
-	webcam->setGamma(level);
+	m_webcam->setGamma(level);
 }
 
 void Kamoso::hueChanged(int level)
 {
-	webcam->setHue(level);
+	m_webcam->setHue(level);
 }
 
 /**
@@ -458,7 +458,7 @@ void Kamoso::takePhoto()
 		autoincFilename(photoPlace);
 	}
 
-	webcam->takePhoto(photoPlace);
+	m_webcam->takePhoto(photoPlace);
 	player->play();
 }
 
