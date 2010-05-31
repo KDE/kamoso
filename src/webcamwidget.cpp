@@ -409,8 +409,8 @@ void WebcamWidget::newMedia()
 	effectString.append("hue="+QString::number(d->device.hue()));
 	effectString.append("}");
 // 	qDebug() << effectString;
-	libvlc_media_add_option_flag(d->media,":video-filter="+effectString.toAscii(), libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":sout-transcode-vfilter="+effectString.toAscii(), libvlc_media_option_trusted);
+	libvlc_media_add_option(d->media,":video-filter="+effectString.toAscii());
+	libvlc_media_add_option(d->media,":sout-transcode-vfilter="+effectString.toAscii());
 // 	libvlc_media_add_option_flag(d->media,":vout-filter=transform", libvlc_media_option_trusted);
 // 	libvlc_media_add_option_flag(d->media,":transform-type=vflip", libvlc_media_option_trusted);
 
