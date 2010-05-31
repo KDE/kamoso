@@ -146,12 +146,13 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 			"--no-osd",
 			"--no-stats",
 			"--no-video-title-show",
-			"--album-art=0",
-			"-vvv"
+			"--album-art=0"
 			};
 
 	//create a new libvlc instance
-	d->vlcInstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
+	d->vlcInstance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
+	if(!d->vlcInstance)
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	//Try to get the main object
 	vlc_object_hold(d->vlcInstance->p_libvlc_int);
@@ -159,9 +160,10 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 
 	// Create a media player playing environement 
 	d->player = libvlc_media_player_new (d->vlcInstance);
-	d->eventManager = libvlc_media_player_event_manager(d->player);
+	if(!d->player)
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
-	d->effects.append("wave");
+// 	d->effects.append("wave");
 }
 
 //desctructor
@@ -199,7 +201,8 @@ void WebcamWidget::playFile(const Device &device)
 // 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
 
 	/* Play */
-	libvlc_media_player_play (d->player );
+	if (!libvlc_media_player_play (d->player))
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 }
 
@@ -218,7 +221,9 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
 
-	libvlc_video_take_snapshot(d->player, 0, path.toAscii().data(),this->width(),this->height());
+	int result = libvlc_video_take_snapshot(d->player, 0, path.toAscii().data(),this->width(),this->height());
+	if (!result)
+		qDebug() << "Take snapshot error, video not found";
 
 	if(!dest.isLocalFile()) {
 		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
@@ -251,8 +256,10 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
+	libvlc_media_player_stop(d->player);
+	libvlc_media_player_release(d->player);
 	d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.avi").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
-	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=xvid,vb=1800,ab=252,acodec=vorb,samplerate=44100,fps=25}:std{access=file,mux=avi,dst="+d->videoTmpPath+"}'}");
+	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=xvid,vb=1800,ab=352,acodec=vorb,samplerate=44100,fps=25}:std{access=file,mux=avi,dst="+d->videoTmpPath+"}'}");
 
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
@@ -271,14 +278,15 @@ void WebcamWidget::recordVideo(bool sound)
 
 	libvlc_media_add_option(d->media,option);
 
-	libvlc_media_player_stop(d->player);
-
 	d->player = libvlc_media_player_new_from_media(d->media);
+	if(!d->player)
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	libvlc_media_player_set_xwindow(d->player, this->winId() );
 
 // 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
-	libvlc_media_player_play (d->player );
+	if (!libvlc_media_player_play (d->player ))
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
@@ -347,7 +355,7 @@ void WebcamWidget::newMedia()
 
 	d->media = libvlc_media_new_location (d->vlcInstance, mrl);
 	if(!d->media)
-        qDebug() << "libvlc exception:" << libvlc_errmsg();
+		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	QString effectString;
 	foreach(QString effect,d->effects) {
