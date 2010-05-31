@@ -2,6 +2,7 @@ Todo to reach 1.1 release:
 +	[AF]-Be sure that the video is recorded sync with the audio
 +	[AF]-Be sure that the upload video works with google
 +	[AF]-Youtube plugin fully working (get the uploaded url and nice notifications)
++	[AF]-Resizable interface for netbooks users
 +	[AP]-Restore Trash "plugin"
 +	[AP]-Restore Open "plugin"
 
