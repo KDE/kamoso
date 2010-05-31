@@ -21,9 +21,10 @@
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include "kamoso.h"
-
+#include <X11/Xlib.h>
 int main(int argc, char *argv[])
 {
+	XInitThreads();
 	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "1.0.1", ki18n("Webcam picture retriever"),
 			 KAboutData::License_GPL, ki18n("(C) 2008-2009 Alex Fiestas and Aleix Pol"));
 	about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
