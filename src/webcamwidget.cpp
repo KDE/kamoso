@@ -218,7 +218,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
 
-	libvlc_video_take_snapshot(d->player, 1, path.toAscii().data(),this->width(),this->height());
+	libvlc_video_take_snapshot(d->player, 0, path.toAscii().data(),this->width(),this->height());
 
 	if(!dest.isLocalFile()) {
 		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
