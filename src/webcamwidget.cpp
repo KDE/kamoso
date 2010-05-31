@@ -138,17 +138,23 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 {
 	//preparation of the vlc command
 	const char * const vlc_args[] = {
-			"-I", "dummy", /* Don't use any interface */
-			"--ignore-config", /* Don't use VLC's config */
-			"--extraintf=logger", //log anything
-			"--verbose=0",
-			"--no-osd"//be much more verbose then normal for debugging purpose
+			"--intf=dummy",
+			"--ignore-config",
+			"--reset-plugins-cache",
+			"--no-media-library",
+			"--no-one-instance",
+			"--no-osd",
+			"--no-stats",
+			"--no-video-title-show",
+			"--album-art=0",
+			"-vvv"
 			};
 
 	//create a new libvlc instance
-	d->vlcInstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);  //tricky calculation of the char space used
-	vlc_object_hold(d->vlcInstance->p_libvlc_int);
+	d->vlcInstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
 
+	//Try to get the main object
+	vlc_object_hold(d->vlcInstance->p_libvlc_int);
 	d->vlcMainObject = (vlc_object_t*) d->vlcInstance->p_libvlc_int;
 
 	// Create a media player playing environement 
@@ -340,14 +346,16 @@ void WebcamWidget::newMedia()
 	mrl.append(":caching=100 :v4l2-controls-reset");
 
 	d->media = libvlc_media_new_location (d->vlcInstance, mrl);
+	if(!d->media)
+        qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	QString effectString;
 	foreach(QString effect,d->effects) {
 		effectString.append(effect+":");
 	}
 
-	//The adjust effect is an special case, since we need it preconfigured
-	//Maybe we'll need a map of maps to save effects properties
+// 	//The adjust effect is an special case, since we need it preconfigured
+// 	//Maybe we'll need a map of maps to save effects properties
 	effectString.append("adjust{");
 	effectString.append("brightness="+QString::number(convertAdjustValue(d->device.brightness()))+",");
 	effectString.append("contrast="+QString::number(convertAdjustValue(d->device.contrast()))+",");
@@ -355,10 +363,10 @@ void WebcamWidget::newMedia()
 	effectString.append("gamma="+QString::number(convertAdjustValue(d->device.gamma()))+",");
 	effectString.append("hue="+QString::number(d->device.hue()));
 	effectString.append("}");
-	qDebug() << effectString;
+// 	qDebug() << effectString;
 	libvlc_media_add_option_flag(d->media,":video-filter="+effectString.toAscii(), libvlc_media_option_trusted);
 	libvlc_media_add_option_flag(d->media,":sout-transcode-vfilter="+effectString.toAscii(), libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":vout-filter=transform", libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":transform-type=vflip", libvlc_media_option_trusted);
+// 	libvlc_media_add_option_flag(d->media,":vout-filter=transform", libvlc_media_option_trusted);
+// 	libvlc_media_add_option_flag(d->media,":transform-type=vflip", libvlc_media_option_trusted);
 
 }
