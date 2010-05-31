@@ -58,6 +58,7 @@ public slots:
 
 private:
 	WebcamWidget(QWidget* parent);
+	void paintEvent(QPaintEvent *p_event);
 	static WebcamWidget* s_instance;
 	QByteArray phononCaptureDevice();
 	void newMedia();

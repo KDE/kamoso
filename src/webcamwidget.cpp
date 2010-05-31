@@ -28,6 +28,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QDebug>
+#include <QPainter>
 
 #include <KUrl>
 #include <KStandardDirs>
@@ -136,6 +137,18 @@ WebcamWidget* WebcamWidget::self()
 WebcamWidget::WebcamWidget(QWidget* parent)
 	: QWidget(parent), d(new Private)
 {
+
+	//widget preparation
+	// When resizing fill with black (backgroundRole color) the rest is done by paintEvent
+	setAttribute(Qt::WA_OpaquePaintEvent);
+
+	// Disable Qt composition management as MPlayer draws onto the widget directly
+	setAttribute(Qt::WA_PaintOnScreen);
+
+	// Indicates that the widget has no background,
+	// i.e. when the widget receives paint events, the background is not automatically repainted.
+	setAttribute(Qt::WA_NoSystemBackground);
+
 	//preparation of the vlc command
 	const char * const vlc_args[] = {
 			"--intf=dummy",
@@ -164,6 +177,15 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 // 	d->effects.append("wave");
+}
+
+void WebcamWidget::paintEvent(QPaintEvent *p_event)
+{
+    // FIXME this makes the video flicker
+    // Make everything backgroundRole color
+    //afiestas: ATM our vout is not resizable, so we dont't care
+    QPainter painter(this);
+    painter.eraseRect(rect());
 }
 
 //desctructor
