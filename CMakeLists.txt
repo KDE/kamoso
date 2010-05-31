@@ -4,7 +4,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 find_package(KDE4 REQUIRED)
 find_package(LibV4L2 REQUIRED)
-find_package(VLC REQUIRED)
+find_package(LIBVLC REQUIRED)
 find_package(Kipi REQUIRED)
 
 macro_optional_find_package(Nepomuk)

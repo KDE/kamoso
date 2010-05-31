@@ -75,33 +75,17 @@ struct libvlc_media_player_t
 	struct libvlc_instance_t *p_libvlc_instance;
 };
 
-typedef void (*libvlc_vlm_release_func_t)( libvlc_instance_t * ) ;
-typedef struct libvlc_vlm_t
-{
-    vlm_t                  *p_vlm;
-    libvlc_event_manager_t *p_event_manager;
-    libvlc_vlm_release_func_t pf_release;
-} libvlc_vlm_t;
-
-struct libvlc_instance_t
-{
-    libvlc_int_t *p_libvlc_int;
-    libvlc_vlm_t  libvlc_vlm;
-    unsigned      ref_count;
-    int           verbosity;
-    vlc_mutex_t   instance_lock;
-    struct libvlc_callback_entry_list_t *p_callback_list;
-};
-
 typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
  Q_DECLARE_METATYPE(PhononDeviceAccessList)
 
 struct WebcamWidget::Private
 {
+	bool raise(libvlc_exception_t * ex);
 	QByteArray videoTmpPath;
 	QString playingFile;
 	QStringList effects;
 	Device device;
+	libvlc_exception_t vlcException;
 	libvlc_instance_t *vlcInstance;
 	libvlc_media_player_t *player;
 	libvlc_media_t *media;
@@ -145,17 +129,23 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 			"--no-osd"//be much more verbose then normal for debugging purpose
 			};
 
-	//create a new libvlc instance
-	d->vlcInstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);  //tricky calculation of the char space used
-	vlc_object_hold(d->vlcInstance->p_libvlc_int);
+	//Initialize an instance of vlc
+	//a structure for the exception is neede for this initalization
+	libvlc_exception_init(&d->vlcException);
 
-	d->vlcMainObject = (vlc_object_t*) d->vlcInstance->p_libvlc_int;
+	//create a new libvlc instance
+	d->vlcInstance=libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args,&d->vlcException);  //tricky calculation of the char space used
+	d->raise(&d->vlcException);
+
+	d->vlcMainObject = libvlc_get_vlc_instance(d->vlcInstance);
 
 	// Create a media player playing environement 
-	d->player = libvlc_media_player_new (d->vlcInstance);
-	d->eventManager = libvlc_media_player_event_manager(d->player);
-
-	d->effects.append("wave");
+	d->player = libvlc_media_player_new (d->vlcInstance, &d->vlcException);
+	d->eventManager = libvlc_media_player_event_manager(d->player,&d->vlcException);
+	d->raise(&d->vlcException);
+	
+	d->effects.append("adjust");
+// 	d->effects.append("wave");
 }
 
 //desctructor
@@ -164,7 +154,7 @@ WebcamWidget::~WebcamWidget()
 	libvlc_media_release(d->media);
 
 	#warning We have to implement an asynchronous shut down for vlc!
-	libvlc_media_player_stop (d->player);
+	libvlc_media_player_stop (d->player, &d->vlcException);
 
 	libvlc_media_player_release (d->player);
 
@@ -175,7 +165,7 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::playing()
 {
-// 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
+// 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 }
 
 void WebcamWidget::playFile(const Device &device)
@@ -186,15 +176,16 @@ void WebcamWidget::playFile(const Device &device)
 	//Create a new media and set it in d->media pointer
 	newMedia();
 
-	libvlc_media_player_set_media (d->player, d->media);
+	libvlc_media_player_set_media (d->player, d->media, &d->vlcException);
+	d->raise(&d->vlcException);
 
-	libvlc_media_player_set_xwindow(d->player, this->winId() );
-
-// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
+	libvlc_media_player_set_xwindow(d->player, this->winId(), &d->vlcException );
+	d->raise(&d->vlcException);
+// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
 
 	/* Play */
-	libvlc_media_player_play (d->player );
-
+	libvlc_media_player_play (d->player, &d->vlcException );
+	d->raise(&d->vlcException);
 }
 
 void WebcamWidget::setDevice(const Device &device) {
@@ -212,9 +203,9 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 		path=KStandardDirs::locateLocal("appdata","last.png");
 	}
 
-	libvlc_video_take_snapshot(d->player, 1, path.toAscii().data(),this->width(),this->height());
-
-	if(!dest.isLocalFile()) {
+	libvlc_video_take_snapshot(d->player, path.toAscii().data(),this->width(),this->height(), &d->vlcException);
+	d->raise(&d->vlcException);
+	if(d->raise(&d->vlcException) && !dest.isLocalFile()) {
 		KIO::CopyJob* job=KIO::move(KUrl(path), dest);
 		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
 		job->setAutoDelete(true);
@@ -222,7 +213,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 	} else {
 		fileSaved(dest);
 	}
-	return true;
+	return d->raise(&d->vlcException);
 }
 
 void WebcamWidget::fileSaved(const KUrl &dest) {
@@ -252,38 +243,50 @@ void WebcamWidget::recordVideo(bool sound)
 		QByteArray inputAlsa("input-slave=alsa://");
 		inputAlsa.append(phononCaptureDevice());
 
-		libvlc_media_add_option(d->media,inputAlsa);
+		libvlc_media_add_option(d->media,inputAlsa,&d->vlcException);
+		d->raise(&d->vlcException);
 
-		libvlc_media_add_option(d->media,"alsa-caching=100");
+		libvlc_media_add_option(d->media,"alsa-caching=100",&d->vlcException);
+		d->raise(&d->vlcException);
 
-		libvlc_media_add_option(d->media,"alsa-samplerate=44100");
+		libvlc_media_add_option(d->media,"alsa-samplerate=44100",&d->vlcException);
+		d->raise(&d->vlcException);
 	}
 
-	libvlc_media_add_option(d->media,"sout-display-delay=40");
+	libvlc_media_add_option(d->media,"sout-display-delay=40",&d->vlcException);
+	d->raise(&d->vlcException);
 
-	libvlc_media_add_option(d->media,"v4l2-standard=0");
+	libvlc_media_add_option(d->media,"v4l2-standard=0",&d->vlcException);
+	d->raise(&d->vlcException);
 
-	libvlc_media_add_option(d->media,option);
+	libvlc_media_add_option(d->media,option,&d->vlcException);
+	d->raise(&d->vlcException);
 
-	libvlc_media_player_stop(d->player);
+	libvlc_media_player_stop(d->player,&d->vlcException);
+	d->raise(&d->vlcException);
 
-	d->player = libvlc_media_player_new_from_media(d->media);
+	d->player = libvlc_media_player_new_from_media(d->media,&d->vlcException);
+	d->raise(&d->vlcException);
 
-	libvlc_media_player_set_xwindow(d->player, this->winId() );
+	libvlc_media_player_set_xwindow(d->player, this->winId(), &d->vlcException );
+	d->raise(&d->vlcException);
 
-// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
-	libvlc_media_player_play (d->player );
+// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL,&d->vlcException);
+	libvlc_media_player_play (d->player, &d->vlcException );
+	d->raise(&d->vlcException);
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
 {
-	libvlc_media_player_stop(d->player);
+	libvlc_media_player_stop(d->player,&d->vlcException);
 	libvlc_media_release(d->media);
 
-	KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
-	connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
-	job->setAutoDelete(true);
-	job->start();
+	if(d->raise(&d->vlcException)) {
+		KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
+		connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
+		job->setAutoDelete(true);
+		job->start();
+	}
 }
 
 QByteArray WebcamWidget::phononCaptureDevice()
@@ -304,11 +307,7 @@ QByteArray WebcamWidget::phononCaptureDevice()
 void WebcamWidget::setBrightness(int level)
 {
 	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"brightness",convertAdjustValue(level));
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	var_SetFloat(found,"brightness",convertAdjustValue(level));
 }
 void WebcamWidget::setContrast(int level)
 {
@@ -339,13 +338,14 @@ void WebcamWidget::newMedia()
 	mrl.append(d->playingFile);
 	mrl.append(":caching=100 :v4l2-controls-reset");
 
-	d->media = libvlc_media_new_location (d->vlcInstance, mrl);
+	d->media = libvlc_media_new (d->vlcInstance, mrl, &d->vlcException);
+	d->raise(&d->vlcException);
 
 	QString effectString;
 	foreach(QString effect,d->effects) {
 		effectString.append(effect+":");
 	}
-
+	
 	//The adjust effect is an special case, since we need it preconfigured
 	//Maybe we'll need a map of maps to save effects properties
 	effectString.append("adjust{");
@@ -356,9 +356,19 @@ void WebcamWidget::newMedia()
 	effectString.append("hue="+QString::number(d->device.hue()));
 	effectString.append("}");
 	qDebug() << effectString;
-	libvlc_media_add_option_flag(d->media,":video-filter="+effectString.toAscii(), libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":sout-transcode-vfilter="+effectString.toAscii(), libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":vout-filter=transform", libvlc_media_option_trusted);
-	libvlc_media_add_option_flag(d->media,":transform-type=vflip", libvlc_media_option_trusted);
+	libvlc_media_add_option(d->media,"video-filter="+effectString.toAscii(),&d->vlcException);
+	libvlc_media_add_option(d->media,"sout-transcode-vfilter="+effectString.toAscii(),&d->vlcException);
+	libvlc_media_add_option(d->media,"vout-filter=transform",&d->vlcException);
+	libvlc_media_add_option(d->media,"transform-type=vflip",&d->vlcException);
+	d->raise(&d->vlcException);
+}
 
+bool WebcamWidget::Private::raise(libvlc_exception_t * ex)
+{
+	if (libvlc_exception_raised (ex))
+	{
+		qDebug() << "VLC error %s\n" << libvlc_exception_get_message(ex);
+		return false;
+	}
+	return true;
 }
