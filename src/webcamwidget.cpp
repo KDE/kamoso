@@ -38,6 +38,8 @@
 #include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
 #include <KLocalizedString>
+#include <kjob.h>
+
 #ifdef HAVE_NEPOMUK
 	#include <Nepomuk/ResourceManager>
 	#include <Nepomuk/Resource>

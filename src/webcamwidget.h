@@ -20,19 +20,16 @@
 #ifndef WEBCAMWIDGET_H
 #define WEBCAMWIDGET_H
 
-#include "device.h"
 #include <QWidget>
-#include <KJob>
-#include "vlc/libvlc.h"
 
+class KJob;
+class Device;
 class KUrl;
 class QVBoxLayout;
 class QPushButton;
 class QTimer;
 class QFrame;
 class QSlider;
-
-namespace KIO { class Job; }
 
 class WebcamWidget : public QWidget
 {
@@ -59,13 +56,15 @@ public slots:
 private:
 	WebcamWidget(QWidget* parent);
 	void paintEvent(QPaintEvent *p_event);
-	static WebcamWidget* s_instance;
 	QByteArray phononCaptureDevice();
-	void newMedia();
 	void setDevice(const Device &device);
 	float convertAdjustValue(int level);
+	void newMedia();
+	
+private:
+	static WebcamWidget* s_instance;
 	class Private;
 	Private* d;
+
 };
 #endif
-
