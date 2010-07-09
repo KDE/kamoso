@@ -380,7 +380,7 @@ void WebcamWidget::newMedia()
 
 	if (!d->effects.isEmpty()) {
 		QString effectString;
-		foreach(const QString effect,d->effects) {
+		foreach(const QString &effect,d->effects) {
 			effectString.append(effect+":");
 		}
 
