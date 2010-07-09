@@ -20,24 +20,25 @@
 #include "webcamwidget.h"
 #include "config-nepomuk.h"
 #include "device.h"
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QSlider>
-#include <QTimer>
-#include <QFrame>
-#include <QDateTime>
-#include <QDir>
-#include <QDebug>
-#include <QPainter>
 
-#include <KUrl>
-#include <KStandardDirs>
-#include <KApplication>
-#include <KTemporaryFile>
+#include <QtCore/qtimer.h>
+#include <QtCore/qdatetime.h>
+#include <QtCore/qdir.h>>
+#include <QtCore/qdebug.h>
+#include <QtGui/qboxlayout.h>
+#include <QtGui/qpushbutton.h>
+#include <QtGui/qslider.h>
+#include <QtGui/qframe.h>
+#include <QtGui/qpainter.h>
+
+#include <kurl.h>
+#include <kstandarddirs.h>
+#include <kapplication.h>
+#include <ktemporaryfile.h>
 #include <kio/copyjob.h>
 #include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
-#include <KLocalizedString>
+#include <klocalizedstring.h>
 #include <kjob.h>
 
 #ifdef HAVE_NEPOMUK
@@ -46,55 +47,44 @@
 	#include <Nepomuk/Tag>
 #endif
 
-#ifndef typedef
-	#define typeof(X) __typeof__(X)
-#endif
 #define MODULE_STRING "kamoso"
-
 #include <vlc/vlc.h>
-#include <vlc_common.h>
-#include <vlc_messages.h>
-#include <vlc_vout.h>
-#include <vlc_input.h>
-#include <vlc/vlc.h>
-#include <vlc/libvlc_media_player.h>
-#include <cstdlib>
 
-struct libvlc_media_player_t
-{
-	int i_refcount;
-	bool b_own_its_input_thread;
-	vlc_mutex_t object_lock;
-	input_thread_t *p_input_thread;
-	libvlc_media_t *p_md;
-	libvlc_event_manager_t *p_event_manager;
-	struct
-	{
-		void *hwnd;
-		void *nsobject;
-		uint32_t xid;
-		uint32_t agl;
-	} drawable;
-	struct libvlc_instance_t *p_libvlc_instance;
-};
-
-typedef void (*libvlc_vlm_release_func_t)( libvlc_instance_t * ) ;
-typedef struct libvlc_vlm_t
-{
-    vlm_t                  *p_vlm;
-    libvlc_event_manager_t *p_event_manager;
-    libvlc_vlm_release_func_t pf_release;
-} libvlc_vlm_t;
-
-struct libvlc_instance_t
-{
-    libvlc_int_t *p_libvlc_int;
-    libvlc_vlm_t  libvlc_vlm;
-    unsigned      ref_count;
-    int           verbosity;
-    vlc_mutex_t   instance_lock;
-    struct libvlc_callback_entry_list_t *p_callback_list;
-};
+// struct libvlc_media_player_t
+// {
+// 	int i_refcount;
+// 	bool b_own_its_input_thread;
+// 	vlc_mutex_t object_lock;
+// 	input_thread_t *p_input_thread;
+// 	libvlc_media_t *p_md;
+// 	libvlc_event_manager_t *p_event_manager;
+// 	struct
+// 	{
+// 		void *hwnd;
+// 		void *nsobject;
+// 		uint32_t xid;
+// 		uint32_t agl;
+// 	} drawable;
+// 	struct libvlc_instance_t *p_libvlc_instance;
+// };
+// 
+// typedef void (*libvlc_vlm_release_func_t)( libvlc_instance_t * ) ;
+// typedef struct libvlc_vlm_t
+// {
+//     vlm_t                  *p_vlm;
+//     libvlc_event_manager_t *p_event_manager;
+//     libvlc_vlm_release_func_t pf_release;
+// } libvlc_vlm_t;
+// 
+// struct libvlc_instance_t
+// {
+//     libvlc_int_t *p_libvlc_int;
+//     libvlc_vlm_t  libvlc_vlm;
+//     unsigned      ref_count;
+//     int           verbosity;
+//     vlc_mutex_t   instance_lock;
+//     struct libvlc_callback_entry_list_t *p_callback_list;
+// };
 
 typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
  Q_DECLARE_METATYPE(PhononDeviceAccessList)
@@ -109,7 +99,7 @@ struct WebcamWidget::Private
 	libvlc_media_player_t *player;
 	libvlc_media_t *media;
 	libvlc_event_manager_t *eventManager;
-	vlc_object_t *vlcMainObject;
+// 	vlc_object_t *vlcMainObject;
 	int brightness;
 };
 
