@@ -233,6 +233,7 @@ void WebcamWidget::setDevice(const Device &device) {
 	d->playingFile = device.path();
 	d->brightness = device.brightness();
 }
+
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
 	playing();
@@ -342,25 +343,31 @@ void WebcamWidget::setBrightness(int level)
 {
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Brightness, convertAdjustValue(level));
 }
+
 void WebcamWidget::setContrast(int level)
 {
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Contrast, convertAdjustValue(level));
 }
+
 void WebcamWidget::setSaturation(int level)
 {
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Saturation, convertAdjustValue(level));
 }
+
 void WebcamWidget::setGamma(int level)
 {
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Gamma, convertAdjustValue(level));
 }
+
 void WebcamWidget::setHue(int level)
 {
 	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Hue, level);
 }
+
 float WebcamWidget::convertAdjustValue(int level){
 	return (float)level / 100.0f;
 }
+
 void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
