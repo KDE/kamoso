@@ -168,15 +168,17 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	//Try to get the main object
-	vlc_object_hold(d->vlcInstance->p_libvlc_int);
-	d->vlcMainObject = (vlc_object_t*) d->vlcInstance->p_libvlc_int;
+// 	vlc_object_hold(d->vlcInstance->p_libvlc_int);
+// 	d->vlcMainObject = (vlc_object_t*) d->vlcInstance->p_libvlc_int;
 
 	// Create a media player playing environement 
 	d->player = libvlc_media_player_new (d->vlcInstance);
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
-// 	d->effects.append("wave");
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
+
+	d->effects.append("wave");
 }
 
 void WebcamWidget::paintEvent(QPaintEvent *p_event)
@@ -219,7 +221,6 @@ void WebcamWidget::playFile(const Device &device)
 	libvlc_media_player_set_media (d->player, d->media);
 
 	libvlc_media_player_set_xwindow(d->player, this->winId() );
-
 // 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
 
 	/* Play */
@@ -300,6 +301,7 @@ void WebcamWidget::recordVideo(bool sound)
 	libvlc_media_add_option(d->media,option);
 
 	d->player = libvlc_media_player_new_from_media(d->media);
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
@@ -338,48 +340,23 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"brightness",convertAdjustValue(level));
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Brightness, convertAdjustValue(level));
 }
 void WebcamWidget::setContrast(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"contrast",convertAdjustValue(level));
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Contrast, convertAdjustValue(level));
 }
 void WebcamWidget::setSaturation(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"saturation",convertAdjustValue(level));
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Saturation, convertAdjustValue(level));
 }
 void WebcamWidget::setGamma(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"gamma",convertAdjustValue(level));
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Gamma, convertAdjustValue(level));
 }
 void WebcamWidget::setHue(int level)
 {
-	vlc_object_t *found = (vlc_object_t*) vlc_object_find_name(d->vlcMainObject,"adjust",FIND_CHILD);
-	if(found) {
-		var_SetFloat(found,"hue",level);
-	} else {
-		qDebug() << "Adjust not found!";
-	}
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Hue, level);
 }
 float WebcamWidget::convertAdjustValue(int level){
 	return (float)level / 100.0f;
