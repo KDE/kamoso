@@ -105,9 +105,9 @@ struct WebcamWidget::Private
 
 void callback( const libvlc_event_t *ev, void *param )
 {
-// 	if(ev->type == libvlc_MediaPlayerPositionChanged) {
-// 		WebcamWidget::self()->playing();
-// 	}
+	if(ev->type == libvlc_MediaPlayerPositionChanged) {
+		WebcamWidget::self()->playing();
+	}
 }
 
 WebcamWidget *WebcamWidget::s_instance = NULL;
@@ -165,6 +165,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 
 	// Create a media player playing environement 
 	d->player = libvlc_media_player_new (d->vlcInstance);
+	libvlc_event_attach(libvlc_media_player_event_manager(d->player),libvlc_MediaPlayerPositionChanged,callback,NULL);
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
@@ -197,7 +198,13 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::playing()
 {
-// 	libvlc_event_detach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
+	qDebug() << "Playing....";
+	libvlc_event_detach(libvlc_media_player_event_manager(d->player),libvlc_MediaPlayerPositionChanged,callback,NULL);
+	setBrightness(d->device.brightness());
+	setContrast(d->device.contrast());
+	setSaturation(d->device.saturation());
+	setGamma(d->device.gamma());
+	setHue(d->device.hue());
 }
 
 void WebcamWidget::playFile(const Device &device)
@@ -211,7 +218,6 @@ void WebcamWidget::playFile(const Device &device)
 	libvlc_media_player_set_media (d->player, d->media);
 
 	libvlc_media_player_set_xwindow(d->player, this->winId() );
-// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
 
 	/* Play */
 	if (!libvlc_media_player_play (d->player))
@@ -292,7 +298,8 @@ void WebcamWidget::recordVideo(bool sound)
 	libvlc_media_add_option(d->media,option);
 
 	d->player = libvlc_media_player_new_from_media(d->media);
-	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
+	libvlc_event_attach(libvlc_media_player_event_manager(d->player),libvlc_MediaPlayerPositionChanged,callback,NULL);
+
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
@@ -374,7 +381,6 @@ void WebcamWidget::newMedia()
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 	//Setting current brightness/constrast...
-
 
 	if (!d->effects.isEmpty()) {
 		QString effectString;
