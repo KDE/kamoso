@@ -305,7 +305,6 @@ void WebcamWidget::recordVideo(bool sound)
 
 	libvlc_media_player_set_xwindow(d->player, this->winId() );
 
-// 	libvlc_event_attach(d->eventManager,libvlc_MediaPlayerPositionChanged,callback,NULL);
 	if (!libvlc_media_player_play (d->player ))
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 }
