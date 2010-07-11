@@ -168,8 +168,6 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
-	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
-
 	d->effects.append("wave");
 }
 
@@ -333,26 +331,31 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Brightness, convertAdjustValue(level));
 }
 
 void WebcamWidget::setContrast(int level)
 {
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Contrast, convertAdjustValue(level));
 }
 
 void WebcamWidget::setSaturation(int level)
 {
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Saturation, convertAdjustValue(level));
 }
 
 void WebcamWidget::setGamma(int level)
 {
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	libvlc_video_set_adjust_float(d->player, libvlc_adjust_Gamma, convertAdjustValue(level));
 }
 
 void WebcamWidget::setHue(int level)
 {
+	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Enable, 1);
 	libvlc_video_set_adjust_int(d->player, libvlc_adjust_Hue, level);
 }
 
@@ -369,6 +372,9 @@ void WebcamWidget::newMedia()
 	d->media = libvlc_media_new_location (d->vlcInstance, mrl);
 	if(!d->media)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
+
+	//Setting current brightness/constrast...
+
 
 	if (!d->effects.isEmpty()) {
 		QString effectString;
