@@ -171,6 +171,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
 // 	d->effects.append("wave");
+
 }
 
 void WebcamWidget::paintEvent(QPaintEvent *p_event)
