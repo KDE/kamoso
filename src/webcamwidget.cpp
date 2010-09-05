@@ -151,7 +151,8 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 			"--no-osd",
 			"--no-stats",
 			"--no-video-title-show",
-			"--album-art=0"
+			"--album-art=0",
+			"-vv"
 			};
 
 	//create a new libvlc instance
@@ -169,7 +170,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 	if(!d->player)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
 
-	d->effects.append("wave");
+// 	d->effects.append("wave");
 }
 
 void WebcamWidget::paintEvent(QPaintEvent *p_event)
@@ -277,25 +278,34 @@ void WebcamWidget::recordVideo(bool sound)
 {
 	libvlc_media_player_stop(d->player);
 	libvlc_media_player_release(d->player);
-	d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.avi").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
-	QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=xvid,vb=1800,ab=352,acodec=vorb,samplerate=44100,fps=25}:std{access=file,mux=avi,dst="+d->videoTmpPath+"}'}");
+	d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
 
+// 	QByteArray option("sout=#transcode{vcodec=theo,vb=800,scale=1,acodec=vorb,ab=128,channels=2,samplerate=44100}:duplicate{dst=display,dst=file{dst='"+d->videoTmpPath+"'}}");
+    QByteArray option("sout=#duplicate{dst=display,select=video,dst='transcode{vcodec=theo,vb=1800,ab=352,acodec=vorb,samplerate=44100,fps=25}:std{access=file,dst="+d->videoTmpPath+"}'}");
 	if(sound == true){
 		QByteArray inputAlsa("input-slave=alsa://");
-		inputAlsa.append(phononCaptureDevice());
+// 		inputAlsa.append(phononCaptureDevice());
 
 		libvlc_media_add_option(d->media,inputAlsa);
 
 		libvlc_media_add_option(d->media,"alsa-caching=100");
 
 		libvlc_media_add_option(d->media,"alsa-samplerate=44100");
+		qDebug() << phononCaptureDevice();
 	}
 
-	libvlc_media_add_option(d->media,"sout-display-delay=40");
+// 	libvlc_media_add_option(d->media,"v4l2-caching=300");
+
+
+// 	libvlc_media_add_option(d->media,"ogg-caching=1000");
+
+	libvlc_media_add_option(d->media,"sout-display-delay=0");
 
 	libvlc_media_add_option(d->media,"v4l2-standard=0");
 
 	libvlc_media_add_option(d->media,option);
+
+	libvlc_media_add_option(d->media,"file-caching=1000");
 
 	d->player = libvlc_media_player_new_from_media(d->media);
 	libvlc_event_attach(libvlc_media_player_event_manager(d->player),libvlc_MediaPlayerPositionChanged,callback,NULL);
@@ -373,13 +383,11 @@ void WebcamWidget::newMedia()
 {
 	QByteArray mrl("v4l2://");
 	mrl.append(d->playingFile);
-	mrl.append(":caching=100 :v4l2-controls-reset");
+	mrl.append(":sout-display-delay=0");
 
 	d->media = libvlc_media_new_location (d->vlcInstance, mrl);
 	if(!d->media)
 		qDebug() << "libvlc exception:" << libvlc_errmsg();
-
-	//Setting current brightness/constrast...
 
 	if (!d->effects.isEmpty()) {
 		QString effectString;
@@ -389,7 +397,6 @@ void WebcamWidget::newMedia()
 
 		qDebug() << "Adding effect string: " << effectString;
 		libvlc_media_add_option(d->media,":video-filter="+effectString.toAscii());
-		libvlc_media_add_option(d->media,":sout-transcode-vfilter="+effectString.toAscii());
+		libvlc_media_add_option(d->media,":sout-transcode-vfilter=adjust"+effectString.toAscii());
 	}
-
 }
