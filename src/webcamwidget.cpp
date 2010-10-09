@@ -86,8 +86,8 @@
 //     struct libvlc_callback_entry_list_t *p_callback_list;
 // };
 
-typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList;
- Q_DECLARE_METATYPE(PhononDeviceAccessList)
+typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList3;
+ Q_DECLARE_METATYPE(PhononDeviceAccessList3)
 
 struct WebcamWidget::Private
 {
@@ -335,7 +335,7 @@ QByteArray WebcamWidget::phononCaptureDevice()
 {
 	const QList<Phonon::AudioCaptureDevice> &m_modelData = Phonon::BackendCapabilities::availableAudioCaptureDevices();
 	QVariant variantList =  m_modelData.first().property("deviceAccessList");
-	PhononDeviceAccessList accessList = variantList.value<PhononDeviceAccessList>();
+	PhononDeviceAccessList3 accessList = variantList.value<PhononDeviceAccessList3>();
 	QList <QPair <QByteArray, QString > >::const_iterator i, iEnd=accessList.constEnd();
 	for(i=accessList.constBegin(); i!=iEnd; ++i) {
 		if(i->first == "alsa" && !i->second.contains("phonon")) {
