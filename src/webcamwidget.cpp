@@ -36,6 +36,7 @@
 #include <kapplication.h>
 #include <ktemporaryfile.h>
 #include <kio/copyjob.h>
+#include <phonon/phononnamespace.h>
 #include <phonon/objectdescriptionmodel.h>
 #include <phonon/backendcapabilities.h>
 #include <klocalizedstring.h>
@@ -85,9 +86,6 @@
 //     vlc_mutex_t   instance_lock;
 //     struct libvlc_callback_entry_list_t *p_callback_list;
 // };
-
-typedef QList<QPair<QByteArray, QString> > PhononDeviceAccessList3;
- Q_DECLARE_METATYPE(PhononDeviceAccessList3)
 
 struct WebcamWidget::Private
 {
@@ -331,12 +329,17 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
 	job->start();
 }
 
+#if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 0)
+Q_DECLARE_METATYPE(Phonon::DeviceAccessList)
+#endif
+
 QByteArray WebcamWidget::phononCaptureDevice()
 {
 	const QList<Phonon::AudioCaptureDevice> &m_modelData = Phonon::BackendCapabilities::availableAudioCaptureDevices();
 	QVariant variantList =  m_modelData.first().property("deviceAccessList");
-	PhononDeviceAccessList3 accessList = variantList.value<PhononDeviceAccessList3>();
-	QList <QPair <QByteArray, QString > >::const_iterator i, iEnd=accessList.constEnd();
+	Phonon::DeviceAccessList accessList = variantList.value<Phonon::DeviceAccessList>();
+	
+	Phonon::DeviceAccessList::const_iterator i, iEnd=accessList.constEnd();
 	for(i=accessList.constBegin(); i!=iEnd; ++i) {
 		if(i->first == "alsa" && !i->second.contains("phonon")) {
 			return i->second.toAscii();
