@@ -55,7 +55,7 @@ void ThumbnailView::updatexClick(const QModelIndex & idx)
 
 void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
 {
-	if (event->buttons() && Qt::LeftButton)
+	if (event->buttons() & Qt::LeftButton)
 	{
 		int x= QCursor::pos().x(); 
 		int difx = (x - xClick);
