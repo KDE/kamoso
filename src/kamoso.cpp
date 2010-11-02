@@ -156,10 +156,8 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->scrollRight->setIcon(KIcon("arrow-right"));
 	mainWidgetUi->scrollLeft->setText(QString());
 	mainWidgetUi->scrollRight->setText(QString());
-	connect(mainWidgetUi->scrollLeft, SIGNAL(tick()), SLOT(slotScrollLeft()));
-	connect(mainWidgetUi->scrollLeft, SIGNAL(finished()), SLOT(slotScrollFinish()));
-	connect(mainWidgetUi->scrollRight, SIGNAL(tick()), SLOT(slotScrollRight()));
-	connect(mainWidgetUi->scrollRight, SIGNAL(finished()), SLOT(slotScrollFinish()));
+	connect(mainWidgetUi->scrollLeft, SIGNAL(clicked(bool)), SLOT(slotScrollLeft()));
+	connect(mainWidgetUi->scrollRight, SIGNAL(clicked(bool)), SLOT(slotScrollRight()));
 	
 	whiteWidgetManager = new WhiteWidgetManager(this);
 	mainWidgetUi->thirdRow->addWidget(m_countdown);
@@ -484,27 +482,14 @@ void Kamoso::restore()
 
 void Kamoso::slotScrollLeft()
 {
-	int v=thumbnailView->horizontalScrollBar()->value();
-	int min=thumbnailView->horizontalScrollBar()->minimum();
-	int max=thumbnailView->horizontalScrollBar()->maximum();
-	thumbnailView->horizontalScrollBar()->setValue(qBound(min, v-m_exponentialValue, max));
-	
-	//If this code becomes 1 line larger, export it to a method
-	if(m_exponentialValue < max_exponential_value){
-		m_exponentialValue += exponential_increment;
-	}
+	int v=thumbnailView->xValue();
+	thumbnailView->setXValue(v-thumbnailView->width());
 }
 
 void Kamoso::slotScrollRight()
 {
-	int v=thumbnailView->horizontalScrollBar()->value();
-	int min=thumbnailView->horizontalScrollBar()->minimum();
-	int max=thumbnailView->horizontalScrollBar()->maximum();
-	thumbnailView->horizontalScrollBar()->setValue(qBound(min, v+m_exponentialValue, max));
-	
-	if(m_exponentialValue < max_exponential_value){
-		m_exponentialValue += exponential_increment;
-	}
+	int v=thumbnailView->xValue();
+	thumbnailView->setXValue(v+thumbnailView->width());
 }
 
 void Kamoso::slotScrollFinish()

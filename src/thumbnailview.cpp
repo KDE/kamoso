@@ -21,6 +21,9 @@
 
 ThumbnailView::ThumbnailView(QWidget* parent) : QListView(parent)
 {
+	setHorizontalScrollMode(ScrollPerPixel);
+	m_xProperty=new QPropertyAnimation(horizontalScrollBar(), "value", this);
+	
 	connect(this, SIGNAL(pressed (QModelIndex)), SLOT(updatexClick(QModelIndex)));
 }
 
@@ -58,14 +61,25 @@ void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
 	if (event->buttons() & Qt::LeftButton)
 	{
 		int x= QCursor::pos().x(); 
-		int difx = (x - xClick);
-		int v = this->horizontalScrollBar()->value();
-		int min=this->horizontalScrollBar()->minimum();
-		int max=this->horizontalScrollBar()->maximum();
+		int difx = 3*(x - xClick);
+		int v = m_xProperty->endValue().toInt();
 		xClick= x;
 		setCursor(Qt::SizeHorCursor);
-		horizontalScrollBar()->setValue(qBound(min, v-difx, max));
+		setXValue(v-difx);
 	}
+}
+
+void ThumbnailView::setXValue(int v)
+{
+	qDebug("setting x %d", v);
+	
+	int min=this->horizontalScrollBar()->minimum();
+	int max=this->horizontalScrollBar()->maximum();
+	int value = qBound(min, v, max);
+	
+	m_xProperty->setEndValue(value);
+	m_xProperty->stop();
+	m_xProperty->start();
 }
 
 void ThumbnailView::mouseReleaseEvent ( QMouseEvent * event ) 

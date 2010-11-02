@@ -28,6 +28,7 @@
 
 #include <kio/previewjob.h>
 #include "customDelegate.h"
+#include <qpropertyanimation.h>
 
 class ThumbnailView : public QListView
 {
@@ -44,9 +45,11 @@ class ThumbnailView : public QListView
 		
 		void assignDelegate();
 		QSize sizeHint() const { return QSize(150,150); }
+		void setXValue(int v);
+		int xValue() const { return m_xProperty->endValue().toInt(); }
 
 	protected:
- 		virtual void mouseMoveEvent(QMouseEvent* event);
+		virtual void mouseMoveEvent(QMouseEvent* event);
 		virtual void mouseReleaseEvent (QMouseEvent* event );
 
 	private slots:
@@ -57,6 +60,7 @@ class ThumbnailView : public QListView
 	private:
 		QHash<KUrl, QPixmap> m_repo;
 		QMap<KUrl, QModelIndex> m_waiting;
+		QPropertyAnimation* m_xProperty;
 		int xClick;
 };
 

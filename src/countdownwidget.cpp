@@ -30,7 +30,7 @@ static const QColor colors[numberOfColours]={ Qt::red, Qt::yellow, Qt::green };
 CountdownWidget::CountdownWidget(QWidget* parent)
 	: QWidget(parent)
 {
-	mTimer=new QTimeLine(0, this);
+	mTimer=new QTimeLine(1, this);
 	connect(mTimer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
 	connect(mTimer, SIGNAL(finished()), this, SLOT(hide()));
 	connect(mTimer, SIGNAL(finished()), this, SIGNAL(finished()));
