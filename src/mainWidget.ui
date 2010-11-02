@@ -210,8 +210,6 @@
          </widget>
         </item>
        </layout>
-       <zorder>configure</zorder>
-       <zorder>configure</zorder>
       </widget>
      </item>
     </layout>
@@ -219,7 +217,7 @@
    <item>
     <layout class="QHBoxLayout" name="thirdRow">
      <item>
-      <widget class="TimedPushButton" name="scrollLeft">
+      <widget class="QPushButton" name="scrollLeft">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -232,7 +230,7 @@
       </widget>
      </item>
      <item>
-      <widget class="TimedPushButton" name="scrollRight">
+      <widget class="QPushButton" name="scrollRight">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -253,11 +251,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>TimedPushButton</class>
-   <extends>QPushButton</extends>
-   <header>timedpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

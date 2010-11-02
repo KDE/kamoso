@@ -42,7 +42,6 @@
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
-#include "timedpushbutton.h"
 #include "countdownwidget.h"
 #include "settings.h"
 #include "ui_generalConfig.h"
@@ -149,6 +148,7 @@ Kamoso::Kamoso(QWidget* parent)
 			SLOT(openThumbnail(QModelIndex)));
 	connect(thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
 			SLOT(thumbnailAdded()));
+	connect(thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
 	mainWidgetUi->thirdRow->insertWidget(1, dirOperator);
 	
 	//Arrows
@@ -492,11 +492,6 @@ void Kamoso::slotScrollRight()
 	thumbnailView->setXValue(v+thumbnailView->width());
 }
 
-void Kamoso::slotScrollFinish()
-{
-	m_exponentialValue = 0;
-}
-
 void Kamoso::openThumbnail(const QModelIndex& idx) 
 {
 	QString filename;
@@ -657,3 +652,10 @@ void Kamoso::autoincFilename(KUrl &filename)
     //Rebuild the path
     filename.setFileName( name );
 }
+
+void Kamoso::thumbnailViewMoved(int value)
+{
+	mainWidgetUi->scrollLeft->setEnabled(value!=0);
+	mainWidgetUi->scrollRight->setEnabled(thumbnailView->horizontalScrollBar()->maximum()!=value);
+}
+

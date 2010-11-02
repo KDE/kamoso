@@ -84,6 +84,7 @@ class Kamoso : public KMainWindow
 
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
+		void thumbnailViewMoved(int value);
 		
 	private slots:
 		void initialize();
@@ -91,7 +92,6 @@ class Kamoso : public KMainWindow
 		void restore();
 		void slotScrollLeft();
 		void slotScrollRight();
-		void slotScrollFinish();
 		void openThumbnail(const QModelIndex& idx);
 		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
