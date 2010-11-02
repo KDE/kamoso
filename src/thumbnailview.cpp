@@ -58,6 +58,12 @@ void ThumbnailView::updatexClick(const QModelIndex & idx)
 	xClick= QCursor::pos().x(); 
 }
 
+void ThumbnailView::mousePressEvent(QMouseEvent* event)
+{
+	m_xProperty->setEndValue(horizontalScrollBar()->value());
+    QAbstractItemView::mousePressEvent(event);
+}
+
 void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
 {
 	if (event->buttons() & Qt::LeftButton)
