@@ -330,7 +330,7 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
 	job->start();
 }
 
-#if PHONON_VERSION < PHONON_VERSION_CHECK(4, 5, 0)
+#if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 3)
 namespace Phonon {
     typedef QPair<QByteArray, QString> DeviceAccess;
     typedef QList<DeviceAccess> DeviceAccessList;
