@@ -12,7 +12,7 @@ Kamoso 2.0:
       - Improve file browsing (move away from KDirOperator?) (QML?)
       - Overlay current jobs
     [AP] New semaphore QML?
-    [AP] Relayouting (maximize)
+    + [AP] Relayouting (maximize)
 
   #Plugins
     · Check if Youtube is working

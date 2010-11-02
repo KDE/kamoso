@@ -606,7 +606,7 @@ void Kamoso::changeMode(bool pressed)
 		dirOperator->updateDir();
 	}
 	QWidget* w=m_activeMode->mainAction();
-	w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
+	w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 	
 	QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
 	delete v->takeAt(1)->widget();
