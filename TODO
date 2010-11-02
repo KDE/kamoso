@@ -1,8 +1,26 @@
-Todo to reach 1.1 release:
-+	[AF]-Be sure that the video is recorded sync with the audio
-+	[AF]-Be sure that the upload video works with google
-+	[AF]-Youtube plugin fully working (get the uploaded url and nice notifications)
-+	[AF]-Resizable interface for netbooks users
-+	[AP]-Restore Trash "plugin"
-+	[AP]-Restore Open "plugin"
+Kamoso 2.0:
+  #Core
+    [AF] QtGstreamer
+    · Document how to create plugins
+    · Nepomuk integration
+    · s/\t/    /
 
+  #Interface
+    · Restore "Open" and "Trash" in the menus.
+    · Improve File view
+      - Make context menu a non-hidden feature
+      - Improve file browsing (move away from KDirOperator?) (QML?)
+      - Overlay current jobs
+    [AP] New semaphore QML?
+    [AP] Relayouting (maximize)
+
+  #Plugins
+    · Check if Youtube is working
+    [AP] Check if Facebook plugin is working
+    · Twitpic
+    [AP] Facebook + Video support
+
+  #Extra
+  · Choqok/External app support
+    - Add parameters to get picture/video returning an url
+    - Talk with the cheese people to create a standard for that
