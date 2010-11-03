@@ -19,7 +19,6 @@ set(kamoso_SRCS
 	countdownwidget.cpp
 	webcamwidget.cpp
 	customDelegate.cpp
-	timedpushbutton.cpp
 	device.cpp
 	devicemanager.cpp
 	kamosojobtracker.cpp 
