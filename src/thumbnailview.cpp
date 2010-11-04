@@ -79,10 +79,8 @@ void ThumbnailView::mouseMoveEvent(QMouseEvent* event)
 
 void ThumbnailView::setXValue(int v)
 {
-	qDebug("setting x %d", v);
-	
-	int min=this->horizontalScrollBar()->minimum();
-	int max=this->horizontalScrollBar()->maximum();
+	int min=horizontalScrollBar()->minimum();
+	int max=horizontalScrollBar()->maximum();
 	int value = qBound(min, v, max);
 	
 	m_xProperty->setEndValue(value);

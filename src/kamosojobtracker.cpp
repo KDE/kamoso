@@ -42,12 +42,19 @@ void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIco
 	mJobs.insert(job, qMakePair(urls, icon));
 	job->start();
 	updateGeometry();
+	
+	foreach(const KUrl& url, urls)
+		mItems.insert(url, icon);
 }
 
 void KamosoJobTracker::unregisterJob(KJob* job)
 {
-	mJobs.remove(job);
+	QPair< KUrl::List, QIcon > val = mJobs.take(job);
 	updateGeometry();
+	
+	foreach(const KUrl& url, val.first) {
+		mItems.remove(url);
+	}
 	
 	if(job->error()==0) {
 		QStringList urls;

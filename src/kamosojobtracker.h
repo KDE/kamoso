@@ -41,6 +41,7 @@ class KamosoJobTracker
 		virtual QSize sizeHint() const;
 		virtual void paintEvent(QPaintEvent* );
 	signals:
+		void urlsChanged(const KUrl& urls);
 		void jobClicked(KJob* job);
 	
 	private:
@@ -48,6 +49,7 @@ class KamosoJobTracker
 		int jobPerPosition(const QPoint& pos);
 		QMap<KJob*, QPair<KUrl::List, QIcon> > mJobs;
 		int m_selectedJob;
+        QMap<KUrl, QIcon> mItems;
 };
 
 #endif

@@ -26,6 +26,7 @@
 #include <KAction>
 #include <libkipi/pluginloader.h>
 
+class KDirModel;
 class KamosoJobTracker;
 class QToolButton;
 class QRadioButton;
@@ -60,7 +61,7 @@ class Kamoso : public KMainWindow
 		
 		void startVideo(bool withSound);
 		void stopVideo();
-		KFileItemList selectedItems();
+		KUrl::List selectedItems();
 		KamosoJobTracker* tracker() const { return mTracker; }
 
 //Only slots
@@ -85,6 +86,7 @@ class Kamoso : public KMainWindow
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
+		void updateThumbnails(const KUrl::List& urls);
 		
 	private slots:
 		void initialize();
@@ -108,7 +110,7 @@ class Kamoso : public KMainWindow
 	private:
 		float brightBack;
 		int m_webcamId;
-		KDirOperator *dirOperator;
+		KDirModel *dirModel;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *m_webcam;
 		CountdownWidget *m_countdown;
@@ -122,7 +124,6 @@ class Kamoso : public KMainWindow
 		QList<QPushButton*> m_modesRadio;
 		ShootMode *m_activeMode;
 		bool m_flashEnabled;
-		ThumbnailView* thumbnailView;
 		KIPI::PluginLoader* mPluginLoader;
 		QList<KAction*> kipiActions;
 		KamosoJobTracker* mTracker;

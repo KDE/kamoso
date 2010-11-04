@@ -34,7 +34,7 @@ class ThumbnailView : public QListView
 {
 	Q_OBJECT
 	public:
-		ThumbnailView(QWidget* parent=0);
+		ThumbnailView(QWidget* parent = 0);
 		
 		virtual QStyleOptionViewItem viewOptions () const
 		{
@@ -57,7 +57,7 @@ class ThumbnailView : public QListView
 		void previewAvailable(const KFileItem& file, const QPixmap& pic);
 		void retrievePixmap(const KFileItem& it, const QModelIndex & idx, const QRect& rect);
 		void updatexClick(const QModelIndex & idx);
-
+	
 	private:
 		QHash<KUrl, QPixmap> m_repo;
 		QMap<KUrl, QModelIndex> m_waiting;

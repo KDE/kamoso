@@ -93,6 +93,6 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	Q_UNUSED(option); Q_UNUSED(index);
-	return QSize(150, 125);
+	return QSize(100, 125);
 }
 
