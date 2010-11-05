@@ -21,7 +21,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QScrollBar>
-#include <QMenu>
+#include <KMenu>
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
@@ -595,16 +595,14 @@ CountdownWidget * Kamoso::countdown() const
 void Kamoso::settingsMenu(bool )
 {
 	QList<QAction*> actions=m_activeMode->actions();
-	QMenu m;
+	KMenu m;
 	if(!actions.isEmpty()) {
 		m.addActions(actions);
 		m.addSeparator();
 	}
 	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
-// 	m.addAction(KIcon("about"), i18n("About Kamoso..."), this, SLOT(showAboutApplication()));
+	m.addMenu(customHelpMenu());
 	
-	qDebug() << "blaaa" << mainWidgetUi->configure->geometry().bottomLeft();
-	qDebug() << "bleee" << mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft());
 	m.exec(mainWidgetUi->configure->parentWidget()->mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
 
@@ -622,7 +620,7 @@ void Kamoso::autoincFilename(KUrl &filename)
     if (start != -1) {
         // It has a number, increment it
         start = numSearch.pos( 2 ); // we are only interested in the second group
-        QString numAsStr = numSearch.capturedTexts()[ 2 ];
+        QString numAsStr = numSearch.cap(2);
         QString number = QString::number( numAsStr.toInt() + 1 );
         number = number.rightJustified( numAsStr.length(), '0' );
         name.replace( start, numAsStr.length(), number );
