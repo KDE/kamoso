@@ -279,9 +279,9 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
-    d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
+    d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
     qDebug() << "Record video";
-    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. pulsesrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. oggmux name=mux ! filesink location=";
+    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. pulsesrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
     str.append(d->videoTmpPath);
     QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
     d->m_pipeline->setState(QGst::StateNull);
