@@ -103,7 +103,7 @@ void WebcamWidget::paintEvent(QPaintEvent *p_event)
 
 WebcamWidget::~WebcamWidget()
 {
-
+    d->m_pipeline->setState(QGst::StateNull);
 }
 
 void WebcamWidget::playing()
