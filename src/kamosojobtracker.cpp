@@ -99,8 +99,10 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 void KamosoJobTracker::mousePressEvent(QMouseEvent* ev)
 {
 	int i=jobPerPosition(ev->pos());
-	if(i>=0 && i<mJobs.size())
-		 emit jobClicked(mJobs.keys()[i]);
+	if(i>=0 && i<mJobs.size()) {
+		KJob* job = mJobs.keys()[i];
+		emit jobClicked(job, mJobs.value(job).first);
+	}
 }
 
 int KamosoJobTracker::jobPerPosition(const QPoint& pos)

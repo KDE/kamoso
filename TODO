@@ -6,7 +6,7 @@ Kamoso 2.0:
     · s/\t/    /
 
   #Interface
-    · Restore "Open" and "Trash" in the menus.
+    + [AP] Restore "Open" and "Trash" in the menus.
     · Improve File view
       - Make context menu a non-hidden feature
       + [AP] Improve file browsing (move away from KDirOperator?) (QML?)

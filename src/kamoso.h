@@ -79,7 +79,7 @@ class Kamoso : public KMainWindow
 		void thumbnailAdded();
 		void selectLast();
 		void settingsMenu(bool);
-		void selectJob(KJob*);
+		void selectJob(KJob* job, const KUrl::List& urls);
 		void changeMode(bool);
 
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }

@@ -44,7 +44,7 @@ class KamosoJobTracker
 		virtual void paintEvent(QPaintEvent* );
 	signals:
 		void urlsChanged(const KUrl::List& urls);
-		void jobClicked(KJob* job);
+		void jobClicked(KJob* job, const KUrl::List& urls);
 	
 	private:
 		void setSelectedJob(int newselection);

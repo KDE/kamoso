@@ -159,7 +159,7 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 	
 	mTracker=new KamosoJobTracker(statusBar());
-	connect(mTracker, SIGNAL(jobClicked(KJob*)), SLOT(selectJob(KJob*)));
+	connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
 	statusBar()->addWidget(mTracker);
 	
 	connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
@@ -401,9 +401,7 @@ void Kamoso::generalUpdated()
 */
 Kamoso::~Kamoso()
 {
-	delete whiteWidgetManager;
 	delete player;
-	delete m_countdown;
 	Settings::self()->writeConfig();
 }
 
@@ -546,14 +544,11 @@ void Kamoso::selectLast()
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
-void Kamoso::selectJob(KJob* job)
+void Kamoso::selectJob(KJob* job, const KUrl::List& urls)
 {
-	//TODO: port
-// 	QStringList urls;
-// 	foreach(const KUrl& url, job->urls())
-// 		urls.append(url.pathOrUrl());
-// 	
-// 	dirOperator->setCurrentItems(urls);
+	mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
+	foreach(const KUrl&url, urls)
+		mainWidgetUi->thumbnailView->selectionModel()->select(dirModel->indexForUrl(url), QItemSelectionModel::Select);
 }
 
 void Kamoso::changeMode(bool pressed)
