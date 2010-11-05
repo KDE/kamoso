@@ -21,6 +21,7 @@
 #define WEBCAMWIDGET_H
 
 #include <QWidget>
+#include <QtGstreamer/QGst/Ui/VideoWidget>
 
 class KJob;
 class Device;
@@ -31,40 +32,39 @@ class QTimer;
 class QFrame;
 class QSlider;
 
-class WebcamWidget : public QWidget
+class WebcamWidget : public QGst::Ui::VideoWidget
 {
 Q_OBJECT
 public:
-	static WebcamWidget* createInstance(QWidget *parent);
-	static WebcamWidget* self();
-	~WebcamWidget();
-	
+    static WebcamWidget* createInstance(QWidget *parent);
+    static WebcamWidget* self();
+    ~WebcamWidget();
+
 public slots:
-	void playFile(const Device& device);
-	bool takePhoto(const KUrl &dest);
-	void recordVideo(bool sound);
-	void stopRecording(const KUrl& destUrl);
-	void fileSaved(KJob *);
-	void fileSaved(const KUrl &dest);
-	void setBrightness(int level);
-	void setSaturation(int level);
-	void setContrast(int level);
-	void setGamma(int level);
-	void setHue(int level);
-	void playing();
+    void playFile(const Device& device);
+    bool takePhoto(const KUrl &dest);
+    void recordVideo(bool sound);
+    void stopRecording(const KUrl& destUrl);
+    void fileSaved(KJob *);
+    void fileSaved(const KUrl &dest);
+    void setBrightness(int level);
+    void setSaturation(int level);
+    void setContrast(int level);
+    void setGamma(int level);
+    void setHue(int level);
+    void playing();
 
 private:
-	WebcamWidget(QWidget* parent);
-	void paintEvent(QPaintEvent *p_event);
-	QByteArray phononCaptureDevice();
-	void setDevice(const Device &device);
-	float convertAdjustValue(int level);
-	void newMedia();
-	
+    WebcamWidget(QWidget* parent);
+    void paintEvent(QPaintEvent *p_event);
+    QByteArray phononCaptureDevice();
+    void setDevice(const Device &device);
+    float convertAdjustValue(int level);
+
 private:
-	static WebcamWidget* s_instance;
-	class Private;
-	Private* d;
+    static WebcamWidget* s_instance;
+    class Private;
+    Private* d;
 
 };
 #endif
