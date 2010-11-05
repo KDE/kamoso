@@ -86,7 +86,6 @@ class Kamoso : public KMainWindow
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
 		void updateThumbnails(const KUrl::List& urls);
-		void testAction();
 		
 	private slots:
 		void initialize();
@@ -94,8 +93,6 @@ class Kamoso : public KMainWindow
 		void restore();
 		void slotScrollLeft();
 		void slotScrollRight();
-		void openThumbnail(const QModelIndex& idx);
-		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
 		void pluginPlug(KIPI::PluginLoader::Info*);
 		void brightnessChanged(int);
@@ -104,6 +101,9 @@ class Kamoso : public KMainWindow
 		void gammaChanged(int);
 		void hueChanged(int);
 		void autoincFilename(KUrl& filename);
+		void removeSelection();
+		void openFile();
+		
 	signals:
 		void webcamPlaying(const QString&);
 		

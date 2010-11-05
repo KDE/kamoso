@@ -61,6 +61,7 @@
 #include "webcamdialog.h"
 #include "pagewebcamconfigmanager.h"
 #include <KDirModel>
+#include <kio/copyjob.h>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
@@ -131,7 +132,7 @@ Kamoso::Kamoso(QWidget* parent)
 	mainWidgetUi->thumbnailView->setModel(dirModel);
 	mainWidgetUi->thumbnailView->assignDelegate();
 	connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
-			SLOT(openThumbnail(QModelIndex)));
+			SLOT(openFile()));
 	connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
 			SLOT(thumbnailAdded()));
 	connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
@@ -158,7 +159,6 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 	
 	mTracker=new KamosoJobTracker(statusBar());
-// 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
 	connect(mTracker, SIGNAL(jobClicked(KJob*)), SLOT(selectJob(KJob*)));
 	statusBar()->addWidget(mTracker);
 	
@@ -480,28 +480,6 @@ void Kamoso::slotScrollRight()
 	mainWidgetUi->thumbnailView->setXValue(v+mainWidgetUi->thumbnailView->width());
 }
 
-void Kamoso::openThumbnail(const QModelIndex& idx) 
-{
-	QString filename;
-	if(idx.isValid())
-		filename=idx.data(Qt::DisplayRole).toString();
-	else if(!mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes().isEmpty()) {
-		QModelIndex aux=mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes().first();
-		filename=aux.data(Qt::DisplayRole).toString();
-	}
-	
-	if (!filename.isEmpty())
-	{
-		KUrl path = Settings::saveUrl();
-		path.addPath(filename);
-		openThumbnail(QList<KUrl>() << path);
-	}
-}
-
-void Kamoso::openThumbnail(const QList<KUrl>& url)
-{
-// 	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
-}
 void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 {
 	QPointer<QMenu> menu = new QMenu(this);
@@ -521,21 +499,34 @@ void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 		}
 	}
 	
-	menu->addAction("keeee", this, SLOT(testAction()));
+	if(!menu->isEmpty())
+		menu->addSeparator();
+	
+	menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
+	menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
 	
 	menu->exec(event->pos());
 	
 	delete menu;
 }
 
-void Kamoso::testAction()
+void Kamoso::openFile()
 {
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("facebook"));
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("kdevelop"));
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("preferences-system-bluetooth"));
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("facebook"));
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("kdevelop"));
-// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("preferences-system-bluetooth"));
+	KUrl url = dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
+	QDesktopServices::openUrl(url);
+}
+
+void Kamoso::removeSelection()
+{
+	KUrl::List urls = KUrl::List() << dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
+	int res=KMessageBox::warningContinueCancel(0,
+										i18n("Are you sure you want to delete these files?"),
+										i18n("Move to Trash"));
+
+	if(res==KMessageBox::Continue) {
+		KIO::CopyJob *job = KIO::trash(urls);
+		mTracker->registerJob(job, urls, KIcon("user-trash"));
+	}
 }
 
 void Kamoso::thumbnailAdded()

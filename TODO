@@ -10,7 +10,7 @@ Kamoso 2.0:
     · Improve File view
       - Make context menu a non-hidden feature
       + [AP] Improve file browsing (move away from KDirOperator?) (QML?)
-      - Overlay current jobs
+      + [AP] Overlay current jobs
     [AP] New semaphore QML?
     + [AP] Relayouting (maximize)
 
