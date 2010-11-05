@@ -34,6 +34,8 @@ class KamosoJobTracker
 		virtual void mouseMoveEvent(QMouseEvent* );
 		virtual void leaveEvent(QEvent* );
 		
+		QList<QIcon> iconsPerUrl(const KUrl& url) const;
+		
 	public slots:
 		void registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon);
 		void unregisterJob(KJob* job);
@@ -41,7 +43,8 @@ class KamosoJobTracker
 		virtual QSize sizeHint() const;
 		virtual void paintEvent(QPaintEvent* );
 	signals:
-		void jobClicked(KJob* job);
+		void urlsChanged(const KUrl::List& urls);
+		void jobClicked(KJob* job, const KUrl::List& urls);
 	
 	private:
 		void setSelectedJob(int newselection);

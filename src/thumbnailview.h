@@ -28,13 +28,15 @@
 
 #include <kio/previewjob.h>
 #include "customDelegate.h"
-#include <qpropertyanimation.h>
+#include <QPropertyAnimation>
+
+class KamosoTracker;
 
 class ThumbnailView : public QListView
 {
 	Q_OBJECT
 	public:
-		ThumbnailView(QWidget* parent=0);
+		ThumbnailView(QWidget* parent = 0);
 		
 		virtual QStyleOptionViewItem viewOptions () const
 		{
@@ -47,7 +49,9 @@ class ThumbnailView : public QListView
 		QSize sizeHint() const { return QSize(150,150); }
 		void setXValue(int v);
 		int xValue() const { return m_xProperty->endValue().toInt(); }
-
+		
+		CustomDelegate* delegate() const;
+		
 	protected:
 		virtual void mousePressEvent(QMouseEvent* event);
 		virtual void mouseMoveEvent(QMouseEvent* event);
@@ -57,7 +61,7 @@ class ThumbnailView : public QListView
 		void previewAvailable(const KFileItem& file, const QPixmap& pic);
 		void retrievePixmap(const KFileItem& it, const QModelIndex & idx, const QRect& rect);
 		void updatexClick(const QModelIndex & idx);
-
+	
 	private:
 		QHash<KUrl, QPixmap> m_repo;
 		QMap<KUrl, QModelIndex> m_waiting;
