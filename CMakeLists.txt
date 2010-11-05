@@ -7,6 +7,8 @@ find_package(LibV4L2 REQUIRED)
 find_package(LIBVLC REQUIRED)
 find_package(Kipi REQUIRED)
 find_package(Phonon REQUIRED)
+find_package(GLIB2 REQUIRED)
+find_package(GStreamer REQUIRED)
 find_package(QtGstreamer REQUIRED)
 
 macro_optional_find_package(Nepomuk)

@@ -50,9 +50,17 @@
 #endif
 
 #include <QtGstreamer/QGst/Pipeline>
+#include <QtGstreamer/QGst/Element>
 #include <QtGstreamer/QGst/Parse>
+#include <QtGstreamer/QGst/Buffer>
+#include <QtGstreamer/QGst/Pad>
 #include <QtGstreamer/QGst/ElementFactory>
 #include <QtGstreamer/QGst/VideoOrientation>
+#include <QtGstreamer/QGlib/Signal>
+#include <QtGstreamer/QGst/Structure>
+#include <QtGstreamer/QGst/Clock>
+#include <gst/gst.h>
+#include <gst/video/video.h>
 
 void callback()
 {
@@ -65,9 +73,12 @@ struct WebcamWidget::Private
     QString playingFile;
     QStringList effects;
     Device device;
+    KUrl destination;
     int brightness;
 
+    QGlib::SignalHandler  m_takePhotoSignal;
     QGst::PipelinePtr m_pipeline;
+    QGst::BinPtr m_bin;
 };
 
 WebcamWidget *WebcamWidget::s_instance = NULL;
@@ -120,14 +131,20 @@ void WebcamWidget::playFile(const Device &device)
 {
     qDebug() << "playFile called" << device.path();;
     d->m_pipeline = QGst::Pipeline::create();
-    QGst::BinPtr bin = QGst::Bin::fromDescription("v4l2src ! ffmpegcolorspace ! tee name=duplicate ! xvimagesink name=videosink duplicate.");
-    d->m_pipeline->add(bin);
+    QByteArray desc;
+    qDebug() << GST_VIDEO_CAPS_xRGB_HOST_ENDIAN;
+    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! ffmpegcolorspace !");
+    desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
+    desc.append("! fakesink name=fakesink");
+    d->m_bin = QGst::Bin::fromDescription(desc.data());
+    d->m_pipeline->add(d->m_bin);
 
-    setVideoSink(bin->getElementByName("videosink"));
+    setVideoSink(d->m_bin->getElementByName("videosink"));
 
     d->m_pipeline->setState(QGst::StatePlaying);
 
     setDevice(device);
+
 }
 
 void WebcamWidget::setDevice(const Device &device)
@@ -139,7 +156,102 @@ void WebcamWidget::setDevice(const Device &device)
 
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
+    d->destination = dest;
+    d->m_bin->getElementByName("fakesink");
+    d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
+    d->m_takePhotoSignal = QGlib::Signal::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
     return true;
+}
+
+void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
+{
+    qDebug() << "Photo callback";
+
+    qDebug() << "C API";
+    QImage img;
+    //C API
+    {
+        GstBuffer *nativeBuffer = buffer;
+        GstCaps *cap = gst_buffer_get_caps(nativeBuffer);
+        if (cap) {
+            qDebug() << "We've got a caps in here";
+            GstStructure *structure = gst_caps_get_structure(cap, 0);
+            if (structure) {
+                gint width = 0;
+                gint height = 0;
+
+                gst_structure_get_int(structure, "width", &width);
+                gst_structure_get_int(structure, "height", &height);
+                qDebug() << "Soze: " << width << "x" << height;
+                qDebug() << "Name: " << gst_structure_get_name(structure);
+
+                if (qstrcmp(gst_structure_get_name(structure), "video/x-raw-yuv") == 0) {
+                        guint32 fourcc = 0;
+                        gst_structure_get_fourcc(structure, "format", &fourcc);
+
+                        if (fourcc == GST_MAKE_FOURCC('I','4','2','0')) {
+                            img = QImage(width/2, height/2, QImage::Format_RGB32);
+
+                            const uchar *data = (const uchar *)nativeBuffer->data;
+
+                            for (int y=0; y<height; y+=2) {
+                                const uchar *yLine = data + y*width;
+                                const uchar *uLine = data + width*height + y*width/4;
+                                const uchar *vLine = data + width*height*5/4 + y*width/4;
+
+                                for (int x=0; x<width; x+=2) {
+                                    const qreal Y = 1.164*(yLine[x]-16);
+                                    const int U = uLine[x/2]-128;
+                                    const int V = vLine[x/2]-128;
+
+                                    int b = qBound(0, int(Y + 2.018*U), 255);
+                                    int g = qBound(0, int(Y - 0.813*V - 0.391*U), 255);
+                                    int r = qBound(0, int(Y + 1.596*V), 255);
+
+                                    img.setPixel(x/2,y/2,qRgb(r,g,b));
+                                }
+                            }
+                        } else {
+                            qDebug() << "I'm not that weird thing";
+                        }
+
+                    } else if (qstrcmp(gst_structure_get_name(structure), "video/x-raw-rgb") == 0) {
+                        qDebug() << "RGB name";
+                        QImage::Format format = QImage::Format_Invalid;
+                        int bpp = 0;
+                        gst_structure_get_int(structure, "bpp", &bpp);
+
+                        if (bpp == 24)
+                            format = QImage::Format_RGB888;
+                        else if (bpp == 32)
+                            format = QImage::Format_RGB32;
+
+                        if (format != QImage::Format_Invalid) {
+                            img = QImage((const uchar *)nativeBuffer->data,
+                                         width,
+                                         height,
+                                         format);
+                            img.bits(); //detach
+                        }
+                    }
+            }
+        }
+        qDebug() << "Image bytecount: " << img.byteCount();
+        img.save(d->destination.path());
+        d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
+        d->m_takePhotoSignal.disconnect();
+    }
+
+//     C++ API
+//     qDebug() << "C++ API";
+//     {
+//        QGst::SharedStructure structure = buffer->caps()->structure(0);
+//        if (structure.isValid()) {
+//            qDebug() << "Structure OK";
+//            qDebug() << "Structure" << structure.toString();
+//            qDebug() << "Width: " << structure.value("width").get<gint>();
+//        }
+//     }
 }
 
 void WebcamWidget::fileSaved(const KUrl &dest) {

@@ -40,6 +40,7 @@ public:
     static WebcamWidget* self();
     ~WebcamWidget();
 
+    void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad);
 public slots:
     void playFile(const Device& device);
     bool takePhoto(const KUrl &dest);
