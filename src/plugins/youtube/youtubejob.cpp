@@ -273,7 +273,7 @@ bool YoutubeJob::showDialog()
 	}
 	dialog->setPrompt(i18n("You need to supply a username and a password to be able to upload videos to YouTube"));
 	dialog->addCommentLine(i18n("Server")+": ",server);
-	dialog->setCaption(i18n("Authentication for ")+"youtube");
+	dialog->setCaption(i18n("Authentication for YouTube"));
 
 	int response = dialog->exec();
 	if(response == QDialog::Rejected){
