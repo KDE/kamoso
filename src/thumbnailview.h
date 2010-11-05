@@ -28,7 +28,9 @@
 
 #include <kio/previewjob.h>
 #include "customDelegate.h"
-#include <qpropertyanimation.h>
+#include <QPropertyAnimation>
+
+class KamosoTracker;
 
 class ThumbnailView : public QListView
 {
@@ -47,7 +49,9 @@ class ThumbnailView : public QListView
 		QSize sizeHint() const { return QSize(150,150); }
 		void setXValue(int v);
 		int xValue() const { return m_xProperty->endValue().toInt(); }
-
+		
+		CustomDelegate* delegate() const;
+		
 	protected:
 		virtual void mousePressEvent(QMouseEvent* event);
 		virtual void mouseMoveEvent(QMouseEvent* event);

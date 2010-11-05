@@ -135,8 +135,6 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
 			SLOT(thumbnailAdded()));
 	connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
-	connect(dirModel, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
-			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
 	mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
 	
 	//Arrows
@@ -164,7 +162,7 @@ Kamoso::Kamoso(QWidget* parent)
 	connect(mTracker, SIGNAL(jobClicked(KJob*)), SLOT(selectJob(KJob*)));
 	statusBar()->addWidget(mTracker);
 	
-	connect(mTracker, SIGNAL(urlsChanged(KUrl)), SLOT(updateThumbnails(KUrl)));
+	connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
 	
 	QTimer::singleShot(0, this, SLOT(initialize()));
 	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
@@ -504,10 +502,11 @@ void Kamoso::openThumbnail(const QList<KUrl>& url)
 {
 // 	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
 }
-
-void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
+void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 {
-	menu->clear();
+	QPointer<QMenu> menu = new QMenu(this);
+	QModelIndex idx = mainWidgetUi->thumbnailView->currentIndex();
+	KFileItem item(dirModel->itemForIndex(idx));
 	
 	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
 		QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
@@ -521,6 +520,22 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 			}
 		}
 	}
+	
+	menu->addAction("keeee", this, SLOT(testAction()));
+	
+	menu->exec(event->pos());
+	
+	delete menu;
+}
+
+void Kamoso::testAction()
+{
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("facebook"));
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("kdevelop"));
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("preferences-system-bluetooth"));
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("facebook"));
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("kdevelop"));
+// 	mTracker->registerJob(new FiveSecJob, selectedItems(), KIcon("preferences-system-bluetooth"));
 }
 
 void Kamoso::thumbnailAdded()
@@ -651,5 +666,11 @@ void Kamoso::thumbnailViewMoved(int value)
 
 void Kamoso::updateThumbnails(const KUrl::List& urls)
 {
-// 	dirOperator
+	foreach(const KUrl& url, urls) {
+		QModelIndex idx = dirModel->indexForUrl(url);
+		QList<QIcon> icons = tracker()->iconsPerUrl(url);
+		mainWidgetUi->thumbnailView->delegate()->setOverlays(url, icons);
+		
+		mainWidgetUi->thumbnailView->update(idx);
+	}
 }

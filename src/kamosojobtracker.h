@@ -34,6 +34,8 @@ class KamosoJobTracker
 		virtual void mouseMoveEvent(QMouseEvent* );
 		virtual void leaveEvent(QEvent* );
 		
+		QList<QIcon> iconsPerUrl(const KUrl& url) const;
+		
 	public slots:
 		void registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon);
 		void unregisterJob(KJob* job);
@@ -41,7 +43,7 @@ class KamosoJobTracker
 		virtual QSize sizeHint() const;
 		virtual void paintEvent(QPaintEvent* );
 	signals:
-		void urlsChanged(const KUrl& urls);
+		void urlsChanged(const KUrl::List& urls);
 		void jobClicked(KJob* job);
 	
 	private:
@@ -49,7 +51,6 @@ class KamosoJobTracker
 		int jobPerPosition(const QPoint& pos);
 		QMap<KJob*, QPair<KUrl::List, QIcon> > mJobs;
 		int m_selectedJob;
-        QMap<KUrl, QIcon> mItems;
 };
 
 #endif

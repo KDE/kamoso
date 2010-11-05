@@ -93,3 +93,8 @@ void ThumbnailView::mouseReleaseEvent ( QMouseEvent * event )
 	Q_UNUSED(event);
 	this->setCursor(QCursor(Qt::ArrowCursor));
 }
+
+CustomDelegate* ThumbnailView::delegate() const
+{
+	return qobject_cast<CustomDelegate*>(itemDelegate());
+}

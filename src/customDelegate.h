@@ -36,12 +36,14 @@ class CustomDelegate : public QItemDelegate
 		~CustomDelegate();
 		void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
 		QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
+		void setOverlays(const KUrl& url, const QList< QIcon >& icons);
 	
 	signals:
 		void pixmapNeeded(const KFileItem& it, const QModelIndex& idx, const QRect&) const;
 		
 	private:
 		const QHash<KUrl, QPixmap>& m_repo;
+		QHash<KUrl, QList<QIcon> > m_overlays;
 		static KIcon m_unavailable;
 };
 

@@ -63,7 +63,7 @@ class Kamoso : public KMainWindow
 		void stopVideo();
 		KUrl::List selectedItems();
 		KamosoJobTracker* tracker() const { return mTracker; }
-
+		virtual void contextMenuEvent(QContextMenuEvent* event);
 //Only slots
 	public slots:
 		void takePhoto();
@@ -76,7 +76,6 @@ class Kamoso : public KMainWindow
 		void webcamChanged(int index);
 		void webcamAdded();
 		void webcamRemoved();
-		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
 		void thumbnailAdded();
 		void selectLast();
 		void settingsMenu(bool);
@@ -87,6 +86,7 @@ class Kamoso : public KMainWindow
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
 		void updateThumbnails(const KUrl::List& urls);
+		void testAction();
 		
 	private slots:
 		void initialize();
