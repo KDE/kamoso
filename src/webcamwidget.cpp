@@ -137,7 +137,7 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline = QGst::Pipeline::create();
     QByteArray desc;
     qDebug() << GST_VIDEO_CAPS_xRGB_HOST_ENDIAN;
-    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
+    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
     desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
     desc.append("! fakesink name=fakesink");
 
@@ -281,7 +281,7 @@ void WebcamWidget::recordVideo(bool sound)
 {
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
     qDebug() << "Record video";
-    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. pulsesrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
+    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. pulsesrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
     str.append(d->videoTmpPath);
     QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
     d->m_pipeline->setState(QGst::StateNull);
@@ -291,6 +291,7 @@ void WebcamWidget::recordVideo(bool sound)
 
     setVideoSink(bin->getElementByName("videosink"));
     d->m_pipeline->setState(QGst::StatePlaying);
+    d->m_bin = bin;
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
@@ -319,27 +320,28 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
-
+    d->m_bin->getElementByName("videoBalance")->setProperty("brightness", (double) level / 1000);
 }
 
 void WebcamWidget::setContrast(int level)
 {
-
+    d->m_bin->getElementByName("videoBalance")->setProperty("contrast", (double) level / 1000);
 }
 
 void WebcamWidget::setSaturation(int level)
 {
-
+    d->m_bin->getElementByName("videoBalance")->setProperty("saturation", (double) level / 1000);
 }
 
 void WebcamWidget::setGamma(int level)
 {
-
+    qDebug() << level;
+    d->m_bin->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
 }
 
 void WebcamWidget::setHue(int level)
 {
-
+    d->m_bin->getElementByName("videoBalance")->setProperty("hue", (double) level / 1000);
 }
 
 float WebcamWidget::convertAdjustValue(int level)
