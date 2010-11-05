@@ -231,7 +231,7 @@ void Kamoso::startVideo(bool sound)
 void Kamoso::stopVideo()
 {
 	KUrl finalPath = Settings::saveUrl();
-	finalPath.addPath(QString("video_1.avi"));
+	finalPath.addPath(QString("video_1.ogv"));
 
 	while(KIO::NetAccess::exists( finalPath, KIO::NetAccess::DestinationSide, this )) {
 		autoincFilename(finalPath);

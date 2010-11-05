@@ -130,12 +130,17 @@ void WebcamWidget::playing()
 void WebcamWidget::playFile(const Device &device)
 {
     qDebug() << "playFile called" << device.path();;
+    if (!d->m_pipeline.isNull()) {
+        d->m_pipeline->setState(QGst::StateNull);
+    }
+
     d->m_pipeline = QGst::Pipeline::create();
     QByteArray desc;
     qDebug() << GST_VIDEO_CAPS_xRGB_HOST_ENDIAN;
-    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! ffmpegcolorspace !");
+    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
     desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
     desc.append("! fakesink name=fakesink");
+
     d->m_bin = QGst::Bin::fromDescription(desc.data());
     d->m_pipeline->add(d->m_bin);
 
@@ -274,7 +279,18 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
+    d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.ogv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
+    qDebug() << "Record video";
+    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. pulsesrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. oggmux name=mux ! filesink location=";
+    str.append(d->videoTmpPath);
+    QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
+    d->m_pipeline->setState(QGst::StateNull);
 
+    d->m_pipeline->remove(d->m_bin);
+    d->m_pipeline->add(bin);
+
+    setVideoSink(bin->getElementByName("videosink"));
+    d->m_pipeline->setState(QGst::StatePlaying);
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
