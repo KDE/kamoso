@@ -94,12 +94,6 @@ class Kamoso : public KMainWindow
 		void slotScrollLeft();
 		void slotScrollRight();
 		void fillKcomboDevice();
-		void pluginPlug(KIPI::PluginLoader::Info*);
-		void brightnessChanged(int);
-		void contrastChanged(int);
-		void saturationChanged(int);
-		void gammaChanged(int);
-		void hueChanged(int);
 		void autoincFilename(KUrl& filename);
 		void removeSelection();
 		void openFile();
