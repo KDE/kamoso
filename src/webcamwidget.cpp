@@ -302,6 +302,14 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
     job->start();
 }
 
+#if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 3)
+namespace Phonon {
+    typedef QPair<QByteArray, QString> DeviceAccess;
+    typedef QList<DeviceAccess> DeviceAccessList;
+}
+Q_DECLARE_METATYPE(Phonon::DeviceAccessList)
+#endif
+
 QByteArray WebcamWidget::phononCaptureDevice()
 {
     const QList<Phonon::AudioCaptureDevice> &m_modelData = Phonon::BackendCapabilities::availableAudioCaptureDevices();
