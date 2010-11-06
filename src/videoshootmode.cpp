@@ -73,5 +73,5 @@ QString VideoShootMode::name() const
 
 QStringList VideoShootMode::thumbnailsViewMimeTypes() const
 {
-	return QStringList() << "video/ogg";
+	return QStringList() << "video/x-matroska";
 }

@@ -58,5 +58,5 @@ X-KDE-PluginInfo-Author=Alex Fiestas
 X-KDE-PluginInfo-Version=0.00000001
 X-KDE-PluginInfo-License=GPL
 X-KDE-Icon=youtube
-X-KIPI-Mimetypes=video/ogg
+X-KIPI-Mimetypes=video/x-matroska
 X-KIPI-Interfaces=org.kde.kipi.ExportPlugin
