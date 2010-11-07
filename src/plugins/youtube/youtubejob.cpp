@@ -161,17 +161,19 @@ void YoutubeJob::uploadNeedData()
 
 void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 {
-    job->suspend();
-    qDebug() << "Upload Response" << data.data();
+    qDebug() << "Upload Response";
+//     qDebug() << data.data();
     QString dataStr(data);
     QRegExp rx("<media:player url='(\\S+)'/>");
     dataStr.contains(rx);
-    qDebug() << rx.cap(1);
-//     url.setUrl(rx.cap(1));
+//     qDebug() << rx.cap(1);
     KUrl url = rx.cap(1);
-    qDebug() << url.url();
-    KToolInvocation::invokeBrowser(url.url());
-    emit emitResult();
+    if (!url.isEmpty()) {
+        qDebug() << "Url : " << url.url();
+        job->kill();
+        KToolInvocation::invokeBrowser(url.url());
+        emit emitResult();
+    }
 }
 
 void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
