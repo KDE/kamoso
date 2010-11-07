@@ -59,6 +59,7 @@ void YoutubeJob::checkWallet()
     }
 
     if(!showDialog()){
+        emit emitResult();
         return;
     }
     login();
