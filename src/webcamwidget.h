@@ -21,7 +21,7 @@
 #define WEBCAMWIDGET_H
 
 #include <QWidget>
-#include <QtGstreamer/QGst/Ui/VideoWidget>
+#include <QGst/Ui/VideoWidget>
 
 class KJob;
 class Device;
