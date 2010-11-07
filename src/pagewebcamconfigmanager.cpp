@@ -67,9 +67,9 @@ void PageWebcamConfigManager::updateDefaultValues()
 void PageWebcamConfigManager::updateWidgetsDefault()
 {
 	qDebug() << "Setting default values to sliders";
-	d->pageWebcam->brightnessSlider->setValue(100);
+	d->pageWebcam->brightnessSlider->setValue(0);
 	d->pageWebcam->contrastSlider->setValue(100);
 	d->pageWebcam->saturationSlider->setValue(100);
 	d->pageWebcam->gammaSlider->setValue(100);
-	d->pageWebcam->hueSlider->setValue(0);
+	d->pageWebcam->hueSlider->setValue(100);
 }
