@@ -115,7 +115,7 @@ finalData.append("</entry>");
     finalData.append("\r\n");
     finalData.append("\r\n");
     finalData.append(data);
-    qDebug() << finalData;
+//     qDebug() << finalData;
     KUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
     uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
     uploadJob->addMetaData("cookies","none");
@@ -141,7 +141,7 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
         uploadJob->sendAsyncData(final);
     }else{
         qDebug() << "Sending more data....";
-        qDebug() << data;
+//         qDebug() << data;
         uploadJob->sendAsyncData(data);
     }
 }
@@ -251,7 +251,7 @@ void YoutubeJob::loginDone(KIO::Job *job, const QByteArray &data)
 {
     delete job;
     qDebug() << "LoginDone, data received\n";
-    qDebug() << data.data();
+//     qDebug() << data.data();
     if(data.at(0) == 'E'){
         authenticated(false);
     }else{
