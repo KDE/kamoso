@@ -46,7 +46,6 @@ QString KamosoImageCollectionShared::name()
 
 KUrl::List KamosoImageCollectionShared::images()
 {
-	KFileItemList fileList = d->kamoso->selectedItems();
-	return fileList.urlList();
+	return d->kamoso->selectedItems();
 }
 

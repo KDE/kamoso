@@ -26,6 +26,7 @@
 #include <KAction>
 #include <libkipi/pluginloader.h>
 
+class KDirModel;
 class KamosoJobTracker;
 class QToolButton;
 class QRadioButton;
@@ -60,9 +61,9 @@ class Kamoso : public KMainWindow
 		
 		void startVideo(bool withSound);
 		void stopVideo();
-		KFileItemList selectedItems();
+		KUrl::List selectedItems();
 		KamosoJobTracker* tracker() const { return mTracker; }
-
+		virtual void contextMenuEvent(QContextMenuEvent* event);
 //Only slots
 	public slots:
 		void takePhoto();
@@ -75,16 +76,16 @@ class Kamoso : public KMainWindow
 		void webcamChanged(int index);
 		void webcamAdded();
 		void webcamRemoved();
-		void contextMenuThumbnails(const KFileItem& item, QMenu* menu);
 		void thumbnailAdded();
 		void selectLast();
 		void settingsMenu(bool);
-		void selectJob(KJob*);
+		void selectJob(KJob* job, const KUrl::List& urls);
 		void changeMode(bool);
 
 		void setFlashEnabled(bool en) { m_flashEnabled=en; }
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
+		void updateThumbnails(const KUrl::List& urls);
 		
 	private slots:
 		void initialize();
@@ -92,8 +93,6 @@ class Kamoso : public KMainWindow
 		void restore();
 		void slotScrollLeft();
 		void slotScrollRight();
-		void openThumbnail(const QModelIndex& idx);
-		void openThumbnail(const QList<KUrl>& url);
 		void fillKcomboDevice();
 		void pluginPlug(KIPI::PluginLoader::Info*);
 		void brightnessChanged(int);
@@ -102,13 +101,16 @@ class Kamoso : public KMainWindow
 		void gammaChanged(int);
 		void hueChanged(int);
 		void autoincFilename(KUrl& filename);
+		void removeSelection();
+		void openFile();
+		
 	signals:
 		void webcamPlaying(const QString&);
 		
 	private:
 		float brightBack;
 		int m_webcamId;
-		KDirOperator *dirOperator;
+		KDirModel *dirModel;
 		WhiteWidgetManager *whiteWidgetManager;
 		WebcamWidget *m_webcam;
 		CountdownWidget *m_countdown;
@@ -122,7 +124,6 @@ class Kamoso : public KMainWindow
 		QList<QPushButton*> m_modesRadio;
 		ShootMode *m_activeMode;
 		bool m_flashEnabled;
-		ThumbnailView* thumbnailView;
 		KIPI::PluginLoader* mPluginLoader;
 		QList<KAction*> kipiActions;
 		KamosoJobTracker* mTracker;

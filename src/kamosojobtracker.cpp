@@ -42,11 +42,12 @@ void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIco
 	mJobs.insert(job, qMakePair(urls, icon));
 	job->start();
 	updateGeometry();
+	emit urlsChanged(urls);
 }
 
 void KamosoJobTracker::unregisterJob(KJob* job)
 {
-	mJobs.remove(job);
+	QPair< KUrl::List, QIcon > val = mJobs.take(job);
 	updateGeometry();
 	
 	if(job->error()==0) {
@@ -58,6 +59,7 @@ void KamosoJobTracker::unregisterJob(KJob* job)
 							 mJobs.value(job).second.pixmap(48,48));
 	} else
 		KNotification::event(KNotification::Error, job->errorString());
+	emit urlsChanged(val.first);
 }
 
 static const int iconSide=16, separation=4;
@@ -97,8 +99,10 @@ void KamosoJobTracker::paintEvent(QPaintEvent*)
 void KamosoJobTracker::mousePressEvent(QMouseEvent* ev)
 {
 	int i=jobPerPosition(ev->pos());
-	if(i>=0 && i<mJobs.size())
-		 emit jobClicked(mJobs.keys()[i]);
+	if(i>=0 && i<mJobs.size()) {
+		KJob* job = mJobs.keys()[i];
+		emit jobClicked(job, mJobs.value(job).first);
+	}
 }
 
 int KamosoJobTracker::jobPerPosition(const QPoint& pos)
@@ -123,4 +127,15 @@ void KamosoJobTracker::setSelectedJob(int newselection)
 		m_selectedJob=newselection;
 		repaint();
 	}
+}
+
+QList<QIcon> KamosoJobTracker::iconsPerUrl(const KUrl& url) const
+{
+	QList<QIcon> ret;
+	typedef QPair<KUrl::List, QIcon> pair;
+	foreach(const pair& ue, mJobs) {
+		if(ue.first.contains(url))
+			ret += ue.second;
+	}
+	return ret;
 }

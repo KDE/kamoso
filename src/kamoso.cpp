@@ -21,7 +21,7 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QScrollBar>
-#include <QMenu>
+#include <KMenu>
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
@@ -60,12 +60,16 @@
 #include <KPluginInfo>
 #include "webcamdialog.h"
 #include "pagewebcamconfigmanager.h"
+#include <KDirModel>
+#include <kio/copyjob.h>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent),dirOperator(0), m_activeMode(0), m_flashEnabled(true)
+	: KMainWindow(parent), m_activeMode(0), m_flashEnabled(true)
 {
+	dirModel = new KDirModel(this);
+	
 	m_countdown = new CountdownWidget(this);
 	m_countdown->hide();
 
@@ -125,31 +129,14 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	//Third row
 	//Dir operator will show the previews
-	thumbnailView = new ThumbnailView(this);
-	thumbnailView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	thumbnailView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	dirOperator = new KDirOperator(KUrl(), this);
-	dirOperator->setMinimumHeight(100);
-	dirOperator->setInlinePreviewShown(true);
-	dirOperator->setIconsZoom(50);
-	dirOperator->setMimeFilter(m_modes.first()->thumbnailsViewMimeTypes());
-	dirOperator->updateDir();
-	dirOperator->setView(thumbnailView);
-
-	dirOperator->actionCollection()->action("by date")->trigger();
-	connect(dirOperator, SIGNAL(contextMenuAboutToShow(KFileItem,QMenu*)),
-			this, SLOT(contextMenuThumbnails(KFileItem,QMenu*)));
-	
-	//Tunning a bit the customIconView
-	thumbnailView->assignDelegate();
-	thumbnailView->setSelectionRectVisible(true);
-	thumbnailView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-	connect(thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
-			SLOT(openThumbnail(QModelIndex)));
-	connect(thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
+	mainWidgetUi->thumbnailView->setModel(dirModel);
+	mainWidgetUi->thumbnailView->assignDelegate();
+	connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
+			SLOT(openFile()));
+	connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
 			SLOT(thumbnailAdded()));
-	connect(thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
-	mainWidgetUi->thirdRow->insertWidget(1, dirOperator);
+	connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
+	mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
 	
 	//Arrows
 	mainWidgetUi->scrollLeft->setIcon(KIcon("arrow-left"));
@@ -172,9 +159,10 @@ Kamoso::Kamoso(QWidget* parent)
 	this->setCentralWidget(mainWidget);
 	
 	mTracker=new KamosoJobTracker(statusBar());
-// 	connect(PluginManager::self(), SIGNAL(jobAdded(KamosoJob*)), tracker, SLOT(registerJob(KamosoJob*)));
-	connect(mTracker, SIGNAL(jobClicked(KJob*)), SLOT(selectJob(KJob*)));
+	connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
 	statusBar()->addWidget(mTracker);
+	
+	connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
 	
 	QTimer::singleShot(0, this, SLOT(initialize()));
 	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
@@ -183,9 +171,13 @@ Kamoso::Kamoso(QWidget* parent)
 // 	connect(mPluginLoader,SIGNAL(replug()),this,SLOT(replug()));
 }
 
-KFileItemList Kamoso::selectedItems()
+KUrl::List Kamoso::selectedItems()
 {
-	return dirOperator->selectedItems();
+	KUrl::List urls;
+	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
+		urls += dirModel->itemForIndex(idx).url();
+	
+	return urls;
 }
 
 void Kamoso::pluginPlug(KIPI::PluginLoader::Info* info)
@@ -206,8 +198,6 @@ void Kamoso::initialize()
 	qDebug() << "Settings of kamoso:";
 	qDebug() << "saveUrl: " << Settings::saveUrl();
 	qDebug() << "photoTime: " << Settings::photoTime();
-	
-	dirOperator->setUrl(Settings::saveUrl(), false);
 }
 
 void Kamoso::webcamAdded()
@@ -292,6 +282,7 @@ void Kamoso::checkInitConfig()
 			url=QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 		Settings::setSaveUrl(url);
 	}
+	dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 }
 	
 /**
@@ -394,7 +385,7 @@ void Kamoso::generalUpdated()
 {
 	qDebug() << "Settings New\n" << Settings::saveUrl();
 	Settings::self()->writeConfig();
-	dirOperator->setUrl(Settings::saveUrl(), false);
+	dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 
 	Device device = deviceManager->playingDevice();
 	
@@ -410,10 +401,7 @@ void Kamoso::generalUpdated()
 */
 Kamoso::~Kamoso()
 {
-	delete whiteWidgetManager;
 	delete player;
-	delete m_countdown;
-	delete dirOperator;
 	Settings::self()->writeConfig();
 }
 
@@ -430,8 +418,7 @@ void Kamoso::startCountdown(qreal minimumTime)
 	//hidding all non-semaphore widgets
 	mainWidgetUi->scrollLeft->hide();
 	mainWidgetUi->scrollRight->hide();
-	thumbnailView->hide();
-	dirOperator->hide();
+	mainWidgetUi->thumbnailView->hide();
 	m_countdown->show();
 }
 
@@ -464,8 +451,7 @@ void Kamoso::stopCountdown()
 {
 	mainWidgetUi->scrollLeft->show();
 	mainWidgetUi->scrollRight->show();
-	dirOperator->show();
-	thumbnailView->show();
+	mainWidgetUi->thumbnailView->show();
 	m_countdown->hide();
 }
 
@@ -482,42 +468,21 @@ void Kamoso::restore()
 
 void Kamoso::slotScrollLeft()
 {
-	int v=thumbnailView->xValue();
-	thumbnailView->setXValue(v-thumbnailView->width());
+	int v=mainWidgetUi->thumbnailView->xValue();
+	mainWidgetUi->thumbnailView->setXValue(v-mainWidgetUi->thumbnailView->width());
 }
 
 void Kamoso::slotScrollRight()
 {
-	int v=thumbnailView->xValue();
-	thumbnailView->setXValue(v+thumbnailView->width());
+	int v=mainWidgetUi->thumbnailView->xValue();
+	mainWidgetUi->thumbnailView->setXValue(v+mainWidgetUi->thumbnailView->width());
 }
 
-void Kamoso::openThumbnail(const QModelIndex& idx) 
+void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 {
-	QString filename;
-	if(idx.isValid())
-		filename=idx.data(Qt::DisplayRole).toString();
-	else if(!thumbnailView->selectionModel()->selectedIndexes().isEmpty()) {
-		QModelIndex aux=thumbnailView->selectionModel()->selectedIndexes().first();
-		filename=aux.data(Qt::DisplayRole).toString();
-	}
-	
-	if (!filename.isEmpty())
-	{
-		KUrl path = Settings::saveUrl();
-		path.addPath(filename);
-		openThumbnail(QList<KUrl>() << path);
-	}
-}
-
-void Kamoso::openThumbnail(const QList<KUrl>& url)
-{
-// 	PluginManager::self()->pluginFromName("Execute")->executeContextMenuAction(url);
-}
-
-void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
-{
-	menu->clear();
+	QPointer<QMenu> menu = new QMenu(this);
+	QModelIndex idx = mainWidgetUi->thumbnailView->currentIndex();
+	KFileItem item(dirModel->itemForIndex(idx));
 	
 	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
 		QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
@@ -531,6 +496,35 @@ void Kamoso::contextMenuThumbnails(const KFileItem& item, QMenu* menu)
 			}
 		}
 	}
+	
+	if(!menu->isEmpty())
+		menu->addSeparator();
+	
+	menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
+	menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
+	
+	menu->exec(event->pos());
+	
+	delete menu;
+}
+
+void Kamoso::openFile()
+{
+	KUrl url = dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
+	QDesktopServices::openUrl(url);
+}
+
+void Kamoso::removeSelection()
+{
+	KUrl::List urls = KUrl::List() << dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
+	int res=KMessageBox::warningContinueCancel(0,
+										i18n("Are you sure you want to delete these files?"),
+										i18n("Move to Trash"));
+
+	if(res==KMessageBox::Continue) {
+		KIO::CopyJob *job = KIO::trash(urls);
+		mTracker->registerJob(job, urls, KIcon("user-trash"));
+	}
 }
 
 void Kamoso::thumbnailAdded()
@@ -540,7 +534,7 @@ void Kamoso::thumbnailAdded()
 
 void Kamoso::selectLast()
 {
-	ThumbnailView* v=thumbnailView;
+	ThumbnailView* v=mainWidgetUi->thumbnailView;
 	v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->maximum());
 	
 	QModelIndex idx=v->model()->index(v->model()->rowCount()-1, 0);
@@ -550,14 +544,11 @@ void Kamoso::selectLast()
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
-void Kamoso::selectJob(KJob* job)
+void Kamoso::selectJob(KJob* job, const KUrl::List& urls)
 {
-	//TODO: port
-// 	QStringList urls;
-// 	foreach(const KUrl& url, job->urls())
-// 		urls.append(url.pathOrUrl());
-// 	
-// 	dirOperator->setCurrentItems(urls);
+	mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
+	foreach(const KUrl&url, urls)
+		mainWidgetUi->thumbnailView->selectionModel()->select(dirModel->indexForUrl(url), QItemSelectionModel::Select);
 }
 
 void Kamoso::changeMode(bool pressed)
@@ -581,10 +572,10 @@ void Kamoso::changeMode(bool pressed)
 		m_activeMode->deactivate();
 	}
 	m_activeMode=m_modes[i];
-	if(dirOperator) {
-		dirOperator->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
-		dirOperator->updateDir();
-	}
+	dirModel->dirLister()->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
+	if(!dirModel->dirLister()->url().isEmpty())
+		dirModel->dirLister()->openUrl(dirModel->dirLister()->url(), KDirLister::Reload);
+	
 	QWidget* w=m_activeMode->mainAction();
 	w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
 	
@@ -604,16 +595,14 @@ CountdownWidget * Kamoso::countdown() const
 void Kamoso::settingsMenu(bool )
 {
 	QList<QAction*> actions=m_activeMode->actions();
-	QMenu m;
+	KMenu m;
 	if(!actions.isEmpty()) {
 		m.addActions(actions);
 		m.addSeparator();
 	}
 	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
-// 	m.addAction(KIcon("about"), i18n("About Kamoso..."), this, SLOT(showAboutApplication()));
+	m.addMenu(customHelpMenu());
 	
-	qDebug() << "blaaa" << mainWidgetUi->configure->geometry().bottomLeft();
-	qDebug() << "bleee" << mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft());
 	m.exec(mainWidgetUi->configure->parentWidget()->mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
 
@@ -631,7 +620,7 @@ void Kamoso::autoincFilename(KUrl &filename)
     if (start != -1) {
         // It has a number, increment it
         start = numSearch.pos( 2 ); // we are only interested in the second group
-        QString numAsStr = numSearch.capturedTexts()[ 2 ];
+        QString numAsStr = numSearch.cap(2);
         QString number = QString::number( numAsStr.toInt() + 1 );
         number = number.rightJustified( numAsStr.length(), '0' );
         name.replace( start, numAsStr.length(), number );
@@ -656,6 +645,16 @@ void Kamoso::autoincFilename(KUrl &filename)
 void Kamoso::thumbnailViewMoved(int value)
 {
 	mainWidgetUi->scrollLeft->setEnabled(value!=0);
-	mainWidgetUi->scrollRight->setEnabled(thumbnailView->horizontalScrollBar()->maximum()!=value);
+	mainWidgetUi->scrollRight->setEnabled(mainWidgetUi->thumbnailView->horizontalScrollBar()->maximum()!=value);
 }
 
+void Kamoso::updateThumbnails(const KUrl::List& urls)
+{
+	foreach(const KUrl& url, urls) {
+		QModelIndex idx = dirModel->indexForUrl(url);
+		QList<QIcon> icons = tracker()->iconsPerUrl(url);
+		mainWidgetUi->thumbnailView->delegate()->setOverlays(url, icons);
+		
+		mainWidgetUi->thumbnailView->update(idx);
+	}
+}
