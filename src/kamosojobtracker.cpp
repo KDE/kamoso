@@ -52,11 +52,11 @@ void KamosoJobTracker::unregisterJob(KJob* job)
 	
 	if(job->error()==0) {
 		QStringList urls;
-		foreach(const KUrl& url, mJobs.value(job).first) {
+		foreach(const KUrl& url, val.first) {
 			urls += url.prettyUrl();
 		}
 		KNotification::event(KNotification::Notification, i18n("Done: %1", urls.join(i18nc("Used to join urls", ", "))),
-							 mJobs.value(job).second.pixmap(48,48));
+							 val.second.pixmap(48,48));
 	} else
 		KNotification::event(KNotification::Error, job->errorString());
 	emit urlsChanged(val.first);
