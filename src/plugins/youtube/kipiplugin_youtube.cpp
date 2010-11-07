@@ -40,49 +40,33 @@ using KWallet::Wallet;
 
 K_PLUGIN_FACTORY(KamosoYoutubeFactory, registerPlugin<YoutubePlugin>(); )
 K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("kipiplugin_youtube", "kipiplugin_youtube",
-		ki18n("YouTube"), "0.1", ki18n("Uploads files to YouTube"),
-		KAboutData::License_GPL)))
+        ki18n("YouTube"), "0.5", ki18n("Uploads files to YouTube"),
+        KAboutData::License_GPL)))
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
-	: KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
+    : KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
 {
-	KIconLoader::global()->addAppDir("kamoso_youtube");
+    qDebug() << "Youtube plugin instanced";
+    KIconLoader::global()->addAppDir("kamoso_youtube");
 }
-
-// QAction* YoutubePlugin::thumbnailsAction(const QList<KUrl>& urls)
-// {
-// 	QAction* act=0;
-// 	mSelectedUrls.clear();
-// 	foreach(const KUrl& url, urls)
-// 	{
-// 		KMimeType::Ptr mime = KMimeType::findByUrl(url);
-// 		if(mime->name().startsWith("video/")) {
-// 			if(!act) {
-// 				act=new QAction(KIcon("youtube"), i18n("Upload to YouTube"), 0);
-// 				connect(act, SIGNAL(triggered(bool)), SLOT(upload()));
-// 			}
-// 		}
-// 		mSelectedUrls.append(url);
-// 	}
-// 	return act;
-// }
 
 KJob* YoutubePlugin::exportFiles(const QString& albumname)
 {
-	KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
-	YoutubeJobComposite* job = new YoutubeJobComposite();
-	foreach(const KUrl& url, interface->currentSelection().images()) {
-		job->addYoutubeJob(new YoutubeJob(url));
-	}
-	return job;
+    KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
+    YoutubeJobComposite* job = new YoutubeJobComposite();
+    foreach(const KUrl& url, interface->currentSelection().images()) {
+        qDebug() << "Url to upload: " << url;
+        job->addYoutubeJob(new YoutubeJob(url));
+    }
+    return job;
 }
 
 KIPI::Category YoutubePlugin::category(KAction* action) const
 {
-	return KIPI::ExportPlugin;
+    return KIPI::ExportPlugin;
 }
 
 void YoutubePlugin::setup(QWidget* widget)
 {
-	KIPI::Plugin::setup(widget);
+    KIPI::Plugin::setup(widget);
 }

@@ -21,15 +21,15 @@
 
 void YoutubeJobComposite::start()
 {
-	foreach( KJob* subTask, subjobs() )
-	{
-		subTask->start();
-	}
+    foreach( KJob* subTask, subjobs() )
+    {
+        subTask->start();
+    }
 }
 
 
 void YoutubeJobComposite::addYoutubeJob(YoutubeJob* job)
 {
-	addSubjob(job);
+    addSubjob(job);
 }
 

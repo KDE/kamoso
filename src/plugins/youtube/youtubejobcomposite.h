@@ -27,7 +27,7 @@ class YoutubeJobComposite : public KCompositeJob
 {
 public:
     virtual void start();
-	void addYoutubeJob(YoutubeJob* job);
+    void addYoutubeJob(YoutubeJob* job);
 };
 
 #endif // YOUTUBEJOBCOMPOSITE_H

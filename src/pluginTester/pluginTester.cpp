@@ -17,48 +17,41 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef YOUTUBEJOB_H
-#define YOUTUBEJOB_H
+#include "pluginTester.h"
+#include "fakekipiinterface.h"
+#include "fakekipiaction.h"
 
-#include <KPasswordDialog>
-#include <KJob>
-#include <KIO/Job>
-#include <QMap>
-#include <QString>
-#include <kwallet.h>
+#include <QDebug>
+#include <kurl.h>
+#include <KCmdLineArgs>
+#include <libkipi/plugin.h>
+#include <libkipi/pluginloader.h>
 
-class YoutubeJob : public KJob
+PluginTester::PluginTester(QObject *parent) : QObject(parent)
 {
-    Q_OBJECT
-    public:
-        YoutubeJob(const KUrl& url, QObject* parent=0);
-        virtual void start();
-        bool showDialog();
-        QMap<QString, QString> showVideoDialog();
-        void login();
-    public slots:
-        void fileOpened(KIO::Job *, const QByteArray &);
-        void uploadDone(KIO::Job *, const QByteArray &);
-        void moreData(KIO::Job *, const QByteArray &);
-        void uploadNeedData();
-        void uploadFinal();
-        void authenticated(bool);
-        void loginDone(KIO::Job *job, const QByteArray &data);
-    private:
-        void setVideoInfo(QMap<QString, QString>& videoInfo);
-        KIO::TransferJob *openFileJob;
-        KIO::TransferJob *uploadJob;
-        QByteArray m_authToken;
-        static const QByteArray developerKey;
-        KUrl m_url;
-        QMap<QString, QString> m_videoInfo;
-        void checkWallet();
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        QList<KUrl> mSelectedUrls;
-        KWallet::Wallet *m_wallet;
-        QString videoTitle;
-        QString videoDesc;
-        QString videoTags;
-        KPasswordDialog *dialog;
-};
-#endif
+    QString pluginName = args->arg(0);
+
+    qDebug() << "PluginName: " << pluginName;
+    qDebug() << "Files: ";
+    KUrl::List kurlList;
+    for (int i = 1; i < args->count(); ++i) {
+        qDebug() << "\t" << args->arg(i);
+        kurlList.append(KUrl(args->arg(i)));
+    }
+
+    m_pluginLoader = new KIPI::PluginLoader(QStringList(), new FakeKIPIInterface(kurlList), "");
+
+    Q_FOREACH(KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {
+        if (pluginInfo->service()->name() == "YouTube") {
+            m_action = new FakeKipiAction(pluginInfo, this);
+            m_action->trigger();
+        }
+    }
+}
+
+PluginTester::~PluginTester()
+{
+    delete m_action;
+}
