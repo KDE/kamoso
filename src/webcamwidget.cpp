@@ -117,9 +117,8 @@ WebcamWidget::~WebcamWidget()
     d->m_pipeline->setState(QGst::StateNull);
 }
 
-void WebcamWidget::playing()
+void WebcamWidget::setVideoSettings()
 {
-    qDebug() << "Playing....";
     setBrightness(d->device.brightness());
     setContrast(d->device.contrast());
     setSaturation(d->device.saturation());
@@ -130,6 +129,7 @@ void WebcamWidget::playing()
 void WebcamWidget::playFile(const Device &device)
 {
     qDebug() << "playFile called" << device.path();;
+    setDevice(device);
     if (!d->m_pipeline.isNull()) {
         d->m_pipeline->setState(QGst::StateNull);
     }
@@ -144,12 +144,10 @@ void WebcamWidget::playFile(const Device &device)
     d->m_bin = QGst::Bin::fromDescription(desc.data());
     d->m_pipeline->add(d->m_bin);
 
+    setVideoSettings();
     setVideoSink(d->m_bin->getElementByName("videosink"));
 
     d->m_pipeline->setState(QGst::StatePlaying);
-
-    setDevice(device);
-
 }
 
 void WebcamWidget::setDevice(const Device &device)
@@ -288,10 +286,11 @@ void WebcamWidget::recordVideo(bool sound)
 
     d->m_pipeline->remove(d->m_bin);
     d->m_pipeline->add(bin);
+    d->m_bin = bin;
 
     setVideoSink(bin->getElementByName("videosink"));
+    setVideoSettings();
     d->m_pipeline->setState(QGst::StatePlaying);
-    d->m_bin = bin;
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)

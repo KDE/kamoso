@@ -53,7 +53,7 @@ public slots:
     void setContrast(int level);
     void setGamma(int level);
     void setHue(int level);
-    void playing();
+    void setVideoSettings();
 
 private:
     WebcamWidget(QWidget* parent);
