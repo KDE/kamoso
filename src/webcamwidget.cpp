@@ -327,10 +327,6 @@ QByteArray WebcamWidget::phononCaptureDevice()
 
 void WebcamWidget::setBrightness(int level)
 {
-    qDebug() << "Brightness";
-    double a = (double) level / 100;
-    qDebug() << level;
-    qDebug() << a;
     d->m_bin->getElementByName("videoBalance")->setProperty("brightness", (double) level / 100);
 }
 
@@ -346,9 +342,6 @@ void WebcamWidget::setSaturation(int level)
 
 void WebcamWidget::setGamma(int level)
 {
-    double a = (double) level / 100;
-    qDebug() << level;
-    qDebug() << a;
     d->m_bin->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
 }
 
