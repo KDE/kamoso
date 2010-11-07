@@ -5,6 +5,7 @@ if (NEPOMUK_FOUND)
 endif(NEPOMUK_FOUND)
 
 add_subdirectory(plugins)
+add_subdirectory(pluginTester)
 
 set(kamoso_SRCS
 	burstshootmode.cpp

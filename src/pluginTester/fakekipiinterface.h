@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2010 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2010 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,48 +17,41 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef YOUTUBEJOB_H
-#define YOUTUBEJOB_H
+#ifndef FAKEKIPIINTERFACE_H
+#define FAKEKIPIINTERFACE_H
 
-#include <KPasswordDialog>
-#include <KJob>
-#include <KIO/Job>
-#include <QMap>
-#include <QString>
-#include <kwallet.h>
+#include <QList>
 
-class YoutubeJob : public KJob
-{
+#include <kurl.h>
+#include <libkipi/interface.h>
+#include <libkipi/uploadwidget.h>
+#include <libkipi/imagecollectionshared.h>
+
+class FakeKIPIInterfacePrivate;
+class FakeKIPIInterface :public KIPI::Interface {
     Q_OBJECT
-    public:
-        YoutubeJob(const KUrl& url, QObject* parent=0);
-        virtual void start();
-        bool showDialog();
-        QMap<QString, QString> showVideoDialog();
-        void login();
-    public slots:
-        void fileOpened(KIO::Job *, const QByteArray &);
-        void uploadDone(KIO::Job *, const QByteArray &);
-        void moreData(KIO::Job *, const QByteArray &);
-        void uploadNeedData();
-        void uploadFinal();
-        void authenticated(bool);
-        void loginDone(KIO::Job *job, const QByteArray &data);
-    private:
-        void setVideoInfo(QMap<QString, QString>& videoInfo);
-        KIO::TransferJob *openFileJob;
-        KIO::TransferJob *uploadJob;
-        QByteArray m_authToken;
-        static const QByteArray developerKey;
-        KUrl m_url;
-        QMap<QString, QString> m_videoInfo;
-        void checkWallet();
 
-        QList<KUrl> mSelectedUrls;
-        KWallet::Wallet *m_wallet;
-        QString videoTitle;
-        QString videoDesc;
-        QString videoTags;
-        KPasswordDialog *dialog;
+public:
+    FakeKIPIInterface(KUrl::List& kurlList);
+    virtual ~FakeKIPIInterface();
+
+    virtual bool addImage(const KUrl&, QString& err);
+    virtual void delImage( const KUrl& );
+    virtual void refreshImages( const KUrl::List& urls );
+
+    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
+    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
+
+
+    virtual QList< KIPI::ImageCollection > allAlbums();
+    virtual KIPI::ImageCollection currentAlbum();
+    virtual KIPI::ImageCollection currentSelection();
+    virtual int features() const;
+    virtual KIPI::ImageInfo info(const KUrl& );
+
+private:
+    private:
+    FakeKIPIInterfacePrivate* const d;
 };
-#endif
+
+#endif // FAKEKIPIINTERFACE_H

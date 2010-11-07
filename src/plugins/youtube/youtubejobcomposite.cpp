@@ -21,15 +21,23 @@
 
 void YoutubeJobComposite::start()
 {
-	foreach( KJob* subTask, subjobs() )
-	{
-		subTask->start();
-	}
+    foreach( KJob* subTask, subjobs() )
+    {
+        subTask->start();
+    }
 }
-
 
 void YoutubeJobComposite::addYoutubeJob(YoutubeJob* job)
 {
-	addSubjob(job);
+    addSubjob(job);
 }
 
+bool YoutubeJobComposite::removeSubjob(KJob* job)
+{
+    bool r =KCompositeJob::removeSubjob(job);
+
+    if (!hasSubjobs()) {
+        emitResult();
+    }
+    return r;
+}
