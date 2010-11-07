@@ -100,7 +100,7 @@ Kamoso::Kamoso(QWidget* parent)
 	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
 	
-	fillKcomboDevice();
+	reloadDevicesCombo();
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 	
 	
@@ -198,7 +198,7 @@ void Kamoso::webcamAdded()
 	mainWidgetUi->webcamCombo->setVisible(comboShown);
 	
 	if(comboShown)
-		fillKcomboDevice();
+		reloadDevicesCombo();
 }
 
 void Kamoso::startVideo(bool sound)
@@ -219,18 +219,17 @@ void Kamoso::stopVideo()
 	m_webcam->playFile(deviceManager->playingDevice());
 }
 
-void Kamoso::fillKcomboDevice()
+void Kamoso::reloadDevicesCombo()
 {
 	mainWidgetUi->webcamCombo->clear();
-	QList <Device> deviceList = deviceManager->devices();
-	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
-	for(i=deviceList.constBegin();i!=iEnd;++i)
+	QList <Device> devices = deviceManager->devices();
+	
+	foreach(const Device& d, devices)
 	{
-		mainWidgetUi->webcamCombo->addItem(i->description(),
-											i->udi());
+		mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
+		
 		//If kamoso is using this device, set it as currentIndex
-		if(i->udi() == deviceManager->playingDeviceUdi())
-		{
+		if(d.udi() == deviceManager->playingDeviceUdi()) {
 			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
 		}
 	}
@@ -238,13 +237,13 @@ void Kamoso::fillKcomboDevice()
 }
 void Kamoso::webcamRemoved()
 {
-	if((deviceManager->numberOfDevices()-1) < 2){
+	if(deviceManager->numberOfDevices() < 3) {
 		//At the moment there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
-	}else{
+	} else {
 		//The combo is already shown (should be),so onlyupdate the content is required.
-		fillKcomboDevice();
+		reloadDevicesCombo();
 	}
 }
 
@@ -507,7 +506,7 @@ void Kamoso::selectLast()
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
-void Kamoso::selectJob(KJob* job, const KUrl::List& urls)
+void Kamoso::selectJob(KJob* , const KUrl::List& urls)
 {
 	mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
 	foreach(const KUrl&url, urls)

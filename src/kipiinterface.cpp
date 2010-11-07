@@ -1,21 +1,21 @@
-/*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
+/*************************************************************************************
+ *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *                                                                                   *
+ *  This program is free software; you can redistribute it and/or                    *
+ *  modify it under the terms of the GNU General Public License                      *
+ *  as published by the Free Software Foundation; either version 2                   *
+ *  of the License, or (at your option) any later version.                           *
+ *                                                                                   *
+ *  This program is distributed in the hope that it will be useful,                  *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of                   *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                    *
+ *  GNU General Public License for more details.                                     *
+ *                                                                                   *
+ *  You should have received a copy of the GNU General Public License                *
+ *  along with this program; if not, write to the Free Software                      *
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
+ *************************************************************************************/
 
 #include "kipiinterface.h"
 #include "infoshared.h"
@@ -69,18 +69,14 @@ KIPI::ImageInfo KIPIInterface::info(const KUrl& url) {
 	return KIPI::ImageInfo(new InfoShared(this,url));
 }
 
-bool KIPIInterface::addImage(const KUrl&, QString& err) 
-{
-	return true;
-}
+bool KIPIInterface::addImage(const KUrl&, QString& )
+{ return true; }
+
 void KIPIInterface::delImage( const KUrl& ) 
-{
-	
-}
-void KIPIInterface::refreshImages( const KUrl::List& urls ) 
-{
-	
-}
+{}
+
+void KIPIInterface::refreshImages( const KUrl::List&)
+{}
 
 KIPI::ImageCollectionSelector* KIPIInterface::imageCollectionSelector(QWidget *parent) {
 	return new KIPI::ImageCollectionSelector(parent);

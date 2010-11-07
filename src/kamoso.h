@@ -93,7 +93,7 @@ class Kamoso : public KMainWindow
 		void restore();
 		void slotScrollLeft();
 		void slotScrollRight();
-		void fillKcomboDevice();
+		void reloadDevicesCombo();
 		void autoincFilename(KUrl& filename);
 		void removeSelection();
 		void openFile();
