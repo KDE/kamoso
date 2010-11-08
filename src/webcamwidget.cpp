@@ -49,16 +49,16 @@
     #include <Nepomuk/Tag>
 #endif
 
-#include <QtGstreamer/QGst/Pipeline>
-#include <QtGstreamer/QGst/Element>
-#include <QtGstreamer/QGst/Parse>
-#include <QtGstreamer/QGst/Buffer>
-#include <QtGstreamer/QGst/Pad>
-#include <QtGstreamer/QGst/ElementFactory>
-#include <QtGstreamer/QGst/VideoOrientation>
-#include <QtGstreamer/QGlib/Signal>
-#include <QtGstreamer/QGst/Structure>
-#include <QtGstreamer/QGst/Clock>
+#include <QGst/Pipeline>
+#include <QGst/Element>
+#include <QGst/Parse>
+#include <QGst/Buffer>
+#include <QGst/Pad>
+#include <QGst/ElementFactory>
+#include <QGst/VideoOrientation>
+#include <QGlib/Signal>
+#include <QGst/Structure>
+#include <QGst/Clock>
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
