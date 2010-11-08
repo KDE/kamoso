@@ -71,5 +71,5 @@ void PageWebcamConfigManager::updateWidgetsDefault()
 	d->pageWebcam->contrastSlider->setValue(100);
 	d->pageWebcam->saturationSlider->setValue(100);
 	d->pageWebcam->gammaSlider->setValue(100);
-	d->pageWebcam->hueSlider->setValue(100);
+	d->pageWebcam->hueSlider->setValue(0);
 }
