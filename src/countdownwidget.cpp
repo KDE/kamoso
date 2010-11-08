@@ -35,7 +35,7 @@ CountdownWidget::CountdownWidget(QWidget* parent)
 	connect(mTimer, SIGNAL(finished()), this, SLOT(hide()));
 	connect(mTimer, SIGNAL(finished()), this, SIGNAL(finished()));
 	
-	mTimer->setCurveShape(QTimeLine::LinearCurve); //FIXME
+	mTimer->setCurveShape(QTimeLine::EaseInCurve);
 }
 
 void CountdownWidget::start(int timeInterval)

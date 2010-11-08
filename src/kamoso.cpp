@@ -65,6 +65,7 @@
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
+
 Kamoso::Kamoso(QWidget* parent)
 	: KMainWindow(parent), m_activeMode(0), m_flashEnabled(true)
 {
@@ -99,7 +100,7 @@ Kamoso::Kamoso(QWidget* parent)
 	} //TODO: else we should warn the user
 // 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
 	
-	fillKcomboDevice();
+	reloadDevicesCombo();
 	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 	
 	
@@ -164,11 +165,8 @@ Kamoso::Kamoso(QWidget* parent)
 	
 	connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
 	
-	QTimer::singleShot(0, this, SLOT(initialize()));
+	QMetaObject::invokeMethod(this, "initialize");
 	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
-// 	Q_ASSERT(!mPluginLoader->pluginList().isEmpty());
-// 	connect(mPluginLoader, SIGNAL(plug(KIPI::PluginLoader::Info*)),this, SLOT(pluginPlug(KIPI::PluginLoader::Info*)));
-// 	connect(mPluginLoader,SIGNAL(replug()),this,SLOT(replug()));
 }
 
 KUrl::List Kamoso::selectedItems()
@@ -178,16 +176,6 @@ KUrl::List Kamoso::selectedItems()
 		urls += dirModel->itemForIndex(idx).url();
 	
 	return urls;
-}
-
-void Kamoso::pluginPlug(KIPI::PluginLoader::Info* info)
-{
-	qDebug() << info->name();
-	qDebug() << info->plugin()->actions().length();
-	QList<KAction*> actions = info->plugin()->actions();
-	Q_FOREACH(KAction* action, actions) {
-		qDebug() << action->text();
-	}
 }
 
 void Kamoso::initialize()
@@ -210,7 +198,7 @@ void Kamoso::webcamAdded()
 	mainWidgetUi->webcamCombo->setVisible(comboShown);
 	
 	if(comboShown)
-		fillKcomboDevice();
+		reloadDevicesCombo();
 }
 
 void Kamoso::startVideo(bool sound)
@@ -231,18 +219,17 @@ void Kamoso::stopVideo()
 	m_webcam->playFile(deviceManager->playingDevice());
 }
 
-void Kamoso::fillKcomboDevice()
+void Kamoso::reloadDevicesCombo()
 {
 	mainWidgetUi->webcamCombo->clear();
-	QList <Device> deviceList = deviceManager->devices();
-	QList <Device>::const_iterator i, iEnd=deviceList.constEnd();
-	for(i=deviceList.constBegin();i!=iEnd;++i)
+	QList <Device> devices = deviceManager->devices();
+	
+	foreach(const Device& d, devices)
 	{
-		mainWidgetUi->webcamCombo->addItem(i->description(),
-											i->udi());
+		mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
+		
 		//If kamoso is using this device, set it as currentIndex
-		if(i->udi() == deviceManager->playingDeviceUdi())
-		{
+		if(d.udi() == deviceManager->playingDeviceUdi()) {
 			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
 		}
 	}
@@ -250,13 +237,13 @@ void Kamoso::fillKcomboDevice()
 }
 void Kamoso::webcamRemoved()
 {
-	if((deviceManager->numberOfDevices()-1) < 2){
+	if(deviceManager->numberOfDevices() < 3) {
 		//At the moment there are only 2 widgets to hidden, maybe a container is needed here.
 		mainWidgetUi->chooseWebcamLbl->hide();
 		mainWidgetUi->webcamCombo->hide();
-	}else{
+	} else {
 		//The combo is already shown (should be),so onlyupdate the content is required.
-		fillKcomboDevice();
+		reloadDevicesCombo();
 	}
 }
 
@@ -340,42 +327,17 @@ void Kamoso::configuration()
 	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
 	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
 
-	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),this,SLOT(brightnessChanged(int)));
-	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),this,SLOT(contrastChanged(int)));
-	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),this,SLOT(saturationChanged(int)));
-	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),this,SLOT(gammaChanged(int)));
-	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),this,SLOT(hueChanged(int)));
+	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setBrightness(int)));
+	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setContrast(int)));
+	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setSaturation(int)));
+	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setGamma(int)));
+	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setHue(int)));
 
 	//TODO: Use the designer and so on
 // 	KPluginSelector* selector=new KPluginSelector(dialog);
 // 	selector->addPlugins(PluginManager::self()->pluginInfo());
 // 	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
 	dialog->show();
-}
-
-void Kamoso::brightnessChanged(int level)
-{
-	m_webcam->setBrightness(level);
-}
-
-void Kamoso::contrastChanged(int level)
-{
-	m_webcam->setContrast(level);
-}
-
-void Kamoso::saturationChanged(int level)
-{
-	m_webcam->setSaturation(level);
-}
-
-void Kamoso::gammaChanged(int level)
-{
-	m_webcam->setGamma(level);
-}
-
-void Kamoso::hueChanged(int level)
-{
-	m_webcam->setHue(level);
 }
 
 /**
@@ -544,7 +506,7 @@ void Kamoso::selectLast()
 							QItemSelectionModel::Clear|QItemSelectionModel::Select);
 }
 
-void Kamoso::selectJob(KJob* job, const KUrl::List& urls)
+void Kamoso::selectJob(KJob* , const KUrl::List& urls)
 {
 	mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
 	foreach(const KUrl&url, urls)
