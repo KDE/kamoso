@@ -472,15 +472,19 @@ void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 
 void Kamoso::openFile()
 {
-	KUrl url = dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
-	QDesktopServices::openUrl(url);
+	KUrl::List urls;
+	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
+		QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
 }
 
 void Kamoso::removeSelection()
 {
-	KUrl::List urls = KUrl::List() << dirModel->itemForIndex(mainWidgetUi->thumbnailView->currentIndex()).url();
+	KUrl::List urls;
+	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
+		urls << dirModel->itemForIndex(idx).url();
+	
 	int res=KMessageBox::warningContinueCancel(0,
-										i18n("Are you sure you want to delete these files?"),
+										i18np("Are you sure you want to delete this file?", "Are you sure you want to delete these %1 files?", urls.size()),
 										i18n("Move to Trash"));
 
 	if(res==KMessageBox::Continue) {
