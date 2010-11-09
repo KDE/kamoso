@@ -18,7 +18,6 @@
 */
 
 #include "kamosoimagecollectionshared.h"
-#include <KFileItemList>
 
 struct KamosoImageCollectionShared::Private
 {
