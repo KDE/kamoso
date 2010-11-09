@@ -36,14 +36,12 @@
 struct KIPIInterfacePrivate {
 	Kamoso *kamoso;
 	KIPI::PluginLoader* pluginLoader;
-	KamosoImageCollectionShared* collectionShared;
 };
 
 KIPIInterface::KIPIInterface(Kamoso* kamoso)
 :KIPI::Interface(kamoso)
 , d(new KIPIInterfacePrivate) {
 	d->kamoso = kamoso;
-	d->collectionShared = new KamosoImageCollectionShared(kamoso);
 // 	d->pluginLoader = new KIPI::PluginLoader(QStringList(), this);
 }
 
@@ -52,11 +50,11 @@ KIPIInterface::~KIPIInterface() {
 }
 
 KIPI::ImageCollection KIPIInterface::currentAlbum() {
-	return KIPI::ImageCollection(d->collectionShared);
+	return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
 }
 
 KIPI::ImageCollection KIPIInterface::currentSelection() {
-	return KIPI::ImageCollection(d->collectionShared);
+	return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
 }
 
 QList<KIPI::ImageCollection> KIPIInterface::allAlbums() {
