@@ -36,9 +36,7 @@ void signalHandler(int signal)
 
 int main(int argc, char *argv[])
 {
-    signal(SIGINT, signalHandler);
-
-    KAboutData about("kamosoPluginTester", 0, ki18n(("Kamoso Plugin Tester")), "1.90", ki18n("Plugin tgester"),
+    KAboutData about("kamosoPluginTester", 0, ki18n(("Kamoso Plugin Tester")), "1.90", ki18n("Plugin tester"),
              KAboutData::License_GPL, ki18n("(C) 2008-2010 Alex Fiestas and Aleix Pol"));
     about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
     about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
@@ -49,8 +47,8 @@ int main(int argc, char *argv[])
     KCmdLineArgs::addCmdLineOptions(options);
 
     if (KCmdLineArgs::parsedArgs()->count() < 2) {
-        printf("Usage: \n");
-        printf("kamosoPluginTester pluginName file1 file2 file3...\n");
+        qDebug("Usage: \n");
+        qDebug("kamosoPluginTester pluginName file1 file2 file3...\n");
         return -1;
     }
     KApplication app;

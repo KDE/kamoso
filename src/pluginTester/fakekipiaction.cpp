@@ -23,7 +23,7 @@
 #include <libkipi/exportinterface.h>
 #include <KIO/JobUiDelegate>
 #include <kjobtrackerinterface.h>
-#include <QDebug>
+#include <KDebug>
 
 FakeKipiAction::FakeKipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent)
     : QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo)
@@ -44,4 +44,13 @@ void FakeKipiAction::runJob()
     m_job = ep->exportFiles(i18n("Kamoso"));
     KIO::getJobTracker()->registerJob(m_job);
     m_job->start();
+    
+    connect(m_job, SIGNAL(finished(KJob*)), SLOT(done(KJob*)));
+}
+
+void FakeKipiAction::done(KJob* job)
+{
+    kDebug() << "Finished job: " << job->objectName();
+    if(job->error()!=0)
+        kDebug() << "the job finished with error" << job->error() << job->errorString();
 }

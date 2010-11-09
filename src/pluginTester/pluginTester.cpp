@@ -43,12 +43,16 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
 
     m_pluginLoader = new KIPI::PluginLoader(QStringList(), new FakeKIPIInterface(kurlList), "");
 
+    bool found = false;
     Q_FOREACH(KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {
-        if (pluginInfo->service()->name() == "YouTube") {
+        if (pluginInfo->service()->name() == args->arg(0)) {
             m_action = new FakeKipiAction(pluginInfo, this);
             m_action->trigger();
+            found=true;
+            break;
         }
     }
+    if(!found) qDebug() << "could not find:" << args->arg(0);
 }
 
 PluginTester::~PluginTester()

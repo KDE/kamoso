@@ -33,6 +33,7 @@ class FakeKipiAction : public QAction
 
     public slots:
         void runJob();
+        void done(KJob*);
 
     private:
         KIPI::PluginLoader::Info *pluginInfo;
