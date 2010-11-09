@@ -465,7 +465,7 @@ void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 	menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
 	menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
 	
-	menu->exec(event->pos());
+	menu->exec(mapToGlobal(event->pos()));
 	
 	delete menu;
 }
