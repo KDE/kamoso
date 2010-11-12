@@ -10,9 +10,6 @@
     <height>266</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string comment="KDE::DoNotExtract">Form</string>
-  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
