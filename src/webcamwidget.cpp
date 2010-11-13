@@ -62,11 +62,6 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-void callback()
-{
-
-}
-
 struct WebcamWidget::Private
 {
     QByteArray videoTmpPath;
