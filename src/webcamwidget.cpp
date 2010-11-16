@@ -132,7 +132,7 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline = QGst::Pipeline::create();
     QByteArray desc;
     qDebug() << GST_VIDEO_CAPS_xRGB_HOST_ENDIAN;
-    desc.append("v4l2src ! video/x-raw-yuv, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
+    desc.append("v4l2src ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
     desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
     desc.append("! fakesink name=fakesink");
 
@@ -251,7 +251,7 @@ void WebcamWidget::recordVideo(bool sound)
 {
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
     qDebug() << "Record video";
-    QByteArray str = "v4l2src ! video/x-raw-yuv, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. alsasrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
+    QByteArray str = "v4l2src ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. alsasrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
     str.append(d->videoTmpPath);
     QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
     d->m_pipeline->setState(QGst::StateNull);
