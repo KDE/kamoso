@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Exec=blubb
+Icon=youtube
 Comment=Upload videos directly to YouTube
 Comment[da]=Upload videoer direkte til YouTube
 Comment[de]=Videos auf YouTube hochladen
@@ -57,6 +58,5 @@ X-KDE-PluginInfo-Name=kipiplugin_youtube
 X-KDE-PluginInfo-Author=Alex Fiestas
 X-KDE-PluginInfo-Version=0.00000001
 X-KDE-PluginInfo-License=GPL
-X-KDE-Icon=youtube
 X-KIPI-Mimetypes=video/x-matroska
 X-KIPI-Interfaces=org.kde.kipi.ExportPlugin

@@ -45,10 +45,7 @@ K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("kipiplugin_youtube", "kipiplugi
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
     : KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
-{
-    qDebug() << "Youtube plugin instanced";
-    KIconLoader::global()->addAppDir("kamoso_youtube");
-}
+{}
 
 KJob* YoutubePlugin::exportFiles(const QString& albumname)
 {
