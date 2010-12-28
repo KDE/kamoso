@@ -56,7 +56,7 @@
 #include <QGst/Pad>
 #include <QGst/ElementFactory>
 #include <QGst/VideoOrientation>
-#include <QGlib/Signal>
+#include <QGlib/connect.h>
 #include <QGst/Structure>
 #include <QGst/Clock>
 #include <gst/gst.h>
@@ -71,7 +71,6 @@ struct WebcamWidget::Private
     KUrl destination;
     int brightness;
 
-    QGlib::SignalHandler  m_takePhotoSignal;
     QGst::PipelinePtr m_pipeline;
     QGst::BinPtr m_bin;
 };
@@ -157,7 +156,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
     d->destination = dest;
     d->m_bin->getElementByName("fakesink");
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
-    d->m_takePhotoSignal = QGlib::Signal::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
+    QGlib::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
     return true;
 }
 
@@ -168,16 +167,17 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     qDebug() << "C API";
     QImage img;
     QGst::CapsPtr caps = buffer->caps();
-    const QGst::SharedStructure structure = caps->structure(0);
+
+    const QGst::StructurePtr structure = caps->internalStructure(0);
     int width, height;
-    width = structure.value("width").get<int>();
-    height = structure.value("height").get<int>();
+    width = structure.data()->value("width").get<int>();
+    height = structure.data()->value("height").get<int>();
     qDebug() << "We've got a caps in here";
     qDebug() << "Size: " << width << "x" << height;
-    qDebug() << "Name: " << structure.name();
+    qDebug() << "Name: " << structure.data()->name();
 
-    if (qstrcmp(structure.name().toLatin1(), "video/x-raw-yuv") == 0) {
-        uint fourcc = structure.value("format").get<uint>();
+    if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
+        uint fourcc = structure.data()->value("format").get<uint>();
 
         if (fourcc == GST_MAKE_FOURCC('I','4','2','0')) {
             img = QImage(width/2, height/2, QImage::Format_RGB32);
@@ -205,10 +205,10 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
             qDebug() << "I'm not that weird thing";
         }
 
-    } else if (qstrcmp(structure.name().toLatin1(), "video/x-raw-rgb") == 0) {
+    } else if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-rgb") == 0) {
         qDebug() << "RGB name";
         QImage::Format format = QImage::Format_Invalid;
-        int bpp = structure.value("bpp").get<int>();
+        int bpp = structure.data()->value("bpp").get<int>();
 
         if (bpp == 24)
             format = QImage::Format_RGB888;
@@ -226,7 +226,7 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     qDebug() << "Image bytecount: " << img.byteCount();
     img.save(d->destination.path());
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
-    d->m_takePhotoSignal.disconnect();
+    QGlib::disconnect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
 }
 
 void WebcamWidget::fileSaved(const KUrl &dest) {
