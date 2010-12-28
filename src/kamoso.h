@@ -102,7 +102,11 @@ class Kamoso : public KMainWindow
 		void webcamPlaying(const QString&);
 		
 	private:
-		float brightBack;
+        #if KDE_IS_VERSION(4,5,85)
+            int brightBack;
+        #else
+            float brightBack;
+        #endif
 		int m_webcamId;
 		KDirModel *dirModel;
 		WhiteWidgetManager *whiteWidgetManager;

@@ -33,6 +33,9 @@ set(kamoso_SRCS
 	webcamdialog.cpp
 	pagewebcamconfigmanager.cpp
 )
+qt4_add_dbus_interface(kamoso_SRCS
+    org.kde.Solid.PowerManagement.xml
+    brightness_interface)
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui videoConfig.ui)
 
