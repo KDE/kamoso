@@ -131,6 +131,9 @@ Kamoso::Kamoso(QWidget* parent)
 	m_modesRadio.first()->setChecked(true);
 	changeMode(true);
 	
+	mainWidgetUi->exportFiles->setIcon(KIcon("document-export"));
+	connect(mainWidgetUi->exportFiles, SIGNAL(clicked(bool)), SLOT(exportMenu(bool)));
+	
 	mainWidgetUi->configure->setIcon(KIcon("configure"));
 	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
 	
@@ -457,7 +460,7 @@ void Kamoso::slotScrollRight()
 	mainWidgetUi->thumbnailView->setXValue(v+mainWidgetUi->thumbnailView->width());
 }
 
-void Kamoso::contextMenuEvent(QContextMenuEvent* event)
+QPointer< QMenu > Kamoso::exportKIPIMenu()
 {
 	QPointer<QMenu> menu = new QMenu(this);
 	QModelIndex idx = mainWidgetUi->thumbnailView->currentIndex();
@@ -481,9 +484,23 @@ void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 	
 	menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
 	menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
+	return menu;
+}
+
+void Kamoso::contextMenuEvent(QContextMenuEvent* event)
+{
+	QPointer<QMenu> menu = exportKIPIMenu();
 	
 	menu->exec(mapToGlobal(event->pos()));
 	
+	delete menu;
+}
+
+void Kamoso::exportMenu(bool )
+{
+	QPointer<QMenu> menu = exportKIPIMenu();
+	
+	menu->exec(mainWidgetUi->exportFiles->parentWidget()->mapToGlobal(mainWidgetUi->exportFiles->geometry().bottomLeft()));
 	delete menu;
 }
 
