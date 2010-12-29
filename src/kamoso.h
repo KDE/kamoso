@@ -86,7 +86,8 @@ class Kamoso : public KMainWindow
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
 		void updateThumbnails(const KUrl::List& urls);
-    void exportMenu(bool);
+		void exportMenu(bool);
+		void fileViewSelectionChanged(const QItemSelection&, const QItemSelection&);
 		
 	private slots:
 		void initialize();

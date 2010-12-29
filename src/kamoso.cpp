@@ -147,6 +147,8 @@ Kamoso::Kamoso(QWidget* parent)
 			SLOT(thumbnailAdded()));
 	connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
 	mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
+	connect(mainWidgetUi->thumbnailView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+															SLOT(fileViewSelectionChanged(QItemSelection,QItemSelection)));
 	
 	//Arrows
 	mainWidgetUi->scrollLeft->setIcon(KIcon("arrow-left"));
@@ -489,6 +491,9 @@ QPointer< QMenu > Kamoso::exportKIPIMenu()
 
 void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 {
+	if(!mainWidgetUi->thumbnailView->selectionModel()->hasSelection())
+		return;
+	
 	QPointer<QMenu> menu = exportKIPIMenu();
 	
 	menu->exec(mapToGlobal(event->pos()));
@@ -496,7 +501,12 @@ void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 	delete menu;
 }
 
-void Kamoso::exportMenu(bool )
+void Kamoso::fileViewSelectionChanged(const QItemSelection& , const QItemSelection& )
+{
+	mainWidgetUi->exportFiles->setEnabled(mainWidgetUi->thumbnailView->selectionModel()->hasSelection());
+}
+
+void Kamoso::exportMenu(bool)
 {
 	QPointer<QMenu> menu = exportKIPIMenu();
 	
