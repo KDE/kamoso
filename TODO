@@ -1,7 +1,6 @@
 Kamoso 2.0:
   #Core
     [AF] QtGstreamer
-    · Document how to create plugins
     · Nepomuk integration
     · s/\t/    /
 
@@ -15,12 +14,9 @@ Kamoso 2.0:
     + [AP] Relayouting (maximize)
 
   #Plugins
-    · Check if Youtube is working
-    [AP] Check if Facebook plugin is working
+    + Check if Youtube is working
+    - Review Youtube UI (auto fill form, add category).
+    + Check if Facebook plugin is working
     · Twitpic
+    · Document how to create plugins
     [AP] Facebook + Video support
-
-  #Extra
-  · Choqok/External app support
-    - Add parameters to get picture/video returning an url
-    - Talk with the cheese people to create a standard for that
