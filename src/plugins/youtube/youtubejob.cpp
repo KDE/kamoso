@@ -177,30 +177,6 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
     }
 }
 
-void YoutubeJob::setVideoInfo(QMap<QString, QString>& videoInfo)
-{
-    //This method will parse the content in the near future
-    if(!videoInfo["videoTitle"].isEmpty()){
-        //TODO: Scape
-    }else{
-        videoInfo["videoTitle"] = i18n("Video recorded using Kamoso");
-    }
-
-    if(!videoInfo["videoDesc"].isEmpty()){
-        //TODO: Scape
-    }else{
-        videoInfo["videoDesc"] = i18n("This video has been recorded using Kamoso, a KDE software to play with webcams!");
-    }
-
-    if(!videoInfo["videoTags"].isEmpty()){
-        //TODO: Scape
-    }else{
-        videoInfo["videoTags"] = "KDE, Kamoso";
-    }
-
-    m_videoInfo = videoInfo;
-}
-
 QMap<QString, QString> YoutubeJob::showVideoDialog()
 {
     Ui::videoForm *videoForm = new Ui::videoForm;
@@ -215,18 +191,24 @@ QMap<QString, QString> YoutubeJob::showVideoDialog()
     dialog->setMinimumHeight(315);
     dialog->setMaximumWidth(425);
     dialog->setMaximumHeight(315);
+    videoForm->titleText->setFocus();
+    videoForm->titleText->setText(i18n("Kamoso %1", QDate::currentDate().toString(Qt::ISODate)));
     int response = dialog->exec();
 
     QMap<QString, QString> videoInfo;
     if(response == QDialog::Accepted){
         if(!videoForm->descriptionText->toPlainText().isEmpty()){
             videoInfo["videoDesc"] = videoForm->descriptionText->toPlainText();
+        } else {
+            videoInfo["videoDesc"] = i18n("This video has been recorded using Kamoso, a KDE software to play with webcams!");
         }
         if(!videoForm->titleText->text().isEmpty()){
             videoInfo["videoTitle"] = videoForm->titleText->text();
         }
         if(!videoForm->tagText->text().isEmpty()){
             videoInfo["videoTags"] = videoForm->tagText->text();
+        } else {
+            videoInfo["videoTags"] = "KDE, Kamoso";
         }
     }
     return videoInfo;
