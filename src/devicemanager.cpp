@@ -31,8 +31,8 @@ DeviceManager *DeviceManager::s_instance = NULL;
 DeviceManager::DeviceManager()
 {
     //Checking current connected devices
-    foreach (Solid::Device device,
-            Solid::Device::listFromType(Solid::DeviceInterface::Video, QString())) {
+    QList <Solid::Device> deviceList = Solid::Device::listFromType(Solid::DeviceInterface::Video, QString());
+    foreach (const Solid::Device &device, deviceList) {
         addDevice(device);
     }
 
@@ -134,9 +134,7 @@ void DeviceManager::deviceAdded(const QString &udi)
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
-    Device device;
-    foreach(device,m_deviceList) {
-        qDebug() << device.udi();
+    foreach(const Device &device, m_deviceList) {
         if(device.udi() == udi) {
             m_playingDevice = device;
             m_playingUdi = udi;
