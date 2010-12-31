@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -27,25 +27,24 @@ Device::Device()
 
 Device::Device(const Solid::Device *device)
 {
-	m_udi = device->udi();
-	m_description = device->product();
+    m_udi = device->udi();
+    m_description = device->product();
 
-	const Solid::Video *solidVideoDevice = device->as<Solid::Video>();
-	if (solidVideoDevice)
-	{
-		QStringList protocols = solidVideoDevice->supportedProtocols();
-		if ( protocols.contains( "video4linux" ) )
-		{
-			QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
-			if ( drivers.contains( "video4linux" ) )
-			{
-				m_path = solidVideoDevice->driverHandle( "video4linux" ).toString();
-			}
-		}
-	}
+    const Solid::Video *solidVideoDevice = device->as<Solid::Video>();
+    if (solidVideoDevice)
+    {
+        QStringList protocols = solidVideoDevice->supportedProtocols();
+        if ( protocols.contains( "video4linux" ) )
+        {
+            QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
+            if ( drivers.contains( "video4linux" ) )
+            {
+                m_path = solidVideoDevice->driverHandle( "video4linux" ).toString();
+            }
+        }
+    }
 
-
-	config = new KConfig("kamosoDevices");
+    config = new KConfig("kamosoDevices");
 }
 
 Device::~Device()
@@ -53,80 +52,80 @@ Device::~Device()
 
 QString Device::path() const
 {
-	return m_path;
+    return m_path;
 }
 
 QString Device::description() const
 {
-	return m_description;
+    return m_description;
 }
 
 QString Device::udi() const
 {
-	return m_udi;
+    return m_udi;
 }
 
 QString Device::vendor() const
 {
-	return m_vendor;
+    return m_vendor;
 }
 
 void Device::setBrightness(int level)
 {
-	qDebug() << "New brightness " << level;
-	config->group(m_udi).writeEntry("brightness",level);
-	config->sync();
+    qDebug() << "New brightness " << level;
+    config->group(m_udi).writeEntry("brightness",level);
+    config->sync();
 }
 
 void Device::setContrast(int level)
 {
-	qDebug() << "New contrast " << level;
-	config->group(m_udi).writeEntry("contrast",level);
-	config->sync();
+    qDebug() << "New contrast " << level;
+    config->group(m_udi).writeEntry("contrast",level);
+    config->sync();
 }
 
 void Device::setSaturation(int level)
 {
-	qDebug() << "New saturation " << level;
-	config->group(m_udi).writeEntry("saturation",level);
-	config->sync();
+    qDebug() << "New saturation " << level;
+    config->group(m_udi).writeEntry("saturation",level);
+    config->sync();
 }
 
 void Device::setGamma(int level)
 {
-	qDebug() << "new gamma" << level;
-	config->group(m_udi).writeEntry("gamma",level);
-	config->sync();
+    qDebug() << "new gamma" << level;
+    config->group(m_udi).writeEntry("gamma",level);
+    config->sync();
 }
 
 void Device::setHue(int level)
 {
-	qDebug() << "new hue" << level;
-	config->group(m_udi).writeEntry("hue",level);
-	config->sync();
+    qDebug() << "new hue" << level;
+    config->group(m_udi).writeEntry("hue",level);
+    config->sync();
 }
 
 int Device::brightness() const
 {
-	return config->group(m_udi).readEntry("brightness",100);
+    return config->group(m_udi).readEntry("brightness",100);
 }
 
 int Device::contrast() const
 {
-	return config->group(m_udi).readEntry("contrast",100);
+    return config->group(m_udi).readEntry("contrast",100);
 }
 
 int Device::saturation() const
 {
-	return config->group(m_udi).readEntry("saturation",100);
+    return config->group(m_udi).readEntry("saturation",100);
 }
 
 int Device::gamma() const
 {
-	return config->group(m_udi).readEntry("gamma",100);
+    return config->group(m_udi).readEntry("gamma",100);
 }
 
 int Device::hue() const
 {
-	return config->group(m_udi).readEntry("hue",0);
+    return config->group(m_udi).readEntry("hue",0);
 }

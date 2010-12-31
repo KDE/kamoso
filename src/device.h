@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -25,31 +25,31 @@
 
 class Device
 {
-	public:
-		Device();
-		Device(const Solid::Device*);
-		~Device();
-		QString description() const;
-		QString udi() const;
-		QString path() const;
-		QString vendor() const;
+    public:
+        Device();
+        Device(const Solid::Device*);
+        ~Device();
+        QString description() const;
+        QString udi() const;
+        QString path() const;
+        QString vendor() const;
         void setBrightness(int level);
-		void setContrast(int level);
-		void setSaturation(int level);
-		void setGamma(int level);
-		void setHue(int level);
-		int brightness() const;
-		int contrast() const;
-		int saturation() const;
-		int gamma() const;
-		int hue() const;
-	private:
-		QString queryv4lInfo();
-		QString m_description;
-		QString m_udi;
-		QString m_path;
-		QString m_vendor;
-		KConfig* config;
+        void setContrast(int level);
+        void setSaturation(int level);
+        void setGamma(int level);
+        void setHue(int level);
+        int brightness() const;
+        int contrast() const;
+        int saturation() const;
+        int gamma() const;
+        int hue() const;
+    private:
+        QString queryv4lInfo();
+        QString m_description;
+        QString m_udi;
+        QString m_path;
+        QString m_vendor;
+        KConfig* config;
 };
 
-#endif
+#endif //DEVICE_H

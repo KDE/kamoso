@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,23 +17,29 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
+#ifndef WHITEWIDGETMANAGER_H
+#define WHITEWIDGETMANAGER_H
+
 #include <QObject>
 #include <QDesktopWidget>
 #include "whitewidget.h"
+
 class WhiteWidgetManager : public QObject
 {
-	Q_OBJECT
-	public:
-		WhiteWidgetManager(QWidget* parent=0);
-		~WhiteWidgetManager();
-		void showAll();
-		void hideAll();
-		int m_steps;
-	private:
-		void createWhiteWidgets();
-		QList<WhiteWidget*> whitewidgetList;
-		QTimer* m_timer;
-		int m_currentStep;
-	private slots:
-		void tick();
+    Q_OBJECT
+    public:
+        WhiteWidgetManager(QWidget* parent=0);
+        ~WhiteWidgetManager();
+        void showAll();
+        void hideAll();
+        int m_steps;
+    private:
+        void createWhiteWidgets();
+        QList<WhiteWidget*> whitewidgetList;
+        QTimer* m_timer;
+        int m_currentStep;
+    private slots:
+        void tick();
 };
+
+#endif //WHITEWIDGETMANAGER

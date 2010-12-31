@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -73,214 +73,212 @@ const int max_exponential_value = 50;
 const int exponential_increment = 5;
 
 Kamoso::Kamoso(QWidget* parent)
-	: KMainWindow(parent), m_activeMode(0), m_flashEnabled(true)
+    : KMainWindow(parent), m_activeMode(0), m_flashEnabled(true)
 {
-	dirModel = new KDirModel(this);
-	
-	m_countdown = new CountdownWidget(this);
-	m_countdown->hide();
+    dirModel = new KDirModel(this);
 
-	deviceManager = DeviceManager::self();
-	connect(deviceManager,SIGNAL(deviceRegistered(QString)),SLOT(webcamAdded()));
-	connect(deviceManager,SIGNAL(deviceUnregistered(QString)),SLOT(webcamRemoved()));
-	
-	mainWidgetUi = new Ui::mainWidget;
-	mainWidget = new QWidget(this);
-	mainWidgetUi->setupUi(mainWidget);
-	
-	//We've to investigate if is better call start before do the UI stuff
-	bool comboShown=deviceManager->numberOfDevices() > 1;
-	mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
-	mainWidgetUi->webcamCombo->setVisible(comboShown);
-	
-	connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
+    m_countdown = new CountdownWidget(this);
+    m_countdown->hide();
+
+    deviceManager = DeviceManager::self();
+    connect(deviceManager,SIGNAL(deviceRegistered(QString)),SLOT(webcamAdded()));
+    connect(deviceManager,SIGNAL(deviceUnregistered(QString)),SLOT(webcamRemoved()));
+
+    mainWidgetUi = new Ui::mainWidget;
+    mainWidget = new QWidget(this);
+    mainWidgetUi->setupUi(mainWidget);
+
+    //We've to investigate if is better call start before do the UI stuff
+    bool comboShown=deviceManager->numberOfDevices() > 1;
+    mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
+    mainWidgetUi->webcamCombo->setVisible(comboShown);
+
+    connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
-	//Setting webcam in the first row, central spot
-	
-	m_webcam = WebcamWidget::createInstance(this);
-	m_webcam->setParent(mainWidgetUi->centralSpot);
-	m_webcam->setMinimumSize(640,480);
-	if(deviceManager->hasDevices()) {
-		m_webcam->playFile(deviceManager->defaultDevice());
-		emit webcamPlaying(deviceManager->defaultDeviceUdi());
-	} //TODO: else we should warn the user
-// 	connect(webcam, SIGNAL(photoTaken(KUrl)), SLOT(photoTaken(KUrl)));
-	
-	reloadDevicesCombo();
-	connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
-	
-	
+//Setting webcam in the first row, central spot
+
+    m_webcam = WebcamWidget::createInstance(this);
+    m_webcam->setParent(mainWidgetUi->centralSpot);
+    m_webcam->setMinimumSize(640,480);
+    if(deviceManager->hasDevices()) {
+        m_webcam->playFile(deviceManager->defaultDevice());
+        emit webcamPlaying(deviceManager->defaultDeviceUdi());
+    }
+
+    reloadDevicesCombo();
+    connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
+
 //Second row Stuff
-	m_modes.append(new PhotoShootMode(this));
-	m_modes.append(new BurstShootMode(this));
-	m_modes.append(new VideoShootMode(this));
-	
-	QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
-	
-	foreach(ShootMode* mode, m_modes) {
-		m_modesRadio += new QPushButton(mainWidgetUi->modes);
-		m_modesRadio.last()->setIcon(mode->icon());
-		m_modesRadio.last()->setIconSize(QSize(20,20));
-		m_modesRadio.last()->setCheckable(true);
-		m_modesRadio.last()->setAutoExclusive(true);
-		m_modesRadio.last()->setToolTip(mode->name());
-		modesLayout->addWidget(m_modesRadio.last());
-		
-		connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
-	}
-	m_modesRadio.first()->setChecked(true);
-	changeMode(true);
-	
-	mainWidgetUi->exportFiles->setIcon(KIcon("document-export"));
-	connect(mainWidgetUi->exportFiles, SIGNAL(clicked(bool)), SLOT(exportMenu(bool)));
-	
-	mainWidgetUi->configure->setIcon(KIcon("configure"));
-	connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
-	
-	//Third row
-	//Dir operator will show the previews
-	mainWidgetUi->thumbnailView->setModel(dirModel);
-	mainWidgetUi->thumbnailView->assignDelegate();
-	connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
-			SLOT(openFile()));
-	connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
-			SLOT(thumbnailAdded()));
-	connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
-	mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
-	connect(mainWidgetUi->thumbnailView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-															SLOT(fileViewSelectionChanged(QItemSelection,QItemSelection)));
-	
-	//Arrows
-	mainWidgetUi->scrollLeft->setIcon(KIcon("arrow-left"));
-	mainWidgetUi->scrollRight->setIcon(KIcon("arrow-right"));
-	mainWidgetUi->scrollLeft->setText(QString());
-	mainWidgetUi->scrollRight->setText(QString());
-	connect(mainWidgetUi->scrollLeft, SIGNAL(clicked(bool)), SLOT(slotScrollLeft()));
-	connect(mainWidgetUi->scrollRight, SIGNAL(clicked(bool)), SLOT(slotScrollRight()));
-	
-	whiteWidgetManager = new WhiteWidgetManager(this);
-	mainWidgetUi->thirdRow->addWidget(m_countdown);
-	
-	connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
-	const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
-	player = Phonon::createPlayer(Phonon::NotificationCategory);
-	player->setCurrentSource(soundFile);
-	
-	//TODO: find a better place to init this 
-	m_exponentialValue = 0;
-	this->setCentralWidget(mainWidget);
-	
-	mTracker=new KamosoJobTracker(statusBar());
-	connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
-	statusBar()->addWidget(mTracker);
-	
-	connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
-	
-	QMetaObject::invokeMethod(this, "initialize");
-	mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
+    m_modes.append(new PhotoShootMode(this));
+    m_modes.append(new BurstShootMode(this));
+    m_modes.append(new VideoShootMode(this));
+
+    QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
+
+    foreach(ShootMode* mode, m_modes) {
+        m_modesRadio += new QPushButton(mainWidgetUi->modes);
+        m_modesRadio.last()->setIcon(mode->icon());
+        m_modesRadio.last()->setIconSize(QSize(20,20));
+        m_modesRadio.last()->setCheckable(true);
+        m_modesRadio.last()->setAutoExclusive(true);
+        m_modesRadio.last()->setToolTip(mode->name());
+        modesLayout->addWidget(m_modesRadio.last());
+
+        connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
+    }
+    m_modesRadio.first()->setChecked(true);
+    changeMode(true);
+
+    mainWidgetUi->exportFiles->setIcon(KIcon("document-export"));
+    connect(mainWidgetUi->exportFiles, SIGNAL(clicked(bool)), SLOT(exportMenu(bool)));
+
+    mainWidgetUi->configure->setIcon(KIcon("configure"));
+    connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
+
+//Third row
+    //Dir operator will show the previews
+    mainWidgetUi->thumbnailView->setModel(dirModel);
+    mainWidgetUi->thumbnailView->assignDelegate();
+    connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
+            SLOT(openFile()));
+    connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
+            SLOT(thumbnailAdded()));
+    connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
+    mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
+    connect(mainWidgetUi->thumbnailView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+                                                            SLOT(fileViewSelectionChanged(QItemSelection,QItemSelection)));
+    //Arrows
+    mainWidgetUi->scrollLeft->setIcon(KIcon("arrow-left"));
+    mainWidgetUi->scrollRight->setIcon(KIcon("arrow-right"));
+    mainWidgetUi->scrollLeft->setText(QString());
+    mainWidgetUi->scrollRight->setText(QString());
+    connect(mainWidgetUi->scrollLeft, SIGNAL(clicked(bool)), SLOT(slotScrollLeft()));
+    connect(mainWidgetUi->scrollRight, SIGNAL(clicked(bool)), SLOT(slotScrollRight()));
+
+    whiteWidgetManager = new WhiteWidgetManager(this);
+    mainWidgetUi->thirdRow->addWidget(m_countdown);
+    
+    connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
+    const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
+    player = Phonon::createPlayer(Phonon::NotificationCategory);
+    player->setCurrentSource(soundFile);
+
+    //TODO: find a better place to init this
+    m_exponentialValue = 0;
+    this->setCentralWidget(mainWidget);
+
+    mTracker=new KamosoJobTracker(statusBar());
+    connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
+    statusBar()->addWidget(mTracker);
+
+    connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
+
+    QMetaObject::invokeMethod(this, "initialize");
+    mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
 }
 
 KUrl::List Kamoso::selectedItems()
 {
-	KUrl::List urls;
-	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
-		urls += dirModel->itemForIndex(idx).url();
-	
-	return urls;
+    KUrl::List urls;
+    foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
+        urls += dirModel->itemForIndex(idx).url();
+    }
+
+    return urls;
 }
 
 void Kamoso::initialize()
 {
-	//Check the initial and basic config, and ask for it it doesn't exist
-	checkInitConfig();
-	
-	qDebug() << "Settings of kamoso:";
-	qDebug() << "saveUrl: " << Settings::saveUrl();
-	qDebug() << "photoTime: " << Settings::photoTime();
+    //Check the initial and basic config, and ask for it it doesn't exist
+    checkInitConfig();
+
+    qDebug() << "Settings of kamoso:";
+    qDebug() << "saveUrl: " << Settings::saveUrl();
+    qDebug() << "photoTime: " << Settings::photoTime();
 }
 
 void Kamoso::webcamAdded()
 {
-	qDebug() << "A new webcam has been added";
-	
-	bool comboShown=deviceManager->numberOfDevices()>1;
-	
-	mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
-	mainWidgetUi->webcamCombo->setVisible(comboShown);
-	
-	if(comboShown)
-		reloadDevicesCombo();
+    qDebug() << "A new webcam has been added";
+
+    bool comboShown=deviceManager->numberOfDevices()>1;
+
+    mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
+    mainWidgetUi->webcamCombo->setVisible(comboShown);
+
+    if(comboShown) {
+        reloadDevicesCombo();
+    }
 }
 
 void Kamoso::startVideo(bool sound)
 {
-	m_webcam->recordVideo(sound);
+    m_webcam->recordVideo(sound);
 }
 
 void Kamoso::stopVideo()
 {
-	KUrl finalPath = Settings::saveUrl();
-	finalPath.addPath(QString("video_1.mkv"));
+    KUrl finalPath = Settings::saveUrl();
+    finalPath.addPath(QString("video_1.mkv"));
 
-	while(KIO::NetAccess::exists( finalPath, KIO::NetAccess::DestinationSide, this )) {
-		autoincFilename(finalPath);
-	}
+    while(KIO::NetAccess::exists( finalPath, KIO::NetAccess::DestinationSide, this )) {
+        autoincFilename(finalPath);
+    }
 
-	m_webcam->stopRecording(finalPath);
-	m_webcam->playFile(deviceManager->playingDevice());
+    m_webcam->stopRecording(finalPath);
+    m_webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::reloadDevicesCombo()
 {
-	mainWidgetUi->webcamCombo->clear();
-	QList <Device> devices = deviceManager->devices();
-	
-	foreach(const Device& d, devices)
-	{
-		mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
-		
-		//If kamoso is using this device, set it as currentIndex
-		if(d.udi() == deviceManager->playingDeviceUdi()) {
-			mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
-		}
-	}
-	
+    mainWidgetUi->webcamCombo->clear();
+    QList <Device> devices = deviceManager->devices();
+
+    foreach(const Device& d, devices)
+    {
+        mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
+
+        //If kamoso is using this device, set it as currentIndex
+        if(d.udi() == deviceManager->playingDeviceUdi()) {
+            mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
+        }
+    }
 }
 void Kamoso::webcamRemoved()
 {
-	if(deviceManager->numberOfDevices() < 3) {
-		//At the moment there are only 2 widgets to hidden, maybe a container is needed here.
-		mainWidgetUi->chooseWebcamLbl->hide();
-		mainWidgetUi->webcamCombo->hide();
-	} else {
-		//The combo is already shown (should be),so onlyupdate the content is required.
-		reloadDevicesCombo();
-	}
+    if(deviceManager->numberOfDevices() < 3) {
+        //At the moment there are only 2 widgets to hidden, maybe a container is needed here.
+        mainWidgetUi->chooseWebcamLbl->hide();
+        mainWidgetUi->webcamCombo->hide();
+    } else {
+        //The combo is already shown (should be),so onlyupdate the content is required.
+        reloadDevicesCombo();
+    }
 }
 
 void Kamoso::webcamChanged(int index)
 {
-	QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
-	deviceManager->webcamPlaying(udi);
+    QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
+    deviceManager->webcamPlaying(udi);
 
-	m_webcam->playFile(deviceManager->playingDevice());
+    m_webcam->playFile(deviceManager->playingDevice());
 }
 
 void Kamoso::checkInitConfig()
 {
-	//If kamoso doesn't know where to save the taken photos, ask for it
-	if(Settings::saveUrl().isEmpty()) {
-		KDirSelectDialog dirs;
-		dirs.showButton(KDialog::Cancel, false);
-		
-		KUrl url;
-		if(dirs.exec() && dirs.url().isValid())
-			url=dirs.url();
-		else
-			url=QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
-		Settings::setSaveUrl(url);
-	}
-	dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
+    //If kamoso doesn't know where to save the taken photos, ask for it
+    if(Settings::saveUrl().isEmpty()) {
+        KDirSelectDialog dirs;
+        dirs.showButton(KDialog::Cancel, false);
+
+        KUrl url;
+        if(dirs.exec() && dirs.url().isValid())
+            url=dirs.url();
+        else
+            url=QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+        Settings::setSaveUrl(url);
+    }
+    dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 }
 	
 /**
@@ -289,66 +287,66 @@ void Kamoso::checkInitConfig()
 */
 void Kamoso::configuration()
 {
-	//If settings dialog is already open, return (and focus)
-	if(KConfigDialog::showDialog("settings")){
-		return;
-	}
-	
-	//Creating the kcm
-	dialog = new WebcamDialog(this,"settings",Settings::self());
-	dialog->resize(540,dialog->height());
-	
-	//Widget created with qt-designer
-	//TODO: Check page and pagePicture leaking
-	Ui::generalConfigWidget *page = new Ui::generalConfigWidget();
-	QWidget *widgetPage = new QWidget();
-	page->setupUi(widgetPage);
-	page->kcfg_saveUrl->setMode(KFile::Directory);
-	Q_EMIT(Settings::saveUrl());
+    //If settings dialog is already open, return (and focus)
+    if(KConfigDialog::showDialog("settings")){
+        return;
+    }
 
-	dialog->addPage(widgetPage,i18n("General"),"configure");
-	connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated())); 
+    //Creating the kcm
+    dialog = new WebcamDialog(this,"settings",Settings::self());
+    dialog->resize(540,dialog->height());
 
-	Ui::pictureConfigWidget *pagePicture = new Ui::pictureConfigWidget;
-	QWidget *widgetPicturePage = new QWidget();
-	pagePicture->setupUi(widgetPicturePage);
-	pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
-	dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
+    //Widget created with qt-designer
+    //TODO: Check page and pagePicture leaking
+    Ui::generalConfigWidget *page = new Ui::generalConfigWidget();
+    QWidget *widgetPage = new QWidget();
+    page->setupUi(widgetPage);
+    page->kcfg_saveUrl->setMode(KFile::Directory);
+    Q_EMIT(Settings::saveUrl());
 
-	pageWebcam = new Ui::webcamConfigWidget;
+    dialog->addPage(widgetPage,i18n("General"),"configure");
+    connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated()));
 
-	QWidget *widgetWebcamPage = new QWidget();
-	pageWebcam->setupUi(widgetWebcamPage);
-	dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
+    Ui::pictureConfigWidget *pagePicture = new Ui::pictureConfigWidget;
+    QWidget *widgetPicturePage = new QWidget();
+    pagePicture->setupUi(widgetPicturePage);
+    pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
+    dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
 
-	//the values are in X.X form while the sliders use integer so we device by 100;
-	Device device = deviceManager->playingDevice();
-	pageWebcam->brightnessSlider->setValue(device.brightness());
-	pageWebcam->contrastSlider->setValue(device.contrast());
-	pageWebcam->saturationSlider->setValue(device.saturation());
-	pageWebcam->gammaSlider->setValue(device.gamma());
-	pageWebcam->hueSlider->setValue(device.hue());
+    pageWebcam = new Ui::webcamConfigWidget;
 
-	PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
-	dialog->setPageWebcamConfigManager(configManager);
+    QWidget *widgetWebcamPage = new QWidget();
+    pageWebcam->setupUi(widgetWebcamPage);
+    dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
 
-	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
-	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
-	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
-	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
-	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+    //the values are in X.X form while the sliders use integer so we device by 100;
+    Device device = deviceManager->playingDevice();
+    pageWebcam->brightnessSlider->setValue(device.brightness());
+    pageWebcam->contrastSlider->setValue(device.contrast());
+    pageWebcam->saturationSlider->setValue(device.saturation());
+    pageWebcam->gammaSlider->setValue(device.gamma());
+    pageWebcam->hueSlider->setValue(device.hue());
 
-	connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setBrightness(int)));
-	connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setContrast(int)));
-	connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setSaturation(int)));
-	connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setGamma(int)));
-	connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setHue(int)));
+    PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
+    dialog->setPageWebcamConfigManager(configManager);
 
-	//TODO: Use the designer and so on
-// 	KPluginSelector* selector=new KPluginSelector(dialog);
-// 	selector->addPlugins(PluginManager::self()->pluginInfo());
-// 	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
-	dialog->show();
+    connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+    connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+    connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+    connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+    connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),dialog,SLOT(updateButtons()));
+
+    connect(pageWebcam->brightnessSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setBrightness(int)));
+    connect(pageWebcam->contrastSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setContrast(int)));
+    connect(pageWebcam->saturationSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setSaturation(int)));
+    connect(pageWebcam->gammaSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setGamma(int)));
+    connect(pageWebcam->hueSlider,SIGNAL(valueChanged(int)),m_webcam,SLOT(setHue(int)));
+
+    //TODO: Use the designer and so on
+    // 	KPluginSelector* selector=new KPluginSelector(dialog);
+    // 	selector->addPlugins(PluginManager::self()->pluginInfo());
+    // 	dialog->addPage(selector, i18n("Plugin List"), "preferences-plugin");
+    dialog->show();
 }
 
 /**
@@ -356,17 +354,17 @@ void Kamoso::configuration()
 */
 void Kamoso::generalUpdated()
 {
-	qDebug() << "Settings New\n" << Settings::saveUrl();
-	Settings::self()->writeConfig();
-	dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
+    qDebug() << "Settings New\n" << Settings::saveUrl();
+    Settings::self()->writeConfig();
+    dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 
-	Device device = deviceManager->playingDevice();
-	
-	device.setBrightness(pageWebcam->brightnessSlider->value());
-	device.setContrast(pageWebcam->contrastSlider->value());
-	device.setSaturation(pageWebcam->saturationSlider->value());
-	device.setGamma(pageWebcam->gammaSlider->value());
-	device.setHue(pageWebcam->hueSlider->value());
+    Device device = deviceManager->playingDevice();
+
+    device.setBrightness(pageWebcam->brightnessSlider->value());
+    device.setContrast(pageWebcam->contrastSlider->value());
+    device.setSaturation(pageWebcam->saturationSlider->value());
+    device.setGamma(pageWebcam->gammaSlider->value());
+    device.setHue(pageWebcam->hueSlider->value());
 }
 
 /**
@@ -374,8 +372,8 @@ void Kamoso::generalUpdated()
 */
 Kamoso::~Kamoso()
 {
-	delete player;
-	Settings::self()->writeConfig();
+    delete player;
+    Settings::self()->writeConfig();
 }
 
 /**
@@ -384,15 +382,15 @@ Kamoso::~Kamoso()
 //TODO: Abstraction of what is called on pushBtn?
 void Kamoso::startCountdown(qreal minimumTime)
 {
-	qDebug() << Settings::photoTime();
-	int time = qMax(minimumTime, 1000.*Settings::photoTime());
-	
-	m_countdown->start(time);
-	//hidding all non-semaphore widgets
-	mainWidgetUi->scrollLeft->hide();
-	mainWidgetUi->scrollRight->hide();
-	mainWidgetUi->thumbnailView->hide();
-	m_countdown->show();
+    qDebug() << Settings::photoTime();
+    int time = qMax(minimumTime, 1000.*Settings::photoTime());
+
+    m_countdown->start(time);
+    //hidding all non-semaphore widgets
+    mainWidgetUi->scrollLeft->hide();
+    mainWidgetUi->scrollRight->hide();
+    mainWidgetUi->thumbnailView->hide();
+    m_countdown->show();
 }
 
 /**
@@ -400,9 +398,9 @@ void Kamoso::startCountdown(qreal minimumTime)
 */
 void Kamoso::takePhoto()
 {
-	stopCountdown();
-	
-	if(m_flashEnabled){
+    stopCountdown();
+
+    if(m_flashEnabled){
         #if KDE_IS_VERSION(4,5,85)
             org::kde::Solid::PowerManagement power("org.kde.Solid.PowerManagement", "/org/kde/Solid/PowerManagement", QDBusConnection::sessionBus());
             brightBack = power.brightness().value();
@@ -411,27 +409,27 @@ void Kamoso::takePhoto()
             brightBack = Solid::Control::PowerManager::brightness();
             Solid::Control::PowerManager::setBrightness(100);
         #endif
-		whiteWidgetManager->showAll();
-	}
-	QTimer::singleShot(1000, this, SLOT(restore()));
-	
-	KUrl photoPlace = Settings::saveUrl();
-	photoPlace.addPath(QString("picture_1.png"));
+        whiteWidgetManager->showAll();
+    }
+    QTimer::singleShot(1000, this, SLOT(restore()));
 
-	while(KIO::NetAccess::exists( photoPlace, KIO::NetAccess::DestinationSide, this )) {
-		autoincFilename(photoPlace);
-	}
+    KUrl photoPlace = Settings::saveUrl();
+    photoPlace.addPath(QString("picture_1.png"));
 
-	m_webcam->takePhoto(photoPlace);
-	player->play();
+    while(KIO::NetAccess::exists( photoPlace, KIO::NetAccess::DestinationSide, this )) {
+        autoincFilename(photoPlace);
+    }
+
+    m_webcam->takePhoto(photoPlace);
+    player->play();
 }
 
 void Kamoso::stopCountdown()
 {
-	mainWidgetUi->scrollLeft->show();
-	mainWidgetUi->scrollRight->show();
-	mainWidgetUi->thumbnailView->show();
-	m_countdown->hide();
+    mainWidgetUi->scrollLeft->show();
+    mainWidgetUi->scrollRight->show();
+    mainWidgetUi->thumbnailView->show();
+    m_countdown->hide();
 }
 
 /**
@@ -439,181 +437,188 @@ void Kamoso::stopCountdown()
 */
 void Kamoso::restore()
 {
-	whiteWidgetManager->hideAll();
-	if(m_flashEnabled) {
+    whiteWidgetManager->hideAll();
+    if(m_flashEnabled) {
         #if KDE_IS_VERSION(4,5,85)
             org::kde::Solid::PowerManagement power("org.kde.Solid.PowerManagement", "/org/kde/Solid/PowerManagement", QDBusConnection::sessionBus());
             power.setBrightness(brightBack);
         #else
             Solid::Control::PowerManager::setBrightness(brightBack);
         #endif
-	}
+    }
 }
 
 void Kamoso::slotScrollLeft()
 {
-	int v=mainWidgetUi->thumbnailView->xValue();
-	mainWidgetUi->thumbnailView->setXValue(v-mainWidgetUi->thumbnailView->width());
+    int v = mainWidgetUi->thumbnailView->xValue();
+    mainWidgetUi->thumbnailView->setXValue(v-mainWidgetUi->thumbnailView->width());
 }
 
 void Kamoso::slotScrollRight()
 {
-	int v=mainWidgetUi->thumbnailView->xValue();
-	mainWidgetUi->thumbnailView->setXValue(v+mainWidgetUi->thumbnailView->width());
+    int v = mainWidgetUi->thumbnailView->xValue();
+    mainWidgetUi->thumbnailView->setXValue(v+mainWidgetUi->thumbnailView->width());
 }
 
 QPointer< QMenu > Kamoso::exportKIPIMenu()
 {
-	QPointer<QMenu> menu = new QMenu(this);
-	QModelIndex idx = mainWidgetUi->thumbnailView->currentIndex();
-	KFileItem item(dirModel->itemForIndex(idx));
-	
-	Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
-		QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
-		
-		foreach(const QString& supportedPlugin, pluginMime) {
-			if(item.mimeTypePtr()->is(supportedPlugin)) {
-				KipiAction* action=new KipiAction(pluginInfo, this, menu);
-				
-				menu->addAction(action);
-				break;
-			}
-		}
-	}
-	
-	if(!menu->isEmpty())
-		menu->addSeparator();
-	
-	menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
-	menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
-	return menu;
+    QPointer<QMenu> menu = new QMenu(this);
+    QModelIndex idx = mainWidgetUi->thumbnailView->currentIndex();
+    KFileItem item(dirModel->itemForIndex(idx));
+
+    Q_FOREACH(KIPI::PluginLoader::Info* pluginInfo, mPluginLoader->pluginList()) {
+        QStringList pluginMime=pluginInfo->service()->property("X-KIPI-Mimetypes").toStringList();
+
+        foreach(const QString& supportedPlugin, pluginMime) {
+            if(item.mimeTypePtr()->is(supportedPlugin)) {
+                KipiAction* action=new KipiAction(pluginInfo, this, menu);
+
+                menu->addAction(action);
+                break;
+            }
+        }
+    }
+
+    if(!menu->isEmpty()) {
+        menu->addSeparator();
+    }
+
+    menu->addAction(KIcon("user-trash"), i18n("Trash"), this, SLOT(removeSelection()));
+    menu->addAction(KIcon("document-open"), i18n("Open..."), this, SLOT(openFile()));
+    return menu;
 }
 
 void Kamoso::contextMenuEvent(QContextMenuEvent* event)
 {
-	if(!mainWidgetUi->thumbnailView->selectionModel()->hasSelection())
-		return;
-	
-	QPointer<QMenu> menu = exportKIPIMenu();
-	
-	menu->exec(mapToGlobal(event->pos()));
-	
-	delete menu;
+    if(!mainWidgetUi->thumbnailView->selectionModel()->hasSelection()) {
+        return;
+    }
+
+    QPointer<QMenu> menu = exportKIPIMenu();
+
+    menu->exec(mapToGlobal(event->pos()));
+
+    delete menu;
 }
 
 void Kamoso::fileViewSelectionChanged(const QItemSelection& , const QItemSelection& )
 {
-	mainWidgetUi->exportFiles->setEnabled(mainWidgetUi->thumbnailView->selectionModel()->hasSelection());
+    mainWidgetUi->exportFiles->setEnabled(mainWidgetUi->thumbnailView->selectionModel()->hasSelection());
 }
 
 void Kamoso::exportMenu(bool)
 {
-	QPointer<QMenu> menu = exportKIPIMenu();
-	
-	menu->exec(mainWidgetUi->exportFiles->parentWidget()->mapToGlobal(mainWidgetUi->exportFiles->geometry().bottomLeft()));
-	delete menu;
+    QPointer<QMenu> menu = exportKIPIMenu();
+
+    menu->exec(mainWidgetUi->exportFiles->parentWidget()->mapToGlobal(mainWidgetUi->exportFiles->geometry().bottomLeft()));
+    delete menu;
 }
 
 void Kamoso::openFile()
 {
-	KUrl::List urls;
-	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
-		QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
+    KUrl::List urls;
+    foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
+        QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
+    }
 }
 
 void Kamoso::removeSelection()
 {
-	KUrl::List urls;
-	foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes())
-		urls << dirModel->itemForIndex(idx).url();
-	
-	int res=KMessageBox::warningContinueCancel(0,
-										i18np("Are you sure you want to delete this file?", "Are you sure you want to delete these %1 files?", urls.size()),
-										i18n("Move to Trash"));
+    KUrl::List urls;
+    foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
+        urls << dirModel->itemForIndex(idx).url();
+    }
 
-	if(res==KMessageBox::Continue) {
-		KIO::CopyJob *job = KIO::trash(urls);
-		mTracker->registerJob(job, urls, KIcon("user-trash"));
-	}
+    int res=KMessageBox::warningContinueCancel(0,
+                                        i18np("Are you sure you want to delete this file?", "Are you sure you want to delete these %1 files?", urls.size()),
+                                        i18n("Move to Trash"));
+
+    if(res==KMessageBox::Continue) {
+        KIO::CopyJob *job = KIO::trash(urls);
+        mTracker->registerJob(job, urls, KIcon("user-trash"));
+    }
 }
 
 void Kamoso::thumbnailAdded()
 {
-	QTimer::singleShot(0, this, SLOT(selectLast()));
+    QTimer::singleShot(0, this, SLOT(selectLast()));
 }
 
 void Kamoso::selectLast()
 {
-	ThumbnailView* v=mainWidgetUi->thumbnailView;
-	v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->maximum());
-	
-	QModelIndex idx=v->model()->index(v->model()->rowCount()-1, 0);
-	
-	if(idx.isValid())
-		v->selectionModel()->setCurrentIndex(idx,
-							QItemSelectionModel::Clear|QItemSelectionModel::Select);
+    ThumbnailView* v = mainWidgetUi->thumbnailView;
+    v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->maximum());
+
+    QModelIndex idx=v->model()->index(v->model()->rowCount()-1, 0);
+
+    if(idx.isValid()) {
+        v->selectionModel()->setCurrentIndex(idx,
+                            QItemSelectionModel::Clear|QItemSelectionModel::Select);
+    }
 }
 
 void Kamoso::selectJob(KJob* , const KUrl::List& urls)
 {
-	mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
-	foreach(const KUrl&url, urls)
-		mainWidgetUi->thumbnailView->selectionModel()->select(dirModel->indexForUrl(url), QItemSelectionModel::Select);
+    mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
+    foreach(const KUrl&url, urls) {
+        mainWidgetUi->thumbnailView->selectionModel()->select(dirModel->indexForUrl(url), QItemSelectionModel::Select);
+    }
 }
 
 void Kamoso::changeMode(bool pressed)
 {
-	if(!pressed)
-		return;
+    if(!pressed) {
+        return;
+    }
 
-	QPushButton* tb=qobject_cast<QPushButton*>(sender());
-	if(!tb)
-		tb=m_modesRadio.first();
-	
-	int i=0;
-	foreach(QPushButton* butt, m_modesRadio) {
-		if(butt==tb)
-			break;
-		i++;
-	}
-	Q_ASSERT(i<m_modesRadio.size());
+    QPushButton* tb=qobject_cast<QPushButton*>(sender());
+    if(!tb) {
+        tb=m_modesRadio.first();
+    }
 
-	if(m_activeMode) {
-		m_activeMode->deactivate();
-	}
-	m_activeMode=m_modes[i];
-	dirModel->dirLister()->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
-	if(!dirModel->dirLister()->url().isEmpty())
-		dirModel->dirLister()->openUrl(dirModel->dirLister()->url(), KDirLister::Reload);
-	
-	QWidget* w=m_activeMode->mainAction();
-	w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
-	
-	QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
-	delete v->takeAt(1)->widget();
-	
-	v->insertWidget(1, w);
-	w->setFocus();
+    int i=0;
+    foreach(QPushButton* butt, m_modesRadio) {
+        if(butt==tb)
+            break;
+        i++;
+    }
+    Q_ASSERT(i<m_modesRadio.size());
 
+    if(m_activeMode) {
+        m_activeMode->deactivate();
+    }
+    m_activeMode=m_modes[i];
+    dirModel->dirLister()->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
+    if(!dirModel->dirLister()->url().isEmpty())
+        dirModel->dirLister()->openUrl(dirModel->dirLister()->url(), KDirLister::Reload);
+
+    QWidget* w=m_activeMode->mainAction();
+    w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+    QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
+    delete v->takeAt(1)->widget();
+
+    v->insertWidget(1, w);
+    w->setFocus();
 }
 
 CountdownWidget * Kamoso::countdown() const
 {
-	return m_countdown;
+    return m_countdown;
 }
 
 void Kamoso::settingsMenu(bool )
 {
-	QList<QAction*> actions=m_activeMode->actions();
-	KMenu m;
-	if(!actions.isEmpty()) {
-		m.addActions(actions);
-		m.addSeparator();
-	}
-	m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
-	m.addMenu(customHelpMenu());
-	
-	m.exec(mainWidgetUi->configure->parentWidget()->mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
+    QList<QAction*> actions=m_activeMode->actions();
+    KMenu m;
+    if(!actions.isEmpty()) {
+        m.addActions(actions);
+        m.addSeparator();
+    }
+    m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
+    m.addMenu(customHelpMenu());
+
+    m.exec(mainWidgetUi->configure->parentWidget()->mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
 
 //Code taken from ksnapshot, thanks guys :p
@@ -654,17 +659,17 @@ void Kamoso::autoincFilename(KUrl &filename)
 
 void Kamoso::thumbnailViewMoved(int value)
 {
-	mainWidgetUi->scrollLeft->setEnabled(value!=0);
-	mainWidgetUi->scrollRight->setEnabled(mainWidgetUi->thumbnailView->horizontalScrollBar()->maximum()!=value);
+    mainWidgetUi->scrollLeft->setEnabled(value!=0);
+    mainWidgetUi->scrollRight->setEnabled(mainWidgetUi->thumbnailView->horizontalScrollBar()->maximum()!=value);
 }
 
 void Kamoso::updateThumbnails(const KUrl::List& urls)
 {
-	foreach(const KUrl& url, urls) {
-		QModelIndex idx = dirModel->indexForUrl(url);
-		QList<QIcon> icons = tracker()->iconsPerUrl(url);
-		mainWidgetUi->thumbnailView->delegate()->setOverlays(url, icons);
-		
-		mainWidgetUi->thumbnailView->update(idx);
-	}
+    foreach(const KUrl& url, urls) {
+        QModelIndex idx = dirModel->indexForUrl(url);
+        QList<QIcon> icons = tracker()->iconsPerUrl(url);
+        mainWidgetUi->thumbnailView->delegate()->setOverlays(url, icons);
+
+        mainWidgetUi->thumbnailView->update(idx);
+    }
 }

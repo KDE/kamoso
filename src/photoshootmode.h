@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -27,24 +27,24 @@ class QPushButton;
 
 class PhotoShootMode : public ShootMode
 {
-	Q_OBJECT
-	public:
-		PhotoShootMode(Kamoso* camera);
-		
-		virtual QList<QAction*> actions() { return mActions; }
-		virtual QWidget* mainAction();
-		virtual QIcon icon() const;
-		virtual QString name() const;
-		virtual QStringList thumbnailsViewMimeTypes() const;
-		virtual void deactivate();
-		
-	private slots:
-		void shootClicked(bool pressed);
-		void release();
-		
-	private:
-		QList<QAction*> mActions;
-		QPointer<QPushButton> mTrigger;
+Q_OBJECT
+    public:
+        PhotoShootMode(Kamoso* camera);
+
+        virtual QList<QAction*> actions() { return mActions; }
+        virtual QWidget* mainAction();
+        virtual QIcon icon() const;
+        virtual QString name() const;
+        virtual QStringList thumbnailsViewMimeTypes() const;
+        virtual void deactivate();
+
+    private slots:
+        void shootClicked(bool pressed);
+        void release();
+
+    private:
+        QList<QAction*> mActions;
+        QPointer<QPushButton> mTrigger;
 };
 
 #endif // PHOTOSHOOTMODE_H

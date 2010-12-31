@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -30,21 +30,21 @@ class KFileItem;
 
 class CustomDelegate : public QItemDelegate
 {
-	Q_OBJECT
-	public:
-		CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent = 0);
-		~CustomDelegate();
-		void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
-		QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
-		void setOverlays(const KUrl& url, const QList< QIcon >& icons);
-	
-	signals:
-		void pixmapNeeded(const KFileItem& it, const QModelIndex& idx, const QRect&) const;
-		
-	private:
-		const QHash<KUrl, QPixmap>& m_repo;
-		QHash<KUrl, QList<QIcon> > m_overlays;
-		static KIcon m_unavailable;
+Q_OBJECT
+    public:
+        CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent = 0);
+        ~CustomDelegate();
+        void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
+        QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
+        void setOverlays(const KUrl& url, const QList< QIcon >& icons);
+
+    Q_SIGNALS:
+        void pixmapNeeded(const KFileItem& it, const QModelIndex& idx, const QRect&) const;
+
+    private:
+        const QHash<KUrl, QPixmap>& m_repo;
+        QHash<KUrl, QList<QIcon> > m_overlays;
+        static KIcon m_unavailable;
 };
 
 #endif

@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -23,7 +23,7 @@
 KamosoPlugin::KamosoPlugin(QObject* parent, const QVariantList& args)
 	: QObject(parent)
 {
-	Q_UNUSED(args); //We do not need that (yet?)
+    Q_UNUSED(args); //We do not need that (yet?)
 }
 
 KamosoPlugin::~KamosoPlugin()
@@ -31,12 +31,12 @@ KamosoPlugin::~KamosoPlugin()
 
 bool KamosoPlugin::executeContextMenuAction(const QList< KUrl >& urls)
 {
-	QAction* a=thumbnailsAction(urls);
-	if(a)
-		a->trigger();
-	bool ret=(a!=0);
-	delete a;
-	return ret;
+    QAction* a=thumbnailsAction(urls);
+    if(a)
+        a->trigger();
+    bool ret=(a!=0);
+    delete a;
+    return ret;
 }
 
 #include "kamosoplugin.moc"

@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -50,86 +50,86 @@ namespace Ui { class mainWidget; class webcamConfigWidget;}
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow
 {
-	Q_OBJECT
-//Methods that aren't slots
-	public:
-		Kamoso ( QWidget *parent=0 );
-		void checkInitConfig();
-		CountdownWidget *countdown() const;
-		~Kamoso();
-		bool isFlashEnabled() const { return m_flashEnabled; }
-		
-		void startVideo(bool withSound);
-		void stopVideo();
-		KUrl::List selectedItems();
-		KamosoJobTracker* tracker() const { return mTracker; }
-		virtual void contextMenuEvent(QContextMenuEvent* event);
-//Only slots
-	public slots:
-		void takePhoto();
-		
-		/** Starts a countdown before we take a picture.
-			@param minimumTime in miliseconds */
-		void startCountdown(qreal minimumTime=0);
-		void configuration();
-		void generalUpdated();
-		void webcamChanged(int index);
-		void webcamAdded();
-		void webcamRemoved();
-		void thumbnailAdded();
-		void selectLast();
-		void settingsMenu(bool);
-		void selectJob(KJob* job, const KUrl::List& urls);
-		void changeMode(bool);
+Q_OBJECT
+    public:
+        Kamoso ( QWidget *parent=0 );
+        void checkInitConfig();
+        CountdownWidget *countdown() const;
+        ~Kamoso();
+        bool isFlashEnabled() const { return m_flashEnabled; }
 
-		void setFlashEnabled(bool en) { m_flashEnabled=en; }
-		void stopCountdown();
-		void thumbnailViewMoved(int value);
-		void updateThumbnails(const KUrl::List& urls);
-		void exportMenu(bool);
-		void fileViewSelectionChanged(const QItemSelection&, const QItemSelection&);
-		
-	private slots:
-		void initialize();
-		
-		void restore();
-		void slotScrollLeft();
-		void slotScrollRight();
-		void reloadDevicesCombo();
-		void autoincFilename(KUrl& filename);
-		void removeSelection();
-		void openFile();
-		
-	signals:
-		void webcamPlaying(const QString&);
-		
-	private:
-		QPointer<QMenu> exportKIPIMenu();
-		
+        void startVideo(bool withSound);
+        void stopVideo();
+        KUrl::List selectedItems();
+        KamosoJobTracker* tracker() const { return mTracker; }
+        virtual void contextMenuEvent(QContextMenuEvent* event);
+
+    public Q_SLOTS:
+        void takePhoto();
+
+        /** Starts a countdown before we take a picture.
+            @param minimumTime in miliseconds */
+        void startCountdown(qreal minimumTime=0);
+        void configuration();
+        void generalUpdated();
+        void webcamChanged(int index);
+        void webcamAdded();
+        void webcamRemoved();
+        void thumbnailAdded();
+        void selectLast();
+        void settingsMenu(bool);
+        void selectJob(KJob* job, const KUrl::List& urls);
+        void changeMode(bool);
+
+        void setFlashEnabled(bool en) { m_flashEnabled=en; }
+        void stopCountdown();
+        void thumbnailViewMoved(int value);
+        void updateThumbnails(const KUrl::List& urls);
+        void exportMenu(bool);
+        void fileViewSelectionChanged(const QItemSelection&, const QItemSelection&);
+
+    private Q_SLOTS:
+        void initialize();
+
+        void restore();
+        void slotScrollLeft();
+        void slotScrollRight();
+        void reloadDevicesCombo();
+        void autoincFilename(KUrl& filename);
+        void removeSelection();
+        void openFile();
+
+    Q_SIGNALS:
+        void webcamPlaying(const QString&);
+
+    private:
+        QPointer<QMenu> exportKIPIMenu();
+
         #if KDE_IS_VERSION(4,5,85)
             int brightBack;
         #else
             float brightBack;
         #endif
-		int m_webcamId;
-		KDirModel *dirModel;
-		WhiteWidgetManager *whiteWidgetManager;
-		WebcamWidget *m_webcam;
-		CountdownWidget *m_countdown;
-		Phonon::MediaObject *player;
-		Ui::mainWidget *mainWidgetUi;
-		Ui::webcamConfigWidget *pageWebcam;
-		QWidget *mainWidget;
-		DeviceManager *deviceManager;
-		int m_exponentialValue;
-		QList<ShootMode*> m_modes;
-		QList<QPushButton*> m_modesRadio;
-		ShootMode *m_activeMode;
-		bool m_flashEnabled;
-		KIPI::PluginLoader* mPluginLoader;
-		QList<KAction*> kipiActions;
-		KamosoJobTracker* mTracker;
-		WebcamDialog* dialog;
+
+        int m_webcamId;
+        KDirModel *dirModel;
+        WhiteWidgetManager *whiteWidgetManager;
+        WebcamWidget *m_webcam;
+        CountdownWidget *m_countdown;
+        Phonon::MediaObject *player;
+        Ui::mainWidget *mainWidgetUi;
+        Ui::webcamConfigWidget *pageWebcam;
+        QWidget *mainWidget;
+        DeviceManager *deviceManager;
+        int m_exponentialValue;
+        QList<ShootMode*> m_modes;
+        QList<QPushButton*> m_modesRadio;
+        ShootMode *m_activeMode;
+        bool m_flashEnabled;
+        KIPI::PluginLoader* mPluginLoader;
+        QList<KAction*> kipiActions;
+        KamosoJobTracker* mTracker;
+        WebcamDialog* dialog;
 };
 
 #endif

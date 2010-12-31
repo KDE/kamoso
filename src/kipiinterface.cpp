@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -34,33 +34,33 @@
 #include <libkipi/imageinfo.h>
 
 struct KIPIInterfacePrivate {
-	Kamoso *kamoso;
-	KIPI::PluginLoader* pluginLoader;
+    Kamoso *kamoso;
+    KIPI::PluginLoader* pluginLoader;
 };
 
 KIPIInterface::KIPIInterface(Kamoso* kamoso)
 :KIPI::Interface(kamoso)
 , d(new KIPIInterfacePrivate) {
-	d->kamoso = kamoso;
+    d->kamoso = kamoso;
 // 	d->pluginLoader = new KIPI::PluginLoader(QStringList(), this);
 }
 
 KIPIInterface::~KIPIInterface() {
-	delete d;
+    delete d;
 }
 
 KIPI::ImageCollection KIPIInterface::currentAlbum() {
-	return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
+    return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
 }
 
 KIPI::ImageCollection KIPIInterface::currentSelection() {
-	return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
+    return KIPI::ImageCollection(new KamosoImageCollectionShared(d->kamoso));
 }
 
 QList<KIPI::ImageCollection> KIPIInterface::allAlbums() {
-	QList<KIPI::ImageCollection> list;
-	list << currentSelection();
-	return list;
+    QList<KIPI::ImageCollection> list;
+    list << currentSelection();
+    return list;
 }
 
 KIPI::ImageInfo KIPIInterface::info(const KUrl& url) {
@@ -77,13 +77,13 @@ void KIPIInterface::refreshImages( const KUrl::List&)
 {}
 
 KIPI::ImageCollectionSelector* KIPIInterface::imageCollectionSelector(QWidget *parent) {
-	return new KIPI::ImageCollectionSelector(parent);
+    return new KIPI::ImageCollectionSelector(parent);
 }
 
 KIPI::UploadWidget* KIPIInterface::uploadWidget(QWidget *parent) {
-	return (new KIPI::UploadWidget(parent));
+    return (new KIPI::UploadWidget(parent));
 }
 
 int KIPIInterface::features() const {
-	return KIPI::HostAcceptNewImages;
+    return KIPI::HostAcceptNewImages;
 }

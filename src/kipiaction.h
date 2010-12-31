@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -26,16 +26,16 @@
 class Kamoso;
 class KipiAction : public QAction
 {
-	Q_OBJECT
-	public:
-		KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent);
-		
-	public slots:
-		void runJob();
-		
-	private:
-		KIPI::PluginLoader::Info* pluginInfo;
-		Kamoso* mKamoso; 
+Q_OBJECT
+    public:
+        KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent);
+
+    public slots:
+        void runJob();
+
+    private:
+        KIPI::PluginLoader::Info* pluginInfo;
+        Kamoso* mKamoso; 
 };
 
 #endif

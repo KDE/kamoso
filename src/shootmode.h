@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -25,32 +25,32 @@
 class Kamoso;
 class ShootMode : public QObject
 {
-	Q_OBJECT
-	public:
-		ShootMode(Kamoso* camera);
-		virtual ~ShootMode();
-		
-		/** @returns the name of the shooting mode */
-		virtual QString name() const=0;
-		
-		/** @returns the icon of the shooting mode */
-		virtual QIcon icon() const=0;
-		
-		/** @returns the main action associated to the shooting mode */
-		virtual QWidget* mainAction()=0;
-		
-		virtual QStringList thumbnailsViewMimeTypes() const=0;
-		/** @returns some more actions associated to the shooting mode */
-		virtual QList<QAction*> actions()=0;
-		
-		/** Deactivate the mode, is like a destructor */
-		virtual void deactivate()=0;
+Q_OBJECT
+    public:
+        ShootMode(Kamoso* camera);
+        virtual ~ShootMode();
 
-		/** */
-		Kamoso* controller() const;
-	
-	private:
-		Kamoso* mController;
+        /** @returns the name of the shooting mode */
+        virtual QString name() const=0;
+
+        /** @returns the icon of the shooting mode */
+        virtual QIcon icon() const=0;
+
+        /** @returns the main action associated to the shooting mode */
+        virtual QWidget* mainAction()=0;
+
+        virtual QStringList thumbnailsViewMimeTypes() const=0;
+        /** @returns some more actions associated to the shooting mode */
+        virtual QList<QAction*> actions()=0;
+
+        /** Deactivate the mode, is like a destructor */
+        virtual void deactivate()=0;
+
+        /** */
+        Kamoso* controller() const;
+
+    private:
+        Kamoso* mController;
 };
 
 #endif // SHOOTMODE_H

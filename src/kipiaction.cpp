@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -25,16 +25,16 @@
 #include "kamosojobtracker.h"
 
 KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent)
-	: QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo), mKamoso(ui)
+    : QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo), mKamoso(ui)
 {
-	connect(this, SIGNAL(triggered()), SLOT(runJob()));
+    connect(this, SIGNAL(triggered()), SLOT(runJob()));
 }
 
 void KipiAction::runJob()
 {
-	KIPI::Plugin* p=pluginInfo->plugin();
-	KIPI::ExportInterface* ep=dynamic_cast<KIPI::ExportInterface*>(p);
-	
-	KJob* job=ep->exportFiles(i18n("Kamoso"));
-	mKamoso->tracker()->registerJob(job, mKamoso->selectedItems(), icon());
+    KIPI::Plugin* p=pluginInfo->plugin();
+    KIPI::ExportInterface* ep=dynamic_cast<KIPI::ExportInterface*>(p);
+
+    KJob* job=ep->exportFiles(i18n("Kamoso"));
+    mKamoso->tracker()->registerJob(job, mKamoso->selectedItems(), icon());
 }

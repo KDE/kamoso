@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@gmail.com>                        *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@gmail.com>                        *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -24,10 +24,10 @@
 
 class WhiteWidget : public QWidget
 {
-	Q_OBJECT
-	public:
-		WhiteWidget(QWidget* parent=0);
-		virtual void paintEvent (QPaintEvent*);
+    Q_OBJECT
+    public:
+        WhiteWidget(QWidget* parent=0);
+        virtual void paintEvent (QPaintEvent*);
 };
 
-#endif
+#endif //WHITEWIDGET

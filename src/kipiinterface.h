@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -28,29 +28,28 @@
 
 class KIPIInterfacePrivate;
 class KIPIInterface :public KIPI::Interface {
-	Q_OBJECT
-	
-public:
-	KIPIInterface(Kamoso* kamoso);
-	virtual ~KIPIInterface();
-	
-	virtual bool addImage(const KUrl&, QString& err);
-	virtual void delImage( const KUrl& );
-	virtual void refreshImages( const KUrl::List& urls );
+Q_OBJECT
 
-	virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
-	virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
-	
-	
-	virtual QList< KIPI::ImageCollection > allAlbums();
-	virtual KIPI::ImageCollection currentAlbum();
-	virtual KIPI::ImageCollection currentSelection();
-	virtual int features() const;
-    virtual KIPI::ImageInfo info(const KUrl& );
+    public:
+        KIPIInterface(Kamoso* kamoso);
+        virtual ~KIPIInterface();
+
+        virtual bool addImage(const KUrl&, QString& err);
+        virtual void delImage( const KUrl& );
+        virtual void refreshImages( const KUrl::List& urls );
+
+        virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
+        virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
+
+
+        virtual QList< KIPI::ImageCollection > allAlbums();
+        virtual KIPI::ImageCollection currentAlbum();
+        virtual KIPI::ImageCollection currentSelection();
+        virtual int features() const;
+        virtual KIPI::ImageInfo info(const KUrl& );
 
 private:
-	private:
-	KIPIInterfacePrivate* const d;
+    KIPIInterfacePrivate* const d;
 };
 
 #endif // KIPIINTERFACE_H

@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -18,65 +18,68 @@
  *************************************************************************************/
 
 #include "photoshootmode.h"
-#include <KIcon>
-#include <KLocalizedString>
-#include <QAction>
 #include "kamoso.h"
-#include <QPushButton>
 #include "countdownwidget.h"
 
+#include <KIcon>
+#include <KLocalizedString>
+
+#include <QAction>
+#include <QPushButton>
+
 PhotoShootMode::PhotoShootMode(Kamoso* camera)
-	: ShootMode(camera)
+    : ShootMode(camera)
 {
-	QAction* flash=new QAction(KIcon("weather-clear"), i18n("Use Flash"), this);
-	flash->setCheckable(true);
-	flash->setChecked(controller()->isFlashEnabled());
-	connect(flash, SIGNAL(triggered(bool)), controller(), SLOT(setFlashEnabled(bool)));
-	mActions += flash;
+    QAction* flash=new QAction(KIcon("weather-clear"), i18n("Use Flash"), this);
+    flash->setCheckable(true);
+    flash->setChecked(controller()->isFlashEnabled());
+    connect(flash, SIGNAL(triggered(bool)), controller(), SLOT(setFlashEnabled(bool)));
+    mActions += flash;
 }
 
 void PhotoShootMode::deactivate()
 {
-	disconnect(controller()->countdown(), SIGNAL(finished()),this ,SLOT(release()));
+    disconnect(controller()->countdown(), SIGNAL(finished()),this ,SLOT(release()));
 }
 
 QWidget* PhotoShootMode::mainAction()
 {
-	mTrigger = new QPushButton(controller());
-	mTrigger->setIcon(icon());
-	mTrigger->setIconSize(QSize(32,32));
-	mTrigger->setToolTip(name());
-	mTrigger->setCheckable(true);
-	
-	connect(controller()->countdown(), SIGNAL(finished()), SLOT(release()));
-	connect(mTrigger, SIGNAL(clicked(bool)), this, SLOT(shootClicked(bool)));
-	return mTrigger;
+    mTrigger = new QPushButton(controller());
+    mTrigger->setIcon(icon());
+    mTrigger->setIconSize(QSize(32,32));
+    mTrigger->setToolTip(name());
+    mTrigger->setCheckable(true);
+
+    connect(controller()->countdown(), SIGNAL(finished()), SLOT(release()));
+    connect(mTrigger, SIGNAL(clicked(bool)), this, SLOT(shootClicked(bool)));
+    return mTrigger;
 }
 
 void PhotoShootMode::release()
 {
-	mTrigger->setChecked(false);
+    mTrigger->setChecked(false);
 }
 
 void PhotoShootMode::shootClicked(bool pressed)
 {
-	if(pressed)
-		controller()->startCountdown();
-	else
-		controller()->stopCountdown();
+    if(pressed) {
+        controller()->startCountdown();
+    } else {
+        controller()->stopCountdown();
+    }
 }
 
 QIcon PhotoShootMode::icon() const
 {
-	return KIcon("webcamreceive");
+    return KIcon("webcamreceive");
 }
 
 QString PhotoShootMode::name() const
 {
-	return i18n("Take pictures");
+    return i18n("Take pictures");
 }
 
 QStringList PhotoShootMode::thumbnailsViewMimeTypes() const
 {
-	return QStringList() << "image/png";
+    return QStringList() << "image/png";
 }

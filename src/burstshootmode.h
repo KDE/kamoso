@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -26,22 +26,22 @@
 
 class BurstShootMode : public ShootMode
 {
-	Q_OBJECT
-	public:
-		BurstShootMode(Kamoso* camera);
-		virtual void deactivate();
-		virtual QList<QAction*> actions() { return QList<QAction*>(); }
-		virtual QWidget* mainAction();
-		virtual QIcon icon() const;
-		virtual QString name() const;
-		virtual QStringList thumbnailsViewMimeTypes() const;
+    Q_OBJECT
+    public:
+        BurstShootMode(Kamoso* camera);
+        virtual void deactivate();
+        virtual QList<QAction*> actions() { return QList<QAction*>(); }
+        virtual QWidget* mainAction();
+        virtual QIcon icon() const;
+        virtual QString name() const;
+        virtual QStringList thumbnailsViewMimeTypes() const;
 
-	private slots:
-		void stateChanged(bool);
-		void keepTaking();
-		
-	private:
-		bool mWorking;
+    private slots:
+        void stateChanged(bool);
+        void keepTaking();
+
+    private:
+        bool mWorking;
 };
 
 #endif // BURSTSHOOTMODE_H

@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -30,23 +30,24 @@ class KamosoJob;
 
 class KDE_EXPORT KamosoPlugin : public QObject
 {
-	Q_OBJECT
-	public:
-		KamosoPlugin(QObject* parent, const QVariantList& args);
-		virtual ~KamosoPlugin();
-		
-		/** Action that it will appear in the thumbnails view's menu.
-			@p url Describes the item we need it for.
-			
-			@returns the action to be added. If a null action is returned,
-			nothing will be added
-		*/
-		bool executeContextMenuAction(const QList<KUrl>& urls);
-		virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
-	
-	signals:
-		void jobCreated(KamosoJob* job);
+Q_OBJECT
+    public:
+        KamosoPlugin(QObject* parent, const QVariantList& args);
+        virtual ~KamosoPlugin();
+
+        /** Action that it will appear in the thumbnails view's menu.
+            @p url Describes the item we need it for.
+
+            @returns the action to be added. If a null action is returned,
+            nothing will be added
+        */
+        bool executeContextMenuAction(const QList<KUrl>& urls);
+        virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
+
+    signals:
+        void jobCreated(KamosoJob* job);
 };
+
 Q_DECLARE_INTERFACE(KamosoPlugin, "org.kamoso.plugin");
 
 #endif // KAMOSOPLUGIN_H

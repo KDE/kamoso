@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -32,15 +32,15 @@
 */
 WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 {
-	qDebug() << "WhiteWidgetManager:  " << "WhiteWidgetManager has been instanced";
-	this->createWhiteWidgets();
-	//Call tick each 30 ms on showAll call
-	m_timer = new QTimer(this);
-	m_currentStep = 0;
-	//Maybe we should set it as cons again, but at the moment I'd like the idea to have it variable
-	//I've also moved it to public scope
- 	m_steps = 10;
-	connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
+    qDebug() << "WhiteWidgetManager:  " << "WhiteWidgetManager has been instanced";
+    this->createWhiteWidgets();
+    //Call tick each 30 ms on showAll call
+    m_timer = new QTimer(this);
+    m_currentStep = 0;
+    //Maybe we should set it as cons again, but at the moment I'd like the idea to have it variable
+    //I've also moved it to public scope
+    m_steps = 10;
+    connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
 }
 
 /**
@@ -48,17 +48,17 @@ WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 */
 void WhiteWidgetManager::createWhiteWidgets()
 {
-	qDebug() << "WhiteWidgetManager:  " << "Creating whiteWidgets";
-	WhiteWidget *whiteWidget;
-	QDesktopWidget *desktopInfo = qApp->desktop();
-	
-	qDebug() << "WhiteWidgetManager:  " << "Num of whidgets to be created: " << desktopInfo->numScreens();
-	for(uchar x=0;x<desktopInfo->numScreens();x++)
-	{
- 		whiteWidget = new WhiteWidget;
- 		whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
-		whitewidgetList.append(whiteWidget);
-	}
+    qDebug() << "WhiteWidgetManager:  " << "Creating whiteWidgets";
+    WhiteWidget *whiteWidget;
+    QDesktopWidget *desktopInfo = qApp->desktop();
+
+    qDebug() << "WhiteWidgetManager:  " << "Num of whidgets to be created: " << desktopInfo->numScreens();
+    for(uchar x=0;x<desktopInfo->numScreens();x++)
+    {
+        whiteWidget = new WhiteWidget;
+        whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
+        whitewidgetList.append(whiteWidget);
+    }
 }
 
 /**
@@ -66,23 +66,24 @@ void WhiteWidgetManager::createWhiteWidgets()
 */
 void WhiteWidgetManager::showAll()
 {
-	WhiteWidget *iteratorWidget;
-	m_timer->start(30);
-	foreach(iteratorWidget,whitewidgetList)
-	{
-		iteratorWidget->showFullScreen();
-	}
+    WhiteWidget *iteratorWidget;
+    m_timer->start(30);
+    foreach(iteratorWidget,whitewidgetList)
+    {
+        iteratorWidget->showFullScreen();
+    }
 }
+
 /**
 *This method is usually called by timeout, and hide all the whiteWidgets 
 */
 void WhiteWidgetManager::hideAll()
 {
-	WhiteWidget *iteratorWidget;
-	foreach(iteratorWidget,whitewidgetList)
-	{
-		iteratorWidget->hide();
-	}
+    WhiteWidget *iteratorWidget;
+    foreach(iteratorWidget,whitewidgetList)
+    {
+        iteratorWidget->hide();
+    }
 }
 
 /**
@@ -90,16 +91,16 @@ void WhiteWidgetManager::hideAll()
 */
 void WhiteWidgetManager::tick()
 {
-	WhiteWidget *iteratorWidget;
-	m_currentStep=qMin(m_currentStep+1, m_steps);
-	foreach(iteratorWidget,whitewidgetList)
-	{
-		iteratorWidget->setWindowOpacity(m_currentStep);
-	}
+    WhiteWidget *iteratorWidget;
+    m_currentStep=qMin(m_currentStep+1, m_steps);
+    foreach(iteratorWidget,whitewidgetList)
+    {
+        iteratorWidget->setWindowOpacity(m_currentStep);
+    }
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()
 {
-	qDeleteAll(whitewidgetList.begin(),whitewidgetList.end());
-	whitewidgetList.clear();
+    qDeleteAll(whitewidgetList.begin(),whitewidgetList.end());
+    whitewidgetList.clear();
 }

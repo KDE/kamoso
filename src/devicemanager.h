@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -26,39 +26,39 @@
 class DeviceManager : public QObject
 {
 Q_OBJECT
-public:
-	static DeviceManager* self();
-	int numberOfDevices() const;
-	QList<Device> devices() const;
-	Device& defaultDevice();
-	QString defaultDevicePath() const;
-	QString defaultDeviceUdi() const;
+    public:
+        static DeviceManager* self();
+        int numberOfDevices() const;
+        QList<Device> devices() const;
+        Device& defaultDevice();
+        QString defaultDevicePath() const;
+        QString defaultDeviceUdi() const;
 
-	Device& playingDevice();
-	QString playingDeviceUdi() const;
-	QString playingDevicePath() const;
-	bool hasDevices() const;
-	
-public slots:
-	void webcamPlaying(const QString &udi);
-	
-private slots:
-	void deviceAdded(const QString &udi);
-	void deviceRemoved(const QString &udi);
-	
-signals:
-	void deviceRegistered( const QString & udi );
-	void deviceUnregistered( const QString & udi );
-	
+        Device& playingDevice();
+        QString playingDeviceUdi() const;
+        QString playingDevicePath() const;
+        bool hasDevices() const;
+
+public Q_SLOTS:
+    void webcamPlaying(const QString &udi);
+
+private Q_SLOTS:
+    void deviceAdded(const QString &udi);
+    void deviceRemoved(const QString &udi);
+
+Q_SIGNALS:
+    void deviceRegistered( const QString & udi );
+    void deviceUnregistered( const QString & udi );
+
 private:
-	DeviceManager();
-	static DeviceManager* s_instance;
-	void addDevice(const Solid::Device& device);
-	void removeDevice(const Solid::Device& device);
-	QList<Device> m_deviceList;
-	Device m_playingDevice;
-	QString m_playingUdi;
-	QString m_playingPath;
+    DeviceManager();
+    static DeviceManager* s_instance;
+    void addDevice(const Solid::Device& device);
+    void removeDevice(const Solid::Device& device);
+    QList<Device> m_deviceList;
+    Device m_playingDevice;
+    QString m_playingUdi;
+    QString m_playingPath;
 };
 
 #endif // DEVICEMANAGER_H

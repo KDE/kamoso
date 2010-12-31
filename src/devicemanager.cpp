@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -30,17 +30,15 @@ DeviceManager *DeviceManager::s_instance = NULL;
 
 DeviceManager::DeviceManager()
 {
-	//Checking current connected devices
-	foreach (Solid::Device device,
-			Solid::Device::listFromType(Solid::DeviceInterface::Video, QString())) {
-		addDevice(device);
-	}
-	//Connect to solid events to get new devices.
+    //Checking current connected devices
+    foreach (Solid::Device device,
+            Solid::Device::listFromType(Solid::DeviceInterface::Video, QString())) {
+        addDevice(device);
+    }
 
-	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
-	connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
-	
-// 	m_playingUdi = NULL;
+    //Connect to solid events to get new devices.
+    connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
+    connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
 }
 
 /*
@@ -48,42 +46,42 @@ DeviceManager::DeviceManager()
 */
 QList<Device> DeviceManager::devices() const
 {
-	return m_deviceList;
+    return m_deviceList;
 }
 
 int DeviceManager::numberOfDevices() const
 {
-	return m_deviceList.size();
+    return m_deviceList.size();
 }
 
 Device& DeviceManager::defaultDevice()
 {
-	return m_deviceList.first();
+    return m_deviceList.first();
 }
 
 QString DeviceManager::defaultDevicePath() const
 {
-	return m_deviceList.first().path();
+    return m_deviceList.first().path();
 }
 
 QString DeviceManager::defaultDeviceUdi() const
 {
-	return m_deviceList.first().udi();
+    return m_deviceList.first().udi();
 }
 
 Device& DeviceManager::playingDevice()
 {
-	return m_playingDevice;
+    return m_playingDevice;
 }
 
 QString DeviceManager::playingDeviceUdi() const
 {
-	return m_playingUdi;
+    return m_playingUdi;
 }
 
 QString DeviceManager::playingDevicePath() const
 {
-	return m_playingPath;
+    return m_playingPath;
 }
 
 /*
@@ -91,20 +89,20 @@ QString DeviceManager::playingDevicePath() const
 */
 void DeviceManager::addDevice(const Solid::Device& device)
 {
-	m_deviceList.append(Device(&device));
+    m_deviceList.append(Device(&device));
 }
 
 void DeviceManager::removeDevice(const Solid::Device& device)
 {
-	QList <Device> ::iterator i;
-	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
-	{
-		if(i->udi() == device.udi())
-		{
-			m_deviceList.erase(i);
-			break;
-		}
-	}
+    QList <Device> ::iterator i;
+    for(i = m_deviceList.begin(); i != m_deviceList.end(); ++i)
+    {
+        if(i->udi() == device.udi())
+        {
+            m_deviceList.erase(i);
+            break;
+        }
+    }
 }
 
 /*
@@ -112,45 +110,45 @@ void DeviceManager::removeDevice(const Solid::Device& device)
 */
 void DeviceManager::deviceRemoved(const QString &udi)
 {
-	QList <Device> ::iterator i;
-	for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
-	{
-		if(i->udi() == udi)
-		{
-			m_deviceList.erase(i);
-			emit deviceUnregistered(udi);
-			break;
-		}
-	}
+    QList <Device> ::iterator i;
+    for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
+    {
+        if(i->udi() == udi)
+        {
+            m_deviceList.erase(i);
+            emit deviceUnregistered(udi);
+            break;
+        }
+    }
 }
 
 void DeviceManager::deviceAdded(const QString &udi)
 {
-	Solid::Device device( udi );
-	if(device.is<Solid::Video>())
-	{
-		addDevice(device);
-		emit deviceRegistered(udi);
-	}
+    Solid::Device device( udi );
+    if(device.is<Solid::Video>())
+    {
+        addDevice(device);
+        emit deviceRegistered(udi);
+    }
 }
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
-	Device device;
-	foreach(device,m_deviceList) {
-		qDebug() << device.udi();
-		if(device.udi() == udi) {
-			m_playingDevice = device;
-			m_playingUdi = udi;
-			m_playingPath = m_playingDevice.path();
-			break;
-		}
-	}
+    Device device;
+    foreach(device,m_deviceList) {
+        qDebug() << device.udi();
+        if(device.udi() == udi) {
+            m_playingDevice = device;
+            m_playingUdi = udi;
+            m_playingPath = m_playingDevice.path();
+            break;
+        }
+    }
 }
 
 bool DeviceManager::hasDevices() const
 {
-	return !m_deviceList.isEmpty();
+    return !m_deviceList.isEmpty();
 }
 
 /*
@@ -158,9 +156,9 @@ bool DeviceManager::hasDevices() const
 */
 DeviceManager* DeviceManager::self()
 {
-	if(s_instance == NULL)
-	{
-		s_instance = new DeviceManager();
-	}
-	return s_instance;
+    if(s_instance == NULL)
+    {
+        s_instance = new DeviceManager();
+    }
+    return s_instance;
 }

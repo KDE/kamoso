@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -25,26 +25,26 @@
 class QTimeLine;
 class CountdownWidget : public QWidget
 {
-	Q_OBJECT
-	public:
-		CountdownWidget(QWidget* parent=0);
-		
-		QSize sizeHint() const { return QSize(100,100); }
-		
-		virtual void paintEvent (QPaintEvent*);
-		virtual void hideEvent(QHideEvent* );
-		
-		void start(int timeInterval);
-	
-	private slots:
-		void tick(qreal progress);
-		
-	signals:
-		void finished();
-		
-	private:
-		qreal mProgress;
-		QTimeLine* mTimer;
+Q_OBJECT
+    public:
+        CountdownWidget(QWidget* parent=0);
+
+        QSize sizeHint() const { return QSize(100,100); }
+
+        virtual void paintEvent (QPaintEvent*);
+        virtual void hideEvent(QHideEvent* );
+
+        void start(int timeInterval);
+
+    private Q_SLOTS:
+        void tick(qreal progress);
+
+    Q_SIGNALS:
+        void finished();
+
+    private:
+        qreal mProgress;
+        QTimeLine* mTimer;
 };
 
 #endif // COUNTDOWNWIDGET_H

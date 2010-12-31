@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -24,15 +24,15 @@
 
 int main(int argc, char *argv[])
 {
-	KAboutData about("kamoso", 0, ki18n(("Kamoso")), "1.90", ki18n("Webcam picture retriever"),
-			 KAboutData::License_GPL, ki18n("(C) 2008-2010 Alex Fiestas and Aleix Pol"));
-	about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
-	about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
-	KCmdLineArgs::init(argc, argv, &about);
-	KApplication app;
-	
-	Kamoso* kamosoMain = new Kamoso;
-	kamosoMain->show();
-	
-	return app.exec();
+    KAboutData about("kamoso", 0, ki18n(("Kamoso")), "1.90", ki18n("Webcam picture retriever"),
+                KAboutData::License_GPL, ki18n("(C) 2008-2010 Alex Fiestas and Aleix Pol"));
+    about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
+    about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
+    KCmdLineArgs::init(argc, argv, &about);
+    KApplication app;
+
+    Kamoso* kamosoMain = new Kamoso;
+    kamosoMain->show();
+
+    return app.exec();
 }

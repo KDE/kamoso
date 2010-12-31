@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -26,52 +26,53 @@
 #include <QAction>
 
 VideoShootMode::VideoShootMode(Kamoso* camera)
-	: ShootMode(camera)
+    : ShootMode(camera)
 {
-	QAction* sound=new QAction(KIcon("audio-input-microphone"), i18n("Record Audio"), this);
-	sound->setCheckable(true);
-	sound->setChecked(true);
-	
-	mActions += sound;
+    QAction* sound=new QAction(KIcon("audio-input-microphone"), i18n("Record Audio"), this);
+    sound->setCheckable(true);
+    sound->setChecked(true);
+
+    mActions += sound;
 }
 
 void VideoShootMode::deactivate()
 {
-	//Do nothing at the moment
+    //Do nothing at the moment
 }
 
 QWidget* VideoShootMode::mainAction()
 {
-	QPushButton* action = new QPushButton(controller());
-	action->setIcon(icon());
-	action->setIconSize(QSize(32,32));
-	action->setToolTip(name());
-	action->setCheckable(true);
-	
-	#warning TODO
-	connect(action, SIGNAL(clicked(bool)), this, SLOT(videoPressed(bool)));
-	return action;
+    QPushButton* action = new QPushButton(controller());
+    action->setIcon(icon());
+    action->setIconSize(QSize(32,32));
+    action->setToolTip(name());
+    action->setCheckable(true);
+
+    #warning TODO
+    connect(action, SIGNAL(clicked(bool)), this, SLOT(videoPressed(bool)));
+    return action;
 }
 
 void VideoShootMode::videoPressed(bool pressed)
 {
-	if(pressed)
-		controller()->startVideo(mActions.first()->isChecked());
-	else
-		controller()->stopVideo();
+    if(pressed) {
+        controller()->startVideo(mActions.first()->isChecked());
+    } else {
+        controller()->stopVideo();
+    }
 }
 
 QIcon VideoShootMode::icon() const
 {
-	return KIcon("media-record");
+    return KIcon("media-record");
 }
 
 QString VideoShootMode::name() const
 {
-	return i18n("Take a video");
+    return i18n("Take a video");
 }
 
 QStringList VideoShootMode::thumbnailsViewMimeTypes() const
 {
-	return QStringList() << "video/x-matroska";
+    return QStringList() << "video/x-matroska";
 }

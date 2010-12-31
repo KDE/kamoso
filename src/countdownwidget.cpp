@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -28,65 +28,65 @@ static const int numberOfColours=3;
 static const QColor colors[numberOfColours]={ Qt::red, Qt::yellow, Qt::green };
 
 CountdownWidget::CountdownWidget(QWidget* parent)
-	: QWidget(parent)
+    : QWidget(parent)
 {
-	mTimer=new QTimeLine(1, this);
-	connect(mTimer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
-	connect(mTimer, SIGNAL(finished()), this, SLOT(hide()));
-	connect(mTimer, SIGNAL(finished()), this, SIGNAL(finished()));
-	
-	mTimer->setCurveShape(QTimeLine::EaseInCurve);
+    mTimer=new QTimeLine(1, this);
+    connect(mTimer, SIGNAL(valueChanged(qreal)), SLOT(tick(qreal)));
+    connect(mTimer, SIGNAL(finished()), this, SLOT(hide()));
+    connect(mTimer, SIGNAL(finished()), this, SIGNAL(finished()));
+
+    mTimer->setCurveShape(QTimeLine::EaseInCurve);
 }
 
 void CountdownWidget::start(int timeInterval)
 {
-	mTimer->setDuration(timeInterval);
-	mTimer->start();
+    mTimer->setDuration(timeInterval);
+    mTimer->start();
 }
 
 void CountdownWidget::tick(qreal progress)
 {
-	mProgress=progress;
-	repaint();
+    mProgress=progress;
+    repaint();
 }
 
 void CountdownWidget::hideEvent(QHideEvent* )
 {
-	mTimer->stop();
-	mTimer->setCurrentTime(0);
+    mTimer->stop();
+    mTimer->setCurrentTime(0);
 }
 
 void CountdownWidget::paintEvent(QPaintEvent* )
 {
-	QPainter painter(this);
-	painter.setRenderHint(QPainter::Antialiasing);
-	
-	const int margin=5;
-	int rad=height()/2-margin;
-	int dist=(width()-rad*numberOfColours)/(numberOfColours-1);
-	
-	int current=int(mProgress*numberOfColours);
-	
-	for(int i=0; i<numberOfColours; i++) {
-		QColor color=colors[i];
-		if(i>=current)
-			color=color.dark(125);
-		
-		QPointF tl(margin+dist*i+rad, margin+height()/2);
-		
-		painter.setPen(color);
-		painter.setBrush(color);
-		painter.drawEllipse(tl, rad, rad);
-		
-		if(current==i) {
-			QColor color=colors[i];
-			painter.setPen(color);
-			painter.setBrush(color);
-			
-			double progUnit=1./numberOfColours;
-			double prog=(mProgress-i*progUnit)/progUnit;
-			
-			painter.drawEllipse(tl, rad*prog, rad*prog);
-		}
-	}
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+
+    const int margin=5;
+    int rad=height()/2-margin;
+    int dist=(width()-rad*numberOfColours)/(numberOfColours-1);
+
+    int current=int(mProgress*numberOfColours);
+
+    for(int i=0; i<numberOfColours; i++) {
+        QColor color=colors[i];
+        if(i>=current)
+            color=color.dark(125);
+
+        QPointF tl(margin+dist*i+rad, margin+height()/2);
+
+        painter.setPen(color);
+        painter.setBrush(color);
+        painter.drawEllipse(tl, rad, rad);
+
+        if(current==i) {
+            QColor color=colors[i];
+            painter.setPen(color);
+            painter.setBrush(color);
+
+            double progUnit=1./numberOfColours;
+            double prog=(mProgress-i*progUnit)/progUnit;
+
+            painter.drawEllipse(tl, rad*prog, rad*prog);
+        }
+    }
 }

@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -26,50 +26,51 @@
 #include "countdownwidget.h"
 
 BurstShootMode::BurstShootMode(Kamoso* camera)
-	: ShootMode(camera)
+    : ShootMode(camera)
 {
 }
 
 void BurstShootMode::deactivate()
 {
-	disconnect(controller()->countdown(), SIGNAL(finished()),this, SLOT(keepTaking()));
+    disconnect(controller()->countdown(), SIGNAL(finished()),this, SLOT(keepTaking()));
 }
 
 QWidget* BurstShootMode::mainAction()
 {
-	QPushButton* m_action = new QPushButton(controller());
-	m_action->setIcon(icon());
-	m_action->setIconSize(QSize(32,32));
-	m_action->setToolTip(name());
-	m_action->setCheckable(true);
-	connect(controller()->countdown(), SIGNAL(finished()), SLOT(keepTaking()));
-	connect(m_action, SIGNAL(clicked(bool)), this, SLOT(stateChanged(bool)));
-	return m_action;
+    QPushButton* m_action = new QPushButton(controller());
+    m_action->setIcon(icon());
+    m_action->setIconSize(QSize(32,32));
+    m_action->setToolTip(name());
+    m_action->setCheckable(true);
+    connect(controller()->countdown(), SIGNAL(finished()), SLOT(keepTaking()));
+    connect(m_action, SIGNAL(clicked(bool)), this, SLOT(stateChanged(bool)));
+    return m_action;
 }
 
 void BurstShootMode::stateChanged(bool pressed)
 {
-	mWorking=pressed;
-	keepTaking();
+    mWorking=pressed;
+    keepTaking();
 }
 
 void BurstShootMode::keepTaking()
 {
-	if(mWorking)
-		controller()->startCountdown(1000);
+    if(mWorking) {
+        controller()->startCountdown(1000);
+    }
 }
 
 QIcon BurstShootMode::icon() const
 {
-	return KIcon("code-block");
+    return KIcon("code-block");
 }
 
 QString BurstShootMode::name() const
 {
-	return i18n("Take pictures");
+    return i18n("Take pictures");
 }
 
 QStringList BurstShootMode::thumbnailsViewMimeTypes() const
 {
-	return QStringList() << "image/png";
+    return QStringList() << "image/png";
 }

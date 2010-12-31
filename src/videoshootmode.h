@@ -1,6 +1,6 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2009 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2009 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
+ *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -22,22 +22,21 @@
 
 #include "shootmode.h"
 
-
 class VideoShootMode : public ShootMode
 {
-	Q_OBJECT
-	public:
-		VideoShootMode(Kamoso* camera);
-		virtual void deactivate();
-		virtual QList<QAction*> actions() { return mActions; }
-		virtual QWidget* mainAction();
-		virtual QIcon icon() const;
-		virtual QString name() const;
-		virtual QStringList thumbnailsViewMimeTypes() const;
-	public slots:
-		void videoPressed(bool pressed);
-	private:
-		QList<QAction*> mActions;
+Q_OBJECT
+    public:
+        VideoShootMode(Kamoso* camera);
+        virtual void deactivate();
+        virtual QList<QAction*> actions() { return mActions; }
+        virtual QWidget* mainAction();
+        virtual QIcon icon() const;
+        virtual QString name() const;
+        virtual QStringList thumbnailsViewMimeTypes() const;
+    public slots:
+        void videoPressed(bool pressed);
+    private:
+        QList<QAction*> mActions;
 };
 
 #endif // VIDEOSHOOTMODE_H
