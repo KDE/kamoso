@@ -191,6 +191,19 @@
       <widget class="QGroupBox" name="groupBox">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
+         <widget class="QPushButton" name="exportFiles">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="configure">
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>

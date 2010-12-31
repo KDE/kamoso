@@ -86,6 +86,8 @@ class Kamoso : public KMainWindow
 		void stopCountdown();
 		void thumbnailViewMoved(int value);
 		void updateThumbnails(const KUrl::List& urls);
+		void exportMenu(bool);
+		void fileViewSelectionChanged(const QItemSelection&, const QItemSelection&);
 		
 	private slots:
 		void initialize();
@@ -102,6 +104,8 @@ class Kamoso : public KMainWindow
 		void webcamPlaying(const QString&);
 		
 	private:
+		QPointer<QMenu> exportKIPIMenu();
+		
         #if KDE_IS_VERSION(4,5,85)
             int brightBack;
         #else
