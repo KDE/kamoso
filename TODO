@@ -15,7 +15,7 @@ Kamoso 2.0:
 
   #Plugins
     + Check if Youtube is working
-    - Review Youtube UI (auto fill form, add category).
+    + Review Youtube UI (auto fill form, add category).
     + Check if Facebook plugin is working
     · Twitpic
     · Document how to create plugins
