@@ -41,7 +41,8 @@ public:
     ~WebcamWidget();
 
     void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad);
-public slots:
+
+public Q_SLOTS:
     void playFile(const Device& device);
     bool takePhoto(const KUrl &dest);
     void recordVideo(bool sound);
