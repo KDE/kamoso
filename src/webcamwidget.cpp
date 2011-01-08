@@ -24,7 +24,6 @@
 #include <QtCore/qtimer.h>
 #include <QtCore/qdatetime.h>
 #include <QtCore/QDir>
-#include <QtCore/qdebug.h>
 #include <QtGui/qboxlayout.h>
 #include <QtGui/qpushbutton.h>
 #include <QtGui/qslider.h>
@@ -36,6 +35,7 @@
 #include <kapplication.h>
 #include <ktemporaryfile.h>
 #include <kio/copyjob.h>
+#include <kdebug.h>
 #include <phonon/phononnamespace.h>
 #include <phonon/objectdescription.h>
 #include <phonon/objectdescriptionmodel.h>
@@ -122,15 +122,14 @@ void WebcamWidget::setVideoSettings()
 
 void WebcamWidget::playFile(const Device &device)
 {
-    qDebug() << "playFile called" << device.path();;
+    kDebug() << device.path();
     setDevice(device);
     if (!d->m_pipeline.isNull()) {
         d->m_pipeline->setState(QGst::StateNull);
     }
-
     d->m_pipeline = QGst::Pipeline::create();
+
     QByteArray desc;
-    qDebug() << GST_VIDEO_CAPS_xRGB_HOST_ENDIAN;
     desc.append("v4l2src device="+d->playingFile.toLatin1()+" ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
     desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
     desc.append("! fakesink name=fakesink");
@@ -146,6 +145,7 @@ void WebcamWidget::playFile(const Device &device)
 
 void WebcamWidget::setDevice(const Device &device)
 {
+    kDebug() << device.udi();
     d->device = device;
     d->playingFile = device.path();
     d->brightness = device.brightness();
@@ -153,6 +153,7 @@ void WebcamWidget::setDevice(const Device &device)
 
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
+    kDebug() << dest;
     d->destination = dest;
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
     QGlib::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
@@ -161,9 +162,8 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
 
 void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 {
-    qDebug() << "Photo callback";
+    kDebug();
 
-    qDebug() << "C API";
     QImage img;
     QGst::CapsPtr caps = buffer->caps();
 
@@ -171,9 +171,9 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     int width, height;
     width = structure.data()->value("width").get<int>();
     height = structure.data()->value("height").get<int>();
-    qDebug() << "We've got a caps in here";
-    qDebug() << "Size: " << width << "x" << height;
-    qDebug() << "Name: " << structure.data()->name();
+    kDebug() << "We've got a caps in here";
+    kDebug() << "Size: " << width << "x" << height;
+    kDebug() << "Name: " << structure.data()->name();
 
     if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
         uint fourcc = structure.data()->value("format").get<uint>();
@@ -201,11 +201,11 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
                 }
             }
         } else {
-            qDebug() << "I'm not that weird thing";
+            kDebug() << "Not I420";
         }
 
     } else if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-rgb") == 0) {
-        qDebug() << "RGB name";
+        kDebug() << "RGB name";
         QImage::Format format = QImage::Format_Invalid;
         int bpp = structure.data()->value("bpp").get<int>();
 
@@ -222,7 +222,8 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
             img.bits(); //detach
         }
     }
-    qDebug() << "Image bytecount: " << img.byteCount();
+
+    kDebug() << "Image bytecount: " << img.byteCount();
     img.save(d->destination.path());
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
     QGlib::disconnect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
@@ -231,7 +232,7 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 void WebcamWidget::fileSaved(const KUrl &dest) {
     #ifdef HAVE_NEPOMUK
         if(Nepomuk::ResourceManager::instance()->initialized()) {
-            qDebug() << dest;
+            kDebug() << dest;
             Nepomuk::Tag tag("kamoso");
             Nepomuk::Resource file(QUrl(dest.toLocalFile()));
             file.addTag(tag);
@@ -249,7 +250,9 @@ void WebcamWidget::fileSaved(KJob *job)
 void WebcamWidget::recordVideo(bool sound)
 {
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
-    qDebug() << "Record video";
+    kDebug() << d->videoTmpPath;
+    kDebug() << "Sound: " << sound;
+
     QByteArray str = "v4l2src device="+d->playingFile.toLatin1()+" ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. alsasrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
     str.append(d->videoTmpPath);
     QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
@@ -266,6 +269,7 @@ void WebcamWidget::recordVideo(bool sound)
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
 {
+    kDebug() << destUrl;
     KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
     connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
     job->setAutoDelete(true);
