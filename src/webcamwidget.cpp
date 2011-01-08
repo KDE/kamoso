@@ -97,15 +97,6 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     QGst::init();
 }
 
-void WebcamWidget::paintEvent(QPaintEvent *p_event)
-{
-    // FIXME this makes the video flicker
-    // Make everything backgroundRole color
-    //afiestas: ATM our vout is not resizable, so we dont't care
-//     QPainter painter(this);
-//     painter.eraseRect(rect());
-}
-
 WebcamWidget::~WebcamWidget()
 {
     d->m_pipeline->setState(QGst::StateNull);

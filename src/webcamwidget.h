@@ -58,7 +58,6 @@ public Q_SLOTS:
 
 private:
     WebcamWidget(QWidget* parent);
-    void paintEvent(QPaintEvent *p_event);
     QByteArray phononCaptureDevice();
     void setDevice(const Device &device);
     float convertAdjustValue(int level);
