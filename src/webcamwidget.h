@@ -48,13 +48,15 @@ public Q_SLOTS:
     void recordVideo(bool sound);
     void stopRecording(const KUrl& destUrl);
     void fileSaved(KJob *);
-    void fileSaved(const KUrl &dest);
     void setBrightness(int level);
     void setSaturation(int level);
     void setContrast(int level);
     void setGamma(int level);
     void setHue(int level);
     void setVideoSettings();
+
+Q_SIGNALS:
+    void fileSaved(const KUrl &url);
 
 private:
     WebcamWidget(QWidget* parent);

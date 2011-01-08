@@ -18,6 +18,8 @@
  *************************************************************************************/
 
 #include "kamoso.h"
+#include "config-nepomuk.h"
+
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
@@ -42,6 +44,11 @@
     #include "brightness_interface.h"
 #else
     #include <solid/control/powermanager.h>
+#endif
+#ifdef HAVE_NEPOMUK
+    #include <Nepomuk/ResourceManager>
+    #include <Nepomuk/Resource>
+    #include <Nepomuk/Tag>
 #endif
 
 #include <libkipi/plugin.h>
@@ -101,6 +108,9 @@ Kamoso::Kamoso(QWidget* parent)
     m_webcam = WebcamWidget::createInstance(this);
     m_webcam->setParent(mainWidgetUi->centralSpot);
     m_webcam->setMinimumSize(640,480);
+
+    connect(m_webcam, SIGNAL(fileSaved(KUrl)), this, SLOT(fileSaved(KUrl)));
+
     if(deviceManager->hasDevices()) {
         m_webcam->playFile(deviceManager->defaultDevice());
         emit webcamPlaying(deviceManager->defaultDeviceUdi());
@@ -524,6 +534,33 @@ void Kamoso::openFile()
     foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
         QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
     }
+}
+
+void Kamoso::fileSaved(const KUrl &dest) {
+    kDebug();
+    #ifdef HAVE_NEPOMUK
+        kDebug() << dest;
+        if(Nepomuk::ResourceManager::instance()->initialized()) {
+            kDebug() << "Nepomuk working";
+            Nepomuk::Resource file(dest);
+            QList<Nepomuk::Tag> tags = Nepomuk::Tag::allTags();
+
+            Q_FOREACH(const Nepomuk::Tag &tag, tags) {
+                kDebug() << "Tag: " << tag.genericLabel();
+                 if (tag.genericLabel() == "Kamoso") {
+                     kDebug() << "Appling Kamoso tag";
+                     file.addTag(tag);
+                     file.addTag(tag);
+                     return;
+                 }
+            }
+
+            kDebug() << "Creaing new tag";
+            Nepomuk::Tag tag("Kamoso");
+            tag.setLabel("Kamoso");
+            file.addTag(tag);
+        }
+    #endif
 }
 
 void Kamoso::removeSelection()

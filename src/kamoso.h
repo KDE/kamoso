@@ -99,6 +99,7 @@ Q_OBJECT
         void autoincFilename(KUrl& filename);
         void removeSelection();
         void openFile();
+        void fileSaved(const KUrl& dest);
 
     Q_SIGNALS:
         void webcamPlaying(const QString&);
