@@ -550,7 +550,6 @@ void Kamoso::fileSaved(const KUrl &dest) {
                  if (tag.genericLabel() == "Kamoso") {
                      kDebug() << "Appling Kamoso tag";
                      file.addTag(tag);
-                     file.addTag(tag);
                      return;
                  }
             }
