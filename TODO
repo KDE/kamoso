@@ -2,7 +2,7 @@ Kamoso 2.0:
   #Core
     [AF] QtGstreamer
     · Nepomuk integration
-    · s/\t/    /
+    + s/\t/    /
 
   #Interface
     + [AP] Restore "Open" and "Trash" in the menus.
