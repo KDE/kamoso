@@ -39,6 +39,7 @@ class KDirOperator;
 class QStackedLayout;
 class QSplitter;
 class QPushButton;
+class QToolButton;
 class QModelIndex;
 class ThumbnailView;
 class KFileItem;
@@ -123,7 +124,7 @@ Q_OBJECT
         DeviceManager *deviceManager;
         int m_exponentialValue;
         QList<ShootMode*> m_modes;
-        QList<QPushButton*> m_modesRadio;
+        QList<QToolButton*> m_modesRadio;
         ShootMode *m_activeMode;
         bool m_flashEnabled;
         KIPI::PluginLoader* mPluginLoader;

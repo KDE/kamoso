@@ -20,6 +20,7 @@
 #include "kamoso.h"
 #include <QLayout>
 #include <QPushButton>
+#include <QToolButton>
 #include <QScrollBar>
 #include <KMenu>
 #include <KActionCollection>
@@ -114,14 +115,17 @@ Kamoso::Kamoso(QWidget* parent)
     m_modes.append(new VideoShootMode(this));
 
     QHBoxLayout *modesLayout = new QHBoxLayout(mainWidgetUi->modes);
+    modesLayout->setSpacing(0);
+    modesLayout->setContentsMargins(4, 0, 4, 0);
 
     foreach(ShootMode* mode, m_modes) {
-        m_modesRadio += new QPushButton(mainWidgetUi->modes);
+        m_modesRadio += new QToolButton(mainWidgetUi->modes);
         m_modesRadio.last()->setIcon(mode->icon());
         m_modesRadio.last()->setIconSize(QSize(20,20));
         m_modesRadio.last()->setCheckable(true);
         m_modesRadio.last()->setAutoExclusive(true);
         m_modesRadio.last()->setToolTip(mode->name());
+        m_modesRadio.last()->setAutoRaise(true);
         modesLayout->addWidget(m_modesRadio.last());
 
         connect(m_modesRadio.last(), SIGNAL(clicked(bool)), SLOT(changeMode(bool)));
@@ -571,13 +575,13 @@ void Kamoso::changeMode(bool pressed)
         return;
     }
 
-    QPushButton* tb=qobject_cast<QPushButton*>(sender());
+    QToolButton* tb=qobject_cast<QToolButton*>(sender());
     if(!tb) {
         tb=m_modesRadio.first();
     }
 
     int i=0;
-    foreach(QPushButton* butt, m_modesRadio) {
+    foreach(QToolButton* butt, m_modesRadio) {
         if(butt==tb)
             break;
         i++;
@@ -593,7 +597,9 @@ void Kamoso::changeMode(bool pressed)
         dirModel->dirLister()->openUrl(dirModel->dirLister()->url(), KDirLister::Reload);
 
     QWidget* w=m_activeMode->mainAction();
-    w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+    w->setMinimumSize(54, 54);
+    w->setMaximumSize(54, 54);
+    w->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
     delete v->takeAt(1)->widget();

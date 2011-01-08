@@ -66,27 +66,35 @@ void CountdownWidget::paintEvent(QPaintEvent* )
     int dist=(width()-rad*numberOfColours)/(numberOfColours-1);
 
     int current=int(mProgress*numberOfColours);
-
+    
+    QFont f = font();
+    f.setPointSize(20);
+    setFont(f);
+    
     for(int i=0; i<numberOfColours; i++) {
-        QColor color=colors[i];
-        if(i>=current)
-            color=color.dark(125);
+        QColor realColor = colors[i];
+        QColor darkColor = realColor.dark(125);
+        QColor color = i>=current ? darkColor : realColor;
 
-        QPointF tl(margin+dist*i+rad, margin+height()/2);
+        QPointF tl(margin+dist*i, margin);
+        QPointF ellipseCenter=tl+QPointF(rad, height()/2-margin);
+        QRectF ellipse(tl, QSizeF(rad*2, rad*2));
 
-        painter.setPen(color);
+        painter.setPen(QPen(color.dark(), 3));
         painter.setBrush(color);
-        painter.drawEllipse(tl, rad, rad);
+        painter.drawEllipse(ellipse);
 
         if(current==i) {
-            QColor color=colors[i];
-            painter.setPen(color);
-            painter.setBrush(color);
+            painter.setPen(realColor);
+            painter.setBrush(realColor);
 
             double progUnit=1./numberOfColours;
             double prog=(mProgress-i*progUnit)/progUnit;
 
-            painter.drawEllipse(tl, rad*prog, rad*prog);
+            painter.drawEllipse(ellipseCenter, rad*prog, rad*prog);
         }
+        
+        painter.setPen(darkColor);
+        painter.drawText(ellipse, QString::number(numberOfColours-i), QTextOption(Qt::AlignCenter));
     }
 }
