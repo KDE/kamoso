@@ -41,13 +41,13 @@ public:
     ~WebcamWidget();
 
     void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad);
-public slots:
+
+public Q_SLOTS:
     void playFile(const Device& device);
     bool takePhoto(const KUrl &dest);
     void recordVideo(bool sound);
     void stopRecording(const KUrl& destUrl);
     void fileSaved(KJob *);
-    void fileSaved(const KUrl &dest);
     void setBrightness(int level);
     void setSaturation(int level);
     void setContrast(int level);
@@ -55,9 +55,11 @@ public slots:
     void setHue(int level);
     void setVideoSettings();
 
+Q_SIGNALS:
+    void fileSaved(const KUrl &url);
+
 private:
     WebcamWidget(QWidget* parent);
-    void paintEvent(QPaintEvent *p_event);
     QByteArray phononCaptureDevice();
     void setDevice(const Device &device);
     float convertAdjustValue(int level);

@@ -18,7 +18,6 @@
  *************************************************************************************/
 
 #include "webcamwidget.h"
-#include "config-nepomuk.h"
 #include "device.h"
 
 #include <QtCore/qtimer.h>
@@ -42,12 +41,6 @@
 #include <phonon/backendcapabilities.h>
 #include <klocalizedstring.h>
 #include <kjob.h>
-
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk/ResourceManager>
-    #include <Nepomuk/Resource>
-    #include <Nepomuk/Tag>
-#endif
 
 #include <QGst/Pipeline>
 #include <QGst/Element>
@@ -95,15 +88,6 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
     QGst::init();
-}
-
-void WebcamWidget::paintEvent(QPaintEvent *p_event)
-{
-    // FIXME this makes the video flicker
-    // Make everything backgroundRole color
-    //afiestas: ATM our vout is not resizable, so we dont't care
-//     QPainter painter(this);
-//     painter.eraseRect(rect());
 }
 
 WebcamWidget::~WebcamWidget()
@@ -225,26 +209,16 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 
     kDebug() << "Image bytecount: " << img.byteCount();
     img.save(d->destination.path());
+    emit fileSaved(d->destination);
+
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
     QGlib::disconnect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
-}
-
-void WebcamWidget::fileSaved(const KUrl &dest) {
-    #ifdef HAVE_NEPOMUK
-        if(Nepomuk::ResourceManager::instance()->initialized()) {
-            kDebug() << dest;
-            Nepomuk::Tag tag("kamoso");
-            Nepomuk::Resource file(QUrl(dest.toLocalFile()));
-            file.addTag(tag);
-            file.addTag(tag);//Maybe is my computer, but I need to do ths twice, I'll it investigate later
-        }
-    #endif
 }
 
 void WebcamWidget::fileSaved(KJob *job)
 {
     KIO::CopyJob *copy = static_cast<KIO::CopyJob *>(job);
-    fileSaved(copy->destUrl());
+    emit fileSaved(copy->destUrl());
 }
 
 void WebcamWidget::recordVideo(bool sound)

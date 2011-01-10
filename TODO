@@ -1,7 +1,7 @@
 Kamoso 2.0:
   #Core
     [AF] QtGstreamer
-    · Nepomuk integration
+    + Nepomuk integration
     + s/\t/    /
 
   #Interface
