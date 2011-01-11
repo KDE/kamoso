@@ -52,6 +52,7 @@
 #include <QGlib/connect.h>
 #include <QGst/Structure>
 #include <QGst/Clock>
+#include <QGst/Init>
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
