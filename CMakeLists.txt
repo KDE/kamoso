@@ -7,7 +7,7 @@ find_package(Kipi REQUIRED)
 find_package(Phonon REQUIRED)
 find_package(GLIB2 REQUIRED)
 find_package(GStreamer REQUIRED)
-find_package(QtGstreamer REQUIRED)
+find_package(QtGStreamer REQUIRED)
 
 macro_optional_find_package(Nepomuk)
 macro_log_feature(NEPOMUK_FOUND "Nepomuk" "Handles all kinds of metadata on the KDE desktop to provide a semantic desktop" "http://nepomuk.kde.org/" FALSE "" "STRONGLY_RECOMMENDED: Nepomuk is used to provide metadata on objects like files, emails etc. to provide a semantic desktop.")
