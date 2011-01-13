@@ -3,6 +3,7 @@ Type=Service
 Exec=blubb
 Icon=youtube
 Comment=Upload videos directly to YouTube
+Comment[cs]=Nahrát videa přímo na YouTube
 Comment[da]=Upload videoer direkte til YouTube
 Comment[de]=Videos auf YouTube hochladen
 Comment[en_GB]=Upload videos directly to YouTube

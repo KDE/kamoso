@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=Kamoso/Plugin
 X-KDE-Derived=KPluginInfo
 Name=Kamoso Plugin
+Name[cs]=Přídavný modul Kamoso
 Name[da]=Kamoso-plugin
 Name[de]=Kamoso-Modul
 Name[en_GB]=Kamoso Plugin
