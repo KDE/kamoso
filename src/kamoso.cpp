@@ -96,8 +96,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidget = new QWidget(this);
     mainWidgetUi->setupUi(mainWidget);
 
-    //We've to investigate if is better call start before do the UI stuff
-    bool comboShown=deviceManager->numberOfDevices() > 1;
+    bool comboShown = deviceManager->numberOfDevices() > 1;
     mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
     mainWidgetUi->webcamCombo->setVisible(comboShown);
 
@@ -181,7 +180,7 @@ Kamoso::Kamoso(QWidget* parent)
     m_exponentialValue = 0;
     this->setCentralWidget(mainWidget);
 
-    mTracker=new KamosoJobTracker(statusBar());
+    mTracker = new KamosoJobTracker(statusBar());
     connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
     statusBar()->addWidget(mTracker);
 
@@ -215,7 +214,7 @@ void Kamoso::webcamAdded()
 {
     qDebug() << "A new webcam has been added";
 
-    bool comboShown=deviceManager->numberOfDevices()>1;
+    bool comboShown = deviceManager->numberOfDevices() > 1;
 
     mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
     mainWidgetUi->webcamCombo->setVisible(comboShown);
@@ -570,11 +569,11 @@ void Kamoso::removeSelection()
         urls << dirModel->itemForIndex(idx).url();
     }
 
-    int res=KMessageBox::warningContinueCancel(0,
+    int res = KMessageBox::warningContinueCancel(0,
                                         i18np("Are you sure you want to delete this file?", "Are you sure you want to delete these %1 files?", urls.size()),
                                         i18n("Move to Trash"));
 
-    if(res==KMessageBox::Continue) {
+    if(res == KMessageBox::Continue) {
         KIO::CopyJob *job = KIO::trash(urls);
         mTracker->registerJob(job, urls, KIcon("user-trash"));
     }
@@ -590,7 +589,7 @@ void Kamoso::selectLast()
     ThumbnailView* v = mainWidgetUi->thumbnailView;
     v->horizontalScrollBar()->setValue(v->horizontalScrollBar()->maximum());
 
-    QModelIndex idx=v->model()->index(v->model()->rowCount()-1, 0);
+    QModelIndex idx = v->model()->index(v->model()->rowCount()-1, 0);
 
     if(idx.isValid()) {
         v->selectionModel()->setCurrentIndex(idx,
@@ -612,18 +611,18 @@ void Kamoso::changeMode(bool pressed)
         return;
     }
 
-    QToolButton* tb=qobject_cast<QToolButton*>(sender());
+    QToolButton* tb = qobject_cast<QToolButton*>(sender());
     if(!tb) {
-        tb=m_modesRadio.first();
+        tb = m_modesRadio.first();
     }
 
     int i=0;
     foreach(QToolButton* butt, m_modesRadio) {
-        if(butt==tb)
+        if(butt == tb)
             break;
         i++;
     }
-    Q_ASSERT(i<m_modesRadio.size());
+    Q_ASSERT(i < m_modesRadio.size());
 
     if(m_activeMode) {
         m_activeMode->deactivate();
@@ -633,12 +632,12 @@ void Kamoso::changeMode(bool pressed)
     if(!dirModel->dirLister()->url().isEmpty())
         dirModel->dirLister()->openUrl(dirModel->dirLister()->url(), KDirLister::Reload);
 
-    QWidget* w=m_activeMode->mainAction();
+    QWidget* w = m_activeMode->mainAction();
     w->setMinimumSize(54, 54);
     w->setMaximumSize(54, 54);
     w->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    QHBoxLayout* v=qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
+    QHBoxLayout* v = qobject_cast<QHBoxLayout*>(mainWidgetUi->actions->layout());
     delete v->takeAt(1)->widget();
 
     v->insertWidget(1, w);
@@ -652,7 +651,7 @@ CountdownWidget * Kamoso::countdown() const
 
 void Kamoso::settingsMenu(bool )
 {
-    QList<QAction*> actions=m_activeMode->actions();
+    QList<QAction*> actions = m_activeMode->actions();
     KMenu m;
     if(!actions.isEmpty()) {
         m.addActions(actions);
