@@ -123,6 +123,7 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline->add(d->m_bin);
 
     setVideoSettings();
+    releaseVideoSink();
     setVideoSink(d->m_bin->getElementByName("videosink"));
 
     d->m_pipeline->setState(QGst::StatePlaying);
@@ -230,6 +231,7 @@ void WebcamWidget::recordVideo(bool sound)
 
     QByteArray str = "v4l2src device="+d->playingFile.toLatin1()+" ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. alsasrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
     str.append(d->videoTmpPath);
+    kDebug() << str;
     QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
     d->m_pipeline->setState(QGst::StateNull);
 
@@ -237,8 +239,9 @@ void WebcamWidget::recordVideo(bool sound)
     d->m_pipeline->add(bin);
     d->m_bin = bin;
 
-    setVideoSink(bin->getElementByName("videosink"));
+    releaseVideoSink();
     setVideoSettings();
+    setVideoSink(bin->getElementByName("videosink"));
     d->m_pipeline->setState(QGst::StatePlaying);
 }
 
