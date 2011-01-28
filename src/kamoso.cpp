@@ -19,40 +19,6 @@
 
 #include "kamoso.h"
 #include "config-nepomuk.h"
-
-#include <QLayout>
-#include <QPushButton>
-#include <QToolButton>
-#include <QScrollBar>
-#include <KMenu>
-#include <KActionCollection>
-#include <KApplication>
-#include <KConfigGroup>
-#include <KDirOperator>
-#include <KDirSelectDialog>
-#include <KLocale>
-#include <KStandardDirs>
-#include <KConfigDialog>
-#include <KDebug>
-#include <KPluginSelector>
-#include <KMessageBox>
-#include <KStatusBar>
-#include <KIO/NetAccess>
-#include <Phonon/MediaObject>
-#include <kdeversion.h>
-#if KDE_IS_VERSION(4,5,85)
-    #include "brightness_interface.h"
-#else
-    #include <solid/control/powermanager.h>
-#endif
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk/ResourceManager>
-    #include <Nepomuk/Resource>
-    #include <Nepomuk/Tag>
-#endif
-
-#include <libkipi/plugin.h>
-#include <libkipi/pluginloader.h>
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
@@ -71,11 +37,47 @@
 #include "videoshootmode.h"
 #include "burstshootmode.h"
 #include "kipiaction.h"
-#include <KPluginInfo>
 #include "webcamdialog.h"
 #include "pagewebcamconfigmanager.h"
+#if KDE_IS_VERSION(4,5,85)
+    #include "brightness_interface.h"
+#else
+    #include <solid/control/powermanager.h>
+#endif
+
+#include <QLayout>
+#include <QPushButton>
+#include <QToolButton>
+#include <QScrollBar>
+
+#include <KMenu>
+#include <KActionCollection>
+#include <KApplication>
+#include <KConfigGroup>
+#include <KDirOperator>
+#include <KDirSelectDialog>
+#include <KLocale>
+#include <KStandardDirs>
+#include <KConfigDialog>
+#include <KDebug>
+#include <KPluginSelector>
+#include <KMessageBox>
+#include <KStatusBar>
+#include <KIO/NetAccess>
+#include <Phonon/MediaObject>
+#include <kdeversion.h>
 #include <KDirModel>
 #include <kio/copyjob.h>
+
+#ifdef HAVE_NEPOMUK
+    #include <Nepomuk/ResourceManager>
+    #include <Nepomuk/Resource>
+    #include <Nepomuk/Tag>
+#endif
+
+#include <libkipi/plugin.h>
+#include <libkipi/pluginloader.h>
+#include <KPluginInfo>
 
 const int max_exponential_value = 50;
 const int exponential_increment = 5;
