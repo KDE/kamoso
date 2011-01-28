@@ -107,7 +107,7 @@ void Device::setHue(int level)
 
 int Device::brightness() const
 {
-    return config->group(m_udi).readEntry("brightness",100);
+    return config->group(m_udi).readEntry("brightness",0);
 }
 
 int Device::contrast() const
