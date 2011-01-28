@@ -20,7 +20,7 @@
 #include "device.h"
 #include <solid/video.h>
 #include <KConfigGroup>
-#include <QDebug>
+#include <kdebug.h>
 
 Device::Device()
 {}
@@ -72,35 +72,35 @@ QString Device::vendor() const
 
 void Device::setBrightness(int level)
 {
-    qDebug() << "New brightness " << level;
+    kDebug() << "New brightness " << level;
     config->group(m_udi).writeEntry("brightness",level);
     config->sync();
 }
 
 void Device::setContrast(int level)
 {
-    qDebug() << "New contrast " << level;
+    kDebug() << "New contrast " << level;
     config->group(m_udi).writeEntry("contrast",level);
     config->sync();
 }
 
 void Device::setSaturation(int level)
 {
-    qDebug() << "New saturation " << level;
+    kDebug() << "New saturation " << level;
     config->group(m_udi).writeEntry("saturation",level);
     config->sync();
 }
 
 void Device::setGamma(int level)
 {
-    qDebug() << "new gamma" << level;
+    kDebug() << "new gamma" << level;
     config->group(m_udi).writeEntry("gamma",level);
     config->sync();
 }
 
 void Device::setHue(int level)
 {
-    qDebug() << "new hue" << level;
+    kDebug() << "new hue" << level;
     config->group(m_udi).writeEntry("hue",level);
     config->sync();
 }
