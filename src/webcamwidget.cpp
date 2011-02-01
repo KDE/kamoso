@@ -152,6 +152,7 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
     return true;
 }
 
+//This code has been borrowed from the Qt Multimedia project.
 void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 {
     kDebug();
