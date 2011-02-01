@@ -21,7 +21,7 @@
 #include "fakekipiinterface.h"
 #include "fakekipiaction.h"
 
-#include <QDebug>
+#include <KDebug>
 #include <kurl.h>
 #include <KCmdLineArgs>
 #include <libkipi/plugin.h>
@@ -33,11 +33,11 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
 
     QString pluginName = args->arg(0);
 
-    qDebug() << "PluginName: " << pluginName;
-    qDebug() << "Files: ";
+    kDebug() << "PluginName: " << pluginName;
+    kDebug() << "Files: ";
     KUrl::List kurlList;
     for (int i = 1; i < args->count(); ++i) {
-        qDebug() << "\t" << args->arg(i);
+        kDebug() << "\t" << args->arg(i);
         kurlList.append(KUrl(args->arg(i)));
     }
 
@@ -52,7 +52,7 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
             break;
         }
     }
-    if(!found) qDebug() << "could not find:" << args->arg(0);
+    if(!found) kDebug() << "could not find:" << args->arg(0);
 }
 
 PluginTester::~PluginTester()

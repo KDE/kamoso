@@ -22,24 +22,27 @@
 #include <QPainter>
 #include <QTimer>
 #include <QDesktopWidget>
-#include <KLocale>
-#include <KWindowSystem>
 #include <QApplication>
-#include <QDebug>
+
+#include <KDebug>
+#include <KLocale>
 
 /**
 *This class create and manage 1 white widget per screen, creating an unified interface for all of them
 */
 WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 {
-    qDebug() << "WhiteWidgetManager:  " << "WhiteWidgetManager has been instanced";
-    this->createWhiteWidgets();
+    kDebug() << "WhiteWidgetManager has been instanced";
+    createWhiteWidgets();
+
     //Call tick each 30 ms on showAll call
     m_timer = new QTimer(this);
     m_currentStep = 0;
+
     //Maybe we should set it as cons again, but at the moment I'd like the idea to have it variable
     //I've also moved it to public scope
     m_steps = 10;
+
     connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
 }
 
@@ -48,11 +51,11 @@ WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 */
 void WhiteWidgetManager::createWhiteWidgets()
 {
-    qDebug() << "WhiteWidgetManager:  " << "Creating whiteWidgets";
+    kDebug() << "Creating whiteWidgets";
     WhiteWidget *whiteWidget;
     QDesktopWidget *desktopInfo = qApp->desktop();
 
-    qDebug() << "WhiteWidgetManager:  " << "Num of whidgets to be created: " << desktopInfo->numScreens();
+    kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
     for(uchar x=0;x<desktopInfo->numScreens();x++)
     {
         whiteWidget = new WhiteWidget;
@@ -68,6 +71,7 @@ void WhiteWidgetManager::showAll()
 {
     WhiteWidget *iteratorWidget;
     m_timer->start(30);
+
     foreach(iteratorWidget,whitewidgetList)
     {
         iteratorWidget->showFullScreen();
@@ -93,6 +97,7 @@ void WhiteWidgetManager::tick()
 {
     WhiteWidget *iteratorWidget;
     m_currentStep=qMin(m_currentStep+1, m_steps);
+
     foreach(iteratorWidget,whitewidgetList)
     {
         iteratorWidget->setWindowOpacity(m_currentStep);

@@ -25,6 +25,7 @@
 #include <KApplication>
 #include <KAboutData>
 #include <KCmdLineArgs>
+#include <KDebug>
 
 //This is ugly, I know, but the class is not being deleted when executing qApp->quit :/
 static PluginTester *pluginTester;
@@ -47,8 +48,8 @@ int main(int argc, char *argv[])
     KCmdLineArgs::addCmdLineOptions(options);
 
     if (KCmdLineArgs::parsedArgs()->count() < 2) {
-        qDebug("Usage: \n");
-        qDebug("kamosoPluginTester pluginName file1 file2 file3...\n");
+        kDebug() << "Usage: \n";
+        kDebug() << "kamosoPluginTester pluginName file1 file2 file3...\n";
         return -1;
     }
     KApplication app;

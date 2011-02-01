@@ -207,14 +207,14 @@ void Kamoso::initialize()
     //Check the initial and basic config, and ask for it it doesn't exist
     checkInitConfig();
 
-    qDebug() << "Settings of kamoso:";
-    qDebug() << "saveUrl: " << Settings::saveUrl();
-    qDebug() << "photoTime: " << Settings::photoTime();
+    kDebug() << "Settings of kamoso:";
+    kDebug() << "saveUrl: " << Settings::saveUrl();
+    kDebug() << "photoTime: " << Settings::photoTime();
 }
 
 void Kamoso::webcamAdded()
 {
-    qDebug() << "A new webcam has been added";
+    kDebug() << "A new webcam has been added";
 
     bool comboShown = deviceManager->numberOfDevices() > 1;
 
@@ -369,7 +369,7 @@ void Kamoso::configuration()
 */
 void Kamoso::generalUpdated()
 {
-    qDebug() << "Settings New\n" << Settings::saveUrl();
+    kDebug() << "Settings New\n" << Settings::saveUrl();
     Settings::self()->writeConfig();
     dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 
@@ -397,7 +397,7 @@ Kamoso::~Kamoso()
 //TODO: Abstraction of what is called on pushBtn?
 void Kamoso::startCountdown(qreal minimumTime)
 {
-    qDebug() << Settings::photoTime();
+    kDebug() << Settings::photoTime();
     int time = qMax(minimumTime, 1000.*Settings::photoTime());
 
     m_countdown->start(time);

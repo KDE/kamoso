@@ -18,14 +18,16 @@
  *************************************************************************************/
 
 #include "kamosojobtracker.h"
+
+#include <QMouseEvent>
 #include <QPainter>
-#include <QDebug>
+
+#include <KDebug>
 #include <KIcon>
 #include <KUrl>
 #include <KJob>
 #include <KNotification>
 #include <KLocale>
-#include <QMouseEvent>
 
 KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
     : QWidget(parent, f), m_selectedJob(-1)
@@ -36,7 +38,7 @@ KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
 void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon)
 {
     Q_ASSERT(!mJobs.contains(job));
-    qDebug() << "Register job received!!!";
+    kDebug() << "Register job received!!!";
     connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
     connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
     mJobs.insert(job, qMakePair(urls, icon));

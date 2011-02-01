@@ -18,14 +18,16 @@
  *************************************************************************************/
 
 #include "youtubejob.h"
-#include <QDebug>
+#include "ui_videoInfo.h"
+
+#include <QApplication>
+
+#include <KDebug>
 #include <KIO/Job>
 #include <KUrl>
 #include <KIcon>
 #include <KToolInvocation>
 #include <KLocalizedString>
-#include <QApplication>
-#include "ui_videoInfo.h"
 
 const QByteArray YoutubeJob::developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
 
@@ -37,7 +39,7 @@ YoutubeJob::YoutubeJob(const KUrl& url, QObject* parent)
 
 void YoutubeJob::start()
 {
-    qDebug() << "Job started";
+    kDebug() << "Job started";
     checkWallet();
 }
 
@@ -67,7 +69,7 @@ void YoutubeJob::checkWallet()
 
 void YoutubeJob::fileOpened(KIO::Job *job, const QByteArray &data)
 {
-    qDebug() << "fileOPened!!";
+    kDebug() << "fileOPened!!";
     job->suspend();
     #warning do something to evade the cast? like adding a metadata?
     KIO::SimpleJob *simpleJob = static_cast<KIO::SimpleJob*>(job);
@@ -116,7 +118,7 @@ finalData.append("</entry>");
     finalData.append("\r\n");
     finalData.append("\r\n");
     finalData.append(data);
-//     qDebug() << finalData;
+//     kDebug() << finalData;
     KUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
     uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
     uploadJob->addMetaData("cookies","none");
@@ -133,7 +135,7 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
 {
     job->suspend();
     if(data.size() == 0){
-        qDebug() << "Data is zero, going to end this!";
+        kDebug() << "Data is zero, going to end this!";
         disconnect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadNeedData()));
         connect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadFinal()));
 
@@ -141,8 +143,8 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
         final.append("--foobarfoo--");
         uploadJob->sendAsyncData(final);
     }else{
-        qDebug() << "Sending more data....";
-//         qDebug() << data;
+        kDebug() << "Sending more data....";
+//         kDebug() << data;
         uploadJob->sendAsyncData(data);
     }
 }
@@ -150,27 +152,27 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
 void YoutubeJob::uploadFinal()
 {
     //Sending an empty QByteArray the job ends
-    qDebug() << "Sendind the empty packed";
+    kDebug() << "Sendind the empty packed";
     uploadJob->sendAsyncData(QByteArray());
 }
 
 void YoutubeJob::uploadNeedData()
 {
-    qDebug() << "openFile job resumed!";
+    kDebug() << "openFile job resumed!";
     openFileJob->resume();
 }
 
 void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
 {
-    qDebug() << "Upload Response";
-//     qDebug() << data.data();
+    kDebug() << "Upload Response";
+//     kDebug() << data.data();
     QString dataStr(data);
     QRegExp rx("<media:player url='(\\S+)'/>");
     dataStr.contains(rx);
-//     qDebug() << rx.cap(1);
+//     kDebug() << rx.cap(1);
     KUrl url = rx.cap(1);
     if (!url.isEmpty()) {
-        qDebug() << "Url : " << url.url();
+        kDebug() << "Url : " << url.url();
         job->kill();
         KToolInvocation::invokeBrowser(url.url());
         emit emitResult();
@@ -235,14 +237,14 @@ void YoutubeJob::login()
 void YoutubeJob::loginDone(KIO::Job *job, const QByteArray &data)
 {
     delete job;
-    qDebug() << "LoginDone, data received\n";
-//     qDebug() << data.data();
+    kDebug() << "LoginDone, data received\n";
+//     kDebug() << data.data();
     if(data.at(0) == 'E'){
         authenticated(false);
     }else{
         QList<QByteArray> tokens = data.split('\n');
         m_authToken = tokens.first().remove(0,5);
-        qDebug() << "Final AuthToken: " << m_authToken.data();
+        kDebug() << "Final AuthToken: " << m_authToken.data();
         authenticated(true);
     }
 }
@@ -289,7 +291,7 @@ bool YoutubeJob::showDialog()
 
 void YoutubeJob::authenticated(bool auth)
 {
-    qDebug() << "Authentification: " << auth ;
+    kDebug() << "Authentification: " << auth ;
     if(auth == false){
         if(showDialog()){
             login();
@@ -298,7 +300,7 @@ void YoutubeJob::authenticated(bool auth)
     }
     QMap<QString, QString> videoInfo;
     m_videoInfo = showVideoDialog();
-    qDebug() << "File To Upload: " << m_url.path();
+    kDebug() << "File To Upload: " << m_url.path();
     openFileJob = KIO::get(m_url,KIO::NoReload,KIO::HideProgressInfo);
     connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
     openFileJob->start();

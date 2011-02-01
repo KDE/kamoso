@@ -17,6 +17,14 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
+#include "kipiplugin_youtube.h"
+#include "youtubejobcomposite.h"
+#include "youtubejob.h"
+
+#include <QAction>
+#include <QApplication>
+#include <QDesktopServices>
+
 #include <KPluginFactory>
 #include <KAboutData>
 #include <KMimeType>
@@ -25,16 +33,9 @@
 #include <KDialog>
 #include <KMessageBox>
 #include <kpassworddialog.h>
-
-#include <QAction>
-#include <QApplication>
-#include <QDebug>
-#include <QDesktopServices>
 #include <kwallet.h>
-#include "kipiplugin_youtube.h"
-#include "youtubejob.h"
+#include <KDebug>
 #include <libkipi/interface.h>
-#include "youtubejobcomposite.h"
 
 using KWallet::Wallet;
 
@@ -52,7 +53,7 @@ KJob* YoutubePlugin::exportFiles(const QString& albumname)
     KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
     YoutubeJobComposite* job = new YoutubeJobComposite();
     foreach(const KUrl& url, interface->currentSelection().images()) {
-        qDebug() << "Url to upload: " << url;
+        kDebug() << "Url to upload: " << url;
         job->addYoutubeJob(new YoutubeJob(url));
     }
     return job;

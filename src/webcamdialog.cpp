@@ -17,7 +17,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <QDebug>
+#include <KDebug>
 #include <KLocale>
 #include "webcamdialog.h"
 
@@ -46,7 +46,7 @@ void WebcamDialog::updateSettings()
 {
     Q_ASSERT(configManager);
     if(hasChanged() == true) {
-        qDebug() << "Settings changed";
+        kDebug() << "Settings changed";
         configManager->updateDefaultValues();
         settingsChangedSlot();
     }
@@ -54,7 +54,7 @@ void WebcamDialog::updateSettings()
 
 void WebcamDialog::updateWidgetsDefault()
 {
-    qDebug() << "updates widget!";
+    kDebug() << "updates widget!";
     KConfigDialog::updateWidgetsDefault();
     configManager->updateWidgetsDefault();
 }

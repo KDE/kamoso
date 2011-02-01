@@ -18,7 +18,8 @@
  *************************************************************************************/
 
 #include "pagewebcamconfigmanager.h"
-#include <QDebug>
+
+#include <KDebug>
 
 struct Private
 {
@@ -66,7 +67,7 @@ void PageWebcamConfigManager::updateDefaultValues()
 
 void PageWebcamConfigManager::updateWidgetsDefault()
 {
-    qDebug() << "Setting default values to sliders";
+    kDebug() << "Setting default values to sliders";
     d->pageWebcam->brightnessSlider->setValue(0);
     d->pageWebcam->contrastSlider->setValue(100);
     d->pageWebcam->saturationSlider->setValue(100);
