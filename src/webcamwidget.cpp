@@ -122,6 +122,7 @@ void WebcamWidget::playFile(const Device &device)
     //End of the road
         " ! fakesink name=fakesink";
 
+    kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
     d->m_bin = QGst::Bin::fromDescription(pipe.constData());
     d->m_pipeline->add(d->m_bin);
@@ -131,6 +132,7 @@ void WebcamWidget::playFile(const Device &device)
     setVideoSink(d->m_bin->getElementByName("videosink"));
 
     d->m_pipeline->setState(QGst::StateReady);
+    kDebug() << "================ Capabilities ================";
     kDebug() << d->m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->caps()->toString();
     d->m_pipeline->setState(QGst::StatePlaying);
 }
