@@ -130,6 +130,8 @@ void WebcamWidget::playFile(const Device &device)
     releaseVideoSink();
     setVideoSink(d->m_bin->getElementByName("videosink"));
 
+    d->m_pipeline->setState(QGst::StateReady);
+    kDebug() << d->m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->caps()->toString();
     d->m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -305,7 +307,7 @@ QByteArray WebcamWidget::basicPipe()
     QByteArray pipe;
 
     //Video source device=/dev/video0 for example
-    pipe += "v4l2src device="+d->playingFile.toLatin1();
+    pipe += "v4l2src name=v4l2src device="+d->playingFile.toLatin1();
 
     //Accepted capabilities
     pipe +=
