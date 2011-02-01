@@ -37,6 +37,7 @@ Device::Device(const Solid::Device *device)
         if ( protocols.contains( "video4linux" ) )
         {
             QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
+            kDebug() << drivers;
             if ( drivers.contains( "video4linux" ) )
             {
                 m_path = solidVideoDevice->driverHandle( "video4linux" ).toString();
