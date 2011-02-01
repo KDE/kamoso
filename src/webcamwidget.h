@@ -61,6 +61,7 @@ Q_SIGNALS:
 private:
     WebcamWidget(QWidget* parent);
     QByteArray phononCaptureDevice();
+    QByteArray basicPipe();
     void setDevice(const Device &device);
     float convertAdjustValue(int level);
 

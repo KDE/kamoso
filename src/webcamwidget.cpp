@@ -114,12 +114,16 @@ void WebcamWidget::playFile(const Device &device)
     }
     d->m_pipeline = QGst::Pipeline::create();
 
-    QByteArray desc;
-    desc.append("v4l2src device="+d->playingFile.toLatin1()+" ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue name=linkQueue ! ffmpegcolorspace !");
-    desc.append(GST_VIDEO_CAPS_xRGB_HOST_ENDIAN);
-    desc.append("! fakesink name=fakesink");
+    QByteArray pipe = basicPipe();
 
-    d->m_bin = QGst::Bin::fromDescription(desc.data());
+    //Set the right colorspace to convert to QImage
+    pipe += " ! ffmpegcolorspace ! "
+            GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
+    //End of the road
+        " ! fakesink name=fakesink";
+
+    kDebug() << pipe;
+    d->m_bin = QGst::Bin::fromDescription(pipe.constData());
     d->m_pipeline->add(d->m_bin);
 
     setVideoSettings();
@@ -229,10 +233,28 @@ void WebcamWidget::recordVideo(bool sound)
     kDebug() << d->videoTmpPath;
     kDebug() << "Sound: " << sound;
 
-    QByteArray str = "v4l2src device="+d->playingFile.toLatin1()+" ! video/x-raw-yuv, width=640, height=480, framerate=15/1 ! gamma name=gamma ! videobalance name=videoBalance ! tee name=duplicate ! queue ! xvimagesink name=videosink duplicate. ! queue ! theoraenc ! queue ! mux. alsasrc ! audio/x-raw-int,rate=48000,channels=2,depth=16 ! queue ! audioconvert ! queue ! vorbisenc ! queue ! mux. matroskamux name=mux ! filesink location=";
-    str.append(d->videoTmpPath);
-    kDebug() << str;
-    QGst::BinPtr bin = QGst::Bin::fromDescription(str.data());
+    QByteArray pipe = basicPipe();
+
+    pipe +=
+        //Use THEORA as video codec
+        " ! theoraenc"
+        " ! queue"
+        //Get the audio from alsa
+        " ! mux. alsasrc "
+        //Sound type and quality
+        " ! audio/x-raw-int,rate=48000,channels=2,depth=16 "
+        //Encode sound as vorbis
+        " ! queue ! audioconvert ! queue "
+        " ! vorbisenc "
+        " ! queue "
+        //Save everything in a matroska container
+        " ! mux. matroskamux name=mux "
+        //Save file in...
+        " ! filesink location=";
+
+    pipe += d->videoTmpPath;
+    kDebug() << pipe;
+    QGst::BinPtr bin = QGst::Bin::fromDescription(pipe.constData());
     d->m_pipeline->setState(QGst::StateNull);
 
     d->m_pipeline->remove(d->m_bin);
@@ -276,6 +298,36 @@ QByteArray WebcamWidget::phononCaptureDevice()
     }
 
     return QByteArray();
+}
+
+QByteArray WebcamWidget::basicPipe()
+{
+    QByteArray pipe;
+
+    //Video source device=/dev/video0 for example
+    pipe += "v4l2src device="+d->playingFile.toLatin1();
+
+    //Accepted capabilities
+    pipe +=
+    " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
+       "video/x-raw-yuv, width=640, height=480, framerate=30/1;"
+       "video/x-raw-rgb, width=640, height=480, framerate=15/1;"
+       "video/x-raw-rgb, width=640, height=480, framerate=30/1"
+
+    //Basic plug-in for video controls
+    " ! gamma name=gamma"
+    " ! videobalance name=videoBalance"
+
+    //Pipeline fork
+    " ! tee name=duplicate"
+
+    //Video output
+    " ! queue ! xvimagesink name=videosink duplicate."
+
+    //Queue for the rest of the pipeline which is custom for playFile and recordVideo
+    " ! queue name=linkQueue";
+
+    return pipe;
 }
 
 void WebcamWidget::setBrightness(int level)
