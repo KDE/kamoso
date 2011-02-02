@@ -1,0 +1,21 @@
+We depend on the following gstreamer source modules:
+gstreamer
+gst-plugins-base
+gst-plugins-good
+
+And in more detail, on the following plugins (this information may be useful if your distribution package the gstreamer plugins in a different way):
+tee
+queue
+gamma
+v4l2src
+alsasrc
+filesink
+fakesink
+theoraenc
+vorbisenc
+xvimagesink
+matroskamux
+videobalance
+ffmpegcolorspace
+
+Also, to get Facebook support we depend of kipi-facebook (normally packaged just within kipi-plugins).
