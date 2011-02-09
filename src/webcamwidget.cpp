@@ -53,6 +53,7 @@
 #include <QGst/Structure>
 #include <QGst/Clock>
 #include <QGst/Init>
+#include <QGst/XOverlay>
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
@@ -135,6 +136,16 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline->add(d->m_bin);
 
     d->m_pipeline->setState(QGst::StateReady);
+    QGst::BinPtr sink = d->m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
+
+    QGlib::RefPointer<QGst::XOverlay> over =  sink->getElementByInterface<QGst::XOverlay>();
+    over->findProperty("force-aspect-ratio");
+
+    if (over->findProperty("force-aspect-ratio")) {
+        kDebug() << "Setting aspect ratio";
+        over->setProperty("force-aspect-ratio", true);
+    }
+
     setVideoSettings();
 
     kDebug() << "================ Capabilities ================";
