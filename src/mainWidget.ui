@@ -89,7 +89,7 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: red;</string>
+        <string notr="true"/>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="margin">
