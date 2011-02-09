@@ -49,7 +49,7 @@
 #include <QGst/Pad>
 #include <QGst/ElementFactory>
 #include <QGst/VideoOrientation>
-#include <QGlib/connect.h>
+#include <QGlib/Connect>
 #include <QGst/Structure>
 #include <QGst/Clock>
 #include <QGst/Init>
