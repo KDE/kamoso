@@ -41,7 +41,7 @@ public:
     ~WebcamWidget();
 
     void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad);
-
+    virtual QSize sizeHint() const;
 public Q_SLOTS:
     void playFile(const Device& device);
     bool takePhoto(const KUrl &dest);

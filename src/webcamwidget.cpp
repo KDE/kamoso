@@ -242,6 +242,11 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     QGlib::disconnect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
 }
 
+QSize WebcamWidget::sizeHint() const
+{
+    return QSize(533, 350);
+}
+
 void WebcamWidget::fileSaved(KJob *job)
 {
     KIO::CopyJob *copy = static_cast<KIO::CopyJob *>(job);
