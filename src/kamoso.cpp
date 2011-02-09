@@ -106,8 +106,7 @@ Kamoso::Kamoso(QWidget* parent)
 //First row Stuff, at the moment only webcam is placed here
 //Setting webcam in the first row, central spot
 
-    m_webcam = WebcamWidget::createInstance(this);
-    m_webcam->setParent(mainWidgetUi->centralSpot);
+    m_webcam = WebcamWidget::createInstance(mainWidgetUi->centralSpot);
     m_webcam->setMinimumSize(640,480);
 
     connect(m_webcam, SIGNAL(fileSaved(KUrl)), this, SLOT(fileSaved(KUrl)));
