@@ -250,7 +250,7 @@ void WebcamWidget::recordVideo(bool sound)
         " ! theoraenc"
         " ! queue"
         //Get the audio from alsa
-        " ! mux. alsasrc "
+        " ! mux. autoaudiosrc "
         //Sound type and quality
         " ! audio/x-raw-int,rate=48000,channels=2,depth=16 "
         //Encode sound as vorbis
