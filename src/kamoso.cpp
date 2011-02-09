@@ -107,7 +107,8 @@ Kamoso::Kamoso(QWidget* parent)
 //Setting webcam in the first row, central spot
 
     m_webcam = WebcamWidget::createInstance(mainWidgetUi->centralSpot);
-    m_webcam->setMinimumSize(640,480);
+    mainWidgetUi->centralSpot->layout()->addWidget(m_webcam);
+    m_webcam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     connect(m_webcam, SIGNAL(fileSaved(KUrl)), this, SLOT(fileSaved(KUrl)));
 
