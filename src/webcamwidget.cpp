@@ -96,6 +96,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 WebcamWidget::~WebcamWidget()
 {
     d->m_pipeline->setState(QGst::StateNull);
+    stopPipelineWatch();
 }
 
 void WebcamWidget::setVideoSettings()
@@ -123,7 +124,7 @@ void WebcamWidget::playFile(const Device &device)
     kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
 
-    if (d->m_bin->getState() != QGst::StateNull) {
+    if (d->m_pipeline->currentState() != QGst::StateNull) {
         d->m_pipeline->setState(QGst::StateNull);
     }
     if (!d->m_bin.isNull()) {
@@ -270,9 +271,8 @@ void WebcamWidget::recordVideo(bool sound)
     d->m_pipeline->add(bin);
     d->m_bin = bin;
 
-    releaseVideoSink();
+    d->m_pipeline->setState(QGst::StateReady);
     setVideoSettings();
-    setVideoSink(bin->getElementByName("videosink"));
     d->m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -331,7 +331,7 @@ QByteArray WebcamWidget::basicPipe()
     " ! tee name=duplicate"
 
     //Video output
-    " ! queue ! autovideosink name=videosink duplicate."
+    " ! queue ! videoscale ! autovideosink name=videosink duplicate."
 
     //Queue for the rest of the pipeline which is custom for playFile and recordVideo
     " ! queue name=linkQueue";
