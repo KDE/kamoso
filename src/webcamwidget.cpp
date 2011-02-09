@@ -139,7 +139,6 @@ void WebcamWidget::playFile(const Device &device)
     QGst::BinPtr sink = d->m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
 
     QGlib::RefPointer<QGst::XOverlay> over =  sink->getElementByInterface<QGst::XOverlay>();
-    over->findProperty("force-aspect-ratio");
 
     if (over->findProperty("force-aspect-ratio")) {
         kDebug() << "Setting aspect ratio";
