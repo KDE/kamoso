@@ -89,6 +89,8 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
     QGst::init();
+    d->m_pipeline = QGst::Pipeline::create();
+    watchPipeline(d->m_pipeline);
 }
 
 WebcamWidget::~WebcamWidget()
@@ -109,10 +111,6 @@ void WebcamWidget::playFile(const Device &device)
 {
     kDebug() << device.path();
     setDevice(device);
-    if (!d->m_pipeline.isNull()) {
-        d->m_pipeline->setState(QGst::StateNull);
-    }
-    d->m_pipeline = QGst::Pipeline::create();
 
     QByteArray pipe = basicPipe();
 
@@ -124,14 +122,20 @@ void WebcamWidget::playFile(const Device &device)
 
     kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
+
+    if (d->m_bin->getState() != QGst::StateNull) {
+        d->m_pipeline->setState(QGst::StateNull);
+    }
+    if (!d->m_bin.isNull()) {
+        d->m_pipeline->remove(d->m_bin);
+    }
+
     d->m_bin = QGst::Bin::fromDescription(pipe.constData());
     d->m_pipeline->add(d->m_bin);
 
-    setVideoSettings();
-    releaseVideoSink();
-    setVideoSink(d->m_bin->getElementByName("videosink"));
-
     d->m_pipeline->setState(QGst::StateReady);
+    setVideoSettings();
+
     kDebug() << "================ Capabilities ================";
     kDebug() << d->m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->caps()->toString();
     d->m_pipeline->setState(QGst::StatePlaying);
@@ -327,7 +331,7 @@ QByteArray WebcamWidget::basicPipe()
     " ! tee name=duplicate"
 
     //Video output
-    " ! queue ! xvimagesink name=videosink duplicate."
+    " ! queue ! autovideosink name=videosink duplicate."
 
     //Queue for the rest of the pipeline which is custom for playFile and recordVideo
     " ! queue name=linkQueue";
