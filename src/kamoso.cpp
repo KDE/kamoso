@@ -398,7 +398,7 @@ Kamoso::~Kamoso()
 void Kamoso::startCountdown(qreal minimumTime)
 {
     kDebug() << Settings::photoTime();
-    int time = qMax(minimumTime, 1000.*Settings::photoTime());
+    int time = qMax(minimumTime, qreal(1000.*Settings::photoTime()));
 
     m_countdown->start(time);
     //hidding all non-semaphore widgets
