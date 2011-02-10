@@ -135,15 +135,8 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline->add(d->m_bin);
 
     d->m_pipeline->setState(QGst::StateReady);
-    QGst::BinPtr sink = d->m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
 
-    QGlib::RefPointer<QGst::XOverlay> over =  sink->getElementByInterface<QGst::XOverlay>();
-
-    if (over->findProperty("force-aspect-ratio")) {
-        kDebug() << "Setting aspect ratio";
-        over->setProperty("force-aspect-ratio", true);
-    }
-
+    activeAspectRatio();
     setVideoSettings();
 
     kDebug() << "================ Capabilities ================";
@@ -286,6 +279,7 @@ void WebcamWidget::recordVideo(bool sound)
     d->m_bin = bin;
 
     d->m_pipeline->setState(QGst::StateReady);
+    activeAspectRatio();
     setVideoSettings();
     d->m_pipeline->setState(QGst::StatePlaying);
 }
@@ -381,3 +375,16 @@ float WebcamWidget::convertAdjustValue(int level)
 {
     return 0.0;
 }
+
+void WebcamWidget::activeAspectRatio()
+{
+    QGst::BinPtr sink = d->m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
+
+    QGlib::RefPointer<QGst::XOverlay> over =  sink->getElementByInterface<QGst::XOverlay>();
+
+    if (over->findProperty("force-aspect-ratio")) {
+        kDebug() << "Setting aspect ratio";
+        over->setProperty("force-aspect-ratio", true);
+    }
+}
+

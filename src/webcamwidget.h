@@ -64,6 +64,7 @@ private:
     QByteArray basicPipe();
     void setDevice(const Device &device);
     float convertAdjustValue(int level);
+    void activeAspectRatio();
 
 private:
     static WebcamWidget* s_instance;
