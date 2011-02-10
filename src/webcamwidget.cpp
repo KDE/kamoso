@@ -47,6 +47,7 @@
 #include <QGst/Parse>
 #include <QGst/Buffer>
 #include <QGst/Pad>
+#include <QGst/Fourcc>
 #include <QGst/ElementFactory>
 #include <QGst/VideoOrientation>
 #include <QGlib/Connect>
@@ -90,6 +91,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
     QGst::init();
+
     d->m_pipeline = QGst::Pipeline::create();
     watchPipeline(d->m_pipeline);
 }
@@ -117,10 +119,7 @@ void WebcamWidget::playFile(const Device &device)
     QByteArray pipe = basicPipe();
 
     //Set the right colorspace to convert to QImage
-    pipe += " ! ffmpegcolorspace ! "
-            GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
-    //End of the road
-        " ! fakesink name=fakesink";
+    pipe += " ! fakesink name=fakesink";
 
     kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
@@ -186,9 +185,9 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     kDebug() << "Name: " << structure.data()->name();
 
     if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
-        uint fourcc = structure.data()->value("format").get<uint>();
-
-        if (fourcc == GST_MAKE_FOURCC('I','4','2','0')) {
+        QGst::Fourcc fourcc = structure->value("format").get<QGst::Fourcc>();
+        kDebug() << "fourcc: " << fourcc.value.as_integer;
+        if (fourcc.value.as_integer == QGst::Fourcc("I420").value.as_integer) {
             img = QImage(width/2, height/2, QImage::Format_RGB32);
 
             const uchar *data = (const uchar *)buffer->data();
@@ -333,10 +332,9 @@ QByteArray WebcamWidget::basicPipe()
 
     //Accepted capabilities
     pipe +=
+    " ! ffmpegcolorspace"
     " ! video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=15/1;"
-       "video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=30/1;"
-       "video/x-raw-rgb, width=640, height=480, framerate=15/1;"
-       "video/x-raw-rgb, width=640, height=480, framerate=30/1"
+       "video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=30/1"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"
