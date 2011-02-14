@@ -97,7 +97,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
 
     d->m_pipeline = QGst::Pipeline::create();
     d->m_pipeline->bus()->addSignalWatch();
-    QGlib::connect(d->m_pipeline->bus(), "message:error", this, &WebcamWidget::onBusMessage);
+    QGlib::connect(d->m_pipeline->bus(), "message::error", this, &WebcamWidget::onBusMessage);
 
     watchPipeline(d->m_pipeline);
 }
