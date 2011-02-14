@@ -51,6 +51,7 @@
 #include <QGst/ElementFactory>
 #include <QGst/VideoOrientation>
 #include <QGlib/Connect>
+#include <QGlib/Error>
 #include <QGst/Structure>
 #include <QGst/Clock>
 #include <QGst/Init>
@@ -131,9 +132,13 @@ void WebcamWidget::playFile(const Device &device)
         d->m_pipeline->remove(d->m_bin);
     }
 
-    d->m_bin = QGst::Bin::fromDescription(pipe.constData());
+    try {
+        d->m_bin = QGst::Bin::fromDescription(pipe.constData());
+    } catch (const QGlib::Error & error) {
+        kDebug() << error;
+        return;
+    }
     d->m_pipeline->add(d->m_bin);
-
     d->m_pipeline->setState(QGst::StateReady);
 
     activeAspectRatio();
@@ -271,7 +276,15 @@ void WebcamWidget::recordVideo(bool sound)
 
     pipe += d->videoTmpPath;
     kDebug() << pipe;
-    QGst::BinPtr bin = QGst::Bin::fromDescription(pipe.constData());
+
+    QGst::BinPtr bin;
+    try {
+        bin = QGst::Bin::fromDescription(pipe.constData());
+    } catch (const QGlib::Error & error) {
+        kDebug() << error;
+        return;
+    }
+
     d->m_pipeline->setState(QGst::StateNull);
 
     d->m_pipeline->remove(d->m_bin);
