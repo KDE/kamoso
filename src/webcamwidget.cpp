@@ -56,8 +56,10 @@
 #include <QGst/Clock>
 #include <QGst/Init>
 #include <QGst/XOverlay>
+#include <QGst/Message>
 #include <gst/gst.h>
 #include <gst/video/video.h>
+#include <QGst/Bus>
 
 struct WebcamWidget::Private
 {
@@ -94,6 +96,9 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     QGst::init();
 
     d->m_pipeline = QGst::Pipeline::create();
+    d->m_pipeline->bus()->addSignalWatch();
+    QGlib::connect(d->m_pipeline->bus(), "message:error", this, &WebcamWidget::onBusMessage);
+
     watchPipeline(d->m_pipeline);
 }
 
@@ -401,3 +406,8 @@ void WebcamWidget::activeAspectRatio()
     }
 }
 
+void WebcamWidget::onBusMessage(const QGst::MessagePtr& message)
+{
+    kDebug() << message.staticCast<QGst::ErrorMessage>()->error();
+    return;
+}

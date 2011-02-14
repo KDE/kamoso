@@ -65,6 +65,7 @@ private:
     void setDevice(const Device &device);
     float convertAdjustValue(int level);
     void activeAspectRatio();
+    void onBusMessage(const QGst::MessagePtr &message);
 
 private:
     static WebcamWidget* s_instance;
