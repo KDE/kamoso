@@ -125,7 +125,9 @@ void WebcamWidget::playFile(const Device &device)
     QByteArray pipe = basicPipe();
 
     //Set the right colorspace to convert to QImage
-    pipe += " ! fakesink name=fakesink";
+    pipe += " ! ffmpegcolorspace ! "
+            GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
+            " ! fakesink name=fakesink";
 
     kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
