@@ -346,6 +346,8 @@ QByteArray WebcamWidget::basicPipe()
 
     //Accepted capabilities
     pipe +=
+    " ! video/x-raw-yuv, width=640, height=480;"
+    "   video/x-raw-rgb, width=640, height=480"
     " ! ffmpegcolorspace"
     " ! video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=15/1;"
        "video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=30/1"
