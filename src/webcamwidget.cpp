@@ -347,8 +347,8 @@ QByteArray WebcamWidget::basicPipe()
     //Accepted capabilities
     pipe +=
     " ! ffmpegcolorspace"
-    " ! video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=15/1;"
-       "video/x-raw-yuv, format=(fourcc)I420, width=640, height=480, framerate=30/1"
+    " ! video/x-raw-yuv, width=640, height=480, framerate=30/1;"
+       "video/x-raw-yuv, width=640, height=480, framerate=15/1"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"
