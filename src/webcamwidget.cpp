@@ -114,6 +114,9 @@ void WebcamWidget::setVideoSettings()
 void WebcamWidget::playFile(const Device &device)
 {
     kDebug() << device.path();
+    if (device.path().isEmpty()) {
+        return;
+    }
     setDevice(device);
 
     QByteArray pipe = basicPipe();
@@ -146,6 +149,9 @@ void WebcamWidget::playFile(const Device &device)
 
 void WebcamWidget::setDevice(const Device &device)
 {
+    if (device.path().isEmpty()) {
+        return;
+    }
     kDebug() << device.udi();
     d->device = device;
     d->playingFile = device.path();
@@ -154,6 +160,9 @@ void WebcamWidget::setDevice(const Device &device)
 
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
+    if (d->device.path().isEmpty()) {
+        return false;
+    }
     kDebug() << dest;
     d->destination = dest;
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
@@ -246,6 +255,9 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
+    if (d->device.path().isEmpty()) {
+        return;
+    }
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
     kDebug() << d->videoTmpPath;
     kDebug() << "Sound: " << sound;
