@@ -445,6 +445,7 @@ void Kamoso::stopCountdown()
     mainWidgetUi->scrollRight->show();
     mainWidgetUi->thumbnailView->show();
     m_countdown->hide();
+    m_countdown->stop();
 }
 
 /**
