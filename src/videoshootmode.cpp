@@ -37,7 +37,7 @@ VideoShootMode::VideoShootMode(Kamoso* camera)
 
 void VideoShootMode::deactivate()
 {
-    //Do nothing at the moment
+    controller()->stopVideo();
 }
 
 QWidget* VideoShootMode::mainAction()
