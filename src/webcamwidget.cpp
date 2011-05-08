@@ -66,6 +66,7 @@ struct WebcamWidget::Private
     Device device;
     KUrl destination;
     int brightness;
+    bool m_recording;
 
     QGst::PipelinePtr m_pipeline;
     QGst::BinPtr m_bin;
@@ -90,6 +91,7 @@ WebcamWidget* WebcamWidget::self()
 WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
+    d->m_recording = false;
     QGst::init();
 
     d->m_pipeline = QGst::Pipeline::create();
@@ -294,15 +296,23 @@ void WebcamWidget::recordVideo(bool sound)
     activeAspectRatio();
     setVideoSettings();
     d->m_pipeline->setState(QGst::StatePlaying);
+
+    d->m_recording = true;
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
 {
+    if (!d->m_recording) {
+        return;
+    }
+
     kDebug() << destUrl;
     KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
     connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
     job->setAutoDelete(true);
     job->start();
+
+    d->m_recording = false;
 }
 
 #if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 3)
