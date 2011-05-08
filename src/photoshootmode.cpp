@@ -39,6 +39,7 @@ PhotoShootMode::PhotoShootMode(Kamoso* camera)
 
 void PhotoShootMode::deactivate()
 {
+    controller()->stopCountdown();
     disconnect(controller()->countdown(), SIGNAL(finished()),this ,SLOT(release()));
 }
 

@@ -32,6 +32,7 @@ BurstShootMode::BurstShootMode(Kamoso* camera)
 
 void BurstShootMode::deactivate()
 {
+    controller()->stopCountdown();
     disconnect(controller()->countdown(), SIGNAL(finished()),this, SLOT(keepTaking()));
 }
 
