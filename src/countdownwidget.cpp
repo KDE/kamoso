@@ -44,6 +44,11 @@ void CountdownWidget::start(int timeInterval)
     mTimer->start();
 }
 
+void CountdownWidget::stop()
+{
+    mTimer->stop();
+}
+
 void CountdownWidget::tick(qreal progress)
 {
     mProgress=progress;

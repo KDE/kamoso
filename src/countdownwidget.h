@@ -35,6 +35,7 @@ Q_OBJECT
         virtual void hideEvent(QHideEvent* );
 
         void start(int timeInterval);
+        void stop();
 
     private Q_SLOTS:
         void tick(qreal progress);
