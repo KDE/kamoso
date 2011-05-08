@@ -336,11 +336,15 @@ void Kamoso::configuration()
 
     //the values are in X.X form while the sliders use integer so we device by 100;
     Device device = deviceManager->playingDevice();
-    pageWebcam->brightnessSlider->setValue(device.brightness());
-    pageWebcam->contrastSlider->setValue(device.contrast());
-    pageWebcam->saturationSlider->setValue(device.saturation());
-    pageWebcam->gammaSlider->setValue(device.gamma());
-    pageWebcam->hueSlider->setValue(device.hue());
+    if (!device.path().isEmpty()) {
+        pageWebcam->brightnessSlider->setValue(device.brightness());
+        pageWebcam->contrastSlider->setValue(device.contrast());
+        pageWebcam->saturationSlider->setValue(device.saturation());
+        pageWebcam->gammaSlider->setValue(device.gamma());
+        pageWebcam->hueSlider->setValue(device.hue());
+    } else {
+        widgetWebcamPage->setEnabled(false);
+    }
 
     PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
     dialog->setPageWebcamConfigManager(configManager);
