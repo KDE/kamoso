@@ -172,7 +172,7 @@ Kamoso::Kamoso(QWidget* parent)
 
     whiteWidgetManager = new WhiteWidgetManager(this);
     mainWidgetUi->thirdRow->addWidget(m_countdown);
-    
+
     connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
     const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
     player = Phonon::createPlayer(Phonon::NotificationCategory);
