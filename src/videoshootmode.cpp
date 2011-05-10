@@ -19,6 +19,8 @@
 
 
 #include "videoshootmode.h"
+#include "devicemanager.h"
+
 #include <QPushButton>
 #include <KIcon>
 #include <KLocalizedString>
@@ -55,7 +57,7 @@ QWidget* VideoShootMode::mainAction()
 
 void VideoShootMode::videoPressed(bool pressed)
 {
-    if(pressed) {
+    if(pressed && DeviceManager::self()->hasDevices()) {
         controller()->startVideo(mActions.first()->isChecked());
     } else {
         controller()->stopVideo();
