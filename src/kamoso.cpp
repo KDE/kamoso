@@ -631,6 +631,9 @@ void Kamoso::changeMode(bool pressed)
         m_activeMode->deactivate();
     }
     
+    if(m_activeMode==m_modes[i])
+        return;
+    
     m_activeMode=m_modes[i];
     dirModel->dirLister()->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
     if(!dirModel->dirLister()->url().isEmpty())
