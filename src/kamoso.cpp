@@ -612,6 +612,7 @@ void Kamoso::changeMode(bool pressed)
     if(!pressed) {
         return;
     }
+    mainWidgetUi->thumbnailView->clearWaiting();
 
     QToolButton* tb = qobject_cast<QToolButton*>(sender());
     if(!tb) {
@@ -629,6 +630,7 @@ void Kamoso::changeMode(bool pressed)
     if(m_activeMode) {
         m_activeMode->deactivate();
     }
+    
     m_activeMode=m_modes[i];
     dirModel->dirLister()->setMimeFilter(m_activeMode->thumbnailsViewMimeTypes());
     if(!dirModel->dirLister()->url().isEmpty())

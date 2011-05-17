@@ -29,8 +29,10 @@ ThumbnailView::ThumbnailView(QWidget* parent) : QListView(parent)
 
 void ThumbnailView::previewAvailable(const KFileItem& file, const QPixmap& pic)
 {
-    m_repo.insert(file.url(), pic);
-    update(m_waiting.take(file.url()));
+    if(m_waiting.contains(file.url())) {
+        m_repo.insert(file.url(), pic);
+        update(m_waiting.take(file.url()));
+    }
 }
 
 void ThumbnailView::assignDelegate()
@@ -97,4 +99,9 @@ void ThumbnailView::mouseReleaseEvent ( QMouseEvent * event )
 CustomDelegate* ThumbnailView::delegate() const
 {
     return qobject_cast<CustomDelegate*>(itemDelegate());
+}
+
+void ThumbnailView::clearWaiting()
+{
+    m_waiting.clear();
 }

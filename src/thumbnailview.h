@@ -51,6 +51,7 @@ Q_OBJECT
         int xValue() const { return m_xProperty->endValue().toInt(); }
 
         CustomDelegate* delegate() const;
+        void clearWaiting();
 
     protected:
         virtual void mousePressEvent(QMouseEvent* event);
