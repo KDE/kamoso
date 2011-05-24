@@ -69,6 +69,7 @@ struct WebcamWidget::Private
     Device device;
     KUrl destination;
     int brightness;
+    bool m_recording;
 
     QGst::PipelinePtr m_pipeline;
     QGst::BinPtr m_bin;
@@ -93,6 +94,7 @@ WebcamWidget* WebcamWidget::self()
 WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
+    d->m_recording = false;
     QGst::init();
 
     d->m_pipeline = QGst::Pipeline::create();
@@ -120,6 +122,9 @@ void WebcamWidget::setVideoSettings()
 void WebcamWidget::playFile(const Device &device)
 {
     kDebug() << device.path();
+    if (device.path().isEmpty()) {
+        return;
+    }
     setDevice(device);
 
     QByteArray pipe = basicPipe();
@@ -158,6 +163,9 @@ void WebcamWidget::playFile(const Device &device)
 
 void WebcamWidget::setDevice(const Device &device)
 {
+    if (device.path().isEmpty()) {
+        return;
+    }
     kDebug() << device.udi();
     d->device = device;
     d->playingFile = device.path();
@@ -166,6 +174,9 @@ void WebcamWidget::setDevice(const Device &device)
 
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
+    if (d->device.path().isEmpty()) {
+        return false;
+    }
     kDebug() << dest;
     d->destination = dest;
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
@@ -258,6 +269,9 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
+    if (d->device.path().isEmpty()) {
+        return;
+    }
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();
     kDebug() << d->videoTmpPath;
     kDebug() << "Sound: " << sound;
@@ -302,15 +316,23 @@ void WebcamWidget::recordVideo(bool sound)
     activeAspectRatio();
     setVideoSettings();
     d->m_pipeline->setState(QGst::StatePlaying);
+
+    d->m_recording = true;
 }
 
 void WebcamWidget::stopRecording(const KUrl &destUrl)
 {
+    if (!d->m_recording) {
+        return;
+    }
+
     kDebug() << destUrl;
     KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
     connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
     job->setAutoDelete(true);
     job->start();
+
+    d->m_recording = false;
 }
 
 #if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 3)
@@ -347,8 +369,10 @@ QByteArray WebcamWidget::basicPipe()
     //Accepted capabilities
     pipe +=
     " ! ffmpegcolorspace"
-    " ! video/x-raw-yuv, width=640, height=480, framerate=30/1;"
-       "video/x-raw-yuv, width=640, height=480, framerate=15/1"
+    " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
+    " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
+    " video/x-raw-yuv, width=640, height=480, framerate=30/1;"
+    " video/x-raw-yuv, width=352, height=288, framerate=15/1"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"

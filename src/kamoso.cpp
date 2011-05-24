@@ -172,7 +172,7 @@ Kamoso::Kamoso(QWidget* parent)
 
     whiteWidgetManager = new WhiteWidgetManager(this);
     mainWidgetUi->thirdRow->addWidget(m_countdown);
-    
+
     connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
     const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
     player = Phonon::createPlayer(Phonon::NotificationCategory);
@@ -336,11 +336,15 @@ void Kamoso::configuration()
 
     //the values are in X.X form while the sliders use integer so we device by 100;
     Device device = deviceManager->playingDevice();
-    pageWebcam->brightnessSlider->setValue(device.brightness());
-    pageWebcam->contrastSlider->setValue(device.contrast());
-    pageWebcam->saturationSlider->setValue(device.saturation());
-    pageWebcam->gammaSlider->setValue(device.gamma());
-    pageWebcam->hueSlider->setValue(device.hue());
+    if (!device.path().isEmpty()) {
+        pageWebcam->brightnessSlider->setValue(device.brightness());
+        pageWebcam->contrastSlider->setValue(device.contrast());
+        pageWebcam->saturationSlider->setValue(device.saturation());
+        pageWebcam->gammaSlider->setValue(device.gamma());
+        pageWebcam->hueSlider->setValue(device.hue());
+    } else {
+        widgetWebcamPage->setEnabled(false);
+    }
 
     PageWebcamConfigManager* configManager = new PageWebcamConfigManager(pageWebcam);
     dialog->setPageWebcamConfigManager(configManager);
@@ -445,6 +449,7 @@ void Kamoso::stopCountdown()
     mainWidgetUi->scrollRight->show();
     mainWidgetUi->thumbnailView->show();
     m_countdown->hide();
+    m_countdown->stop();
 }
 
 /**

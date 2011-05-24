@@ -18,6 +18,8 @@
  *************************************************************************************/
 
 #include "burstshootmode.h"
+#include "devicemanager.h"
+
 #include <KIcon>
 #include <KLocalizedString>
 #include <QAction>
@@ -32,6 +34,7 @@ BurstShootMode::BurstShootMode(Kamoso* camera)
 
 void BurstShootMode::deactivate()
 {
+    controller()->stopCountdown();
     disconnect(controller()->countdown(), SIGNAL(finished()),this, SLOT(keepTaking()));
 }
 
@@ -49,7 +52,11 @@ QWidget* BurstShootMode::mainAction()
 
 void BurstShootMode::stateChanged(bool pressed)
 {
-    mWorking=pressed;
+    if (!DeviceManager::self()->hasDevices()) {
+        return;
+    }
+
+    mWorking = pressed;
     keepTaking();
 }
 

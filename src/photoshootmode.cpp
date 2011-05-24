@@ -26,6 +26,7 @@
 
 #include <QAction>
 #include <QPushButton>
+#include "devicemanager.h"
 
 PhotoShootMode::PhotoShootMode(Kamoso* camera)
     : ShootMode(camera)
@@ -39,6 +40,7 @@ PhotoShootMode::PhotoShootMode(Kamoso* camera)
 
 void PhotoShootMode::deactivate()
 {
+    controller()->stopCountdown();
     disconnect(controller()->countdown(), SIGNAL(finished()),this ,SLOT(release()));
 }
 
@@ -62,7 +64,7 @@ void PhotoShootMode::release()
 
 void PhotoShootMode::shootClicked(bool pressed)
 {
-    if(pressed) {
+    if(pressed && DeviceManager::self()->hasDevices()) {
         controller()->startCountdown();
     } else {
         controller()->stopCountdown();
