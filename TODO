@@ -1,22 +1,15 @@
-Kamoso 2.0:
-  #Core
-    [AF] QtGstreamer
-    + Nepomuk integration
-    + s/\t/    /
+Kamoso 2.5:
+    #Core
+        [AF] Study port to Camerabin2
+        [AF] Negotiated capabilities
+        [AF] White balance
 
-  #Interface
-    + [AP] Restore "Open" and "Trash" in the menus.
-    + Improve File view
-      + Make context menu a non-hidden feature
-      + [AP] Improve file browsing (move away from KDirOperator?) (QML?)
-      + [AP] Overlay current jobs
-    + [AP] New semaphore
-    + [AP] Relayouting (maximize)
+Kamoso 3.0:
+    #Core
+        [AF] Make room for Effects
 
-  #Plugins
-    + Check if Youtube is working
-    + Review Youtube UI (auto fill form, add category).
-    + Check if Facebook plugin is working
-    · Twitpic
-    · Document how to create plugins
-    [AP] Facebook + Video support
+    #GUI
+        [AP] QML Effect selector
+
+    #Plugins
+        [] Plasma2, DataEngines, kipi, silk, whatever
