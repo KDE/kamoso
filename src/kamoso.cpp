@@ -670,7 +670,8 @@ void Kamoso::settingsMenu(bool )
         m.addSeparator();
     }
     m.addAction(KIcon("configure"), i18n("Settings"), this, SLOT(configuration()));
-    m.addMenu(customHelpMenu());
+    KMenu *help = helpMenu();
+    m.addMenu(help);
 
     m.exec(mainWidgetUi->configure->parentWidget()->mapToGlobal(mainWidgetUi->configure->geometry().bottomLeft()));
 }
