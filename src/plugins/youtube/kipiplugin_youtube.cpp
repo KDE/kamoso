@@ -36,6 +36,7 @@
 #include <kwallet.h>
 #include <KDebug>
 #include <libkipi/interface.h>
+#include <libkipi/imagecollection.h>
 
 using KWallet::Wallet;
 
