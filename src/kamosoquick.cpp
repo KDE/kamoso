@@ -24,6 +24,12 @@
 #include <qdeclarative.h>
 #include <QDeclarativeEngine>
 #include <QDeclarativeContext>
+#include <QtDeclarative/QDeclarativeView>
+#include <QtDeclarative/QDeclarativeContext>
+
+#include <QGst/Ui/GraphicsVideoSurface>
+#include <QGst/Pipeline>
+#include <QGst/ElementFactory>
 
 KamosoQuick::KamosoQuick(QWidget* parent)
     : QDeclarativeView(parent)
@@ -33,7 +39,22 @@ KamosoQuick::KamosoQuick(QWidget* parent)
     kdeclarative.initialize();
     //binds things like kconfig and icons
     kdeclarative.setupBindings();
-    
+
+    QGst::Ui::GraphicsVideoSurface *surface = new QGst::Ui::GraphicsVideoSurface(this);
+    engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
+
+    QGst::PipelinePtr pipeline = QGst::Pipeline::create();
+    QGst::ElementPtr src = QGst::ElementFactory::make("v4l2src");
+    QGst::ElementPtr color = QGst::ElementFactory::make("ffmpegcolorspace");
+
+    pipeline->add(src, color, surface->videoSink());
+
+    src->link(color);
+
+    color->link(surface->videoSink());
+
+    pipeline->setState(QGst::StatePlaying);
+
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
     setResizeMode(SizeRootObjectToView);

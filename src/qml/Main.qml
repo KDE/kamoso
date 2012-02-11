@@ -7,7 +7,7 @@ Rectangle
 	color: "white"
 	width: 500
 	height: 600
-	
+
 	ImagesView {
 		id: imagesView
 		anchors {
@@ -18,55 +18,55 @@ Rectangle
 		}
 		height: 100
 	}
-	
+
 	ButtonRow {
 		id: modes
 		width: 100
 		height: 40
 		spacing: 10
-		
+
 		anchors.margins: 20
 		anchors.left: parent.left
 		anchors.bottom: imagesView.top
-		
+
 		Repeater {
 			model: ActionsModel {}
 			delegate: Button { iconSource: icon }
 		}
 	}
-	
+
 	Button {
 		id: controls
 		width: 100
 		height: 40
 		iconSource: modes.checkedButton.iconSource
-		
+
 		anchors.margins: 20
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.bottom: imagesView.top
 	}
-	
+
 	Row {
 		width: 100
 		height: 40
-		
+
 		anchors.margins: 20
 		anchors.right: parent.right
 		anchors.bottom: imagesView.top
-		
+
 		Button { width: 30; text: "a" }
 		Button { width: 30; text: "a" }
 	}
-	
-	Rectangle {
-		color: "black"
-		
-		anchors {
-			margins: 20
-			right: parent.right
-			left: parent.left
-			top: parent.top
-			bottom: controls.top
-		}
-	}
+
+	VideoItem {
+        id: video
+
+        surface: videoSurface1
+        anchors {
+            right: parent.right
+            left: parent.left
+            top: parent.top
+            bottom: controls.top
+        }
+    }
 }
