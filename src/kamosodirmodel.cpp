@@ -22,7 +22,11 @@
 
 KamosoDirModel::KamosoDirModel(QObject* parent)
     : KDirModel(parent)
-{}
+{
+    QHash<int, QByteArray> roles = roleNames();
+    roles.insert(Path, "path");
+    setRoleNames(roles);
+}
 
 void KamosoDirModel::setUrl(const QUrl& url)
 {
@@ -42,4 +46,12 @@ void KamosoDirModel::setMimeFilter(const QStringList& mimes)
 QStringList KamosoDirModel::mimeFilter() const
 {
     return dirLister()->mimeFilters();
+}
+
+QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
+{
+    if(role == Path) {
+        return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).url());
+    } else
+        return KDirModel::data(index, role);
 }
