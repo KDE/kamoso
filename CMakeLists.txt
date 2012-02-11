@@ -16,4 +16,5 @@ macro_display_feature_log()
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(src)
+add_subdirectory(widgetsrc)
 add_subdirectory(icons)

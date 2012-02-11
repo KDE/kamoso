@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+    <file>qml/Main.qml</file>
+    <file>qml/ImagesView.qml</file>
+ </qresource>
+</RCC>
