@@ -10,30 +10,29 @@ Rectangle
 
 	ImagesView {
 		id: imagesView
-		mimeFilter: modes.checkedButton.mime
+		mimeFilter: modes.checkedButton.stuff.mimes
 		anchors {
 			margins: 20
 			left: parent.left
 			right: parent.right
 			bottom: parent.bottom
 		}
-		height: 100
+		height: 30
 	}
 
 	ButtonRow {
 		id: modes
 		width: 100
-		height: 40
 		spacing: 10
 
 		anchors.margins: 20
 		anchors.left: parent.left
-		anchors.bottom: imagesView.top
+        anchors.verticalCenter: controls.verticalCenter
 
 		Repeater {
-			model: ActionsModel {}
+			model: ActionsModel { id: actions }
 			delegate: Button {
-				property string mime: mimes
+				property QtObject stuff: model
 				
 				iconSource: icon
 			}
@@ -44,20 +43,24 @@ Rectangle
 		id: controls
 		width: 100
 		height: 40
-		iconSource: modes.checkedButton.iconSource
+		iconSource: modes.checkedButton.stuff.icon
 
-		anchors.margins: 20
+		anchors.margins: 10
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.bottom: imagesView.top
+		
+		onClicked:{
+            actions.trigger(modes.checkedButton.stuff.index)
+        }
 	}
 
 	Row {
 		width: 100
-		height: 40
 
 		anchors.margins: 20
 		anchors.right: parent.right
-		anchors.bottom: imagesView.top
+		anchors.verticalCenter: controls.verticalCenter
+		spacing: 10
 
 		Button { width: 30; text: "a" }
 		Button { width: 30; text: "a" }
