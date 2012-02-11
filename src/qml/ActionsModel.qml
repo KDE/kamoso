@@ -4,13 +4,13 @@ ListModel
 {
     //it would be awesome to put the trigger
     //inside the element, but didn't really see how to
-    function trigger(i) {
+    function trigger(i, checked) {
         switch(i) {
             case 0:
                 console.log("photoooooooo!")
                 break;
             case 1:
-                console.log("burst!!!")
+                console.log("burst!!! "+checked)
                 break;
             case 2:
                 console.log("video!")
@@ -22,15 +22,18 @@ ListModel
         icon: "weather-clear"
         text: "Shoot"
         mimes: "image/png"
+        checkable: false
     }
     ListElement {
         icon: "code-blocks"
         text: "Burst"
         mimes: "image/png"
+        checkable: true
     }
     ListElement {
         icon: "audio-input-microphone"
         text: "Action!"
         mimes: "video/x-matroska"
+        checkable: true
     }
 }

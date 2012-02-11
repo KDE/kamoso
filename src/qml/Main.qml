@@ -44,13 +44,14 @@ Rectangle
 		width: 100
 		height: 40
 		iconSource: modes.checkedButton.stuff.icon
+		checkable: modes.checkedButton.stuff.checkable
 
 		anchors.margins: 10
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.bottom: imagesView.top
 		
 		onClicked:{
-            actions.trigger(modes.checkedButton.stuff.index)
+            actions.trigger(modes.checkedButton.stuff.index, checked)
         }
 	}
 
