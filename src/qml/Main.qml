@@ -10,6 +10,7 @@ Rectangle
 	
 	ImagesView {
 		id: imagesView
+		mimeFilter: modes.checkedButton.mime
 		anchors {
 			margins: 20
 			left: parent.left
@@ -31,7 +32,11 @@ Rectangle
 		
 		Repeater {
 			model: ActionsModel {}
-			delegate: Button { iconSource: icon }
+			delegate: Button {
+				property string mime: mimes
+				
+				iconSource: icon
+			}
 		}
 	}
 	

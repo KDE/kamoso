@@ -40,7 +40,9 @@ QUrl KamosoDirModel::url() const
 
 void KamosoDirModel::setMimeFilter(const QStringList& mimes)
 {
-    return dirLister()->setMimeFilter(mimes);
+    dirLister()->setMimeFilter(mimes);
+    if(!dirLister()->url().isEmpty())
+        dirLister()->openUrl(dirLister()->url(), KDirLister::Reload);
 }
 
 QStringList KamosoDirModel::mimeFilter() const
