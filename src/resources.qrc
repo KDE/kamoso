@@ -2,5 +2,6 @@
  <qresource>
     <file>qml/Main.qml</file>
     <file>qml/ImagesView.qml</file>
+    <file>qml/ActionsModel.qml</file>
  </qresource>
 </RCC>

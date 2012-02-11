@@ -39,7 +39,7 @@ qt4_add_dbus_interface(kamoso_SRCS
 
 set(kamoso_UI mainWidget.ui generalConfig.ui pictureConfig.ui videoConfig.ui)
 
-kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)
+kde4_add_kcfg_files(kamoso_SRCS ../src/settings.kcfgc)
 kde4_add_ui_files(kamoso_SRCS ${kamoso_UI})
 kde4_add_executable(kamoso ${kamoso_SRCS})
 

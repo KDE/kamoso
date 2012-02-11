@@ -1,0 +1,21 @@
+#ifndef KAMOSOSETTINGS_H
+#define KAMOSOSETTINGS_H
+
+#include <settings.h>
+/* FIXME: KDE5. nuke
+ * This class only exists because KConfigCompiler can't generate classes
+ * with properties. 
+ */
+class KamosoSettings : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QUrl saveUrl READ saveUrl WRITE setSaveUrl NOTIFY saveUrlChanged)
+    public:
+        QUrl saveUrl() const;
+        void setSaveUrl(const QUrl& url);
+        
+    signals:
+        void saveUrlChanged();
+};
+
+#endif // KAMOSOSETTINGS_H

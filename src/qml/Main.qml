@@ -4,7 +4,7 @@ import org.kde.plasma.components 0.1
 
 Rectangle
 {
-	color: "black"
+	color: "white"
 	width: 500
 	height: 600
 	
@@ -19,21 +19,27 @@ Rectangle
 		height: 100
 	}
 	
-	Rectangle {
-		color: "yellow"
+	ButtonRow {
+		id: modes
 		width: 100
 		height: 40
+		spacing: 10
 		
 		anchors.margins: 20
 		anchors.left: parent.left
 		anchors.bottom: imagesView.top
+		
+		Repeater {
+			model: ActionsModel {}
+			delegate: Button { iconSource: icon }
+		}
 	}
 	
-	Rectangle {
+	Button {
 		id: controls
-		color: "yellow"
 		width: 100
 		height: 40
+		iconSource: modes.checkedButton.iconSource
 		
 		anchors.margins: 20
 		anchors.horizontalCenter: parent.horizontalCenter
@@ -52,7 +58,9 @@ Rectangle
 		Button { width: 30; text: "a" }
 	}
 	
-	VideoItem {
+	Rectangle {
+		color: "black"
+		
 		anchors {
 			margins: 20
 			right: parent.right

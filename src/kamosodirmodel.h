@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2012 by Aleix Pol <aleixpol@kde.org>                               *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,26 +16,26 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoquick.h"
-#include "kamosodirmodel.h"
-#include "kamososettings.h"
-#include <kdeclarative.h>
-#include <qdeclarative.h>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
+#ifndef KAMOSODIRMODEL_H
+#define KAMOSODIRMODEL_H
 
-KamosoQuick::KamosoQuick(QWidget* parent)
-    : QDeclarativeView(parent)
+#include <KDirModel>
+
+class KamosoDirModel : public KDirModel
 {
-    KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine());
-    kdeclarative.initialize();
-    //binds things like kconfig and icons
-    kdeclarative.setupBindings();
-    
-    qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
-    engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
-    setResizeMode(SizeRootObjectToView);
-    setSource(QUrl("qrc:/qml/Main.qml"));
-//     Q_ASSERT(errors().isEmpty());
-}
+    Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
+    Q_PROPERTY(QStringList mimeFilter READ mimeFilter WRITE setMimeFilter)
+    Q_OBJECT
+    public:
+        explicit KamosoDirModel(QObject* parent = 0);
+        void setUrl(const QUrl& url);
+        QUrl url() const;
+        
+        void setMimeFilter(const QStringList& mimes);
+        QStringList mimeFilter() const;
+
+    signals:
+        void urlChanged();
+};
+
+#endif // KAMOSODIRMODEL_H

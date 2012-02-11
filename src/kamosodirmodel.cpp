@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2012 by Aleix Pol <aleixpol@kde.org>                               *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,26 +16,30 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoquick.h"
 #include "kamosodirmodel.h"
-#include "kamososettings.h"
-#include <kdeclarative.h>
-#include <qdeclarative.h>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
+#include <settings.h>
+#include <kdirlister.h>
 
-KamosoQuick::KamosoQuick(QWidget* parent)
-    : QDeclarativeView(parent)
+KamosoDirModel::KamosoDirModel(QObject* parent)
+    : KDirModel(parent)
+{}
+
+void KamosoDirModel::setUrl(const QUrl& url)
 {
-    KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine());
-    kdeclarative.initialize();
-    //binds things like kconfig and icons
-    kdeclarative.setupBindings();
-    
-    qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
-    engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
-    setResizeMode(SizeRootObjectToView);
-    setSource(QUrl("qrc:/qml/Main.qml"));
-//     Q_ASSERT(errors().isEmpty());
+    dirLister()->openUrl(url, KDirLister::Reload);
+}
+
+QUrl KamosoDirModel::url() const
+{
+    return dirLister()->url();
+}
+
+void KamosoDirModel::setMimeFilter(const QStringList& mimes)
+{
+    return dirLister()->setMimeFilter(mimes);
+}
+
+QStringList KamosoDirModel::mimeFilter() const
+{
+    return dirLister()->mimeFilters();
 }
