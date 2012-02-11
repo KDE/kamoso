@@ -12,5 +12,5 @@ ListView
 			url: settings.saveUrl
 	}
 	
-	delegate: QIconItem { width: 40; height: 40; icon: decoration }
+	delegate: Image { width: 40; height: 40; source: path; asynchronous: true }
 }
