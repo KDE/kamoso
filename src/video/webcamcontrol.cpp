@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2012 by Alejandro Fiestas Olivares <afiestaso@kde.org>             *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,20 +16,36 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef KAMOSOQUICK_H
-#define KAMOSOQUICK_H
 
-#include <QDeclarativeView>
+#include "webcamcontrol.h"
 
-class WebcamControl;
-class KamosoQuick : public QDeclarativeView
+#include <QtDeclarative/QDeclarativeEngine>
+#include <QtDeclarative/QDeclarativeContext>
+
+#include <QGst/Ui/GraphicsVideoSurface>
+#include <QGst/Pipeline>
+#include <QGst/ElementFactory>
+
+WebcamControl::WebcamControl(QDeclarativeView* view)
 {
-    Q_OBJECT
-    public:
-        explicit KamosoQuick(QWidget* parent = 0);
+    QGst::Ui::GraphicsVideoSurface *surface = new QGst::Ui::GraphicsVideoSurface(view);
+    view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
 
-    private:
-        WebcamControl *m_webcamControl;
-};
+    QGst::PipelinePtr pipeline = QGst::Pipeline::create();
+    QGst::ElementPtr src = QGst::ElementFactory::make("v4l2src");
+    QGst::ElementPtr color = QGst::ElementFactory::make("ffmpegcolorspace");
 
-#endif // KAMOSOQUICK_H
+    pipeline->add(src, color, surface->videoSink());
+
+    src->link(color);
+
+    color->link(surface->videoSink());
+
+    pipeline->setState(QGst::StatePlaying);
+}
+
+WebcamControl::~WebcamControl()
+{
+
+}
+
