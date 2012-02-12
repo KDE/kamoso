@@ -18,6 +18,7 @@ ListModel
                 console.log("video!")
                 break;
         }
+        return "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif"
     }
 
     ListElement {

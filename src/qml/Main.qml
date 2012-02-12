@@ -20,6 +20,53 @@ Rectangle
         }
         height: 30
     }
+    
+    function awesomeAnimation(path) {
+//         tada.x = visor.x
+//         tada.y = 0
+//         tada.width = visor.width
+//         tada.height = visor.height
+        tada.source = path
+        tada.state = "go"
+        tada.state = "done"
+//         tada.visible = true
+        
+    }
+    
+    Image {
+        id: tada
+        z: 10
+        width: 10
+        height: 10
+        
+        states: [
+            State { name: "go"
+                PropertyChanges { target: tada; x: visor.x }
+                PropertyChanges { target: tada; y: visor.y }
+                PropertyChanges { target: tada; width: visor.width }
+                PropertyChanges { target: tada; height: visor.height }
+                PropertyChanges { target: tada; opacity: 1 }
+            },
+            State { name: "done"
+                PropertyChanges { target: tada; x: visor.width-10 }
+                PropertyChanges { target: tada; y: visor.height+controls.height }
+                PropertyChanges { target: tada; width: deviceSelector.height }
+                PropertyChanges { target: tada; height: deviceSelector.height }
+                PropertyChanges { target: tada; opacity: 0 }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "go"; to: "done"
+                    NumberAnimation { target: tada
+                                properties: "width,height"; duration: 2500; easing.type: Easing.InOutQuad }
+                    NumberAnimation { target: tada
+                                properties: "x,y"; duration: 3000; easing.type: Easing.InOutQuad }
+                    NumberAnimation { target: tada
+                                properties: "opacity"; duration: 3000 }
+            }
+        ]
+    }
 
     ButtonRow {
         id: modes
@@ -51,8 +98,11 @@ Rectangle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
         
-        onClicked:{
-            actions.trigger(modes.checkedButton.stuff.index, checked)
+        onClicked: {
+            var path = actions.trigger(modes.checkedButton.stuff.index, checked)
+            if(!checkable || checked) {
+                awesomeAnimation(path)
+            }
         }
     }
 
@@ -69,6 +119,7 @@ Rectangle
     }
     
     Item {
+        id: visor
         anchors {
             right: parent.right
             left: parent.left
@@ -79,7 +130,7 @@ Rectangle
         VideoItem {
             id: video
 
-            visible: devicesModel.count>1
+            visible: devicesModel.count>0
             surface: videoSurface1
             anchors.fill: parent
         }
@@ -93,7 +144,7 @@ Rectangle
     
     ListView {
         id: deviceSelector
-        height: 10
+        height: 30
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
