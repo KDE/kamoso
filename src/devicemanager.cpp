@@ -130,6 +130,13 @@ void DeviceManager::removeDevice(const Solid::Device& device)
 */
 void DeviceManager::deviceRemoved(const QString &udi)
 {
+    if(udi==m_playingDevice.udi()) {
+        if(m_deviceList.isEmpty())
+            emit noDevices();
+        else
+            setPlayingDevice(m_deviceList.first().udi());
+    }
+
     for(int i=0; i<m_deviceList.count(); ++i)
     {
         if(m_deviceList[i].udi() == udi)

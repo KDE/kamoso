@@ -51,6 +51,7 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
     m_videoSink = surface->videoSink();
 
     connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
+    connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
     play();
 }
 
@@ -59,12 +60,17 @@ WebcamControl::~WebcamControl()
     DeviceManager::self()->save();
 }
 
-void WebcamControl::play()
+void WebcamControl::stop()
 {
-    qDebug() << "playing...";
     //TODO: delete?
     if(m_pipeline)
         m_pipeline->setState(QGst::StateNull);
+}
+
+void WebcamControl::play()
+{
+    qDebug() << "playing...";
+    stop();
     
     QByteArray pipe = basicPipe();
     pipe += " ! ffmpegcolorspace ! "

@@ -57,6 +57,7 @@ class DeviceManager : public QAbstractListModel
         void deviceRegistered( const QString & udi );
         void deviceUnregistered( const QString & udi );
         void countChanged();
+        void noDevices();
 
     private:
         DeviceManager();

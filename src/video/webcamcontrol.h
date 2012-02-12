@@ -35,6 +35,7 @@ class WebcamControl : public QObject
 
     public Q_SLOTS:
         void play();
+        void stop();
         void takePhoto(const KUrl& url);
         void startRecording();
         QString stopRecording();
