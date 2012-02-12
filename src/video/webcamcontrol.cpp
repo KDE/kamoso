@@ -134,7 +134,7 @@ void WebcamControl::startRecording()
     m_recording = true;
 }
 
-const QString& WebcamControl::stopRecording()
+QString WebcamControl::stopRecording()
 {
     if (!m_recording) {
         return QString();

@@ -5,11 +5,12 @@ ListModel
     //it would be awesome to put the trigger
     //inside the element, but didn't really see how to
     function trigger(i, checked) {
+        var ret = "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif";
         switch(i) {
             case 0:
                 whites.showAll()
                 console.log("photoooooooo!")
-                webcam.takePhoto()
+                ret = webcam.takePhoto()
                 break;
             case 1:
                 console.log("burst!!! "+checked)
@@ -22,7 +23,7 @@ ListModel
                 webcam.stopRecording()
                 break;
         }
-        return "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif"
+        return ret
     }
 
     ListElement {

@@ -37,7 +37,7 @@ class WebcamControl : public QObject
         void play();
         void takePhoto(const KUrl& url);
         void startRecording();
-        const QString &stopRecording();
+        QString stopRecording();
 
     private:
         QByteArray basicPipe();
