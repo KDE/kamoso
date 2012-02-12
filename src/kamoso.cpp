@@ -35,7 +35,7 @@ Kamoso::~Kamoso()
 
 }
 
-void Kamoso::takePhoto()
+const QString Kamoso::takePhoto()
 {
     KUrl photoPlace = Settings::saveUrl();
     photoPlace.addPath(QString("picture_1.png"));
@@ -47,6 +47,8 @@ void Kamoso::takePhoto()
     }
 
     m_webcamControl->takePhoto(photoPlace);
+
+    return photoPlace.path();
 }
 
 void Kamoso::startRecording()

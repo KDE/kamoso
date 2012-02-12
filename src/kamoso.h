@@ -34,7 +34,7 @@ Q_OBJECT
         virtual ~Kamoso();
 
     public Q_SLOTS:
-        void takePhoto();
+        const QString takePhoto();
         void startRecording();
         void stopRecording();
 
