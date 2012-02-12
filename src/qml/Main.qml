@@ -149,6 +149,7 @@ Rectangle
     ButtonColumn {
         id: deviceSelector
         height: 30
+        spacing: 10
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left

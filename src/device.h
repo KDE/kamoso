@@ -31,7 +31,7 @@ class Device
         ~Device();
         QString description() const;
         QString udi() const;
-        QString path() const;
+        QByteArray path() const;
         QString vendor() const;
         void setBrightness(int level);
         void setContrast(int level);
@@ -47,7 +47,7 @@ class Device
         QString queryv4lInfo();
         QString m_description;
         QString m_udi;
-        QString m_path;
+        QByteArray m_path;
         QString m_vendor;
         KConfig* config;
 };

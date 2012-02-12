@@ -37,15 +37,16 @@ class DeviceManager : public QAbstractListModel
 
         Device& playingDevice();
         QString playingDeviceUdi() const;
-        QString playingDevicePath() const;
+        QByteArray playingDevicePath() const;
         void setPlayingDevice(const QString& udi);
         bool hasDevices() const;
         
-        virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+        virtual int rowCount(const QModelIndex& = QModelIndex()) const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
     public Q_SLOTS:
         void webcamPlaying(const QString &udi);
+        void save();
 
     private Q_SLOTS:
         void deviceAdded(const QString &udi);

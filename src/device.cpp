@@ -40,7 +40,7 @@ Device::Device(const Solid::Device *device)
             kDebug() << drivers;
             if ( drivers.contains( "video4linux" ) )
             {
-                m_path = solidVideoDevice->driverHandle( "video4linux" ).toString();
+                m_path = solidVideoDevice->driverHandle( "video4linux" ).toByteArray();
             }
         }
     }
@@ -51,7 +51,7 @@ Device::Device(const Solid::Device *device)
 Device::~Device()
 {}
 
-QString Device::path() const
+QByteArray Device::path() const
 {
     return m_path;
 }

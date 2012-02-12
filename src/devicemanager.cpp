@@ -43,12 +43,27 @@ DeviceManager::DeviceManager()
     //Connect to solid events to get new devices.
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
+    
+    QString udi = Settings::self()->deviceUdi();
+    foreach(const Device& d, m_deviceList) {
+        if(d.udi()==udi) {
+            m_playingDevice = d;
+        }
+    }
+    
+    if(m_playingDevice.path().isEmpty())
+        m_playingDevice = m_deviceList.first();
+}
+
+void DeviceManager::save()
+{
+    Settings::self()->setDeviceUdi(m_playingDevice.udi());
 }
 
 /*
 *Public methods
 */
-int DeviceManager::rowCount(const QModelIndex& parent) const
+int DeviceManager::rowCount(const QModelIndex& ) const
 {
     return m_deviceList.size();
 }
@@ -71,7 +86,7 @@ QString DeviceManager::playingDeviceUdi() const
     return m_playingDevice.udi();
 }
 
-QString DeviceManager::playingDevicePath() const
+QByteArray DeviceManager::playingDevicePath() const
 {
     return m_playingDevice.path();
 }
