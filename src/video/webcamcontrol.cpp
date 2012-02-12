@@ -62,7 +62,6 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
     m_pipeline->add(m_videoSink);
 
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
-    m_pipeline->getElementByName("fakesink").isNull();
 
     m_pipeline->setState(QGst::StatePlaying);
 
