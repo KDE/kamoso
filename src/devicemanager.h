@@ -21,44 +21,49 @@
 #define DEVICEMANAGER_H
 
 #include <QtCore/QObject>
+#include <QAbstractListModel>
 #include "device.h"
 
-class DeviceManager : public QObject
+class DeviceManager : public QAbstractListModel
 {
-Q_OBJECT
+    Q_OBJECT
+    Q_PROPERTY(QString playingDevice READ playingDeviceUdi WRITE setPlayingDevice NOTIFY playingDeviceChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     public:
         static DeviceManager* self();
-        int numberOfDevices() const;
-        QList<Device> devices() const;
-        Device& defaultDevice();
-        QString defaultDevicePath() const;
-        QString defaultDeviceUdi() const;
+        enum {
+            Udi=Qt::UserRole+1
+        };
 
         Device& playingDevice();
         QString playingDeviceUdi() const;
         QString playingDevicePath() const;
+        void setPlayingDevice(const QString& udi);
         bool hasDevices() const;
+        
+        virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-public Q_SLOTS:
-    void webcamPlaying(const QString &udi);
+    public Q_SLOTS:
+        void webcamPlaying(const QString &udi);
 
-private Q_SLOTS:
-    void deviceAdded(const QString &udi);
-    void deviceRemoved(const QString &udi);
+    private Q_SLOTS:
+        void deviceAdded(const QString &udi);
+        void deviceRemoved(const QString &udi);
 
-Q_SIGNALS:
-    void deviceRegistered( const QString & udi );
-    void deviceUnregistered( const QString & udi );
+    Q_SIGNALS:
+        void playingDeviceChanged();
+        void deviceRegistered( const QString & udi );
+        void deviceUnregistered( const QString & udi );
+        void countChanged();
 
-private:
-    DeviceManager();
-    static DeviceManager* s_instance;
-    void addDevice(const Solid::Device& device);
-    void removeDevice(const Solid::Device& device);
-    QList<Device> m_deviceList;
-    Device m_playingDevice;
-    QString m_playingUdi;
-    QString m_playingPath;
+    private:
+        DeviceManager();
+        static DeviceManager* s_instance;
+        void addDevice(const Solid::Device& device);
+        void removeDevice(const Solid::Device& device);
+        QList<Device> m_deviceList;
+        Device m_playingDevice;
 };
 
 #endif // DEVICEMANAGER_H

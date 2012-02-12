@@ -26,6 +26,7 @@
 #include <QPushButton>
 #include "kamoso.h"
 #include "countdownwidget.h"
+#include <devicemanager.h>
 
 BurstShootMode::BurstShootMode(Kamoso* camera)
     : ShootMode(camera)

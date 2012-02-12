@@ -98,7 +98,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidget = new QWidget(this);
     mainWidgetUi->setupUi(mainWidget);
 
-    bool comboShown = deviceManager->numberOfDevices() > 1;
+    bool comboShown = deviceManager->rowCount() > 1;
     mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
     mainWidgetUi->webcamCombo->setVisible(comboShown);
 
@@ -113,11 +113,11 @@ Kamoso::Kamoso(QWidget* parent)
     connect(m_webcam, SIGNAL(fileSaved(KUrl)), this, SLOT(fileSaved(KUrl)));
 
     if(deviceManager->hasDevices()) {
-        m_webcam->playFile(deviceManager->defaultDevice());
-        emit webcamPlaying(deviceManager->defaultDeviceUdi());
+        m_webcam->playFile(deviceManager->playingDevice());
+        emit webcamPlaying(deviceManager->playingDeviceUdi());
     }
 
-    reloadDevicesCombo();
+    mainWidgetUi->webcamCombo->setModel(deviceManager);
     connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
 //Second row Stuff
@@ -216,7 +216,7 @@ void Kamoso::webcamAdded()
 {
     kDebug() << "A new webcam has been added";
 
-    bool comboShown = deviceManager->numberOfDevices() > 1;
+    bool comboShown = deviceManager->rowCount() > 1;
 
     mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
     mainWidgetUi->webcamCombo->setVisible(comboShown);
@@ -246,22 +246,22 @@ void Kamoso::stopVideo()
 
 void Kamoso::reloadDevicesCombo()
 {
-    mainWidgetUi->webcamCombo->clear();
-    QList <Device> devices = deviceManager->devices();
-
-    foreach(const Device& d, devices)
-    {
-        mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
-
-        //If kamoso is using this device, set it as currentIndex
-        if(d.udi() == deviceManager->playingDeviceUdi()) {
-            mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
-        }
-    }
+//     mainWidgetUi->webcamCombo->clear();
+//     QList <Device> devices = deviceManager->devices();
+// 
+//     foreach(const Device& d, devices)
+//     {
+//         mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
+// 
+//         //If kamoso is using this device, set it as currentIndex
+//         if(d.udi() == deviceManager->playingDeviceUdi()) {
+//             mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
+//         }
+//     }
 }
 void Kamoso::webcamRemoved()
 {
-    if(deviceManager->numberOfDevices() < 3) {
+    if(deviceManager->rowCount() < 3) {
         //At the moment there are only 2 widgets to hidden, maybe a container is needed here.
         mainWidgetUi->chooseWebcamLbl->hide();
         mainWidgetUi->webcamCombo->hide();

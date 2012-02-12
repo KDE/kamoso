@@ -25,8 +25,8 @@ set(kamoso_SRCS
 	countdownwidget.cpp
 	webcamwidget.cpp
 	customDelegate.cpp
-	device.cpp
-	devicemanager.cpp
+	../src/device.cpp
+	../src/devicemanager.cpp
 	kamosojobtracker.cpp 
 	kipiinterface.cpp
 	kamosoimagecollectionshared.cpp

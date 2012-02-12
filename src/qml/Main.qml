@@ -67,16 +67,39 @@ Rectangle
 		Button { width: 30; text: "a" }
 		Button { width: 30; text: "a" }
 	}
-
-	VideoItem {
-        id: video
-
-        surface: videoSurface1
+	
+	Item {
         anchors {
             right: parent.right
             left: parent.left
             top: parent.top
             bottom: controls.top
         }
+        
+        VideoItem {
+            id: video
+
+            visible: devicesModel.count>0
+            surface: videoSurface1
+            anchors.fill: parent
+        }
+        
+        AnimatedImage {
+            anchors.fill: parent
+            visible: !video.visible
+            source: "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif"
+        }
+    }
+    
+    ListView {
+        id: deviceSelector
+        height: 10
+        anchors.margins: 10
+        anchors.top: parent.top
+        anchors.left: parent.left
+        orientation: ListView.Horizontal
+        model: devicesModel
+        delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDevice=udi }
+        visible: count>1
     }
 }
