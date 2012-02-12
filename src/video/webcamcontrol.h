@@ -35,6 +35,8 @@ class WebcamControl : public QObject
 
     public Q_SLOTS:
         void takePhoto(const KUrl& url);
+        void startRecording();
+        const QString &stopRecording();
 
     private:
         QByteArray basicPipe();
@@ -42,6 +44,8 @@ class WebcamControl : public QObject
 
     private:
         KUrl m_saveUrl;
+        bool m_recording;
+        QString m_tmpVideoPath;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
 };

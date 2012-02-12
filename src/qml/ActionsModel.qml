@@ -15,7 +15,11 @@ ListModel
                 console.log("burst!!! "+checked)
                 break;
             case 2:
-                console.log("video!")
+                if (checked) {
+                    webcam.startRecording()
+                    break;
+                }
+                webcam.stopRecording()
                 break;
         }
     }

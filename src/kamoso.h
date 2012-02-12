@@ -35,6 +35,8 @@ Q_OBJECT
 
     public Q_SLOTS:
         void takePhoto();
+        void startRecording();
+        void stopRecording();
 
     private:
         void autoincFilename(KUrl &filename);

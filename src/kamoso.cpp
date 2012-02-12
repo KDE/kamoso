@@ -49,6 +49,25 @@ void Kamoso::takePhoto()
     m_webcamControl->takePhoto(photoPlace);
 }
 
+void Kamoso::startRecording()
+{
+    m_webcamControl->startRecording();
+}
+
+void Kamoso::stopRecording()
+{
+    KUrl photoPlace = Settings::saveUrl();
+    photoPlace.addPath(QString("video_1.mkv"));
+
+    QFile file(photoPlace.path());
+    while(file.exists()) {
+        autoincFilename(photoPlace);
+        file.setFileName(photoPlace.path());
+    }
+
+    QFile::rename(m_webcamControl->stopRecording(), photoPlace.path());
+}
+
 void Kamoso::autoincFilename(KUrl &filename)
 {
     // Extract the filename from the path
