@@ -4,71 +4,122 @@ import org.kde.plasma.components 0.1
 
 Rectangle
 {
-	color: "white"
-	width: 500
-	height: 600
+    color: "white"
+    width: 500
+    height: 600
 
-	ImagesView {
-		id: imagesView
-		mimeFilter: modes.checkedButton.stuff.mimes
-		spacing: 10
-		anchors {
-			margins: 20
-			left: parent.left
-			right: parent.right
-			bottom: parent.bottom
-		}
-		height: 30
-	}
+    ImagesView {
+        id: imagesView
+        mimeFilter: modes.checkedButton.stuff.mimes
+        spacing: 10
+        anchors {
+            margins: 20
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: 30
+    }
+    
+    function awesomeAnimation(path) {
+//         tada.x = visor.x
+//         tada.y = 0
+//         tada.width = visor.width
+//         tada.height = visor.height
+        tada.source = path
+        tada.state = "go"
+        tada.state = "done"
+//         tada.visible = true
+        
+    }
+    
+    Image {
+        id: tada
+        z: 10
+        width: 10
+        height: 10
+        
+        states: [
+            State { name: "go"
+                PropertyChanges { target: tada; x: visor.x }
+                PropertyChanges { target: tada; y: visor.y }
+                PropertyChanges { target: tada; width: visor.width }
+                PropertyChanges { target: tada; height: visor.height }
+                PropertyChanges { target: tada; opacity: 1 }
+            },
+            State { name: "done"
+                PropertyChanges { target: tada; x: visor.width-10 }
+                PropertyChanges { target: tada; y: visor.height+controls.height }
+                PropertyChanges { target: tada; width: deviceSelector.height }
+                PropertyChanges { target: tada; height: deviceSelector.height }
+                PropertyChanges { target: tada; opacity: 0 }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: "go"; to: "done"
+                    NumberAnimation { target: tada
+                                properties: "width,height"; duration: 2500; easing.type: Easing.InOutQuad }
+                    NumberAnimation { target: tada
+                                properties: "x,y"; duration: 3000; easing.type: Easing.InOutQuad }
+                    NumberAnimation { target: tada
+                                properties: "opacity"; duration: 3000 }
+            }
+        ]
+    }
 
-	ButtonRow {
-		id: modes
-		width: 100
-		spacing: 10
+    ButtonRow {
+        id: modes
+        width: 100
+        spacing: 10
 
-		anchors.margins: 20
-		anchors.left: parent.left
+        anchors.margins: 20
+        anchors.left: parent.left
         anchors.verticalCenter: controls.verticalCenter
 
-		Repeater {
-			model: ActionsModel { id: actions }
-			delegate: Button {
-				property QtObject stuff: model
-				
-				iconSource: icon
-			}
-		}
-	}
-
-	Button {
-		id: controls
-		width: 100
-		height: 40
-		iconSource: modes.checkedButton.stuff.icon
-		checkable: modes.checkedButton.stuff.checkable
-
-		anchors.margins: 10
-		anchors.horizontalCenter: parent.horizontalCenter
-		anchors.bottom: imagesView.top
-		
-		onClicked:{
-            actions.trigger(modes.checkedButton.stuff.index, checked)
+        Repeater {
+            model: ActionsModel { id: actions }
+            delegate: Button {
+                property QtObject stuff: model
+                
+                iconSource: icon
+            }
         }
-	}
+    }
 
-	Row {
-		width: 100
+    Button {
+        id: controls
+        width: 100
+        height: 40
+        iconSource: modes.checkedButton.stuff.icon
+        checkable: modes.checkedButton.stuff.checkable
 
-		anchors.margins: 20
-		anchors.right: parent.right
-		anchors.verticalCenter: controls.verticalCenter
-		spacing: 10
+        anchors.margins: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: imagesView.top
+        
+        onClicked: {
+            var path = actions.trigger(modes.checkedButton.stuff.index, checked)
+            if(!checkable || checked) {
+                awesomeAnimation(path)
+            }
+        }
+    }
 
-		Button { width: 30; text: "a" }
-		Button { width: 30; text: "a" }
-	}
-	
-	Item {
+    Row {
+        width: 100
+
+        anchors.margins: 20
+        anchors.right: parent.right
+        anchors.verticalCenter: controls.verticalCenter
+        spacing: 10
+
+        Button { width: 30; text: "a" }
+        Button { width: 30; text: "a" }
+    }
+    
+    Item {
+        id: visor
         anchors {
             right: parent.right
             left: parent.left
@@ -93,7 +144,7 @@ Rectangle
     
     ListView {
         id: deviceSelector
-        height: 10
+        height: 30
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
