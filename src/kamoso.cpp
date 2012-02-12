@@ -48,7 +48,7 @@ const QString Kamoso::takePhoto()
 
     m_webcamControl->takePhoto(photoPlace);
 
-    return photoPlace.path();
+    return photoPlace.prettyUrl();
 }
 
 void Kamoso::startRecording()
