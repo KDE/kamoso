@@ -39,7 +39,7 @@ Q_OBJECT
         void stopRecording();
 
     Q_SIGNALS:
-        void photoTaken(QString path);
+        void photoTaken(const QString &path);
 
     private:
         void autoincFilename(KUrl &filename);

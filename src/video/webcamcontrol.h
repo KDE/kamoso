@@ -40,7 +40,7 @@ class WebcamControl : public QObject
         QString stopRecording();
 
     Q_SIGNALS:
-        void photoTaken(QString path);
+        void photoTaken(const QString &path);
 
     private:
         QByteArray basicPipe();
