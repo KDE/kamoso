@@ -13,10 +13,15 @@
 			<default code="true">QDesktopServices::storageLocation(QDesktopServices::PicturesLocation)</default>
 		</entry>
 	</group>
-	<group name="PictureSettings">
-		<entry name="photoTime" type="Double" key="photoTime">
-			<label>How much seconds kamoso waits before make the picture.</label>
-			<default>2</default>
-		</entry>
-	</group>
+    <group name="PictureSettings">
+        <entry name="photoTime" type="Double" key="photoTime">
+            <label>How much seconds kamoso waits before make the picture.</label>
+            <default>2</default>
+        </entry>
+    </group>
+    <group name="WebcamSettings">
+        <entry name="deviceUdi" type="String" key="deviceUdi">
+            <label>Points to the last used webcam.</label>
+        </entry>
+    </group>
 </kcfg>

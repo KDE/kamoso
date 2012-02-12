@@ -24,6 +24,7 @@
 #include <solid/video.h>
 
 #include "device.h"
+#include <settings.h>
 #include <QDebug>
 
 DeviceManager *DeviceManager::s_instance = NULL;
@@ -71,8 +72,10 @@ int DeviceManager::rowCount(const QModelIndex& ) const
 void DeviceManager::setPlayingDevice(const QString& udi)
 {
     foreach(const Device& d, m_deviceList) {
-        if(d.udi()==udi)
+        if(d.udi()==udi) {
             m_playingDevice=d;
+            playingDeviceChanged();
+        }
     }
 }
 
