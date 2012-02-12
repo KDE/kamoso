@@ -18,6 +18,7 @@
 
 
 #include "webcamcontrol.h"
+#include <devicemanager.h>
 
 #include <QGlib/Connect>
 #include <QGlib/Error>
@@ -49,16 +50,22 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
 
     m_videoSink = surface->videoSink();
 
+    connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
     play();
 }
 
 WebcamControl::~WebcamControl()
 {
-
+    DeviceManager::self()->save();
 }
 
 void WebcamControl::play()
 {
+    qDebug() << "playing...";
+    //TODO: delete?
+    if(m_pipeline)
+        m_pipeline->setState(QGst::StateNull);
+    
     QByteArray pipe = basicPipe();
     pipe += " ! ffmpegcolorspace ! "
             GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
@@ -219,13 +226,11 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 
 QByteArray WebcamControl::basicPipe()
 {
-    QByteArray pipe;
-
     //Video source device=/dev/video0 for example
-    pipe += "v4l2src name=v4l2src";
+    QByteArray playing = DeviceManager::self()->playingDevicePath();
+    QByteArray pipe = "v4l2src name=v4l2src device="+playing+
 
     //Accepted capabilities
-    pipe +=
     " ! ffmpegcolorspace"
     " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
     " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
