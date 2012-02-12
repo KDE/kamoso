@@ -67,7 +67,7 @@ void WebcamControl::play()
     try {
         m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
     } catch (const QGlib::Error & error) {
-        qWarning("Can't create pipeline");
+        qWarning("Can't create pipeline. Error: %s", qPrintable(error.message()));
         return;
     }
 
