@@ -17,48 +17,30 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef DEVICEMANAGER_H
-#define DEVICEMANAGER_H
+#ifndef WHITEWIDGETMANAGER_H
+#define WHITEWIDGETMANAGER_H
 
-#include <QtCore/QObject>
-#include "device.h"
+#include <QObject>
+#include <QDesktopWidget>
+#include "whitewidget.h"
 
-class DeviceManager : public QObject
+class WhiteWidgetManager : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
     public:
-        static DeviceManager* self();
-        int numberOfDevices() const;
-        QList<Device> devices() const;
-        Device& defaultDevice();
-        QString defaultDevicePath() const;
-        QString defaultDeviceUdi() const;
-
-        Device& playingDevice();
-        QString playingDeviceUdi() const;
-        QString playingDevicePath() const;
-        bool hasDevices() const;
-
-public Q_SLOTS:
-    void webcamPlaying(const QString &udi);
-
-private Q_SLOTS:
-    void deviceAdded(const QString &udi);
-    void deviceRemoved(const QString &udi);
-
-Q_SIGNALS:
-    void deviceRegistered( const QString & udi );
-    void deviceUnregistered( const QString & udi );
-
-private:
-    DeviceManager();
-    static DeviceManager* s_instance;
-    void addDevice(const Solid::Device& device);
-    void removeDevice(const Solid::Device& device);
-    QList<Device> m_deviceList;
-    Device m_playingDevice;
-    QString m_playingUdi;
-    QString m_playingPath;
+        WhiteWidgetManager(QObject* parent);
+        ~WhiteWidgetManager();
+        int m_steps;
+    public slots:
+        void showAll();
+        void hideAll();
+    private:
+        void createWhiteWidgets();
+        QList<WhiteWidget*> whitewidgetList;
+        QTimer* m_timer;
+        int m_currentStep;
+    private slots:
+        void tick();
 };
 
-#endif // DEVICEMANAGER_H
+#endif //WHITEWIDGETMANAGER

@@ -41,8 +41,9 @@ QUrl KamosoDirModel::url() const
 void KamosoDirModel::setMimeFilter(const QStringList& mimes)
 {
     dirLister()->setMimeFilter(mimes);
-    if(!dirLister()->url().isEmpty())
+    if(!dirLister()->url().isEmpty()) {
         dirLister()->openUrl(dirLister()->url(), KDirLister::Reload);
+    }
 }
 
 QStringList KamosoDirModel::mimeFilter() const
@@ -54,6 +55,7 @@ QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
 {
     if(role == Path) {
         return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).url());
-    } else
+    } else {
         return KDirModel::data(index, role);
+    }
 }

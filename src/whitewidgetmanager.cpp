@@ -30,7 +30,7 @@
 /**
 *This class create and manage 1 white widget per screen, creating an unified interface for all of them
 */
-WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
+WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 {
     kDebug() << "WhiteWidgetManager has been instanced";
     createWhiteWidgets();
@@ -52,13 +52,12 @@ WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 void WhiteWidgetManager::createWhiteWidgets()
 {
     kDebug() << "Creating whiteWidgets";
-    WhiteWidget *whiteWidget;
     QDesktopWidget *desktopInfo = qApp->desktop();
 
     kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
     for(uchar x=0;x<desktopInfo->numScreens();x++)
     {
-        whiteWidget = new WhiteWidget;
+        WhiteWidget *whiteWidget = new WhiteWidget;
         whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
         whitewidgetList.append(whiteWidget);
     }
@@ -69,11 +68,12 @@ void WhiteWidgetManager::createWhiteWidgets()
 */
 void WhiteWidgetManager::showAll()
 {
-    WhiteWidget *iteratorWidget;
     m_timer->start(30);
+    m_currentStep=0;
 
-    foreach(iteratorWidget,whitewidgetList)
+    foreach(WhiteWidget *iteratorWidget,whitewidgetList)
     {
+        iteratorWidget->setWindowOpacity(0);
         iteratorWidget->showFullScreen();
     }
 }
@@ -83,11 +83,11 @@ void WhiteWidgetManager::showAll()
 */
 void WhiteWidgetManager::hideAll()
 {
-    WhiteWidget *iteratorWidget;
-    foreach(iteratorWidget,whitewidgetList)
+    foreach(WhiteWidget *iteratorWidget,whitewidgetList)
     {
         iteratorWidget->hide();
     }
+    m_timer->stop();
 }
 
 /**
@@ -95,17 +95,20 @@ void WhiteWidgetManager::hideAll()
 */
 void WhiteWidgetManager::tick()
 {
-    WhiteWidget *iteratorWidget;
-    m_currentStep=qMin(m_currentStep+1, m_steps);
+    if(m_currentStep>m_steps*2)
+        hideAll();
+    
+    m_currentStep++;
+    int current=qMin(m_currentStep, m_steps);
 
-    foreach(iteratorWidget,whitewidgetList)
+    foreach(WhiteWidget* iteratorWidget,whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(m_currentStep);
+        iteratorWidget->setWindowOpacity(double(current)/m_steps);
     }
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()
 {
-    qDeleteAll(whitewidgetList.begin(),whitewidgetList.end());
+    qDeleteAll(whitewidgetList);
     whitewidgetList.clear();
 }

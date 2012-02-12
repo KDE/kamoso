@@ -22,6 +22,8 @@
 #include "kamosodirmodel.h"
 #include "kamososettings.h"
 #include "video/webcamcontrol.h"
+#include "whitewidgetmanager.h"
+#include "devicemanager.h"
 
 #include <kdeclarative.h>
 #include <qdeclarative.h>
@@ -39,7 +41,7 @@ KamosoQuick::KamosoQuick(QWidget* parent)
     KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(engine());
     kdeclarative.initialize();
-    //binds things like kconfig and icons
+	    //binds things like kconfig and icons
     kdeclarative.setupBindings();
 
     m_webcamControl = new WebcamControl(this);
@@ -47,6 +49,8 @@ KamosoQuick::KamosoQuick(QWidget* parent)
 
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
+    engine()->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
+    engine()->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
     setResizeMode(SizeRootObjectToView);
     setSource(QUrl("qrc:/qml/Main.qml"));
 //     Q_ASSERT(errors().isEmpty());

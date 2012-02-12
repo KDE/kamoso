@@ -30,6 +30,10 @@ DeviceManager *DeviceManager::s_instance = NULL;
 
 DeviceManager::DeviceManager()
 {
+    QHash< int, QByteArray > roles=roleNames();
+    roles.insert(Udi, "udi");
+    setRoleNames(roles);
+    
     //Checking current connected devices
     QList <Solid::Device> deviceList = Solid::Device::listFromType(Solid::DeviceInterface::Video, QString());
     foreach (const Solid::Device &device, deviceList) {
@@ -44,29 +48,17 @@ DeviceManager::DeviceManager()
 /*
 *Public methods
 */
-QList<Device> DeviceManager::devices() const
-{
-    return m_deviceList;
-}
-
-int DeviceManager::numberOfDevices() const
+int DeviceManager::rowCount(const QModelIndex& parent) const
 {
     return m_deviceList.size();
 }
 
-Device& DeviceManager::defaultDevice()
+void DeviceManager::setPlayingDevice(const QString& udi)
 {
-    return m_deviceList.first();
-}
-
-QString DeviceManager::defaultDevicePath() const
-{
-    return m_deviceList.first().path();
-}
-
-QString DeviceManager::defaultDeviceUdi() const
-{
-    return m_deviceList.first().udi();
+    foreach(const Device& d, m_deviceList) {
+        if(d.udi()==udi)
+            m_playingDevice=d;
+    }
 }
 
 Device& DeviceManager::playingDevice()
@@ -76,12 +68,27 @@ Device& DeviceManager::playingDevice()
 
 QString DeviceManager::playingDeviceUdi() const
 {
-    return m_playingUdi;
+    return m_playingDevice.udi();
 }
 
 QString DeviceManager::playingDevicePath() const
 {
-    return m_playingPath;
+    return m_playingDevice.path();
+}
+
+QVariant DeviceManager::data(const QModelIndex& index, int role) const
+{
+    int row = index.row();
+    if(!index.isValid() || row < 0 || row>=m_deviceList.size())
+        return QVariant();
+    
+    switch(role) {
+        case Qt::DisplayRole:
+            return m_deviceList[row].description();
+        case Udi:
+            return m_deviceList[row].udi();
+    }
+    return QVariant();
 }
 
 /*
@@ -89,20 +96,15 @@ QString DeviceManager::playingDevicePath() const
 */
 void DeviceManager::addDevice(const Solid::Device& device)
 {
+    beginInsertRows(QModelIndex(), m_deviceList.count(), m_deviceList.count());
     m_deviceList.append(Device(&device));
+    endInsertRows();
+    emit countChanged();
 }
 
 void DeviceManager::removeDevice(const Solid::Device& device)
 {
-    QList <Device> ::iterator i;
-    for(i = m_deviceList.begin(); i != m_deviceList.end(); ++i)
-    {
-        if(i->udi() == device.udi())
-        {
-            m_deviceList.erase(i);
-            break;
-        }
-    }
+    deviceRemoved(device.udi());
 }
 
 /*
@@ -110,14 +112,15 @@ void DeviceManager::removeDevice(const Solid::Device& device)
 */
 void DeviceManager::deviceRemoved(const QString &udi)
 {
-    QList <Device> ::iterator i;
-    for(i=m_deviceList.begin();i!=m_deviceList.end();++i)
+    for(int i=0; i<m_deviceList.count(); ++i)
     {
-        if(i->udi() == udi)
+        if(m_deviceList[i].udi() == udi)
         {
-            m_deviceList.erase(i);
-            emit deviceUnregistered(udi);
-            break;
+            beginRemoveRows(QModelIndex(), i, i);
+            m_deviceList.removeAt(i);
+            endRemoveRows();
+            emit countChanged();
+            return;
         }
     }
 }
@@ -137,8 +140,6 @@ void DeviceManager::webcamPlaying(const QString &udi)
     foreach(const Device &device, m_deviceList) {
         if(device.udi() == udi) {
             m_playingDevice = device;
-            m_playingUdi = udi;
-            m_playingPath = m_playingDevice.path();
             break;
         }
     }
@@ -148,6 +149,8 @@ bool DeviceManager::hasDevices() const
 {
     return !m_deviceList.isEmpty();
 }
+
+
 
 /*
 *Singleton

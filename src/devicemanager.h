@@ -17,29 +17,53 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#ifndef WHITEWIDGETMANAGER_H
-#define WHITEWIDGETMANAGER_H
+#ifndef DEVICEMANAGER_H
+#define DEVICEMANAGER_H
 
-#include <QObject>
-#include <QDesktopWidget>
-#include "whitewidget.h"
+#include <QtCore/QObject>
+#include <QAbstractListModel>
+#include "device.h"
 
-class WhiteWidgetManager : public QObject
+class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(QString playingDevice READ playingDeviceUdi WRITE setPlayingDevice NOTIFY playingDeviceChanged)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     public:
-        WhiteWidgetManager(QWidget* parent=0);
-        ~WhiteWidgetManager();
-        void showAll();
-        void hideAll();
-        int m_steps;
+        static DeviceManager* self();
+        enum {
+            Udi=Qt::UserRole+1
+        };
+
+        Device& playingDevice();
+        QString playingDeviceUdi() const;
+        QString playingDevicePath() const;
+        void setPlayingDevice(const QString& udi);
+        bool hasDevices() const;
+        
+        virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+    public Q_SLOTS:
+        void webcamPlaying(const QString &udi);
+
+    private Q_SLOTS:
+        void deviceAdded(const QString &udi);
+        void deviceRemoved(const QString &udi);
+
+    Q_SIGNALS:
+        void playingDeviceChanged();
+        void deviceRegistered( const QString & udi );
+        void deviceUnregistered( const QString & udi );
+        void countChanged();
+
     private:
-        void createWhiteWidgets();
-        QList<WhiteWidget*> whitewidgetList;
-        QTimer* m_timer;
-        int m_currentStep;
-    private slots:
-        void tick();
+        DeviceManager();
+        static DeviceManager* s_instance;
+        void addDevice(const Solid::Device& device);
+        void removeDevice(const Solid::Device& device);
+        QList<Device> m_deviceList;
+        Device m_playingDevice;
 };
 
-#endif //WHITEWIDGETMANAGER
+#endif // DEVICEMANAGER_H
