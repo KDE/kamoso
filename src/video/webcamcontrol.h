@@ -39,6 +39,9 @@ class WebcamControl : public QObject
         void startRecording();
         QString stopRecording();
 
+    Q_SIGNALS:
+        void photoTaken(QString path);
+
     private:
         QByteArray basicPipe();
         void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);

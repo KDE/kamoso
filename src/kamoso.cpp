@@ -28,6 +28,7 @@
 Kamoso::Kamoso(WebcamControl *webcamControl)
 {
     m_webcamControl = webcamControl;
+    connect(m_webcamControl, SIGNAL(photoTaken(QString)), this, SIGNAL(photoTaken(QString)));
 }
 
 Kamoso::~Kamoso()
