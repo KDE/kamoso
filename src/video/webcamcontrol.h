@@ -23,6 +23,8 @@
 #include <QtCore/QObject>
 
 #include <QDeclarativeView>
+#include <QGst/Pipeline>
+#include <KUrl>
 
 class WebcamControl : public QObject
 {
@@ -30,6 +32,17 @@ class WebcamControl : public QObject
     public:
         WebcamControl(QDeclarativeView *view);
         virtual ~WebcamControl();
+
+    public Q_SLOTS:
+        void takePhoto(const KUrl& url);
+
+    private:
+        QByteArray basicPipe();
+        void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
+
+    private:
+        KUrl m_saveUrl;
+        QGst::PipelinePtr m_pipeline;
 };
 
 #endif // WEBCAMCONTROL_H
