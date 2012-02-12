@@ -45,6 +45,8 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
     QGst::Ui::GraphicsVideoSurface *surface = new QGst::Ui::GraphicsVideoSurface(view);
     view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
 
+    m_videoSink = surface->videoSink();
+
     QByteArray pipe = basicPipe();
     pipe += " ! ffmpegcolorspace ! "
             GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
@@ -57,9 +59,9 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
         return;
     }
 
-    m_pipeline->add(surface->videoSink());
+    m_pipeline->add(m_videoSink);
 
-    m_pipeline->getElementByName("videoPad")->link(surface->videoSink());
+    m_pipeline->getElementByName("videoPad")->link(m_videoSink);
     m_pipeline->getElementByName("fakesink").isNull();
 
     m_pipeline->setState(QGst::StatePlaying);

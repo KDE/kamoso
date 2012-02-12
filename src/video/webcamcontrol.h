@@ -43,6 +43,7 @@ class WebcamControl : public QObject
     private:
         KUrl m_saveUrl;
         QGst::PipelinePtr m_pipeline;
+        QGst::ElementPtr m_videoSink;
 };
 
 #endif // WEBCAMCONTROL_H
