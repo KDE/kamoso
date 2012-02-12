@@ -17,37 +17,30 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "kamosoquick.h"
-#include "kamoso.h"
-#include "kamosodirmodel.h"
-#include "kamososettings.h"
-#include "video/webcamcontrol.h"
 
-#include <kdeclarative.h>
-#include <qdeclarative.h>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeView>
+#ifndef KAMOSO_H
+#define KAMOSO_H
 
-#include <QGst/Ui/GraphicsVideoSurface>
-#include <QGst/Pipeline>
-#include <QGst/ElementFactory>
+#include <QObject>
 
-KamosoQuick::KamosoQuick(QWidget* parent)
-    : QDeclarativeView(parent)
+class WebcamControl;
+class KUrl;
+class Kamoso : public QObject
 {
-    KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine());
-    kdeclarative.initialize();
-    //binds things like kconfig and icons
-    kdeclarative.setupBindings();
+Q_OBJECT
 
-    m_webcamControl = new WebcamControl(this);
-    new Kamoso(m_webcamControl);
+    public:
+        Kamoso(WebcamControl* webcamControl);
+        virtual ~Kamoso();
 
-    qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
-    engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
-    setResizeMode(SizeRootObjectToView);
-    setSource(QUrl("qrc:/qml/Main.qml"));
-//     Q_ASSERT(errors().isEmpty());
-}
+    public Q_SLOTS:
+        void takePhoto();
+
+    private:
+        void autoincFilename(KUrl &filename);
+
+    private:
+        WebcamControl *m_webcamControl;
+};
+
+#endif // KAMOSO_H
