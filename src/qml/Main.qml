@@ -11,6 +11,7 @@ Rectangle
 	ImagesView {
 		id: imagesView
 		mimeFilter: modes.checkedButton.stuff.mimes
+		spacing: 10
 		anchors {
 			margins: 20
 			left: parent.left

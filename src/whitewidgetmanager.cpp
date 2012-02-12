@@ -52,13 +52,12 @@ WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 void WhiteWidgetManager::createWhiteWidgets()
 {
     kDebug() << "Creating whiteWidgets";
-    WhiteWidget *whiteWidget;
     QDesktopWidget *desktopInfo = qApp->desktop();
 
     kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
     for(uchar x=0;x<desktopInfo->numScreens();x++)
     {
-        whiteWidget = new WhiteWidget;
+        WhiteWidget *whiteWidget = new WhiteWidget;
         whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
         whitewidgetList.append(whiteWidget);
     }
@@ -84,8 +83,7 @@ void WhiteWidgetManager::showAll()
 */
 void WhiteWidgetManager::hideAll()
 {
-    WhiteWidget *iteratorWidget;
-    foreach(iteratorWidget,whitewidgetList)
+    foreach(WhiteWidget *iteratorWidget,whitewidgetList)
     {
         iteratorWidget->hide();
     }
@@ -105,12 +103,12 @@ void WhiteWidgetManager::tick()
 
     foreach(WhiteWidget* iteratorWidget,whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(double(m_currentStep)/m_steps);
+        iteratorWidget->setWindowOpacity(double(current)/m_steps);
     }
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()
 {
-    qDeleteAll(whitewidgetList.begin(),whitewidgetList.end());
+    qDeleteAll(whitewidgetList);
     whitewidgetList.clear();
 }
