@@ -27,7 +27,7 @@ ListModel
     }
 
     ListElement {
-        icon: "weather-clear"
+        icon: "webcamreceive"
         text: "Shoot"
         mimes: "image/png"
         checkable: false
@@ -39,7 +39,7 @@ ListModel
         checkable: true
     }
     ListElement {
-        icon: "audio-input-microphone"
+        icon: "media-record"
         text: "Action!"
         mimes: "video/x-matroska"
         checkable: true
