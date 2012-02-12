@@ -142,15 +142,17 @@ Rectangle
         }
     }
     
-    ListView {
+    ButtonColumn {
         id: deviceSelector
         height: 30
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
-        orientation: ListView.Horizontal
-        model: devicesModel
-        delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDevice=udi }
-        visible: count>1
+        visible: devicesModel.count>1
+        
+        Repeater {
+            model: devicesModel
+            delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDevice=udi }
+        }
     }
 }
