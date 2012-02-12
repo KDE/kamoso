@@ -53,7 +53,7 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
             " ! fakesink name=fakesink";
 
     try {
-        m_pipeline = QGst::Parse::launch(pipe.data()).dynamicCast<QGst::Pipeline>();
+        m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
     } catch (const QGlib::Error & error) {
         qWarning("Can't create pipeline");
         return;
