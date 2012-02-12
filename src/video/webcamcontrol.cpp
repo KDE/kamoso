@@ -212,6 +212,7 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     kDebug() << "Image bytecount: " << img.byteCount();
     img.save(m_saveUrl.path());
 
+    Q_EMIT photoTaken(m_saveUrl.url());
     m_pipeline->getElementByName("fakesink")->setProperty("signal-handoffs", false);
     QGlib::disconnect(m_pipeline->getElementByName("fakesink"), "handoff", this, &WebcamControl::photoGstCallback);
 }

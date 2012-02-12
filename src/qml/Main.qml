@@ -20,7 +20,7 @@ Rectangle
         }
         height: 30
     }
-    
+
     function awesomeAnimation(path) {
 //         tada.x = visor.x
 //         tada.y = 0
@@ -30,15 +30,19 @@ Rectangle
         tada.state = "go"
         tada.state = "done"
 //         tada.visible = true
-        
+
     }
-    
+
+    Connections {
+        target: webcam
+        onPhotoTaken: awesomeAnimation(path)
+    }
     Image {
         id: tada
         z: 10
         width: 10
         height: 10
-        
+
         states: [
             State { name: "go"
                 PropertyChanges { target: tada; x: visor.x }
@@ -81,7 +85,7 @@ Rectangle
             model: ActionsModel { id: actions }
             delegate: Button {
                 property QtObject stuff: model
-                
+
                 iconSource: icon
             }
         }
@@ -97,11 +101,11 @@ Rectangle
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
-        
+
         onClicked: {
             var path = actions.trigger(modes.checkedButton.stuff.index, checked)
             if(!checkable || checked) {
-                awesomeAnimation(path)
+//                 awesomeAnimation(path)
             }
         }
     }
@@ -117,7 +121,7 @@ Rectangle
         Button { width: 30; text: "a" }
         Button { width: 30; text: "a" }
     }
-    
+
     Item {
         id: visor
         anchors {
@@ -126,7 +130,7 @@ Rectangle
             top: parent.top
             bottom: controls.top
         }
-        
+
         VideoItem {
             id: video
 
@@ -134,7 +138,7 @@ Rectangle
             surface: videoSurface1
             anchors.fill: parent
         }
-        
+
         AnimatedImage {
             anchors.fill: parent
             visible: !video.visible
