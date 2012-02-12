@@ -28,9 +28,6 @@ class KamosoQuick : public QDeclarativeView
     Q_OBJECT
     public:
         explicit KamosoQuick(QWidget* parent = 0);
-
-    private:
-        WebcamControl *m_webcamControl;
 };
 
 #endif // KAMOSOQUICK_H

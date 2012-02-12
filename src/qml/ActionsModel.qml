@@ -9,7 +9,7 @@ ListModel
             case 0:
                 whites.showAll()
                 console.log("photoooooooo!")
-//                 whites.hideAll()
+                webcam.takePhoto()
                 break;
             case 1:
                 console.log("burst!!! "+checked)

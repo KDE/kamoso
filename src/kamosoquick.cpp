@@ -44,13 +44,13 @@ KamosoQuick::KamosoQuick(QWidget* parent)
 	    //binds things like kconfig and icons
     kdeclarative.setupBindings();
 
-    m_webcamControl = new WebcamControl(this);
-    new Kamoso(m_webcamControl);
+    WebcamControl* webcamControl = new WebcamControl(this);
 
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
     engine()->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine()->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
+    engine()->rootContext()->setContextProperty("webcam", new Kamoso(webcamControl));
     setResizeMode(SizeRootObjectToView);
     setSource(QUrl("qrc:/qml/Main.qml"));
 //     Q_ASSERT(errors().isEmpty());
