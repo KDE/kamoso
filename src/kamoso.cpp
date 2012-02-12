@@ -66,6 +66,8 @@ void Kamoso::stopRecording()
     }
 
     QFile::rename(m_webcamControl->stopRecording(), photoPlace.path());
+
+    m_webcamControl->play();
 }
 
 void Kamoso::autoincFilename(KUrl &filename)

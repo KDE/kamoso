@@ -49,6 +49,16 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
 
     m_videoSink = surface->videoSink();
 
+    play();
+}
+
+WebcamControl::~WebcamControl()
+{
+
+}
+
+void WebcamControl::play()
+{
     QByteArray pipe = basicPipe();
     pipe += " ! ffmpegcolorspace ! "
             GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
@@ -66,12 +76,6 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
     m_pipeline->setState(QGst::StatePlaying);
-
-}
-
-WebcamControl::~WebcamControl()
-{
-
 }
 
 void WebcamControl::takePhoto(const KUrl &url)
