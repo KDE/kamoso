@@ -1,4 +1,6 @@
-include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KIPI_INCLUDE_DIR} ${QTGSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR} ${GSTREAMER_INCLUDE_DIR})
+include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_SOURCE_DIR}/src
+    ${KIPI_INCLUDE_DIR} ${QTGSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR} ${GSTREAMER_INCLUDE_DIR})
 
 add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
@@ -18,8 +20,8 @@ set(kamoso_SRCS
 	thumbnailview.cpp
 	kamoso.cpp
 	main.cpp
-	whitewidget.cpp
-	whitewidgetmanager.cpp
+	../src/whitewidget.cpp
+	../src/whitewidgetmanager.cpp
 	countdownwidget.cpp
 	webcamwidget.cpp
 	customDelegate.cpp

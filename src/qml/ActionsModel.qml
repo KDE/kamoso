@@ -7,7 +7,9 @@ ListModel
     function trigger(i, checked) {
         switch(i) {
             case 0:
+                whites.showAll()
                 console.log("photoooooooo!")
+//                 whites.hideAll()
                 break;
             case 1:
                 console.log("burst!!! "+checked)

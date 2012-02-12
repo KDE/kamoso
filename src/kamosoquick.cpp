@@ -20,6 +20,7 @@
 #include "kamosoquick.h"
 #include "kamosodirmodel.h"
 #include "kamososettings.h"
+#include "whitewidgetmanager.h"
 #include <kdeclarative.h>
 #include <qdeclarative.h>
 #include <QDeclarativeEngine>
@@ -57,6 +58,7 @@ KamosoQuick::KamosoQuick(QWidget* parent)
 
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
+    engine()->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     setResizeMode(SizeRootObjectToView);
     setSource(QUrl("qrc:/qml/Main.qml"));
 //     Q_ASSERT(errors().isEmpty());

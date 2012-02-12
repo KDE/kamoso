@@ -28,11 +28,12 @@ class WhiteWidgetManager : public QObject
 {
     Q_OBJECT
     public:
-        WhiteWidgetManager(QWidget* parent=0);
+        WhiteWidgetManager(QObject* parent);
         ~WhiteWidgetManager();
+        int m_steps;
+    public slots:
         void showAll();
         void hideAll();
-        int m_steps;
     private:
         void createWhiteWidgets();
         QList<WhiteWidget*> whitewidgetList;
