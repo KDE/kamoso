@@ -88,6 +88,8 @@ void WebcamControl::play()
 
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
+    m_pipeline->setState(QGst::StateReady);
+    m_videoSink->setProperty("force-aspect-ratio", true);
     m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -139,9 +141,10 @@ void WebcamControl::startRecording()
 
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
-//     m_pipeline->setState(QGst::StateReady);
+    m_pipeline->setState(QGst::StateReady);
 //     activeAspectRatio();
 //     setVideoSettings();
+    m_videoSink->setProperty("force-aspect-ratio", true);
     m_pipeline->setState(QGst::StatePlaying);
 
     m_recording = true;
