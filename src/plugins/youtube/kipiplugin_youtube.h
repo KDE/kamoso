@@ -22,12 +22,11 @@
 #include <kwallet.h>
 #include <KIO/Job>
 #include <libkipi/plugin.h>
-#include <libkipi/exportinterface.h>
+#include <exportinterface.h>
 
-class YoutubePlugin : public KIPI::Plugin, public KIPI::ExportInterface
+class YoutubePlugin : public KIPI::Plugin, public ExportInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(KIPI::ExportInterface)
 	public:
 		YoutubePlugin(QObject* parent, const QVariantList& args);
 // 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);

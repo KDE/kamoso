@@ -45,6 +45,7 @@
     #include <solid/control/powermanager.h>
 #endif
 
+#include <QItemSelection>
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
@@ -189,7 +190,9 @@ Kamoso::Kamoso(QWidget* parent)
     connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
 
     QMetaObject::invokeMethod(this, "initialize");
-    mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
+    mPluginLoader = new KIPI::PluginLoader();
+    mPluginLoader->setInterface(new KIPIInterface(this));
+    mPluginLoader->init();
 }
 
 KUrl::List Kamoso::selectedItems()

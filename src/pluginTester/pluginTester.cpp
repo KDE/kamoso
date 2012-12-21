@@ -41,7 +41,9 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
         kurlList.append(KUrl(args->arg(i)));
     }
 
-    m_pluginLoader = new KIPI::PluginLoader(QStringList(), new FakeKIPIInterface(kurlList), "");
+    m_pluginLoader = new KIPI::PluginLoader();
+    m_pluginLoader->setInterface(new FakeKIPIInterface(kurlList));
+    m_pluginLoader->init();
 
     bool found = false;
     Q_FOREACH(KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {

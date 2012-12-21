@@ -20,10 +20,10 @@
 #include "fakekipiaction.h"
 
 #include <libkipi/plugin.h>
-#include <libkipi/exportinterface.h>
 #include <KIO/JobUiDelegate>
 #include <kjobtrackerinterface.h>
 #include <KDebug>
+#include "../plugins/exportinterface.h"
 
 FakeKipiAction::FakeKipiAction(KIPI::PluginLoader::Info* pluginInfo, QObject* parent)
     : QAction(pluginInfo->icon(), pluginInfo->name(), parent), pluginInfo(pluginInfo)
@@ -39,7 +39,7 @@ FakeKipiAction::~FakeKipiAction()
 void FakeKipiAction::runJob()
 {
     KIPI::Plugin* p=pluginInfo->plugin();
-    KIPI::ExportInterface* ep = dynamic_cast<KIPI::ExportInterface*>(p);
+    ExportInterface* ep = dynamic_cast<ExportInterface*>(p);
 
     m_job = ep->exportFiles(i18n("Kamoso"));
     KIO::getJobTracker()->registerJob(m_job);
