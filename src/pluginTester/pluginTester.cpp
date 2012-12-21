@@ -26,6 +26,7 @@
 #include <KCmdLineArgs>
 #include <libkipi/plugin.h>
 #include <libkipi/pluginloader.h>
+#include <libkipi/version.h>
 
 PluginTester::PluginTester(QObject *parent) : QObject(parent)
 {
@@ -41,9 +42,13 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
         kurlList.append(KUrl(args->arg(i)));
     }
 
+#if (KIPI_VERSION >= 0x020000)
     m_pluginLoader = new KIPI::PluginLoader();
     m_pluginLoader->setInterface(new FakeKIPIInterface(kurlList));
     m_pluginLoader->init();
+#else
+    m_pluginLoader = new KIPI::PluginLoader(QStringList(), new FakeKIPIInterface(kurlList), "");
+#endif
 
     bool found = false;
     Q_FOREACH(KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {

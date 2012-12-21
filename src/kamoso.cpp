@@ -78,6 +78,7 @@
 
 #include <libkipi/plugin.h>
 #include <libkipi/pluginloader.h>
+#include <libkipi/version.h>
 #include <KPluginInfo>
 
 const int max_exponential_value = 50;
@@ -190,9 +191,13 @@ Kamoso::Kamoso(QWidget* parent)
     connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
 
     QMetaObject::invokeMethod(this, "initialize");
+#if (KIPI_VERSION >= 0x020000)
     mPluginLoader = new KIPI::PluginLoader();
     mPluginLoader->setInterface(new KIPIInterface(this));
     mPluginLoader->init();
+#else
+    mPluginLoader = new KIPI::PluginLoader(QStringList(), new KIPIInterface(this), "");
+#endif
 }
 
 KUrl::List Kamoso::selectedItems()
