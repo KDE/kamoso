@@ -3,7 +3,6 @@ Type=ServiceType
 X-KDE-ServiceType=Kamoso/Plugin
 X-KDE-Derived=KPluginInfo
 Name=Kamoso Plugin
-Name[bs]=Kamoso dodatak
 Name[ca]=Connector del Kamoso
 Name[cs]=Přídavný modul Kamoso
 Name[da]=Kamoso-plugin
