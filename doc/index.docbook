@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title>The Kamoso Handbook</title>
+<authorgroup>
+<author>
+<personname>
+      <firstname>This documentation was converted from the KDE UserBase <ulink url=" http://userbase.kde.org/Kamoso">Kamoso</ulink> page.</firstname>
+<surname></surname>
+</personname>
+      </author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+      </authorgroup>
+<legalnotice>&FDLNotice;</legalnotice>
+<date>2012-12-05</date>
+      <releaseinfo>2.0.2 (&kde; SC 4.10)</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry><term><emphasis role="bold">Take a shot</emphasis></term>
+    <listitem>
+    <para><application>Kamoso</application> gives you an opportunity to make photos from your webcam and upload them to Facebook</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry><term><emphasis role="bold">Record video</emphasis></term>
+    <listitem>
+    <para><application>Kamoso</application> allows to record videos from your webcam and upload them to YouTube</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp>2012-12-05T19:30:21Z</timestamp>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"><title>User Guide</title>
+<para>Welcome to <application>Kamoso</application>!
+</para>
+<para><application>Kamoso</application> is a great program to use your webcam to take pictures or make videos. It probably should be the best webcam recorder for &Linux;. This guide will help you use Kamoso once you have installed it. We tried to make it simple and friendly. Good luck!
+</para>
+<sect1 id="quick-start"><title>Quick Start</title>
+<para>On launching <application>Kamoso</application>, you are greeted with two groups of buttons on the left and right, and a button in the center.
+</para>
+<para>The central button helps you to click a picture! Go ahead and try it now! SMILE! <inlinemediaobject> <imageobject> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject> </inlinemediaobject>
+</para>
+<para><application>Kamoso</application> will give you a 3 second heads up so you can pose for your picture, and ask you to smile right before clicking!
+</para>
+<para>If you click on the second button from the left, <application>Kamoso</application> changes to burst-mode. <application>Kamoso</application> will keep clicking pictures rapidly till you don't click on the center button and tell it to stop. The pictures line up in chronological order on the bottom, and you can view them by double-clicking them. Alternatively, you could right click and choose <guilabel>Open</guilabel> to view the pictures too! If you aren't happy with any of the pictures, just right click and select <guilabel>Trash</guilabel> to delete that particular picture.
+</para>
+</sect1>
+<sect1 id="upload-image-to-facebook"><title>Upload image to Facebook</title>
+<para>If you feel your newly-clicked pictures must be uploaded to your Facebook profile, just right click on the picture and select <guilabel>Facebook Import/Export</guilabel>. A window will open up on your browser asking you to grant permission to <application>Kamoso</application>. Once you do this, upload away!
+</para>
+<para><note><para>You need to have an account on Facebook to upload the picture you made </para></note>
+</para>
+<para>If you want to avoid all the right clicks, click on the second button on the right side and you'll be provided with the same options as when you right click.
+</para>
+</sect1>
+<sect1 id="upload-video-to-youtube"><title>Upload video to YouTube</title>
+<para><application>Kamoso</application> also allows you to capture videos! By clicking on the red button on the left, you change to video mode. Click on the central button to shoot your video! Right click on the video and select <guilabel>YouTube</guilabel> to upload it to YouTube.
+</para>
+<para><note><para>You need to have an account on YouTube and provide <application>Kamoso</application> an access with your username and password – don't worry, it's totally safe!</para></note>
+</para>
+</sect1>
+<sect1 id="customising"><title>Customising</title>
+<para>
+<screenshot>
+<screeninfo></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>If you feel your picture quality isn't optimal, click on the button on the extreme right and select <guilabel>Settings</guilabel>. This is the settings panel.
+</para>
+<para>If you want to change the directory where <application>Kamoso</application> saves the pictures, navigate to the <guilabel>General</guilabel> panel, and change the directory from thereon.
+</para>
+<para>If you want to change the time before <application>Kamoso</application> clicks your picture, navigate to <guilabel>Photo settings</guilabel>.
+</para>
+<para>If you're a really technical user, scroll over to the <guilabel>Video settings</guilabel> and there you can adjust settings like brightness, contrast, &etc;
+</para>
+</sect1>
+<sect1 id="the-end"><title>The End</title>
+<para>Well, we've reached the end of our tutorial. I hope your queries have been adequately answered!
+</para>
+<para>Enjoy using <application>Kamoso</application>! <inlinemediaobject> <imageobject> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject> </inlinemediaobject>
+</para>
+</sect1>
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title>Credits and License</title>
+      <para>
+Documentation Copyright see the UserBase 
+      <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history">Kamoso page history</ulink></para>
+      <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underFDL;
+</chapter>
+&documentation.index;
+</book>
