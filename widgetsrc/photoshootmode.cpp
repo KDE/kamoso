@@ -73,7 +73,7 @@ void PhotoShootMode::shootClicked(bool pressed)
 
 QIcon PhotoShootMode::icon() const
 {
-    return KIcon("webcamreceive");
+    return KIcon("camera-web");
 }
 
 QString PhotoShootMode::name() const

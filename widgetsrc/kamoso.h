@@ -20,11 +20,14 @@
 #ifndef KAMOSO_H
 #define KAMOSO_H
 
+#include <QtCore/QPointer>
 #include <KMainWindow>
+#include <kdeversion.h>
 #include <KUrl>
 #include <KFileItemList>
 #include <KAction>
 #include <libkipi/pluginloader.h>
+#include "plugins/exportinterface.h"
 
 class KDirModel;
 class KamosoJobTracker;
@@ -47,6 +50,8 @@ class WebcamWidget;
 class DeviceManager;
 class KamosoJob;
 class WebcamDialog;
+class QItemSelection;
+
 namespace Ui { class mainWidget; class webcamConfigWidget;}
 namespace Phonon { class MediaObject; }
 class Kamoso : public KMainWindow

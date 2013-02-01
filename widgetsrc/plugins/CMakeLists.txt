@@ -30,5 +30,5 @@ FIND_PACKAGE(Kipi REQUIRED)
 # MACRO_OPTIONAL_FIND_PACKAGE(KdepimLibs) # For Calendar (libkcal).
 # MACRO_OPTIONAL_FIND_PACKAGE(QCA2)       # For Shwup.
 
-include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/plugins/youtube)
+include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/plugins ${CMAKE_SOURCE_DIR}/src/plugins/youtube)
 add_subdirectory(youtube)

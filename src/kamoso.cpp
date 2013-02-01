@@ -24,7 +24,6 @@
 
 #include <QtCore/QFile>
 
-
 Kamoso::Kamoso(WebcamControl *webcamControl)
 {
     m_webcamControl = webcamControl;

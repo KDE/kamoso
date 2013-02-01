@@ -19,7 +19,7 @@
 
 #include "kipiaction.h"
 #include <libkipi/plugin.h>
-#include <libkipi/exportinterface.h>
+#include "plugins/exportinterface.h"
 #include <QDebug>
 #include "kamoso.h"
 #include "kamosojobtracker.h"
@@ -33,7 +33,7 @@ KipiAction::KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject
 void KipiAction::runJob()
 {
     KIPI::Plugin* p=pluginInfo->plugin();
-    KIPI::ExportInterface* ep=dynamic_cast<KIPI::ExportInterface*>(p);
+    ExportInterface* ep=dynamic_cast<ExportInterface*>(p);
 
     KJob* job=ep->exportFiles(i18n("Kamoso"));
     mKamoso->tracker()->registerJob(job, mKamoso->selectedItems(), icon());
