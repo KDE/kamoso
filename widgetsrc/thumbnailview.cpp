@@ -47,7 +47,7 @@ void ThumbnailView::retrievePixmap(const KFileItem& file, const QModelIndex& idx
     if(!m_waiting.contains(file.url())) {
         m_waiting.insert(file.url(), idx);
 
-        KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << file, rect.width(), rect.height(), 0, 0, true, false, 0);
+        KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << file, rect.size());
         connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)), SLOT(previewAvailable(KFileItem,QPixmap)));
         job->setAutoDelete(true);
         job->start();
