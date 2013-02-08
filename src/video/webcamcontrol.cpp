@@ -69,10 +69,11 @@ void WebcamControl::stop()
     qDebug() << "Stop";
     //TODO: delete?
     if(m_pipeline) {
-        qDebug() << "Stopping";
+        qDebug() << "Stopping: " << m_pipeline->name();
         m_pipeline->setState(QGst::StateNull);
-        m_pipeline->remove(m_videoSink);
         m_pipeline->getElementByName("videoPad")->unlink(m_videoSink);
+        m_pipeline->remove(m_videoSink);
+        m_pipeline.clear();
     }
 }
 
@@ -86,6 +87,7 @@ void WebcamControl::play()
             GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
             " ! fakesink name=fakesink";
 
+    qDebug() << "Creating pipe";
     try {
         m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
     } catch (const QGlib::Error & error) {
@@ -93,6 +95,7 @@ void WebcamControl::play()
         return;
     }
 
+    qDebug() << "About to play";
     m_pipeline->add(m_videoSink);
 
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
