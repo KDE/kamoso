@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import QtGStreamer 0.10
+import org.kde.plasma.core 0.1
 import org.kde.plasma.components 0.1
 
 Rectangle
@@ -86,7 +87,7 @@ Rectangle
             delegate: Button {
                 property QtObject stuff: model
 
-                iconSource: icon
+                iconSource: model.icon
             }
         }
     }
@@ -95,12 +96,16 @@ Rectangle
         id: controls
         width: 100
         height: 40
-        iconSource: modes.checkedButton.stuff.icon
         checkable: modes.checkedButton.stuff.checkable
 
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
+        IconItem {
+            anchors.centerIn: parent
+            height: parent.height
+            source: modes.checkedButton.stuff.icon
+        }
 
         onClicked: {
             var path = actions.trigger(modes.checkedButton.stuff.index, checked)

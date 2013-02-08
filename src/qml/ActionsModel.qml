@@ -5,7 +5,7 @@ ListModel
     //it would be awesome to put the trigger
     //inside the element, but didn't really see how to
     function trigger(i, checked) {
-        var ret = "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif";
+        var ret = "";
         switch(i) {
             case 0:
                 whites.showAll()
@@ -27,7 +27,7 @@ ListModel
     }
 
     ListElement {
-        icon: "webcamreceive"
+        icon: "camera-web"
         text: "Shoot"
         mimes: "image/png"
         checkable: false
