@@ -66,9 +66,14 @@ WebcamControl::~WebcamControl()
 
 void WebcamControl::stop()
 {
+    qDebug() << "Stop";
     //TODO: delete?
-    if(m_pipeline)
+    if(m_pipeline) {
+        qDebug() << "Stopping";
         m_pipeline->setState(QGst::StateNull);
+        m_pipeline->remove(m_videoSink);
+        m_pipeline->getElementByName("videoPad")->unlink(m_videoSink);
+    }
 }
 
 void WebcamControl::play()
@@ -106,7 +111,7 @@ void WebcamControl::takePhoto(const KUrl &url)
 
 void WebcamControl::startRecording()
 {
-    m_pipeline->setState(QGst::StateNull);
+    stop();
 
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
     m_tmpVideoPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(date);
@@ -142,7 +147,6 @@ void WebcamControl::startRecording()
     }
 
     m_pipeline->add(m_videoSink);
-
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
     m_pipeline->setState(QGst::StateReady);
