@@ -35,15 +35,20 @@ DeviceManager::DeviceManager()
     roles.insert(Udi, "udi");
     setRoleNames(roles);
 
-    //Checking current connected devices
-    QList <Solid::Device> deviceList = Solid::Device::listFromType(Solid::DeviceInterface::Video, QString());
-    foreach (const Solid::Device &device, deviceList) {
-        addDevice(device);
-    }
-
     //Connect to solid events to get new devices.
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
+
+    //Checking current connected devices
+    QList <Solid::Device> deviceList = Solid::Device::listFromType(Solid::DeviceInterface::Video, QString());
+    if (deviceList.isEmpty()) {
+        qDebug() << "No devices fount";
+        return;
+    }
+
+    foreach (const Solid::Device &device, deviceList) {
+        addDevice(device);
+    }
 
     QString udi = Settings::self()->deviceUdi();
     foreach(const Device& d, m_deviceList) {
