@@ -49,6 +49,7 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
     view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
 
     m_videoSink = surface->videoSink();
+    m_videoSink->setProperty("force-aspect-ratio", true);
 
     connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
     connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
@@ -71,7 +72,7 @@ void WebcamControl::play()
 {
     qDebug() << "playing...";
     stop();
-    
+
     QByteArray pipe = basicPipe();
     pipe += " ! ffmpegcolorspace ! "
             GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
@@ -89,7 +90,7 @@ void WebcamControl::play()
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
     m_pipeline->setState(QGst::StateReady);
-    m_videoSink->setProperty("force-aspect-ratio", true);
+    setVideoSettings();
     m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -142,9 +143,7 @@ void WebcamControl::startRecording()
     m_pipeline->getElementByName("videoPad")->link(m_videoSink);
 
     m_pipeline->setState(QGst::StateReady);
-//     activeAspectRatio();
-//     setVideoSettings();
-    m_videoSink->setProperty("force-aspect-ratio", true);
+    setVideoSettings();
     m_pipeline->setState(QGst::StatePlaying);
 
     m_recording = true;
@@ -160,6 +159,41 @@ QString WebcamControl::stopRecording()
     m_recording = false;
 
     return m_tmpVideoPath;
+}
+
+void WebcamControl::setVideoSettings()
+{
+    Device device = DeviceManager::self()->playingDevice();
+    setBrightness(device.brightness());
+    setContrast(device.contrast());
+    setSaturation(device.saturation());
+    setGamma(device.gamma());
+    setHue(device.hue());
+}
+
+void WebcamControl::setBrightness(int level)
+{
+    m_pipeline->getElementByName("videoBalance")->setProperty("brightness", (double) level / 100);
+}
+
+void WebcamControl::setContrast(int level)
+{
+    m_pipeline->getElementByName("videoBalance")->setProperty("contrast", (double) level / 100);
+}
+
+void WebcamControl::setSaturation(int level)
+{
+    m_pipeline->getElementByName("videoBalance")->setProperty("saturation", (double) level / 100);
+}
+
+void WebcamControl::setGamma(int level)
+{
+    m_pipeline->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
+}
+
+void WebcamControl::setHue(int level)
+{
+    m_pipeline->getElementByName("videoBalance")->setProperty("hue", (double) level / 100);
 }
 
 void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)

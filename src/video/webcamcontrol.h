@@ -45,6 +45,13 @@ class WebcamControl : public QObject
 
     private:
         QByteArray basicPipe();
+        void setVideoSettings();
+        void setBrightness(int level);
+        void setContrast(int level);
+        void setSaturation(int level);
+        void setGamma(int level);
+        void setHue(int level);
+
         void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
 
     private:
