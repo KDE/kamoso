@@ -240,11 +240,11 @@ QByteArray WebcamControl::basicPipe()
     QByteArray pipe = "v4l2src name=v4l2src device="+playing+
 
     //Accepted capabilities
-//     " ! ffmpegcolorspace"
-//     " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
-//     " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
-//     " video/x-raw-yuv, width=640, height=480, framerate=30/1;"
-//     " video/x-raw-yuv, width=352, height=288, framerate=15/1"
+    " ! ffmpegcolorspace"
+    " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
+    " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
+    " video/x-raw-yuv, width=640, height=480, framerate=30/1;"
+    " video/x-raw-yuv, width=352, height=288, framerate=15/1"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"
