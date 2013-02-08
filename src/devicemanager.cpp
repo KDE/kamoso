@@ -163,6 +163,10 @@ void DeviceManager::deviceAdded(const QString &udi)
         addDevice(device);
         emit deviceRegistered(udi);
     }
+
+    if (m_playingDevice.udi().isEmpty()) {
+        setPlayingDevice(udi);
+    }
 }
 
 void DeviceManager::webcamPlaying(const QString &udi)
