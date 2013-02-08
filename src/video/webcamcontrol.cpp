@@ -53,7 +53,10 @@ WebcamControl::WebcamControl(QDeclarativeView* view)
 
     connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
     connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
-    play();
+
+    if (DeviceManager::self()->rowCount() > 0) {
+        play();
+    }
 }
 
 WebcamControl::~WebcamControl()
