@@ -34,7 +34,7 @@ DeviceManager::DeviceManager()
     QHash< int, QByteArray > roles=roleNames();
     roles.insert(Udi, "udi");
     setRoleNames(roles);
-    
+
     //Checking current connected devices
     QList <Solid::Device> deviceList = Solid::Device::listFromType(Solid::DeviceInterface::Video, QString());
     foreach (const Solid::Device &device, deviceList) {
@@ -44,14 +44,14 @@ DeviceManager::DeviceManager()
     //Connect to solid events to get new devices.
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceAdded(const QString&)), SLOT(deviceAdded(const QString &)) );
     connect(Solid::DeviceNotifier::instance(), SIGNAL(deviceRemoved(const QString&)), SLOT(deviceRemoved(const QString &)) );
-    
+
     QString udi = Settings::self()->deviceUdi();
     foreach(const Device& d, m_deviceList) {
         if(d.udi()==udi) {
             m_playingDevice = d;
         }
     }
-    
+
     if(m_playingDevice.path().isEmpty())
         m_playingDevice = m_deviceList.first();
 }
@@ -99,7 +99,7 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
     int row = index.row();
     if(!index.isValid() || row < 0 || row>=m_deviceList.size())
         return QVariant();
-    
+
     switch(role) {
         case Qt::DisplayRole:
             return m_deviceList[row].description();

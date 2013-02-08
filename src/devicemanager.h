@@ -40,7 +40,7 @@ class DeviceManager : public QAbstractListModel
         QByteArray playingDevicePath() const;
         void setPlayingDevice(const QString& udi);
         bool hasDevices() const;
-        
+
         virtual int rowCount(const QModelIndex& = QModelIndex()) const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
