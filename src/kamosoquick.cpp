@@ -41,7 +41,7 @@ KamosoQuick::KamosoQuick(QWidget* parent)
     KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(engine());
     kdeclarative.initialize();
-	    //binds things like kconfig and icons
+    //binds things like kconfig and icons
     kdeclarative.setupBindings();
 
     WebcamControl* webcamControl = new WebcamControl(this);
