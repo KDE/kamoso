@@ -79,9 +79,13 @@ void DeviceManager::setPlayingDevice(const QString& udi)
     foreach(const Device& d, m_deviceList) {
         if(d.udi()==udi) {
             m_playingDevice=d;
-            playingDeviceChanged();
+            qDebug() << "Playing device changed";
+            emit playingDeviceChanged();
+            return;
         }
     }
+
+    m_playingDevice = Device();
 }
 
 Device& DeviceManager::playingDevice()
@@ -135,13 +139,6 @@ void DeviceManager::removeDevice(const Solid::Device& device)
 */
 void DeviceManager::deviceRemoved(const QString &udi)
 {
-    if(udi==m_playingDevice.udi()) {
-        if(m_deviceList.isEmpty())
-            emit noDevices();
-        else
-            setPlayingDevice(m_deviceList.first().udi());
-    }
-
     for(int i=0; i<m_deviceList.count(); ++i)
     {
         if(m_deviceList[i].udi() == udi)
@@ -150,7 +147,16 @@ void DeviceManager::deviceRemoved(const QString &udi)
             m_deviceList.removeAt(i);
             endRemoveRows();
             emit countChanged();
-            return;
+            break;
+        }
+    }
+
+    if(udi==m_playingDevice.udi()) {
+        if(m_deviceList.isEmpty()) {
+            emit noDevices();
+            setPlayingDevice(QString());
+        } else {
+            setPlayingDevice(m_deviceList.first().udi());
         }
     }
 }
@@ -165,6 +171,7 @@ void DeviceManager::deviceAdded(const QString &udi)
     }
 
     if (m_playingDevice.udi().isEmpty()) {
+        qDebug() << "Playing  added device";
         setPlayingDevice(udi);
     }
 }
