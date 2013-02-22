@@ -27,7 +27,10 @@ class KamosoDirModel : public KDirModel
     Q_PROPERTY(QStringList mimeFilter READ mimeFilter WRITE setMimeFilter)
     Q_OBJECT
     public:
-        enum Roles { Path = ColumnCount+1 };
+        enum Roles {
+            Path = ColumnCount+1,
+            MimeType
+        };
         
         explicit KamosoDirModel(QObject* parent = 0);
         void setUrl(const QUrl& url);

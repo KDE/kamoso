@@ -25,6 +25,7 @@ KamosoDirModel::KamosoDirModel(QObject* parent)
 {
     QHash<int, QByteArray> roles = roleNames();
     roles.insert(Path, "path");
+    roles.insert(MimeType, "mime");
     setRoleNames(roles);
 }
 
@@ -56,9 +57,12 @@ QStringList KamosoDirModel::mimeFilter() const
 
 QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
 {
-    if(role == Path) {
-        return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).url());
-    } else {
-        return KDirModel::data(index, role);
+    switch(role) {
+        case Path:
+            return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).url());
+        case MimeType:
+            return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).mimetype());
+        default:
+            return KDirModel::data(index, role);
     }
 }
