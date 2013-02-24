@@ -93,12 +93,6 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->drawPixmap(QRect(topleft, s), pix);
     }
 
-    if(option.showDecorationSelected)
-    {
-        painter->setBrush(Qt::red);
-        painter->drawRect(rect);
-    }
-
     if(!icons.isEmpty()) {
         int count=0, margin=(space-(extent*overlayperline))/2;
 
