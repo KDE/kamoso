@@ -40,7 +40,7 @@ QUrl PreviewFetcher::url() const
 
 void PreviewFetcher::fetchPreview()
 {
-    if(m_size.isEmpty() || !m_size.isValid()) {
+    if(m_size.isEmpty() || !m_size.isValid() || m_url.isEmpty()) {
         m_preview = QPixmap();
         emit previewChanged();
         return;
