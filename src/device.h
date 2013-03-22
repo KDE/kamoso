@@ -25,8 +25,15 @@
 #include <solid/device.h>
 #include <KConfig>
 
-class Device
+class Device : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(int brightness READ brightness WRITE setBrightness NOTIFY brightnessChanged)
+    Q_PROPERTY(int hue READ hue WRITE setHue NOTIFY hueChanged)
+    Q_PROPERTY(int contrast READ contrast WRITE setContrast NOTIFY contrastChanged)
+    Q_PROPERTY(int saturation READ saturation WRITE setSaturation NOTIFY saturationChanged)
+    Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
+
     public:
         Device(const Solid::Device &device);
         ~Device();
@@ -44,6 +51,14 @@ class Device
         int saturation() const;
         int gamma() const;
         int hue() const;
+
+    Q_SIGNALS:
+        void brightnessChanged();
+        void hueChanged();
+        void contrastChanged();
+        void saturationChanged();
+        void gammaChanged();
+
     private:
         QString queryv4lInfo();
         QString m_description;
