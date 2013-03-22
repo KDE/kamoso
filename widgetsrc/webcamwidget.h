@@ -43,7 +43,7 @@ public:
     void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad);
     virtual QSize sizeHint() const;
 public Q_SLOTS:
-    void playFile(const Device& device);
+    void playFile(Device *device);
     bool takePhoto(const KUrl &dest);
     void recordVideo(bool sound);
     void stopRecording(const KUrl& destUrl);
@@ -62,7 +62,7 @@ private:
     WebcamWidget(QWidget* parent);
     QByteArray phononCaptureDevice();
     QByteArray basicPipe();
-    void setDevice(const Device &device);
+    void setDevice(Device *device);
     float convertAdjustValue(int level);
     void activeAspectRatio();
     void onBusMessage(const QGst::MessagePtr &message);

@@ -29,7 +29,7 @@
 
 DeviceManager *DeviceManager::s_instance = NULL;
 
-DeviceManager::DeviceManager()
+DeviceManager::DeviceManager() : m_playingDevice(0)
 {
     QHash< int, QByteArray > roles=roleNames();
     roles.insert(Udi, "udi");
@@ -51,19 +51,24 @@ DeviceManager::DeviceManager()
     }
 
     QString udi = Settings::self()->deviceUdi();
-    foreach(const Device& d, m_deviceList) {
-        if(d.udi()==udi) {
+    foreach(Device* d, m_deviceList) {
+        if(d->udi() == udi) {
             m_playingDevice = d;
         }
     }
 
-    if(m_playingDevice.path().isEmpty())
+    if(!m_playingDevice) {
         m_playingDevice = m_deviceList.first();
+    }
 }
 
 void DeviceManager::save()
 {
-    Settings::self()->setDeviceUdi(m_playingDevice.udi());
+    if (!m_playingDevice) {
+        return;
+    }
+
+    Settings::self()->setDeviceUdi(m_playingDevice->udi());
 }
 
 /*
@@ -76,31 +81,39 @@ int DeviceManager::rowCount(const QModelIndex& ) const
 
 void DeviceManager::setPlayingDevice(const QString& udi)
 {
-    foreach(const Device& d, m_deviceList) {
-        if(d.udi()==udi) {
-            m_playingDevice=d;
+    foreach(Device* d, m_deviceList) {
+        if(d->udi() == udi) {
+            m_playingDevice = d;
             qDebug() << "Playing device changed";
             emit playingDeviceChanged();
             return;
         }
     }
 
-    m_playingDevice = Device();
+    m_playingDevice = 0;
 }
 
-Device& DeviceManager::playingDevice()
+Device* DeviceManager::playingDevice()
 {
     return m_playingDevice;
 }
 
 QString DeviceManager::playingDeviceUdi() const
 {
-    return m_playingDevice.udi();
+    if (!m_playingDevice) {
+        return QString();
+    }
+
+    return m_playingDevice->udi();
 }
 
 QByteArray DeviceManager::playingDevicePath() const
 {
-    return m_playingDevice.path();
+    if (!m_playingDevice) {
+        return QByteArray();
+    }
+
+    return m_playingDevice->path();
 }
 
 QVariant DeviceManager::data(const QModelIndex& index, int role) const
@@ -111,9 +124,9 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
 
     switch(role) {
         case Qt::DisplayRole:
-            return m_deviceList[row].description();
+            return m_deviceList[row]->description();
         case Udi:
-            return m_deviceList[row].udi();
+            return m_deviceList[row]->udi();
     }
     return QVariant();
 }
@@ -124,7 +137,7 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
 void DeviceManager::addDevice(const Solid::Device& device)
 {
     beginInsertRows(QModelIndex(), m_deviceList.count(), m_deviceList.count());
-    m_deviceList.append(Device(&device));
+    m_deviceList.append(new Device(device));
     endInsertRows();
     emit countChanged();
 }
@@ -141,7 +154,7 @@ void DeviceManager::deviceRemoved(const QString &udi)
 {
     for(int i=0; i<m_deviceList.count(); ++i)
     {
-        if(m_deviceList[i].udi() == udi)
+        if(m_deviceList[i]->udi() == udi)
         {
             beginRemoveRows(QModelIndex(), i, i);
             m_deviceList.removeAt(i);
@@ -151,12 +164,12 @@ void DeviceManager::deviceRemoved(const QString &udi)
         }
     }
 
-    if(udi==m_playingDevice.udi()) {
+    if(udi == m_playingDevice->udi()) {
         if(m_deviceList.isEmpty()) {
             emit noDevices();
             setPlayingDevice(QString());
         } else {
-            setPlayingDevice(m_deviceList.first().udi());
+            setPlayingDevice(m_deviceList.first()->udi());
         }
     }
 }
@@ -170,7 +183,7 @@ void DeviceManager::deviceAdded(const QString &udi)
         emit deviceRegistered(udi);
     }
 
-    if (m_playingDevice.udi().isEmpty()) {
+    if (!m_playingDevice) {
         qDebug() << "Playing  added device";
         setPlayingDevice(udi);
     }
@@ -178,8 +191,8 @@ void DeviceManager::deviceAdded(const QString &udi)
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
-    foreach(const Device &device, m_deviceList) {
-        if(device.udi() == udi) {
+    foreach(Device *device, m_deviceList) {
+        if(device->udi() == udi) {
             m_playingDevice = device;
             break;
         }

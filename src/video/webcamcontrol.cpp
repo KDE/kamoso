@@ -173,12 +173,12 @@ QString WebcamControl::stopRecording()
 
 void WebcamControl::setVideoSettings()
 {
-    Device device = DeviceManager::self()->playingDevice();
-    setBrightness(device.brightness());
-    setContrast(device.contrast());
-    setSaturation(device.saturation());
-    setGamma(device.gamma());
-    setHue(device.hue());
+    Device *device = DeviceManager::self()->playingDevice();
+    setBrightness(device->brightness());
+    setContrast(device->contrast());
+    setSaturation(device->saturation());
+    setGamma(device->gamma());
+    setHue(device->hue());
 }
 
 void WebcamControl::setBrightness(int level)

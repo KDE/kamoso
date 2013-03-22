@@ -66,7 +66,7 @@ struct WebcamWidget::Private
     QByteArray videoTmpPath;
     QString playingFile;
     QStringList effects;
-    Device device;
+    Device *device;
     KUrl destination;
     int brightness;
     bool m_recording;
@@ -95,6 +95,7 @@ WebcamWidget::WebcamWidget(QWidget* parent)
     : QGst::Ui::VideoWidget(parent), d(new Private)
 {
     d->m_recording = false;
+    d->device = 0;
     QGst::init();
 
     d->m_pipeline = QGst::Pipeline::create();
@@ -112,19 +113,20 @@ WebcamWidget::~WebcamWidget()
 
 void WebcamWidget::setVideoSettings()
 {
-    setBrightness(d->device.brightness());
-    setContrast(d->device.contrast());
-    setSaturation(d->device.saturation());
-    setGamma(d->device.gamma());
-    setHue(d->device.hue());
+    setBrightness(d->device->brightness());
+    setContrast(d->device->contrast());
+    setSaturation(d->device->saturation());
+    setGamma(d->device->gamma());
+    setHue(d->device->hue());
 }
 
-void WebcamWidget::playFile(const Device &device)
+void WebcamWidget::playFile(Device *device)
 {
-    kDebug() << device.path();
-    if (device.path().isEmpty()) {
+    if (!device) {
         return;
     }
+
+    kDebug() << device->path();
     setDevice(device);
 
     QByteArray pipe = basicPipe();
@@ -161,22 +163,24 @@ void WebcamWidget::playFile(const Device &device)
     d->m_pipeline->setState(QGst::StatePlaying);
 }
 
-void WebcamWidget::setDevice(const Device &device)
+void WebcamWidget::setDevice(Device* device)
 {
-    if (device.path().isEmpty()) {
+    if (!device) {
         return;
     }
-    kDebug() << device.udi();
+
+    kDebug() << device->udi();
     d->device = device;
-    d->playingFile = device.path();
-    d->brightness = device.brightness();
+    d->playingFile = device->path();
+    d->brightness = device->brightness();
 }
 
 bool WebcamWidget::takePhoto(const KUrl &dest)
 {
-    if (d->device.path().isEmpty()) {
+    if (!d->device) {
         return false;
     }
+
     kDebug() << dest;
     d->destination = dest;
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
@@ -269,7 +273,7 @@ void WebcamWidget::fileSaved(KJob *job)
 
 void WebcamWidget::recordVideo(bool sound)
 {
-    if (d->device.path().isEmpty()) {
+    if (!d->device) {
         return;
     }
     d->videoTmpPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss")).toAscii();

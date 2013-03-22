@@ -22,15 +22,12 @@
 #include <KConfigGroup>
 #include <kdebug.h>
 
-Device::Device()
-{}
-
-Device::Device(const Solid::Device *device)
+Device::Device(const Solid::Device &device)
 {
-    m_udi = device->udi();
-    m_description = device->product();
+    m_udi = device.udi();
+    m_description = device.product();
 
-    const Solid::Video *solidVideoDevice = device->as<Solid::Video>();
+    const Solid::Video *solidVideoDevice = device.as<Solid::Video>();
     if (solidVideoDevice)
     {
         QStringList protocols = solidVideoDevice->supportedProtocols();

@@ -35,7 +35,7 @@ class DeviceManager : public QAbstractListModel
             Udi=Qt::UserRole+1
         };
 
-        Device& playingDevice();
+        Device* playingDevice();
         QString playingDeviceUdi() const;
         QByteArray playingDevicePath() const;
         void setPlayingDevice(const QString& udi);
@@ -64,8 +64,8 @@ class DeviceManager : public QAbstractListModel
         static DeviceManager* s_instance;
         void addDevice(const Solid::Device& device);
         void removeDevice(const Solid::Device& device);
-        QList<Device> m_deviceList;
-        Device m_playingDevice;
+        QList<Device*> m_deviceList;
+        Device *m_playingDevice;
 };
 
 #endif // DEVICEMANAGER_H

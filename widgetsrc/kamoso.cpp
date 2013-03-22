@@ -337,13 +337,13 @@ void Kamoso::configuration()
     dialog->addPage(widgetWebcamPage,i18n("Video Settings"),"camera-web");
 
     //the values are in X.X form while the sliders use integer so we device by 100;
-    Device device = deviceManager->playingDevice();
-    if (!device.path().isEmpty()) {
-        pageWebcam->brightnessSlider->setValue(device.brightness());
-        pageWebcam->contrastSlider->setValue(device.contrast());
-        pageWebcam->saturationSlider->setValue(device.saturation());
-        pageWebcam->gammaSlider->setValue(device.gamma());
-        pageWebcam->hueSlider->setValue(device.hue());
+    Device *device = deviceManager->playingDevice();
+    if (!device->path().isEmpty()) {
+        pageWebcam->brightnessSlider->setValue(device->brightness());
+        pageWebcam->contrastSlider->setValue(device->contrast());
+        pageWebcam->saturationSlider->setValue(device->saturation());
+        pageWebcam->gammaSlider->setValue(device->gamma());
+        pageWebcam->hueSlider->setValue(device->hue());
     } else {
         widgetWebcamPage->setEnabled(false);
     }
@@ -379,13 +379,16 @@ void Kamoso::generalUpdated()
     Settings::self()->writeConfig();
     dirModel->dirLister()->openUrl(Settings::saveUrl(), KDirLister::Reload);
 
-    Device device = deviceManager->playingDevice();
+    Device *device = deviceManager->playingDevice();
+    if (!device) {
+        return;
+    }
 
-    device.setBrightness(pageWebcam->brightnessSlider->value());
-    device.setContrast(pageWebcam->contrastSlider->value());
-    device.setSaturation(pageWebcam->saturationSlider->value());
-    device.setGamma(pageWebcam->gammaSlider->value());
-    device.setHue(pageWebcam->hueSlider->value());
+    device->setBrightness(pageWebcam->brightnessSlider->value());
+    device->setContrast(pageWebcam->contrastSlider->value());
+    device->setSaturation(pageWebcam->saturationSlider->value());
+    device->setGamma(pageWebcam->gammaSlider->value());
+    device->setHue(pageWebcam->hueSlider->value());
 }
 
 /**

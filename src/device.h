@@ -20,14 +20,15 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include <QtCore/QObject>
+
 #include <solid/device.h>
 #include <KConfig>
 
 class Device
 {
     public:
-        Device();
-        Device(const Solid::Device*);
+        Device(const Solid::Device &device);
         ~Device();
         QString description() const;
         QString udi() const;
