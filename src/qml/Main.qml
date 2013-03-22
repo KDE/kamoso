@@ -135,6 +135,8 @@ Rectangle
             left: parent.left
             top: parent.top
             bottom: controls.top
+            topMargin: 5
+            bottomMargin: 5
         }
 
         VideoItem {
