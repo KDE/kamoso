@@ -23,6 +23,7 @@
 #include <QTimer>
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QPropertyAnimation>
 
 #include <KDebug>
 #include <KLocale>
@@ -35,15 +36,13 @@ WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
     kDebug() << "WhiteWidgetManager has been instanced";
     createWhiteWidgets();
 
-    //Call tick each 30 ms on showAll call
-    m_timer = new QTimer(this);
-    m_currentStep = 0;
-
-    //Maybe we should set it as cons again, but at the moment I'd like the idea to have it variable
-    //I've also moved it to public scope
-    m_steps = 10;
-
-    connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
+    m_timer = new QPropertyAnimation(this);
+    m_timer->setDuration(500);
+    m_timer->setStartValue(0.);
+    m_timer->setEndValue(1.0);
+    m_timer->setTargetObject(this);
+    m_timer->setPropertyName("opacity");
+    connect(m_timer, SIGNAL(finished()), SLOT(hideAll()));
 }
 
 /**
@@ -68,10 +67,9 @@ void WhiteWidgetManager::createWhiteWidgets()
 */
 void WhiteWidgetManager::showAll()
 {
-    m_timer->start(30);
-    m_currentStep=0;
+    m_timer->start();
 
-    foreach(WhiteWidget *iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
     {
         iteratorWidget->setWindowOpacity(0);
         iteratorWidget->showFullScreen();
@@ -83,28 +81,24 @@ void WhiteWidgetManager::showAll()
 */
 void WhiteWidgetManager::hideAll()
 {
-    foreach(WhiteWidget *iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
     {
         iteratorWidget->hide();
     }
     m_timer->stop();
 }
 
-/**
-*This slot is called each time that Qtimer each timeout (each 30s)
-*/
-void WhiteWidgetManager::tick()
+void WhiteWidgetManager::setOpacity(qreal op)
 {
-    if(m_currentStep>m_steps*2)
-        hideAll();
-    
-    m_currentStep++;
-    int current=qMin(m_currentStep, m_steps);
-
-    foreach(WhiteWidget* iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget* iteratorWidget, whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(double(current)/m_steps);
+        iteratorWidget->setWindowOpacity(op);
     }
+}
+
+qreal WhiteWidgetManager::opacity() const
+{
+    return whitewidgetList.first()->windowOpacity();
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()

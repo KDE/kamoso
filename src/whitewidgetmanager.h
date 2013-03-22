@@ -24,23 +24,26 @@
 #include <QDesktopWidget>
 #include "whitewidget.h"
 
+class QPropertyAnimation;
 class WhiteWidgetManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
     public:
         WhiteWidgetManager(QObject* parent);
         ~WhiteWidgetManager();
-        int m_steps;
+
+        qreal opacity() const;
+        void setOpacity(qreal op);
+
     public slots:
         void showAll();
         void hideAll();
+
     private:
         void createWhiteWidgets();
         QList<WhiteWidget*> whitewidgetList;
-        QTimer* m_timer;
-        int m_currentStep;
-    private slots:
-        void tick();
+        QPropertyAnimation* m_timer;
 };
 
 #endif //WHITEWIDGETMANAGER
