@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import org.kde.kamoso 3.0
 import org.kde.plasma.core 0.1
+import org.kde.plasma.components 0.1
 import org.kde.qtextracomponents 0.1
 
 ListView
@@ -13,18 +14,31 @@ ListView
         url: settings.saveUrl
     }
     
-    delegate: IconItem {
-        width: fetcher.width
-        height: fetcher.height
-        
-        PreviewFetcher {
-            id: fetcher
-            url: path
-            mimetype: mime
-            width: 40
-            height: 40
+    delegate: ListItem {
+        id: delegateItem
+        width: height
+        height: ListView.view.height
+
+        enabled: true
+        onClicked: Qt.openUrlExternally(path)
+        IconItem {
+            anchors {
+                centerIn: parent
+                margins: 10
+            }
+            clip: true
+            objectName: path
+            source: fetcher.preview
+            width: parent.width
+            height: parent.height
+
+            PreviewFetcher {
+                id: fetcher
+                url: path
+                mimetype: mime
+                width: delegateItem.width
+                height: delegateItem.height
+            }
         }
-        objectName: path
-        source: fetcher.preview
     }
 }
