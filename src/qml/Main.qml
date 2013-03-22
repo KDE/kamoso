@@ -43,6 +43,7 @@ Rectangle
         z: 10
         width: 10
         height: 10
+        fillMode: Image.PreserveAspectFit
 
         states: [
             State { name: "go"
