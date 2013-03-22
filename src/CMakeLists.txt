@@ -17,6 +17,7 @@ kde4_add_executable(qmloso
     kamosoquick.cpp
     main.cpp
     kamoso.cpp
+    previewfetcher.cpp
     video/webcamcontrol.cpp
     ${kamosoqml_SRCS}
 )
