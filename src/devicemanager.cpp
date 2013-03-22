@@ -79,13 +79,13 @@ int DeviceManager::rowCount(const QModelIndex& ) const
     return m_deviceList.size();
 }
 
-void DeviceManager::setPlayingDevice(const QString& udi)
+void DeviceManager::setPlayingDeviceUdi(const QString& udi)
 {
     foreach(Device* d, m_deviceList) {
         if(d->udi() == udi) {
             m_playingDevice = d;
             qDebug() << "Playing device changed";
-            emit playingDeviceChanged();
+            emit playingDeviceUdiChanged();
             return;
         }
     }
@@ -167,9 +167,9 @@ void DeviceManager::deviceRemoved(const QString &udi)
     if(udi == m_playingDevice->udi()) {
         if(m_deviceList.isEmpty()) {
             emit noDevices();
-            setPlayingDevice(QString());
+            setPlayingDeviceUdi(QString());
         } else {
-            setPlayingDevice(m_deviceList.first()->udi());
+            setPlayingDeviceUdi(m_deviceList.first()->udi());
         }
     }
 }
@@ -185,7 +185,7 @@ void DeviceManager::deviceAdded(const QString &udi)
 
     if (!m_playingDevice) {
         qDebug() << "Playing  added device";
-        setPlayingDevice(udi);
+        setPlayingDeviceUdi(udi);
     }
 }
 

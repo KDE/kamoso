@@ -27,7 +27,7 @@
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString playingDevice READ playingDeviceUdi WRITE setPlayingDevice NOTIFY playingDeviceChanged)
+    Q_PROPERTY(QString playingDeviceUdi READ playingDeviceUdi WRITE setPlayingDeviceUdi NOTIFY playingDeviceUdiChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     public:
         static DeviceManager* self();
@@ -38,7 +38,7 @@ class DeviceManager : public QAbstractListModel
         Device* playingDevice();
         QString playingDeviceUdi() const;
         QByteArray playingDevicePath() const;
-        void setPlayingDevice(const QString& udi);
+        void setPlayingDeviceUdi(const QString& udi);
         bool hasDevices() const;
 
         virtual int rowCount(const QModelIndex& = QModelIndex()) const;
@@ -53,7 +53,7 @@ class DeviceManager : public QAbstractListModel
         void deviceRemoved(const QString &udi);
 
     Q_SIGNALS:
-        void playingDeviceChanged();
+        void playingDeviceUdiChanged();
         void deviceRegistered( const QString & udi );
         void deviceUnregistered( const QString & udi );
         void countChanged();
