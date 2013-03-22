@@ -19,7 +19,7 @@ Rectangle
             right: parent.right
             bottom: parent.bottom
         }
-        height: 30
+        height: 80
     }
 
     function awesomeAnimation(path) {
