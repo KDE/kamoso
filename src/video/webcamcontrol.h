@@ -43,15 +43,16 @@ class WebcamControl : public QObject
     Q_SIGNALS:
         void photoTaken(const QString &path);
 
-    private:
-        QByteArray basicPipe();
-        void setVideoSettings();
+    private Q_SLOTS:
         void setBrightness(int level);
         void setContrast(int level);
         void setSaturation(int level);
         void setGamma(int level);
         void setHue(int level);
 
+    private:
+        QByteArray basicPipe();
+        void setVideoSettings();
         void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
 
     private:
