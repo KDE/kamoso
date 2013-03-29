@@ -1,6 +1,10 @@
 import QtQuick 1.1
 import QtGStreamer 0.10
+<<<<<<< Updated upstream
 import org.kde.plasma.core 0.1
+=======
+import org.kde.kamoso 3.0
+>>>>>>> Stashed changes
 import org.kde.plasma.components 0.1
 
 Rectangle
@@ -128,10 +132,59 @@ Rectangle
         Button { width: 30; text: "a" }
     }
 
+    Rectangle {
+        id: settingsDialog
+        visible: true
+        anchors {
+            top: parent.top
+            right: parent.right
+            bottom: controls.top
+        }
+        width: parent.width / 3
+        Column {
+            anchors.fill: parent
+            Slider {
+                id: brightnessSlider
+                width: parent.width
+                minimumValue: -100
+                maximumValue: 100
+                Binding {target: devicesModel.playingDevice; property: "brightness"; value: brightnessSlider.value}
+            }
+            Slider {
+                id: hueSlider
+                width: parent.width
+                minimumValue: -100
+                maximumValue: 100
+                Binding {target: devicesModel.playingDevice; property: "hue"; value: hueSlider.value}
+            }
+            Slider {
+                id: contrastSlider
+                width: parent.width
+                minimumValue: 0
+                maximumValue: 200
+                Binding {target: devicesModel.playingDevice; property: "contrast"; value: contrastSlider.value}
+            }
+            Slider {
+                id: saturationSlider
+                width: parent.width
+                minimumValue: 0
+                maximumValue: 200
+                Binding {target: devicesModel.playingDevice; property: "saturation"; value: saturationSlider.value}
+            }
+            Slider {
+                id: gammaSlider
+                width: parent.width
+                minimumValue: 1
+                maximumValue: 1000
+                Binding {target: devicesModel.playingDevice; property: "gamma"; value: gammaSlider.value}
+            }
+        }
+    }
+
     Item {
         id: visor
         anchors {
-            right: parent.right
+            right: settingsDialog.left
             left: parent.left
             top: parent.top
             bottom: controls.top
@@ -153,7 +206,7 @@ Rectangle
             source: "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif"
         }
     }
-    
+
     ButtonColumn {
         id: deviceSelector
         height: 30
@@ -162,10 +215,10 @@ Rectangle
         anchors.top: parent.top
         anchors.left: parent.left
         visible: devicesModel.count>1
-        
+
         Repeater {
             model: devicesModel
-            delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDevice=udi }
+            delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDeviceUdi = udi }
         }
     }
 }
