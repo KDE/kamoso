@@ -22,6 +22,11 @@
 #include <KConfigGroup>
 #include <kdebug.h>
 
+Device::Device(QObject* parent): QObject(parent)
+{
+    config = new KConfig("kamosoDevices");
+}
+
 Device::Device(const Solid::Device &device)
 {
     m_udi = device.udi();
@@ -71,6 +76,7 @@ QString Device::vendor() const
 void Device::setBrightness(int level)
 {
     kDebug() << "New brightness " << level;
+    Q_EMIT brightnessChanged(level, brightness());
     config->group(m_udi).writeEntry("brightness",level);
     config->sync();
 }
@@ -78,6 +84,7 @@ void Device::setBrightness(int level)
 void Device::setContrast(int level)
 {
     kDebug() << "New contrast " << level;
+    Q_EMIT contrastChanged(level, contrast());
     config->group(m_udi).writeEntry("contrast",level);
     config->sync();
 }
@@ -85,6 +92,7 @@ void Device::setContrast(int level)
 void Device::setSaturation(int level)
 {
     kDebug() << "New saturation " << level;
+    Q_EMIT saturationChanged(level, saturation());
     config->group(m_udi).writeEntry("saturation",level);
     config->sync();
 }
@@ -92,6 +100,7 @@ void Device::setSaturation(int level)
 void Device::setGamma(int level)
 {
     kDebug() << "new gamma" << level;
+    Q_EMIT gammaChanged(level, gamma());
     config->group(m_udi).writeEntry("gamma",level);
     config->sync();
 }
@@ -99,6 +108,7 @@ void Device::setGamma(int level)
 void Device::setHue(int level)
 {
     kDebug() << "new hue" << level;
+    Q_EMIT hueChanged(level, hue());
     config->group(m_udi).writeEntry("hue",level);
     config->sync();
 }

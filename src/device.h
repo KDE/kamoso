@@ -35,6 +35,7 @@ class Device : public QObject
     Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
 
     public:
+        Device(QObject* parent = 0);
         Device(const Solid::Device &device);
         ~Device();
         QString description() const;
@@ -53,11 +54,11 @@ class Device : public QObject
         int hue() const;
 
     Q_SIGNALS:
-        void brightnessChanged();
-        void hueChanged();
-        void contrastChanged();
-        void saturationChanged();
-        void gammaChanged();
+        void brightnessChanged(int value, int old);
+        void hueChanged(int value, int old);
+        void contrastChanged(int value, int old);
+        void saturationChanged(int value, int old);
+        void gammaChanged(int value, int old);
 
     private:
         QString queryv4lInfo();
