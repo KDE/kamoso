@@ -4,7 +4,7 @@ add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
 
 if (NEPOMUK_FOUND)
-	include_directories(${NEPOMUK_INCLUDES})
+	include_directories(${NEPOMUK_INCLUDE_DIRS})
 endif(NEPOMUK_FOUND)
 
 add_subdirectory(plugins)
