@@ -18,5 +18,9 @@
 			<label>How much seconds kamoso waits before make the picture.</label>
 			<default>2</default>
 		</entry>
+		<entry name="photoSound" type="Bool" key="photoSound">
+			<label>Play a sound when a photo is taken.</label>
+			<default>true</default>
+		</entry>
 	</group>
 </kcfg>

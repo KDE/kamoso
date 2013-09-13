@@ -1,6 +1,7 @@
 /*************************************************************************************
  *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
  *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2013      by Michael G. Hansen <mike@mghansen.de>                  *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -334,6 +335,7 @@ void Kamoso::configuration()
     QWidget *widgetPicturePage = new QWidget();
     pagePicture->setupUi(widgetPicturePage);
     pagePicture->kcfg_photoTime->setValue(Settings::photoTime());
+    pagePicture->kcfg_photoSound->setChecked(Settings::photoSound());
     dialog->addPage(widgetPicturePage,i18n("Photo Settings"),"insert-image");
 
     pageWebcam = new Ui::webcamConfigWidget;
@@ -448,7 +450,9 @@ void Kamoso::takePhoto()
     }
 
     m_webcam->takePhoto(photoPlace);
-    player->play();
+    if (Settings::photoSound()) {
+	player->play();
+    }
 }
 
 void Kamoso::stopCountdown()
