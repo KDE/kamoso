@@ -101,10 +101,6 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidget = new QWidget(this);
     mainWidgetUi->setupUi(mainWidget);
 
-    bool comboShown = deviceManager->numberOfDevices() > 1;
-    mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
-    mainWidgetUi->webcamCombo->setVisible(comboShown);
-
     connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
 //First row Stuff, at the moment only webcam is placed here
 //Setting webcam in the first row, central spot
@@ -120,7 +116,7 @@ Kamoso::Kamoso(QWidget* parent)
         emit webcamPlaying(deviceManager->defaultDeviceUdi());
     }
 
-    reloadDevicesCombo();
+    refreshDeviceList();
     connect(mainWidgetUi->webcamCombo,SIGNAL(currentIndexChanged(int)),SLOT(webcamChanged(int)));
 
 //Second row Stuff
@@ -225,14 +221,7 @@ void Kamoso::webcamAdded()
 {
     kDebug() << "A new webcam has been added";
 
-    bool comboShown = deviceManager->numberOfDevices() > 1;
-
-    mainWidgetUi->chooseWebcamLbl->setVisible(comboShown);
-    mainWidgetUi->webcamCombo->setVisible(comboShown);
-
-    if(comboShown) {
-        reloadDevicesCombo();
-    }
+    refreshDeviceList();
 }
 
 void Kamoso::startVideo(bool sound)
@@ -253,39 +242,65 @@ void Kamoso::stopVideo()
     m_webcam->playFile(deviceManager->playingDevice());
 }
 
-void Kamoso::reloadDevicesCombo()
+void Kamoso::refreshDeviceList()
 {
-    mainWidgetUi->webcamCombo->clear();
-    QList <Device> devices = deviceManager->devices();
+    const QList <Device> devices = deviceManager->devices();
+    const bool shouldShowNoDevicesWarning = devices.isEmpty();
+    const bool shouldShowDeviceList = devices.count() > 1;
 
+    // We refresh the combo box even if it is not shown since we also have to find out whether the currently
+    // playing webcam is still available. If it is not, we have to switch to a different one.
+
+    // Block signals from the combo in order not to accidentally switch the webcam while updating the list.
+    mainWidgetUi->webcamCombo->blockSignals(true);
+    mainWidgetUi->webcamCombo->clear();
+
+    bool currentWebcamStillAvailable = false;
     foreach(const Device& d, devices)
     {
         mainWidgetUi->webcamCombo->addItem(d.description(), d.udi());
 
-        //If kamoso is using this device, set it as currentIndex
+        // If kamoso is using this device, set it as currentIndex
         if(d.udi() == deviceManager->playingDeviceUdi()) {
             mainWidgetUi->webcamCombo->setCurrentIndex(mainWidgetUi->webcamCombo->count() -1);
+            currentWebcamStillAvailable = true;
         }
     }
+
+    mainWidgetUi->webcamCombo->blockSignals(false);
+
+    mainWidgetUi->chooseWebcamLbl->setVisible(shouldShowDeviceList);
+    mainWidgetUi->webcamCombo->setVisible(shouldShowDeviceList);
+    mainWidgetUi->warningLabel->setVisible(shouldShowNoDevicesWarning);
+
+    if(!currentWebcamStillAvailable && !devices.isEmpty()) {
+        // Select the first webcam. Since we before blocked signals, the
+        // index 0 is probably selected already and no signal is generated.
+        // Therefore we will call webcamChanged(int) manually to be sure.
+        mainWidgetUi->webcamCombo->setCurrentIndex(0);
+        webcamChanged(0);
+    }
 }
+
 void Kamoso::webcamRemoved()
 {
-    if(deviceManager->numberOfDevices() < 3) {
-        //At the moment there are only 2 widgets to hidden, maybe a container is needed here.
-        mainWidgetUi->chooseWebcamLbl->hide();
-        mainWidgetUi->webcamCombo->hide();
-    } else {
-        //The combo is already shown (should be),so onlyupdate the content is required.
-        reloadDevicesCombo();
-    }
+    // Update the list of devices. This will also switch to a different webcam
+    // if the currently playing webcam was removed.
+    refreshDeviceList();
 }
 
 void Kamoso::webcamChanged(int index)
 {
-    QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
-    deviceManager->webcamPlaying(udi);
+    // the webcam combo's signals are blocked while it is (re-)populated
 
-    m_webcam->playFile(deviceManager->playingDevice());
+    // Only set the webcam to be displayed if it is not already playing.
+    const QString udi = mainWidgetUi->webcamCombo->itemData(index).toString();
+    if (deviceManager->playingDeviceUdi() != udi)
+    {
+        deviceManager->webcamPlaying(udi);
+
+        m_webcam->playFile(deviceManager->playingDevice());
+    }
 }
 
 void Kamoso::checkInitConfig()
