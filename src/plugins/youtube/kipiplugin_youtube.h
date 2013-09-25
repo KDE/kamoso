@@ -17,6 +17,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
+#ifndef KIPIPLUGIN_YOUTUBE_H
+#define KIPIPLUGIN_YOUTUBE_H
+
 #include <KPasswordDialog>
 #include <KUrl>
 #include <kwallet.h>
@@ -51,3 +54,4 @@ class YoutubePlugin : public KIPI::Plugin, public ExportInterface
 // 		KPasswordDialog *dialog;
 };
 
+#endif /* KIPIPLUGIN_YOUTUBE_H */

@@ -54,7 +54,7 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 
     const int overlayperline = 5;
     int space = qMin(rect.width(), rect.height());
-    int extent = space/overlayperline, lines=icons.size()/overlayperline+1;
+    int extent = space/overlayperline;
 
     if(m_repo.contains(url))
     {
@@ -100,7 +100,7 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     }
 
     if(!icons.isEmpty()) {
-        int count=0, margin=(space-(extent*overlayperline))/2;
+        int count=0;
 
         foreach(const QIcon& icon, icons) {
             QPixmap pix = icon.pixmap(extent);

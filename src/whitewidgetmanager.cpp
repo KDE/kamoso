@@ -56,7 +56,7 @@ void WhiteWidgetManager::createWhiteWidgets()
     QDesktopWidget *desktopInfo = qApp->desktop();
 
     kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
-    for(uchar x=0;x<desktopInfo->numScreens();x++)
+    for(uchar x=0;x<desktopInfo->numScreens();++x)
     {
         whiteWidget = new WhiteWidget;
         whiteWidget->setGeometry(desktopInfo->screenGeometry(x));

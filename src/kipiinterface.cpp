@@ -18,20 +18,19 @@
  *************************************************************************************/
 
 #include "kipiinterface.h"
+
 #include "infoshared.h"
-#include "kamosoimagecollectionshared.h"
 #include "kamoso.h"
-#include <libkipi/uploadwidget.h>
+#include "kamosoimagecollectionshared.h"
+#include <libkipi/imagecollection.h>
+#include <libkipi/imagecollectionselector.h>
 #include <libkipi/imagecollectionshared.h>
 #include <libkipi/imageinfo.h>
 #include <libkipi/imageinfoshared.h>
-#include <libkipi/plugin.h>
 #include <libkipi/interface.h>
+#include <libkipi/plugin.h>
 #include <libkipi/pluginloader.h>
-#include <libkipi/imagecollection.h>
-#include <libkipi/imagecollectionselector.h>
-#include <libkipi/imagecollection.h>
-#include <libkipi/imageinfo.h>
+#include <libkipi/uploadwidget.h>
 
 struct KIPIInterfacePrivate {
     Kamoso *kamoso;

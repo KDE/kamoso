@@ -31,6 +31,8 @@
 static PluginTester *pluginTester;
 void signalHandler(int signal)
 {
+    Q_UNUSED(signal)
+
     delete pluginTester;
     qApp->quit();
 }

@@ -74,8 +74,8 @@ void YoutubeJob::fileOpened(KIO::Job *job, const QByteArray &data)
     #warning do something to evade the cast? like adding a metadata?
     KIO::SimpleJob *simpleJob = static_cast<KIO::SimpleJob*>(job);
 
-    disconnect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
-    connect(job,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(moreData(KIO::Job *, const QByteArray &)));
+    disconnect(job,SIGNAL(data(KIO::Job*,QByteArray)),this,SLOT(fileOpened(KIO::Job*,QByteArray)));
+    connect(job,SIGNAL(data(KIO::Job*,QByteArray)),this,SLOT(moreData(KIO::Job*,QByteArray)));
 
     QByteArray extraHeaders("");
     extraHeaders.append("Authorization: GoogleLogin auth=");
@@ -126,8 +126,8 @@ finalData.append("</entry>");
     uploadJob->addMetaData("customHTTPHeader",extraHeaders.data());
     uploadJob->addMetaData("content-type","Content-Type: multipart/related; boundary=\"foobarfoo\"");
     uploadJob->setAsyncDataEnabled(true);
-    connect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadNeedData()));
-    connect(uploadJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(uploadDone(KIO::Job *, const QByteArray &)));
+    connect(uploadJob,SIGNAL(dataReq(KIO::Job*,QByteArray&)),this,SLOT(uploadNeedData()));
+    connect(uploadJob,SIGNAL(data(KIO::Job*,QByteArray)),this,SLOT(uploadDone(KIO::Job*,QByteArray)));
     uploadJob->start();
 }
 
@@ -136,8 +136,8 @@ void YoutubeJob::moreData(KIO::Job *job, const QByteArray &data)
     job->suspend();
     if(data.size() == 0){
         kDebug() << "Data is zero, going to end this!";
-        disconnect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadNeedData()));
-        connect(uploadJob,SIGNAL(dataReq(KIO::Job*, QByteArray &)),this,SLOT(uploadFinal()));
+        disconnect(uploadJob,SIGNAL(dataReq(KIO::Job*,QByteArray&)),this,SLOT(uploadNeedData()));
+        connect(uploadJob,SIGNAL(dataReq(KIO::Job*,QByteArray&)),this,SLOT(uploadFinal()));
 
         QByteArray final("\r\n");
         final.append("--foobarfoo--");
@@ -230,7 +230,7 @@ void YoutubeJob::login()
     KIO::TransferJob *loginJob = KIO::http_post(url,data,KIO::HideProgressInfo);
     loginJob->addMetaData("cookies","none");
     loginJob->addMetaData("content-type","Content-Type:application/x-www-form-urlencoded");
-    connect(loginJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(loginDone(KIO::Job *, const QByteArray &)));
+    connect(loginJob,SIGNAL(data(KIO::Job*,QByteArray)),this,SLOT(loginDone(KIO::Job*,QByteArray)));
     loginJob->start();
 }
 
@@ -291,7 +291,7 @@ bool YoutubeJob::showDialog()
 
 void YoutubeJob::authenticated(bool auth)
 {
-    kDebug() << "Authentification: " << auth ;
+    kDebug() << "Authentication: " << auth ;
     if(auth == false){
         if(showDialog()){
             login();
@@ -302,6 +302,6 @@ void YoutubeJob::authenticated(bool auth)
     m_videoInfo = showVideoDialog();
     kDebug() << "File To Upload: " << m_url.path();
     openFileJob = KIO::get(m_url,KIO::NoReload,KIO::HideProgressInfo);
-    connect(openFileJob,SIGNAL(data(KIO::Job *, const QByteArray &)),this,SLOT(fileOpened(KIO::Job *, const QByteArray &)));
+    connect(openFileJob,SIGNAL(data(KIO::Job*,QByteArray)),this,SLOT(fileOpened(KIO::Job*,QByteArray)));
     openFileJob->start();
 }

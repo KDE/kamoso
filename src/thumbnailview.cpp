@@ -24,7 +24,7 @@ ThumbnailView::ThumbnailView(QWidget* parent) : QListView(parent)
     setHorizontalScrollMode(ScrollPerPixel);
     m_xProperty=new QPropertyAnimation(horizontalScrollBar(), "value", this);
 
-    connect(this, SIGNAL(pressed (QModelIndex)), SLOT(updatexClick(QModelIndex)));
+    connect(this, SIGNAL(pressed(QModelIndex)), SLOT(updatexClick(QModelIndex)));
 }
 
 void ThumbnailView::previewAvailable(const KFileItem& file, const QPixmap& pic)

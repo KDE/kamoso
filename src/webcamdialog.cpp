@@ -17,9 +17,10 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
+#include "webcamdialog.h"
+
 #include <KDebug>
 #include <KLocale>
-#include "webcamdialog.h"
 
 WebcamDialog::WebcamDialog( QWidget *parent, const QString& name, KConfigSkeleton *config ): 
                 KConfigDialog(parent,name,config),configManager(0)

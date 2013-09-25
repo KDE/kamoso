@@ -19,6 +19,8 @@
 
 #include "fakeinfoshared.h"
 
+#include <klocale.h>
+
 FakeInfoShared::FakeInfoShared(FakeKIPIInterface* interface, const KUrl& url) : KIPI::ImageInfoShared(interface,url)
 {
 
@@ -51,5 +53,5 @@ void FakeInfoShared::setDescription(const QString& )
 
 QString FakeInfoShared::description()
 {
-    return "Took with kamoso";
+    return i18n("Taken with kamoso");
 }

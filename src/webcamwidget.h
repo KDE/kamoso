@@ -73,4 +73,5 @@ private:
     Private* d;
 
 };
+
 #endif //WEBCAMWIDGET

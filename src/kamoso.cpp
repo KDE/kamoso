@@ -101,7 +101,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidget = new QWidget(this);
     mainWidgetUi->setupUi(mainWidget);
 
-    connect(this,SIGNAL(webcamPlaying(const QString&)),deviceManager,SLOT(webcamPlaying(const QString&)));
+    connect(this,SIGNAL(webcamPlaying(QString)),deviceManager,SLOT(webcamPlaying(QString)));
 //First row Stuff, at the moment only webcam is placed here
 //Setting webcam in the first row, central spot
 
@@ -155,7 +155,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidgetUi->thumbnailView->assignDelegate();
     connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
             SLOT(openFile()));
-    connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)),
+    connect(mainWidgetUi->thumbnailView->model(), SIGNAL(rowsInserted(QModelIndex,int,int)),
             SLOT(thumbnailAdded()));
     connect(mainWidgetUi->thumbnailView->horizontalScrollBar(), SIGNAL(valueChanged(int)), SLOT(thumbnailViewMoved(int)));
     mainWidgetUi->thirdRow->insertWidget(1, mainWidgetUi->thumbnailView);
@@ -182,7 +182,7 @@ Kamoso::Kamoso(QWidget* parent)
     this->setCentralWidget(mainWidget);
 
     mTracker = new KamosoJobTracker(statusBar());
-    connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
+    connect(mTracker, SIGNAL(jobClicked(KJob*,KUrl::List)), SLOT(selectJob(KJob*,KUrl::List)));
     statusBar()->addWidget(mTracker);
 
     connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
@@ -344,7 +344,7 @@ void Kamoso::configuration()
     Q_EMIT(Settings::saveUrl());
 
     dialog->addPage(widgetPage,i18n("General"),"configure");
-    connect(dialog,SIGNAL(settingsChanged(const QString &)), this, SLOT(generalUpdated()));
+    connect(dialog,SIGNAL(settingsChanged(QString)), this, SLOT(generalUpdated()));
 
     Ui::pictureConfigWidget *pagePicture = new Ui::pictureConfigWidget;
     QWidget *widgetPicturePage = new QWidget();
