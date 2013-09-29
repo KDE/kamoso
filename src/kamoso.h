@@ -36,7 +36,6 @@ class WhiteWidgetManager;
 class WebcamWidget;
 class WebcamRetriever;
 class CountdownWidget;
-class KDirOperator;
 class QItemSelection;
 class QStackedLayout;
 class QSplitter;

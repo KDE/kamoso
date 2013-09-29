@@ -56,7 +56,7 @@
 #include <KActionCollection>
 #include <KApplication>
 #include <KConfigGroup>
-#include <KDirOperator>
+#include <KDirLister>
 #include <KDirSelectDialog>
 #include <KLocale>
 #include <KStandardDirs>
@@ -150,7 +150,7 @@ Kamoso::Kamoso(QWidget* parent)
     connect(mainWidgetUi->configure, SIGNAL(clicked(bool)), SLOT(settingsMenu(bool)));
 
 //Third row
-    //Dir operator will show the previews
+    //Thumbnail view will show the previews
     mainWidgetUi->thumbnailView->setModel(dirModel);
     mainWidgetUi->thumbnailView->assignDelegate();
     connect(mainWidgetUi->thumbnailView, SIGNAL(doubleClicked(QModelIndex)),
