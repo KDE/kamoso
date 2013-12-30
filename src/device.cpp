@@ -42,7 +42,7 @@ Device::Device(const Solid::Device &device)
         }
     }
 
-    config = new KConfig("kamosoDevices");
+    m_config = KSharedConfig::openConfig("kamosoDevices");
 }
 
 Device::~Device()
@@ -72,63 +72,63 @@ void Device::setBrightness(int level)
 {
     kDebug() << "New brightness " << level;
     Q_EMIT brightnessChanged(level, brightness());
-    config->group(m_udi).writeEntry("brightness",level);
-    config->sync();
+    m_config->group(m_udi).writeEntry("brightness",level);
+    m_config->sync();
 }
 
 void Device::setContrast(int level)
 {
     kDebug() << "New contrast " << level;
     Q_EMIT contrastChanged(level, contrast());
-    config->group(m_udi).writeEntry("contrast",level);
-    config->sync();
+    m_config->group(m_udi).writeEntry("contrast",level);
+    m_config->sync();
 }
 
 void Device::setSaturation(int level)
 {
     kDebug() << "New saturation " << level;
     Q_EMIT saturationChanged(level, saturation());
-    config->group(m_udi).writeEntry("saturation",level);
-    config->sync();
+    m_config->group(m_udi).writeEntry("saturation",level);
+    m_config->sync();
 }
 
 void Device::setGamma(int level)
 {
     kDebug() << "new gamma" << level;
     Q_EMIT gammaChanged(level, gamma());
-    config->group(m_udi).writeEntry("gamma",level);
-    config->sync();
+    m_config->group(m_udi).writeEntry("gamma",level);
+    m_config->sync();
 }
 
 void Device::setHue(int level)
 {
     kDebug() << "new hue" << level;
     Q_EMIT hueChanged(level, hue());
-    config->group(m_udi).writeEntry("hue",level);
-    config->sync();
+    m_config->group(m_udi).writeEntry("hue",level);
+    m_config->sync();
 }
 
 int Device::brightness() const
 {
-    return config->group(m_udi).readEntry("brightness",0);
+    return m_config->group(m_udi).readEntry("brightness",0);
 }
 
 int Device::contrast() const
 {
-    return config->group(m_udi).readEntry("contrast",100);
+    return m_config->group(m_udi).readEntry("contrast",100);
 }
 
 int Device::saturation() const
 {
-    return config->group(m_udi).readEntry("saturation",100);
+    return m_config->group(m_udi).readEntry("saturation",100);
 }
 
 int Device::gamma() const
 {
-    return config->group(m_udi).readEntry("gamma",100);
+    return m_config->group(m_udi).readEntry("gamma",100);
 }
 
 int Device::hue() const
 {
-    return config->group(m_udi).readEntry("hue",0);
+    return m_config->group(m_udi).readEntry("hue",0);
 }

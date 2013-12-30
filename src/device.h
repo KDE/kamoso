@@ -66,7 +66,7 @@ class Device : public QObject
         QString m_udi;
         QByteArray m_path;
         QString m_vendor;
-        KConfig* config;
+        KSharedConfigPtr m_config;
 };
 
 #endif //DEVICE_H
