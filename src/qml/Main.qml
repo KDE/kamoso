@@ -1,10 +1,7 @@
 import QtQuick 1.1
 import QtGStreamer 0.10
-<<<<<<< Updated upstream
 import org.kde.plasma.core 0.1
-=======
 import org.kde.kamoso 3.0
->>>>>>> Stashed changes
 import org.kde.plasma.components 0.1
 
 Rectangle
