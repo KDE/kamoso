@@ -22,11 +22,6 @@
 #include <KConfigGroup>
 #include <kdebug.h>
 
-Device::Device(QObject* parent): QObject(parent)
-{
-    config = new KConfig("kamosoDevices");
-}
-
 Device::Device(const Solid::Device &device)
 {
     m_udi = device.udi();

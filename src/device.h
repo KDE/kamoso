@@ -35,7 +35,7 @@ class Device : public QObject
     Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
 
     public:
-        Device(QObject* parent = 0);
+//         Device(QObject* parent = 0);
         Device(const Solid::Device &device);
         ~Device();
         QString description() const;

@@ -47,7 +47,7 @@ KamosoQuick::KamosoQuick(QWidget* parent)
 
     WebcamControl* webcamControl = new WebcamControl(this);
 
-    qmlRegisterType<Device>("org.kde.kamoso", 3, 0, "Device");
+    qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     engine()->rootContext()->setContextProperty("settings", new KamosoSettings);
