@@ -37,8 +37,8 @@ Kamoso::~Kamoso()
 
 const QString Kamoso::takePhoto()
 {
-    KUrl photoPlace = Settings::saveUrl();
-    photoPlace.addPath(QString("picture_1.png"));
+    QUrl photoPlace = Settings::saveUrl();
+    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("picture_1.png") );
 
     QFile file(photoPlace.path());
     while(file.exists()) {
@@ -48,7 +48,7 @@ const QString Kamoso::takePhoto()
 
     m_webcamControl->takePhoto(photoPlace);
 
-    return photoPlace.prettyUrl();
+    return photoPlace.toDisplayString();
 }
 
 void Kamoso::startRecording()
@@ -58,8 +58,8 @@ void Kamoso::startRecording()
 
 void Kamoso::stopRecording()
 {
-    KUrl photoPlace = Settings::saveUrl();
-    photoPlace.addPath(QString("video_1.mkv"));
+    QUrl photoPlace = Settings::saveUrl();
+    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("video_1.mkv") );
 
     QFile file(photoPlace.path());
     while(file.exists()) {
@@ -72,7 +72,7 @@ void Kamoso::stopRecording()
     m_webcamControl->play();
 }
 
-void Kamoso::autoincFilename(KUrl &filename)
+void Kamoso::autoincFilename(QUrl &filename)
 {
     // Extract the filename from the path
     QString name= filename.fileName();
@@ -104,5 +104,5 @@ void Kamoso::autoincFilename(KUrl &filename)
     }
 
     //Rebuild the path
-    filename.setFileName( name );
+    filename.setPath( filename.adjusted(QUrl::RemoveFilename).path() + name );
 }

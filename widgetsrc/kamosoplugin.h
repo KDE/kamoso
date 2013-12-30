@@ -25,7 +25,7 @@
 #include "kdemacros.h"
 
 class QAction;
-class KUrl;
+class QUrl;
 class KamosoJob;
 
 class KDE_EXPORT KamosoPlugin : public QObject
@@ -41,8 +41,8 @@ Q_OBJECT
             @returns the action to be added. If a null action is returned,
             nothing will be added
         */
-        bool executeContextMenuAction(const QList<KUrl>& urls);
-        virtual QAction* thumbnailsAction(const QList<KUrl>& urls)=0;
+        bool executeContextMenuAction(const QList<QUrl>& urls);
+        virtual QAction* thumbnailsAction(const QList<QUrl>& urls)=0;
 
     signals:
         void jobCreated(KamosoJob* job);

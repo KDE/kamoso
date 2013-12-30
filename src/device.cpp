@@ -20,7 +20,7 @@
 #include "device.h"
 #include <solid/video.h>
 #include <KConfigGroup>
-#include <kdebug.h>
+#include <QDebug>
 
 Device::Device(const Solid::Device &device)
 {
@@ -34,7 +34,7 @@ Device::Device(const Solid::Device &device)
         if ( protocols.contains( "video4linux" ) )
         {
             QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
-            kDebug() << drivers;
+            qDebug() << drivers;
             if ( drivers.contains( "video4linux" ) )
             {
                 m_path = solidVideoDevice->driverHandle( "video4linux" ).toByteArray();
@@ -70,7 +70,7 @@ QString Device::vendor() const
 
 void Device::setBrightness(int level)
 {
-    kDebug() << "New brightness " << level;
+    qDebug() << "New brightness " << level;
     if (level == brightness()) {
         return;
     }
@@ -82,7 +82,7 @@ void Device::setBrightness(int level)
 
 void Device::setContrast(int level)
 {
-    kDebug() << "New contrast " << level;
+    qDebug() << "New contrast " << level;
     if (level == contrast()) {
         return;
     }
@@ -94,7 +94,7 @@ void Device::setContrast(int level)
 
 void Device::setSaturation(int level)
 {
-    kDebug() << "New saturation " << level;
+    qDebug() << "New saturation " << level;
     if (level == saturation()) {
         return;
     }
@@ -106,7 +106,7 @@ void Device::setSaturation(int level)
 
 void Device::setGamma(int level)
 {
-    kDebug() << "new gamma" << level;
+    qDebug() << "new gamma" << level;
     if (level == gamma()) {
         return;
     }
@@ -118,7 +118,7 @@ void Device::setGamma(int level)
 
 void Device::setHue(int level)
 {
-    kDebug() << "new hue" << level;
+    qDebug() << "new hue" << level;
     if (level == hue()) {
         return;
     }

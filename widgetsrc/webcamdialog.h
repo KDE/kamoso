@@ -31,9 +31,9 @@ Q_OBJECT
                     KConfigSkeleton *config);
         ~WebcamDialog();
         void setPageWebcamConfigManager(PageWebcamConfigManager* webcamManager);
-    public slots:
+    public Q_SLOTS:
         virtual void updateSettings();
-    protected slots:
+    protected Q_SLOTS:
         virtual void updateWidgetsDefault();
     protected:
         virtual bool hasChanged();

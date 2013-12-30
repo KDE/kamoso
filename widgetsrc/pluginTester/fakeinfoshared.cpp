@@ -19,7 +19,7 @@
 
 #include "fakeinfoshared.h"
 
-FakeInfoShared::FakeInfoShared(FakeKIPIInterface* interface, const KUrl& url) : KIPI::ImageInfoShared(interface,url)
+FakeInfoShared::FakeInfoShared(FakeKIPIInterface* interface, const QUrl& url) : KIPI::ImageInfoShared(interface,url)
 {
 
 }

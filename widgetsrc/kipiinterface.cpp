@@ -63,17 +63,17 @@ QList<KIPI::ImageCollection> KIPIInterface::allAlbums() {
     return list;
 }
 
-KIPI::ImageInfo KIPIInterface::info(const KUrl& url) {
+KIPI::ImageInfo KIPIInterface::info(const QUrl& url) {
 	return KIPI::ImageInfo(new InfoShared(this,url));
 }
 
-bool KIPIInterface::addImage(const KUrl&, QString& )
+bool KIPIInterface::addImage(const QUrl&, QString& )
 { return true; }
 
-void KIPIInterface::delImage( const KUrl& ) 
+void KIPIInterface::delImage( const QUrl& ) 
 {}
 
-void KIPIInterface::refreshImages( const KUrl::List&)
+void KIPIInterface::refreshImages( const QUrl::List&)
 {}
 
 KIPI::ImageCollectionSelector* KIPIInterface::imageCollectionSelector(QWidget *parent) {

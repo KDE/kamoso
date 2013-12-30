@@ -29,7 +29,7 @@ KamosoPlugin::KamosoPlugin(QObject* parent, const QVariantList& args)
 KamosoPlugin::~KamosoPlugin()
 {}
 
-bool KamosoPlugin::executeContextMenuAction(const QList< KUrl >& urls)
+bool KamosoPlugin::executeContextMenuAction(const QList< QUrl >& urls)
 {
     QAction* a=thumbnailsAction(urls);
     if(a)

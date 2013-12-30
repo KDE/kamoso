@@ -18,7 +18,8 @@
 
 #include "previewfetcher.h"
 #include <kio/previewjob.h>
-#include <KIcon>
+#include <QIcon>
+#include <QMimeDatabase>
 
 PreviewFetcher::PreviewFetcher(QObject* parent)
     : QObject(parent)
@@ -45,7 +46,7 @@ void PreviewFetcher::fetchPreview()
         emit previewChanged();
         return;
     }
-    KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(KUrl(m_url), m_mimetype, 0), m_size);
+    KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(QUrl(m_url), m_mimetype, 0), m_size);
     connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)), SLOT(updatePreview(KFileItem,QPixmap)));
     connect(job, SIGNAL(failed(KFileItem)), SLOT(fallbackPreview(KFileItem)));
     job->start();
@@ -87,6 +88,7 @@ QPixmap PreviewFetcher::preview() const
 
 void PreviewFetcher::fallbackPreview(const KFileItem& item)
 {
-    m_preview = KIcon(item.mimeTypePtr()->iconName()).pixmap(m_size);
+    QMimeDatabase db;
+    m_preview = QIcon::fromTheme(db.mimeTypeForName(item.mimetype()).iconName()).pixmap(m_size);
     emit previewChanged();
 }

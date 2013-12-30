@@ -1,9 +1,9 @@
-FIND_PACKAGE(KDE4 REQUIRED)
+find_package(KDE4 REQUIRED)
 
-INCLUDE(MacroOptionalFindPackage)
-INCLUDE(FindPackageHandleStandardArgs)
-INCLUDE(KDE4Defaults)
-INCLUDE(MacroLibrary)
+include(MacroOptionalFindPackage)
+include(FindPackageHandleStandardArgs)
+include(KDE4Defaults)
+include(MacroLibrary)
 
 
 #
@@ -12,7 +12,7 @@ INCLUDE(MacroLibrary)
 
 # FIND_PACKAGE(Kexiv2 REQUIRED)
 # FIND_PACKAGE(Kdcraw REQUIRED)
-FIND_PACKAGE(Kipi REQUIRED)
+find_package(Kipi REQUIRED)
 # FIND_PACKAGE(JPEG REQUIRED)
 # FIND_PACKAGE(PNG REQUIRED)
 # FIND_PACKAGE(TIFF REQUIRED)

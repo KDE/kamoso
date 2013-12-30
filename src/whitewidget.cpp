@@ -21,8 +21,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QTimer>
-#include <KLocale>
-#include <KWindowSystem>
+#include <klocalizedstring.h>
 
 WhiteWidget::WhiteWidget(QWidget* parent)
     : QWidget(parent)

@@ -26,7 +26,7 @@
 #include <QGst/Pad>
 #include <QGst/structure.h>
 #include <QGst/buffer.h>
-#include <QGst/Ui/GraphicsVideoSurface>
+#include <QGst/Quick/VideoSurface>
 #include <QGst/Pipeline>
 #include <QGst/ElementFactory>
 #include <QGst/Parse>
@@ -36,16 +36,14 @@
 #include <gst/video/video.h>
 
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 
-#include <QtDeclarative/QDeclarativeEngine>
-#include <QtDeclarative/QDeclarativeContext>
+#include <QtQml/QQmlEngine>
+#include <QtQml/QQmlContext>
 
-#include <KDebug>
-#include <KUrl>
-
-WebcamControl::WebcamControl(QDeclarativeView* view)
+WebcamControl::WebcamControl(QQuickView* view)
 {
-    QGst::Ui::GraphicsVideoSurface *surface = new QGst::Ui::GraphicsVideoSurface(view);
+    QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(view);
     view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
 
     m_videoSink = surface->videoSink();
@@ -105,7 +103,7 @@ void WebcamControl::play()
     m_pipeline->setState(QGst::StatePlaying);
 }
 
-void WebcamControl::takePhoto(const KUrl &url)
+void WebcamControl::takePhoto(const QUrl &url)
 {
     m_saveUrl = url;
     m_pipeline->getElementByName("fakesink")->setProperty("signal-handoffs", true);
@@ -118,7 +116,7 @@ void WebcamControl::startRecording()
 
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
     m_tmpVideoPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(date);
-    kDebug() << m_tmpVideoPath;
+    qDebug() << m_tmpVideoPath;
 
     QByteArray pipe = basicPipe();
 
@@ -140,12 +138,12 @@ void WebcamControl::startRecording()
         " ! filesink location=";
 
     pipe += m_tmpVideoPath.toUtf8();
-    kDebug() << pipe;
+    qDebug() << pipe;
 
     try {
          m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();;
     } catch (const QGlib::Error & error) {
-        kDebug() << error;
+        qDebug() << error;
         return;
     }
 
@@ -214,8 +212,6 @@ void WebcamControl::setHue(int level)
 
 void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
 {
-    kDebug();
-
     QImage img;
     QGst::CapsPtr caps = buffer->caps();
 
@@ -223,13 +219,13 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
     int width, height;
     width = structure.data()->value("width").get<int>();
     height = structure.data()->value("height").get<int>();
-    kDebug() << "We've got a caps in here";
-    kDebug() << "Size: " << width << "x" << height;
-    kDebug() << "Name: " << structure.data()->name();
+    qDebug() << "We've got a caps in here";
+    qDebug() << "Size: " << width << "x" << height;
+    qDebug() << "Name: " << structure.data()->name();
 
     if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
         QGst::Fourcc fourcc = structure->value("format").get<QGst::Fourcc>();
-        kDebug() << "fourcc: " << fourcc.value.as_integer;
+        qDebug() << "fourcc: " << fourcc.value.as_integer;
         if (fourcc.value.as_integer == QGst::Fourcc("I420").value.as_integer) {
             img = QImage(width/2, height/2, QImage::Format_RGB32);
 
@@ -253,11 +249,11 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
                 }
             }
         } else {
-            kDebug() << "Not I420";
+            qDebug() << "Not I420";
         }
 
     } else if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-rgb") == 0) {
-        kDebug() << "RGB name";
+        qDebug() << "RGB name";
         QImage::Format format = QImage::Format_Invalid;
         int bpp = structure.data()->value("bpp").get<int>();
 
@@ -275,7 +271,7 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
         }
     }
 
-    kDebug() << "Image bytecount: " << img.byteCount();
+    qDebug() << "Image bytecount: " << img.byteCount();
     img.save(m_saveUrl.path());
 
     Q_EMIT photoTaken(m_saveUrl.url());

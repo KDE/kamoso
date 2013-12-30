@@ -19,7 +19,7 @@
 
 #include "infoshared.h"
 
-InfoShared::InfoShared(KIPIInterface* interface, const KUrl& url) : KIPI::ImageInfoShared(interface,url)
+InfoShared::InfoShared(KIPIInterface* interface, const QUrl& url) : KIPI::ImageInfoShared(interface,url)
 {
 
 }

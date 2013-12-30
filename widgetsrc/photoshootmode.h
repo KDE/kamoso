@@ -37,7 +37,7 @@ Q_OBJECT
         virtual QStringList thumbnailsViewMimeTypes() const;
         virtual void deactivate();
 
-    private slots:
+    private Q_SLOTS:
         void shootClicked(bool pressed);
         void release();
 

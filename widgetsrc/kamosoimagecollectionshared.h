@@ -29,7 +29,7 @@ class KamosoImageCollectionShared : public KIPI::ImageCollectionShared
 public:
     KamosoImageCollectionShared(Kamoso *kamoso);
     ~KamosoImageCollectionShared();
-    virtual KUrl::List images();
+    virtual QUrl::List images();
     virtual QString name();
 private:
     class Private;

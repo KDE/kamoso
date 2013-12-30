@@ -24,7 +24,7 @@
 
 #include <KDebug>
 #include <KIO/Job>
-#include <KUrl>
+#include <QUrl>
 #include <KIcon>
 #include <KToolInvocation>
 #include <KLocalizedString>
@@ -32,7 +32,7 @@
 const QByteArray YoutubeJob::developerKey("AI39si41ZFrIJoZGNH0hrZPhMuUlwHc6boMLi4e-_W6elIzVUIeDO9F7ix2swtnGAiKT4yc4F4gQw6yysTGvCn1lPNyli913Xg");
 
 using KWallet::Wallet;
-YoutubeJob::YoutubeJob(const KUrl& url, QObject* parent)
+YoutubeJob::YoutubeJob(const QUrl& url, QObject* parent)
     : KJob(parent), m_authToken(0), m_url(url), dialog(0)
 {
 }
@@ -119,7 +119,7 @@ finalData.append("</entry>");
     finalData.append("\r\n");
     finalData.append(data);
 //     kDebug() << finalData;
-    KUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
+    QUrl url("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads");
     uploadJob = KIO::http_post(url,finalData,KIO::HideProgressInfo);
     uploadJob->addMetaData("cookies","none");
     uploadJob->addMetaData("connection","close");
@@ -170,7 +170,7 @@ void YoutubeJob::uploadDone(KIO::Job *job, const QByteArray &data)
     QRegExp rx("<media:player url='(\\S+)'/>");
     dataStr.contains(rx);
 //     kDebug() << rx.cap(1);
-    KUrl url = rx.cap(1);
+    QUrl url = rx.cap(1);
     if (!url.isEmpty()) {
         kDebug() << "Url : " << url.url();
         job->kill();
@@ -221,7 +221,7 @@ void YoutubeJob::login()
     authInfo["username"] = dialog->username();
     authInfo["password"] = dialog->password();
 
-    KUrl url("https://www.google.com/youtube/accounts/ClientLogin");
+    QUrl url("https://www.google.com/youtube/accounts/ClientLogin");
     QByteArray data("Email=");
     data.append(authInfo["username"].toAscii());
     data.append("&Passwd=");

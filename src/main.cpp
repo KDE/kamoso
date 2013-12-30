@@ -17,22 +17,20 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
+#include <kaboutdata.h>
+#include <klocalizedstring.h>
 #include "kamosoquick.h"
+#include <QApplication>
 
 #include <QGst/Init>
 int main(int argc, char *argv[])
 {
-    KAboutData about("kamoso", 0, ki18n(("Kamoso")), "2.9.90", ki18n("Webcam picture retriever"),
-                KAboutData::License_GPL, ki18n("(C) 2008-2012 Alex Fiestas and Aleix Pol"));
+    KAboutData about("kamoso", 0, i18n("Kamoso"), "2.9.90", i18n("Webcam picture retriever"),
+                KAboutData::License_GPL, i18n("(C) 2008-2012 Alex Fiestas and Aleix Pol"));
 
-    about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
-    about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
-    KCmdLineArgs::init(argc, argv, &about);
-    QGst::init(&argc, &argv);
-    KApplication app;
+    about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
+    about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "alex@eyeos.org" );
+    QApplication app(argc, argv);
 
     KamosoQuick* kamosoMain = new KamosoQuick;
     kamosoMain->show();

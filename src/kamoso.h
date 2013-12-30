@@ -24,7 +24,7 @@
 #include <QObject>
 
 class WebcamControl;
-class KUrl;
+class QUrl;
 class Kamoso : public QObject
 {
 Q_OBJECT
@@ -42,7 +42,7 @@ Q_OBJECT
         void photoTaken(const QString &path);
 
     private:
-        void autoincFilename(KUrl &filename);
+        void autoincFilename(QUrl &filename);
 
     private:
         WebcamControl *m_webcamControl;

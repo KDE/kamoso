@@ -22,7 +22,7 @@
 
 #include <QItemDelegate>
 #include <QHash>
-#include <KUrl>
+#include <QUrl>
 #include <KIcon>
 
 class KJob;
@@ -32,18 +32,18 @@ class CustomDelegate : public QItemDelegate
 {
 Q_OBJECT
     public:
-        CustomDelegate(const QHash<KUrl, QPixmap>& repo, QWidget *parent = 0);
+        CustomDelegate(const QHash<QUrl, QPixmap>& repo, QWidget *parent = 0);
         ~CustomDelegate();
         void paint(QPainter *painter, const QStyleOptionViewItem &option,const QModelIndex &index) const;
         QSize sizeHint(const QStyleOptionViewItem &option,const QModelIndex &index) const;
-        void setOverlays(const KUrl& url, const QList< QIcon >& icons);
+        void setOverlays(const QUrl& url, const QList< QIcon >& icons);
 
     Q_SIGNALS:
         void pixmapNeeded(const KFileItem& it, const QModelIndex& idx, const QRect&) const;
 
     private:
-        const QHash<KUrl, QPixmap>& m_repo;
-        QHash<KUrl, QList<QIcon> > m_overlays;
+        const QHash<QUrl, QPixmap>& m_repo;
+        QHash<QUrl, QList<QIcon> > m_overlays;
         static KIcon m_unavailable;
 };
 

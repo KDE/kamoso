@@ -22,21 +22,21 @@
 
 #include <QtCore/QObject>
 
-#include <QDeclarativeView>
+#include <QQuickView>
 #include <QGst/Pipeline>
-#include <KUrl>
+#include <QUrl>
 
 class WebcamControl : public QObject
 {
     Q_OBJECT
     public:
-        WebcamControl(QDeclarativeView *view);
+        WebcamControl(QQuickView *view);
         virtual ~WebcamControl();
 
     public Q_SLOTS:
         void play();
         void stop();
-        void takePhoto(const KUrl& url);
+        void takePhoto(const QUrl& url);
         void startRecording();
         QString stopRecording();
 
@@ -56,7 +56,7 @@ class WebcamControl : public QObject
         void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
 
     private:
-        KUrl m_saveUrl;
+        QUrl m_saveUrl;
         bool m_recording;
         QString m_tmpVideoPath;
         QGst::PipelinePtr m_pipeline;

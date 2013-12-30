@@ -36,7 +36,7 @@ class WhiteWidgetManager : public QObject
         qreal opacity() const;
         void setOpacity(qreal op);
 
-    public slots:
+    public Q_SLOTS:
         void showAll();
         void hideAll();
 

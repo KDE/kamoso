@@ -58,14 +58,14 @@ Q_OBJECT
         virtual void mouseMoveEvent(QMouseEvent* event);
         virtual void mouseReleaseEvent (QMouseEvent* event );
 
-    private slots:
+    private Q_SLOTS:
         void previewAvailable(const KFileItem& file, const QPixmap& pic);
         void retrievePixmap(const KFileItem& it, const QModelIndex & idx, const QRect& rect);
         void updatexClick(const QModelIndex & idx);
 
     private:
-        QHash<KUrl, QPixmap> m_repo;
-        QMap<KUrl, QModelIndex> m_waiting;
+        QHash<QUrl, QPixmap> m_repo;
+        QMap<QUrl, QModelIndex> m_waiting;
         QPropertyAnimation* m_xProperty;
         int xClick;
 };

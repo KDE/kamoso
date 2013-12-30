@@ -36,7 +36,7 @@ class BurstShootMode : public ShootMode
         virtual QString name() const;
         virtual QStringList thumbnailsViewMimeTypes() const;
 
-    private slots:
+    private Q_SLOTS:
         void stateChanged(bool);
         void keepTaking();
 

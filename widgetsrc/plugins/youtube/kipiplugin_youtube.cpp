@@ -29,7 +29,7 @@
 #include <KAboutData>
 #include <KMimeType>
 #include <KIcon>
-#include <KUrl>
+#include <QUrl>
 #include <KDialog>
 #include <KMessageBox>
 #include <kpassworddialog.h>
@@ -53,7 +53,7 @@ KJob* YoutubePlugin::exportFiles(const QString& albumname)
 {
     KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
     YoutubeJobComposite* job = new YoutubeJobComposite();
-    foreach(const KUrl& url, interface->currentSelection().images()) {
+    foreach(const QUrl& url, interface->currentSelection().images()) {
         kDebug() << "Url to upload: " << url;
         job->addYoutubeJob(new YoutubeJob(url));
     }

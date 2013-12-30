@@ -33,7 +33,7 @@ Q_OBJECT
         virtual QIcon icon() const;
         virtual QString name() const;
         virtual QStringList thumbnailsViewMimeTypes() const;
-    public slots:
+    public Q_SLOTS:
         void videoPressed(bool pressed);
     private:
         QList<QAction*> mActions;

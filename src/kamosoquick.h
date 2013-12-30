@@ -20,14 +20,14 @@
 #ifndef KAMOSOQUICK_H
 #define KAMOSOQUICK_H
 
-#include <QDeclarativeView>
+#include <QQuickView>
 
 class WebcamControl;
-class KamosoQuick : public QDeclarativeView
+class KamosoQuick : public QQuickView
 {
     Q_OBJECT
     public:
-        explicit KamosoQuick(QWidget* parent = 0);
+        explicit KamosoQuick();
 };
 
 #endif // KAMOSOQUICK_H

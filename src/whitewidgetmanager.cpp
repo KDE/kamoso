@@ -24,16 +24,14 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPropertyAnimation>
-
-#include <KDebug>
-#include <KLocale>
+#include <QDebug>
 
 /**
 *This class create and manage 1 white widget per screen, creating an unified interface for all of them
 */
 WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 {
-    kDebug() << "WhiteWidgetManager has been instanced";
+    qDebug() << "WhiteWidgetManager has been instanced";
     createWhiteWidgets();
 
     m_timer = new QPropertyAnimation(this);
@@ -50,10 +48,10 @@ WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 */
 void WhiteWidgetManager::createWhiteWidgets()
 {
-    kDebug() << "Creating whiteWidgets";
+    qDebug() << "Creating whiteWidgets";
     QDesktopWidget *desktopInfo = qApp->desktop();
 
-    kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
+    qDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
     for(uchar x=0;x<desktopInfo->numScreens();x++)
     {
         WhiteWidget *whiteWidget = new WhiteWidget;

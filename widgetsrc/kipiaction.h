@@ -30,7 +30,7 @@ Q_OBJECT
     public:
         KipiAction(KIPI::PluginLoader::Info* pluginInfo, Kamoso* ui, QObject* parent);
 
-    public slots:
+    public Q_SLOTS:
         void runJob();
 
     private:

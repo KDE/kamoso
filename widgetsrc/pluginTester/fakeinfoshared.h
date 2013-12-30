@@ -26,7 +26,7 @@
 class FakeInfoShared : public KIPI::ImageInfoShared
 {
 public:
-    FakeInfoShared(FakeKIPIInterface* interface, const KUrl& url);
+    FakeInfoShared(FakeKIPIInterface* interface, const QUrl& url);
     virtual void delAttributes(const QStringList& );
     virtual void addAttributes(const QMap< QString, QVariant >& );
     virtual void clearAttributes();

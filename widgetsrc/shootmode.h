@@ -20,7 +20,7 @@
 #ifndef SHOOTMODE_H
 #define SHOOTMODE_H
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
 class Kamoso;
 class ShootMode : public QObject

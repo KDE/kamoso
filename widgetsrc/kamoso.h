@@ -23,7 +23,7 @@
 #include <QtCore/QPointer>
 #include <KMainWindow>
 #include <kdeversion.h>
-#include <KUrl>
+#include <QUrl>
 #include <KFileItemList>
 #include <KAction>
 #include <libkipi/pluginloader.h>
@@ -66,7 +66,7 @@ Q_OBJECT
 
         void startVideo(bool withSound);
         void stopVideo();
-        KUrl::List selectedItems();
+        QUrl::List selectedItems();
         KamosoJobTracker* tracker() const { return mTracker; }
         virtual void contextMenuEvent(QContextMenuEvent* event);
 
@@ -84,13 +84,13 @@ Q_OBJECT
         void thumbnailAdded();
         void selectLast();
         void settingsMenu(bool);
-        void selectJob(KJob* job, const KUrl::List& urls);
+        void selectJob(KJob* job, const QUrl::List& urls);
         void changeMode(bool);
 
         void setFlashEnabled(bool en) { m_flashEnabled=en; }
         void stopCountdown();
         void thumbnailViewMoved(int value);
-        void updateThumbnails(const KUrl::List& urls);
+        void updateThumbnails(const QUrl::List& urls);
         void exportMenu(bool);
         void fileViewSelectionChanged(const QItemSelection&, const QItemSelection&);
 
@@ -101,10 +101,10 @@ Q_OBJECT
         void slotScrollLeft();
         void slotScrollRight();
         void reloadDevicesCombo();
-        void autoincFilename(KUrl& filename);
+        void autoincFilename(QUrl& filename);
         void removeSelection();
         void openFile();
-        void fileSaved(const KUrl& dest);
+        void fileSaved(const QUrl& dest);
 
     Q_SIGNALS:
         void webcamPlaying(const QString&);

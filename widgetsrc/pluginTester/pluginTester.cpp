@@ -36,10 +36,10 @@ PluginTester::PluginTester(QObject *parent) : QObject(parent)
 
     kDebug() << "PluginName: " << pluginName;
     kDebug() << "Files: ";
-    KUrl::List kurlList;
+    QUrl::List kurlList;
     for (int i = 1; i < args->count(); ++i) {
         kDebug() << "\t" << args->arg(i);
-        kurlList.append(KUrl(args->arg(i)));
+        kurlList.append(QUrl(args->arg(i)));
     }
 
 #if (KIPI_VERSION >= 0x020000)

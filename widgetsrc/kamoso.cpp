@@ -110,7 +110,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidgetUi->centralSpot->layout()->addWidget(m_webcam);
     m_webcam->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    connect(m_webcam, SIGNAL(fileSaved(KUrl)), this, SLOT(fileSaved(KUrl)));
+    connect(m_webcam, SIGNAL(fileSaved(QUrl)), this, SLOT(fileSaved(QUrl)));
 
     if(deviceManager->hasDevices()) {
         m_webcam->playFile(deviceManager->playingDevice());
@@ -174,7 +174,7 @@ Kamoso::Kamoso(QWidget* parent)
     mainWidgetUi->thirdRow->addWidget(m_countdown);
 
     connect(m_countdown, SIGNAL(finished()), SLOT(takePhoto()));
-    const KUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
+    const QUrl soundFile = KStandardDirs::locate("sound", "KDE-Im-User-Auth.ogg");
     player = Phonon::createPlayer(Phonon::NotificationCategory);
     player->setCurrentSource(soundFile);
 
@@ -183,10 +183,10 @@ Kamoso::Kamoso(QWidget* parent)
     this->setCentralWidget(mainWidget);
 
     mTracker = new KamosoJobTracker(statusBar());
-    connect(mTracker, SIGNAL(jobClicked(KJob*, KUrl::List)), SLOT(selectJob(KJob*, KUrl::List)));
+    connect(mTracker, SIGNAL(jobClicked(KJob*, QUrl::List)), SLOT(selectJob(KJob*, QUrl::List)));
     statusBar()->addWidget(mTracker);
 
-    connect(mTracker, SIGNAL(urlsChanged(KUrl::List)), SLOT(updateThumbnails(KUrl::List)));
+    connect(mTracker, SIGNAL(urlsChanged(QUrl::List)), SLOT(updateThumbnails(QUrl::List)));
 
     QMetaObject::invokeMethod(this, "initialize");
     mPluginLoader = new KIPI::PluginLoader();
@@ -194,9 +194,9 @@ Kamoso::Kamoso(QWidget* parent)
     mPluginLoader->init();
 }
 
-KUrl::List Kamoso::selectedItems()
+QUrl::List Kamoso::selectedItems()
 {
-    KUrl::List urls;
+    QUrl::List urls;
     foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
         urls += dirModel->itemForIndex(idx).url();
     }
@@ -235,7 +235,7 @@ void Kamoso::startVideo(bool sound)
 
 void Kamoso::stopVideo()
 {
-    KUrl finalPath = Settings::saveUrl();
+    QUrl finalPath = Settings::saveUrl();
     finalPath.addPath(QString("video_1.mkv"));
 
     while(KIO::NetAccess::exists( finalPath, KIO::NetAccess::DestinationSide, this )) {
@@ -288,7 +288,7 @@ void Kamoso::checkInitConfig()
         KDirSelectDialog dirs;
         dirs.showButton(KDialog::Cancel, false);
 
-        KUrl url;
+        QUrl url;
         if(dirs.exec() && dirs.url().isValid())
             url=dirs.url();
         else
@@ -437,7 +437,7 @@ void Kamoso::takePhoto()
     }
     QTimer::singleShot(1000, this, SLOT(restore()));
 
-    KUrl photoPlace = Settings::saveUrl();
+    QUrl photoPlace = Settings::saveUrl();
     photoPlace.addPath(QString("picture_1.png"));
 
     while(KIO::NetAccess::exists( photoPlace, KIO::NetAccess::DestinationSide, this )) {
@@ -541,13 +541,13 @@ void Kamoso::exportMenu(bool)
 
 void Kamoso::openFile()
 {
-    KUrl::List urls;
+    QUrl::List urls;
     foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
         QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
     }
 }
 
-void Kamoso::fileSaved(const KUrl &dest) {
+void Kamoso::fileSaved(const QUrl &dest) {
     kDebug();
     #ifdef HAVE_NEPOMUK
         kDebug() << dest;
@@ -576,7 +576,7 @@ void Kamoso::fileSaved(const KUrl &dest) {
 
 void Kamoso::removeSelection()
 {
-    KUrl::List urls;
+    QUrl::List urls;
     foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
         urls << dirModel->itemForIndex(idx).url();
     }
@@ -609,10 +609,10 @@ void Kamoso::selectLast()
     }
 }
 
-void Kamoso::selectJob(KJob* , const KUrl::List& urls)
+void Kamoso::selectJob(KJob* , const QUrl::List& urls)
 {
     mainWidgetUi->thumbnailView->selectionModel()->clearSelection();
-    foreach(const KUrl&url, urls) {
+    foreach(const QUrl&url, urls) {
         mainWidgetUi->thumbnailView->selectionModel()->select(dirModel->indexForUrl(url), QItemSelectionModel::Select);
     }
 }
@@ -682,7 +682,7 @@ void Kamoso::settingsMenu(bool )
 }
 
 //Code taken from ksnapshot, thanks guys :p
-void Kamoso::autoincFilename(KUrl &filename)
+void Kamoso::autoincFilename(QUrl &filename)
 {
     // Extract the filename from the path
     QString name= filename.fileName();
@@ -723,9 +723,9 @@ void Kamoso::thumbnailViewMoved(int value)
     mainWidgetUi->scrollRight->setEnabled(mainWidgetUi->thumbnailView->horizontalScrollBar()->maximum()!=value);
 }
 
-void Kamoso::updateThumbnails(const KUrl::List& urls)
+void Kamoso::updateThumbnails(const QUrl::List& urls)
 {
-    foreach(const KUrl& url, urls) {
+    foreach(const QUrl& url, urls) {
         QModelIndex idx = dirModel->indexForUrl(url);
         QList<QIcon> icons = tracker()->iconsPerUrl(url);
         mainWidgetUi->thumbnailView->delegate()->setOverlays(url, icons);

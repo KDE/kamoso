@@ -43,7 +43,7 @@ QString KamosoImageCollectionShared::name()
 }
 
 
-KUrl::List KamosoImageCollectionShared::images()
+QUrl::List KamosoImageCollectionShared::images()
 {
     return d->kamoso->selectedItems();
 }

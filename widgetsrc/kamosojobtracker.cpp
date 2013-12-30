@@ -24,7 +24,7 @@
 
 #include <KDebug>
 #include <KIcon>
-#include <KUrl>
+#include <QUrl>
 #include <KJob>
 #include <KNotification>
 #include <KLocale>
@@ -35,7 +35,7 @@ KamosoJobTracker::KamosoJobTracker(QWidget* parent, Qt::WindowFlags f)
     setMouseTracking(true);
 }
 
-void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon)
+void KamosoJobTracker::registerJob(KJob* job, const QUrl::List& urls, const QIcon& icon)
 {
     Q_ASSERT(!mJobs.contains(job));
     kDebug() << "Register job received!!!";
@@ -49,12 +49,12 @@ void KamosoJobTracker::registerJob(KJob* job, const KUrl::List& urls, const QIco
 
 void KamosoJobTracker::unregisterJob(KJob* job)
 {
-    QPair< KUrl::List, QIcon > val = mJobs.take(job);
+    QPair< QUrl::List, QIcon > val = mJobs.take(job);
     updateGeometry();
 
     if(job->error()==0) {
         QStringList urls;
-        foreach(const KUrl& url, val.first) {
+        foreach(const QUrl& url, val.first) {
             urls += url.prettyUrl();
         }
         KNotification::event(KNotification::Notification, i18n("Done: %1", urls.join(i18nc("Used to join urls", ", "))),
@@ -133,10 +133,10 @@ void KamosoJobTracker::setSelectedJob(int newselection)
     }
 }
 
-QList<QIcon> KamosoJobTracker::iconsPerUrl(const KUrl& url) const
+QList<QIcon> KamosoJobTracker::iconsPerUrl(const QUrl& url) const
 {
     QList<QIcon> ret;
-    typedef QPair<KUrl::List, QIcon> pair;
+    typedef QPair<QUrl::List, QIcon> pair;
     foreach(const pair& ue, mJobs) {
         if(ue.first.contains(url))
             ret += ue.second;

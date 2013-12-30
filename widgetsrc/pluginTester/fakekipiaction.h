@@ -31,7 +31,7 @@ class FakeKipiAction : public QAction
         FakeKipiAction(KIPI::PluginLoader::Info *pluginInfo, QObject *parent);
         virtual ~FakeKipiAction();
 
-    public slots:
+    public Q_SLOTS:
         void runJob();
         void done(KJob*);
 

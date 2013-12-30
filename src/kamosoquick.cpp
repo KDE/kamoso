@@ -27,18 +27,18 @@
 #include "devicemanager.h"
 #include "previewfetcher.h"
 
-#include <kdeclarative.h>
-#include <qdeclarative.h>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
-#include <QtDeclarative/QDeclarativeView>
+#include <kdeclarative/kdeclarative.h>
+#include <qqml.h>
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <QQuickView>
 
 #include <QGst/Ui/GraphicsVideoSurface>
 #include <QGst/Pipeline>
 #include <QGst/ElementFactory>
 
-KamosoQuick::KamosoQuick(QWidget* parent)
-    : QDeclarativeView(parent)
+KamosoQuick::KamosoQuick()
+    : QQuickView()
 {
     KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(engine());

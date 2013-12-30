@@ -20,7 +20,7 @@
 #ifndef KAMOSOJOBTRACKER_H
 #define KAMOSOJOBTRACKER_H
 #include <QWidget>
-#include <KUrl>
+#include <QUrl>
 
 class KJob;
 
@@ -34,22 +34,22 @@ Q_OBJECT
         virtual void mouseMoveEvent(QMouseEvent* );
         virtual void leaveEvent(QEvent* );
 
-        QList<QIcon> iconsPerUrl(const KUrl& url) const;
+        QList<QIcon> iconsPerUrl(const QUrl& url) const;
 
-    public slots:
-        void registerJob(KJob* job, const KUrl::List& urls, const QIcon& icon);
+    public Q_SLOTS:
+        void registerJob(KJob* job, const QUrl::List& urls, const QIcon& icon);
         void unregisterJob(KJob* job);
 
         virtual QSize sizeHint() const;
         virtual void paintEvent(QPaintEvent* );
     signals:
-        void urlsChanged(const KUrl::List& urls);
-        void jobClicked(KJob* job, const KUrl::List& urls);
+        void urlsChanged(const QUrl::List& urls);
+        void jobClicked(KJob* job, const QUrl::List& urls);
 
     private:
         void setSelectedJob(int newselection);
         int jobPerPosition(const QPoint& pos);
-        QMap<KJob*, QPair<KUrl::List, QIcon> > mJobs;
+        QMap<KJob*, QPair<QUrl::List, QIcon> > mJobs;
         int m_selectedJob;
 };
 

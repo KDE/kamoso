@@ -51,7 +51,7 @@ class PreviewFetcher : public QObject
         void urlChanged();
         void previewChanged();
 
-    private slots:
+    private Q_SLOTS:
         void fetchPreview();
         void updatePreview(const KFileItem&, const QPixmap& p);
         void fallbackPreview(const KFileItem& item);

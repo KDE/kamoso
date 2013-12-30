@@ -26,7 +26,7 @@
 class InfoShared : public KIPI::ImageInfoShared
 {
 public:
-    InfoShared(KIPIInterface* interface, const KUrl& url);
+    InfoShared(KIPIInterface* interface, const QUrl& url);
     virtual void delAttributes(const QStringList& );
     virtual void addAttributes(const QMap< QString, QVariant >& );
     virtual void clearAttributes();

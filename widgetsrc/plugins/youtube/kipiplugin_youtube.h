@@ -18,7 +18,7 @@
  *************************************************************************************/
 
 #include <KPasswordDialog>
-#include <KUrl>
+#include <QUrl>
 #include <kwallet.h>
 #include <KIO/Job>
 #include <libkipi/plugin.h>
@@ -29,7 +29,7 @@ class YoutubePlugin : public KIPI::Plugin, public ExportInterface
 	Q_OBJECT
 	public:
 		YoutubePlugin(QObject* parent, const QVariantList& args);
-// 		virtual QAction* thumbnailsAction(const QList<KUrl>& url);
+// 		virtual QAction* thumbnailsAction(const QList<QUrl>& url);
 // 		void login();
 		
 	virtual KIPI::Category category(KAction* action) const;
@@ -37,12 +37,12 @@ class YoutubePlugin : public KIPI::Plugin, public ExportInterface
 	
     virtual KJob* exportFiles(const QString& albumname);
 	
-	public slots:
+	public Q_SLOTS:
 // 		void upload();
 // 		void authenticated(bool);
 // 		void loginDone(KIO::Job *job, const QByteArray &data);
 	private:
-// 		QList<KUrl> mSelectedUrls;
+// 		QList<QUrl> mSelectedUrls;
 // 		KWallet::Wallet *m_wallet;
 // 		QString videoTitle;
 // 		QString videoDesc;

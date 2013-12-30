@@ -25,7 +25,7 @@
 
 class KJob;
 class Device;
-class KUrl;
+class QUrl;
 class QVBoxLayout;
 class QPushButton;
 class QTimer;
@@ -44,9 +44,9 @@ public:
     virtual QSize sizeHint() const;
 public Q_SLOTS:
     void playFile(Device *device);
-    bool takePhoto(const KUrl &dest);
+    bool takePhoto(const QUrl &dest);
     void recordVideo(bool sound);
-    void stopRecording(const KUrl& destUrl);
+    void stopRecording(const QUrl& destUrl);
     void fileSaved(KJob *);
     void setBrightness(int level);
     void setSaturation(int level);
@@ -56,7 +56,7 @@ public Q_SLOTS:
     void setVideoSettings();
 
 Q_SIGNALS:
-    void fileSaved(const KUrl &url);
+    void fileSaved(const QUrl &url);
 
 private:
     WebcamWidget(QWidget* parent);

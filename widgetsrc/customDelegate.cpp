@@ -28,7 +28,7 @@
 KIcon CustomDelegate::m_unavailable;
 QColor shadowColor(100, 100, 100);
 
-CustomDelegate::CustomDelegate(const QHash< KUrl, QPixmap >& repo, QWidget* parent)
+CustomDelegate::CustomDelegate(const QHash< QUrl, QPixmap >& repo, QWidget* parent)
     : QItemDelegate(parent), m_repo(repo)
 {
     if(m_unavailable.isNull()) {
@@ -47,7 +47,7 @@ void CustomDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     QStyle *style = opt.widget->style();
 
     KFileItem file = qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole));
-    KUrl url = file.url();
+    QUrl url = file.url();
 
     style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
     QList<QIcon> icons = m_overlays.value(url);
@@ -123,7 +123,7 @@ QSize CustomDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelI
     return QSize(100, 125);
 }
 
-void CustomDelegate::setOverlays(const KUrl& url, const QList< QIcon >& icons)
+void CustomDelegate::setOverlays(const QUrl& url, const QList< QIcon >& icons)
 {
     m_overlays.insert(url, icons);
 }

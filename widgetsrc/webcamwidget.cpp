@@ -67,7 +67,7 @@ struct WebcamWidget::Private
     QString playingFile;
     QStringList effects;
     Device *device;
-    KUrl destination;
+    QUrl destination;
     int brightness;
     bool m_recording;
 
@@ -175,7 +175,7 @@ void WebcamWidget::setDevice(Device* device)
     d->brightness = device->brightness();
 }
 
-bool WebcamWidget::takePhoto(const KUrl &dest)
+bool WebcamWidget::takePhoto(const QUrl &dest)
 {
     if (!d->device) {
         return false;
@@ -324,14 +324,14 @@ void WebcamWidget::recordVideo(bool sound)
     d->m_recording = true;
 }
 
-void WebcamWidget::stopRecording(const KUrl &destUrl)
+void WebcamWidget::stopRecording(const QUrl &destUrl)
 {
     if (!d->m_recording) {
         return;
     }
 
     kDebug() << destUrl;
-    KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
+    KIO::CopyJob* job=KIO::move(QUrl(d->videoTmpPath), destUrl);
     connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
     job->setAutoDelete(true);
     job->start();

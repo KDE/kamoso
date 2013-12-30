@@ -37,7 +37,7 @@ struct FakeKIPIInterfacePrivate {
     FakeImageCollectionShared* collectionShared;
 };
 
-FakeKIPIInterface::FakeKIPIInterface(KUrl::List& kurlList)
+FakeKIPIInterface::FakeKIPIInterface(QUrl::List& kurlList)
 :KIPI::Interface(0)
 , d(new FakeKIPIInterfacePrivate) {
     d->collectionShared = new FakeImageCollectionShared(kurlList);
@@ -61,19 +61,19 @@ QList<KIPI::ImageCollection> FakeKIPIInterface::allAlbums() {
     return list;
 }
 
-KIPI::ImageInfo FakeKIPIInterface::info(const KUrl& url) {
+KIPI::ImageInfo FakeKIPIInterface::info(const QUrl& url) {
     return KIPI::ImageInfo(new FakeInfoShared(this,url));
 }
 
-bool FakeKIPIInterface::addImage(const KUrl&, QString& err)
+bool FakeKIPIInterface::addImage(const QUrl&, QString& err)
 {
     return true;
 }
-void FakeKIPIInterface::delImage( const KUrl& )
+void FakeKIPIInterface::delImage( const QUrl& )
 {
 
 }
-void FakeKIPIInterface::refreshImages( const KUrl::List& urls )
+void FakeKIPIInterface::refreshImages( const QUrl::List& urls )
 {
 
 }

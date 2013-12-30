@@ -22,10 +22,10 @@
 
 struct FakeImageCollectionShared::Private
 {
-    KUrl::List m_kurlList;
+    QUrl::List m_kurlList;
 };
 
-FakeImageCollectionShared::FakeImageCollectionShared(KUrl::List& kurlList): d(new Private)
+FakeImageCollectionShared::FakeImageCollectionShared(QUrl::List& kurlList): d(new Private)
 {
     d->m_kurlList = kurlList;
 }
@@ -41,7 +41,7 @@ QString FakeImageCollectionShared::name()
     return "Kamoso";
 }
 
-KUrl::List FakeImageCollectionShared::images()
+QUrl::List FakeImageCollectionShared::images()
 {
     return d->m_kurlList;
 }

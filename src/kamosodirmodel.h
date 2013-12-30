@@ -19,7 +19,7 @@
 #ifndef KAMOSODIRMODEL_H
 #define KAMOSODIRMODEL_H
 
-#include <KDirModel>
+#include <kdirmodel.h>
 
 class KamosoDirModel : public KDirModel
 {

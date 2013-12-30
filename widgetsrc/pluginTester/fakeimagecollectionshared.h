@@ -27,9 +27,9 @@ class FakeImageCollectionShared : public KIPI::ImageCollectionShared
 {
 
 public:
-    FakeImageCollectionShared(KUrl::List& kurlList);
+    FakeImageCollectionShared(QUrl::List& kurlList);
     ~FakeImageCollectionShared();
-    virtual KUrl::List images();
+    virtual QUrl::List images();
     virtual QString name();
 
 private:
