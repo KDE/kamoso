@@ -145,6 +145,8 @@ Rectangle
                 width: parent.width
                 minimumValue: -100
                 maximumValue: 100
+                value: devicesModel.playingDevice.brightness
+
                 Binding {target: devicesModel.playingDevice; property: "brightness"; value: brightnessSlider.value}
             }
             Slider {
@@ -152,6 +154,8 @@ Rectangle
                 width: parent.width
                 minimumValue: -100
                 maximumValue: 100
+                value: devicesModel.playingDevice.hue
+
                 Binding {target: devicesModel.playingDevice; property: "hue"; value: hueSlider.value}
             }
             Slider {
@@ -159,6 +163,8 @@ Rectangle
                 width: parent.width
                 minimumValue: 0
                 maximumValue: 200
+                value: devicesModel.playingDevice.contrast
+
                 Binding {target: devicesModel.playingDevice; property: "contrast"; value: contrastSlider.value}
             }
             Slider {
@@ -166,6 +172,8 @@ Rectangle
                 width: parent.width
                 minimumValue: 0
                 maximumValue: 200
+                value: devicesModel.playingDevice.saturation
+
                 Binding {target: devicesModel.playingDevice; property: "saturation"; value: saturationSlider.value}
             }
             Slider {
@@ -173,6 +181,8 @@ Rectangle
                 width: parent.width
                 minimumValue: 1
                 maximumValue: 1000
+                value: devicesModel.playingDevice.gamma
+
                 Binding {target: devicesModel.playingDevice; property: "gamma"; value: gammaSlider.value}
             }
         }
