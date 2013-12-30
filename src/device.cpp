@@ -71,6 +71,10 @@ QString Device::vendor() const
 void Device::setBrightness(int level)
 {
     kDebug() << "New brightness " << level;
+    if (level == brightness()) {
+        return;
+    }
+
     Q_EMIT brightnessChanged(level, brightness());
     m_config->group(m_udi).writeEntry("brightness",level);
     m_config->sync();
@@ -79,6 +83,10 @@ void Device::setBrightness(int level)
 void Device::setContrast(int level)
 {
     kDebug() << "New contrast " << level;
+    if (level == contrast()) {
+        return;
+    }
+
     Q_EMIT contrastChanged(level, contrast());
     m_config->group(m_udi).writeEntry("contrast",level);
     m_config->sync();
@@ -87,6 +95,10 @@ void Device::setContrast(int level)
 void Device::setSaturation(int level)
 {
     kDebug() << "New saturation " << level;
+    if (level == saturation()) {
+        return;
+    }
+
     Q_EMIT saturationChanged(level, saturation());
     m_config->group(m_udi).writeEntry("saturation",level);
     m_config->sync();
@@ -95,6 +107,10 @@ void Device::setSaturation(int level)
 void Device::setGamma(int level)
 {
     kDebug() << "new gamma" << level;
+    if (level == gamma()) {
+        return;
+    }
+
     Q_EMIT gammaChanged(level, gamma());
     m_config->group(m_udi).writeEntry("gamma",level);
     m_config->sync();
@@ -103,6 +119,10 @@ void Device::setGamma(int level)
 void Device::setHue(int level)
 {
     kDebug() << "new hue" << level;
+    if (level == hue()) {
+        return;
+    }
+
     Q_EMIT hueChanged(level, hue());
     m_config->group(m_udi).writeEntry("hue",level);
     m_config->sync();
