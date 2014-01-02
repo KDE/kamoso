@@ -32,6 +32,7 @@
 #include <QGst/Parse>
 #include <QGst/structs.h>
 #include <QGst/Bus>
+#include <QGst/Init>
 
 #include <gst/video/video.h>
 
@@ -43,9 +44,9 @@
 
 WebcamControl::WebcamControl(QQuickView* view)
 {
+    QGst::init();
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(view);
     view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
-
     m_videoSink = surface->videoSink();
     m_videoSink->setProperty("force-aspect-ratio", true);
 
