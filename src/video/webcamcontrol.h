@@ -30,7 +30,7 @@ class WebcamControl : public QObject
 {
     Q_OBJECT
     public:
-        WebcamControl(QQuickView *view);
+        WebcamControl();
         virtual ~WebcamControl();
 
     public Q_SLOTS:

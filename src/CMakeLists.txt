@@ -14,7 +14,6 @@ add_executable(qmloso
     whitewidget.cpp
     kamososettings.cpp
     kamosodirmodel.cpp
-    kamosoquick.cpp
     main.cpp
     kamoso.cpp
     previewfetcher.cpp

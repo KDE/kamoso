@@ -1,14 +1,15 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.1
 import QtGStreamer 0.10
 import org.kde.kamoso 3.0
 import org.kde.plasma.core 2.0
 import org.kde.plasma.components 2.0
 
-Rectangle
+ApplicationWindow
 {
-    color: "white"
     width: 500
     height: 600
+    visible: true
 
     ImagesView {
         id: imagesView
@@ -210,7 +211,7 @@ Rectangle
         AnimatedImage {
             anchors.fill: parent
             visible: !video.visible
-            source: "http://images3.wikia.nocookie.net/__cb20110211005027/thewargame/images/3/31/Dancing_Banana.gif"
+            source: "http://i.imgur.com/OEiQ6k9.gif"
         }
     }
 

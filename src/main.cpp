@@ -19,7 +19,7 @@
 
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
-#include "kamosoquick.h"
+#include "video/webcamcontrol.h"
 #include <QApplication>
 
 #include <QGst/Init>
@@ -32,8 +32,7 @@ int main(int argc, char *argv[])
     about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "alex@eyeos.org" );
     QApplication app(argc, argv);
 
-    KamosoQuick* kamosoMain = new KamosoQuick;
-    kamosoMain->show();
+    WebcamControl webcamControl;
 
     return app.exec();
 }

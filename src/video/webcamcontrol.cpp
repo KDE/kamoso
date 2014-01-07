@@ -19,6 +19,11 @@
 
 #include "webcamcontrol.h"
 #include <devicemanager.h>
+#include <kamosodirmodel.h>
+#include <previewfetcher.h>
+#include <kamososettings.h>
+#include <whitewidgetmanager.h>
+#include <kamoso.h>
 
 #include <QGlib/Connect>
 #include <QGlib/Error>
@@ -41,12 +46,32 @@
 
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
+#include <QtQml/QQmlApplicationEngine>
+#include <qqml.h>
+#include <kdeclarative/kdeclarative.h>
 
-WebcamControl::WebcamControl(QQuickView* view)
+WebcamControl::WebcamControl()
 {
     QGst::init();
-    QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(view);
-    view->engine()->rootContext()->setContextProperty(QLatin1String("videoSurface1"), surface);
+
+    QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
+    KDeclarative kdeclarative;
+    kdeclarative.setDeclarativeEngine(engine);
+    kdeclarative.initialize();
+    kdeclarative.setupBindings();
+
+    qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
+    qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
+    qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+
+    QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
+    engine->rootContext()->setContextProperty("settings", new KamosoSettings);
+    engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
+    engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
+    engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
+    engine->rootContext()->setContextProperty("videoSurface1", surface);
+    engine->load(QUrl("qrc:/qml/Main.qml"));
+
     m_videoSink = surface->videoSink();
     m_videoSink->setProperty("force-aspect-ratio", true);
 
