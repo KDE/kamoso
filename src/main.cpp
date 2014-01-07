@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
                 KAboutData::License_GPL, i18n("(C) 2008-2012 Alex Fiestas and Aleix Pol"));
 
     about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
-    about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "alex@eyeos.org" );
+    about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
     QApplication app(argc, argv);
 
     WebcamControl webcamControl;
