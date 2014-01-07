@@ -10,7 +10,7 @@
 	<group name="General">
 		<entry name="saveUrl" type="Url" key="saveUrl">
 			<label>Where the photos are saved.</label>
-			<default code="true">QDesktopServices::storageLocation(QDesktopServices::PicturesLocation)</default>
+			<default code="true">QUrl::fromLocalFile(QDesktopServices::storageLocation(QDesktopServices::PicturesLocation))</default>
 		</entry>
 	</group>
     <group name="PictureSettings">
