@@ -130,7 +130,7 @@ ApplicationWindow
         Button { width: 30; text: "a" }
     }
 
-    Rectangle {
+    Item {
         id: settingsDialog
         visible: true
         anchors {
