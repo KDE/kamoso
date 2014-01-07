@@ -127,18 +127,27 @@ ApplicationWindow
         spacing: 10
 
         Button { width: 30; text: "a" }
-        Button { width: 30; text: "a" }
+
+        Button {
+            id: settingsButton
+            width: 30
+            iconSource: "settings"
+            checkable: true
+        }
     }
 
     Item {
         id: settingsDialog
-        visible: true
         anchors {
             top: parent.top
             right: parent.right
             bottom: controls.top
         }
-        width: parent.width / 3
+        width: settingsButton.checked ? parent.width / 3 : 0
+        Behavior on width {
+            PropertyAnimation { duration: 250 }
+        }
+        visible: width!=0
         Column {
             anchors.fill: parent
             Slider {
