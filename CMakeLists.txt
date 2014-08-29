@@ -15,10 +15,6 @@ macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
 macro_display_feature_log()
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-include_directories(
-    ${QTGSTREAMER_INCLUDE_DIR}
-)
-
 add_subdirectory(src)
 add_subdirectory(icons)
 add_subdirectory(doc)
