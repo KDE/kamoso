@@ -55,8 +55,9 @@
 #include <QGst/Structure>
 #include <QGst/Clock>
 #include <QGst/Init>
-#include <QGst/XOverlay>
+#include <QGst/VideoOverlay>
 #include <QGst/Message>
+#include <QGst/Memory>
 #include <gst/gst.h>
 #include <gst/video/video.h>
 #include <QGst/Bus>
@@ -130,8 +131,7 @@ void WebcamWidget::playFile(const Device &device)
     QByteArray pipe = basicPipe();
 
     //Set the right colorspace to convert to QImage
-    pipe += " ! ffmpegcolorspace ! "
-            GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
+    pipe += " ! videoconvert"
             " ! fakesink name=fakesink";
 
     kDebug() << "================ PIPELINE ================";
@@ -157,7 +157,7 @@ void WebcamWidget::playFile(const Device &device)
     setVideoSettings();
 
     kDebug() << "================ Capabilities ================";
-    kDebug() << d->m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->caps()->toString();
+//     kDebug() << d->m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->currentCaps()->toString(); //commented out for now: src-pad returns null
     d->m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -179,34 +179,51 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
     }
     kDebug() << dest;
     d->destination = dest;
+    if (!d->m_bin) {
+        return false;
+    }
     d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
     QGlib::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
     return true;
 }
 
 //This code has been borrowed from the Qt Multimedia project.
-void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
+void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad)
 {
     kDebug();
 
     QImage img;
-    QGst::CapsPtr caps = buffer->caps();
+    QGst::CapsPtr caps = pad->currentCaps();
 
     const QGst::StructurePtr structure = caps->internalStructure(0);
     int width, height;
+    QString format;
+    format = structure.data()->value("format").get<QString>();
     width = structure.data()->value("width").get<int>();
     height = structure.data()->value("height").get<int>();
     kDebug() << "We've got a caps in here";
     kDebug() << "Size: " << width << "x" << height;
     kDebug() << "Name: " << structure.data()->name();
+    kDebug() << "Format: " << format;
 
-    if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
+    if (format == "YUV") {
         QGst::Fourcc fourcc = structure->value("format").get<QGst::Fourcc>();
         kDebug() << "fourcc: " << fourcc.value.as_integer;
         if (fourcc.value.as_integer == QGst::Fourcc("I420").value.as_integer) {
             img = QImage(width/2, height/2, QImage::Format_RGB32);
 
-            const uchar *data = (const uchar *)buffer->data();
+            QGst::MemoryPtr memory;
+            QGst::MapInfo info;
+            memory = buffer->getMemory(0);
+            if (!memory) {
+                kError() << "Could not get memory for buffer.";
+                return;
+            }
+            if (!memory->map(info, QGst::MapRead)) {
+                kError() << "Could not map memory buffer.";
+                return;
+            }
+            const uchar *data = (const uchar *)info.data();
 
             for (int y=0; y<height; y+=2) {
                 const uchar *yLine = data + y*width;
@@ -225,6 +242,7 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
                     img.setPixel(x/2,y/2,qRgb(r,g,b));
                 }
             }
+            memory->unmap(info);
         } else {
             kDebug() << "Not I420";
         }
@@ -240,11 +258,23 @@ void WebcamWidget::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
             format = QImage::Format_RGB32;
 
         if (format != QImage::Format_Invalid) {
-            img = QImage((const uchar *)buffer->data(),
+            QGst::MemoryPtr memory;
+            QGst::MapInfo info;
+            memory = buffer->getMemory(0);
+            if (!memory) {
+                kError() << "Could not get memory for buffer.";
+                return;
+            }
+            if (!memory->map(info, QGst::MapRead)) {
+                kError() << "Could not map memory buffer.";
+                return;
+            }
+            img = QImage((const uchar *)info.data(),
                             width,
                             height,
                             format);
             img.bits(); //detach
+            memory->unmap(info);
         }
     }
 
@@ -285,7 +315,7 @@ void WebcamWidget::recordVideo(bool sound)
         //Get the audio from alsa
         " ! mux. autoaudiosrc "
         //Sound type and quality
-        " ! audio/x-raw-int,rate=48000,channels=2,depth=16 "
+        " ! audio/x-raw,rate=48000,channels=2,depth=16 "
         //Encode sound as vorbis
         " ! queue ! audioconvert ! queue "
         " ! vorbisenc "
@@ -368,11 +398,11 @@ QByteArray WebcamWidget::basicPipe()
 
     //Accepted capabilities
     pipe +=
-    " ! ffmpegcolorspace"
-    " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
-    " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
-    " video/x-raw-yuv, width=640, height=480, framerate=30/1;"
-    " video/x-raw-yuv, width=352, height=288, framerate=15/1"
+    " ! videoconvert"
+    " ! video/x-raw, format=RGB, width=640, height=480, framerate=15/1;"
+    " video/x-raw, format=RGB, width=640, height=480, framerate=24/1;"
+    " video/x-raw, format=RGB, width=640, height=480, framerate=30/1;"
+    " video/x-raw, format=RGB, width=352, height=288, framerate=15/1"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"
@@ -424,7 +454,7 @@ void WebcamWidget::activeAspectRatio()
 {
     QGst::BinPtr sink = d->m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
 
-    QGlib::RefPointer<QGst::XOverlay> over =  sink->getElementByInterface<QGst::XOverlay>();
+    QGlib::RefPointer<QGst::VideoOverlay> over =  sink->getElementByInterface<QGst::VideoOverlay>();
 
     if (over->findProperty("force-aspect-ratio")) {
         kDebug() << "Setting aspect ratio";
