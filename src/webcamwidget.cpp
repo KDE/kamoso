@@ -58,8 +58,6 @@
 #include <QGst/VideoOverlay>
 #include <QGst/Message>
 #include <QGst/Memory>
-#include <gst/gst.h>
-#include <gst/video/video.h>
 #include <QGst/Bus>
 
 struct WebcamWidget::Private
@@ -364,14 +362,6 @@ void WebcamWidget::stopRecording(const KUrl &destUrl)
 
     d->m_recording = false;
 }
-
-#if PHONON_VERSION < PHONON_VERSION_CHECK(4, 4, 3)
-namespace Phonon {
-    typedef QPair<QByteArray, QString> DeviceAccess;
-    typedef QList<DeviceAccess> DeviceAccessList;
-}
-Q_DECLARE_METATYPE(Phonon::DeviceAccessList)
-#endif
 
 QByteArray WebcamWidget::phononCaptureDevice()
 {
