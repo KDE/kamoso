@@ -120,7 +120,7 @@ void WebcamWidget::setVideoSettings()
 
 void WebcamWidget::playFile(const Device &device)
 {
-    kDebug() << device.path();
+    kDebug() << "Displaying device:" << device.path();
     if (device.path().isEmpty()) {
         return;
     }
@@ -145,7 +145,7 @@ void WebcamWidget::playFile(const Device &device)
     try {
         d->m_bin = QGst::Bin::fromDescription(pipe.constData());
     } catch (const QGlib::Error & error) {
-        kDebug() << error;
+        qWarning() << "error" << error;
         return;
     }
     d->m_pipeline->add(d->m_bin);
@@ -454,6 +454,7 @@ void WebcamWidget::activeAspectRatio()
 
 void WebcamWidget::onBusMessage(const QGst::MessagePtr& message)
 {
-    kDebug() << message.staticCast<QGst::ErrorMessage>()->error();
+    QGlib::RefPointer< QGst::ErrorMessage > msg = message.staticCast<QGst::ErrorMessage>();
+    kDebug() << msg->error() << msg->debugMessage();
     return;
 }
