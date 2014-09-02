@@ -43,8 +43,6 @@ kde4_add_kcfg_files(kamoso_SRCS settings.kcfgc)
 kde4_add_ui_files(kamoso_SRCS ${kamoso_UI})
 kde4_add_executable(kamoso ${kamoso_SRCS})
 
-configure_file(config-nepomuk.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-nepomuk.h)
-
 target_link_libraries(kamoso ${KDE4_KDEUI_LIBS} ${KDE4_KFILE_LIBS} ${KDE4_KIO_LIBS}
         ${KDE4_SOLID_LIBS} ${KDE4_PHONON_LIBS} ${KDE4_KUTILS_LIBS} ${KIPI_LIBRARIES} ${SolidControl} ${QTGSTREAMER_LIBRARY} ${QTGSTREAMER_UI_LIBRARY})
 

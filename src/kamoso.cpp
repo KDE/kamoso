@@ -19,7 +19,6 @@
  *************************************************************************************/
 
 #include "kamoso.h"
-#include "config-nepomuk.h"
 #include "thumbnailview.h"
 #include "whitewidget.h"
 #include "webcamwidget.h"
@@ -70,12 +69,6 @@
 #include <kdeversion.h>
 #include <KDirModel>
 #include <kio/copyjob.h>
-
-#ifdef HAVE_NEPOMUK
-    #include <Nepomuk/ResourceManager>
-    #include <Nepomuk/Resource>
-    #include <Nepomuk/Tag>
-#endif
 
 #include <libkipi/plugin.h>
 #include <libkipi/pluginloader.h>
@@ -466,7 +459,7 @@ void Kamoso::takePhoto()
 
     m_webcam->takePhoto(photoPlace);
     if (Settings::photoSound()) {
-	player->play();
+        player->play();
     }
 }
 
@@ -567,33 +560,6 @@ void Kamoso::openFile()
     foreach(const QModelIndex& idx, mainWidgetUi->thumbnailView->selectionModel()->selectedIndexes()) {
         QDesktopServices::openUrl(dirModel->itemForIndex(idx).url());
     }
-}
-
-void Kamoso::fileSaved(const KUrl &dest) {
-    kDebug();
-    #ifdef HAVE_NEPOMUK
-        kDebug() << dest;
-        if(Nepomuk::ResourceManager::instance()->initialized()) {
-            kDebug() << "Nepomuk working";
-            Nepomuk::Resource file(dest);
-            QList<Nepomuk::Tag> tags = Nepomuk::Tag::allTags();
-
-            Q_FOREACH(const Nepomuk::Tag &tag, tags) {
-                kDebug() << "Tag: " << tag.genericLabel();
-                 if (tag.genericLabel() == "Kamoso") {
-                     kDebug() << "Appling Kamoso tag";
-                     file.addTag(tag);
-                     kDebug() << file.tags().count();
-                     return;
-                 }
-            }
-
-            kDebug() << "Creaing new tag";
-            Nepomuk::Tag tag("Kamoso");
-            tag.setLabel("Kamoso");
-            file.addTag(tag);
-        }
-    #endif
 }
 
 void Kamoso::removeSelection()
