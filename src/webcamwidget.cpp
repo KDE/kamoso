@@ -180,8 +180,10 @@ bool WebcamWidget::takePhoto(const KUrl &dest)
     if (!d->m_bin) {
         return false;
     }
-    d->m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", true);
-    QGlib::connect(d->m_bin->getElementByName("fakesink"), "handoff", this, &WebcamWidget::photoGstCallback);
+    QGst::ElementPtr fakesink = d->m_bin->getElementByName("fakesink");
+    Q_ASSERT(fakesink);
+    fakesink->setProperty("signal-handoffs", true);
+    QGlib::connect(fakesink, "handoff", this, &WebcamWidget::photoGstCallback);
     return true;
 }
 
