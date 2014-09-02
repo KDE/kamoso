@@ -129,8 +129,7 @@ void WebcamWidget::playFile(const Device &device)
     QByteArray pipe = basicPipe();
 
     //Set the right colorspace to convert to QImage
-    pipe += " ! videoconvert"
-            " ! fakesink name=fakesink";
+    pipe += " ! fakesink name=fakesink";
 
     kDebug() << "================ PIPELINE ================";
     kDebug() << pipe;
@@ -432,6 +431,7 @@ void WebcamWidget::setHue(int level)
 
 float WebcamWidget::convertAdjustValue(int level)
 {
+    Q_UNUSED(level);
     return 0.0;
 }
 
