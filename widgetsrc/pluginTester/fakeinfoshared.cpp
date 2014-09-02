@@ -19,7 +19,7 @@
 
 #include "fakeinfoshared.h"
 
-FakeInfoShared::FakeInfoShared(FakeKIPIInterface* interface, const QUrl& url) : KIPI::ImageInfoShared(interface,url)
+FakeInfoShared::FakeInfoShared(FakeKIPIInterface* interface, const QUrl& url) : KIPI::ImageInfoShared(interface,url
 {
 
 }
@@ -51,5 +51,5 @@ void FakeInfoShared::setDescription(const QString& )
 
 QString FakeInfoShared::description()
 {
-    return "Took with kamoso";
+    return i18n("Taken with kamoso");
 }

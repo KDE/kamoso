@@ -29,8 +29,6 @@
 #include <libkipi/pluginloader.h>
 #include <libkipi/imagecollection.h>
 #include <libkipi/imagecollectionselector.h>
-#include <libkipi/imagecollection.h>
-#include <libkipi/imageinfo.h>
 
 struct FakeKIPIInterfacePrivate {
     KIPI::PluginLoader* pluginLoader;
@@ -67,6 +65,8 @@ KIPI::ImageInfo FakeKIPIInterface::info(const QUrl& url) {
 
 bool FakeKIPIInterface::addImage(const QUrl&, QString& err)
 {
+    Q_UNUSED(err)
+
     return true;
 }
 void FakeKIPIInterface::delImage( const QUrl& )
@@ -75,7 +75,7 @@ void FakeKIPIInterface::delImage( const QUrl& )
 }
 void FakeKIPIInterface::refreshImages( const QUrl::List& urls )
 {
-
+    Q_UNUSED(urls)
 }
 
 KIPI::ImageCollectionSelector* FakeKIPIInterface::imageCollectionSelector(QWidget *parent) {

@@ -331,8 +331,13 @@ void WebcamWidget::stopRecording(const QUrl &destUrl)
     }
 
     kDebug() << destUrl;
+<<<<<<< HEAD:widgetsrc/webcamwidget.cpp
     KIO::CopyJob* job=KIO::move(QUrl(d->videoTmpPath), destUrl);
     connect(job,SIGNAL(result(KJob *)),this, SLOT(fileSaved(KJob *)));
+=======
+    KIO::CopyJob* job=KIO::move(KUrl(d->videoTmpPath), destUrl);
+    connect(job,SIGNAL(result(KJob*)),this, SLOT(fileSaved(KJob*)));
+>>>>>>> master:src/webcamwidget.cpp
     job->setAutoDelete(true);
     job->start();
 

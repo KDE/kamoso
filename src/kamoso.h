@@ -1,6 +1,7 @@
 /*************************************************************************************
  *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
  *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2013      by Michael G. Hansen <mike@mghansen.de>                  *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -23,8 +24,6 @@
 
 #include <QObject>
 
-class WebcamControl;
-class QUrl;
 class Kamoso : public QObject
 {
 Q_OBJECT

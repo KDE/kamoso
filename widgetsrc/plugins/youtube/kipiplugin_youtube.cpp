@@ -47,10 +47,14 @@ K_EXPORT_PLUGIN(KamosoYoutubeFactory(KAboutData("kipiplugin_youtube", "kipiplugi
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
     : KIPI::Plugin(KamosoYoutubeFactory::componentData(),parent, "Youtube")
-{}
+{
+    Q_UNUSED(args)
+}
 
 KJob* YoutubePlugin::exportFiles(const QString& albumname)
 {
+    Q_UNUSED(albumname)
+
     KIPI::Interface* interface = dynamic_cast<KIPI::Interface*>(parent());
     YoutubeJobComposite* job = new YoutubeJobComposite();
     foreach(const QUrl& url, interface->currentSelection().images()) {
@@ -62,6 +66,8 @@ KJob* YoutubePlugin::exportFiles(const QString& albumname)
 
 KIPI::Category YoutubePlugin::category(KAction* action) const
 {
+    Q_UNUSED(action)
+
     return KIPI::ExportPlugin;
 }
 

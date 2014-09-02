@@ -61,4 +61,4 @@ class YoutubeJob : public KJob
         QString videoTags;
         KPasswordDialog *dialog;
 };
-#endif
+#endif /* YOUTUBEJOB_H */

@@ -40,7 +40,7 @@ void KamosoJobTracker::registerJob(KJob* job, const QUrl::List& urls, const QIco
     Q_ASSERT(!mJobs.contains(job));
     kDebug() << "Register job received!!!";
     connect(job, SIGNAL(result(KJob*)), SLOT(unregisterJob(KJob*)));
-    connect(job, SIGNAL(percent(KJob*, unsigned long)), SLOT(repaint()));
+    connect(job, SIGNAL(percent(KJob*,ulong)), SLOT(repaint()));
     mJobs.insert(job, qMakePair(urls, icon));
     job->start();
     updateGeometry();
