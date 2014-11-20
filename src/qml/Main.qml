@@ -110,7 +110,8 @@ ApplicationWindow
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
-        text: JSON.stringify(buttonGroup.current.stuff)
+        anchors.bottom: parent.bottom
+        iconName: buttonGroup.current.stuff.icon
 
         onClicked: {
             var path = actions.trigger(buttonGroup.current.stuff.index, checked)
@@ -133,7 +134,7 @@ ApplicationWindow
         Button {
             id: settingsButton
             width: 30
-            iconSource: "settings"
+            iconName: "settings"
             checkable: true
         }
     }
