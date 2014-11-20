@@ -1,8 +1,7 @@
 import QtQuick 2.0
 import org.kde.kamoso 3.0
-import org.kde.plasma.core 2.0
-import org.kde.plasma.components 2.0
 import org.kde.kquickcontrols 2.0
+import org.kde.kquickcontrolsaddons 2.0
 
 ListView
 {
@@ -14,21 +13,20 @@ ListView
         url: settings.saveUrl
     }
     
-    delegate: ListItem {
+    delegate: MouseArea {
         id: delegateItem
         width: height
         height: ListView.view.height
 
-        enabled: true
         onClicked: Qt.openUrlExternally(path)
-        IconItem {
+        QPixmapItem {
             anchors {
                 centerIn: parent
                 margins: 10
             }
             clip: true
             objectName: path
-            source: fetcher.preview
+            pixmap: fetcher.preview
             width: parent.width
             height: parent.height
 

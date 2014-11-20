@@ -1,9 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
 import QtGStreamer 1.0
+import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
-import org.kde.plasma.core 2.0
-import org.kde.plasma.components 2.0
 
 ApplicationWindow
 {
@@ -13,7 +13,7 @@ ApplicationWindow
 
     ImagesView {
         id: imagesView
-        mimeFilter: modes.checkedButton.stuff.mimes
+        mimeFilter: buttonGroup.current.stuff.mimes
         spacing: 10
         anchors {
             margins: 20
@@ -76,7 +76,7 @@ ApplicationWindow
         ]
     }
 
-    ButtonRow {
+    RowLayout {
         id: modes
         width: 100
         spacing: 10
@@ -85,12 +85,18 @@ ApplicationWindow
         anchors.left: parent.left
         anchors.verticalCenter: controls.verticalCenter
 
+        ExclusiveGroup { id: buttonGroup }
         Repeater {
             model: ActionsModel { id: actions }
             delegate: Button {
                 property QtObject stuff: model
+                exclusiveGroup: buttonGroup
+                isDefault: true
+                tooltip: model.text
+                checkable: true
+                checked: index==0
 
-                iconSource: model.icon
+                iconName: model.icon
             }
         }
     }
@@ -99,19 +105,15 @@ ApplicationWindow
         id: controls
         width: 100
         height: 40
-        checkable: modes.checkedButton.stuff.checkable
+        checkable: buttonGroup.current.stuff.checkable
 
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
-        IconItem {
-            anchors.centerIn: parent
-            height: parent.height
-            source: modes.checkedButton.stuff.icon
-        }
+        text: JSON.stringify(buttonGroup.current.stuff)
 
         onClicked: {
-            var path = actions.trigger(modes.checkedButton.stuff.index, checked)
+            var path = actions.trigger(buttonGroup.current.stuff.index, checked)
             if(!checkable || checked) {
 //                 awesomeAnimation(path)
             }
@@ -224,7 +226,7 @@ ApplicationWindow
         }
     }
 
-    ButtonColumn {
+    ColumnLayout {
         id: deviceSelector
         height: 30
         spacing: 10
