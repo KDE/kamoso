@@ -23,7 +23,7 @@
 #include <QtCore/QObject>
 
 #include <solid/device.h>
-#include <KConfig>
+#include <KSharedConfig>
 
 class Device : public QObject
 {
@@ -35,8 +35,7 @@ class Device : public QObject
     Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
 
     public:
-//         Device(QObject* parent = 0);
-        Device(const Solid::Device &device);
+        Device(QObject* parent = 0);
         ~Device();
         QString description() const;
         QString udi() const;

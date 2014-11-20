@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
-import QtGStreamer 0.10
+import QtGStreamer 1.0
 import org.kde.kamoso 3.0
 import org.kde.plasma.core 2.0
 import org.kde.plasma.components 2.0

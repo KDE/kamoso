@@ -38,6 +38,7 @@
 #include <QGst/structs.h>
 #include <QGst/Bus>
 #include <QGst/Init>
+#include <QGst/VideoOverlay>
 
 #include <gst/video/video.h>
 
@@ -55,7 +56,7 @@ WebcamControl::WebcamControl()
     QGst::init();
 
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
-    KDeclarative kdeclarative;
+    KDeclarative::KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(engine);
     kdeclarative.initialize();
     kdeclarative.setupBindings();
@@ -79,7 +80,7 @@ WebcamControl::WebcamControl()
     connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
 
     if (DeviceManager::self()->rowCount() > 0) {
-        play();
+        play(DeviceManager::self()->playingDevice());
     }
 }
 
@@ -101,31 +102,42 @@ void WebcamControl::stop()
     }
 }
 
-void WebcamControl::play()
+void WebcamControl::play(Device *device)
 {
-    qDebug() << "playing...";
-    stop();
-
-    QByteArray pipe = basicPipe();
-    pipe += " ! ffmpegcolorspace ! "
-            GST_VIDEO_CAPS_xRGB_HOST_ENDIAN
-            " ! fakesink name=fakesink";
-
-    qDebug() << "Creating pipe";
-    try {
-        m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
-    } catch (const QGlib::Error & error) {
-        qWarning("Can't create pipeline. Error: %s", qPrintable(error.message()));
+    qDebug() << "Displaying device:" << device->path();
+    if (device->path().isEmpty()) {
         return;
     }
 
-    qDebug() << "About to play";
-    m_pipeline->add(m_videoSink);
+    QByteArray pipe = basicPipe();
 
-    m_pipeline->getElementByName("videoPad")->link(m_videoSink);
+    //Set the right colorspace to convert to QImage
+    pipe += " ! fakesink name=fakesink";
 
+    qDebug() << "================ PIPELINE ================";
+    qDebug() << pipe;
+
+    if (m_pipeline->currentState() != QGst::StateNull) {
+        m_pipeline->setState(QGst::StateNull);
+    }
+    if (!m_bin.isNull()) {
+        m_pipeline->remove(m_bin);
+    }
+
+    try {
+        m_bin = QGst::Bin::fromDescription(pipe.constData());
+    } catch (const QGlib::Error & error) {
+        qWarning() << "error" << error;
+        return;
+    }
+    m_pipeline->add(m_bin);
     m_pipeline->setState(QGst::StateReady);
+
+    activeAspectRatio();
     setVideoSettings();
+
+    qDebug() << "================ Capabilities ================";
+    //     qDebug() << m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->currentCaps()->toString(); //commented out for now: src-pad returns null
     m_pipeline->setState(QGst::StatePlaying);
 }
 
@@ -236,103 +248,136 @@ void WebcamControl::setHue(int level)
     m_pipeline->getElementByName("videoBalance")->setProperty("hue", (double) level / 100);
 }
 
-void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr)
+void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad)
 {
     QImage img;
-    QGst::CapsPtr caps = buffer->caps();
+    QGst::CapsPtr caps = pad->currentCaps();
 
     const QGst::StructurePtr structure = caps->internalStructure(0);
     int width, height;
-    width = structure.data()->value("width").get<int>();
-    height = structure.data()->value("height").get<int>();
+    QString format;
+    format = structure->value("format").get<QString>();
+    width = structure->value("width").get<int>();
+    height = structure->value("height").get<int>();
     qDebug() << "We've got a caps in here";
     qDebug() << "Size: " << width << "x" << height;
-    qDebug() << "Name: " << structure.data()->name();
+    qDebug() << "Name: " << structure->name();
+    qDebug() << "Format: " << format;
 
-    if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-yuv") == 0) {
+    if (format == "I420") {
         QGst::Fourcc fourcc = structure->value("format").get<QGst::Fourcc>();
-        qDebug() << "fourcc: " << fourcc.value.as_integer;
-        if (fourcc.value.as_integer == QGst::Fourcc("I420").value.as_integer) {
-            img = QImage(width/2, height/2, QImage::Format_RGB32);
 
-            const uchar *data = (const uchar *)buffer->data();
+        img = QImage(width/2, height/2, QImage::Format_RGB32);
 
-            for (int y=0; y<height; y+=2) {
-                const uchar *yLine = data + y*width;
-                const uchar *uLine = data + width*height + y*width/4;
-                const uchar *vLine = data + width*height*5/4 + y*width/4;
-
-                for (int x=0; x<width; x+=2) {
-                    const qreal Y = 1.164*(yLine[x]-16);
-                    const int U = uLine[x/2]-128;
-                    const int V = vLine[x/2]-128;
-
-                    int b = qBound(0, int(Y + 2.018*U), 255);
-                    int g = qBound(0, int(Y - 0.813*V - 0.391*U), 255);
-                    int r = qBound(0, int(Y + 1.596*V), 255);
-
-                    img.setPixel(x/2,y/2,qRgb(r,g,b));
-                }
-            }
-        } else {
-            qDebug() << "Not I420";
+        QGst::MemoryPtr memory;
+        QGst::MapInfo info;
+        memory = buffer->getMemory(0);
+        if (!memory) {
+            qWarning() << "Could not get memory for buffer.";
+            return;
         }
+        if (!memory->map(info, QGst::MapRead)) {
+            qWarning() << "Could not map memory buffer.";
+            return;
+        }
+        const uchar *data = (const uchar *)info.data();
+
+        for (int y=0; y<height; y+=2) {
+            const uchar *yLine = data + y*width;
+            const uchar *uLine = data + width*height + y*width/4;
+            const uchar *vLine = data + width*height*5/4 + y*width/4;
+
+            for (int x=0; x<width; x+=2) {
+                const qreal Y = 1.164*(yLine[x]-16);
+                const int U = uLine[x/2]-128;
+                const int V = vLine[x/2]-128;
+
+                int b = qBound(0, int(Y + 2.018*U), 255);
+                int g = qBound(0, int(Y - 0.813*V - 0.391*U), 255);
+                int r = qBound(0, int(Y + 1.596*V), 255);
+
+                img.setPixel(x/2,y/2,qRgb(r,g,b));
+            }
+        }
+        memory->unmap(info);
 
     } else if (qstrcmp(structure.data()->name().toLatin1(), "video/x-raw-rgb") == 0) {
-        qDebug() << "RGB name";
         QImage::Format format = QImage::Format_Invalid;
         int bpp = structure.data()->value("bpp").get<int>();
 
         if (bpp == 24)
             format = QImage::Format_RGB888;
-        else if (bpp == 32)
-            format = QImage::Format_RGB32;
+            else if (bpp == 32)
+                format = QImage::Format_RGB32;
 
-        if (format != QImage::Format_Invalid) {
-            img = QImage((const uchar *)buffer->data(),
-                            width,
-                            height,
-                            format);
-            img.bits(); //detach
-        }
-    }
+                if (format != QImage::Format_Invalid) {
+                    QGst::MemoryPtr memory;
+                    QGst::MapInfo info;
+                    memory = buffer->getMemory(0);
+                    if (!memory) {
+                        qWarning() << "Could not get memory for buffer.";
+                        return;
+                    }
+                    if (!memory->map(info, QGst::MapRead)) {
+                        qWarning() << "Could not map memory buffer.";
+                        return;
+                    }
+                    img = QImage((const uchar *)info.data(),
+                                 width,
+                                 height,
+                                 format);
+                    img.bits(); //detach
+                    memory->unmap(info);
+                }
+    } else
+        qWarning() << "Unsupported format:" << format;
 
-    qDebug() << "Image bytecount: " << img.byteCount();
-    img.save(m_saveUrl.path());
+    img.save(m_saveUrl.toLocalFile());
+    emit fileSaved(m_saveUrl.toLocalFile());
 
-    Q_EMIT photoTaken(m_saveUrl.url());
-    m_pipeline->getElementByName("fakesink")->setProperty("signal-handoffs", false);
-    QGlib::disconnect(m_pipeline->getElementByName("fakesink"), "handoff", this, &WebcamControl::photoGstCallback);
+    m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
+    QGlib::disconnect(m_bin->getElementByName("fakesink"), "handoff", this, &WebcamControl::photoGstCallback);
 }
 
 QByteArray WebcamControl::basicPipe()
 {
+    QByteArray pipe;
+
     //Video source device=/dev/video0 for example
-    QByteArray playing = DeviceManager::self()->playingDevicePath();
-    QByteArray pipe = "v4l2src name=v4l2src device="+playing+
+    pipe += "v4l2src name=v4l2src device="+DeviceManager::self()->playingDevicePath();
 
     //Accepted capabilities
-    " ! ffmpegcolorspace"
-    " ! video/x-raw-yuv, width=640, height=480, framerate=15/1;"
-    " video/x-raw-yuv, width=640, height=480, framerate=24/1;"
-    " video/x-raw-yuv, width=640, height=480, framerate=30/1;"
-    " video/x-raw-yuv, width=352, height=288, framerate=15/1"
+    pipe +=
+    " ! video/x-raw, format=RGB, width=640"
+    " ; video/x-raw, format=I420, width=640"
+    " ; video/x-raw, width=640"
 
     //Basic plug-in for video controls
     " ! gamma name=gamma"
     " ! videobalance name=videoBalance"
 
+
     //Pipeline fork
     " ! tee name=duplicate"
+    " ! queue"
 
     //Video output
-    " ! queue ! videoscale"
+    " ! autovideosink name=videosink"
 
-    " ! ffmpegcolorspace name=videoPad duplicate."
-
+    " duplicate."
     //Queue for the rest of the pipeline which is custom for playFile and recordVideo
-    " ! queue name=linkQueue";
+    " ! queue";
 
     return pipe;
 }
 
+void WebcamControl::activeAspectRatio()
+{
+    QGst::BinPtr sink = m_bin->getElementByName("videosink").staticCast<QGst::Bin>();
+
+    QGlib::RefPointer<QGst::VideoOverlay> over =  sink->getElementByInterface<QGst::VideoOverlay>();
+
+    if (over->findProperty("force-aspect-ratio")) {
+        over->setProperty("force-aspect-ratio", true);
+    }
+}

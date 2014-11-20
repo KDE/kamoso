@@ -24,6 +24,7 @@
 
 #include <QObject>
 
+class WebcamControl;
 class Kamoso : public QObject
 {
 Q_OBJECT

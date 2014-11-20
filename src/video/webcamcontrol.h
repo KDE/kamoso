@@ -26,6 +26,7 @@
 #include <QGst/Pipeline>
 #include <QUrl>
 
+class Device;
 class WebcamControl : public QObject
 {
     Q_OBJECT
@@ -34,14 +35,14 @@ class WebcamControl : public QObject
         virtual ~WebcamControl();
 
     public Q_SLOTS:
-        void play();
+        void play(Device* device);
         void stop();
         void takePhoto(const QUrl& url);
         void startRecording();
         QString stopRecording();
 
     Q_SIGNALS:
-        void photoTaken(const QString &path);
+        void fileSaved(const QString &path);
 
     private Q_SLOTS:
         void setBrightness(int level);
@@ -54,13 +55,14 @@ class WebcamControl : public QObject
         QByteArray basicPipe();
         void setVideoSettings();
         void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
+        void activeAspectRatio();
 
-    private:
         QUrl m_saveUrl;
         bool m_recording;
         QString m_tmpVideoPath;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
+        QGst::BinPtr m_bin;
 };
 
 #endif // WEBCAMCONTROL_H

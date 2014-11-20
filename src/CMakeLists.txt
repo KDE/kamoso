@@ -1,4 +1,4 @@
-include_directories(${KDE4_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KIPI_INCLUDE_DIR}
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KIPI_INCLUDE_DIR}
 	${QTGSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR} ${GSTREAMER_INCLUDE_DIR})
 
 add_definitions(-DGST_DISABLE_DEPRECATED)
@@ -8,8 +8,8 @@ qt5_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS settings.kcfgc)
 
 add_executable(qmloso
-    device.cpp
     devicemanager.cpp
+    device.cpp
     whitewidgetmanager.cpp 
     whitewidget.cpp
     kamososettings.cpp
@@ -21,8 +21,11 @@ add_executable(qmloso
     ${kamosoqml_SRCS}
 )
 
+
+message(STATUS "fuuuuuuuu ${QTGSTREAMER_LIBRARY} ${QTGSTREAMER_UI_LIBRARY} ${GSTREAMER_BASE_LIBRARY} ${GLIB2_LIBRARIES} ")
 target_link_libraries(qmloso
 Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
-    KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::KDE4Support
-    ${QTGSTREAMER_LIBRARY} ${QTGSTREAMER_UI_LIBRARY} ${GSTREAMER_BASE_LIBRARY} Qt5GStreamerQuick
+    KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::KDELibs4Support
+    Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
+    ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES}
 )

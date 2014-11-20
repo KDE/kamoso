@@ -22,6 +22,7 @@
 #include "kamoso.h"
 #include "settings.h"
 #include "video/webcamcontrol.h"
+#include "devicemanager.h"
 
 #include <QtCore/QFile>
 
@@ -70,7 +71,7 @@ void Kamoso::stopRecording()
 
     QFile::rename(m_webcamControl->stopRecording(), photoPlace.path());
 
-    m_webcamControl->play();
+    m_webcamControl->play(DeviceManager::self()->playingDevice());
 }
 
 void Kamoso::autoincFilename(QUrl &filename)

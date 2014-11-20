@@ -18,29 +18,30 @@
  *************************************************************************************/
 
 #include "device.h"
-#include <solid/video.h>
 #include <KConfigGroup>
 #include <QDebug>
 
-Device::Device(const Solid::Device &device)
+Device::Device(QObject* parent)
+    : QObject(parent)
 {
-    m_udi = device.udi();
-    m_description = device.product();
+//     m_udi = device.udi();
+//     m_description = device.product();
+//     m_path = "/dev/video0";
 
-    const Solid::Video *solidVideoDevice = device.as<Solid::Video>();
-    if (solidVideoDevice)
-    {
-        QStringList protocols = solidVideoDevice->supportedProtocols();
-        if ( protocols.contains( "video4linux" ) )
-        {
-            QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
-            qDebug() << drivers;
-            if ( drivers.contains( "video4linux" ) )
-            {
-                m_path = solidVideoDevice->driverHandle( "video4linux" ).toByteArray();
-            }
-        }
-    }
+//     const Solid::Video *solidVideoDevice = device.as<Solid::Video>();
+//     if (solidVideoDevice)
+//     {
+//         QStringList protocols = solidVideoDevice->supportedProtocols();
+//         if ( protocols.contains( "video4linux" ) )
+//         {
+//             QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
+//             qDebug() << drivers;
+//             if ( drivers.contains( "video4linux" ) )
+//             {
+//                 m_path = solidVideoDevice->driverHandle( "video4linux" ).toByteArray();
+//             }
+//         }
+//     }
 
     m_config = KSharedConfig::openConfig("kamosoDevices");
 }
@@ -56,11 +57,6 @@ QByteArray Device::path() const
 QString Device::description() const
 {
     return m_description;
-}
-
-QString Device::udi() const
-{
-    return m_udi;
 }
 
 QString Device::vendor() const
@@ -151,4 +147,10 @@ int Device::gamma() const
 int Device::hue() const
 {
     return m_config->group(m_udi).readEntry("hue",0);
+}
+
+QString Device::udi() const
+{
+//     TODO
+    return m_path;
 }

@@ -44,14 +44,11 @@ class DeviceManager : public QAbstractListModel
 
         virtual int rowCount(const QModelIndex& = QModelIndex()) const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+        QString udi() const;
 
     public Q_SLOTS:
         void webcamPlaying(const QString &udi);
         void save();
-
-    private Q_SLOTS:
-        void deviceAdded(const QString &udi);
-        void deviceRemoved(const QString &udi);
 
     Q_SIGNALS:
         void playingDeviceChanged();
@@ -64,8 +61,8 @@ class DeviceManager : public QAbstractListModel
     private:
         DeviceManager();
         static DeviceManager* s_instance;
-        void addDevice(const Solid::Device& device);
-        void removeDevice(const Solid::Device& device);
+//         void addDevice(const Solid::Device& device);
+//         void removeDevice(const Solid::Device& device);
         QList<Device*> m_deviceList;
         Device *m_playingDevice;
 };
