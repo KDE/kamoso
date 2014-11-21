@@ -24,6 +24,10 @@
 #include <QAbstractListModel>
 #include "device.h"
 
+namespace UdevQt{
+    class Device;
+    class Client;
+}
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
@@ -49,6 +53,8 @@ class DeviceManager : public QAbstractListModel
     public Q_SLOTS:
         void webcamPlaying(const QString &udi);
         void save();
+        void deviceRemoved(const UdevQt::Device &device);
+        void deviceAdded(const UdevQt::Device &device);
 
     Q_SIGNALS:
         void playingDeviceChanged();
@@ -61,8 +67,8 @@ class DeviceManager : public QAbstractListModel
     private:
         DeviceManager();
         static DeviceManager* s_instance;
-//         void addDevice(const Solid::Device& device);
-//         void removeDevice(const Solid::Device& device);
+        UdevQt::Client *m_client;
+
         QList<Device*> m_deviceList;
         Device *m_playingDevice;
 };

@@ -25,6 +25,9 @@
 #include <solid/device.h>
 #include <KSharedConfig>
 
+namespace UdevQt {
+    class Device;
+}
 class Device : public QObject
 {
     Q_OBJECT
@@ -35,7 +38,7 @@ class Device : public QObject
     Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
 
     public:
-        Device(QObject* parent = 0);
+        Device(const UdevQt::Device &device, QObject* parent = 0);
         ~Device();
         QString description() const;
         QString udi() const;

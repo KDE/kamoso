@@ -18,30 +18,14 @@
  *************************************************************************************/
 
 #include "device.h"
+#include "udev/udevqt.h"
 #include <KConfigGroup>
 #include <QDebug>
 
-Device::Device(QObject* parent)
-    : QObject(parent)
+Device::Device(const UdevQt::Device &device, QObject* parent)
 {
-//     m_udi = device.udi();
-//     m_description = device.product();
-//     m_path = "/dev/video0";
-
-//     const Solid::Video *solidVideoDevice = device.as<Solid::Video>();
-//     if (solidVideoDevice)
-//     {
-//         QStringList protocols = solidVideoDevice->supportedProtocols();
-//         if ( protocols.contains( "video4linux" ) )
-//         {
-//             QStringList drivers = solidVideoDevice->supportedDrivers( "video4linux" );
-//             qDebug() << drivers;
-//             if ( drivers.contains( "video4linux" ) )
-//             {
-//                 m_path = solidVideoDevice->driverHandle( "video4linux" ).toByteArray();
-//             }
-//         }
-//     }
+    m_path = device.deviceProperty("DEVNAME").toString().toLatin1();
+    m_udi = m_path;
 
     m_config = KSharedConfig::openConfig("kamosoDevices");
 }

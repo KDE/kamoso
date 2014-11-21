@@ -102,6 +102,11 @@ void WebcamControl::stop()
     }
 }
 
+void WebcamControl::play()
+{
+    play(DeviceManager::self()->playingDevice());
+}
+
 void WebcamControl::play(Device *device)
 {
     qDebug() << "Displaying device:" << device->path();

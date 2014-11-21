@@ -18,71 +18,32 @@
  *************************************************************************************/
 
 #include "devicemanager.h"
-#include <solid/device.h>
-#include <solid/devicenotifier.h>
-#include <solid/deviceinterface.h>
 
 #include "device.h"
+#include "udev/udevqt.h"
 #include <settings.h>
 #include <QDebug>
-#include <gstreamer-1.0/gst/gstdevicemonitor.h>
 
 DeviceManager *DeviceManager::s_instance = NULL;
 
-static gboolean
-my_bus_func (GstBus * bus, GstMessage * message, gpointer user_data)
-{
-    GstDevice *device;
-    gchar* name;
-
-    switch (GST_MESSAGE_TYPE (message)) {
-        case GST_MESSAGE_DEVICE_ADDED:
-            gst_message_parse_device_added (message, &device);
-            name = gst_device_get_display_name (device);
-            qDebug() << "Device added:" << name;
-            g_free (name);
-            break;
-        case GST_MESSAGE_DEVICE_REMOVED:
-            gst_message_parse_device_removed (message, &device);
-            name = gst_device_get_display_name (device);
-            qDebug() << "Device removed:" << name;
-            g_free (name);
-            break;
-        default:
-            break;
-    }
-
-    return G_SOURCE_CONTINUE;
-}
-
-GstDeviceMonitor *
-setup_raw_video_source_device_monitor (void) {
-    GstDeviceMonitor *monitor;
-    GstBus *bus;
-    GstCaps *caps;
-
-    monitor = gst_device_monitor_new ();
-
-    bus = gst_device_monitor_get_bus (monitor);
-    gst_bus_add_watch (bus, my_bus_func, NULL);
-    gst_object_unref (bus);
-
-    caps = gst_caps_new_empty_simple ("video/x-raw");
-    gst_device_monitor_add_filter (monitor, "Video/Source", caps);
-    gst_caps_unref (caps);
-
-    gst_device_monitor_start (monitor);
-
-    return monitor;
-}
-
 DeviceManager::DeviceManager() : m_playingDevice(0)
 {
-    QHash< int, QByteArray > roles=roleNames();
+    QHash< int, QByteArray > roles = roleNames();
     roles.insert(Udi, "udi");
     setRoleNames(roles);
 
+    QStringList subsystems;
+    subsystems << "video4linux";
+    m_client = new UdevQt::Client(subsystems, this);
+    connect(m_client, SIGNAL(deviceAdded(UdevQt::Device)), SLOT(deviceAdded(UdevQt::Device)));
+    connect(m_client, SIGNAL(deviceRemoved(UdevQt::Device)), SLOT(deviceRemoved(UdevQt::Device)));
 
+    const UdevQt::DeviceList deviceList = m_client->devicesBySubsystem("video4linux");
+
+    Q_FOREACH(const UdevQt::Device &device, deviceList) {
+        m_deviceList.append(new Device(device));
+    }
+    setPlayingDeviceUdi(m_deviceList.first()->udi());
 }
 
 void DeviceManager::save()
@@ -154,48 +115,19 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-/*
-*Private methods
-*/
-// void DeviceManager::addDevice(const Solid::Device& device)
-// {
-//     beginInsertRows(QModelIndex(), m_deviceList.count(), m_deviceList.count());
-//     m_deviceList.append(new Device(device));
-//     endInsertRows();
-//     emit countChanged();
-// }
-//
-// void DeviceManager::removeDevice(const Solid::Device& device)
-// {
-//     deviceRemoved(device.udi());
-// }
+void DeviceManager::deviceAdded(const UdevQt::Device& device)
+{
+    m_deviceList.append(new Device(device));
+}
 
-/*
-*QT Slots 
-*/
-// void DeviceManager::deviceRemoved(const QString &udi)
-// {
-//     for(int i=0; i<m_deviceList.count(); ++i)
-//     {
-//         if(m_deviceList[i]->udi() == udi)
-//         {
-//             beginRemoveRows(QModelIndex(), i, i);
-//             m_deviceList.removeAt(i);
-//             endRemoveRows();
-//             emit countChanged();
-//             break;
-//         }
-//     }
-//
-//     if(udi == m_playingDevice->udi()) {
-//         if(m_deviceList.isEmpty()) {
-//             emit noDevices();
-//             setPlayingDeviceUdi(QString());
-//         } else {
-//             setPlayingDeviceUdi(m_deviceList.first()->udi());
-//         }
-//     }
-// }
+void DeviceManager::deviceRemoved(const UdevQt::Device& device)
+{
+    Q_FOREACH(Device *mDevice, m_deviceList) {
+        if (mDevice->udi() == device.sysfsPath()) {
+            m_deviceList.removeAll(mDevice);
+        }
+    }
+}
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
@@ -211,8 +143,6 @@ bool DeviceManager::hasDevices() const
 {
     return !m_deviceList.isEmpty();
 }
-
-
 
 /*
 *Singleton
