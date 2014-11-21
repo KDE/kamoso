@@ -122,6 +122,13 @@ void WebcamControl::play(Device *device)
     qDebug() << "================ PIPELINE ================";
     qDebug() << pipe;
 
+    try {
+         m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
+    } catch (const QGlib::Error & error) {
+        qDebug() << error;
+        return;
+    }
+
     if (m_pipeline->currentState() != QGst::StateNull) {
         m_pipeline->setState(QGst::StateNull);
     }
