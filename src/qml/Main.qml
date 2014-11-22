@@ -110,7 +110,6 @@ ApplicationWindow
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: imagesView.top
-        anchors.bottom: parent.bottom
         iconName: buttonGroup.current.stuff.icon
 
         onClicked: {
