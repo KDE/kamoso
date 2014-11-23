@@ -109,47 +109,10 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
-    qDebug() << "Displaying device:" << device->path();
-    if (device->path().isEmpty()) {
-        return;
-    }
-
-    QByteArray pipe = basicPipe();
-
-    //Set the right colorspace to convert to QImage
-    pipe += " ! fakesink name=fakesink";
-
-    qDebug() << "================ PIPELINE ================";
-    qDebug() << pipe;
-
-    try {
-         m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();
-    } catch (const QGlib::Error & error) {
-        qDebug() << error;
-        return;
-    }
-
-    if (m_pipeline->currentState() != QGst::StateNull) {
-        m_pipeline->setState(QGst::StateNull);
-    }
-    if (!m_bin.isNull()) {
-        m_pipeline->remove(m_bin);
-    }
-
-    try {
-        m_bin = QGst::Bin::fromDescription(pipe.constData());
-    } catch (const QGlib::Error & error) {
-        qWarning() << "error" << error;
-        return;
-    }
-    m_pipeline->add(m_bin);
+    m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
+    m_pipeline->setProperty("viewfinder-sink", m_videoSink);
     m_pipeline->setState(QGst::StateReady);
-
-    activeAspectRatio();
-    setVideoSettings();
-
-    qDebug() << "================ Capabilities ================";
-    //     qDebug() << m_pipeline->getElementByName("v4l2src")->getStaticPad("src")->currentCaps()->toString(); //commented out for now: src-pad returns null
+    m_pipeline->setProperty("viewfinder-caps", QGst::Caps::fromString("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){ YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive"));
     m_pipeline->setState(QGst::StatePlaying);
 }
 
