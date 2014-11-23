@@ -34,6 +34,7 @@ class WebcamControl : public QObject
         WebcamControl();
         virtual ~WebcamControl();
 
+        void onBusMessage(const QGst::MessagePtr & msg);
     public Q_SLOTS:
         void play();
         void play(Device* device);

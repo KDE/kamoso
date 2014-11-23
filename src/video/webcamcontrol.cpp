@@ -40,6 +40,7 @@
 #include <QGst/Bus>
 #include <QGst/Init>
 #include <QGst/VideoOverlay>
+#include <QGst/Message>
 
 #include <gst/video/video.h>
 
@@ -118,6 +119,10 @@ void WebcamControl::play(Device *device)
     cameraSource->setProperty("video-source-filter", bin);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
+    auto bus = m_pipeline->bus();;
+    bus->addSignalWatch();
+    QGlib::connect(bus, "message", this, &WebcamControl::messageClosure);
+
     m_pipeline->setProperty("camera-source", cameraSource);
     m_pipeline->setProperty("viewfinder-sink", m_videoSink);
     m_pipeline->setState(QGst::StateReady);
@@ -127,6 +132,23 @@ void WebcamControl::play(Device *device)
     setVideoSettings();
 }
 
+void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
+{
+    switch (msg->type()) {
+    case QGst::MessageEos: //End of stream. We reached the end of the file.
+        stop();
+        break;
+    case QGst::MessageError: //Some error occurred.
+        qCritical() << msg.staticCast<QGst::ErrorMessage>()->error();
+        stop();
+        break;
+    default:
+//         qDebug() << msg->type();
+//         qDebug() << msg->typeName();
+//         qDebug() << msg->internalStructure()->name();
+        break;
+    }
+}
 void WebcamControl::takePhoto(const QUrl &url)
 {
     m_pipeline->setProperty("mode", 1);
