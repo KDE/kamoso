@@ -25,7 +25,7 @@
 Device::Device(const UdevQt::Device &device, QObject* parent)
 {
     m_path = device.deviceProperty("DEVNAME").toString().toLatin1();
-    m_udi = m_path;
+    m_udi = device.sysfsPath();
 
     m_config = KSharedConfig::openConfig("kamosoDevices");
 }
