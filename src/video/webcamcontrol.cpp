@@ -111,12 +111,16 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
+    QString src("v4l2src device=");
+    src.append(device->path());
+    auto source = QGst::Bin::fromDescription(src);
     auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma");
     m_gamma = bin->getElementByName("gamma");
     m_videoBalance = bin->getElementByName("video_balance");
 
     auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
     cameraSource->setProperty("video-source-filter", bin);
+    cameraSource->setProperty("video-source", source);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
     auto bus = m_pipeline->bus();;
