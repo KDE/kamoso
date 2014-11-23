@@ -43,7 +43,10 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     Q_FOREACH(const UdevQt::Device &device, deviceList) {
         m_deviceList.append(new Device(device));
     }
-    setPlayingDeviceUdi(m_deviceList.first()->udi());
+
+    if (!m_deviceList.isEmpty()) {
+        setPlayingDeviceUdi(m_deviceList.first()->udi());
+    }
 }
 
 void DeviceManager::save()
