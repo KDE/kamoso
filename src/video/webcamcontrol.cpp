@@ -60,7 +60,7 @@ WebcamControl::WebcamControl()
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
     KDeclarative::KDeclarative kdeclarative;
     kdeclarative.setDeclarativeEngine(engine);
-    kdeclarative.initialize();
+//     kdeclarative.initialize();
     kdeclarative.setupBindings();
 
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
