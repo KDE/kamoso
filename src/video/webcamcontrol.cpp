@@ -110,9 +110,12 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
-    m_videoBalance = QGst::ElementFactory::make("videobalance", "video_balance");
+    auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma");
+    m_gamma = bin->getElementByName("gamma");
+    m_videoBalance = bin->getElementByName("video_balance");
+
     auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
-    cameraSource->setProperty("video-source-filter", m_videoBalance);
+    cameraSource->setProperty("video-source-filter", bin);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
     m_pipeline->setProperty("camera-source", cameraSource);
@@ -183,7 +186,7 @@ void WebcamControl::setSaturation(int level)
 
 void WebcamControl::setGamma(int level)
 {
-//     m_pipeline->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
+    m_gamma->setProperty("gamma", (double) level / 100);
 }
 
 void WebcamControl::setHue(int level)

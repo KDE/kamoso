@@ -64,6 +64,7 @@ class WebcamControl : public QObject
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
         QGst::ElementPtr m_videoBalance;
+        QGst::ElementPtr m_gamma;
         QGst::BinPtr m_bin;
 };
 
