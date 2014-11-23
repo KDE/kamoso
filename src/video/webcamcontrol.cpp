@@ -121,66 +121,25 @@ void WebcamControl::takePhoto(const QUrl &url)
 {
     m_saveUrl = url;
     qDebug() << m_saveUrl.toLocalFile();
+    m_pipeline->setProperty("mode", 1);
     m_pipeline->setProperty("location", m_saveUrl.toLocalFile());
     QGlib::emit<void>(m_pipeline, "start-capture");
 }
 
 void WebcamControl::startRecording()
 {
-    stop();
-
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
     m_tmpVideoPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(date);
-    qDebug() << m_tmpVideoPath;
 
-    QByteArray pipe = basicPipe();
+    m_pipeline->setProperty("mode", 2);
+    m_pipeline->setProperty("location", m_tmpVideoPath);
 
-    pipe +=
-        //Use THEORA as video codec
-        " ! theoraenc"
-        " ! queue"
-        //Get the audio from alsa
-        " ! mux. autoaudiosrc "
-        //Sound type and quality
-        " ! audio/x-raw-int,rate=48000,channels=2,depth=16 "
-        //Encode sound as vorbis
-        " ! queue ! audioconvert ! queue "
-        " ! vorbisenc "
-        " ! queue "
-        //Save everything in a matroska container
-        " ! mux. matroskamux name=mux "
-        //Save file in...
-        " ! filesink location=";
-
-    pipe += m_tmpVideoPath.toUtf8();
-    qDebug() << pipe;
-
-    try {
-         m_pipeline = QGst::Parse::launch(pipe.constData()).dynamicCast<QGst::Pipeline>();;
-    } catch (const QGlib::Error & error) {
-        qDebug() << error;
-        return;
-    }
-
-    m_pipeline->add(m_videoSink);
-    m_pipeline->getElementByName("videoPad")->link(m_videoSink);
-
-    m_pipeline->setState(QGst::StateReady);
-    setVideoSettings();
-    m_pipeline->setState(QGst::StatePlaying);
-
-    m_recording = true;
+    QGlib::emit<void>(m_pipeline, "start-capture");
 }
 
 QString WebcamControl::stopRecording()
 {
-    if (!m_recording) {
-        return QString();
-    }
-
-    m_pipeline->setState(QGst::StateNull);
-    m_recording = false;
-
+    QGlib::emit<void>(m_pipeline, "stop-capture");
     return m_tmpVideoPath;
 }
 
