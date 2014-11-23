@@ -26,6 +26,7 @@
 #include <kamoso.h>
 
 #include <QGlib/Connect>
+#include <QGlib/Signal>
 #include <QGlib/Error>
 #include <QGst/Caps>
 #include <QGst/Pad>
@@ -119,8 +120,9 @@ void WebcamControl::play(Device *device)
 void WebcamControl::takePhoto(const QUrl &url)
 {
     m_saveUrl = url;
-    m_pipeline->getElementByName("fakesink")->setProperty("signal-handoffs", true);
-    QGlib::connect(m_pipeline->getElementByName("fakesink"), "handoff", this, &WebcamControl::photoGstCallback);
+    qDebug() << m_saveUrl.toLocalFile();
+    m_pipeline->setProperty("location", m_saveUrl.toLocalFile());
+    QGlib::emit<void>(m_pipeline, "start-capture");
 }
 
 void WebcamControl::startRecording()
@@ -308,7 +310,7 @@ void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad)
         qWarning() << "Unsupported format:" << format;
 
     img.save(m_saveUrl.toLocalFile());
-    emit fileSaved(m_saveUrl.toLocalFile());
+    Q_EMIT fileSaved(m_saveUrl.toLocalFile());
 
     m_bin->getElementByName("fakesink")->setProperty("signal-handoffs", false);
     QGlib::disconnect(m_bin->getElementByName("fakesink"), "handoff", this, &WebcamControl::photoGstCallback);
