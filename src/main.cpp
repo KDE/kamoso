@@ -34,5 +34,7 @@ int main(int argc, char *argv[])
 
     WebcamControl webcamControl;
 
+    QObject::connect(&app, &QApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
+
     return app.exec();
 }

@@ -96,10 +96,7 @@ void WebcamControl::stop()
     qDebug() << "Stop";
     //TODO: delete?
     if(m_pipeline) {
-        qDebug() << "Stopping: " << m_pipeline->name();
         m_pipeline->setState(QGst::StateNull);
-        m_pipeline->getElementByName("videoPad")->unlink(m_videoSink);
-        m_pipeline->remove(m_videoSink);
         m_pipeline.clear();
     }
 }
