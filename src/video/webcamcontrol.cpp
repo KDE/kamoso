@@ -110,11 +110,18 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
+    m_videoBalance = QGst::ElementFactory::make("videobalance", "video_balance");
+    auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
+    cameraSource->setProperty("video-source-filter", m_videoBalance);
+
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
+    m_pipeline->setProperty("camera-source", cameraSource);
     m_pipeline->setProperty("viewfinder-sink", m_videoSink);
     m_pipeline->setState(QGst::StateReady);
     m_pipeline->setProperty("viewfinder-caps", QGst::Caps::fromString("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){ YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive"));
     m_pipeline->setState(QGst::StatePlaying);
+
+    setVideoSettings();
 }
 
 void WebcamControl::takePhoto(const QUrl &url)
@@ -161,27 +168,27 @@ void WebcamControl::setVideoSettings()
 
 void WebcamControl::setBrightness(int level)
 {
-    m_pipeline->getElementByName("videoBalance")->setProperty("brightness", (double) level / 100);
+    m_videoBalance->setProperty("brightness", (double) level / 100);
 }
 
 void WebcamControl::setContrast(int level)
 {
-    m_pipeline->getElementByName("videoBalance")->setProperty("contrast", (double) level / 100);
+    m_videoBalance->setProperty("contrast", (double) level / 100);
 }
 
 void WebcamControl::setSaturation(int level)
 {
-    m_pipeline->getElementByName("videoBalance")->setProperty("saturation", (double) level / 100);
+    m_videoBalance->setProperty("saturation", (double) level / 100);
 }
 
 void WebcamControl::setGamma(int level)
 {
-    m_pipeline->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
+//     m_pipeline->getElementByName("gamma")->setProperty("gamma", (double) level / 100);
 }
 
 void WebcamControl::setHue(int level)
 {
-    m_pipeline->getElementByName("videoBalance")->setProperty("hue", (double) level / 100);
+    m_videoBalance->setProperty("hue", (double) level / 100);
 }
 
 void WebcamControl::photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr pad)
