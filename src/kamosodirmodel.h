@@ -31,11 +31,11 @@ class KamosoDirModel : public KDirModel
             Path = ColumnCount+1,
             MimeType
         };
-        
+
         explicit KamosoDirModel(QObject* parent = 0);
         void setUrl(const QUrl& url);
         QUrl url() const;
-        
+
         void setMimeFilter(const QStringList& mimes);
         QStringList mimeFilter() const;
 
