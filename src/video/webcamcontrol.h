@@ -42,9 +42,6 @@ class WebcamControl : public QObject
         void startRecording();
         QString stopRecording();
 
-    Q_SIGNALS:
-        void fileSaved(const QString &path);
-
     private Q_SLOTS:
         void setBrightness(int level);
         void setContrast(int level);
@@ -53,19 +50,14 @@ class WebcamControl : public QObject
         void setHue(int level);
 
     private:
-        QByteArray basicPipe();
         void setVideoSettings();
-        void photoGstCallback(QGst::BufferPtr buffer, QGst::PadPtr);
-        void activeAspectRatio();
 
         QUrl m_saveUrl;
-        bool m_recording;
         QString m_tmpVideoPath;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
         QGst::ElementPtr m_videoBalance;
         QGst::ElementPtr m_gamma;
-        QGst::BinPtr m_bin;
 };
 
 #endif // WEBCAMCONTROL_H
