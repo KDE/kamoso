@@ -52,7 +52,6 @@ class WebcamControl : public QObject
     private:
         void setVideoSettings();
 
-        QUrl m_saveUrl;
         QString m_tmpVideoPath;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;

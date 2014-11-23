@@ -129,10 +129,8 @@ void WebcamControl::play(Device *device)
 
 void WebcamControl::takePhoto(const QUrl &url)
 {
-    m_saveUrl = url;
-    qDebug() << m_saveUrl.toLocalFile();
     m_pipeline->setProperty("mode", 1);
-    m_pipeline->setProperty("location", m_saveUrl.toLocalFile());
+    m_pipeline->setProperty("location", url.toLocalFile());
     QGlib::emit<void>(m_pipeline, "start-capture");
 }
 
