@@ -3,6 +3,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KI
 
 add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
+add_definitions(-DQT_NO_KEYWORDS)
 
 qt5_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS settings.kcfgc)

@@ -68,11 +68,11 @@ int DeviceManager::rowCount(const QModelIndex& ) const
 
 void DeviceManager::setPlayingDeviceUdi(const QString& udi)
 {
-    foreach(Device* d, m_deviceList) {
+    Q_FOREACH(Device* d, m_deviceList) {
         if(d->udi() == udi) {
             m_playingDevice = d;
             qDebug() << "Playing device changed";
-            emit playingDeviceUdiChanged();
+            Q_EMIT playingDeviceUdiChanged();
             return;
         }
     }
@@ -134,7 +134,7 @@ void DeviceManager::deviceRemoved(const UdevQt::Device& device)
 
 void DeviceManager::webcamPlaying(const QString &udi)
 {
-    foreach(Device *device, m_deviceList) {
+    Q_FOREACH(Device *device, m_deviceList) {
         if(device->udi() == udi) {
             m_playingDevice = device;
             break;

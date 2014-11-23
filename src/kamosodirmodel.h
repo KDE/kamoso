@@ -40,7 +40,7 @@ class KamosoDirModel : public KDirModel
         QStringList mimeFilter() const;
 
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-    signals:
+    Q_SIGNALS:
         void urlChanged();
 };
 

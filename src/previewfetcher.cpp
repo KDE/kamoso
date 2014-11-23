@@ -30,7 +30,7 @@ PreviewFetcher::PreviewFetcher(QObject* parent)
 void PreviewFetcher::setUrl(const QUrl& url)
 {
     m_url = url;
-    emit urlChanged();
+    Q_EMIT urlChanged();
     fetchPreview();
 }
 
@@ -43,7 +43,7 @@ void PreviewFetcher::fetchPreview()
 {
     if(m_size.isEmpty() || !m_size.isValid() || m_url.isEmpty()) {
         m_preview = QPixmap();
-        emit previewChanged();
+        Q_EMIT previewChanged();
         return;
     }
     KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(QUrl(m_url), m_mimetype, 0), m_size);
@@ -67,7 +67,7 @@ void PreviewFetcher::setWidth(int w)
 void PreviewFetcher::updatePreview(const KFileItem& changed, const QPixmap& prev)
 {
     m_preview = prev;
-    emit previewChanged();
+    Q_EMIT previewChanged();
 }
 
 QString PreviewFetcher::mimeType() const
@@ -90,5 +90,5 @@ void PreviewFetcher::fallbackPreview(const KFileItem& item)
 {
     QMimeDatabase db;
     m_preview = QIcon::fromTheme(db.mimeTypeForName(item.mimetype()).iconName()).pixmap(m_size);
-    emit previewChanged();
+    Q_EMIT previewChanged();
 }

@@ -13,8 +13,8 @@ class KamosoSettings : public QObject
     public:
         QUrl saveUrl() const;
         void setSaveUrl(const QUrl& url);
-        
-    signals:
+
+    Q_SIGNALS:
         void saveUrlChanged();
 };
 

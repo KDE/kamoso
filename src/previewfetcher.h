@@ -47,7 +47,7 @@ class PreviewFetcher : public QObject
 
         QString mimeType() const;
         void setMimeType(const QString& mime);
-    signals:
+    Q_SIGNALS:
         void urlChanged();
         void previewChanged();
 
