@@ -50,6 +50,9 @@ class WebcamControl : public QObject
         void setGamma(int level);
         void setHue(int level);
 
+    Q_SIGNALS:
+        void photoTaken(const QString &photoUrl);
+
     private:
         void setVideoSettings();
 

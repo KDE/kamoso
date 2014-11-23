@@ -142,6 +142,10 @@ void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
         qCritical() << msg.staticCast<QGst::ErrorMessage>()->error();
         stop();
         break;
+    case QGst::MessageElement:
+        if (msg->internalStructure()->name() == "image-done") {
+            Q_EMIT photoTaken(msg->internalStructure()->value("filename").toString());
+        }
     default:
 //         qDebug() << msg->type();
 //         qDebug() << msg->typeName();
