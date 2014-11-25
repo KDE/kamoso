@@ -49,6 +49,7 @@ QWidget* VideoShootMode::mainAction()
     action->setIconSize(QSize(32,32));
     action->setToolTip(name());
     action->setCheckable(true);
+    action->setShortcut(Qt::Key_WebCam);
 
     #warning TODO
     connect(action, SIGNAL(clicked(bool)), this, SLOT(videoPressed(bool)));

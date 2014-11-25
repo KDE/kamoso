@@ -45,6 +45,7 @@ QWidget* BurstShootMode::mainAction()
     m_action->setIconSize(QSize(32,32));
     m_action->setToolTip(name());
     m_action->setCheckable(true);
+    m_action->setShortcut(Qt::Key_WebCam);
     connect(controller()->countdown(), SIGNAL(finished()), SLOT(keepTaking()));
     connect(m_action, SIGNAL(clicked(bool)), this, SLOT(stateChanged(bool)));
     return m_action;
