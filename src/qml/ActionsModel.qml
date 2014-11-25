@@ -29,13 +29,13 @@ ListModel
     ListElement {
         icon: "camera-web"
         text: "Shoot"
-        mimes: "image/jpg"
+        mimes: "image/jpeg"
         checkable: false
     }
     ListElement {
         icon: "code-blocks"
         text: "Burst"
-        mimes: "image/jpg"
+        mimes: "image/jpeg"
         checkable: true
     }
     ListElement {
