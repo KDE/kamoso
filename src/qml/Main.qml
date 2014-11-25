@@ -29,7 +29,7 @@ ApplicationWindow
 //         tada.y = 0
 //         tada.width = visor.width
 //         tada.height = visor.height
-        tada.source = path
+        tada.source = "file://"+path
         tada.state = "go"
         tada.state = "done"
 //         tada.visible = true
