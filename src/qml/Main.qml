@@ -8,8 +8,8 @@ import org.kde.kamoso 3.0
 
 ApplicationWindow
 {
-    width: 500
-    height: 600
+    width: 700
+    height: 450
     visible: true
 
     function awesomeAnimation(path) {
