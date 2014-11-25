@@ -21,12 +21,30 @@ ScrollView
             url: settings.saveUrl
         }
 
+        Menu {
+            id: menu
+            MenuItem {
+                text: i18n("Open %1", menu.title)
+                onTriggered: Qt.openUrlExternally(menu.title)
+            }
+            MenuSeparator {}
+            MenuItem { text: "sharing" }
+            MenuItem { text: "to" }
+            MenuItem { text: "be" }
+            MenuItem { text: "imlpemented" }
+        }
+
         delegate: MouseArea {
             id: delegateItem
             width: height
             height: scrollView.delegateWidth
 
-            onClicked: Qt.openUrlExternally(path)
+            onClicked: {
+                menu.visible = false
+                menu.title = path
+                menu.popup()
+            }
+
             QPixmapItem {
                 anchors {
                     fill: parent
