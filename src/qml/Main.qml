@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
+import QtQuick.Window 2.2
 import QtGStreamer 1.0
 import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
@@ -10,19 +11,6 @@ ApplicationWindow
     width: 500
     height: 600
     visible: true
-
-    ImagesView {
-        id: imagesView
-        mimeFilter: buttonGroup.current.stuff.mimes
-        spacing: 10
-        anchors {
-            margins: 20
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        height: 80
-    }
 
     function awesomeAnimation(path) {
 //         tada.x = visor.x
@@ -109,7 +97,7 @@ ApplicationWindow
 
         anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: imagesView.top
+        anchors.bottom: parent.bottom
         iconName: buttonGroup.current.stuff.icon
 
         onClicked: {
@@ -128,7 +116,12 @@ ApplicationWindow
         anchors.verticalCenter: controls.verticalCenter
         spacing: 10
 
-        Button { width: 30; text: "a" }
+        Button {
+            id: galleryButton
+            checkable: true
+            checked: false
+            iconName: "gwenview"
+        }
 
         Button {
             id: settingsButton
@@ -223,6 +216,23 @@ ApplicationWindow
             anchors.fill: parent
             visible: !video.visible
             source: "http://i.imgur.com/OEiQ6k9.gif"
+        }
+
+        OverlayFrame {
+            width: visor.width*2/3
+            height: visor.width*2/3
+            visible: galleryButton.checked
+            anchors {
+                bottom: parent.bottom
+                right: parent.right
+                margins: 30
+            }
+
+            ImagesView {
+                id: imagesView
+                anchors.fill: parent
+                mimeFilter: buttonGroup.current.stuff.mimes
+            }
         }
     }
 
