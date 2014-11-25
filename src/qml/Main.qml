@@ -64,27 +64,30 @@ ApplicationWindow
         ]
     }
 
-    RowLayout {
-        id: modes
-        width: 100
-        spacing: 10
+    Item {
+        anchors {
+            left: parent.left
+            right: controls.left
+            top: controls.top
+            bottom: parent.bottom
+        }
+        RowLayout {
+            anchors.centerIn: parent
+            spacing: 0
 
-        anchors.margins: 20
-        anchors.left: parent.left
-        anchors.verticalCenter: controls.verticalCenter
+            ExclusiveGroup { id: buttonGroup }
+            Repeater {
+                model: ActionsModel { id: actions }
+                delegate: Button {
+                    property QtObject stuff: model
+                    exclusiveGroup: buttonGroup
+                    isDefault: true
+                    tooltip: model.text
+                    checkable: true
+                    checked: index==0
 
-        ExclusiveGroup { id: buttonGroup }
-        Repeater {
-            model: ActionsModel { id: actions }
-            delegate: Button {
-                property QtObject stuff: model
-                exclusiveGroup: buttonGroup
-                isDefault: true
-                tooltip: model.text
-                checkable: true
-                checked: index==0
-
-                iconName: model.icon
+                    iconName: model.icon
+                }
             }
         }
     }
@@ -95,7 +98,6 @@ ApplicationWindow
         height: 40
         checkable: buttonGroup.current.stuff.checkable
 
-        anchors.margins: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         iconName: buttonGroup.current.stuff.icon
@@ -108,26 +110,31 @@ ApplicationWindow
         }
     }
 
-    Row {
-        width: 100
-
-        anchors.margins: 20
-        anchors.right: parent.right
-        anchors.verticalCenter: controls.verticalCenter
-        spacing: 10
-
-        Button {
-            id: galleryButton
-            checkable: true
-            checked: false
-            iconName: "gwenview"
+    Item {
+        anchors {
+            top: controls.top
+            left: controls.right
+            right: parent.right
+            bottom: parent.bottom
         }
+        RowLayout {
+            anchors.centerIn: parent
+            spacing: 0
+            Button {
+                id: galleryButton
+                checkable: true
+                checked: false
+                iconName: "gwenview"
+                tooltip: i18n("Show gallery...")
+            }
 
-        Button {
-            id: settingsButton
-            width: 30
-            iconName: "settings"
-            checkable: true
+            Button {
+                id: settingsButton
+                width: 30
+                iconName: "settings"
+                checkable: true
+                tooltip: i18n("Show settings...")
+            }
         }
     }
 
@@ -213,7 +220,7 @@ ApplicationWindow
         }
 
         AnimatedImage {
-            anchors.fill: parent
+            anchors.fill: video
             visible: !video.visible
             source: "http://i.imgur.com/OEiQ6k9.gif"
         }
