@@ -40,7 +40,7 @@ Kamoso::~Kamoso()
 const QString Kamoso::takePhoto()
 {
     QUrl photoPlace = Settings::saveUrl();
-    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("picture_1.png") );
+    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("picture_1.jpg") );
 
     QFile file(photoPlace.path());
     while(file.exists()) {
