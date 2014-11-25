@@ -24,11 +24,9 @@ add_executable(qmloso
     ${kamosoqml_SRCS}
 )
 
-
-message(STATUS "fuuuuuuuu ${QTGSTREAMER_LIBRARY} ${QTGSTREAMER_UI_LIBRARY} ${GSTREAMER_BASE_LIBRARY} ${GLIB2_LIBRARIES} ")
 target_link_libraries(qmloso
-Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
-    KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::KDELibs4Support
+    Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
+    KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::I18n
     Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
     ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES} ${UDEV_LIBS}
 )
