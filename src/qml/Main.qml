@@ -220,7 +220,7 @@ ApplicationWindow
 
         OverlayFrame {
             width: visor.width*2/3
-            height: visor.width*2/3
+            height: visor.height*2/3
             visible: galleryButton.checked
             anchors {
                 bottom: parent.bottom
