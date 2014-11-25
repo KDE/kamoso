@@ -152,6 +152,7 @@ ApplicationWindow
         visible: width!=0
         Column {
             anchors.fill: parent
+            Label { text: i18n("Brightness:") }
             Slider {
                 id: brightnessSlider
                 width: parent.width
@@ -161,6 +162,8 @@ ApplicationWindow
 
                 Binding {target: devicesModel.playingDevice; property: "brightness"; value: brightnessSlider.value}
             }
+
+            Label { text: i18n("Hue:") }
             Slider {
                 id: hueSlider
                 width: parent.width
@@ -170,6 +173,8 @@ ApplicationWindow
 
                 Binding {target: devicesModel.playingDevice; property: "hue"; value: hueSlider.value}
             }
+
+            Label { text: i18n("Contrast:") }
             Slider {
                 id: contrastSlider
                 width: parent.width
@@ -179,6 +184,8 @@ ApplicationWindow
 
                 Binding {target: devicesModel.playingDevice; property: "contrast"; value: contrastSlider.value}
             }
+
+            Label { text: i18n("Saturation:") }
             Slider {
                 id: saturationSlider
                 width: parent.width
@@ -188,6 +195,8 @@ ApplicationWindow
 
                 Binding {target: devicesModel.playingDevice; property: "saturation"; value: saturationSlider.value}
             }
+
+            Label { text: i18n("Gamma:") }
             Slider {
                 id: gammaSlider
                 width: parent.width
