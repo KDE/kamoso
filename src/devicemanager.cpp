@@ -28,10 +28,6 @@ DeviceManager *DeviceManager::s_instance = NULL;
 
 DeviceManager::DeviceManager() : m_playingDevice(0)
 {
-    QHash< int, QByteArray > roles = roleNames();
-    roles.insert(Udi, "udi");
-    setRoleNames(roles);
-
     QStringList subsystems;
     subsystems << "video4linux";
     m_client = new UdevQt::Client(subsystems, this);
@@ -47,6 +43,13 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     if (!m_deviceList.isEmpty()) {
         setPlayingDeviceUdi(m_deviceList.first()->udi());
     }
+}
+
+QHash<int, QByteArray> DeviceManager::roleNames() const
+{
+    QHash< int, QByteArray > roles = QAbstractListModel::roleNames();
+    roles.insert(Udi, "udi");
+    return roles;
 }
 
 void DeviceManager::save()

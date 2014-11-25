@@ -39,6 +39,7 @@ class KamosoDirModel : public KDirModel
         void setMimeFilter(const QStringList& mimes);
         QStringList mimeFilter() const;
 
+        virtual QHash<int, QByteArray> roleNames() const;
         virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     Q_SIGNALS:
         void urlChanged();

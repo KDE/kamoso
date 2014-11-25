@@ -39,6 +39,7 @@ class DeviceManager : public QAbstractListModel
         enum {
             Udi=Qt::UserRole+1
         };
+        virtual QHash<int, QByteArray> roleNames() const;
 
         Device* playingDevice();
         QString playingDeviceUdi() const;

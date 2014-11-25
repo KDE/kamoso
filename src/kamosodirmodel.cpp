@@ -23,10 +23,15 @@
 KamosoDirModel::KamosoDirModel(QObject* parent)
     : KDirModel(parent)
 {
-    QHash<int, QByteArray> roles = roleNames();
+
+}
+
+QHash< int, QByteArray > KamosoDirModel::roleNames() const
+{
+    QHash<int, QByteArray> roles = KDirModel::roleNames();
     roles.insert(Path, "path");
     roles.insert(MimeType, "mime");
-    setRoleNames(roles);
+    return roles;
 }
 
 void KamosoDirModel::setUrl(const QUrl& url)
