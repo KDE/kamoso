@@ -160,7 +160,9 @@ ApplicationWindow
                 maximumValue: 100
                 value: devicesModel.playingDevice.brightness
 
-                Binding {target: devicesModel.playingDevice; property: "brightness"; value: brightnessSlider.value}
+                onValueChanged: {
+                    devicesModel.playingDevice.brightness = value
+                }
             }
 
             Label { text: i18n("Hue:") }
@@ -171,7 +173,9 @@ ApplicationWindow
                 maximumValue: 100
                 value: devicesModel.playingDevice.hue
 
-                Binding {target: devicesModel.playingDevice; property: "hue"; value: hueSlider.value}
+                onValueChanged: {
+                    devicesModel.playingDevice.hue = value
+                }
             }
 
             Label { text: i18n("Contrast:") }
@@ -182,7 +186,9 @@ ApplicationWindow
                 maximumValue: 200
                 value: devicesModel.playingDevice.contrast
 
-                Binding {target: devicesModel.playingDevice; property: "contrast"; value: contrastSlider.value}
+                onValueChanged: {
+                    devicesModel.playingDevice.contrast = value
+                }
             }
 
             Label { text: i18n("Saturation:") }
@@ -193,7 +199,9 @@ ApplicationWindow
                 maximumValue: 200
                 value: devicesModel.playingDevice.saturation
 
-                Binding {target: devicesModel.playingDevice; property: "saturation"; value: saturationSlider.value}
+                onValueChanged: {
+                    devicesModel.playingDevice.saturation = value
+                }
             }
 
             Label { text: i18n("Gamma:") }
@@ -204,7 +212,9 @@ ApplicationWindow
                 maximumValue: 1000
                 value: devicesModel.playingDevice.gamma
 
-                Binding {target: devicesModel.playingDevice; property: "gamma"; value: gammaSlider.value}
+                onValueChanged: {
+                    devicesModel.playingDevice.gamma = value
+                }
             }
         }
     }
