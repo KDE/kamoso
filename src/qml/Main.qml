@@ -100,7 +100,15 @@ ApplicationWindow
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        iconName: buttonGroup.current.stuff.icon
+
+        QIconItem {
+            anchors {
+                centerIn: parent
+            }
+            height: parent.height*0.75
+            width: height
+            icon: buttonGroup.current.stuff.icon
+        }
 
         onClicked: {
             var path = actions.trigger(buttonGroup.current.stuff.index, checked)
