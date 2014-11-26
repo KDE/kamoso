@@ -125,7 +125,7 @@ void WebcamControl::play(Device *device)
     cameraSource->setProperty("video-source", source);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
-    auto bus = m_pipeline->bus();;
+    auto bus = m_pipeline->bus();
     bus->addSignalWatch();
     QGlib::connect(bus, "message", this, &WebcamControl::onBusMessage);
 
