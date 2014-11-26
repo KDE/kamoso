@@ -31,7 +31,7 @@ namespace UdevQt{
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString playingDeviceUdi READ playingDeviceUdi WRITE setPlayingDeviceUdi NOTIFY playingDeviceUdiChanged)
+    Q_PROPERTY(QString playingDeviceUdi READ playingDeviceUdi WRITE setPlayingDeviceUdi NOTIFY playingDeviceChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     Q_PROPERTY(Device* playingDevice READ playingDevice NOTIFY playingDeviceChanged)
     public:
@@ -59,7 +59,6 @@ class DeviceManager : public QAbstractListModel
 
     Q_SIGNALS:
         void playingDeviceChanged();
-        void playingDeviceUdiChanged();
         void deviceRegistered( const QString & udi );
         void deviceUnregistered( const QString & udi );
         void countChanged();

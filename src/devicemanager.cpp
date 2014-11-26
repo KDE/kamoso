@@ -74,8 +74,8 @@ void DeviceManager::setPlayingDeviceUdi(const QString& udi)
     Q_FOREACH(Device* d, m_deviceList) {
         if(d->udi() == udi) {
             m_playingDevice = d;
-            qDebug() << "Playing device changed";
-            Q_EMIT playingDeviceUdiChanged();
+            qDebug() << "Playing device changed" << d->path();
+            Q_EMIT playingDeviceChanged();
             return;
         }
     }
