@@ -281,7 +281,12 @@ ApplicationWindow
 
         Repeater {
             model: devicesModel
-            delegate: Button { width: 30; iconSource: "webcamreceive"; onClicked: devicesModel.playingDeviceUdi = udi }
+            delegate: Button {
+                width: 30
+                iconName: "camera-web"
+                tooltip: display
+                onClicked: devicesModel.playingDeviceUdi = udi
+            }
         }
     }
 }
