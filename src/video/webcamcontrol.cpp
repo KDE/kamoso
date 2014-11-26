@@ -107,6 +107,12 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
+    if (m_pipeline) {
+//         Should we maybe try to just change the device path instead of re-creating?
+        qDebug() << "playing device" << device->path() << m_pipeline->currentState();
+        m_pipeline->setState(QGst::StateNull);
+    }
+
     QString src("v4l2src device=");
     src.append(device->path());
     auto source = QGst::Bin::fromDescription(src);
