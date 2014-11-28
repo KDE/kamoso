@@ -216,12 +216,14 @@ ApplicationWindow
             Slider {
                 id: gammaSlider
                 width: parent.width
-                minimumValue: 1
-                maximumValue: 1000
+                minimumValue: 0
+                maximumValue: 999
                 value: devicesModel.playingDevice.gamma
 
                 onValueChanged: {
-                    devicesModel.playingDevice.gamma = value
+                    //We must leave minimumValue at 0 and add it back here, otherwise we get
+                    //a onValueChanged when minimumValue changes and things break.
+                    devicesModel.playingDevice.gamma = value+1
                 }
             }
         }
