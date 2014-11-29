@@ -107,8 +107,16 @@ void WebcamControl::play()
 
 void WebcamControl::play(Device *device)
 {
-    if (m_pipeline) {
-//         Should we maybe try to just change the device path instead of re-creating?
+    //If we already have a pipeline for this device, just set it to picture mode
+    if (m_pipeline && m_currentDevice == device->udi()) {
+        m_pipeline->setProperty("mode", 2);
+        m_pipeline->setProperty("location", m_tmpVideoPath);
+        return;
+    }
+    
+    //If we are changing the device, cleanup and stop old pipeline
+    if (m_pipeline && m_currentDevice != device->udi()) {
+        //Should we maybe try to just change the device path instead of re-creating?
         qDebug() << "playing device" << device->path() << m_pipeline->currentState();
         m_pipeline->setState(QGst::StateNull);
     }
@@ -136,6 +144,8 @@ void WebcamControl::play(Device *device)
     m_pipeline->setState(QGst::StatePlaying);
 
     setVideoSettings();
+    
+    m_currentDevice = device->udi();
 }
 
 void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)

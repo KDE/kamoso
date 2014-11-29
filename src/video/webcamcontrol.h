@@ -57,6 +57,7 @@ class WebcamControl : public QObject
         void setVideoSettings();
 
         QString m_tmpVideoPath;
+        QString m_currentDevice;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
         QGst::ElementPtr m_videoBalance;
