@@ -53,6 +53,7 @@ void KamosoDirModel::setMimeFilter(const QStringList& mimes)
     if(!dirLister()->url().isEmpty()) {
         dirLister()->openUrl(dirLister()->url(), KDirLister::Reload);
     }
+    Q_EMIT filterChanged();
 }
 
 QStringList KamosoDirModel::mimeFilter() const

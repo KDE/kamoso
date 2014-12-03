@@ -40,12 +40,12 @@ Kamoso::~Kamoso()
 const QString Kamoso::takePhoto()
 {
     QUrl photoPlace = Settings::saveUrl();
-    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("picture_1.jpg") );
+    photoPlace.setPath( photoPlace.toLocalFile() +'/' + QStringLiteral("picture_1.jpg") );
 
-    QFile file(photoPlace.path());
+    QFile file(photoPlace.toLocalFile());
     while(file.exists()) {
         autoincFilename(photoPlace);
-        file.setFileName(photoPlace.path());
+        file.setFileName(photoPlace.toLocalFile());
     }
 
     m_webcamControl->takePhoto(photoPlace);
@@ -61,15 +61,15 @@ void Kamoso::startRecording()
 void Kamoso::stopRecording()
 {
     QUrl photoPlace = Settings::saveUrl();
-    photoPlace.setPath( photoPlace.path() +'/' + QStringLiteral("video_1.mkv") );
+    photoPlace.setPath( photoPlace.toLocalFile() +'/' + QStringLiteral("video_1.mkv") );
 
-    QFile file(photoPlace.path());
+    QFile file(photoPlace.toLocalFile());
     while(file.exists()) {
         autoincFilename(photoPlace);
-        file.setFileName(photoPlace.path());
+        file.setFileName(photoPlace.toLocalFile());
     }
 
-    QFile::rename(m_webcamControl->stopRecording(), photoPlace.path());
+    QFile::rename(m_webcamControl->stopRecording(), photoPlace.toLocalFile());
 
     m_webcamControl->play(DeviceManager::self()->playingDevice());
 }
@@ -106,5 +106,5 @@ void Kamoso::autoincFilename(QUrl &filename)
     }
 
     //Rebuild the path
-    filename.setPath( filename.adjusted(QUrl::RemoveFilename).path() + name );
+    filename.setPath( filename.adjusted(QUrl::RemoveFilename).toLocalFile() + name );
 }
