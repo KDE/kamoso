@@ -1,6 +1,8 @@
+import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import org.kde.kamoso 3.0
+import org.kde.kamoso.share 3.0
 import org.kde.kquickcontrols 2.0
 import org.kde.kquickcontrolsaddons 2.0
 
@@ -24,14 +26,26 @@ ScrollView
         Menu {
             id: menu
             MenuItem {
-                text: i18n("Open %1", menu.title)
+                text: i18n("Open...")
                 onTriggered: Qt.openUrlExternally(menu.title)
             }
             MenuSeparator {}
-            MenuItem { text: "sharing" }
-            MenuItem { text: "to" }
-            MenuItem { text: "be" }
-            MenuItem { text: "imlpemented" }
+            MenuItem {
+                text: "xxxx"+inst.count
+            }
+
+            Instantiator {
+                id: inst
+                model: ShareAlternativesModel {
+                    mimeTypes: model.mimeFilter
+                }
+                MenuItem {
+                    text: display
+                }
+
+                onObjectAdded: menu.insertItem(menu.items.count, object)
+                onObjectRemoved: menu.removeItem(object)
+            }
         }
 
         delegate: MouseArea {

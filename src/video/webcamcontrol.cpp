@@ -24,6 +24,8 @@
 #include <kamososettings.h>
 #include <whitewidgetmanager.h>
 #include <kamoso.h>
+#include <share/sharealternativesmodel.h>
+#include <share/shareinterface.h>
 
 #include <QGlib/Connect>
 #include <QGlib/Signal>
@@ -65,6 +67,9 @@ WebcamControl::WebcamControl()
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+
+    qmlRegisterType<ShareAlternativesModel>("org.kde.kamoso.share", 3, 0, "ShareAlternativesModel");
+    qmlRegisterUncreatableType<ShareJob>("org.kde.kamoso.share", 3, 0, "ShareJob", "You're not supposed to mess with this yo");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("settings", new KamosoSettings);

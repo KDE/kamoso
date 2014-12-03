@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Service
+Icon=edit-paste
+Exec=blubb
+Comment=Dummy plugin, to test the shit out of the feature
+Name=Dummy
+GenericName=Wo
+
+X-KDE-Library=kamoso/share/dummyplugin
+X-KDE-PluginInfo-Author=Aleix Pol
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Category=Utilities
+
+X-Kamoso-ShareMimeType=*

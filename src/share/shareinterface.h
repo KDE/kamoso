@@ -1,6 +1,5 @@
 /************************************************************************************
- * Copyright (C) 2012 by Rex Dieter <rdieter@fedoraproject.org>                     *
- * Copyright (C) 2012 by Sando Mani <manisandro@gmail.com>                          *
+ * Copyright (C) 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>                *
  *                                                                                  *
  * This program is free software; you can redistribute it and/or                    *
  * modify it under the terms of the GNU General Public License                      *
@@ -17,18 +16,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#ifndef EXPORTINTERFACE_H
-#define EXPORTINTERFACE_H
+#ifndef SHAREINTERFACE_H
+#define SHAREINTERFACE_H
 
-class KJob;
+#include <KJob>
+#include <QVariantMap>
+#include <QMimeData>
 
-class ExportInterface
+class Q_DECL_EXPORT ShareJob : public KJob
 {
+Q_OBJECT
 public:
+    void setData(const QVariantMap& data);
+    QVariantMap data() const;
 
-    virtual ~ExportInterface() {}
-
-    virtual KJob* exportFiles(const QString& albumname)=0;
+Q_SIGNALS:
+    void needInteraction(const QUrl& path);
+    void output(const QVariant& output);
 };
 
-#endif // EXPORTINTERFACE_H
+class Q_DECL_EXPORT SharePlugin : public QObject
+{
+    Q_OBJECT
+    public:
+        virtual ~SharePlugin();
+
+        /** @returns the job that will perform the share of the specified @p data.*/
+        virtual ShareJob* share(const QMimeData& data) const = 0;
+};
+
+#endif
