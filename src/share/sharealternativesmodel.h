@@ -45,7 +45,7 @@ public:
      *
      * @returns the share job.
      */
-    Q_SCRIPTABLE ShareJob* createJob(int row, const QMimeData& data);
+    Q_SCRIPTABLE ShareJob* createJob(int row);
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;

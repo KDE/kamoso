@@ -22,6 +22,7 @@
 #include <QList>
 #include <KPluginLoader>
 #include <KPluginMetaData>
+#include <KPluginFactory>
 #include <QIcon>
 #include <QDebug>
 
@@ -42,7 +43,7 @@ void ShareAlternativesModel::setMimeTypes(const QStringList& mimes)
     m_plugins = KPluginLoader::findPlugins("kamoso/share/", [types](const KPluginMetaData& meta) {
         QRegularExpression rx();
         for(const QMimeType& type: types) {
-            QString supported = meta.value("X-Kamoso-ShareMimeType", "*");
+            QString supported = meta.value("X-KamosoShare-MimeType", "*");
             if ((supported.contains('*') && QRegExp(supported, Qt::CaseInsensitive, QRegExp::Wildcard).exactMatch(type.name())) || type.inherits(supported)) {
                 return true;
             }
@@ -59,12 +60,16 @@ QStringList ShareAlternativesModel::mimeTypes() const
     return m_mime;
 }
 
-ShareJob* ShareAlternativesModel::createJob(int row, const QMimeData& data)
+ShareJob* ShareAlternativesModel::createJob(int row)
 {
     KPluginMetaData pluginData = m_plugins.at(row);
-    KPluginLoader loader(pluginData.name(), this);
-    Q_ASSERT(loader.errorString().isEmpty());
-    return qobject_cast<SharePlugin*>(loader.instance())->share(data);
+    KPluginLoader loader(pluginData.fileName(), this);
+    SharePlugin* plugin = dynamic_cast<SharePlugin*>(loader.factory()->create<QObject>(this, QVariantList()));
+
+    if (!plugin) {
+        qWarning() << "Couldn't load plugin:" << pluginData.fileName() << loader.errorString();
+    }
+    return plugin->share();
 }
 
 int ShareAlternativesModel::rowCount(const QModelIndex& parent) const

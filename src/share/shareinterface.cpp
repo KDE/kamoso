@@ -18,6 +18,39 @@
 
 #include "shareinterface.h"
 
+struct ShareJobPrivate
+{
+    QJsonArray m_data;
+};
+
+ShareJob::ShareJob(QObject* parent)
+    : KJob(parent)
+    , d_ptr(new ShareJobPrivate)
+{
+}
+
+ShareJob::~ShareJob()
+{
+    delete d_ptr;
+}
+
+QJsonArray ShareJob::data() const
+{
+    Q_D(const ShareJob);
+    return d->m_data;
+}
+
+void ShareJob::setData(const QJsonArray& data)
+{
+    Q_D(ShareJob);
+    d->m_data = data;
+}
+
+SharePlugin::SharePlugin(QObject* parent)
+    : QObject(parent)
+{
+}
+
 SharePlugin::~SharePlugin()
 {
 }

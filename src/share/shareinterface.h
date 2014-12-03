@@ -20,29 +20,55 @@
 #define SHAREINTERFACE_H
 
 #include <KJob>
-#include <QVariantMap>
+#include <QJsonArray>
 #include <QMimeData>
+
+#define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(1)
+
+class ShareJobPrivate;
 
 class Q_DECL_EXPORT ShareJob : public KJob
 {
 Q_OBJECT
 public:
-    void setData(const QVariantMap& data);
-    QVariantMap data() const;
+    ShareJob(QObject* parent = 0);
+    virtual ~ShareJob();
+
+    void setData(const QJsonArray& data);
+    QJsonArray data() const;
+
+    bool isReady() const;
 
 Q_SIGNALS:
     void needInteraction(const QUrl& path);
     void output(const QVariant& output);
+
+private:
+    Q_DECLARE_PRIVATE(ShareJob);
+    ShareJobPrivate *const d_ptr;
 };
 
 class Q_DECL_EXPORT SharePlugin : public QObject
 {
-    Q_OBJECT
-    public:
-        virtual ~SharePlugin();
+Q_OBJECT
+public:
+    /**
+     * The plugin properties should be specified in the .desktop/.json file.
+     *
+     * There we will specify under what circumstances the plugin is useful.
+     * Fields:
+     *  - X-KamosoShare-MimeType defines the accepted mimetype files (default ("*")
+     *  - X-KamosoShare-RequiredArguments defines the arguments the application needs to provide so the plugin is available (default "Urls")
+     *  - X-KamosoShare-AdditionalArguments defines the arguments the plugin can take, if not filled the plugin will request interaction with ::needInteraction(QUrl) signal.
+     */
 
-        /** @returns the job that will perform the share of the specified @p data.*/
-        virtual ShareJob* share(const QMimeData& data) const = 0;
+    SharePlugin(QObject* parent = nullptr);
+    virtual ~SharePlugin();
+
+    /** @returns the job that will perform the share of the specified @p data.*/
+    virtual ShareJob* share() const = 0;
 };
+
+Q_DECLARE_INTERFACE(SharePlugin, "org.kde.kamoso.share")
 
 #endif

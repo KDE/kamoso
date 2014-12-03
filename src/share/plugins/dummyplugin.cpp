@@ -21,13 +21,17 @@
 #include <QTimer>
 #include <KPluginFactory>
 
+EXPORT_SHARE_VERSION
+
 class DummyShareJob : public ShareJob
 {
     Q_OBJECT
     public:
+        DummyShareJob(QObject* parent) : ShareJob(parent) {}
+
         virtual void start() override
         {
-            qWarning() << "xxxxxxxx";
+            qWarning() << "xxxxxxxx" << data();
             QTimer::singleShot(0, this, [this](){ emitResult(); });
         }
 };
@@ -36,11 +40,11 @@ class Q_DECL_EXPORT DummyPlugin : public SharePlugin
 {
     Q_OBJECT
     public:
-        DummyPlugin(QObject*, const QVariantList& ) {}
+        DummyPlugin(QObject* p, const QVariantList& ) : SharePlugin(p) {}
 
-        virtual ShareJob* share(const QMimeData& data) const override
+        virtual ShareJob* share() const override
         {
-            return new DummyShareJob;
+            return new DummyShareJob(nullptr);
         }
 };
 
