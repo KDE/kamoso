@@ -1,4 +1,5 @@
 add_subdirectory(plugins)
+add_subdirectory(tool)
 
 add_library(KamosoShare
     shareinterface.cpp
