@@ -3,77 +3,62 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import org.kde.kamoso 3.0
 import org.kde.kamoso.share 3.0
-import org.kde.kquickcontrols 2.0
-import org.kde.kquickcontrolsaddons 2.0
 
-ScrollView
-{
-    id: scrollView
-    property alias mimeFilter: model.mimeFilter
-    property real delegateWidth: 50
+StackView {
+    id: stack
+    property alias mimeFilter: view.mimeFilter
 
-    GridView
-    {
-        cellWidth: scrollView.delegateWidth
-        cellHeight: cellWidth
+    Menu {
+        id: menu
+        MenuItem {
+            text: i18n("Open...")
+            onTriggered: Qt.openUrlExternally(menu.title)
+        }
+        MenuSeparator {}
+
+        Instantiator {
+            id: inst
+            model: ShareAlternativesModel {
+                id: altsModel
+                mimeTypes: view.mimeFilter
+            }
+            MenuItem {
+                text: display
+                onTriggered: {
+                    var job = altsModel.createJob(index)
+                    job.data = { "urls": [ menu.title ] }
+                    if (job.isReady)
+                        job.start()
+                    else {
+                        stack.push({
+                            item: shareWizardComponent,
+                            properties: { job: job }
+                        })
+                    }
+                }
+            }
+
+            onObjectAdded: menu.insertItem(menu.items.count, object)
+            onObjectRemoved: menu.removeItem(object)
+        }
+    }
+
+    initialItem: DirectoryView {
+        id: view
         anchors.fill: parent
-
-        model: DirModel {
-            id: model
-            url: settings.saveUrl
+        onItemClicked: {
+            menu.visible = false
+            menu.title = path
+            menu.popup()
         }
+    }
 
-        Menu {
-            id: menu
-            MenuItem {
-                text: i18n("Open...")
-                onTriggered: Qt.openUrlExternally(menu.title)
-            }
-            MenuSeparator {}
-            MenuItem {
-                text: "xxxx"+inst.count
-            }
-
-            Instantiator {
-                id: inst
-                model: ShareAlternativesModel {
-                    mimeTypes: model.mimeFilter
-                }
-                MenuItem {
-                    text: display
-                }
-
-                onObjectAdded: menu.insertItem(menu.items.count, object)
-                onObjectRemoved: menu.removeItem(object)
-            }
-        }
-
-        delegate: MouseArea {
-            id: delegateItem
-            width: height
-            height: scrollView.delegateWidth
-
-            onClicked: {
-                menu.visible = false
-                menu.title = path
-                menu.popup()
-            }
-
-            QPixmapItem {
-                anchors {
-                    fill: parent
-                    margins: 1
-                }
-                objectName: path
-                pixmap: fetcher.preview
-
-                PreviewFetcher {
-                    id: fetcher
-                    url: path
-                    mimetype: mime
-                    width: delegateItem.width
-                    height: delegateItem.height
-                }
+    Component {
+        id: shareWizardComponent
+        ShareWizard {
+            onAccepted: {
+                stack.pop();
+                job.start();
             }
         }
     }
