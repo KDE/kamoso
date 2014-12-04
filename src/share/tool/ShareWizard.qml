@@ -26,6 +26,7 @@ Item {
     signal accepted()
 
     ColumnLayout {
+        anchors.fill: parent
         Loader {
             id: loader
             Layout.fillHeight: true
