@@ -12,5 +12,5 @@ X-KDE-PluginInfo-Category=Utilities
 
 X-KamosoShare-MimeType=*
 
-X-KamosoShare-RequiredArguments=Urls
-X-KamosoShare-AdditionalArguments=DestinationPath
+X-KamosoShare-MandatoryArguments=urls
+X-KamosoShare-AdditionalArguments=destinationPath

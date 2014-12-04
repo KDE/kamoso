@@ -64,12 +64,18 @@ ShareJob* ShareAlternativesModel::createJob(int row)
 {
     KPluginMetaData pluginData = m_plugins.at(row);
     KPluginLoader loader(pluginData.fileName(), this);
+//     TODO: are we leaking plugin instances?
     SharePlugin* plugin = dynamic_cast<SharePlugin*>(loader.factory()->create<QObject>(this, QVariantList()));
 
     if (!plugin) {
         qWarning() << "Couldn't load plugin:" << pluginData.fileName() << loader.errorString();
     }
-    return plugin->share();
+
+    ShareJob* job = plugin->share();
+    job->setParent(this);
+    job->setMandatoryArguments(pluginData.value("X-KamosoShare-MandatoryArguments").split(',', QString::SkipEmptyParts));
+    job->setAdditionalArguments(pluginData.value("X-KamosoShare-AdditionalArguments").split(',', QString::SkipEmptyParts));
+    return job;
 }
 
 int ShareAlternativesModel::rowCount(const QModelIndex& parent) const

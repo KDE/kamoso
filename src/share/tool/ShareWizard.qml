@@ -16,46 +16,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include "../shareinterface.h"
-#include <QDebug>
-#include <QTimer>
-#include <QStandardPaths>
-#include <KPluginFactory>
+import QtQuick 2.2
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.1
 
-EXPORT_SHARE_VERSION
+Item {
+    id: root
+    property QtObject job
+    signal accepted()
 
-class DummyShareJob : public ShareJob
-{
-    Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : ShareJob(parent) {}
+    ColumnLayout {
+        Loader {
+            id: loader
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-        virtual void start() override
-        {
-            qWarning() << "xxxxxxxx" << data();
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
+            Component.onCompleted: {
+                setSource(job.configSourceCode, job.data)
+            }
         }
-
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kamoso/share/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
+        Connections {
+            target: loader.item
+            onJobDataChanged: {
+                var jobData = job.data;
+                for(var i in job.acceptedArguments) {
+                    var arg = job.acceptedArguments[i]
+                    if (arg in loader.item) {
+                        jobData[arg] = loader.item[arg];
+                    }
+                }
+                job.data = jobData;
+            }
         }
-};
-
-class Q_DECL_EXPORT DummyPlugin : public SharePlugin
-{
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : SharePlugin(p) {}
-
-        virtual ShareJob* share() const override
-        {
-            return new DummyShareJob(nullptr);
+        Button {
+            text: i18n("Run")
+            enabled: root.job.isReady
+            onClicked: root.accepted()
         }
-};
-
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
-
-#include "dummyplugin.moc"
+    }
+}

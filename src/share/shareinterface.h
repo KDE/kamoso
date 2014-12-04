@@ -20,8 +20,9 @@
 #define SHAREINTERFACE_H
 
 #include <KJob>
-#include <QJsonArray>
+#include <QJsonObject>
 #include <QMimeData>
+#include <QUrl>
 
 #define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(1)
 
@@ -30,18 +31,28 @@ class ShareJobPrivate;
 class Q_DECL_EXPORT ShareJob : public KJob
 {
 Q_OBJECT
+Q_PROPERTY(QJsonObject data READ data WRITE setData NOTIFY dataChanged)
+Q_PROPERTY(bool isReady READ isReady NOTIFY dataChanged)
+Q_PROPERTY(QUrl configSourceCode READ configSourceCode CONSTANT)
+Q_PROPERTY(QStringList acceptedArguments READ acceptedArguments CONSTANT)
 public:
     ShareJob(QObject* parent = 0);
     virtual ~ShareJob();
 
-    void setData(const QJsonArray& data);
-    QJsonArray data() const;
+    void setData(const QJsonObject& data);
+    QJsonObject data() const;
 
     bool isReady() const;
+    virtual QUrl configSourceCode() const = 0;
+
+    void setAdditionalArguments(const QStringList& args);
+    void setMandatoryArguments(const QStringList& args);
+
+    QStringList acceptedArguments() const;
 
 Q_SIGNALS:
-    void needInteraction(const QUrl& path);
     void output(const QVariant& output);
+    void dataChanged();
 
 private:
     Q_DECLARE_PRIVATE(ShareJob);

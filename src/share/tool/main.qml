@@ -26,27 +26,51 @@ ApplicationWindow
     id: window
     visible: true
     property string mimetype: ""
+    property variant files: []
 
-    ScrollView {
-        ListView {
-            header: Label {
-                text: window.mimetype
-            }
-
-            model: ShareAlternativesModel {
-                id: altsModel
-                mimeTypes: [ window.mimetype ]
-            }
-            delegate: RowLayout {
-                Label {
-                    text: display
+    StackView {
+        id: stack
+        initialItem: ScrollView {
+            anchors.fill: parent
+            ListView {
+                header: Label {
+                    text: window.mimetype + " " + window.files
                 }
-                Button {
-                    text: i18n("Use")
-                    onClicked: {
-                        var job = altsModel.createJob(index);
+
+                model: ShareAlternativesModel {
+                    id: altsModel
+                    mimeTypes: [ window.mimetype ]
+                }
+                delegate: RowLayout {
+                    Label {
+                        text: display
+                    }
+                    Button {
+                        text: i18n("Use")
+                        onClicked: {
+                            var job = altsModel.createJob(index);
+                            job.data = { "urls": window.files }
+                            if (!job.isReady) {
+                                stack.push({
+                                    item: shareWizardComponent,
+                                    properties: { job: job }
+                                })
+                            } else {
+                                job.start()
+                            }
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    Component {
+        id: shareWizardComponent
+        ShareWizard {
+            onAccepted: {
+                stack.pop()
+                job.start();
             }
         }
     }

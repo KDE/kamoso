@@ -4,6 +4,9 @@ function(add_share_plugin name)
 
     kcoreaddons_desktop_to_json(${name} ${name}.desktop)
     install(TARGETS ${name} DESTINATION ${PLUGIN_INSTALL_DIR}/kamoso/share)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${name}_config.qml")
+        install(FILES "${name}_config.qml" DESTINATION ${DATA_INSTALL_DIR}/kamoso/share)
+    endif()
 endfunction()
 
 add_share_plugin(dummyplugin dummyplugin.cpp)

@@ -79,6 +79,7 @@ int main(int argc, char** argv)
     decl.setupBindings();
     engine.load(QUrl("qrc:/main.qml"));
     engine.rootObjects().first()->setProperty("mimetype", common.name());
+    engine.rootObjects().first()->setProperty("files", files);
 
     return app.exec();
 }

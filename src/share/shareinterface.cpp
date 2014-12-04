@@ -17,10 +17,13 @@
  ************************************************************************************/
 
 #include "shareinterface.h"
+#include <QDebug>
 
 struct ShareJobPrivate
 {
-    QJsonArray m_data;
+    QJsonObject m_data;
+    QStringList requiredArguments;
+    QStringList optionalArguments;
 };
 
 ShareJob::ShareJob(QObject* parent)
@@ -34,16 +37,25 @@ ShareJob::~ShareJob()
     delete d_ptr;
 }
 
-QJsonArray ShareJob::data() const
+SharePlugin::~SharePlugin()
+{
+}
+
+QJsonObject ShareJob::data() const
 {
     Q_D(const ShareJob);
     return d->m_data;
 }
 
-void ShareJob::setData(const QJsonArray& data)
+void ShareJob::setData(const QJsonObject& data)
 {
     Q_D(ShareJob);
-    d->m_data = data;
+
+    qDebug() << "datachanged" << data;
+    if (d->m_data != data) {
+        d->m_data = data;
+        emit dataChanged();
+    }
 }
 
 SharePlugin::SharePlugin(QObject* parent)
@@ -51,6 +63,30 @@ SharePlugin::SharePlugin(QObject* parent)
 {
 }
 
-SharePlugin::~SharePlugin()
+bool ShareJob::isReady() const
 {
+    Q_D(const ShareJob);
+    for(const QString& arg: d->requiredArguments + d->optionalArguments) {
+        if(!d->m_data.contains(arg))
+            return false;
+    }
+    return true;
+}
+
+void ShareJob::setAdditionalArguments(const QStringList& args)
+{
+    Q_D(ShareJob);
+    d->optionalArguments = args;
+}
+
+void ShareJob::setMandatoryArguments(const QStringList& args)
+{
+    Q_D(ShareJob);
+    d->requiredArguments = args;
+}
+
+QStringList ShareJob::acceptedArguments() const
+{
+    Q_D(const ShareJob);
+    return d->requiredArguments + d->optionalArguments;
 }

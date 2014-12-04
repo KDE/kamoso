@@ -16,46 +16,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include "../shareinterface.h"
-#include <QDebug>
-#include <QTimer>
-#include <QStandardPaths>
-#include <KPluginFactory>
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.2
 
-EXPORT_SHARE_VERSION
-
-class DummyShareJob : public ShareJob
+ColumnLayout
 {
-    Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : ShareJob(parent) {}
+    id: root
+    property alias destinationPath: destination.text
+    onDestinationPathChanged: {
+        jobDataChanged()
+    }
 
-        virtual void start() override
-        {
-            qWarning() << "xxxxxxxx" << data();
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
+    signal jobDataChanged()
+
+    Label {
+        text: i18n("Dummy export Output: " + root.destinationPath)
+    }
+    TextField {
+        id: destination
+        Layout.fillWidth: true
+
+        text: root.destinationUrl
+        onTextChanged: {
+            root.destinationPath = text
+            console.log("fuuuuuuuuuu", root.destinationPath)
         }
-
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kamoso/share/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
-        }
-};
-
-class Q_DECL_EXPORT DummyPlugin : public SharePlugin
-{
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : SharePlugin(p) {}
-
-        virtual ShareJob* share() const override
-        {
-            return new DummyShareJob(nullptr);
-        }
-};
-
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
-
-#include "dummyplugin.moc"
+    }
+}
