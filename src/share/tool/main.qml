@@ -67,10 +67,30 @@ ApplicationWindow
 
     Component {
         id: shareWizardComponent
-        ShareWizard {
-            onAccepted: {
-                stack.pop()
-                job.start();
+        ColumnLayout {
+            property alias job: wiz.job
+            ShareWizard {
+                id: wiz
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
+            RowLayout {
+                Button {
+                    text: i18n("Run")
+                    enabled: wiz.job.isReady
+                    onClicked: {
+                        stack.pop();
+                        wiz.job.start();
+                    }
+                }
+                Button {
+                    text: i18n("Back")
+                    onClicked: {
+                        stack.pop();
+                        wiz.cancel()
+                    }
+                }
             }
         }
     }

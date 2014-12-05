@@ -17,51 +17,40 @@
  ************************************************************************************/
 
 import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.1
 
-Item {
-    id: root
+Loader {
     property QtObject job
     signal accepted()
 
-    ColumnLayout {
-        anchors.fill: parent
-        Loader {
-            id: loader
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+    function cancel() {
+        job.destroy();
+    }
 
-            Component.onCompleted: {
-                setSource(job.configSourceCode, job.data)
-            }
-            onItemChanged: {
-                for(var i in job.acceptedArguments) {
-                    var arg = job.acceptedArguments[i]
-                    if (arg in loader.item) {
-                        item[arg+"Changed"].connect(dataHasChanged);
-                    } else
-                        console.warn("property not found", arg);
-                }
-            }
+    id: loader
 
-            function dataHasChanged()
-            {
-                var jobData = job.data;
-                for(var i in job.acceptedArguments) {
-                    var arg = job.acceptedArguments[i]
-                    if (arg in loader.item) {
-                        jobData[arg] = loader.item[arg];
-                    } else
-                        console.warn("property not found", arg);
-                }
-                job.data = jobData;
-            }
+    Component.onCompleted: {
+        setSource(job.configSourceCode, job.data)
+    }
+    onItemChanged: {
+        for(var i in job.acceptedArguments) {
+            var arg = job.acceptedArguments[i]
+            if (arg in loader.item) {
+                item[arg+"Changed"].connect(dataHasChanged);
+            } else
+                console.warn("property not found", arg);
         }
-        Button {
-            text: i18n("Run")
-            enabled: root.job.isReady
-            onClicked: root.accepted()
+    }
+
+    function dataHasChanged()
+    {
+        var jobData = job.data;
+        for(var i in job.acceptedArguments) {
+            var arg = job.acceptedArguments[i]
+            if (arg in loader.item) {
+                jobData[arg] = loader.item[arg];
+            } else
+                console.warn("property not found", arg);
         }
+        job.data = jobData;
     }
 }
