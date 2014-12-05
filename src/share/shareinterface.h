@@ -28,12 +28,38 @@
 
 class ShareJobPrivate;
 
+/**
+ * @brief Job that will actually perform the sharing
+ *
+ * When start is called, the sharing process will start and when the job
+ * emits finished, we'll know it's over.
+ */
 class Q_DECL_EXPORT ShareJob : public KJob
 {
 Q_OBJECT
+/**
+ * Represents the data the job will have available to perform its task
+ */
 Q_PROPERTY(QJsonObject data READ data WRITE setData NOTIFY dataChanged)
+
+/**
+ * Tells whether there's still information to be provided, to be able to run
+ * the job.
+ *
+ * @sa X-KamosoShare-MandatoryArguments and X-KamosoShare-AdditionalArguments
+ */
 Q_PROPERTY(bool isReady READ isReady NOTIFY dataChanged)
+
+/**
+ * Specifies the qml source code to be used, to configure the current job.
+ *
+ * @sa ShareWizard qml component
+ */
 Q_PROPERTY(QUrl configSourceCode READ configSourceCode CONSTANT)
+
+/**
+ * Specifies the arguments the config file and the job will be sharing
+ */
 Q_PROPERTY(QStringList acceptedArguments READ acceptedArguments CONSTANT)
 public:
     ShareJob(QObject* parent = 0);
@@ -45,6 +71,11 @@ public:
     bool isReady() const;
     virtual QUrl configSourceCode() const = 0;
 
+    /**
+     * @internal
+     *
+     * Used to set up what arguments the job will be accepting
+     */
     void setAdditionalArguments(const QStringList& args);
     void setMandatoryArguments(const QStringList& args);
 
