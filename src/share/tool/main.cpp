@@ -53,10 +53,12 @@ int main(int argc, char** argv)
     }
 
     QMimeType common;
+    QStringList urls;
     {
         QMimeDatabase db;
         for(const QString& file: files) {
-            QMimeType type = db.mimeTypeForFile(file);
+            const QUrl url = QUrl::fromUserInput(file);
+            QMimeType type = db.mimeTypeForUrl(url);
             if (!common.isValid())
                 common = type;
             else if(common.inherits(type.name())) {
@@ -66,6 +68,7 @@ int main(int argc, char** argv)
             } else {
                 common = db.mimeTypeForName("application/octet-stream");
             }
+            urls += url.toString();
         }
     }
     Q_ASSERT(common.isValid());
@@ -79,7 +82,7 @@ int main(int argc, char** argv)
     decl.setupBindings();
     engine.load(QUrl("qrc:/main.qml"));
     engine.rootObjects().first()->setProperty("mimetype", common.name());
-    engine.rootObjects().first()->setProperty("files", files);
+    engine.rootObjects().first()->setProperty("urls", urls);
 
     return app.exec();
 }
