@@ -10,3 +10,4 @@ function(add_share_plugin name)
 endfunction()
 
 add_subdirectory(dummy)
+add_subdirectory(imgur)
