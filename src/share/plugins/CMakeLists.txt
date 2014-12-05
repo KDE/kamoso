@@ -9,4 +9,4 @@ function(add_share_plugin name)
     endif()
 endfunction()
 
-add_share_plugin(dummyplugin dummyplugin.cpp)
+add_subdirectory(dummy)

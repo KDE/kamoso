@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include "../shareinterface.h"
+#include <shareinterface.h>
 #include <QDebug>
 #include <QTimer>
 #include <QStandardPaths>
