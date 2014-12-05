@@ -45,7 +45,6 @@ StackView {
 
     initialItem: DirectoryView {
         id: view
-        anchors.fill: parent
         onItemClicked: {
             menu.visible = false
             menu.title = path
