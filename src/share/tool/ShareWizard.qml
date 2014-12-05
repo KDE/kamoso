@@ -35,16 +35,25 @@ Item {
             Component.onCompleted: {
                 setSource(job.configSourceCode, job.data)
             }
-        }
-        Connections {
-            target: loader.item
-            onJobDataChanged: {
+            onItemChanged: {
+                for(var i in job.acceptedArguments) {
+                    var arg = job.acceptedArguments[i]
+                    if (arg in loader.item) {
+                        item[arg+"Changed"].connect(dataHasChanged);
+                    } else
+                        console.warn("property not found", arg);
+                }
+            }
+
+            function dataHasChanged()
+            {
                 var jobData = job.data;
                 for(var i in job.acceptedArguments) {
                     var arg = job.acceptedArguments[i]
                     if (arg in loader.item) {
                         jobData[arg] = loader.item[arg];
-                    }
+                    } else
+                        console.warn("property not found", arg);
                 }
                 job.data = jobData;
             }

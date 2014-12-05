@@ -23,11 +23,7 @@ ColumnLayout
 {
     id: root
     property alias destinationPath: destination.text
-    onDestinationPathChanged: {
-        jobDataChanged()
-    }
-
-    signal jobDataChanged()
+    property variant urls
 
     Label {
         text: i18n("Dummy export Output: " + root.destinationPath)
@@ -36,10 +32,8 @@ ColumnLayout
         id: destination
         Layout.fillWidth: true
 
-        text: root.destinationUrl
         onTextChanged: {
             root.destinationPath = text
-            console.log("fuuuuuuuuuu", root.destinationPath)
         }
     }
 }
