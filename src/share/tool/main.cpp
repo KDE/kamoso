@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <KAboutData>
 #include <QCommandLineParser>
 #include <QMimeDatabase>
@@ -29,7 +29,7 @@
 
 int main(int argc, char** argv)
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     KAboutData data("sharetool", i18n("Share Tool"), "1.0", i18n("Share random information"), KAboutLicense::GPL);
     data.addAuthor("Aleix Pol i Gonzalez", i18n("Implementation"), "aleixpol@kde.org");
     KAboutData::setApplicationData(data);
