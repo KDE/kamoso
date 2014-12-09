@@ -119,6 +119,7 @@ ApplicationWindow
                 id: info
 
                 Layout.fillWidth: true
+                onLinkActivated: Qt.openUrlExternally(link)
             }
             ProgressBar {
                 value: runningJobComponent.progress

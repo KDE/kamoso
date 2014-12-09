@@ -30,7 +30,7 @@ StackView {
                     var job = altsModel.createJob(index)
                     job.data = { "urls": [ menu.title ] }
                     if (job.isReady)
-                        job.start()
+                        startShareJob(job)
                     else {
                         stack.push({
                             item: shareWizardComponent,
@@ -54,6 +54,49 @@ StackView {
         }
     }
 
+    function startShareJob(job) {
+        job.start();
+        job.infoMessage.connect(function(job, text, rich) {
+            job.lastLink = text
+            console.log("info...", job.lastLink);
+        });
+        job.result.connect(function(job) {
+            if (!job.lastLink || job.lastLink=="")
+                return;
+            stack.push({
+                item: sharedComponent,
+                properties: { text: job.lastLink }
+            })
+        });
+    }
+
+    Component {
+        id: sharedComponent
+        ColumnLayout {
+            property alias text: field.text
+            TextField {
+                id: field
+                Layout.fillWidth: true
+                readOnly: true
+                focus: true
+                onTextChanged: {
+                    selectAll();
+                    copy();
+                }
+            }
+            Label {
+                Layout.fillHeight: true
+                text: i18n("The URL was just shared")
+            }
+            Button {
+                text: i18n("Back")
+                onClicked: {
+                    stack.pop()
+                }
+            }
+        }
+    }
+
     Component {
         id: shareWizardComponent
         ColumnLayout {
@@ -70,7 +113,7 @@ StackView {
                     enabled: wiz.job.isReady
                     onClicked: {
                         stack.pop();
-                        wiz.job.start();
+                        startShareJob(wiz.job);
                     }
                 }
                 Button {

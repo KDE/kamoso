@@ -48,18 +48,20 @@ class ImgurShareJob : public ShareJob
 
         virtual void start() override
         {
-            m_pendingJobs = 0;
-            QJsonObject urls = data().value("urls").toObject();
+            QJsonArray urls = data().value("urls").toArray();
+            qDebug() << "starting..." << urls;
+            if (urls.isEmpty()) {
+                qWarning() << "no urls to share" << urls << data();
+                emitResult();
+                return;
+            }
+
             for(QJsonValue url: urls) {
                 m_pendingJobs++;
                 KIO::StoredTransferJob* job = KIO::storedGet(QUrl(url.toString()));
                 connect(job, &KJob::finished, this, &ImgurShareJob::fileFetched);
             }
-
-            if (m_pendingJobs==0) {
-                qWarning() << "no urls to share" << urls;
-                emitResult();
-            }
+            Q_ASSERT(m_pendingJobs>0);
         }
 
         void fileFetched(KJob* j)
@@ -84,9 +86,8 @@ class ImgurShareJob : public ShareJob
         }
 
         void imagesUploaded(KJob* job) {
-            QJsonDocument parser;
             QJsonParseError error;
-            QJsonObject resultMap = parser.fromJson(m_resultData, &error).object();
+            QJsonObject resultMap = QJsonDocument::fromJson(m_resultData, &error).object();
             if (job->error()) {
                 setError(job->error());
                 setErrorText(job->errorText());
