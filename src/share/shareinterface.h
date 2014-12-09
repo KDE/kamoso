@@ -53,7 +53,7 @@ Q_PROPERTY(bool isReady READ isReady NOTIFY dataChanged)
 /**
  * Specifies the qml source code to be used, to configure the current job.
  *
- * @sa ShareWizard qml component
+ * @sa ShareWizard QtQuick component
  */
 Q_PROPERTY(QUrl configSourceCode READ configSourceCode CONSTANT)
 
@@ -69,17 +69,27 @@ public:
     QJsonObject data() const;
 
     bool isReady() const;
+    QStringList acceptedArguments() const;
     virtual QUrl configSourceCode() const = 0;
 
     /**
      * @internal
      *
      * Used to set up what arguments the job will be accepting
+     *
+     * @sa X-KamosoShare-AdditionalArguments
      */
     void setAdditionalArguments(const QStringList& args);
+
+    /**
+     * @internal
+     *
+     * Used to set up what arguments the job will need to receive.
+     *
+     * @sa X-KamosoShare-MandatoryArguments
+     */
     void setMandatoryArguments(const QStringList& args);
 
-    QStringList acceptedArguments() const;
 
 Q_SIGNALS:
     void output(const QVariant& output);
