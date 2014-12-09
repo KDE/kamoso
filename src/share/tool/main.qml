@@ -31,7 +31,6 @@ ApplicationWindow
     StackView {
         id: stack
         initialItem: ScrollView {
-            anchors.fill: parent
             ListView {
                 header: Label {
                     text: window.mimetype + " " + window.urls
