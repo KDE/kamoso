@@ -56,6 +56,10 @@ ApplicationWindow
                                     properties: { job: job }
                                 })
                             } else {
+                                stack.push({
+                                    item: runningJobComponent,
+                                    properties: { job: job }
+                                })
                                 job.start()
                             }
                         }
@@ -81,6 +85,10 @@ ApplicationWindow
                     enabled: wiz.job.isReady
                     onClicked: {
                         stack.pop();
+                        stack.push({
+                            item: runningJobComponent,
+                            properties: { job: wiz.job }
+                        })
                         wiz.job.start();
                     }
                 }
@@ -91,6 +99,36 @@ ApplicationWindow
                         wiz.cancel()
                     }
                 }
+            }
+        }
+    }
+    Component {
+        id: runningJobComponent
+        ColumnLayout {
+            property alias job: conn.target
+            Connections {
+                id: conn
+                onInfoMessage: {
+                    info.text = rich
+                }
+                onResult: {
+                    console.log("Job finished:", conn.target, info.text)
+                    stack.pop();
+                }
+            }
+            Label {
+                id: info
+
+                Layout.fillWidth: true
+            }
+            ProgressBar {
+                value: runningJobComponent.progress
+                maximumValue: 100
+                Layout.fillWidth: true
+            }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
             }
         }
     }
