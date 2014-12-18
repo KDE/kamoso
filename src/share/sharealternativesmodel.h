@@ -1,6 +1,5 @@
 /************************************************************************************
- * Copyright (C) 2012 by Rex Dieter <rdieter@fedoraproject.org>                     *
- * Copyright (C) 2012 by Sando Mani <manisandro@gmail.com>                          *
+ * Copyright (C) 2014 Aleix Pol Gonzalez <aleixpol@blue-systems.com>                *
  *                                                                                  *
  * This program is free software; you can redistribute it and/or                    *
  * modify it under the terms of the GNU General Public License                      *
@@ -17,18 +16,46 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#ifndef EXPORTINTERFACE_H
-#define EXPORTINTERFACE_H
+#ifndef SHAREALTERNATIVESMODEL_H
+#define SHAREALTERNATIVESMODEL_H
 
-class KJob;
+#include "shareinterface.h"
+#include <QAbstractListModel>
+#include <KPluginMetaData>
 
-class ExportInterface
+/**
+ * @short Interface for client applications to share data
+ *
+ * Lists all the alternatives to share a specified type of data then provides
+ * a method to trigger a job.
+ */
+class Q_DECL_EXPORT ShareAlternativesModel : public QAbstractListModel
 {
+Q_OBJECT
+Q_PROPERTY(QStringList mimeTypes READ mimeTypes WRITE setMimeTypes NOTIFY mimeTypesChanged);
 public:
+    QStringList mimeTypes() const;
+    void setMimeTypes(const QStringList& mimetype);
 
-    virtual ~ExportInterface() {}
+    /**
+     * This shouldn't require to have the job actually running on the same process as the app.
+     *
+     * @param row specifies the alternative to be used
+     * @param data specifies the data to have shared
+     *
+     * @returns the share job.
+     */
+    Q_SCRIPTABLE ShareJob* createJob(int row);
 
-    virtual KJob* exportFiles(const QString& albumname)=0;
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+
+Q_SIGNALS:
+    void mimeTypesChanged();
+
+private:
+    QVector<KPluginMetaData> m_plugins;
+    QStringList m_mime;
 };
 
-#endif // EXPORTINTERFACE_H
+#endif
