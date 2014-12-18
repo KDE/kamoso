@@ -20,6 +20,7 @@
 
 
 #include "kamoso.h"
+
 #include "settings.h"
 #include "video/webcamcontrol.h"
 #include "devicemanager.h"

@@ -51,6 +51,7 @@ QWidget* PhotoShootMode::mainAction()
     mTrigger->setIconSize(QSize(32,32));
     mTrigger->setToolTip(name());
     mTrigger->setCheckable(true);
+    mTrigger->setShortcut(Qt::Key_WebCam);
 
     connect(controller()->countdown(), SIGNAL(finished()), SLOT(release()));
     connect(mTrigger, SIGNAL(clicked(bool)), this, SLOT(shootClicked(bool)));

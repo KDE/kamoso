@@ -11,8 +11,8 @@ find_package(KF5 REQUIRED COMPONENTS WidgetsAddons Config ConfigWidgets DocTools
 # find_package(Kipi REQUIRED)
 # find_package(Phonon REQUIRED)
 find_package(GLIB2 REQUIRED)
-find_package(GStreamer REQUIRED COMPONENTS base)
-find_package(Qt5GStreamer REQUIRED)
+find_package(GStreamer 1.0.0 REQUIRED COMPONENTS base)
+find_package(Qt5GStreamer 1.1.90 REQUIRED)
 find_package(UDev)
 
 include(KDEInstallDirs)
