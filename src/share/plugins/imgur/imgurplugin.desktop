@@ -3,7 +3,13 @@ Type=Service
 Icon=edit-paste
 Exec=blubb
 Comment=Upload pictures to imgur
+Comment[pt_BR]=Envia imagens para Imgur
+Comment[uk]=Вивантаження зображень на imgur
+Comment[x-test]=xxUpload pictures to imgurxx
 Name=Imgur
+Name[pt_BR]=Imgur
+Name[uk]=Imgur
+Name[x-test]=xxImgurxx
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL

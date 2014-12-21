@@ -3,8 +3,17 @@ Type=Service
 Icon=edit-paste
 Exec=blubb
 Comment=Dummy plugin, to test the shit out of the feature
+Comment[pt_BR]=Plugin para teste da funcionalidade
+Comment[uk]=Фіктивний додаток, призначено для тестування можливості
+Comment[x-test]=xxDummy plugin, to test the shit out of the featurexx
 Name=Dummy
+Name[pt_BR]=Teste
+Name[uk]=Фіктивний
+Name[x-test]=xxDummyxx
 GenericName=Wo
+GenericName[pt_BR]=Olá
+GenericName[uk]=Ух
+GenericName[x-test]=xxWoxx
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
