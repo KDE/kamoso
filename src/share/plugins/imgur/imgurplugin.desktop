@@ -3,11 +3,17 @@ Type=Service
 Icon=edit-paste
 Exec=blubb
 Comment=Upload pictures to imgur
+Comment[nl]=Afbeeldingen uploaden naar imgur
+Comment[pt]=Enviar imagens para o Imgur
 Comment[pt_BR]=Envia imagens para Imgur
+Comment[sk]=Nahrať obrázky na imgur
 Comment[uk]=Вивантаження зображень на imgur
 Comment[x-test]=xxUpload pictures to imgurxx
 Name=Imgur
+Name[nl]=Imgur
+Name[pt]=Imgur
 Name[pt_BR]=Imgur
+Name[sk]=Imgur
 Name[uk]=Imgur
 Name[x-test]=xxImgurxx
 
