@@ -22,13 +22,16 @@ StackView {
             id: inst
             model: ShareAlternativesModel {
                 id: altsModel
-                mimeTypes: view.mimeFilter
+                data: {
+                    "urls": [ menu.title ]
+                    "mimeType": view.mimeFilter
+                }
             }
             MenuItem {
                 text: display
                 onTriggered: {
                     var job = altsModel.createJob(index)
-                    job.data = { "urls": [ menu.title ] }
+
                     if (job.isReady)
                         startShareJob(job)
                     else {

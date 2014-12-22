@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Service
 Icon=edit-paste
-Exec=blubb
 Comment=Dummy plugin, to test the shit out of the feature
 Comment[nl]=Dummy-plug-in, om de rommel uit de functie te testen
 Comment[pt]='Plugin' de testes, para testar as características das funcionalidades
@@ -16,19 +15,11 @@ Name[pt_BR]=Teste
 Name[sk]=Prázdne
 Name[uk]=Фіктивний
 Name[x-test]=xxDummyxx
-GenericName=Wo
-GenericName[nl]=Wo
-GenericName[pt]=Wo
-GenericName[pt_BR]=Olá
-GenericName[sk]=Wo
-GenericName[uk]=Ух
-GenericName[x-test]=xxWoxx
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-MimeType=*
-
-X-KamosoShare-MandatoryArguments=urls
-X-KamosoShare-AdditionalArguments=destinationPath
+X-KamosoShare-Constraints=
+X-KamosoShare-Configuration=destinationPath
+X-KamosoShare-PluginTypes=Export

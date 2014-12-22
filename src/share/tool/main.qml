@@ -38,7 +38,11 @@ ApplicationWindow
 
                 model: ShareAlternativesModel {
                     id: altsModel
-                    mimeTypes: [ window.mimetype ]
+                    pluginType: "Export"
+                    inputData: {
+                        "urls": window.urls,
+                        "mimeType": window.mimetype
+                    }
                 }
                 delegate: RowLayout {
                     Label {
@@ -48,7 +52,6 @@ ApplicationWindow
                         text: i18n("Use")
                         onClicked: {
                             var job = altsModel.createJob(index);
-                            job.data = { "urls": window.urls }
                             if (!job.isReady) {
                                 stack.push({
                                     item: shareWizardComponent,

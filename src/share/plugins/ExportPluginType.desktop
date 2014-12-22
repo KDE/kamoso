@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+Icon=edit-paste
+Comment=Upload pictures to imgur
+Name=Upload...
+
+X-KDE-PluginInfo-Author=Aleix Pol
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Category=Utilities
+
+X-KamosoShare-InboundArguments=urls,mimeType
+X-KamosoShare-OutboundArguments=

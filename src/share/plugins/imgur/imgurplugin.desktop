@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Service
 Icon=edit-paste
-Exec=blubb
 Comment=Upload pictures to imgur
 Comment[nl]=Afbeeldingen uploaden naar imgur
 Comment[pt]=Enviar imagens para o Imgur
@@ -21,6 +20,6 @@ X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-MimeType=image/*
-
-X-KamosoShare-MandatoryArguments=urls
+X-KamosoShare-Constraints=mimeType:image/*
+X-KamosoShare-Configuration=
+X-KamosoShare-PluginTypes=Export

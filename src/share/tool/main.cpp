@@ -24,6 +24,7 @@
 #include <kdeclarative/kdeclarative.h>
 #include <QQmlApplicationEngine>
 #include <QDebug>
+#include <QJsonArray>
 #include "qqml.h"
 #include "sharealternativesmodel.h"
 
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
     }
 
     QMimeType common;
-    QStringList urls;
+    QJsonArray urls;
     {
         QMimeDatabase db;
         for(const QString& file: files) {

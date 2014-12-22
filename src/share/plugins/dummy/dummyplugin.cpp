@@ -32,6 +32,7 @@ class DummyShareJob : public ShareJob
 
         virtual void start() override
         {
+            Q_ASSERT(data().contains("destinationPath"));
             qWarning() << "xxxxxxxx" << data();
             QTimer::singleShot(0, this, [this](){ emitResult(); });
         }

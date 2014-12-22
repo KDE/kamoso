@@ -24,7 +24,7 @@
 #include <QMimeData>
 #include <QUrl>
 
-#define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(1)
+#define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(2)
 
 class ShareJobPrivate;
 
@@ -60,7 +60,7 @@ Q_PROPERTY(QUrl configSourceCode READ configSourceCode CONSTANT)
 /**
  * Specifies the arguments the config file and the job will be sharing
  */
-Q_PROPERTY(QStringList acceptedArguments READ acceptedArguments CONSTANT)
+Q_PROPERTY(QStringList neededArguments READ neededArguments CONSTANT)
 public:
     ShareJob(QObject* parent = 0);
     virtual ~ShareJob();
@@ -69,26 +69,18 @@ public:
     QJsonObject data() const;
 
     bool isReady() const;
-    QStringList acceptedArguments() const;
+    QStringList neededArguments() const;
     virtual QUrl configSourceCode() const = 0;
 
     /**
      * @internal
-     *
-     * Used to set up what arguments the job will be accepting
-     *
-     * @sa X-KamosoShare-AdditionalArguments
      */
-    void setAdditionalArguments(const QStringList& args);
+    void setInboundArguments(const QStringList& args);
 
     /**
      * @internal
-     *
-     * Used to set up what arguments the job will need to receive.
-     *
-     * @sa X-KamosoShare-MandatoryArguments
      */
-    void setMandatoryArguments(const QStringList& args);
+    void setConfigurationArguments(const QStringList& args);
 
 
 Q_SIGNALS:

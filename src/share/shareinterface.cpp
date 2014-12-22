@@ -22,8 +22,8 @@
 struct ShareJobPrivate
 {
     QJsonObject m_data;
-    QStringList requiredArguments;
-    QStringList optionalArguments;
+    QStringList configurationArguments;
+    QStringList inboundArguments;
 };
 
 ShareJob::ShareJob(QObject* parent)
@@ -66,27 +66,27 @@ SharePlugin::SharePlugin(QObject* parent)
 bool ShareJob::isReady() const
 {
     Q_D(const ShareJob);
-    for(const QString& arg: d->requiredArguments + d->optionalArguments) {
+    for(const QString& arg: neededArguments()) {
         if(!d->m_data.contains(arg))
             return false;
     }
     return true;
 }
 
-void ShareJob::setAdditionalArguments(const QStringList& args)
+void ShareJob::setInboundArguments(const QStringList& args)
 {
     Q_D(ShareJob);
-    d->optionalArguments = args;
+    d->inboundArguments = args;
 }
 
-void ShareJob::setMandatoryArguments(const QStringList& args)
+void ShareJob::setConfigurationArguments(const QStringList& args)
 {
     Q_D(ShareJob);
-    d->requiredArguments = args;
+    d->configurationArguments = args;
 }
 
-QStringList ShareJob::acceptedArguments() const
+QStringList ShareJob::neededArguments() const
 {
     Q_D(const ShareJob);
-    return d->requiredArguments + d->optionalArguments;
+    return d->configurationArguments + d->inboundArguments;
 }

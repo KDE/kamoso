@@ -32,8 +32,8 @@ Loader {
         setSource(job.configSourceCode, job.data)
     }
     onItemChanged: {
-        for(var i in job.acceptedArguments) {
-            var arg = job.acceptedArguments[i]
+        for(var i in job.neededArguments) {
+            var arg = job.neededArguments[i]
             if (arg in loader.item) {
                 item[arg+"Changed"].connect(dataHasChanged);
             } else
@@ -44,8 +44,8 @@ Loader {
     function dataHasChanged()
     {
         var jobData = job.data;
-        for(var i in job.acceptedArguments) {
-            var arg = job.acceptedArguments[i]
+        for(var i in job.neededArguments) {
+            var arg = job.neededArguments[i]
             if (arg in loader.item) {
                 jobData[arg] = loader.item[arg];
             } else

@@ -32,10 +32,14 @@
 class Q_DECL_EXPORT ShareAlternativesModel : public QAbstractListModel
 {
 Q_OBJECT
-Q_PROPERTY(QStringList mimeTypes READ mimeTypes WRITE setMimeTypes NOTIFY mimeTypesChanged);
+Q_PROPERTY(QString pluginType READ pluginType WRITE setPluginType NOTIFY pluginTypeChanged);
+Q_PROPERTY(QJsonObject inputData READ inputData WRITE setInputData NOTIFY inputDataChanged);
 public:
-    QStringList mimeTypes() const;
-    void setMimeTypes(const QStringList& mimetype);
+    QJsonObject inputData() const;
+    void setInputData(const QJsonObject& input);
+
+    QString pluginType() const;
+    void setPluginType(const QString& pluginType);
 
     /**
      * This shouldn't require to have the job actually running on the same process as the app.
@@ -51,11 +55,16 @@ public:
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
 Q_SIGNALS:
-    void mimeTypesChanged();
+    void inputDataChanged();
+    void pluginTypeChanged();
 
 private:
+    void initializeModel();
+
     QVector<KPluginMetaData> m_plugins;
-    QStringList m_mime;
+    QJsonObject m_inputData;
+    QString m_pluginType;
+    QJsonObject m_pluginTypeData;
 };
 
 #endif
