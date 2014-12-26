@@ -2,6 +2,7 @@
 Type=Service
 Icon=edit-paste
 Comment=Dummy plugin, to test the shit out of the feature
+Comment[ca]=Connector de simulació, per provar la sortida de les funcionalitats
 Comment[en_GB]=Dummy plugin, to test the shit out of the feature
 Comment[nl]=Dummy-plug-in, om de rommel uit de functie te testen
 Comment[pl]=Fikcyjna wtyczka, do testowana
@@ -11,6 +12,7 @@ Comment[sk]=Prázdny plugin, na vyskúšanie funkcie
 Comment[uk]=Фіктивний додаток, призначено для тестування можливості
 Comment[x-test]=xxDummy plugin, to test the shit out of the featurexx
 Name=Dummy
+Name[ca]=Simulació
 Name[en_GB]=Dummy
 Name[nl]=Dummy
 Name[pl]=Fikcyjna
