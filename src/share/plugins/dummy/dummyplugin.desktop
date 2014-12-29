@@ -9,6 +9,7 @@ Comment[pl]=Fikcyjna wtyczka, do testowana
 Comment[pt]='Plugin' de testes, para testar as características das funcionalidades
 Comment[pt_BR]=Plugin para teste da funcionalidade
 Comment[sk]=Prázdny plugin, na vyskúšanie funkcie
+Comment[sl]=Preizkusni vstavek za podrobno preizkušanje zmožnosti
 Comment[uk]=Фіктивний додаток, призначено для тестування можливості
 Comment[x-test]=xxDummy plugin, to test the shit out of the featurexx
 Name=Dummy
@@ -19,6 +20,7 @@ Name[pl]=Fikcyjna
 Name[pt]=Testes
 Name[pt_BR]=Teste
 Name[sk]=Prázdne
+Name[sl]=Preizkus
 Name[uk]=Фіктивний
 Name[x-test]=xxDummyxx
 
