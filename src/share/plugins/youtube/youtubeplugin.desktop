@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Service
+Icon=edit-paste
+Exec=blubb
+Comment=Upload videos to YouTube
+Name=Imgur
+
+X-KDE-PluginInfo-Author=Aleix Pol
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Category=Utilities
+
+X-KamosoShare-Constraints=mimeType:video/*
+X-KamosoShare-Configuration=videoDesc,videoTitle,videoTags
+
+X-KamosoShare-PluginTypes=Export

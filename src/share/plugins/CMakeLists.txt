@@ -11,3 +11,4 @@ endfunction()
 
 add_subdirectory(dummy)
 add_subdirectory(imgur)
+add_subdirectory(youtube)
