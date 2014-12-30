@@ -10,6 +10,7 @@ Comment[pt]='Plugin' de testes, para testar as características das funcionalida
 Comment[pt_BR]=Plugin para teste da funcionalidade
 Comment[sk]=Prázdny plugin, na vyskúšanie funkcie
 Comment[sl]=Preizkusni vstavek za podrobno preizkušanje zmožnosti
+Comment[sv]=Testinsticksprogram, för att testa skiten ur funktionen
 Comment[uk]=Фіктивний додаток, призначено для тестування можливості
 Comment[x-test]=xxDummy plugin, to test the shit out of the featurexx
 Name=Dummy
@@ -21,6 +22,7 @@ Name[pt]=Testes
 Name[pt_BR]=Teste
 Name[sk]=Prázdne
 Name[sl]=Preizkus
+Name[sv]=Test
 Name[uk]=Фіктивний
 Name[x-test]=xxDummyxx
 
