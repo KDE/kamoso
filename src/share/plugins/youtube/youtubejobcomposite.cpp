@@ -55,7 +55,7 @@ void YoutubeJobComposite::subjobFinished(KJob* subjob)
 
 QUrl YoutubeJobComposite::configSourceCode() const
 {
-    QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kamoso/share/youtubeplugin_config.qml");
+    QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "purpose/youtubeplugin_config.qml");
     Q_ASSERT(!path.isEmpty());
     return QUrl::fromLocalFile(path);
 }

@@ -182,7 +182,7 @@ void AlternativesModel::initializeModel()
 
 //     TODO: allow proper list stuff instead of splitting
     beginResetModel();
-    m_plugins = KPluginLoader::findPlugins("purpose/share/", [this](const KPluginMetaData& meta) {
+    m_plugins = KPluginLoader::findPlugins("purpose", [this](const KPluginMetaData& meta) {
         if(!meta.value("X-Purpose-PluginTypes").split(',').contains(m_pluginType)) {
 //             qDebug() << "discarding" << meta.name() << meta.value("X-Purpose-PluginTypes");
             return false;
