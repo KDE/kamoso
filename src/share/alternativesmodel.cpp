@@ -36,12 +36,22 @@
 
 using namespace Purpose;
 
+class Purpose::AlternativesModelPrivate
+{
+public:
+    QVector<KPluginMetaData> m_plugins;
+    QJsonObject m_inputData;
+    QString m_pluginType;
+    QJsonObject m_pluginTypeData;
+};
+
 void AlternativesModel::setInputData(const QJsonObject &input)
 {
-    if (input == m_inputData)
+    Q_D(AlternativesModel);
+    if (input == d->m_inputData)
         return;
 
-    m_inputData = input;
+    d->m_inputData = input;
     initializeModel();
 
     Q_EMIT inputDataChanged();
@@ -49,7 +59,8 @@ void AlternativesModel::setInputData(const QJsonObject &input)
 
 void AlternativesModel::setPluginType(const QString& pluginType)
 {
-    if (pluginType == m_pluginType)
+    Q_D(AlternativesModel);
+    if (pluginType == d->m_pluginType)
         return;
 
     const QString lookup = QStringLiteral("purpose/types/") + pluginType + QStringLiteral("PluginType.json");
@@ -73,9 +84,9 @@ void AlternativesModel::setPluginType(const QString& pluginType)
 
     Q_ASSERT(doc.isObject());
     QJsonObject typeData = doc.object();
-    m_pluginTypeData = typeData;
-    m_pluginType = pluginType;
-    Q_ASSERT(m_pluginTypeData.isEmpty() == m_pluginType.isEmpty());
+    d->m_pluginTypeData = typeData;
+    d->m_pluginType = pluginType;
+    Q_ASSERT(d->m_pluginTypeData.isEmpty() == d->m_pluginType.isEmpty());
 
     initializeModel();
 
@@ -84,17 +95,20 @@ void AlternativesModel::setPluginType(const QString& pluginType)
 
 QString AlternativesModel::pluginType() const
 {
-    return m_pluginType;
+    Q_D(const AlternativesModel);
+    return d->m_pluginType;
 }
 
 QJsonObject AlternativesModel::inputData() const
 {
-    return m_inputData;
+    Q_D(const AlternativesModel);
+    return d->m_inputData;
 }
 
 Purpose::Job* AlternativesModel::createJob(int row)
 {
-    KPluginMetaData pluginData = m_plugins.at(row);
+    Q_D(AlternativesModel);
+    KPluginMetaData pluginData = d->m_plugins.at(row);
     KPluginLoader loader(pluginData.fileName(), this);
     Purpose::PluginBase* plugin = dynamic_cast<Purpose::PluginBase*>(loader.factory()->create<QObject>(this, QVariantList()));
 
@@ -104,8 +118,8 @@ Purpose::Job* AlternativesModel::createJob(int row)
 
     Purpose::Job* job = plugin->share();
     job->setParent(this);
-    job->setData(m_inputData);
-    job->setConfigurationArguments(m_inputData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts));
+    job->setData(d->m_inputData);
+    job->setConfigurationArguments(d->m_inputData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts));
     job->setInboundArguments(pluginData.value("X-Purpose-Configuration").split(',', QString::SkipEmptyParts));
     connect(job, &Purpose::Job::finished, plugin, &QObject::deleteLater); //TODO only instantiate 1 plugin factory per type
     return job;
@@ -113,15 +127,17 @@ Purpose::Job* AlternativesModel::createJob(int row)
 
 int AlternativesModel::rowCount(const QModelIndex& parent) const
 {
-    return parent.isValid() ? 0 : m_plugins.count();
+    Q_D(const AlternativesModel);
+    return parent.isValid() ? 0 : d->m_plugins.count();
 }
 
 QVariant AlternativesModel::data(const QModelIndex& index, int role) const
 {
-    if (!index.isValid() || index.row()>m_plugins.count())
+    Q_D(const AlternativesModel);
+    if (!index.isValid() || index.row()>d->m_plugins.count())
         return QVariant();
 
-    KPluginMetaData data = m_plugins[index.row()];
+    KPluginMetaData data = d->m_plugins[index.row()];
     switch (role) {
         case Qt::DisplayRole:
             return data.name();
@@ -169,21 +185,22 @@ static QMap<QString, matchFunction> s_matchFunctions = {
 
 void AlternativesModel::initializeModel()
 {
-    if (m_pluginType.isEmpty()) {
+    Q_D(AlternativesModel);
+    if (d->m_pluginType.isEmpty()) {
         return;
     }
-    QStringList inbound = m_pluginTypeData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts);
+    QStringList inbound = d->m_pluginTypeData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts);
     foreach(const QString& arg, inbound) {
-        if(!m_inputData.contains(arg)) {
-            qWarning() << "Cannot initialize model with data" << m_inputData << ". missing:" << arg;
+        if(!d->m_inputData.contains(arg)) {
+            qWarning() << "Cannot initialize model with data" << d->m_inputData << ". missing:" << arg;
             return;
         }
     }
 
 //     TODO: allow proper list stuff instead of splitting. ServiceType support needed in desktop2json
     beginResetModel();
-    m_plugins = KPluginLoader::findPlugins("purpose", [this](const KPluginMetaData& meta) {
-        if(!meta.value("X-Purpose-PluginTypes").split(',').contains(m_pluginType)) {
+    d->m_plugins = KPluginLoader::findPlugins("purpose", [d](const KPluginMetaData& meta) {
+        if(!meta.value("X-Purpose-PluginTypes").split(',').contains(d->m_pluginType)) {
 //             qDebug() << "discarding" << meta.name() << meta.value("X-Purpose-PluginTypes");
             return false;
         }
@@ -199,9 +216,9 @@ void AlternativesModel::initializeModel()
             }
             QString propertyName = match.captured(1);
             QString constrainedValue = match.captured(2);
-            bool acceptable = s_matchFunctions.value(propertyName, defaultMatch)(constrainedValue, m_inputData[propertyName]);
+            bool acceptable = s_matchFunctions.value(propertyName, defaultMatch)(constrainedValue, d->m_inputData[propertyName]);
             if (!acceptable) {
-//                 qDebug() << "not accepted" << meta.name() << propertyName << constrainedValue << m_inputData[propertyName];
+//                 qDebug() << "not accepted" << meta.name() << propertyName << constrainedValue << d->m_inputData[propertyName];
                 return false;
             }
         }

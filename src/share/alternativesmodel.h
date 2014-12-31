@@ -20,11 +20,12 @@
 #define SHAREALTERNATIVESMODEL_H
 
 #include <QAbstractListModel>
-#include <KPluginMetaData>
+#include <QJsonObject>
 
 namespace Purpose
 {
 class Job;
+class AlternativesModelPrivate;
 
 /**
  * @short Interface for client applications to share data
@@ -64,11 +65,7 @@ Q_SIGNALS:
 private:
     void initializeModel();
 
-#warning move into a d-pointer
-    QVector<KPluginMetaData> m_plugins;
-    QJsonObject m_inputData;
-    QString m_pluginType;
-    QJsonObject m_pluginTypeData;
+    Q_DECLARE_PRIVATE(AlternativesModel);
 };
 
 }
