@@ -15,54 +15,16 @@
  * along with this program; if not, write to the Free Software                      *
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
+#ifndef ALTERNATIVESMODELTEST_H
+#define ALTERNATIVESMODELTEST_H
 
-#include <share/job.h>
-#include <share/pluginbase.h>
+#include <QObject>
 
-#include <QDebug>
-#include <QTimer>
-#include <QStandardPaths>
-#include <QFile>
-#include <QJsonDocument>
-#include <KPluginFactory>
-
-EXPORT_SHARE_VERSION
-
-class DummyShareJob : public Purpose::Job
+class AlternativesModelTest : public QObject
 {
     Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : Purpose::Job(parent) {}
-
-        virtual void start() override
-        {
-            QFile f(data().value("destinationPath").toString());
-            bool b = f.open(QIODevice::WriteOnly);
-            Q_ASSERT(b);
-            f.write(QJsonDocument(data()).toJson());
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
-        }
-
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "purpose/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
-        }
+    private Q_SLOTS:
+        void runJobTest();
 };
 
-class Q_DECL_EXPORT DummyPlugin : public Purpose::PluginBase
-{
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : Purpose::PluginBase(p) {}
-
-        virtual Purpose::Job* share() const override
-        {
-            return new DummyShareJob(nullptr);
-        }
-};
-
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
-
-#include "dummyplugin.moc"
+#endif

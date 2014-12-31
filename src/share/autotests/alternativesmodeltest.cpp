@@ -16,53 +16,40 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include <share/job.h>
-#include <share/pluginbase.h>
-
-#include <QDebug>
-#include <QTimer>
+#include <qtest.h>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QStandardPaths>
-#include <QFile>
-#include <QJsonDocument>
-#include <KPluginFactory>
+#include <QSignalSpy>
 
-EXPORT_SHARE_VERSION
+#include "alternativesmodeltest.h"
+#include <share/alternativesmodel.h>
+#include <share/job.h>
 
-class DummyShareJob : public Purpose::Job
+QTEST_MAIN(AlternativesModelTest)
+
+void AlternativesModelTest::runJobTest()
 {
-    Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : Purpose::Job(parent) {}
+    Purpose::AlternativesModel model;
 
-        virtual void start() override
-        {
-            QFile f(data().value("destinationPath").toString());
-            bool b = f.open(QIODevice::WriteOnly);
-            Q_ASSERT(b);
-            f.write(QJsonDocument(data()).toJson());
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
-        }
+    const QString tempfile = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/purposetest";
+    QJsonObject input = QJsonObject {
+        {"urls", QJsonArray {"http://kde.org"} },
+        {"mimeType", "dummy/thing" }
+    };
+    model.setInputData(input);
+    //TODO: should probably make a separate plugin type for testing, at the moment it's not testable without installing
+    model.setPluginType("Export");
+    QCOMPARE(model.rowCount(), 1); //     NOTE: we are assuming this plugin is the dummy plugin
+    Purpose::Job* job = model.createJob(0);
+    QVERIFY(job);
+    QVERIFY(!job->isReady());
+    input.insert("destinationPath", tempfile),
+    job->setData(input);
+    QVERIFY(job->isReady());
+    job->start();
 
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "purpose/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
-        }
-};
-
-class Q_DECL_EXPORT DummyPlugin : public Purpose::PluginBase
-{
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : Purpose::PluginBase(p) {}
-
-        virtual Purpose::Job* share() const override
-        {
-            return new DummyShareJob(nullptr);
-        }
-};
-
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
-
-#include "dummyplugin.moc"
+    QSignalSpy s(job, &KJob::finished);
+    QVERIFY(s.wait());
+    QVERIFY(QFile::remove(tempfile));
+}
