@@ -22,6 +22,7 @@ StackView {
             id: inst
             model: PurposeAlternativesModel {
                 id: altsModel
+                pluginType: "Export"
                 inputData: {
                     "urls": [ menu.title ],
                     "mimeType": view.mimeFilter
@@ -113,7 +114,7 @@ StackView {
             RowLayout {
                 Button {
                     text: i18n("Run")
-                    enabled: wiz.job.isReady
+                    enabled: wiz.job && wiz.job.isReady
                     onClicked: {
                         stack.pop();
                         startShareJob(wiz.job);
