@@ -25,6 +25,7 @@
 #include <QQmlApplicationEngine>
 #include <QDebug>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include "qqml.h"
 #include <share/alternativesmodel.h>
 #include <share/job.h>
@@ -36,10 +37,12 @@ int main(int argc, char** argv)
     data.addAuthor("Aleix Pol i Gonzalez", i18n("Implementation"), "aleixpol@kde.org");
     KAboutData::setApplicationData(data);
 
+    QJsonObject inputData;
     QStringList files;
     {
         QCommandLineParser parser;
         parser.addPositionalArgument("files", i18n("Files to share"), "[files...]");
+        parser.addOption(QCommandLineOption("data", i18n("Data tuple to initialize the process with"), "json"));
 
         data.setupCommandLine(&parser);
         parser.addHelpOption();
@@ -51,6 +54,18 @@ int main(int argc, char** argv)
         if (files.isEmpty()) {
             qCritical() << qPrintable(i18n("Must specify some files to share"));
             parser.showHelp(1);
+        }
+        if (parser.isSet("data")) {
+            QJsonParseError error;
+            QJsonDocument doc = QJsonDocument::fromJson(parser.value("data").toLatin1(), &error);
+            if (error.error) {
+                qCritical() << qPrintable(i18n("Error in the data argument formatting: %1 at %2", error.errorString(), error.offset));
+                parser.showHelp(2);
+            } else if (!doc.isObject()) {
+                qCritical() << qPrintable(i18n("Error in the data argument type, it should be a json object."));
+                parser.showHelp(3);
+            }
+            inputData = doc.object();
         }
     }
 
@@ -83,8 +98,10 @@ int main(int argc, char** argv)
     decl.setDeclarativeEngine(&engine);
     decl.setupBindings();
     engine.load(QUrl("qrc:/main.qml"));
-    engine.rootObjects().first()->setProperty("mimetype", common.name());
-    engine.rootObjects().first()->setProperty("urls", urls);
+
+    inputData.insert("urls", urls);
+    inputData.insert("mimeType", common.name());
+    engine.rootObjects().first()->setProperty("inputData", inputData);
 
     return app.exec();
 }

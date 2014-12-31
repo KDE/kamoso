@@ -25,8 +25,7 @@ ApplicationWindow
 {
     id: window
     visible: true
-    property string mimetype: ""
-    property variant urls: []
+    property alias inputData: altsModel.inputData
 
     StackView {
         id: stack
@@ -39,10 +38,6 @@ ApplicationWindow
                 model: PurposeAlternativesModel {
                     id: altsModel
                     pluginType: "Export"
-                    inputData: {
-                        "urls": window.urls,
-                        "mimeType": window.mimetype
-                    }
                 }
                 delegate: RowLayout {
                     Label {
