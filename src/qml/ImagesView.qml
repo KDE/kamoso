@@ -22,8 +22,8 @@ StackView {
             id: inst
             model: PurposeAlternativesModel {
                 id: altsModel
-                data: {
-                    "urls": [ menu.title ]
+                inputData: {
+                    "urls": [ menu.title ],
                     "mimeType": view.mimeFilter
                 }
             }
