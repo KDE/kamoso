@@ -39,6 +39,9 @@ Q_OBJECT
 Q_PROPERTY(QString pluginType READ pluginType WRITE setPluginType NOTIFY pluginTypeChanged);
 Q_PROPERTY(QJsonObject inputData READ inputData WRITE setInputData NOTIFY inputDataChanged);
 public:
+    AlternativesModel(QObject* parent = Q_NULLPTR);
+    virtual ~AlternativesModel();
+
     QJsonObject inputData() const;
     void setInputData(const QJsonObject& input);
 
@@ -65,6 +68,7 @@ Q_SIGNALS:
 private:
     void initializeModel();
 
+    AlternativesModelPrivate *const d_ptr;
     Q_DECLARE_PRIVATE(AlternativesModel);
 };
 

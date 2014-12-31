@@ -45,6 +45,18 @@ public:
     QJsonObject m_pluginTypeData;
 };
 
+AlternativesModel::AlternativesModel(QObject* parent)
+    : QAbstractListModel(parent)
+    , d_ptr(new AlternativesModelPrivate)
+{
+}
+
+AlternativesModel::~AlternativesModel()
+{
+    Q_D(AlternativesModel);
+    delete d;
+}
+
 void AlternativesModel::setInputData(const QJsonObject &input)
 {
     Q_D(AlternativesModel);
@@ -189,6 +201,8 @@ void AlternativesModel::initializeModel()
     if (d->m_pluginType.isEmpty()) {
         return;
     }
+
+#warning allow proper list stuff instead of splitting. ServiceType support needed in desktop2json
     QStringList inbound = d->m_pluginTypeData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts);
     foreach(const QString& arg, inbound) {
         if(!d->m_inputData.contains(arg)) {
@@ -197,7 +211,6 @@ void AlternativesModel::initializeModel()
         }
     }
 
-//     TODO: allow proper list stuff instead of splitting. ServiceType support needed in desktop2json
     beginResetModel();
     d->m_plugins = KPluginLoader::findPlugins("purpose", [d](const KPluginMetaData& meta) {
         if(!meta.value("X-Purpose-PluginTypes").split(',').contains(d->m_pluginType)) {
