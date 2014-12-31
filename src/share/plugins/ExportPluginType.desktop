@@ -28,8 +28,6 @@ Name[sv]=Ladda upp...
 Name[uk]=Вивантажити…
 Name[x-test]=xxUpload...xx
 
-X-KDE-PluginInfo-Author=Aleix Pol
-X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
 X-Purpose-InboundArguments=urls,mimeType

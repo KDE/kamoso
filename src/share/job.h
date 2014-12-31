@@ -34,6 +34,12 @@ class JobPrivate;
  *
  * When start is called, the sharing process will start and when the job
  * emits finished, we'll know it's over.
+ *
+ * The start method called shouldn't be called before all data has been
+ * filled in. isReady can be used to check whether it's all ready to go,
+ * these arguments will have to be filled by the file provided by
+ * configSourceCode() and should end up defining all the arguments defined
+ * by neededArguments.
  */
 class Q_DECL_EXPORT Job : public KJob
 {

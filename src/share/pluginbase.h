@@ -27,22 +27,34 @@
 namespace Purpose
 {
 
-/// only to be used in plugin implementations
+/**
+ * @brief Base class to implement by plugins
+ *
+ * This file shouldn't be included by any application.
+ *
+ * The plugin properties should be specified in the .desktop/.json file.
+ *
+ * There will be 2 files specifying the behavior of the plugin: the *PluginType.json
+ * files and the plugin metadata itself.
+ *
+ * The plugin type will be identified by the file name. It will specify:
+ *  - X-Purpose-InboundArguments defines the arguments the application must provide.
+ *  - X-Purpose-OutboundArguments defines the arguments the plugin must provide by
+ * the end of the execution.
+ *
+ * In the plugin metadata we will define:
+ *  - X-Purpose-PluginTypes defines the purposes tackled by the plugin
+ *  - X-Purpose-Constraints defines some conditions under the plugin is useful, considering
+ * the provided inboundArguments. For example, the youtube export plugin will specify
+ * mimeType:video/* as a constraint, because it's not interested in uploading images.
+ *  - X-Purpose-Configuration provides a list of extra arguments that the plugin will need.
+ * Ideally everything should be in the plugin type but sometimes we can only wish. This allows
+ * the opportunity to the application to let the user add the missing data.
+ */
 class Q_DECL_EXPORT PluginBase : public QObject
 {
 Q_OBJECT
 public:
-#warning Update API documentation
-    /**
-     * The plugin properties should be specified in the .desktop/.json file.
-     *
-     * There we will specify under what circumstances the plugin is useful.
-     * Fields:
-     *  - X-Purpose-MimeType defines the accepted mimetype files (default ("*")
-     *  - X-Purpose-RequiredArguments defines the arguments the application needs to provide so the plugin is available (default "Urls")
-     *  - X-Purpose-AdditionalArguments defines the arguments the plugin can take, if not filled the plugin will request interaction with ::needInteraction(QUrl) signal.
-     */
-
     PluginBase(QObject* parent = nullptr);
     virtual ~PluginBase();
 
