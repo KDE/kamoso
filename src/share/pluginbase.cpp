@@ -16,77 +16,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include "shareinterface.h"
-#include <QDebug>
+#include "pluginbase.h"
 
-struct ShareJobPrivate
-{
-    QJsonObject m_data;
-    QStringList configurationArguments;
-    QStringList inboundArguments;
-};
+using namespace Purpose;
 
-ShareJob::ShareJob(QObject* parent)
-    : KJob(parent)
-    , d_ptr(new ShareJobPrivate)
-{
-}
-
-ShareJob::~ShareJob()
-{
-    delete d_ptr;
-}
-
-SharePlugin::~SharePlugin()
-{
-}
-
-QJsonObject ShareJob::data() const
-{
-    Q_D(const ShareJob);
-    return d->m_data;
-}
-
-void ShareJob::setData(const QJsonObject& data)
-{
-    Q_D(ShareJob);
-
-    qDebug() << "datachanged" << data;
-    if (d->m_data != data) {
-        d->m_data = data;
-        emit dataChanged();
-    }
-}
-
-SharePlugin::SharePlugin(QObject* parent)
+PluginBase::PluginBase(QObject* parent)
     : QObject(parent)
 {
 }
 
-bool ShareJob::isReady() const
+PluginBase::~PluginBase()
 {
-    Q_D(const ShareJob);
-    for(const QString& arg: neededArguments()) {
-        if(!d->m_data.contains(arg))
-            return false;
-    }
-    return true;
-}
-
-void ShareJob::setInboundArguments(const QStringList& args)
-{
-    Q_D(ShareJob);
-    d->inboundArguments = args;
-}
-
-void ShareJob::setConfigurationArguments(const QStringList& args)
-{
-    Q_D(ShareJob);
-    d->configurationArguments = args;
-}
-
-QStringList ShareJob::neededArguments() const
-{
-    Q_D(const ShareJob);
-    return d->configurationArguments + d->inboundArguments;
 }

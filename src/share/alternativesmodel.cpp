@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include "sharealternativesmodel.h"
+#include "alternativesmodel.h"
 #include <QMimeType>
 #include <QMimeDatabase>
 #include <QList>
@@ -31,7 +31,12 @@
 #include <QJsonArray>
 #include <QRegularExpression>
 
-void ShareAlternativesModel::setInputData(const QJsonObject &input)
+#include "pluginbase.h"
+#include "job.h"
+
+using namespace Purpose;
+
+void AlternativesModel::setInputData(const QJsonObject &input)
 {
     if (input == m_inputData)
         return;
@@ -42,13 +47,12 @@ void ShareAlternativesModel::setInputData(const QJsonObject &input)
     Q_EMIT inputDataChanged();
 }
 
-void ShareAlternativesModel::setPluginType(const QString& pluginType)
+void AlternativesModel::setPluginType(const QString& pluginType)
 {
     if (pluginType == m_pluginType)
         return;
 
-#warning rename kamoso -> framework name
-    const QString lookup = QStringLiteral("kamoso/types/") + pluginType + QStringLiteral("PluginType.json");
+    const QString lookup = QStringLiteral("purpose/types/") + pluginType + QStringLiteral("PluginType.json");
     const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, lookup);
     if (path.isEmpty()) {
         qWarning() << "Couldn't find" << lookup;
@@ -78,41 +82,41 @@ void ShareAlternativesModel::setPluginType(const QString& pluginType)
     Q_EMIT pluginTypeChanged();
 }
 
-QString ShareAlternativesModel::pluginType() const
+QString AlternativesModel::pluginType() const
 {
     return m_pluginType;
 }
 
-QJsonObject ShareAlternativesModel::inputData() const
+QJsonObject AlternativesModel::inputData() const
 {
     return m_inputData;
 }
 
-ShareJob* ShareAlternativesModel::createJob(int row)
+Purpose::Job* AlternativesModel::createJob(int row)
 {
     KPluginMetaData pluginData = m_plugins.at(row);
     KPluginLoader loader(pluginData.fileName(), this);
-    SharePlugin* plugin = dynamic_cast<SharePlugin*>(loader.factory()->create<QObject>(this, QVariantList()));
+    Purpose::PluginBase* plugin = dynamic_cast<Purpose::PluginBase*>(loader.factory()->create<QObject>(this, QVariantList()));
 
     if (!plugin) {
         qWarning() << "Couldn't load plugin:" << pluginData.fileName() << loader.errorString();
     }
 
-    ShareJob* job = plugin->share();
+    Purpose::Job* job = plugin->share();
     job->setParent(this);
     job->setData(m_inputData);
-    job->setConfigurationArguments(m_inputData.value("X-KamosoShare-InboundArguments").toString().split(',', QString::SkipEmptyParts));
-    job->setInboundArguments(pluginData.value("X-KamosoShare-Configuration").split(',', QString::SkipEmptyParts));
-    connect(job, &ShareJob::finished, plugin, &QObject::deleteLater); //TODO only instantiate 1 plugin factory per type
+    job->setConfigurationArguments(m_inputData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts));
+    job->setInboundArguments(pluginData.value("X-Purpose-Configuration").split(',', QString::SkipEmptyParts));
+    connect(job, &Purpose::Job::finished, plugin, &QObject::deleteLater); //TODO only instantiate 1 plugin factory per type
     return job;
 }
 
-int ShareAlternativesModel::rowCount(const QModelIndex& parent) const
+int AlternativesModel::rowCount(const QModelIndex& parent) const
 {
     return parent.isValid() ? 0 : m_plugins.count();
 }
 
-QVariant ShareAlternativesModel::data(const QModelIndex& index, int role) const
+QVariant AlternativesModel::data(const QModelIndex& index, int role) const
 {
     if (!index.isValid() || index.row()>m_plugins.count())
         return QVariant();
@@ -157,12 +161,12 @@ static QMap<QString, matchFunction> s_matchFunctions = {
     { QStringLiteral("mimeType"), mimeTypeMatch }
 };
 
-void ShareAlternativesModel::initializeModel()
+void AlternativesModel::initializeModel()
 {
     if (m_pluginType.isEmpty()) {
         return;
     }
-    QStringList inbound = m_pluginTypeData.value("X-KamosoShare-InboundArguments").toString().split(',', QString::SkipEmptyParts);
+    QStringList inbound = m_pluginTypeData.value("X-Purpose-InboundArguments").toString().split(',', QString::SkipEmptyParts);
     foreach(const QString& arg, inbound) {
         if(!m_inputData.contains(arg)) {
             qWarning() << "Cannot initialize model with data" << m_inputData << ". missing:" << arg;
@@ -172,13 +176,13 @@ void ShareAlternativesModel::initializeModel()
 
 //     TODO: allow proper list stuff instead of splitting
     beginResetModel();
-    m_plugins = KPluginLoader::findPlugins("kamoso/share/", [this](const KPluginMetaData& meta) {
-        if(!meta.value("X-KamosoShare-PluginTypes").split(',').contains(m_pluginType)) {
-//             qDebug() << "discarding" << meta.name() << meta.value("X-KamosoShare-PluginTypes");
+    m_plugins = KPluginLoader::findPlugins("purpose/share/", [this](const KPluginMetaData& meta) {
+        if(!meta.value("X-Purpose-PluginTypes").split(',').contains(m_pluginType)) {
+//             qDebug() << "discarding" << meta.name() << meta.value("X-Purpose-PluginTypes");
             return false;
         }
 
-        QStringList constraints = meta.value("X-KamosoShare-Constraints").split(',', QString::SkipEmptyParts);
+        QStringList constraints = meta.value("X-Purpose-Constraints").split(',', QString::SkipEmptyParts);
         for(const QString& constraint: constraints) {
             static const QRegularExpression constraintRx("(\\w+):(.*)");
             Q_ASSERT(constraintRx.isValid());

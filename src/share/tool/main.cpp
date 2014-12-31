@@ -26,7 +26,8 @@
 #include <QDebug>
 #include <QJsonArray>
 #include "qqml.h"
-#include "sharealternativesmodel.h"
+#include <share/alternativesmodel.h>
+#include <share/job.h>
 
 int main(int argc, char** argv)
 {
@@ -74,8 +75,8 @@ int main(int argc, char** argv)
     }
     Q_ASSERT(common.isValid());
 
-    qmlRegisterType<ShareAlternativesModel>("org.kde.kamoso.share", 3, 0, "ShareAlternativesModel");
-    qmlRegisterUncreatableType<ShareJob>("org.kde.kamoso.share", 3, 0, "ShareJob", "You're not supposed to mess with this yo");
+    qmlRegisterType<Purpose::AlternativesModel>("org.kde.purpose", 1, 0, "PurposeAlternativesModel");
+    qmlRegisterUncreatableType<Purpose::Job>("org.kde.purpose", 1, 0, "PurposeJob", "You're not supposed to mess with this yo");
 
     QQmlApplicationEngine engine;
     KDeclarative::KDeclarative decl;

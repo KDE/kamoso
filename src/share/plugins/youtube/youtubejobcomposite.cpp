@@ -24,7 +24,7 @@
 #include <QStandardPaths>
 
 YoutubeJobComposite::YoutubeJobComposite()
-    : ShareJob()
+    : Purpose::Job()
 {
 }
 

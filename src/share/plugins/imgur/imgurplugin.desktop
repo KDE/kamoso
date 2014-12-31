@@ -32,6 +32,6 @@ X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-Constraints=mimeType:image/*
-X-KamosoShare-Configuration=
-X-KamosoShare-PluginTypes=Export
+X-Purpose-Constraints=mimeType:image/*
+X-Purpose-Configuration=
+X-Purpose-PluginTypes=Export

@@ -30,7 +30,7 @@ add_executable(qmloso
 target_link_libraries(qmloso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
     KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::I18n
-    KamosoShare
+    Purpose
     Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
     ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES} ${UDEV_LIBS}
 )

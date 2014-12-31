@@ -24,15 +24,15 @@
 #include <QUrl>
 #include <kwallet.h>
 #include <KIO/Job>
-#include <shareinterface.h>
+#include <share/pluginbase.h>
 
-class YoutubePlugin : public SharePlugin
+class YoutubePlugin : public Purpose::PluginBase
 {
     Q_OBJECT
     public:
         YoutubePlugin(QObject* parent, const QVariantList& args);
 
-        virtual ShareJob* share() const override;
+        virtual Purpose::Job* share() const override;
 };
 
 #endif /* KIPIPLUGIN_YOUTUBE_H */

@@ -24,9 +24,10 @@
 #include <QMimeData>
 #include <QUrl>
 
-#define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(2)
+namespace Purpose
+{
 
-class ShareJobPrivate;
+class JobPrivate;
 
 /**
  * @brief Job that will actually perform the sharing
@@ -34,7 +35,7 @@ class ShareJobPrivate;
  * When start is called, the sharing process will start and when the job
  * emits finished, we'll know it's over.
  */
-class Q_DECL_EXPORT ShareJob : public KJob
+class Q_DECL_EXPORT Job : public KJob
 {
 Q_OBJECT
 /**
@@ -46,7 +47,7 @@ Q_PROPERTY(QJsonObject data READ data WRITE setData NOTIFY dataChanged)
  * Tells whether there's still information to be provided, to be able to run
  * the job.
  *
- * @sa X-KamosoShare-MandatoryArguments and X-KamosoShare-AdditionalArguments
+ * @sa X-Purpose-MandatoryArguments and X-Purpose-AdditionalArguments
  */
 Q_PROPERTY(bool isReady READ isReady NOTIFY dataChanged)
 
@@ -62,8 +63,8 @@ Q_PROPERTY(QUrl configSourceCode READ configSourceCode CONSTANT)
  */
 Q_PROPERTY(QStringList neededArguments READ neededArguments CONSTANT)
 public:
-    ShareJob(QObject* parent = 0);
-    virtual ~ShareJob();
+    Job(QObject* parent = 0);
+    virtual ~Job();
 
     void setData(const QJsonObject& data);
     QJsonObject data() const;
@@ -88,31 +89,10 @@ Q_SIGNALS:
     void dataChanged();
 
 private:
-    Q_DECLARE_PRIVATE(ShareJob);
-    ShareJobPrivate *const d_ptr;
+    Q_DECLARE_PRIVATE(Job);
+    JobPrivate *const d_ptr;
 };
 
-class Q_DECL_EXPORT SharePlugin : public QObject
-{
-Q_OBJECT
-public:
-    /**
-     * The plugin properties should be specified in the .desktop/.json file.
-     *
-     * There we will specify under what circumstances the plugin is useful.
-     * Fields:
-     *  - X-KamosoShare-MimeType defines the accepted mimetype files (default ("*")
-     *  - X-KamosoShare-RequiredArguments defines the arguments the application needs to provide so the plugin is available (default "Urls")
-     *  - X-KamosoShare-AdditionalArguments defines the arguments the plugin can take, if not filled the plugin will request interaction with ::needInteraction(QUrl) signal.
-     */
-
-    SharePlugin(QObject* parent = nullptr);
-    virtual ~SharePlugin();
-
-    /** @returns the job that will perform the share of the specified @p data.*/
-    virtual ShareJob* share() const = 0;
-};
-
-Q_DECLARE_INTERFACE(SharePlugin, "org.kde.kamoso.share")
+}
 
 #endif

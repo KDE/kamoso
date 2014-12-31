@@ -16,49 +16,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include <share/job.h>
-#include <share/pluginbase.h>
+#ifndef PURPOSE_PLUGINBASE_H
+#define PURPOSE_PLUGINBASE_H
 
-#include <QDebug>
-#include <QTimer>
-#include <QStandardPaths>
-#include <KPluginFactory>
+#include <QObject>
+#include "job.h"
 
-EXPORT_SHARE_VERSION
+#define EXPORT_SHARE_VERSION K_EXPORT_PLUGIN_VERSION(2)
 
-class DummyShareJob : public Purpose::Job
+namespace Purpose
 {
-    Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : Purpose::Job(parent) {}
 
-        virtual void start() override
-        {
-            Q_ASSERT(data().contains("destinationPath"));
-            qWarning() << "xxxxxxxx" << data();
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
-        }
+/// only to be used in plugin implementations
+class Q_DECL_EXPORT PluginBase : public QObject
+{
+Q_OBJECT
+public:
+#warning Update API documentation
+    /**
+     * The plugin properties should be specified in the .desktop/.json file.
+     *
+     * There we will specify under what circumstances the plugin is useful.
+     * Fields:
+     *  - X-Purpose-MimeType defines the accepted mimetype files (default ("*")
+     *  - X-Purpose-RequiredArguments defines the arguments the application needs to provide so the plugin is available (default "Urls")
+     *  - X-Purpose-AdditionalArguments defines the arguments the plugin can take, if not filled the plugin will request interaction with ::needInteraction(QUrl) signal.
+     */
 
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kamoso/share/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
-        }
+    PluginBase(QObject* parent = nullptr);
+    virtual ~PluginBase();
+
+    /** @returns the job that will perform the share of the specified @p data.*/
+    virtual Job* share() const = 0;
 };
 
-class Q_DECL_EXPORT DummyPlugin : public Purpose::PluginBase
-{
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : Purpose::PluginBase(p) {}
+}
 
-        virtual Purpose::Job* share() const override
-        {
-            return new DummyShareJob(nullptr);
-        }
-};
+Q_DECLARE_INTERFACE(Purpose::PluginBase, "org.kde.purpose")
 
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
-
-#include "dummyplugin.moc"
+#endif

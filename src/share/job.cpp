@@ -16,49 +16,70 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include <share/job.h>
-#include <share/pluginbase.h>
-
+#include "job.h"
 #include <QDebug>
-#include <QTimer>
-#include <QStandardPaths>
-#include <KPluginFactory>
 
-EXPORT_SHARE_VERSION
+using namespace Purpose;
 
-class DummyShareJob : public Purpose::Job
+struct Purpose::JobPrivate
 {
-    Q_OBJECT
-    public:
-        DummyShareJob(QObject* parent) : Purpose::Job(parent) {}
-
-        virtual void start() override
-        {
-            Q_ASSERT(data().contains("destinationPath"));
-            qWarning() << "xxxxxxxx" << data();
-            QTimer::singleShot(0, this, [this](){ emitResult(); });
-        }
-
-        virtual QUrl configSourceCode() const override
-        {
-            QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kamoso/share/dummyplugin_config.qml");
-            Q_ASSERT(!path.isEmpty());
-            return QUrl::fromLocalFile(path);
-        }
+    QJsonObject m_data;
+    QStringList configurationArguments;
+    QStringList inboundArguments;
 };
 
-class Q_DECL_EXPORT DummyPlugin : public Purpose::PluginBase
+Job::Job(QObject* parent)
+    : KJob(parent)
+    , d_ptr(new JobPrivate)
 {
-    Q_OBJECT
-    public:
-        DummyPlugin(QObject* p, const QVariantList& ) : Purpose::PluginBase(p) {}
+}
 
-        virtual Purpose::Job* share() const override
-        {
-            return new DummyShareJob(nullptr);
-        }
-};
+Job::~Job()
+{
+    delete d_ptr;
+}
 
-K_PLUGIN_FACTORY_WITH_JSON(DummyShare, "dummyplugin.json", registerPlugin<DummyPlugin>();)
+QJsonObject Job::data() const
+{
+    Q_D(const Job);
+    return d->m_data;
+}
 
-#include "dummyplugin.moc"
+void Job::setData(const QJsonObject& data)
+{
+    Q_D(Job);
+
+    qDebug() << "datachanged" << data;
+    if (d->m_data != data) {
+        d->m_data = data;
+        emit dataChanged();
+    }
+}
+
+bool Job::isReady() const
+{
+    Q_D(const Job);
+    for(const QString& arg: neededArguments()) {
+        if(!d->m_data.contains(arg))
+            return false;
+    }
+    return true;
+}
+
+void Job::setInboundArguments(const QStringList& args)
+{
+    Q_D(Job);
+    d->inboundArguments = args;
+}
+
+void Job::setConfigurationArguments(const QStringList& args)
+{
+    Q_D(Job);
+    d->configurationArguments = args;
+}
+
+QStringList Job::neededArguments() const
+{
+    Q_D(const Job);
+    return d->configurationArguments + d->inboundArguments;
+}

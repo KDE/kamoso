@@ -22,9 +22,9 @@
 
 #include <KCompositeJob>
 #include "youtubejob.h"
-#include <shareinterface.h>
+#include <share/job.h>
 
-class YoutubeJobComposite : public ShareJob
+class YoutubeJobComposite : public Purpose::Job
 {
 public:
     YoutubeJobComposite();

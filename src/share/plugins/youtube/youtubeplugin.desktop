@@ -21,7 +21,7 @@ X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-Constraints=mimeType:video/*
-X-KamosoShare-Configuration=videoDesc,videoTitle,videoTags
+X-Purpose-Constraints=mimeType:video/*
+X-Purpose-Configuration=videoDesc,videoTitle,videoTags
 
-X-KamosoShare-PluginTypes=Export
+X-Purpose-PluginTypes=Export

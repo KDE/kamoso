@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  ************************************************************************************/
 
-#include <shareinterface.h>
+#include <share/pluginbase.h>
 #include "mpform.h"
 #include <QDebug>
 #include <QTimer>
@@ -37,12 +37,12 @@ EXPORT_SHARE_VERSION
 static const QString apiKey = QStringLiteral("d0757bc2e94a0d4652f28079a0be9379");
 static const QUrl imgurUrl("https://api.imgur.com/2/upload.json?key="+apiKey);
 
-class ImgurShareJob : public ShareJob
+class ImgurShareJob : public Purpose::Job
 {
     Q_OBJECT
     public:
         ImgurShareJob(QObject* parent)
-            : ShareJob(parent)
+            : Purpose::Job(parent)
             , m_pendingJobs(0)
         {}
 
@@ -118,13 +118,13 @@ class ImgurShareJob : public ShareJob
         QByteArray m_resultData;
 };
 
-class Q_DECL_EXPORT ImgurPlugin : public SharePlugin
+class Q_DECL_EXPORT ImgurPlugin : public Purpose::PluginBase
 {
     Q_OBJECT
     public:
-        ImgurPlugin(QObject* p, const QVariantList& ) : SharePlugin(p) {}
+        ImgurPlugin(QObject* p, const QVariantList& ) : Purpose::PluginBase(p) {}
 
-        virtual ShareJob* share() const override
+        virtual Purpose::Job* share() const override
         {
             return new ImgurShareJob(nullptr);
         }

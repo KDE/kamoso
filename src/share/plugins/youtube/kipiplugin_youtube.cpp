@@ -39,12 +39,12 @@ K_PLUGIN_FACTORY_WITH_JSON(YoutubeShare, "youtubeplugin.json", registerPlugin<Yo
 EXPORT_SHARE_VERSION
 
 YoutubePlugin::YoutubePlugin(QObject* parent, const QVariantList& args)
-    : SharePlugin(parent)
+    : Purpose::PluginBase(parent)
 {
     Q_UNUSED(args);
 }
 
-ShareJob* YoutubePlugin::share() const
+Purpose::Job* YoutubePlugin::share() const
 {
     return new YoutubeJobComposite;
 }

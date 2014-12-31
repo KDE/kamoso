@@ -32,5 +32,5 @@ X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-InboundArguments=urls,mimeType
-X-KamosoShare-OutboundArguments=
+X-Purpose-InboundArguments=urls,mimeType
+X-Purpose-OutboundArguments=

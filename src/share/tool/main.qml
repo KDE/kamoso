@@ -19,7 +19,7 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
-import org.kde.kamoso.share 3.0
+import org.kde.purpose 1.0
 
 ApplicationWindow
 {
@@ -36,7 +36,7 @@ ApplicationWindow
                     text: window.mimetype + " " + window.urls
                 }
 
-                model: ShareAlternativesModel {
+                model: PurposeAlternativesModel {
                     id: altsModel
                     pluginType: "Export"
                     inputData: {

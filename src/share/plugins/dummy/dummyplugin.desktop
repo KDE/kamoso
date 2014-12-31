@@ -30,6 +30,6 @@ X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Category=Utilities
 
-X-KamosoShare-Constraints=
-X-KamosoShare-Configuration=destinationPath
-X-KamosoShare-PluginTypes=Export
+X-Purpose-Constraints=
+X-Purpose-Configuration=destinationPath
+X-Purpose-PluginTypes=Export

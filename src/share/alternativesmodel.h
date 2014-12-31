@@ -19,9 +19,12 @@
 #ifndef SHAREALTERNATIVESMODEL_H
 #define SHAREALTERNATIVESMODEL_H
 
-#include "shareinterface.h"
 #include <QAbstractListModel>
 #include <KPluginMetaData>
+
+namespace Purpose
+{
+class Job;
 
 /**
  * @short Interface for client applications to share data
@@ -29,7 +32,7 @@
  * Lists all the alternatives to share a specified type of data then provides
  * a method to trigger a job.
  */
-class Q_DECL_EXPORT ShareAlternativesModel : public QAbstractListModel
+class Q_DECL_EXPORT AlternativesModel : public QAbstractListModel
 {
 Q_OBJECT
 Q_PROPERTY(QString pluginType READ pluginType WRITE setPluginType NOTIFY pluginTypeChanged);
@@ -49,7 +52,7 @@ public:
      *
      * @returns the share job.
      */
-    Q_SCRIPTABLE ShareJob* createJob(int row);
+    Q_SCRIPTABLE Purpose::Job* createJob(int row);
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -61,10 +64,13 @@ Q_SIGNALS:
 private:
     void initializeModel();
 
+#warning move into a d-pointer
     QVector<KPluginMetaData> m_plugins;
     QJsonObject m_inputData;
     QString m_pluginType;
     QJsonObject m_pluginTypeData;
 };
+
+}
 
 #endif
