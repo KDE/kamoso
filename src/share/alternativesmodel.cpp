@@ -180,7 +180,7 @@ void AlternativesModel::initializeModel()
         }
     }
 
-//     TODO: allow proper list stuff instead of splitting
+//     TODO: allow proper list stuff instead of splitting. ServiceType support needed in desktop2json
     beginResetModel();
     m_plugins = KPluginLoader::findPlugins("purpose", [this](const KPluginMetaData& meta) {
         if(!meta.value("X-Purpose-PluginTypes").split(',').contains(m_pluginType)) {
@@ -188,7 +188,7 @@ void AlternativesModel::initializeModel()
             return false;
         }
 
-        QStringList constraints = meta.value("X-Purpose-Constraints").split(',', QString::SkipEmptyParts);
+        const QStringList constraints = meta.value("X-Purpose-Constraints").split(',', QString::SkipEmptyParts);
         for(const QString& constraint: constraints) {
             static const QRegularExpression constraintRx("(\\w+):(.*)");
             Q_ASSERT(constraintRx.isValid());
@@ -201,7 +201,7 @@ void AlternativesModel::initializeModel()
             QString constrainedValue = match.captured(2);
             bool acceptable = s_matchFunctions.value(propertyName, defaultMatch)(constrainedValue, m_inputData[propertyName]);
             if (!acceptable) {
-//                 qDebug() << "not accepted" << meta.name() << propertyName << constrainedValue << constraint;
+//                 qDebug() << "not accepted" << meta.name() << propertyName << constrainedValue << m_inputData[propertyName];
                 return false;
             }
         }
