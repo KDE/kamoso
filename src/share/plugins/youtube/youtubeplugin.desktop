@@ -3,6 +3,7 @@ Type=Service
 Icon=edit-paste
 Exec=blubb
 Comment=Upload videos to YouTube
+Comment[ca]=Puja vídeos a YouTube
 Comment[cs]=Odeslat videa na YouTube
 Comment[de]=Videos auf YouTube hochladen
 Comment[fi]=Lähettää videot YouTubeen
