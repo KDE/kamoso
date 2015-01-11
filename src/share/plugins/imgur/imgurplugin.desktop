@@ -18,6 +18,7 @@ Comment[sv]=Ladda upp bilder till imgur
 Comment[tr]=Resimleri imgur sunucusuna gönder
 Comment[uk]=Вивантаження зображень на imgur
 Comment[x-test]=xxUpload pictures to imgurxx
+Comment[zh_CN]=上传图片至 imgur
 Name=Imgur
 Name[ar]=Imgur
 Name[ca]=Imgur
@@ -35,6 +36,7 @@ Name[sv]=Imgur
 Name[tr]=Imgur
 Name[uk]=Imgur
 Name[x-test]=xxImgurxx
+Name[zh_CN]=Imgur
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
