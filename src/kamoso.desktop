@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Kamoso
+Name[ar]=كاموسو
 Name[bs]=Kamoso
 Name[ca]=Kamoso
 Name[ca@valencia]=Kamoso
@@ -47,6 +48,7 @@ Name[x-test]=xxKamosoxx
 Name[zh_CN]=Kamoso
 Name[zh_TW]=Kamoso
 GenericName=Picture retriever
+GenericName[ar]=مسترجع صور
 GenericName[bs]=Preuzimač slika
 GenericName[ca]=Càmera de fotografies
 GenericName[ca@valencia]=Càmera de fotografies
@@ -91,6 +93,7 @@ GenericName[x-test]=xxPicture retrieverxx
 GenericName[zh_CN]=图片获取器
 GenericName[zh_TW]=圖片抓取器
 Comment=Take any picture with your web cam
+Comment[ar]=التقط أيّ لقطة بكاميرا الوِبّ لديك
 Comment[bs]=Uzmite sliku svojom mrežnom kamerom
 Comment[ca]=Preneu qualsevol fotografia amb la càmera web
 Comment[ca@valencia]=Preneu qualsevol fotografia amb la càmera web
