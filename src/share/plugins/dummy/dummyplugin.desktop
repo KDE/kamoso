@@ -20,6 +20,7 @@ Comment[sv]=Testinsticksprogram, för att testa skiten ur funktionen
 Comment[tr]=Özelliği denemek için sahte eklenti
 Comment[uk]=Фіктивний додаток, призначено для тестування можливості
 Comment[x-test]=xxDummy plugin, to test the shit out of the featurexx
+Comment[zh_TW]=空的外掛程式，測試功能用
 Name=Dummy
 Name[ar]=دمية
 Name[ca]=Simulació
@@ -42,6 +43,7 @@ Name[sv]=Test
 Name[tr]=Sahte
 Name[uk]=Фіктивний
 Name[x-test]=xxDummyxx
+Name[zh_TW]=測試用
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL

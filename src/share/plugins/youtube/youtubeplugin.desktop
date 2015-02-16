@@ -24,6 +24,7 @@ Comment[sv]=Ladda upp videor till YouTube
 Comment[tr]=Videoları YouTube'a yükleyin
 Comment[uk]=Вивантаження відео на YouTube
 Comment[x-test]=xxUpload videos to YouTubexx
+Comment[zh_TW]=將影片上傳到 YouTube
 Name=Imgur
 Name[ar]=Imgur
 Name[ca]=Imgur
@@ -47,6 +48,7 @@ Name[tr]=Imgur
 Name[uk]=Imgur
 Name[x-test]=xxImgurxx
 Name[zh_CN]=Imgur
+Name[zh_TW]=Imgur
 
 X-KDE-PluginInfo-Author=Aleix Pol
 X-KDE-PluginInfo-License=GPL
