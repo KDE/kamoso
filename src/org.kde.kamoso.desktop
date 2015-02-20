@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=KAlgebra
+GenericName=Camera
+Comment=Use your webcam to take pictures or make videos
+Exec=kamoso
+Icon=kamoso
+Type=Application
+X-DocPath=kamoso/index.html
+Terminal=false
+Categories=Qt;KDE;Multimedia

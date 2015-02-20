@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>org.kde.kamoso.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Kamoso</name>
+  <summary>Kamoso is a great program to use your webcam to take pictures or make videos.</summary>
+  <description>
+    <p>Kamoso is a great program to use your webcam to take pictures or make videos. It probably should be the best webcam recorder for Linux. This guide will help you use Kamoso once you have installed it. We tried to make it simple and friendly.</p>
+  </description>
+  <url type="homepage">https://userbase.kde.org/Kamoso</url>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kamoso</url>
+  <url type="help">https://docs.kde.org/stable/en/extragear-multimedia/kamoso/user-guide.html</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>http://kde.org/images/screenshots/kamoso.png</image>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kamoso</binary>
+  </provides>
+</component>

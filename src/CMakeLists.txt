@@ -8,7 +8,7 @@ add_definitions(-DQT_NO_KEYWORDS)
 qt5_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS settings.kcfgc)
 
-add_executable(qmloso
+add_executable(kamoso
     devicemanager.cpp
     device.cpp
     whitewidgetmanager.cpp 
@@ -25,9 +25,12 @@ add_executable(qmloso
     ${kamosoqml_SRCS}
 )
 
-target_link_libraries(qmloso
+target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
     KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::I18n
     Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
     ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES} ${UDEV_LIBS}
 )
+
+install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
