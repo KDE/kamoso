@@ -59,17 +59,22 @@ StackView {
     }
 
     function startShareJob(job) {
+        stack.push({
+            item: busyComponent
+        });
+
         job.start();
-        job.infoMessage.connect(function(job, text, rich) {
-            job.lastLink = text
-            console.log("info...", job.lastLink);
+        job.output.connect(function(output) {
+            job.outputUrl = output.url
         });
         job.result.connect(function(job) {
-            if (!job.lastLink || job.lastLink=="")
+            console.log("lalalala", job.outputUrl)
+            if (job.outputUrl=="")
                 return;
-            stack.push({
+            stack.replace({
                 item: sharedComponent,
-                properties: { text: job.lastLink }
+                properties: { text: job.outputUrl },
+                replace: true
             })
         });
     }
@@ -128,6 +133,13 @@ StackView {
                     }
                 }
             }
+        }
+    }
+
+    Component {
+        id: busyComponent
+        BusyIndicator {
+            running: true
         }
     }
 }
