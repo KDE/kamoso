@@ -5,6 +5,5 @@
     <file>qml/DirectoryView.qml</file>
     <file>qml/ActionsModel.qml</file>
     <file>qml/OverlayFrame.qml</file>
-    <file alias='qml/ShareWizard.qml'>../src/share/tool/ShareWizard.qml</file>
  </qresource>
 </RCC>

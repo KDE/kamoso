@@ -24,8 +24,6 @@
 #include <kamososettings.h>
 #include <whitewidgetmanager.h>
 #include <kamoso.h>
-#include <share/alternativesmodel.h>
-#include <share/job.h>
 
 #include <QGlib/Connect>
 #include <QGlib/Signal>
@@ -67,10 +65,6 @@ WebcamControl::WebcamControl()
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
-
-#warning turn into QML plugin
-    qmlRegisterType<Purpose::AlternativesModel>("org.kde.purpose", 1, 0, "PurposeAlternativesModel");
-    qmlRegisterUncreatableType<Purpose::Job>("org.kde.purpose", 1, 0, "PurposeJob", "You're not supposed to mess with this yo");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("settings", new KamosoSettings);

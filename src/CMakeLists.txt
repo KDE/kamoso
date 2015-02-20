@@ -1,5 +1,3 @@
-add_subdirectory(share)
-
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KIPI_INCLUDE_DIR}
 	${QTGSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR} ${GSTREAMER_INCLUDE_DIR})
 
@@ -30,7 +28,6 @@ add_executable(qmloso
 target_link_libraries(qmloso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
     KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::I18n
-    Purpose
     Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
     ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES} ${UDEV_LIBS}
 )
