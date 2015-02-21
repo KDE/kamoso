@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=KAlgebra
+Name=Kamoso
 GenericName=Camera
 Comment=Use your webcam to take pictures or make videos
-Exec=kamoso
+Exec=kamoso -qwindowtitle %c
 Icon=kamoso
 Type=Application
 X-DocPath=kamoso/index.html
 Terminal=false
-Categories=Qt;KDE;Multimedia
+Categories=Qt;KDE;AudioVideo;
