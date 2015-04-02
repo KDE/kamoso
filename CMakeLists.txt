@@ -19,12 +19,7 @@ include(ECMInstallIcons)
 include(ECMAddTests)
 include(FeatureSummary)
 
-# macro_optional_find_package(Nepomuk)
-# macro_log_feature(NEPOMUK_FOUND "Nepomuk" "Handles all kinds of metadata on the KDE desktop to provide a semantic desktop" "http://nepomuk.kde.org/" FALSE "" "STRONGLY_RECOMMENDED: Nepomuk is used to provide metadata on objects like files, emails etc. to provide a semantic desktop.")
-set(HAVE_NEPOMUK ${NEPOMUK_FOUND})
-
 add_subdirectory(src)
-# add_subdirectory(widgetsrc)
 add_subdirectory(icons)
 add_subdirectory(doc)
 
