@@ -10,7 +10,7 @@ find_package(KF5 REQUIRED COMPONENTS WidgetsAddons Config ConfigWidgets DocTools
 
 find_package(Qt5GStreamer 1.1.90 REQUIRED)
 find_package(KF5Purpose REQUIRED)
-find_package(UDev)
+find_package(UDev REQUIRED)
 
 include(KDEInstallDirs)
 include(KDECompilerSettings)
