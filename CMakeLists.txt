@@ -8,10 +8,6 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_S
 find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick Network OpenGL DBus Test)
 find_package(KF5 REQUIRED COMPONENTS WidgetsAddons Config ConfigWidgets DocTools Solid KIO Declarative I18n)
 
-# find_package(Kipi REQUIRED)
-# find_package(Phonon REQUIRED)
-find_package(GLIB2 REQUIRED)
-find_package(GStreamer 1.0.0 REQUIRED COMPONENTS base)
 find_package(Qt5GStreamer 1.1.90 REQUIRED)
 find_package(KF5Purpose REQUIRED)
 find_package(UDev)

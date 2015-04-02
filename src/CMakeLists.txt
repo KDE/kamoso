@@ -1,5 +1,4 @@
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${KIPI_INCLUDE_DIR}
-	${QTGSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR} ${GSTREAMER_INCLUDE_DIR})
+include_directories(${QTGSTREAMER_INCLUDE_DIR})
 
 add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
@@ -28,8 +27,8 @@ add_executable(kamoso
 target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick Qt5::OpenGL
     KF5::Declarative KF5::KIOWidgets KF5::Solid KF5::KIOWidgets KF5::ConfigGui KF5::I18n
-    Qt5GStreamer Qt5GStreamer Qt5GStreamerQuick
-    ${GSTREAMER_BASE_LIBRARY} ${GSTREAMER_LIBRARY} ${GLIB2_LIBRARIES} ${UDEV_LIBS}
+    Qt5GStreamer Qt5GStreamerQuick
+    ${UDEV_LIBS}
 )
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})

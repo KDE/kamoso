@@ -42,8 +42,6 @@
 #include <QGst/VideoOverlay>
 #include <QGst/Message>
 
-#include <gst/video/video.h>
-
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 
