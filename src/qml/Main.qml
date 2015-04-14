@@ -158,12 +158,12 @@ ApplicationWindow
             PropertyAnimation { duration: 250 }
         }
         visible: width!=0
-        Column {
+        ColumnLayout {
             anchors.fill: parent
             Label { text: i18n("Brightness:") }
             Slider {
                 id: brightnessSlider
-                width: parent.width
+                Layout.fillWidth: true
                 minimumValue: -100
                 maximumValue: 100
                 value: devicesModel.playingDevice.brightness
@@ -176,7 +176,7 @@ ApplicationWindow
             Label { text: i18n("Hue:") }
             Slider {
                 id: hueSlider
-                width: parent.width
+                Layout.fillWidth: true
                 minimumValue: -100
                 maximumValue: 100
                 value: devicesModel.playingDevice.hue
@@ -189,7 +189,7 @@ ApplicationWindow
             Label { text: i18n("Contrast:") }
             Slider {
                 id: contrastSlider
-                width: parent.width
+                Layout.fillWidth: true
                 minimumValue: 0
                 maximumValue: 200
                 value: devicesModel.playingDevice.contrast
@@ -202,7 +202,7 @@ ApplicationWindow
             Label { text: i18n("Saturation:") }
             Slider {
                 id: saturationSlider
-                width: parent.width
+                Layout.fillWidth: true
                 minimumValue: 0
                 maximumValue: 200
                 value: devicesModel.playingDevice.saturation
@@ -215,7 +215,7 @@ ApplicationWindow
             Label { text: i18n("Gamma:") }
             Slider {
                 id: gammaSlider
-                width: parent.width
+                Layout.fillWidth: true
                 minimumValue: 0
                 maximumValue: 999
                 value: devicesModel.playingDevice.gamma
@@ -225,6 +225,9 @@ ApplicationWindow
                     //a onValueChanged when minimumValue changes and things break.
                     devicesModel.playingDevice.gamma = value+1
                 }
+            }
+            Item {
+                Layout.fillHeight: true
             }
         }
     }
