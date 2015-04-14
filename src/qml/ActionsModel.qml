@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 ListModel
 {
+    id: model
     //it would be awesome to put the trigger
     //inside the element, but didn't really see how to
     function trigger(i, checked) {
@@ -28,20 +29,26 @@ ListModel
 
     ListElement {
         icon: "camera-web"
-        text: "Shoot"
+        text: ""
         mimes: "image/jpeg"
         checkable: false
     }
     ListElement {
         icon: "code-function"
-        text: "Burst"
+        text: ""
         mimes: "image/jpeg"
         checkable: true
     }
     ListElement {
         icon: "media-record"
-        text: "Action!"
+        text: ""
         mimes: "video/x-matroska"
         checkable: true
+    }
+
+    Component.onCompleted: {
+        model.get(0).text = i18n("Shoot");
+        model.get(1).text = i18n("Burst");
+        model.get(2).text = i18n("Action!");
     }
 }
