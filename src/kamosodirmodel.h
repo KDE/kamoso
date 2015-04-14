@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2012 by Aleix Pol <aleixpol@kde.org>                               *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,24 +16,35 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "whitewidget.h"
-#include <QPaintEvent>
-#include <QPainter>
-#include <QTimer>
-#include <klocalizedstring.h>
+#ifndef KAMOSODIRMODEL_H
+#define KAMOSODIRMODEL_H
 
-WhiteWidget::WhiteWidget(QWidget* parent)
-    : QWidget(parent)
+#include <kdirmodel.h>
+
+class KamosoDirModel : public KDirModel
 {
-    setAutoFillBackground(false);
-}
+    Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
+    Q_PROPERTY(QStringList mimeFilter READ mimeFilter WRITE setMimeFilter NOTIFY filterChanged)
+    Q_OBJECT
+    public:
+        enum Roles {
+            Path = ColumnCount+1,
+            MimeType
+        };
 
+        explicit KamosoDirModel(QObject* parent = 0);
+        void setUrl(const QUrl& url);
+        QUrl url() const;
 
-void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
-{
-    QPainter painter(this);
+        void setMimeFilter(const QStringList& mimes);
+        QStringList mimeFilter() const;
 
-    painter.setBrush(Qt::white);
-    painter.drawRect(paintEvent->rect());
-    painter.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
-}
+        virtual QHash<int, QByteArray> roleNames() const;
+        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+    Q_SIGNALS:
+        void urlChanged();
+        void filterChanged();
+};
+
+#endif // KAMOSODIRMODEL_H

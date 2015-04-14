@@ -3,12 +3,18 @@
 #
 #  GSTREAMER_FOUND - system has GStreamer
 #  GSTREAMER_INCLUDE_DIR - the GStreamer include directory
-#  GSTREAMER_LIBRARIES - the libraries needed to use GStreamer
-#  GSTREAMER_DEFINITIONS - Compiler switches required for using GStreamer
-#  GSTREAMER_VERSION - the version of GStreamer
-
-# Copyright (c) 2006, Tim Beaulen <tbscope@gmail.com>
-# Copyright (c) 2008 Helio Chissini de Castro, <helio@kde.org>
+#  GSTREAMER_LIBRARY - the main GStreamer library
+#  GSTREAMER_PLUGIN_DIR - the GStreamer plugin directory
+#
+#  And for all the plugin libraries specified in the COMPONENTS
+#  of find_package, this module will define:
+#
+#  GSTREAMER_<plugin_lib>_LIBRARY_FOUND - system has <plugin_lib>
+#  GSTREAMER_<plugin_lib>_LIBRARY - the <plugin_lib> library
+#  GSTREAMER_<plugin_lib>_INCLUDE_DIR - the <plugin_lib> include directory
+#
+# Copyright (c) 2010, Collabora Ltd.
+#   @author George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.

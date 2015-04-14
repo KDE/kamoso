@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2012 by Alejandro Fiestas Olivares <afiestaso@kde.org>             *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,24 +16,52 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "whitewidget.h"
-#include <QPaintEvent>
-#include <QPainter>
-#include <QTimer>
-#include <klocalizedstring.h>
 
-WhiteWidget::WhiteWidget(QWidget* parent)
-    : QWidget(parent)
+#ifndef WEBCAMCONTROL_H
+#define WEBCAMCONTROL_H
+
+#include <QtCore/QObject>
+
+#include <QQuickView>
+#include <QGst/Pipeline>
+#include <QUrl>
+
+class Device;
+class WebcamControl : public QObject
 {
-    setAutoFillBackground(false);
-}
+    Q_OBJECT
+    public:
+        WebcamControl();
+        virtual ~WebcamControl();
 
+        void onBusMessage(const QGst::MessagePtr & msg);
+    public Q_SLOTS:
+        void play();
+        void play(Device* device);
+        void stop();
+        void takePhoto(const QUrl& url);
+        void startRecording();
+        QString stopRecording();
 
-void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
-{
-    QPainter painter(this);
+    private Q_SLOTS:
+        void setBrightness(int level);
+        void setContrast(int level);
+        void setSaturation(int level);
+        void setGamma(int level);
+        void setHue(int level);
 
-    painter.setBrush(Qt::white);
-    painter.drawRect(paintEvent->rect());
-    painter.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
-}
+    Q_SIGNALS:
+        void photoTaken(const QString &photoUrl);
+
+    private:
+        void setVideoSettings();
+
+        QString m_tmpVideoPath;
+        QString m_currentDevice;
+        QGst::PipelinePtr m_pipeline;
+        QGst::ElementPtr m_videoSink;
+        QGst::ElementPtr m_videoBalance;
+        QGst::ElementPtr m_gamma;
+};
+
+#endif // WEBCAMCONTROL_H

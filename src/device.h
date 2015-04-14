@@ -20,18 +20,29 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include <solid/device.h>
-#include <KConfig>
+#include <QtCore/QObject>
 
-class Device
+#include <solid/device.h>
+#include <KSharedConfig>
+
+namespace UdevQt {
+    class Device;
+}
+class Device : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(int brightness READ brightness WRITE setBrightness NOTIFY brightnessChanged)
+    Q_PROPERTY(int hue READ hue WRITE setHue NOTIFY hueChanged)
+    Q_PROPERTY(int contrast READ contrast WRITE setContrast NOTIFY contrastChanged)
+    Q_PROPERTY(int saturation READ saturation WRITE setSaturation NOTIFY saturationChanged)
+    Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
+
     public:
-        Device();
-        Device(const Solid::Device*);
+        Device(const UdevQt::Device &device, QObject* parent = 0);
         ~Device();
         QString description() const;
         QString udi() const;
-        QString path() const;
+        QByteArray path() const;
         QString vendor() const;
         void setBrightness(int level);
         void setContrast(int level);
@@ -43,13 +54,21 @@ class Device
         int saturation() const;
         int gamma() const;
         int hue() const;
+
+    Q_SIGNALS:
+        void brightnessChanged(int value, int old);
+        void hueChanged(int value, int old);
+        void contrastChanged(int value, int old);
+        void saturationChanged(int value, int old);
+        void gammaChanged(int value, int old);
+
     private:
         QString queryv4lInfo();
         QString m_description;
         QString m_udi;
-        QString m_path;
+        QByteArray m_path;
         QString m_vendor;
-        KConfig* config;
+        KSharedConfigPtr m_config;
 };
 
 #endif //DEVICE_H

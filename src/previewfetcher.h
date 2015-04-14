@@ -1,6 +1,5 @@
 /*************************************************************************************
- *  Copyright (C) 2008-2011 by Aleix Pol <aleixpol@kde.org>                          *
- *  Copyright (C) 2008-2011 by Alex Fiestas <alex@eyeos.org>                         *
+ *  Copyright (C) 2013 by Aleix Pol <aleixpol@kde.org>                               *
  *                                                                                   *
  *  This program is free software; you can redistribute it and/or                    *
  *  modify it under the terms of the GNU General Public License                      *
@@ -17,24 +16,51 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "whitewidget.h"
-#include <QPaintEvent>
-#include <QPainter>
-#include <QTimer>
-#include <klocalizedstring.h>
+#ifndef PREVIEWFETCHER_H
+#define PREVIEWFETCHER_H
 
-WhiteWidget::WhiteWidget(QWidget* parent)
-    : QWidget(parent)
+#include <QObject>
+#include <QUrl>
+#include <QPixmap>
+
+class KFileItem;
+class PreviewFetcher : public QObject
 {
-    setAutoFillBackground(false);
-}
+    Q_OBJECT
+    Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
+    Q_PROPERTY(QPixmap preview READ preview NOTIFY previewChanged)
+    Q_PROPERTY(QString mimetype READ mimeType WRITE setMimeType)
+    Q_PROPERTY(int width READ width WRITE setWidth)
+    Q_PROPERTY(int height READ height WRITE setHeight)
+    public:
+        explicit PreviewFetcher(QObject* parent = 0);
 
+        QUrl url() const;
+        void setUrl(const QUrl& url);
 
-void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
-{
-    QPainter painter(this);
+        int width() const { return m_size.width(); }
+        int height() const { return m_size.height(); }
+        void setWidth(int w);
+        void setHeight(int h);
 
-    painter.setBrush(Qt::white);
-    painter.drawRect(paintEvent->rect());
-    painter.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
-}
+        QPixmap preview() const;
+
+        QString mimeType() const;
+        void setMimeType(const QString& mime);
+    Q_SIGNALS:
+        void urlChanged();
+        void previewChanged();
+
+    private Q_SLOTS:
+        void fetchPreview();
+        void updatePreview(const KFileItem&, const QPixmap& p);
+        void fallbackPreview(const KFileItem& item);
+
+    private:
+        QSize m_size;
+        QUrl m_url;
+        QPixmap m_preview;
+        QString m_mimetype;
+};
+
+#endif // PREVIEWFETCHER_H

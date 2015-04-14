@@ -17,22 +17,24 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <KApplication>
-#include <KAboutData>
-#include <KCmdLineArgs>
-#include "kamoso.h"
+#include <kaboutdata.h>
+#include <klocalizedstring.h>
+#include "video/webcamcontrol.h"
+#include <QApplication>
 
+#include <QGst/Init>
 int main(int argc, char *argv[])
 {
-    KAboutData about("kamoso", 0, ki18n(("Kamoso")), "2.0.2", ki18n("Webcam picture retriever"),
-                KAboutData::License_GPL, ki18n("(C) 2008-2010 Alex Fiestas and Aleix Pol"));
-    about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("Semaphore hacker"), "aleixpol@kde.org" );
-    about.addAuthor( ki18n("Alex Fiestas"), ki18n("Coffee drinker"), "alex@eyeos.org" );
-    KCmdLineArgs::init(argc, argv, &about);
-    KApplication app;
+    KAboutData about("kamoso", i18n("Kamoso"), "2.9.90", i18n("Webcam picture retriever"),
+                KAboutLicense::GPL, i18n("(C) 2008-2012 Alex Fiestas and Aleix Pol"));
 
-    Kamoso* kamosoMain = new Kamoso;
-    kamosoMain->show();
+    about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
+    about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
+    QApplication app(argc, argv);
+
+    WebcamControl webcamControl;
+
+    QObject::connect(&app, &QApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
 
     return app.exec();
 }

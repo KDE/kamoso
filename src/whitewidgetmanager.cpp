@@ -23,27 +23,24 @@
 #include <QTimer>
 #include <QDesktopWidget>
 #include <QApplication>
-
-#include <KDebug>
-#include <KLocale>
+#include <QPropertyAnimation>
+#include <QDebug>
 
 /**
 *This class create and manage 1 white widget per screen, creating an unified interface for all of them
 */
-WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
+WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 {
-    kDebug() << "WhiteWidgetManager has been instanced";
+    qDebug() << "WhiteWidgetManager has been instanced";
     createWhiteWidgets();
 
-    //Call tick each 30 ms on showAll call
-    m_timer = new QTimer(this);
-    m_currentStep = 0;
-
-    //Maybe we should set it as cons again, but at the moment I'd like the idea to have it variable
-    //I've also moved it to public scope
-    m_steps = 10;
-
-    connect(m_timer, SIGNAL(timeout()), SLOT(tick()));
+    m_timer = new QPropertyAnimation(this);
+    m_timer->setDuration(500);
+    m_timer->setStartValue(0.);
+    m_timer->setEndValue(1.0);
+    m_timer->setTargetObject(this);
+    m_timer->setPropertyName("opacity");
+    connect(m_timer, SIGNAL(finished()), SLOT(hideAll()));
 }
 
 /**
@@ -51,14 +48,13 @@ WhiteWidgetManager::WhiteWidgetManager(QWidget* parent) : QObject(parent)
 */
 void WhiteWidgetManager::createWhiteWidgets()
 {
-    kDebug() << "Creating whiteWidgets";
-    WhiteWidget *whiteWidget;
+    qDebug() << "Creating whiteWidgets";
     QDesktopWidget *desktopInfo = qApp->desktop();
 
-    kDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
+    qDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
     for(uchar x=0;x<desktopInfo->numScreens();++x)
     {
-        whiteWidget = new WhiteWidget;
+        WhiteWidget *whiteWidget = new WhiteWidget;
         whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
         whitewidgetList.append(whiteWidget);
     }
@@ -69,11 +65,11 @@ void WhiteWidgetManager::createWhiteWidgets()
 */
 void WhiteWidgetManager::showAll()
 {
-    WhiteWidget *iteratorWidget;
-    m_timer->start(30);
+    m_timer->start();
 
-    foreach(iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
     {
+        iteratorWidget->setWindowOpacity(0);
         iteratorWidget->showFullScreen();
     }
 }
@@ -83,29 +79,28 @@ void WhiteWidgetManager::showAll()
 */
 void WhiteWidgetManager::hideAll()
 {
-    WhiteWidget *iteratorWidget;
-    foreach(iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
     {
         iteratorWidget->hide();
     }
+    m_timer->stop();
 }
 
-/**
-*This slot is called each time that Qtimer each timeout (each 30s)
-*/
-void WhiteWidgetManager::tick()
+void WhiteWidgetManager::setOpacity(qreal op)
 {
-    WhiteWidget *iteratorWidget;
-    m_currentStep=qMin(m_currentStep+1, m_steps);
-
-    foreach(iteratorWidget,whitewidgetList)
+    Q_FOREACH(WhiteWidget* iteratorWidget, whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(m_currentStep);
+        iteratorWidget->setWindowOpacity(op);
     }
+}
+
+qreal WhiteWidgetManager::opacity() const
+{
+    return whitewidgetList.first()->windowOpacity();
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()
 {
-    qDeleteAll(whitewidgetList.begin(),whitewidgetList.end());
+    qDeleteAll(whitewidgetList);
     whitewidgetList.clear();
 }
