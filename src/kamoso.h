@@ -42,9 +42,6 @@ Q_OBJECT
         void photoTaken(const QString &path);
 
     private:
-        void autoincFilename(QUrl &filename);
-
-    private:
         WebcamControl *m_webcamControl;
 };
 
