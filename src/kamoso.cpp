@@ -24,6 +24,7 @@
 #include "settings.h"
 #include "video/webcamcontrol.h"
 #include "devicemanager.h"
+#include <KIO/Global>
 
 #include <QtCore/QFile>
 
@@ -40,18 +41,17 @@ Kamoso::~Kamoso()
 
 const QString Kamoso::takePhoto()
 {
-    QUrl photoPlace = Settings::saveUrl();
-    photoPlace.setPath( photoPlace.toLocalFile() +'/' + QStringLiteral("picture_1.jpg") );
+    const QUrl saveUrl = Settings::saveUrl();
+    const QString initialName = QStringLiteral("picture.jpg");
+    QUrl path = saveUrl.toString() + '/' + initialName;
 
-    QFile file(photoPlace.toLocalFile());
-    while(file.exists()) {
-        autoincFilename(photoPlace);
-        file.setFileName(photoPlace.toLocalFile());
+    if (path.isLocalFile() && QFile::exists(path.toLocalFile())) {
+        path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
     }
 
-    m_webcamControl->takePhoto(photoPlace);
+    m_webcamControl->takePhoto(path);
 
-    return photoPlace.toDisplayString();
+    return path.toDisplayString();
 }
 
 void Kamoso::startRecording()
@@ -61,51 +61,17 @@ void Kamoso::startRecording()
 
 void Kamoso::stopRecording()
 {
-    QUrl photoPlace = Settings::saveUrl();
-    photoPlace.setPath( photoPlace.toLocalFile() +'/' + QStringLiteral("video_1.mkv") );
+    const QUrl saveUrl = Settings::saveUrl();
+    const QString initialName = QStringLiteral("video.mkv");
 
-    QFile file(photoPlace.toLocalFile());
-    while(file.exists()) {
-        autoincFilename(photoPlace);
-        file.setFileName(photoPlace.toLocalFile());
+    QUrl path = saveUrl.toString() + '/' + initialName;
+
+    if (path.isLocalFile() && QFile::exists(path.toLocalFile())) {
+        path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
     }
 
-    QFile::rename(m_webcamControl->stopRecording(), photoPlace.toLocalFile());
+//     TODO: port to KIO
+    QFile::rename(m_webcamControl->stopRecording(), path.toLocalFile());
 
     m_webcamControl->play(DeviceManager::self()->playingDevice());
-}
-
-void Kamoso::autoincFilename(QUrl &filename)
-{
-    // Extract the filename from the path
-    QString name= filename.fileName();
-
-    // If the name contains a number then increment it
-    QRegExp numSearch( "(^|[^\\d])(\\d+)" ); // we want to match as far left as possible, and when the number is at the start of the name
-
-    // Does it have a number?
-    int start = numSearch.lastIndexIn( name );
-    if (start != -1) {
-        // It has a number, increment it
-        start = numSearch.pos( 2 ); // we are only interested in the second group
-        QString numAsStr = numSearch.cap(2);
-        QString number = QString::number( numAsStr.toInt() + 1 );
-        number = number.rightJustified( numAsStr.length(), '0' );
-        name.replace( start, numAsStr.length(), number );
-    }
-    else {
-        // no number
-        start = name.lastIndexOf('.');
-        if (start != -1) {
-            // has a . somewhere, e.g. it has an extension
-            name.insert(start, '1');
-        }
-        else {
-            // no extension, just tack it on to the end
-            name += '1';
-        }
-    }
-
-    //Rebuild the path
-    filename.setPath( filename.adjusted(QUrl::RemoveFilename).toLocalFile() + name );
 }
