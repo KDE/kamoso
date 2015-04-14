@@ -9,7 +9,7 @@ find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick Network Op
 find_package(KF5 REQUIRED COMPONENTS WidgetsAddons Config ConfigWidgets DocTools Solid KIO Declarative I18n)
 
 find_package(Qt5GStreamer 1.1.90 REQUIRED)
-find_package(KF5Purpose REQUIRED)
+find_package(KDEExperimentalPurpose REQUIRED)
 find_package(UDev REQUIRED)
 
 include(KDEInstallDirs)
