@@ -33,7 +33,7 @@ ListModel
         checkable: false
     }
     ListElement {
-        icon: "code-blocks"
+        icon: "code-function"
         text: "Burst"
         mimes: "image/jpeg"
         checkable: true

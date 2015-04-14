@@ -132,14 +132,14 @@ ApplicationWindow
                 id: galleryButton
                 checkable: true
                 checked: false
-                iconName: "gwenview"
+                iconName: "folder-images"
                 tooltip: i18n("Show gallery...")
             }
 
             Button {
                 id: settingsButton
                 width: 30
-                iconName: "settings"
+                iconName: "configure"
                 checkable: true
                 tooltip: i18n("Show settings...")
             }
