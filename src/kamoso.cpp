@@ -25,6 +25,7 @@
 #include "video/webcamcontrol.h"
 #include "devicemanager.h"
 #include <KIO/Global>
+#include <KIO/CopyJob>
 
 #include <QtCore/QFile>
 
@@ -70,8 +71,8 @@ void Kamoso::stopRecording()
         path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
     }
 
-//     TODO: port to KIO
-    QFile::rename(m_webcamControl->stopRecording(), path.toLocalFile());
+    KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
+    job->start();
 
     m_webcamControl->play(DeviceManager::self()->playingDevice());
 }
