@@ -155,6 +155,7 @@ void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
     case QGst::MessageError: //Some error occurred.
         qCritical() << msg.staticCast<QGst::ErrorMessage>()->error();
         stop();
+        play();
         break;
     case QGst::MessageElement:
         if (msg->internalStructure()->name() == "image-done") {
