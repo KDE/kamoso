@@ -82,7 +82,7 @@ ApplicationWindow
                     property QtObject stuff: model
                     exclusiveGroup: buttonGroup
                     isDefault: true
-                    tooltip: model.text
+                    tooltip: i18n("Switch to '%1' mode", model.text)
                     checkable: true
                     checked: index==0
 
@@ -97,6 +97,7 @@ ApplicationWindow
         width: 100
         height: 40
         checkable: buttonGroup.current.stuff.checkable
+        tooltip: buttonGroup.current.stuff.text
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
