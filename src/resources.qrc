@@ -5,5 +5,6 @@
     <file>qml/DirectoryView.qml</file>
     <file>qml/ActionsModel.qml</file>
     <file>qml/OverlayFrame.qml</file>
+    <file>qml/Config.qml</file>
  </qresource>
 </RCC>
