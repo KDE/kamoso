@@ -27,6 +27,7 @@ ScrollView
             id: delegateItem
             width: height
             height: scrollView.delegateWidth
+            acceptedButtons: Qt.AllButtons
 
             onClicked: {
                 scrollView.itemClicked(path)
