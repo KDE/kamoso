@@ -8,40 +8,40 @@ import org.kde.kamoso 3.0
 ColumnLayout
 {
     spacing: 1
+    clip: true
 
     Label {
         font.bold: true
         text: i18n("Places")
     }
     Label {
-        text: i18n("Pictures output")
+        text: i18n("Captures directory")
     }
-    RowLayout {
+    Button {
         Layout.fillWidth: true
-        Label {
-            Layout.fillWidth: true
-            text: settings.saveUrl
-            elide: Text.ElideLeft
+
+        iconName: "document-open-folder"
+        text: settings.saveUrl
+        onClicked: {
+            dirSelector.visible = true
         }
-        Button {
-            width: height
-            iconName: "document-open-folder"
-            onClicked: {
-                dirSelector.visible = true
-            }
 
-            FileDialog {
-                id: dirSelector
-                title: i18n("Select a directory where to save your pictures and videos")
-                selectMultiple: false
-                selectExisting: true
-                selectFolder: true
+        FileDialog {
+            id: dirSelector
+            title: i18n("Select a directory where to save your pictures and videos")
+            selectMultiple: false
+            selectExisting: true
+            selectFolder: true
 
-                onFileUrlChanged: {
-                    settings.saveUrl = dirSelector.fileUrl
-                }
+            onFileUrlChanged: {
+                settings.saveUrl = dirSelector.fileUrl
             }
         }
+    }
+
+    Item {
+//         white space
+        height: 15
     }
 
     Label {
