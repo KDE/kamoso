@@ -48,18 +48,18 @@ ApplicationWindow
                 PropertyChanges { target: tada; y: visor.height+controls.height }
                 PropertyChanges { target: tada; width: deviceSelector.height }
                 PropertyChanges { target: tada; height: deviceSelector.height }
-                PropertyChanges { target: tada; opacity: 0 }
+                PropertyChanges { target: tada; opacity: 0.5 }
             }
         ]
         transitions: [
             Transition {
                 from: "go"; to: "done"
                     NumberAnimation { target: tada
-                                properties: "width,height"; duration: 2500; easing.type: Easing.InOutQuad }
+                                properties: "width,height"; duration: 300; easing.type: Easing.InCubic }
                     NumberAnimation { target: tada
-                                properties: "x,y"; duration: 3000; easing.type: Easing.InOutQuad }
+                                properties: "x,y"; duration: 300; easing.type: Easing.InCubic }
                     NumberAnimation { target: tada
-                                properties: "opacity"; duration: 3000 }
+                                properties: "opacity"; duration: 300 }
             }
         ]
     }
