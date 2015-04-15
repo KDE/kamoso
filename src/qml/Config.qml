@@ -1,12 +1,53 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.0
 import QtGStreamer 1.0
-import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
 
-ColumnLayout {
+ColumnLayout
+{
+    spacing: 1
+
+    Label {
+        font.bold: true
+        text: i18n("Places")
+    }
+    Label {
+        text: i18n("Pictures output")
+    }
+    RowLayout {
+        Layout.fillWidth: true
+        Label {
+            Layout.fillWidth: true
+            text: settings.saveUrl
+            elide: Text.ElideLeft
+        }
+        Button {
+            width: height
+            iconName: "document-open-folder"
+            onClicked: {
+                dirSelector.visible = true
+            }
+
+            FileDialog {
+                id: dirSelector
+                title: i18n("Select a directory where to save your pictures and videos")
+                selectMultiple: false
+                selectExisting: true
+                selectFolder: true
+
+                onFileUrlChanged: {
+                    settings.saveUrl = dirSelector.fileUrl
+                }
+            }
+        }
+    }
+
+    Label {
+        font.bold: true
+        text: i18n("Camera Settings")
+    }
     Label { text: i18n("Brightness:") }
     Slider {
         id: brightnessSlider

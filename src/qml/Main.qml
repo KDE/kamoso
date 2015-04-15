@@ -146,7 +146,7 @@ ApplicationWindow
         }
     }
 
-    Config {
+    Item {
         id: settingsDialog
         anchors {
             top: parent.top
@@ -158,6 +158,12 @@ ApplicationWindow
             PropertyAnimation { duration: 250 }
         }
         visible: width!=0
+        Config {
+            anchors {
+                fill: parent
+                margins: 5
+            }
+        }
     }
 
     Rectangle {

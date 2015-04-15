@@ -8,6 +8,7 @@ QUrl KamosoSettings::saveUrl() const
 void KamosoSettings::setSaveUrl(const QUrl& url)
 {
     Settings::self()->setSaveUrl(url);
+    Q_EMIT saveUrlChanged();
 }
 
 
