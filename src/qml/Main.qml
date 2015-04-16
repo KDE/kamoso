@@ -11,6 +11,7 @@ ApplicationWindow
     width: 700
     height: 450
     visible: true
+    title: i18n("Kamoso")
 
     function awesomeAnimation(path) {
 //         tada.x = visor.x
