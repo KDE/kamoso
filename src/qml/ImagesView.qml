@@ -13,9 +13,20 @@ StackView {
     Menu {
         id: menu
         MenuItem {
+            text: menu.title
+            enabled: false
+        }
+        MenuSeparator {}
+
+        MenuItem {
             text: i18n("Open...")
             onTriggered: Qt.openUrlExternally(menu.title)
         }
+        MenuItem {
+            text: i18n("Open Directory...")
+            onTriggered: Qt.openUrlExternally(settings.saveUrl)
+        }
+
         MenuSeparator {}
 
         Instantiator {
@@ -30,6 +41,7 @@ StackView {
             }
             MenuItem {
                 text: display
+                iconName: model.iconName
                 onTriggered: {
                     var job = altsModel.createJob(index)
 
@@ -68,7 +80,6 @@ StackView {
             job.outputUrl = output.url
         });
         job.result.connect(function(job) {
-            console.log("lalalala", job.outputUrl)
             if (job.outputUrl=="")
                 return;
             stack.replace({
