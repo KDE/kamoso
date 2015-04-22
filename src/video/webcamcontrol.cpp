@@ -24,6 +24,7 @@
 #include <kamososettings.h>
 #include <whitewidgetmanager.h>
 #include <kamoso.h>
+#include <KIO/CopyJob>
 
 #include <QGlib/Connect>
 #include <QGlib/Signal>
@@ -171,8 +172,15 @@ void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
 void WebcamControl::takePhoto(const QUrl &url)
 {
     m_pipeline->setProperty("mode", 1);
-    m_pipeline->setProperty("location", url.toLocalFile());
+
+    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";
+    m_pipeline->setProperty("location", path);
+
     QGlib::emit<void>(m_pipeline, "start-capture");
+
+    if (!url.isLocalFile()) {
+        KIO::copy(QUrl::fromLocalFile(path), url);
+    }
 }
 
 void WebcamControl::startRecording()
