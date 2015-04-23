@@ -1,7 +1,9 @@
 #ifndef KAMOSOSETTINGS_H
 #define KAMOSOSETTINGS_H
 
-#include <settings.h>
+#include <QObject>
+#include <QUrl>
+
 /* FIXME: KDE5. nuke
  * This class only exists because KConfigCompiler can't generate classes
  * with properties. 

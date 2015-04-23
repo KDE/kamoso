@@ -5,7 +5,7 @@ add_definitions(-fexceptions)
 add_definitions(-DQT_NO_KEYWORDS)
 
 qt5_add_resources(kamosoqml_SRCS resources.qrc)
-kconfig_add_kcfg_files(kamosoqml_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(kamosoqml_SRCS kamosoSettings.kcfgc)
 
 add_executable(kamoso
     devicemanager.cpp

@@ -21,7 +21,7 @@
 
 #include "device.h"
 #include "udev/udevqt.h"
-#include <settings.h>
+#include "kamosoSettings.h"
 #include <QDebug>
 
 DeviceManager *DeviceManager::s_instance = NULL;

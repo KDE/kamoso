@@ -21,7 +21,7 @@
 
 #include "kamoso.h"
 
-#include "settings.h"
+#include "kamosoSettings.h"
 #include "video/webcamcontrol.h"
 #include "devicemanager.h"
 #include <KIO/Global>

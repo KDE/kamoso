@@ -1,4 +1,5 @@
 #include "kamososettings.h"
+#include <kamosoSettings.h>
 
 QUrl KamosoSettings::saveUrl() const
 {

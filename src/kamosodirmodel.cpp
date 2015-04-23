@@ -17,7 +17,6 @@
  *************************************************************************************/
 
 #include "kamosodirmodel.h"
-#include <settings.h>
 #include <kdirlister.h>
 
 KamosoDirModel::KamosoDirModel(QObject* parent)
