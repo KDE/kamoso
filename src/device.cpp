@@ -21,16 +21,18 @@
 #include "udev/udevqt.h"
 #include <KConfigGroup>
 #include <QDebug>
+#include "deviceSettings.h"
 
-Device::Device(const UdevQt::Device &device, QObject* parent)
-{
 //     for refrence, the properties can be listed with:
 //     udevadm info --query=property --name=/dev/video0
-    m_path = device.deviceProperty("DEVNAME").toString().toLatin1();
-    m_description = device.deviceProperty("ID_MODEL").toString().replace('_', ' ');
-    m_udi = device.sysfsPath();
 
-    m_config = KSharedConfig::openConfig("kamosoDevices");
+Device::Device(const UdevQt::Device &device, QObject* parent)
+    : QObject(parent)
+    , m_description(device.deviceProperty("ID_MODEL").toString().replace('_', ' '))
+    , m_udi(device.sysfsPath())
+    , m_path(device.deviceProperty("DEVNAME").toString().toLatin1())
+    , m_config(KSharedConfig::openConfig("kamosoDevices"))
+{
 }
 
 Device::~Device()

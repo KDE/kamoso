@@ -63,12 +63,11 @@ class Device : public QObject
         void gammaChanged(int value, int old);
 
     private:
-        QString queryv4lInfo();
-        QString m_description;
-        QString m_udi;
-        QByteArray m_path;
-        QString m_vendor;
-        KSharedConfigPtr m_config;
+        const QString m_description;
+        const QString m_udi;
+        const QByteArray m_path;
+        const QString m_vendor;
+        const KSharedConfigPtr m_config;
 };
 
 #endif //DEVICE_H
