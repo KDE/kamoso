@@ -34,7 +34,6 @@ class WebcamControl : public QObject
         WebcamControl();
         virtual ~WebcamControl();
 
-        void onBusMessage(const QGst::MessagePtr & msg);
     public Q_SLOTS:
         void play();
         void play(Device* device);
@@ -54,6 +53,7 @@ class WebcamControl : public QObject
         void photoTaken(const QString &photoUrl);
 
     private:
+        void onBusMessage(const QGst::MessagePtr & msg);
         void setVideoSettings();
 
         QString m_tmpVideoPath;
