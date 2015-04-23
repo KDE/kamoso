@@ -114,6 +114,13 @@ ColumnLayout
             devicesModel.playingDevice.gamma = value+1
         }
     }
+    Button {
+        anchors.right: parent.right
+        text: i18n("Reset")
+        onClicked: {
+            webcam.resetDeviceSettings()
+        }
+    }
     Item {
         Layout.fillHeight: true
     }

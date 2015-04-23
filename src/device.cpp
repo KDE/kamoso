@@ -25,7 +25,6 @@
 
 //     for refrence, the properties can be listed with:
 //     udevadm info --query=property --name=/dev/video0
-
 Device::Device(const UdevQt::Device &device, QObject* parent)
     : QObject(parent)
     , m_description(device.deviceProperty("ID_MODEL").toString().replace('_', ' '))
@@ -51,6 +50,17 @@ QString Device::description() const
 QString Device::vendor() const
 {
     return m_vendor;
+}
+
+void Device::reset()
+{
+    m_config->deleteGroup(m_udi);
+
+    Q_EMIT brightnessChanged(brightness());
+    Q_EMIT contrastChanged(contrast());
+    Q_EMIT saturationChanged(saturation());
+    Q_EMIT gammaChanged(gamma());
+    Q_EMIT hueChanged(hue());
 }
 
 void Device::setBrightness(int level)

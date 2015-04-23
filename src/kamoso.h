@@ -37,6 +37,7 @@ Q_OBJECT
         const QString takePhoto();
         void startRecording();
         void stopRecording();
+        void resetDeviceSettings();
 
     Q_SIGNALS:
         void photoTaken(const QString &path);

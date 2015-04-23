@@ -76,3 +76,9 @@ void Kamoso::stopRecording()
 
     m_webcamControl->play(DeviceManager::self()->playingDevice());
 }
+
+void Kamoso::resetDeviceSettings()
+{
+    Device *device = DeviceManager::self()->playingDevice();
+    device->reset();
+}

@@ -55,6 +55,8 @@ class Device : public QObject
         int gamma() const;
         int hue() const;
 
+        void reset();
+
     Q_SIGNALS:
         void brightnessChanged(int value);
         void hueChanged(int value);
