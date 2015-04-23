@@ -6,15 +6,13 @@ ListModel
     //it would be awesome to put the trigger
     //inside the element, but didn't really see how to
     function trigger(i, checked) {
-        var ret = "";
         switch(i) {
             case 0:
                 whites.showAll()
-                console.log("photoooooooo!")
-                ret = webcam.takePhoto()
+                webcam.takePhoto()
                 break;
             case 1:
-                console.log("burst!!! "+checked)
+                setBursting(checked);
                 break;
             case 2:
                 if (checked) {
@@ -24,7 +22,6 @@ ListModel
                 webcam.stopRecording()
                 break;
         }
-        return ret
     }
 
     ListElement {

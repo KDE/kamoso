@@ -25,6 +25,19 @@ ApplicationWindow
 
     }
 
+    function setBursting(state) {
+        burstTimer.running = state;
+    }
+    Timer {
+        id: burstTimer
+        interval: 1000
+        repeat: true
+        onTriggered: {
+            whites.showAll()
+            webcam.takePhoto()
+        }
+    }
+
     Connections {
         target: webcam
         onPhotoTaken: awesomeAnimation(path)
@@ -113,10 +126,7 @@ ApplicationWindow
         }
 
         onClicked: {
-            var path = actions.trigger(buttonGroup.current.stuff.index, checked)
-            if(!checkable || checked) {
-//                 awesomeAnimation(path)
-            }
+            actions.trigger(buttonGroup.current.stuff.index, checked)
         }
     }
 
