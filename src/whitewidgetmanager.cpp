@@ -21,9 +21,9 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QTimer>
-#include <QDesktopWidget>
-#include <QApplication>
+#include <QGuiApplication>
 #include <QPropertyAnimation>
+#include <QScreen>
 #include <QDebug>
 
 /**
@@ -48,14 +48,14 @@ WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 */
 void WhiteWidgetManager::createWhiteWidgets()
 {
-    qDebug() << "Creating whiteWidgets";
-    QDesktopWidget *desktopInfo = qApp->desktop();
+    QList<QScreen*> screens = qGuiApp->screens();
 
-    qDebug() << "Num of whidgets to be created: " << desktopInfo->numScreens();
-    for(uchar x=0;x<desktopInfo->numScreens();++x)
+    qDebug() << "Num of whidgets to be created: " << screens.count();
+    Q_FOREACH (QScreen* screen, screens)
     {
         WhiteWidget *whiteWidget = new WhiteWidget;
-        whiteWidget->setGeometry(desktopInfo->screenGeometry(x));
+        whiteWidget->setScreen(screen);
+        whiteWidget->setGeometry(screen->geometry());
         whitewidgetList.append(whiteWidget);
     }
 }
@@ -69,7 +69,7 @@ void WhiteWidgetManager::showAll()
 
     Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(0);
+        iteratorWidget->setOpacity(0);
         iteratorWidget->showFullScreen();
     }
 }
@@ -90,13 +90,13 @@ void WhiteWidgetManager::setOpacity(qreal op)
 {
     Q_FOREACH(WhiteWidget* iteratorWidget, whitewidgetList)
     {
-        iteratorWidget->setWindowOpacity(op);
+        iteratorWidget->setOpacity(op);
     }
 }
 
 qreal WhiteWidgetManager::opacity() const
 {
-    return whitewidgetList.first()->windowOpacity();
+    return whitewidgetList.first()->opacity();
 }
 
 WhiteWidgetManager::~WhiteWidgetManager()

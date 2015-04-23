@@ -20,14 +20,13 @@
 #ifndef WHITEWIDGET_H
 #define WHITEWIDGET_H
 
-#include <QWidget>
+#include <QQuickView>
 
-class WhiteWidget : public QWidget
+class WhiteWidget : public QQuickView
 {
     Q_OBJECT
     public:
-        WhiteWidget(QWidget* parent=0);
-        virtual void paintEvent (QPaintEvent*);
+        WhiteWidget();
 };
 
 #endif //WHITEWIDGET

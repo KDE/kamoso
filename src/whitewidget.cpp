@@ -23,18 +23,8 @@
 #include <QTimer>
 #include <klocalizedstring.h>
 
-WhiteWidget::WhiteWidget(QWidget* parent)
-    : QWidget(parent)
+WhiteWidget::WhiteWidget()
+    : QQuickView()
 {
-    setAutoFillBackground(false);
-}
-
-
-void WhiteWidget::paintEvent (QPaintEvent* paintEvent)
-{
-    QPainter painter(this);
-
-    painter.setBrush(Qt::white);
-    painter.drawRect(paintEvent->rect());
-    painter.drawText(paintEvent->rect().center(), i18n("Smile! :)"));
+    setSource(QUrl("qrc:/qml/White.qml"));
 }

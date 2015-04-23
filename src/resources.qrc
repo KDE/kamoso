@@ -6,5 +6,6 @@
     <file>qml/ActionsModel.qml</file>
     <file>qml/OverlayFrame.qml</file>
     <file>qml/Config.qml</file>
+    <file>qml/White.qml</file>
  </qresource>
 </RCC>
