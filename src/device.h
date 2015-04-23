@@ -56,11 +56,11 @@ class Device : public QObject
         int hue() const;
 
     Q_SIGNALS:
-        void brightnessChanged(int value, int old);
-        void hueChanged(int value, int old);
-        void contrastChanged(int value, int old);
-        void saturationChanged(int value, int old);
-        void gammaChanged(int value, int old);
+        void brightnessChanged(int value);
+        void hueChanged(int value);
+        void contrastChanged(int value);
+        void saturationChanged(int value);
+        void gammaChanged(int value);
 
     private:
         const QString m_description;

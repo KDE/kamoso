@@ -60,8 +60,8 @@ void Device::setBrightness(int level)
         return;
     }
 
-    Q_EMIT brightnessChanged(level, brightness());
     m_config->group(m_udi).writeEntry("brightness",level);
+    Q_EMIT brightnessChanged(level);
     m_config->sync();
 }
 
@@ -72,8 +72,8 @@ void Device::setContrast(int level)
         return;
     }
 
-    Q_EMIT contrastChanged(level, contrast());
     m_config->group(m_udi).writeEntry("contrast",level);
+    Q_EMIT contrastChanged(level);
     m_config->sync();
 }
 
@@ -84,8 +84,8 @@ void Device::setSaturation(int level)
         return;
     }
 
-    Q_EMIT saturationChanged(level, saturation());
     m_config->group(m_udi).writeEntry("saturation",level);
+    Q_EMIT saturationChanged(level);
     m_config->sync();
 }
 
@@ -96,8 +96,8 @@ void Device::setGamma(int level)
         return;
     }
 
-    Q_EMIT gammaChanged(level, gamma());
     m_config->group(m_udi).writeEntry("gamma",level);
+    Q_EMIT gammaChanged(level);
     m_config->sync();
 }
 
@@ -108,8 +108,8 @@ void Device::setHue(int level)
         return;
     }
 
-    Q_EMIT hueChanged(level, hue());
     m_config->group(m_udi).writeEntry("hue",level);
+    Q_EMIT hueChanged(level);
     m_config->sync();
 }
 
