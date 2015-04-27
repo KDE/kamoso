@@ -21,7 +21,6 @@
 #include "udev/udevqt.h"
 #include <KConfigGroup>
 #include <QDebug>
-#include "deviceSettings.h"
 
 //     for refrence, the properties can be listed with:
 //     udevadm info --query=property --name=/dev/video0
