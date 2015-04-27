@@ -167,9 +167,11 @@ ApplicationWindow
         }
         width: settingsButton.checked ? parent.width / 3 : 0
         Behavior on width {
-            PropertyAnimation { duration: 250 }
+            PropertyAnimation {
+                duration: 200
+                easing.type: Easing.OutExpo
+            }
         }
-        visible: width!=0
         Config {
             anchors {
                 fill: parent
