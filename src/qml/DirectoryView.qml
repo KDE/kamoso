@@ -9,12 +9,14 @@ ScrollView
 {
     id: scrollView
     property alias mimeFilter: model.mimeFilter
-    property real delegateWidth: 50
     signal itemClicked(string path)
+
+    property real delegateWidth: 50
+    readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
 
     GridView
     {
-        cellWidth: scrollView.delegateWidth
+        cellWidth: scrollView.delegateWidth + (scrollView.viewport.width - columnCount*scrollView.delegateWidth)/columnCount
         cellHeight: cellWidth
         anchors.fill: parent
 
