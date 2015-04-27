@@ -137,6 +137,7 @@ ApplicationWindow
             right: parent.right
             bottom: parent.bottom
         }
+
         RowLayout {
             anchors.centerIn: parent
             spacing: 0
@@ -146,6 +147,7 @@ ApplicationWindow
                 checked: false
                 iconName: "folder-images"
                 tooltip: i18n("Show gallery...")
+                onClicked: settingsButton.checked = false;
             }
 
             Button {
@@ -154,6 +156,7 @@ ApplicationWindow
                 iconName: "configure"
                 checkable: true
                 tooltip: i18n("Show settings...")
+                onClicked: galleryButton.checked = false;
             }
         }
     }
@@ -165,7 +168,7 @@ ApplicationWindow
             right: parent.right
             bottom: controls.top
         }
-        width: settingsButton.checked ? parent.width / 3 : 0
+        width: (settingsButton.checked || galleryButton.checked) ? parent.width / 2.5 : 0
         Behavior on width {
             PropertyAnimation {
                 duration: 200
@@ -177,6 +180,17 @@ ApplicationWindow
                 fill: parent
                 margins: 5
             }
+            visible: settingsButton.checked
+        }
+
+        ImagesView {
+            anchors {
+                fill: parent
+                margins: 5
+            }
+
+            visible: galleryButton.checked
+            mimeFilter: buttonGroup.current.stuff.mimes
         }
     }
 
@@ -203,23 +217,6 @@ ApplicationWindow
             anchors.fill: video
             visible: !video.visible
             source: "http://i.imgur.com/OEiQ6k9.gif"
-        }
-
-        OverlayFrame {
-            width: visor.width*2/3
-            height: visor.height*2/3
-            visible: galleryButton.checked
-            anchors {
-                bottom: parent.bottom
-                right: parent.right
-                margins: 30
-            }
-
-            ImagesView {
-                id: imagesView
-                anchors.fill: parent
-                mimeFilter: buttonGroup.current.stuff.mimes
-            }
         }
     }
 
