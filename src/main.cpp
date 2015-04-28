@@ -25,7 +25,7 @@
 #include <QGst/Init>
 int main(int argc, char *argv[])
 {
-    KAboutData about("kamoso", i18n("Kamoso"), "2.9.90", i18n("Webcam picture retriever"),
+    KAboutData about("kamoso", i18n("Kamoso"), "2.9.90", i18n("Utility for taking photos and videos using a webcam"),
                 KAboutLicense::GPL, i18n("(C) 2008-2012 Alex Fiestas and Aleix Pol"));
 
     about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
