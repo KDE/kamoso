@@ -72,7 +72,8 @@ StackView {
 
     function startShareJob(job) {
         stack.push({
-            item: busyComponent
+            item: busyComponent,
+            properties: { job: job }
         });
 
         job.start();
@@ -149,8 +150,26 @@ StackView {
 
     Component {
         id: busyComponent
-        BusyIndicator {
-            running: true
+        ColumnLayout {
+            property QtObject job
+
+            BusyIndicator {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                running: true
+            }
+
+            Button {
+                anchors.right: parent.right
+                text: i18n("Cancel")
+                enabled: parent.job && (parent.job.capabilities & KJob.Killable)
+
+                onClicked: {
+                    if (parent.job.kill()) {
+                        stack.pop()
+                    }
+                }
+            }
         }
     }
 }
