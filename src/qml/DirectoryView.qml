@@ -22,7 +22,7 @@ ScrollView
 
         model: DirModel {
             id: model
-            url: settings.saveUrl
+            url: config.saveUrl
         }
 
         delegate: MouseArea {

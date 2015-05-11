@@ -18,10 +18,10 @@
 
 
 #include "webcamcontrol.h"
+#include "kamosoSettings.h"
 #include <devicemanager.h>
 #include <kamosodirmodel.h>
 #include <previewfetcher.h>
-#include <kamososettings.h>
 #include <whitewidgetmanager.h>
 #include <kamoso.h>
 #include <KIO/CopyJob>
@@ -66,7 +66,7 @@ WebcamControl::WebcamControl()
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
-    engine->rootContext()->setContextProperty("settings", new KamosoSettings);
+    engine->rootContext()->setContextProperty("config", Settings::self());
     engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
     engine->rootContext()->setContextProperty("webcam", new Kamoso(this));

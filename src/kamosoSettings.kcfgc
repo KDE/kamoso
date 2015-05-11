@@ -2,3 +2,4 @@ File=kamosoSettings.kcfg
 ClassName=Settings
 Singleton=true
 Mutators=true
+GenerateProperties=true

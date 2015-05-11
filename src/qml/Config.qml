@@ -21,7 +21,7 @@ ColumnLayout
         Layout.fillWidth: true
 
         iconName: "document-open-folder"
-        text: settings.saveUrl
+        text: config.saveUrl
         onClicked: {
             dirSelector.visible = true
         }
@@ -34,7 +34,8 @@ ColumnLayout
             selectFolder: true
 
             onFileUrlChanged: {
-                settings.saveUrl = dirSelector.fileUrl
+                config.saveUrl = dirSelector.fileUrl
+                config.save()
             }
         }
     }

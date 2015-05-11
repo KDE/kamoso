@@ -24,7 +24,7 @@ StackView {
         }
         MenuItem {
             text: i18n("Open Directory...")
-            onTriggered: Qt.openUrlExternally(settings.saveUrl)
+            onTriggered: Qt.openUrlExternally(config.saveUrl)
         }
 
         MenuSeparator {}
