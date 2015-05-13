@@ -29,6 +29,7 @@ ColumnLayout
         FileDialog {
             id: dirSelector
             title: i18n("Select a directory where to save your pictures and videos")
+            folder: config.saveUrl
             selectMultiple: false
             selectExisting: true
             selectFolder: true
