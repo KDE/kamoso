@@ -216,7 +216,7 @@ ApplicationWindow
         AnimatedImage {
             anchors.fill: video
             visible: !video.visible
-            source: "http://i.imgur.com/OEiQ6k9.gif"
+            source: visible ? "http://i.imgur.com/OEiQ6k9.gif" : ""
         }
     }
 
