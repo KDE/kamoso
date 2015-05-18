@@ -43,14 +43,14 @@ StackView {
                 text: display
                 iconName: model.iconName
                 onTriggered: {
-                    var job = altsModel.createJob(index)
+                    var config = altsModel.configureJob(index)
 
-                    if (job.isReady)
-                        startShareJob(job)
+                    if (config.isReady)
+                        startShareJob(config)
                     else {
                         stack.push({
                             item: shareWizardComponent,
-                            properties: { job: job }
+                            properties: { configuration: config }
                         })
                     }
                 }
@@ -70,7 +70,8 @@ StackView {
         }
     }
 
-    function startShareJob(job) {
+    function startShareJob(config) {
+        var job = config.createJob();
         stack.push({
             item: busyComponent,
             properties: { job: job }
@@ -121,7 +122,7 @@ StackView {
     Component {
         id: shareWizardComponent
         ColumnLayout {
-            property alias job: wiz.job
+            property alias configuration: wiz.configuration
             PurposeWizard {
                 id: wiz
 
@@ -131,10 +132,10 @@ StackView {
             RowLayout {
                 Button {
                     text: i18n("Run")
-                    enabled: wiz.job && wiz.job.isReady
+                    enabled: wiz.configuration && wiz.configuration.isReady
                     onClicked: {
                         stack.pop();
-                        startShareJob(wiz.job);
+                        startShareJob(wiz.configuration);
                     }
                 }
                 Button {
