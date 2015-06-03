@@ -87,6 +87,7 @@ WebcamControl::WebcamControl()
 WebcamControl::~WebcamControl()
 {
     DeviceManager::self()->save();
+    Settings::self()->save();
 }
 
 void WebcamControl::stop()

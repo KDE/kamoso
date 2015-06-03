@@ -8,7 +8,8 @@ ListModel
     function trigger(i, checked) {
         switch(i) {
             case 0:
-                whites.showAll()
+                if (config.useFlash)
+                    whites.showAll()
                 webcam.takePhoto()
                 break;
             case 1:

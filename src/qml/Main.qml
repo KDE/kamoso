@@ -33,7 +33,8 @@ ApplicationWindow
         interval: 1000
         repeat: true
         onTriggered: {
-            whites.showAll()
+            if (config.useFlash)
+                whites.showAll()
             webcam.takePhoto()
         }
     }
