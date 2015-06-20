@@ -172,6 +172,10 @@ void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
 }
 void WebcamControl::takePhoto(const QUrl &url)
 {
+    if (!m_pipeline) {
+        qWarning() << "couldn't take photo, no pipeline";
+        return;
+    }
     m_pipeline->setProperty("mode", 1);
 
     const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";
