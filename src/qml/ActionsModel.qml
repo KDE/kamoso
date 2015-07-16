@@ -47,6 +47,6 @@ ListModel
     Component.onCompleted: {
         model.get(0).text = i18n("Shoot");
         model.get(1).text = i18n("Burst");
-        model.get(2).text = i18n("Action!");
+        model.get(2).text = i18n("Record");
     }
 }
