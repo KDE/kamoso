@@ -31,7 +31,6 @@
 */
 WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
 {
-    qDebug() << "WhiteWidgetManager has been instanced";
     createWhiteWidgets();
 
     m_timer = new QPropertyAnimation(this);
@@ -50,7 +49,6 @@ void WhiteWidgetManager::createWhiteWidgets()
 {
     QList<QScreen*> screens = qGuiApp->screens();
 
-    qDebug() << "Num of whidgets to be created: " << screens.count();
     Q_FOREACH (QScreen* screen, screens)
     {
         WhiteWidget *whiteWidget = new WhiteWidget;
