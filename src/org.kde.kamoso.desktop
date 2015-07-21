@@ -1,7 +1,19 @@
 [Desktop Entry]
 Name=Kamoso
+Name[pt]=Kamoso
+Name[sv]=Kamoso
+Name[uk]=Kamoso
+Name[x-test]=xxKamosoxx
 GenericName=Camera
+GenericName[pt]=Câmara
+GenericName[sv]=Kamera
+GenericName[uk]=Камера
+GenericName[x-test]=xxCameraxx
 Comment=Use your webcam to take pictures or make videos
+Comment[pt]=Use a sua câmara Web para tirar fotografias ou criar vídeos
+Comment[sv]=Använd din egen webbkamera för att ta bilder eller göra videor
+Comment[uk]=Скористайтеся вашою вебкамерою для створення знімків та запису відео
+Comment[x-test]=xxUse your webcam to take pictures or make videosxx
 Exec=kamoso -qwindowtitle %c
 Icon=kamoso
 Type=Application
