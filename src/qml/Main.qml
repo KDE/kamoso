@@ -155,7 +155,7 @@ ApplicationWindow
             Button {
                 id: settingsButton
                 width: 30
-                iconName: "configure"
+                iconName: "preferences-other"
                 checkable: true
                 tooltip: i18n("Show settings...")
                 onClicked: galleryButton.checked = false;

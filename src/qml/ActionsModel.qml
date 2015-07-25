@@ -26,19 +26,19 @@ ListModel
     }
 
     ListElement {
-        icon: "camera-web"
+        icon: "shoot"
         text: ""
         mimes: "image/jpeg"
         checkable: false
     }
     ListElement {
-        icon: "code-function"
+        icon: "burst"
         text: ""
         mimes: "image/jpeg"
         checkable: true
     }
     ListElement {
-        icon: "media-record"
+        icon: "record"
         text: ""
         mimes: "video/x-matroska"
         checkable: true
