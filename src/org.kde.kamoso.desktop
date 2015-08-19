@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Kamoso
+Name[ar]=كاموسو
 Name[ast]=Kamoso
 Name[bg]=Kamoso
 Name[bs]=Kamoso
@@ -48,6 +49,7 @@ Name[x-test]=xxKamosoxx
 Name[zh_CN]=Kamoso
 Name[zh_TW]=Kamoso
 GenericName=Camera
+GenericName[ar]=الكاميرا
 GenericName[ast]=Cámara
 GenericName[bg]=Камера
 GenericName[ca]=Càmera
@@ -73,6 +75,7 @@ GenericName[uk]=Камера
 GenericName[x-test]=xxCameraxx
 GenericName[zh_CN]=相机
 Comment=Use your webcam to take pictures or make videos
+Comment[ar]=استخدم كاميرا الوِبّ لديك لأخذ الصّور أو عمل الفيديوهات
 Comment[ast]=Usa la to cámara web pa sacar semeyes o facer videos
 Comment[bg]=Използване на уеб камерата за снимки и видео
 Comment[ca]=Useu la càmera web per prendre fotografies o fer vídeos
