@@ -40,16 +40,24 @@ Kamoso::~Kamoso()
 
 }
 
-const QString Kamoso::takePhoto()
+QUrl Kamoso::fileNameSuggestion(const QString &name, const QString& extension) const
 {
     const QUrl saveUrl = Settings::saveUrl();
-    const QString initialName = QStringLiteral("picture.jpg");
-    QUrl path = saveUrl.toString() + '/' + initialName;
+    const QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
+    const QString initialName =  QStringLiteral("%1_%2.%3").arg(name).arg(date).arg(extension);
+
+    QUrl path(saveUrl.toString() + '/' + initialName);
 
     if (path.isLocalFile() && QFile::exists(path.toLocalFile())) {
         path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
     }
 
+    return path;
+}
+
+const QString Kamoso::takePhoto()
+{
+    const QUrl path = fileNameSuggestion("picture", "jpg");
     m_webcamControl->takePhoto(path);
 
     return path.toDisplayString();
@@ -62,14 +70,7 @@ void Kamoso::startRecording()
 
 void Kamoso::stopRecording()
 {
-    const QUrl saveUrl = Settings::saveUrl();
-    const QString initialName = QStringLiteral("video.mkv");
-
-    QUrl path = saveUrl.toString() + '/' + initialName;
-
-    if (path.isLocalFile() && QFile::exists(path.toLocalFile())) {
-        path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
-    }
+    const QUrl path = fileNameSuggestion("video", "mkv");
 
     KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
     job->start();
