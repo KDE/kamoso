@@ -22,7 +22,6 @@
 
 #include <QtCore/QObject>
 
-#include <solid/device.h>
 #include <KSharedConfig>
 
 namespace UdevQt {
