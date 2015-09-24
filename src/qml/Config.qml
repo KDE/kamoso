@@ -14,14 +14,20 @@ ColumnLayout
         font.bold: true
         text: i18n("Places")
     }
-    Label {
-        text: i18n("Captures directory")
+
+    function pathOrUrl(url) {
+        var urlstr = url.toString();
+        if (urlstr.indexOf("file://") == 0) {
+            return urlstr.substring(7);
+        }
+        return url;
     }
+
     Button {
         Layout.fillWidth: true
 
         iconName: "document-open-folder"
-        text: config.saveUrl
+        text: i18n("Photos: %1", pathOrUrl(config.saveUrl))
         onClicked: {
             dirSelector.visible = true
         }
@@ -36,6 +42,29 @@ ColumnLayout
 
             onFileUrlChanged: {
                 config.saveUrl = dirSelector.fileUrl
+                config.save()
+            }
+        }
+    }
+    Button {
+        Layout.fillWidth: true
+
+        iconName: "document-open-folder"
+        text: i18n("Videos: %1", pathOrUrl(config.saveVideos))
+        onClicked: {
+            videoDirSelector.visible = true
+        }
+
+        FileDialog {
+            id: videoDirSelector
+            title: i18n("Select a directory where to save your pictures and videos")
+            folder: config.saveVideos
+            selectMultiple: false
+            selectExisting: true
+            selectFolder: true
+
+            onFileUrlChanged: {
+                config.saveVideos = videoDirSelector.fileUrl
                 config.save()
             }
         }

@@ -43,7 +43,7 @@ Q_OBJECT
         void photoTaken(const QString &path);
 
     private:
-        QUrl fileNameSuggestion(const QString &name, const QString& extension) const;
+        QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;
 
         WebcamControl *m_webcamControl;
 };

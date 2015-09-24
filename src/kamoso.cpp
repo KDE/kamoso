@@ -40,9 +40,8 @@ Kamoso::~Kamoso()
 
 }
 
-QUrl Kamoso::fileNameSuggestion(const QString &name, const QString& extension) const
+QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const
 {
-    const QUrl saveUrl = Settings::saveUrl();
     const QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
     const QString initialName =  QStringLiteral("%1_%2.%3").arg(name).arg(date).arg(extension);
 
@@ -57,7 +56,7 @@ QUrl Kamoso::fileNameSuggestion(const QString &name, const QString& extension) c
 
 const QString Kamoso::takePhoto()
 {
-    const QUrl path = fileNameSuggestion("picture", "jpg");
+    const QUrl path = fileNameSuggestion(Settings::saveUrl(), "picture", "jpg");
     m_webcamControl->takePhoto(path);
 
     return path.toDisplayString();
@@ -70,7 +69,7 @@ void Kamoso::startRecording()
 
 void Kamoso::stopRecording()
 {
-    const QUrl path = fileNameSuggestion("video", "mkv");
+    const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
 
     KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
     job->start();
