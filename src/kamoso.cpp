@@ -42,8 +42,8 @@ Kamoso::~Kamoso()
 
 QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const
 {
-    const QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
-    const QString initialName =  QStringLiteral("%1_%2.%3").arg(name).arg(date).arg(extension);
+    const QString date = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-mm-dd_hh-mm-ss"));
+    const QString initialName =  QStringLiteral("%1_%2.%3").arg(name, date, extension);
 
     QUrl path(saveUrl.toString() + '/' + initialName);
 
