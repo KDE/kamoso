@@ -18,6 +18,7 @@
  *************************************************************************************/
 
 #include <kaboutdata.h>
+#include <QCommandLineParser>
 #include <klocalizedstring.h>
 #include "video/webcamcontrol.h"
 #include <QApplication>
@@ -32,9 +33,16 @@ int main(int argc, char *argv[])
     about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
     QApplication app(argc, argv);
 
+    {
+        QCommandLineParser parser;
+        about.setupCommandLine(&parser);
+        parser.process(app);
+        about.processCommandLine(&parser);
+    }
+
     WebcamControl webcamControl;
 
-    QObject::connect(&app, &QApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
 
     return app.exec();
 }
