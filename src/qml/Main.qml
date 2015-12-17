@@ -25,20 +25,6 @@ ApplicationWindow
 
     }
 
-    function setBursting(state) {
-        burstTimer.running = state;
-    }
-    Timer {
-        id: burstTimer
-        interval: 1000
-        repeat: true
-        onTriggered: {
-            if (config.useFlash)
-                whites.showAll()
-            webcam.takePhoto()
-        }
-    }
-
     Connections {
         target: webcam
         onPhotoTaken: awesomeAnimation(path)
@@ -79,6 +65,52 @@ ApplicationWindow
         ]
     }
 
+    property list<Mode> actions: [
+        Mode {
+            mimes: [ "image/jpeg" ]
+            checkable: false
+            icon: "shoot"
+            text: i18n("Shoot")
+
+            onTrigger: {
+                if (config.useFlash)
+                    whites.showAll()
+                webcam.takePhoto()
+            }
+        },
+        Mode {
+            mimes: "image/jpeg"
+            checkable: true
+            icon: "burst"
+            text: i18n("Burst")
+
+            onTrigger: {
+                burstTimer.running = checked;
+            }
+
+            property var smth: Timer {
+                id: burstTimer
+                interval: 1000
+                repeat: true
+                onTriggered: {
+                    if (config.useFlash)
+                        whites.showAll()
+                    webcam.takePhoto()
+                }
+            }
+        },
+        Mode {
+            mimes: "video/x-matroska"
+            checkable: true
+            icon: "record"
+            text: i18n("Record")
+
+            onTrigger: {
+                webcam.isRecording = checked;
+            }
+        }
+    ]
+
     Item {
         anchors {
             left: parent.left
@@ -92,9 +124,9 @@ ApplicationWindow
 
             ExclusiveGroup { id: buttonGroup }
             Repeater {
-                model: ActionsModel { id: actions }
+                model: actions
                 delegate: Button {
-                    property QtObject stuff: model
+                    property QtObject stuff: modelData
                     exclusiveGroup: buttonGroup
                     isDefault: true
                     tooltip: model.text ? i18n("Switch to '%1' mode", model.text) : ""
@@ -128,7 +160,7 @@ ApplicationWindow
         }
 
         onClicked: {
-            actions.trigger(buttonGroup.current.stuff.index, checked)
+            buttonGroup.current.stuff.trigger(checked)
         }
     }
 
