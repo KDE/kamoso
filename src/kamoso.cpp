@@ -26,13 +26,17 @@
 #include "devicemanager.h"
 #include <KIO/Global>
 #include <KIO/CopyJob>
+#include <KFormat>
 
 #include <QtCore/QFile>
 
 Kamoso::Kamoso(WebcamControl *webcamControl)
+    : m_webcamControl(webcamControl)
 {
-    m_webcamControl = webcamControl;
+    m_recordingTimer.setInterval(30);
+
     connect(m_webcamControl, SIGNAL(photoTaken(QString)), this, SIGNAL(photoTaken(QString)));
+    connect(&m_recordingTimer, &QTimer::timeout, this, &Kamoso::recordingTimeChanged);
 }
 
 Kamoso::~Kamoso()
@@ -62,23 +66,39 @@ const QString Kamoso::takePhoto()
     return path.toDisplayString();
 }
 
-void Kamoso::startRecording()
-{
-    m_webcamControl->startRecording();
-}
-
-void Kamoso::stopRecording()
-{
-    const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
-
-    KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
-    job->start();
-
-    m_webcamControl->play(DeviceManager::self()->playingDevice());
-}
-
 void Kamoso::resetDeviceSettings()
 {
     Device *device = DeviceManager::self()->playingDevice();
     device->reset();
+}
+
+void Kamoso::setRecording(bool recording)
+{
+    if (recording == m_recordingTimer.isActive())
+        return;
+
+    if (recording) {
+        m_webcamControl->startRecording();
+        m_recordingTime.restart();
+        m_recordingTimer.start();
+    } else {
+        const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
+
+        KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
+        job->start();
+
+        m_webcamControl->play(DeviceManager::self()->playingDevice());
+        m_recordingTimer.stop();
+    }
+
+}
+
+QString Kamoso::recordingTime() const
+{
+    return KFormat().formatDuration(m_recordingTime.elapsed());
+}
+
+bool Kamoso::isRecording() const
+{
+    return m_recordingTimer.isActive();
 }

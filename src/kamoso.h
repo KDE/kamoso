@@ -23,29 +23,39 @@
 #define KAMOSO_H
 
 #include <QObject>
+#include <QTimer>
+#include <QElapsedTimer>
 
 class WebcamControl;
 class Kamoso : public QObject
 {
 Q_OBJECT
+    Q_PROPERTY(bool isRecording READ isRecording WRITE setRecording NOTIFY isRecordingChanged)
+    Q_PROPERTY(QString recordingTime READ recordingTime NOTIFY recordingTimeChanged)
 
     public:
         Kamoso(WebcamControl* webcamControl);
         virtual ~Kamoso();
 
+        bool isRecording() const;
+        QString recordingTime() const;
+        void setRecording(bool recording);
+
     public Q_SLOTS:
         const QString takePhoto();
-        void startRecording();
-        void stopRecording();
         void resetDeviceSettings();
 
     Q_SIGNALS:
         void photoTaken(const QString &path);
+        void isRecordingChanged(bool isRecording);
+        void recordingTimeChanged();
 
     private:
         QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;
 
-        WebcamControl *m_webcamControl;
+        WebcamControl * const m_webcamControl;
+        QTimer m_recordingTimer;
+        QElapsedTimer m_recordingTime;
 };
 
 #endif // KAMOSO_H

@@ -71,11 +71,14 @@ ApplicationWindow
             checkable: false
             icon: "shoot"
             text: i18n("Shoot")
+            property int photosTaken: 0
+            modeInfo: i18np("1 photo", "%1 photos", photosTaken)
 
             onTrigger: {
                 if (config.useFlash)
                     whites.showAll()
                 webcam.takePhoto()
+                photosTaken++;
             }
         },
         Mode {
@@ -83,6 +86,8 @@ ApplicationWindow
             checkable: true
             icon: "burst"
             text: i18n("Burst")
+            property int photosTaken: 0
+            modeInfo: i18np("1 photo", "%1 photos", photosTaken)
 
             onTrigger: {
                 burstTimer.running = checked;
@@ -96,6 +101,7 @@ ApplicationWindow
                     if (config.useFlash)
                         whites.showAll()
                     webcam.takePhoto()
+                    photosTaken++;
                 }
             }
         },
@@ -104,6 +110,7 @@ ApplicationWindow
             checkable: true
             icon: "record"
             text: i18n("Record")
+            modeInfo: webcam.recordingTime
 
             onTrigger: {
                 webcam.isRecording = checked;
@@ -251,6 +258,22 @@ ApplicationWindow
             anchors.fill: video
             visible: !video.visible
             source: visible ? "http://i.imgur.com/OEiQ6k9.gif" : ""
+        }
+
+        Text {
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+                margins: 20
+            }
+
+            text: buttonGroup.current.stuff.modeInfo
+            visible: config.showOsd
+            color: "white"
+            styleColor: "black"
+            font.pointSize: 20
+
+            style: Text.Outline
         }
     }
 
