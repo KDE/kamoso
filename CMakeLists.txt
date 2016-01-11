@@ -23,4 +23,6 @@ add_subdirectory(src)
 add_subdirectory(icons)
 add_subdirectory(doc)
 
+install(FILES org.kde.kamoso.appdata.xml DESTINATION ${KDE_INSTALL_DATAROOTDIR}/appdata/)
+
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
