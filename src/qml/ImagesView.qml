@@ -7,36 +7,19 @@ import org.kde.purpose 1.0
 
 StackView {
     id: stack
-    property alias mimeFilter: view.mimeFilter
+    property string mimeFilter
     clip: true
 
     Menu {
         id: menu
-        MenuItem {
-            text: menu.title
-            enabled: false
-        }
-        MenuSeparator {}
-
-        MenuItem {
-            text: i18n("Open...")
-            onTriggered: Qt.openUrlExternally(menu.title)
-        }
-        MenuItem {
-            text: i18n("Open Directory...")
-            onTriggered: Qt.openUrlExternally(config.saveUrl)
-        }
-
-        MenuSeparator {}
-
         Instantiator {
             id: inst
             model: PurposeAlternativesModel {
                 id: altsModel
                 pluginType: "Export"
                 inputData: {
-                    "urls": [ menu.title ],
-                    "mimeType": view.mimeFilter
+                    "urls": view.selection,
+                    "mimeType": stack.mimeFilter
                 }
             }
             MenuItem {
@@ -53,6 +36,7 @@ StackView {
                             properties: { configuration: config }
                         })
                     }
+                    view.selection = []
                 }
             }
 
@@ -61,12 +45,43 @@ StackView {
         }
     }
 
-    initialItem: DirectoryView {
-        id: view
-        onItemClicked: {
-            menu.visible = false
-            menu.title = path
-            menu.popup()
+    initialItem: Rectangle {
+        ColumnLayout {
+            anchors.fill: parent
+            ToolBar {
+                Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    Label {
+                        Layout.fillWidth: true
+                        text: view.selection.length==0 ? i18n("Gallery") : i18n("%1 selected", view.selection.length)
+                    }
+//                     ToolButton {
+//                         iconName: "user-trash"
+//                         tooltip: i18n("Move to trash...")
+//                         visible: view.selection.length>0
+//                         onClicked: console.log("Trash, FFS!!", view.selection);
+//                     }
+                    ToolButton {
+                        iconName: "document-share"
+                        menu: menu
+                        tooltip: i18n("Share...")
+                        visible: view.selection.length>0
+                    }
+                    ToolButton {
+                        iconName: "folder-open"
+                        tooltip: i18n("Open Folder")
+                        onClicked: Qt.openUrlExternally(config.saveUrl)
+                    }
+                }
+            }
+            DirectoryView {
+                id: view
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                mimeFilter: [stack.mimeFilter]
+            }
         }
     }
 

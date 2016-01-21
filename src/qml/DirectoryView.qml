@@ -9,10 +9,10 @@ ScrollView
 {
     id: scrollView
     property alias mimeFilter: model.mimeFilter
-    signal itemClicked(string path)
 
-    property real delegateWidth: 50
+    readonly property real delegateWidth: 70
     readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
+    property var selection: []
 
     GridView
     {
@@ -24,6 +24,9 @@ ScrollView
             id: model
             url: config.saveUrl
         }
+        onCountChanged: {
+            scrollView.selection = []
+        }
 
         delegate: MouseArea {
             id: delegateItem
@@ -32,7 +35,27 @@ ScrollView
             acceptedButtons: Qt.AllButtons
 
             onClicked: {
-                scrollView.itemClicked(path)
+                var url = path.toString();
+                var idx = scrollView.selection.indexOf(url);
+                if (idx < 0) {
+                    scrollView.selection.push(url)
+                } else {
+                    scrollView.selection.splice(idx, 1)
+                }
+                scrollView.selectionChanged(scrollView.selection);
+            }
+
+            Rectangle {
+                anchors {
+                    margins: -1
+                    fill: parent
+                }
+                visible: scrollView.selection.indexOf(path.toString())>=0
+
+                SystemPalette {
+                    id: pal
+                }
+                color: pal.highlight
             }
 
             QPixmapItem {

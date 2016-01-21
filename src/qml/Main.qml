@@ -67,7 +67,7 @@ ApplicationWindow
 
     property list<Mode> actions: [
         Mode {
-            mimes: [ "image/jpeg" ]
+            mimes: "image/jpeg"
             checkable: false
             icon: "shoot"
             text: i18n("Shoot")
