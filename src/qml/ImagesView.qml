@@ -78,15 +78,12 @@ StackView {
         });
 
         job.start();
-        job.output.connect(function(output) {
-            job.outputUrl = output.url
-        });
         job.result.connect(function(job) {
-            if (job.outputUrl=="")
+            if (job.output.url=="")
                 return;
             stack.replace({
                 item: sharedComponent,
-                properties: { text: job.outputUrl },
+                properties: { text: job.output.url },
                 replace: true
             })
         });
