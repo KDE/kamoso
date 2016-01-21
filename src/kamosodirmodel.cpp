@@ -66,7 +66,7 @@ QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
         case Path:
             return qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).url();
         case MimeType:
-            return QUrl(qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).mimetype());
+            return qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).mimetype();
         default:
             return KDirModel::data(index, role);
     }
