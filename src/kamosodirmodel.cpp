@@ -43,6 +43,16 @@ QUrl KamosoDirModel::url() const
     return dirLister()->url();
 }
 
+QString KamosoDirModel::nameFilter() const
+{
+    return dirLister()->nameFilter();
+}
+
+void KamosoDirModel::setNameFilter(const QString& filter)
+{
+    dirLister()->setNameFilter(filter);
+}
+
 void KamosoDirModel::setMimeFilter(const QStringList& mimes)
 {
     if(mimes==dirLister()->mimeFilters())

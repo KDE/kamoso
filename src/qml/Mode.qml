@@ -6,6 +6,7 @@ QtObject {
     property string icon: ""
     property string text: ""
     property string modeInfo: ""
+    property string nameFilter: ""
 
     signal trigger(bool checked)
 

@@ -8,6 +8,7 @@ import org.kde.purpose 1.0
 StackView {
     id: stack
     property string mimeFilter
+    property alias nameFilter: view.nameFilter
     clip: true
 
     Menu {

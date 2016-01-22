@@ -73,6 +73,7 @@ ApplicationWindow
             text: i18n("Shoot")
             property int photosTaken: 0
             modeInfo: i18np("1 photo", "%1 photos", photosTaken)
+            nameFilter: "picture_*"
 
             onTrigger: {
                 if (config.useFlash)
@@ -88,6 +89,7 @@ ApplicationWindow
             text: i18n("Burst")
             property int photosTaken: 0
             modeInfo: i18np("1 photo", "%1 photos", photosTaken)
+            nameFilter: "picture_*"
 
             onTrigger: {
                 burstTimer.running = checked;
@@ -111,6 +113,7 @@ ApplicationWindow
             icon: "record"
             text: i18n("Record")
             modeInfo: webcam.recordingTime
+            nameFilter: "video_*"
 
             onTrigger: {
                 webcam.isRecording = checked;
@@ -232,6 +235,7 @@ ApplicationWindow
 
             visible: galleryButton.checked
             mimeFilter: buttonGroup.current.stuff.mimes
+            nameFilter: buttonGroup.current.stuff.nameFilter
         }
     }
 

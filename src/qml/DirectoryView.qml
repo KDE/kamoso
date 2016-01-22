@@ -9,6 +9,7 @@ ScrollView
 {
     id: scrollView
     property alias mimeFilter: model.mimeFilter
+    property alias nameFilter: model.nameFilter
 
     readonly property real delegateWidth: 70
     readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
