@@ -23,9 +23,9 @@
 
 class KamosoDirModel : public KDirModel
 {
+    Q_OBJECT
     Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(QStringList mimeFilter READ mimeFilter WRITE setMimeFilter NOTIFY filterChanged)
-    Q_OBJECT
     Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter)
     public:
         enum Roles {
@@ -43,8 +43,8 @@ class KamosoDirModel : public KDirModel
         void setMimeFilter(const QStringList& mimes);
         QStringList mimeFilter() const;
 
-        virtual QHash<int, QByteArray> roleNames() const;
-        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+        QHash<int, QByteArray> roleNames() const override;
+        QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
     Q_SIGNALS:
         void urlChanged();
