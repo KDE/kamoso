@@ -26,9 +26,12 @@
 #include "devicemanager.h"
 #include <KIO/Global>
 #include <KIO/CopyJob>
+#include <KIO/FileUndoManager>
+#include <KIO/JobUiDelegate>
 #include <KFormat>
-
+#include <KJobWidgets/KJobWidgets>
 #include <QtCore/QFile>
+#include <QtCore/QJsonArray>
 
 Kamoso::Kamoso(WebcamControl *webcamControl)
     : m_webcamControl(webcamControl)
@@ -101,4 +104,16 @@ QString Kamoso::recordingTime() const
 bool Kamoso::isRecording() const
 {
     return m_recordingTimer.isActive();
+}
+
+void Kamoso::trashFiles(const QJsonArray& urls)
+{
+    QList<QUrl> list;
+    Q_FOREACH(const QJsonValue& val, urls) {
+        list += QUrl(val.toString());
+    }
+
+    KIO::Job* job = KIO::trash(list);
+    KIO::FileUndoManager::self()->recordJob(KIO::FileUndoManager::Trash, list, QUrl("trash:/"), job);
+//     KJobWidgets::setWindow(job, window);
 }

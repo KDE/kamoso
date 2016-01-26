@@ -27,6 +27,8 @@
 #include <QElapsedTimer>
 
 class WebcamControl;
+class QWindow;
+
 class Kamoso : public QObject
 {
 Q_OBJECT
@@ -40,6 +42,8 @@ Q_OBJECT
         bool isRecording() const;
         QString recordingTime() const;
         void setRecording(bool recording);
+
+        Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
 
     public Q_SLOTS:
         const QString takePhoto();

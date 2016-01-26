@@ -2,6 +2,7 @@ import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
 import org.kde.purpose 1.0
 
@@ -57,12 +58,32 @@ StackView {
                         Layout.fillWidth: true
                         text: view.selection.length==0 ? i18n("Gallery") : i18n("%1 selected", view.selection.length)
                     }
-//                     ToolButton {
-//                         iconName: "user-trash"
-//                         tooltip: i18n("Move to trash...")
-//                         visible: view.selection.length>0
-//                         onClicked: console.log("Trash, FFS!!", view.selection);
-//                     }
+                    ToolButton {
+                        iconName: "user-trash"
+                        tooltip: i18n("Move to trash...")
+                        visible: view.selection.length>0
+                        onClicked: {
+                            trashDialog.visible = true
+                        }
+
+                        Dialog {
+                            id: trashDialog
+                            title: i18n("Move to trash...")
+
+                            Label {
+                                text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
+                            }
+
+                            standardButtons: StandardButton.Ok | StandardButton.Cancel
+                            onAccepted: {
+                                console.log("Trash, FFS!!", view.selection);
+                                webcam.trashFiles(view.selection);
+                            }
+                            onVisibleChanged: if (!visible) {
+                                view.selection = []
+                            }
+                        }
+                    }
                     ToolButton {
                         iconName: "document-share"
                         menu: menu
