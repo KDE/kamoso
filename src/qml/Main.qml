@@ -156,6 +156,7 @@ ApplicationWindow
         height: 40
         checkable: buttonGroup.current.stuff.checkable
         tooltip: buttonGroup.current.stuff.text
+        focus: true
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
