@@ -12,6 +12,7 @@
   <name xml:lang="de">Kamoso</name>
   <name xml:lang="en-GB">Kamoso</name>
   <name xml:lang="es">Kamoso</name>
+  <name xml:lang="et">Kamoso</name>
   <name xml:lang="fi">Kamoso</name>
   <name xml:lang="fr">Kamoso</name>
   <name xml:lang="gl">Kamoso</name>
@@ -37,6 +38,7 @@
   <summary xml:lang="de">Kamoso ist ein Programm, um mit Ihrer Webcam Bilder oder Videos aufzunehmen.</summary>
   <summary xml:lang="en-GB">Kamoso is a great program to use your webcam to take pictures or make videos.</summary>
   <summary xml:lang="es">Kamoso es un gran programa para usar su webcam para capturar imágenes y hacer vídeos.</summary>
+  <summary xml:lang="et">Kamoso on suurepärane rakendus piltide või videode tegemiseks oma veebikaameraga.</summary>
   <summary xml:lang="fi">Kamoso on ohjelma kuvien ottamiseen ja videoiden tekemiseen nettikameralla.</summary>
   <summary xml:lang="fr">Kamoso est un super programme qui utilise votre webcam pour prendre des photos ou faire des vidéos.</summary>
   <summary xml:lang="gl">Kamoso é un programa xenial para usar a súa cámara web para sacar fotos ou gravar vídeos.</summary>
@@ -63,6 +65,7 @@
     <p xml:lang="de">Kamoso ist ein Programm, um mit Ihrer Webcam Bilder oder Videos aufzunehmen Diese Anleitung hilft Ihnen Kamoso zu benutzen, nachdem Sie das Programm installiert haben.</p>
     <p xml:lang="en-GB">Kamoso is a great program to use your webcam to take pictures or make videos. It probably should be the best webcam recorder for Linux. This guide will help you use Kamoso once you have installed it. We tried to make it simple and friendly.</p>
     <p xml:lang="es">Kamoso es un gran programa para usar su webcam para capturar imágenes y hacer vídeos. Probablemente sea el mejor grabador de webcam para Linux. Esta guía le ayudará a usar Kamoso tras instalarlo. Hemos intentado hacerlo sencillo y amigable.</p>
+    <p xml:lang="et">Kamoso on suurepärane rakendus oma veebikaamera kasutamiseks piltide või videode valmistamisel Tõenäoliselt on see üks Linuxi paremaid veebikaamera salvestajaid. Käesolev käsiraamat abistab sind Kamoso kasutamisel, kui oled selle paigaldanud. Me oleme püüdnud muuta selle võimalikult lihtsaks ja kasutajasõbralikuks.</p>
     <p xml:lang="fi">Kamoso on ohjelma kuvien ottamiseen ja videoiden tekemiseen nettikameralla. Se on todennäköisesti yksi parhaista nettikameran kuvaa tallentavista ohjelmista, jotka on Linuxille.</p>
     <p xml:lang="fr">Kamoso est un super programme qui utilise votre webcam pour prendre des photos ou faire des vidéos. Il est sans doute le meilleur enregistreur de webcam pour Linux. Ce guide vous aidera à utiliser Kamoso une fois installé. Nous avons essayé de le rendre simple et convivial.</p>
     <p xml:lang="gl">Kamoso é un programa xenial para usar a súa cámara web para sacar fotos ou gravar vídeos. É probábel que se trate do mellor programa de gravación de cámara web dispoñíbel para Linux. Esta guía axudarao a usar Kamoso tras a instalación. Procuramos que fose sinxela e fácil de seguir.</p>
