@@ -95,7 +95,7 @@ ApplicationWindow
                 burstTimer.running = checked;
             }
 
-            property var smth: Timer {
+            readonly property var smth: Timer {
                 id: burstTimer
                 interval: 1000
                 repeat: true
@@ -122,86 +122,95 @@ ApplicationWindow
     ]
 
     Item {
+        id: mainButtonBar
         anchors {
             left: parent.left
-            right: controls.left
-            top: controls.top
+            right: settingsDialog.left
             bottom: parent.bottom
         }
-        RowLayout {
-            anchors.centerIn: parent
-            spacing: 0
+        height: controls.height
+        Item {
+            anchors {
+                left: parent.left
+                right: controls.left
+                top: controls.top
+                bottom: parent.bottom
+            }
+            RowLayout {
+                anchors.centerIn: parent
+                spacing: 0
 
-            ExclusiveGroup { id: buttonGroup }
-            Repeater {
-                model: actions
-                delegate: Button {
-                    property QtObject stuff: modelData
-                    exclusiveGroup: buttonGroup
-                    isDefault: true
-                    tooltip: model.text ? i18n("Switch to '%1' mode", model.text) : ""
-                    checkable: true
-                    checked: index==0
-                    text: checked ? model.text : ""
+                ExclusiveGroup { id: buttonGroup }
+                Repeater {
+                    model: actions
+                    delegate: Button {
+                        readonly property QtObject stuff: modelData
+                        exclusiveGroup: buttonGroup
+                        isDefault: true
+                        tooltip: model.text ? i18n("Switch to '%1' mode", model.text) : ""
+                        checkable: true
+                        checked: index==0
+                        text: (checked ? model.text : "")
 
-                    iconName: model.icon
+                        iconName: model.icon
+                    }
                 }
             }
         }
-    }
 
-    Button {
-        id: controls
-        width: 100
-        height: 40
-        checkable: buttonGroup.current.stuff.checkable
-        tooltip: buttonGroup.current.stuff.text
-        focus: true
+        Button {
+            id: controls
+            width: 100
+            height: 40
+            checkable: buttonGroup.current.stuff.checkable
+            tooltip: buttonGroup.current.stuff.text
+            focus: true
 
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
 
-        QIconItem {
+            QIconItem {
+                anchors {
+                    centerIn: parent
+                }
+                height: parent.height*0.75
+                width: height
+                icon: buttonGroup.current.stuff.icon
+            }
+
+            onClicked: {
+                buttonGroup.current.stuff.trigger(checked)
+            }
+        }
+
+        Item {
             anchors {
-                centerIn: parent
-            }
-            height: parent.height*0.75
-            width: height
-            icon: buttonGroup.current.stuff.icon
-        }
-
-        onClicked: {
-            buttonGroup.current.stuff.trigger(checked)
-        }
-    }
-
-    Item {
-        anchors {
-            top: controls.top
-            left: controls.right
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        RowLayout {
-            anchors.centerIn: parent
-            spacing: 0
-            Button {
-                id: galleryButton
-                checkable: true
-                checked: false
-                iconName: "folder-images"
-                tooltip: i18n("Show gallery...")
-                onClicked: settingsButton.checked = false;
+                top: controls.top
+                left: controls.right
+                right: parent.right
+                bottom: parent.bottom
             }
 
-            Button {
-                id: settingsButton
-                width: 30
-                iconName: "preferences-other"
-                checkable: true
-                tooltip: i18n("Show settings...")
-                onClicked: galleryButton.checked = false;
+            RowLayout {
+                anchors.centerIn: parent
+                spacing: 0
+                Button {
+                    id: galleryButton
+                    checkable: true
+                    checked: false
+                    iconName: "folder-images"
+                    tooltip: i18n("Show gallery...")
+                    onClicked: settingsButton.checked = false;
+                }
+
+                Button {
+                    id: settingsButton
+                    width: 30
+                    iconName: "preferences-other"
+                    checkable: true
+                    tooltip: i18n("Show settings...")
+                    onClicked: galleryButton.checked = false;
+                }
             }
         }
     }
@@ -211,7 +220,7 @@ ApplicationWindow
         anchors {
             top: parent.top
             right: parent.right
-            bottom: controls.top
+            bottom: parent.bottom
         }
         width: (settingsButton.checked || galleryButton.checked) ? parent.width / 2.5 : 0
         Behavior on width {
@@ -248,7 +257,7 @@ ApplicationWindow
             right: settingsDialog.left
             left: parent.left
             top: parent.top
-            bottom: controls.top
+            bottom: mainButtonBar.top
         }
 
         VideoItem {

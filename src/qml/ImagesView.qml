@@ -47,9 +47,16 @@ StackView {
         }
     }
 
-    initialItem: Rectangle {
+    initialItem: Item {
         ColumnLayout {
             anchors.fill: parent
+            DirectoryView {
+                id: view
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                mimeFilter: [stack.mimeFilter]
+            }
             ToolBar {
                 Layout.fillWidth: true
                 RowLayout {
@@ -61,7 +68,7 @@ StackView {
                     ToolButton {
                         iconName: "user-trash"
                         tooltip: i18n("Move to trash...")
-                        visible: view.selection.length>0
+                        enabled: view.selection.length>0
                         onClicked: {
                             trashDialog.visible = true
                         }
@@ -88,7 +95,7 @@ StackView {
                         iconName: "document-share"
                         menu: menu
                         tooltip: i18n("Share...")
-                        visible: view.selection.length>0
+                        enabled: view.selection.length>0
                     }
                     ToolButton {
                         iconName: "folder-open"
@@ -96,13 +103,6 @@ StackView {
                         onClicked: Qt.openUrlExternally(config.saveUrl)
                     }
                 }
-            }
-            DirectoryView {
-                id: view
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                mimeFilter: [stack.mimeFilter]
             }
         }
     }
