@@ -51,6 +51,7 @@
 #include <QtQml/QQmlApplicationEngine>
 #include <qqml.h>
 #include <kdeclarative/kdeclarative.h>
+#include <KJob>
 
 WebcamControl::WebcamControl()
 {
@@ -65,6 +66,7 @@ WebcamControl::WebcamControl()
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+    qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("config", Settings::self());
