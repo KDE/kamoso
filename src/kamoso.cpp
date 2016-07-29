@@ -95,6 +95,7 @@ void Kamoso::setRecording(bool recording)
         m_recordingTimer.stop();
     }
 
+    Q_EMIT isRecordingChanged(m_recordingTimer.isActive());
 }
 
 QString Kamoso::recordingTime() const
