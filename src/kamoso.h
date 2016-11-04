@@ -46,7 +46,7 @@ Q_OBJECT
         Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
 
     public Q_SLOTS:
-        const QString takePhoto();
+        void savePhoto(const QString &path);
         void resetDeviceSettings();
 
     Q_SIGNALS:
@@ -55,8 +55,7 @@ Q_OBJECT
         void recordingTimeChanged();
 
     private:
-        QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;
-
+        QUrl fileNameSuggestion(const QString &name, const QString& extension) const;
         WebcamControl * const m_webcamControl;
         QTimer m_recordingTimer;
         QElapsedTimer m_recordingTime;

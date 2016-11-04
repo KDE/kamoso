@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import QtGStreamer 1.0
+import QtMultimedia 5.6
 import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
 
@@ -18,17 +18,13 @@ ApplicationWindow
 //         tada.y = 0
 //         tada.width = visor.width
 //         tada.height = visor.height
-        tada.source = "file://"+path
+        tada.source = path
         tada.state = "go"
         tada.state = "done"
 //         tada.visible = true
-
     }
+    Component.onCompleted: console.log("wooo")
 
-    Connections {
-        target: webcam
-        onPhotoTaken: awesomeAnimation(path)
-    }
     Image {
         id: tada
         z: 10
@@ -74,11 +70,12 @@ ApplicationWindow
             property int photosTaken: 0
             modeInfo: i18np("1 photo", "%1 photos", photosTaken)
             nameFilter: "picture_*"
+            captureMode: Camera.CaptureStillImage
 
             onTrigger: {
                 if (config.useFlash)
                     whites.showAll()
-                webcam.takePhoto()
+                camera.imageCapture.capture()
                 photosTaken++;
             }
         },
@@ -90,6 +87,7 @@ ApplicationWindow
             property int photosTaken: 0
             modeInfo: i18np("1 photo", "%1 photos", photosTaken)
             nameFilter: "picture_*"
+            captureMode: Camera.CaptureStillImage
 
             onTrigger: {
                 burstTimer.running = checked;
@@ -102,7 +100,7 @@ ApplicationWindow
                 onTriggered: {
                     if (config.useFlash)
                         whites.showAll()
-                    webcam.takePhoto()
+                    camera.imageCapture.capture()
                     photosTaken++;
                 }
             }
@@ -112,11 +110,13 @@ ApplicationWindow
             checkable: true
             icon: "record"
             text: i18n("Record")
-            modeInfo: webcam.recordingTime
+            modeInfo: camera.videoRecorder.recorderState + " " + camera.videoRecorder.recorderStatus
             nameFilter: "video_*"
+            captureMode: Camera.CaptureVideo
 
             onTrigger: {
-                webcam.isRecording = checked;
+                camera.videoRecorder.recorderState = checked ? CameraRecorder.RecordingState : CameraRecorder.StoppedState
+                console.log("laaaa", camera.videoRecorder.recorderState)
             }
         }
     ]
@@ -249,6 +249,32 @@ ApplicationWindow
         }
     }
 
+    Camera {
+        id: camera
+
+        imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
+        captureMode: buttonGroup.current.stuff.captureMode
+        videoRecorder {
+            outputLocation: config.saveVideos
+        }
+
+        exposure {
+            exposureCompensation: -1.0
+            exposureMode: Camera.ExposurePortrait
+        }
+
+        imageCapture {
+            onImageCaptured: {
+                awesomeAnimation(preview)
+            }
+            onImageSaved: {
+                webcam.savePhoto(path)
+            }
+        }
+
+        flash.mode: Camera.FlashRedEyeReduction
+    }
+
     Rectangle {
         id: visor
         color: "black"
@@ -260,11 +286,11 @@ ApplicationWindow
             bottom: mainButtonBar.top
         }
 
-        VideoItem {
+        VideoOutput {
             id: video
+            source: camera
 
             visible: devicesModel.count>0
-            surface: videoSurface1
             anchors.fill: parent
         }
 

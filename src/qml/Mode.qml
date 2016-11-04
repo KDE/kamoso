@@ -7,6 +7,7 @@ QtObject {
     property string text: ""
     property string modeInfo: ""
     property string nameFilter: ""
+    property var captureMode
 
     signal trigger(bool checked)
 
