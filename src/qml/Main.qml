@@ -286,13 +286,12 @@ ApplicationWindow
         }
 
         readonly property variant devicesModel: QtMultimedia.availableCameras
-        property var playingDeviceID: 0
 
         VideoOutput {
             id: video
             source: camera
 
-//             visible: visor.devicesModel.count>0
+            visible: visor.devicesModel.length>0
             anchors.fill: parent
         }
 
@@ -326,15 +325,17 @@ ApplicationWindow
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
-        visible: visor.devicesModel.count>1
+        visible: visor.devicesModel.length>1
 
         Repeater {
             model: visor.devicesModel
             delegate: Button {
                 width: 30
                 iconName: "camera-web"
-                tooltip: index
-                onClicked: visor.playingDeviceID = index
+                tooltip: modelData.displayName
+                onClicked: {
+                    camera.deviceId = modelData.deviceId
+                }
             }
         }
     }
