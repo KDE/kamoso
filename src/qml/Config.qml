@@ -3,7 +3,6 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
 import QtMultimedia 5.6
-import QtGStreamer 1.0
 import org.kde.kamoso 3.0
 
 ColumnLayout
