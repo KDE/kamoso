@@ -23,7 +23,6 @@ ApplicationWindow
         tada.state = "done"
 //         tada.visible = true
     }
-    Component.onCompleted: console.log("wooo")
 
     Image {
         id: tada
@@ -287,13 +286,13 @@ ApplicationWindow
         }
 
         readonly property variant devicesModel: QtMultimedia.availableCameras
-        property var playingDeviceUdi: ""
+        property var playingDeviceID: 0
 
         VideoOutput {
             id: video
             source: camera
 
-            visible: devicesModel.count>0
+//             visible: visor.devicesModel.count>0
             anchors.fill: parent
         }
 
@@ -327,15 +326,15 @@ ApplicationWindow
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
-        visible: devicesModel.count>1
+        visible: visor.devicesModel.count>1
 
         Repeater {
-            model: devicesModel
+            model: visor.devicesModel
             delegate: Button {
                 width: 30
                 iconName: "camera-web"
-                tooltip: display
-                onClicked: visor.playingDeviceUdi = index
+                tooltip: index
+                onClicked: visor.playingDeviceID = index
             }
         }
     }
