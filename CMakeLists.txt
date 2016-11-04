@@ -8,9 +8,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_S
 find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick)
 find_package(KF5 REQUIRED COMPONENTS Config DocTools KIO Declarative I18n)
 
-find_package(Qt5GStreamer 1.1.90 REQUIRED)
 find_package(KDEExperimentalPurpose REQUIRED)
-find_package(UDev REQUIRED)
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)

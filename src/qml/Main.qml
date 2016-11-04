@@ -286,6 +286,9 @@ ApplicationWindow
             bottom: mainButtonBar.top
         }
 
+        readonly property variant devicesModel: QtMultimedia.availableCameras
+        property var playingDeviceUdi: ""
+
         VideoOutput {
             id: video
             source: camera
@@ -332,7 +335,7 @@ ApplicationWindow
                 width: 30
                 iconName: "camera-web"
                 tooltip: display
-                onClicked: devicesModel.playingDeviceUdi = udi
+                onClicked: visor.playingDeviceUdi = index
             }
         }
     }

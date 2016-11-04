@@ -32,11 +32,8 @@ class QWindow;
 class Kamoso : public QObject
 {
 Q_OBJECT
-    Q_PROPERTY(bool isRecording READ isRecording WRITE setRecording NOTIFY isRecordingChanged)
-    Q_PROPERTY(QString recordingTime READ recordingTime NOTIFY recordingTimeChanged)
-
     public:
-        Kamoso(WebcamControl* webcamControl);
+        explicit Kamoso();
         virtual ~Kamoso();
 
         bool isRecording() const;
@@ -56,7 +53,6 @@ Q_OBJECT
 
     private:
         QUrl fileNameSuggestion(const QString &name, const QString& extension) const;
-        WebcamControl * const m_webcamControl;
         QTimer m_recordingTimer;
         QElapsedTimer m_recordingTime;
 };

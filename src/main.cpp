@@ -17,13 +17,20 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include <kaboutdata.h>
+#include <KAboutData>
+#include <KLocalizedString>
+#include <KDeclarative/KDeclarative>
 #include <QCommandLineParser>
-#include <klocalizedstring.h>
-#include "video/webcamcontrol.h"
+#include <QQmlContext>
+#include <QQmlApplicationEngine>
 #include <QApplication>
 
-#include <QGst/Init>
+#include "kamoso.h"
+#include "kamosodirmodel.h"
+#include "previewfetcher.h"
+#include "kamosoSettings.h"
+#include "whitewidgetmanager.h"
+
 int main(int argc, char *argv[])
 {
     KAboutData about("kamoso", i18n("Kamoso"), "3.1.0", i18n("Utility for taking photos and videos using a webcam"),
@@ -40,9 +47,21 @@ int main(int argc, char *argv[])
         about.processCommandLine(&parser);
     }
 
-    WebcamControl webcamControl;
+    QQmlApplicationEngine* engine = new QQmlApplicationEngine(&app);
+    KDeclarative::KDeclarative kdeclarative;
+    kdeclarative.setDeclarativeEngine(engine);
+    kdeclarative.setTranslationDomain("kamoso");
+    kdeclarative.setupBindings();
 
-    QObject::connect(&app, &QCoreApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
+    qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
+    qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+    qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
+
+    //Make these qml singletons
+    engine->rootContext()->setContextProperty("config", Settings::self());
+    engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(&app));
+    engine->rootContext()->setContextProperty("webcam", new Kamoso());
+    engine->load(QUrl("qrc:/qml/Main.qml"));
 
     return app.exec();
 }
