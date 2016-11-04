@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
+import QtMultimedia 5.6
 import QtGStreamer 1.0
 import org.kde.kamoso 3.0
 
@@ -14,6 +15,8 @@ ColumnLayout
         font.bold: true
         text: i18n("Places")
     }
+
+    property var cameraInstance: null
 
     function pathOrUrl(url) {
         var urlstr = url.toString();
@@ -87,72 +90,74 @@ ColumnLayout
         onCheckedChanged: config.showOsd = checked
     }
     Item { height: 5 }
-//     Label { text: i18n("Brightness:") }
-//     Slider {
-//         id: brightnessSlider
-//         Layout.fillWidth: true
-//         minimumValue: -100
-//         maximumValue: 100
-//         value: devicesModel.playingDevice.brightness
-//
-//         onValueChanged: {
-//             devicesModel.playingDevice.brightness = value
-//         }
-//     }
-//
-//     Label { text: i18n("Hue:") }
-//     Slider {
-//         id: hueSlider
-//         Layout.fillWidth: true
-//         minimumValue: -100
-//         maximumValue: 100
-//         value: devicesModel.playingDevice.hue
-//
-//         onValueChanged: {
-//             devicesModel.playingDevice.hue = value
-//         }
-//     }
-//
-//     Label { text: i18n("Contrast:") }
-//     Slider {
-//         id: contrastSlider
-//         Layout.fillWidth: true
-//         minimumValue: 0
-//         maximumValue: 200
-//         value: devicesModel.playingDevice.contrast
-//
-//         onValueChanged: {
-//             devicesModel.playingDevice.contrast = value
-//         }
-//     }
-//
-//     Label { text: i18n("Saturation:") }
-//     Slider {
-//         id: saturationSlider
-//         Layout.fillWidth: true
-//         minimumValue: 0
-//         maximumValue: 200
-//         value: devicesModel.playingDevice.saturation
-//
-//         onValueChanged: {
-//             devicesModel.playingDevice.saturation = value
-//         }
-//     }
-//
-//     Label { text: i18n("Gamma:") }
-//     Slider {
-//         id: gammaSlider
-//         Layout.fillWidth: true
-//         minimumValue: 0
-//         maximumValue: 999
-//         value: devicesModel.playingDevice.gamma
-//
-//         onValueChanged: {
-//             //We must leave minimumValue at 0 and add it back here, otherwise we get
-//             //a onValueChanged when minimumValue changes and things break.
-//             devicesModel.playingDevice.gamma = value+1
-//         }
-//     }
+    Label { text: i18n("Brightness:") }
+    Slider {
+        id: brightnessSlider
+        Layout.fillWidth: true
+        minimumValue: -1
+        maximumValue: 1
+        value: cameraInstance.imageProcessing.brightness
+
+        onValueChanged: {
+            cameraInstance.imageProcessing.brightness = value
+        }
+    }
+
+    Label { text: i18n("Contrast:") }
+    Slider {
+        id: contrastSlider
+        Layout.fillWidth: true
+        minimumValue: -1
+        maximumValue: 1
+        value: cameraInstance.imageProcessing.contrast
+
+        onValueChanged: {
+            cameraInstance.imageProcessing.contrast = value
+        }
+    }
+
+    Label { text: i18n("Saturation:") }
+    Slider {
+        id: saturationSlider
+        Layout.fillWidth: true
+        minimumValue: -1
+        maximumValue: 1
+        value: cameraInstance.imageProcessing.saturation
+
+        onValueChanged: {
+            cameraInstance.imageProcessing.saturation = value
+        }
+    }
+
+
+    Label { text: i18n("Color Filter:") }
+    ComboBox {
+        id: colorCombo
+        Layout.fillWidth: true
+        model: ListModel { id: theModel }
+        Component.onCompleted: {
+            theModel.append({display: i18n("None"), value: CameraImageProcessing.ColorFilterNone })
+            theModel.append({display: i18n("Grayscale"), value: CameraImageProcessing.ColorFilterGrayscale })
+            theModel.append({display: i18n("Negative"), value: CameraImageProcessing.ColorFilterNegative })
+            theModel.append({display: i18n("Solarize"), value: CameraImageProcessing.ColorFilterSolarize })
+            theModel.append({display: i18n("Sepia"), value: CameraImageProcessing.ColorFilterSepia })
+            theModel.append({display: i18n("Posterize"), value: CameraImageProcessing.ColorFilterPosterize })
+            theModel.append({display: i18n("Whiteboard"), value: CameraImageProcessing.ColorFilterWhiteboard })
+            theModel.append({display: i18n("Blackboard"), value: CameraImageProcessing.ColorFilterBlackboard })
+            theModel.append({display: i18n("Aqua"), value: CameraImageProcessing.ColorFilterAqua })
+            theModel.append({display: i18n("Vendor"), value: CameraImageProcessing.ColorFilterVendor })
+        }
+        textRole: "display"
+
+        onCurrentIndexChanged: {
+            var item = theModel.get(currentIndex)
+            if (!item)
+                return
+            cameraInstance.imageProcessing.colorFilter = item.value
+//             console.log("fuuu", cameraInstance.imageProcessing.colorFilter, JSON.stringify(item))
+        }
+    }
+
     Button {
         anchors.right: parent.right
         text: i18n("Reset")

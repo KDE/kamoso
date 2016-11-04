@@ -234,6 +234,7 @@ ApplicationWindow
                 margins: 5
             }
             visible: settingsButton.checked
+            cameraInstance: camera
         }
 
         ImagesView {
