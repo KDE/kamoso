@@ -125,7 +125,7 @@ void WebcamControl::play(Device *device)
     }
 
     auto source = QGst::Bin::fromDescription(QLatin1String("v4l2src device=") + device->path());
-    auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma");
+    auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma ! videoflip video-direction=horiz");
     m_gamma = bin->getElementByName("gamma");
     m_videoBalance = bin->getElementByName("video_balance");
 
