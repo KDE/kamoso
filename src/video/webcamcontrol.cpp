@@ -81,10 +81,6 @@ WebcamControl::WebcamControl()
 
     connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
     connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
-
-    if (DeviceManager::self()->rowCount() > 0) {
-        play(DeviceManager::self()->playingDevice());
-    }
 }
 
 WebcamControl::~WebcamControl()
@@ -103,18 +99,18 @@ void WebcamControl::stop()
     }
 }
 
-void WebcamControl::play()
+bool WebcamControl::play()
 {
-    play(DeviceManager::self()->playingDevice());
+    return play(DeviceManager::self()->playingDevice());
 }
 
-void WebcamControl::play(Device *device)
+bool WebcamControl::play(Device *device)
 {
     //If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->udi()) {
         m_pipeline->setProperty("mode", 2);
         m_pipeline->setProperty("location", m_tmpVideoPath);
-        return;
+        return true;
     }
     
     //If we are changing the device, cleanup and stop old pipeline
@@ -130,6 +126,14 @@ void WebcamControl::play(Device *device)
     m_videoBalance = bin->getElementByName("video_balance");
 
     auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
+    // Another option here is to return true, therefore continuing with launching, but
+    // in that case the application is mostly useless.
+    if (cameraSource.isNull()) {
+        qWarning() << "The webcam controller was unable to find or load wrappercamerabinsrc plugin;"
+                   << "please make sure all required gstreamer plugins are installed.";
+        return false;
+    }
+
     cameraSource->setProperty("video-source-filter", bin);
     cameraSource->setProperty("video-source", source);
 
@@ -147,6 +151,7 @@ void WebcamControl::play(Device *device)
     setVideoSettings();
     
     m_currentDevice = device->udi();
+    return true;
 }
 
 void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)

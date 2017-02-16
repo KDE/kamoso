@@ -41,6 +41,11 @@ int main(int argc, char *argv[])
     }
 
     WebcamControl webcamControl;
+    if (!webcamControl.play()) {
+        qWarning() << "Unrecoverable error occurred when initializing webcam. Exiting.";
+        QApplication::exit(1);
+        return 1;
+    }
 
     QObject::connect(&app, &QCoreApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
 
