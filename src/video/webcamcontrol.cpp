@@ -124,9 +124,7 @@ void WebcamControl::play(Device *device)
         m_pipeline->setState(QGst::StateNull);
     }
 
-    QString src("v4l2src device=");
-    src.append(device->path());
-    auto source = QGst::Bin::fromDescription(src);
+    auto source = QGst::Bin::fromDescription(QLatin1String("v4l2src device=") + device->path());
     auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma");
     m_gamma = bin->getElementByName("gamma");
     m_videoBalance = bin->getElementByName("video_balance");
