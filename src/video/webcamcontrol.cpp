@@ -101,11 +101,14 @@ void WebcamControl::stop()
 
 bool WebcamControl::play()
 {
-    return play(DeviceManager::self()->playingDevice());
+    auto dev = DeviceManager::self()->playingDevice();
+    return !dev || play(dev);
 }
 
 bool WebcamControl::play(Device *device)
 {
+    Q_ASSERT(device);
+
     //If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->udi()) {
         m_pipeline->setProperty("mode", 2);
