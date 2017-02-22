@@ -57,51 +57,48 @@ StackView {
                 Layout.fillHeight: true
                 mimeFilter: [stack.mimeFilter]
             }
-            ToolBar {
+            RowLayout {
                 Layout.fillWidth: true
-                RowLayout {
-                    anchors.fill: parent
-                    Label {
-                        Layout.fillWidth: true
-                        text: view.selection.length==0 ? i18n("Gallery") : i18n("%1 selected", view.selection.length)
+                Label {
+                    Layout.fillWidth: true
+                    text: view.selection.length==0 ? i18n("Gallery") : i18n("%1 selected", view.selection.length)
+                }
+                ToolButton {
+                    iconName: "user-trash"
+                    tooltip: i18n("Move to trash...")
+                    enabled: view.selection.length>0
+                    onClicked: {
+                        trashDialog.visible = true
                     }
-                    ToolButton {
-                        iconName: "user-trash"
-                        tooltip: i18n("Move to trash...")
-                        enabled: view.selection.length>0
-                        onClicked: {
-                            trashDialog.visible = true
+
+                    Dialog {
+                        id: trashDialog
+                        title: i18n("Move to trash...")
+
+                        Label {
+                            text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
                         }
 
-                        Dialog {
-                            id: trashDialog
-                            title: i18n("Move to trash...")
-
-                            Label {
-                                text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
-                            }
-
-                            standardButtons: StandardButton.Ok | StandardButton.Cancel
-                            onAccepted: {
-                                console.log("Trash, FFS!!", view.selection);
-                                webcam.trashFiles(view.selection);
-                            }
-                            onVisibleChanged: if (!visible) {
-                                view.selection = []
-                            }
+                        standardButtons: StandardButton.Ok | StandardButton.Cancel
+                        onAccepted: {
+                            console.log("Trash, FFS!!", view.selection);
+                            webcam.trashFiles(view.selection);
+                        }
+                        onVisibleChanged: if (!visible) {
+                            view.selection = []
                         }
                     }
-                    ToolButton {
-                        iconName: "document-share"
-                        menu: menu
-                        tooltip: i18n("Share...")
-                        enabled: view.selection.length>0
-                    }
-                    ToolButton {
-                        iconName: "folder-open"
-                        tooltip: i18n("Open Folder")
-                        onClicked: Qt.openUrlExternally(config.saveUrl)
-                    }
+                }
+                ToolButton {
+                    iconName: "document-share"
+                    menu: menu
+                    tooltip: i18n("Share...")
+                    enabled: view.selection.length>0
+                }
+                ToolButton {
+                    iconName: "folder-open"
+                    tooltip: i18n("Open Folder")
+                    onClicked: Qt.openUrlExternally(config.saveUrl)
                 }
             }
         }

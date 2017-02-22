@@ -3,15 +3,18 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtGStreamer 1.0
+import org.kde.kirigami 2.0 as Kirigami
 import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
 
-ApplicationWindow
+Kirigami.ApplicationWindow
 {
+    id: root
     width: 700
     height: 450
     visible: true
     title: i18n("Kamoso")
+    header: Item {}
 
     function awesomeAnimation(path) {
 //         tada.x = visor.x
@@ -25,10 +28,6 @@ ApplicationWindow
 
     }
 
-    Connections {
-        target: webcam
-        onPhotoTaken: awesomeAnimation(path)
-    }
     Image {
         id: tada
         z: 10
@@ -45,8 +44,8 @@ ApplicationWindow
                 PropertyChanges { target: tada; opacity: 1 }
             },
             State { name: "done"
-                PropertyChanges { target: tada; x: visor.width-10 }
-                PropertyChanges { target: tada; y: visor.height+controls.height }
+                PropertyChanges { target: tada; x: 0 }
+                PropertyChanges { target: tada; y: root.height }
                 PropertyChanges { target: tada; width: deviceSelector.height }
                 PropertyChanges { target: tada; height: deviceSelector.height }
                 PropertyChanges { target: tada; opacity: 0.5 }
@@ -56,208 +55,166 @@ ApplicationWindow
             Transition {
                 from: "go"; to: "done"
                     NumberAnimation { target: tada
-                                properties: "width,height"; duration: 300; easing.type: Easing.InCubic }
+                                properties: "width,height"; duration: 700; easing.type: Easing.InCubic }
                     NumberAnimation { target: tada
-                                properties: "x,y"; duration: 300; easing.type: Easing.InCubic }
+                                properties: "x,y"; duration: 700; easing.type: Easing.InCubic }
                     NumberAnimation { target: tada
                                 properties: "opacity"; duration: 300 }
             }
         ]
     }
 
-    property list<Mode> actions: [
-        Mode {
-            mimes: "image/jpeg"
-            checkable: false
-            icon: "shoot"
-            text: i18n("Shoot")
-            property int photosTaken: 0
-            modeInfo: i18np("1 photo", "%1 photos", photosTaken)
-            nameFilter: "picture_*"
+    Mode {
+        id: photoMode
+        mimes: "image/jpeg"
+        checkable: false
+        iconName: "shoot"
+        text: i18n("Shoot")
+        property int photosTaken: 0
+        modeInfo: i18np("1 photo", "%1 photos", photosTaken)
+        nameFilter: "picture_*"
 
-            onTrigger: {
+        onTriggered: {
+            if (config.useFlash)
+                whites.showAll()
+            webcam.takePhoto()
+            photosTaken++;
+        }
+
+        Connections {
+            target: webcam
+            onPhotoTaken: awesomeAnimation(path)
+        }
+    }
+    Mode {
+        id: burstMode
+        mimes: "image/jpeg"
+        checkable: true
+        iconName: "burst"
+        text: i18n("Burst")
+        property int photosTaken: 0
+        modeInfo: i18np("1 photo", "%1 photos", photosTaken)
+        nameFilter: "picture_*"
+
+        readonly property var smth: Timer {
+            id: burstTimer
+            running: burstMode.checked
+            interval: 1000
+            repeat: true
+            onTriggered: {
                 if (config.useFlash)
                     whites.showAll()
                 webcam.takePhoto()
-                photosTaken++;
+                burstMode.photosTaken++;
             }
-        },
-        Mode {
-            mimes: "image/jpeg"
-            checkable: true
-            icon: "burst"
-            text: i18n("Burst")
-            property int photosTaken: 0
-            modeInfo: i18np("1 photo", "%1 photos", photosTaken)
-            nameFilter: "picture_*"
+        }
+    }
+    Mode {
+        id: videoMode
+        mimes: "video/x-matroska"
+        checkable: true
+        iconName: "record"
+        text: i18n("Record")
+        modeInfo: webcam.recordingTime
+        nameFilter: "video_*"
 
-            onTrigger: {
-                burstTimer.running = checked;
-            }
+        onTriggered: {
+            webcam.isRecording = checked;
+        }
+    }
 
-            readonly property var smth: Timer {
-                id: burstTimer
-                interval: 1000
-                repeat: true
-                onTriggered: {
-                    if (config.useFlash)
-                        whites.showAll()
-                    webcam.takePhoto()
-                    photosTaken++;
+    globalDrawer: Kirigami.GlobalDrawer {
+        bannerImageSource: "https://images.unsplash.com/photo-1481933236927-d92e97e3194c?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=25a62a567881e623a7a9cd5819ed0910"
+        drawerOpen: false
+        handleVisible: true
+        modal: true
+        ImagesView {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+//             mimeFilter: buttonGroup.current.mimes
+//             nameFilter: buttonGroup.current.nameFilter
+        }
+    }
+
+    contextDrawer: Kirigami.OverlayDrawer {
+        edge: Qt.RightEdge
+        drawerOpen: false
+        handleVisible: true
+        modal: true
+        contentItem: Config {
+            implicitWidth: Math.min (Kirigami.Units.gridUnit * 20, root.width * 0.8)
+            anchors.fill: parent
+        }
+    }
+
+    pageStack.initialPage: Kirigami.Page {
+        id: visor
+        bottomPadding: 0
+        topPadding: 0
+        rightPadding: 0
+        leftPadding: 0
+
+        state: "shoot"
+        states: [
+            State {
+                name: "shoot"
+                PropertyChanges {
+                    target: visor
+                    actions {
+                        left: videoMode.adoptAction
+                        main: photoMode
+                        right: burstMode.adoptAction
+                    }
                 }
-            }
-        },
-        Mode {
-            mimes: "video/x-matroska"
-            checkable: true
-            icon: "record"
-            text: i18n("Record")
-            modeInfo: webcam.recordingTime
-            nameFilter: "video_*"
+            },
+            State {
+                name: "record"
+                PropertyChanges {
+                    target: visor
+                    actions {
+                        left: photoMode.adoptAction
+                        main: videoMode
+                        right: burstMode.adoptAction
+                    }
+                }
+            },
 
-            onTrigger: {
-                webcam.isRecording = checked;
-            }
-        }
-    ]
-
-    Item {
-        id: mainButtonBar
-        anchors {
-            left: parent.left
-            right: settingsDialog.left
-            bottom: parent.bottom
-        }
-        height: controls.height
-        Item {
-            anchors {
-                left: parent.left
-                right: controls.left
-                top: controls.top
-                bottom: parent.bottom
-            }
-            RowLayout {
-                anchors.centerIn: parent
-                spacing: 0
-
-                ExclusiveGroup { id: buttonGroup }
-                Repeater {
-                    model: actions
-                    delegate: Button {
-                        readonly property QtObject stuff: modelData
-                        exclusiveGroup: buttonGroup
-                        isDefault: true
-                        tooltip: model.text ? i18n("Switch to '%1' mode", model.text) : ""
-                        checkable: true
-                        checked: index==0
-                        text: (checked ? model.text : "")
-
-                        iconName: model.icon
+            State {
+                name: "burst"
+                PropertyChanges {
+                    target: visor
+                    actions {
+                        left: videoMode.adoptAction
+                        main: burstMode
+                        right: photoMode.adoptAction
                     }
                 }
             }
+        ]
+
+        Rectangle {
+            anchors.fill: parent
+            color: "black"
+            z: -1
         }
 
-        Button {
-            id: controls
-            width: 100
-            height: 40
-            checkable: buttonGroup.current.stuff.checkable
-            tooltip: buttonGroup.current.stuff.text
-            focus: true
+        ColumnLayout {
+            id: deviceSelector
+            spacing: 10
+            anchors.margins: 10
+            anchors.top: parent.top
+            anchors.left: parent.left
+            visible: devicesModel.count>1
 
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-
-            QIconItem {
-                anchors {
-                    centerIn: parent
-                }
-                height: parent.height*0.75
-                width: height
-                icon: buttonGroup.current.stuff.icon
-            }
-
-            onClicked: {
-                buttonGroup.current.stuff.trigger(checked)
-            }
-        }
-
-        Item {
-            anchors {
-                top: controls.top
-                left: controls.right
-                right: parent.right
-                bottom: parent.bottom
-            }
-
-            RowLayout {
-                anchors.centerIn: parent
-                spacing: 0
-                Button {
-                    id: galleryButton
-                    checkable: true
-                    checked: false
-                    iconName: "folder-images"
-                    tooltip: i18n("Show gallery...")
-                    onClicked: settingsButton.checked = false;
-                }
-
-                Button {
-                    id: settingsButton
+            Repeater {
+                model: devicesModel
+                delegate: Button {
                     width: 30
-                    iconName: "preferences-other"
-                    checkable: true
-                    tooltip: i18n("Show settings...")
-                    onClicked: galleryButton.checked = false;
+                    iconName: "camera-web"
+                    tooltip: display
+                    onClicked: devicesModel.playingDeviceUdi = udi
                 }
             }
-        }
-    }
-
-    Item {
-        id: settingsDialog
-        anchors {
-            top: parent.top
-            right: parent.right
-            bottom: parent.bottom
-        }
-        width: (settingsButton.checked || galleryButton.checked) ? parent.width / 2.5 : 0
-        Behavior on width {
-            PropertyAnimation {
-                duration: 200
-                easing.type: Easing.OutExpo
-            }
-        }
-        Config {
-            anchors {
-                fill: parent
-                margins: 5
-            }
-            visible: settingsButton.checked
-        }
-
-        ImagesView {
-            anchors {
-                fill: parent
-                margins: 5
-            }
-
-            visible: galleryButton.checked
-            mimeFilter: buttonGroup.current.stuff.mimes
-            nameFilter: buttonGroup.current.stuff.nameFilter
-        }
-    }
-
-    Rectangle {
-        id: visor
-        color: "black"
-
-        anchors {
-            right: settingsDialog.left
-            left: parent.left
-            top: parent.top
-            bottom: mainButtonBar.top
         }
 
         VideoItem {
@@ -281,33 +238,13 @@ ApplicationWindow
                 margins: 20
             }
 
-            text: buttonGroup.current.stuff.modeInfo
+            text: root.pageStack.currentItem.modeInfo || ""
             visible: config.showOsd
             color: "white"
             styleColor: "black"
             font.pointSize: 20
 
             style: Text.Outline
-        }
-    }
-
-    ColumnLayout {
-        id: deviceSelector
-        height: 30
-        spacing: 10
-        anchors.margins: 10
-        anchors.top: parent.top
-        anchors.left: parent.left
-        visible: devicesModel.count>1
-
-        Repeater {
-            model: devicesModel
-            delegate: Button {
-                width: 30
-                iconName: "camera-web"
-                tooltip: display
-                onClicked: devicesModel.playingDeviceUdi = udi
-            }
         }
     }
 }
