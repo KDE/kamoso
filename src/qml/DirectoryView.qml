@@ -1,6 +1,7 @@
 import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import org.kde.kirigami 2.0 as Kirigami
 import org.kde.kamoso 3.0
 import org.kde.kquickcontrols 2.0
 import org.kde.kquickcontrolsaddons 2.0
@@ -8,15 +9,17 @@ import org.kde.kquickcontrolsaddons 2.0
 ScrollView
 {
     id: scrollView
+    property alias header: view.header
     property alias mimeFilter: model.mimeFilter
     property alias nameFilter: model.nameFilter
 
-    readonly property real delegateWidth: 70
+    readonly property real delegateWidth: Kirigami.Units.gridUnit*4
     readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
     property var selection: []
 
     GridView
     {
+        id: view
         cellWidth: scrollView.delegateWidth + (scrollView.viewport.width - columnCount*scrollView.delegateWidth)/columnCount
         cellHeight: cellWidth
         anchors.fill: parent
@@ -46,6 +49,12 @@ ScrollView
                 scrollView.selectionChanged(scrollView.selection);
             }
 
+            CheckBox {
+                z:1
+                checkedState: Qt.Checked
+                visible: scrollView.selection.indexOf(path.toString())>=0
+            }
+
             Rectangle {
                 anchors {
                     margins: -1
@@ -59,21 +68,16 @@ ScrollView
                 color: pal.highlight
             }
 
-            QPixmapItem {
+            ImageThumbnail {
                 anchors {
                     fill: parent
                     margins: 1
                 }
-                objectName: path
-                pixmap: fetcher.preview
+                path: model.path
+                mime: model.mime
 
-                PreviewFetcher {
-                    id: fetcher
-                    url: path
-                    mimetype: mime
-                    width: delegateItem.width
-                    height: delegateItem.height
-                }
+                fetchWidth: delegateItem.width
+                fetchHeight: delegateItem.height
             }
         }
     }

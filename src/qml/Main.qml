@@ -123,16 +123,22 @@ Kirigami.ApplicationWindow
         }
     }
 
-    globalDrawer: Kirigami.GlobalDrawer {
-        bannerImageSource: "https://images.unsplash.com/photo-1481933236927-d92e97e3194c?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=25a62a567881e623a7a9cd5819ed0910"
+    globalDrawer: Kirigami.OverlayDrawer {
+        edge: Qt.LeftEdge
         drawerOpen: false
         handleVisible: true
         modal: true
-        ImagesView {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-//             mimeFilter: buttonGroup.current.mimes
-//             nameFilter: buttonGroup.current.nameFilter
+
+        leftPadding: 0
+        topPadding: 0
+        rightPadding: 0
+        bottomPadding: 0
+
+        contentItem: ImagesView {
+            id: view
+            implicitWidth: Kirigami.Units.gridUnit * 20
+            mimeFilter: root.pageStack.currentItem.actions.main.mimes
+            nameFilter: root.pageStack.currentItem.actions.main.nameFilter
         }
     }
 
@@ -238,7 +244,7 @@ Kirigami.ApplicationWindow
                 margins: 20
             }
 
-            text: root.pageStack.currentItem.modeInfo || ""
+            text: root.pageStack.currentItem.actions.main.modeInfo
             visible: config.showOsd
             color: "white"
             styleColor: "black"
