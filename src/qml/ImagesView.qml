@@ -35,39 +35,36 @@ StackView {
 
                 header: ColumnLayout {
                     width: altsView.width
+                    spacing: 0
                     Image {
                         fillMode: Image.PreserveAspectCrop
                         Layout.fillWidth: true
                         Layout.maximumHeight: Kirigami.Units.gridUnit * 10
                         source: "http://unsplash.com/photos/RwjciZ9JEfg/download?force=true"
                     }
-                    ColumnLayout {
-                        id: thumbsView
-                        Layout.fillWidth: true
 
-                        Repeater {
-                            model: view.selection
-                            delegate: Kirigami.AbstractListItem {
-                                Layout.minimumHeight: Kirigami.Units.gridUnit * 3
-                                spacing: 0
+                    Repeater {
+                        model: view.selection
+                        delegate: Kirigami.AbstractListItem {
+                            id: delegate
+                            Layout.minimumHeight: Kirigami.Units.gridUnit * 3
+                            spacing: 0
 
-                                RowLayout {
-                                    ImageThumbnail {
-                                        fetchWidth: thumbsView.Layout.minimumHeight
-                                        fetchHeight: fetchWidth
+                            RowLayout {
+                                ImageThumbnail {
+                                    fetchWidth: delegate.Layout.minimumHeight
+                                    fetchHeight: fetchWidth
 
-                                        Layout.fillHeight: true
-                                        width: fetchWidth
-                                        path: modelData
-                                    }
+                                    Layout.fillHeight: true
+                                    width: fetchWidth
+                                    path: modelData
+                                }
 
-                                    Kirigami.Label {
-                                        text: modelData
-                                    }
+                                Kirigami.Label {
+                                    text: modelData
                                 }
                             }
                         }
-
                     }
                 }
 
