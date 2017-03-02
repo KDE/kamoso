@@ -11,7 +11,7 @@ Kirigami.ApplicationWindow
 {
     id: root
     width: 700
-    height: 450
+    height: width*3/4
     visible: true
     title: i18n("Kamoso")
     header: Item {}
