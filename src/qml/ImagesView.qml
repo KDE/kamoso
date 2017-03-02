@@ -116,6 +116,7 @@ StackView {
     initialItem: Item {
         ColumnLayout {
             anchors.fill: parent
+            spacing: 0
             DirectoryView {
                 id: view
                 header: Image {
@@ -129,54 +130,48 @@ StackView {
                 Layout.fillHeight: true
                 mimeFilter: [stack.mimeFilter]
             }
-            ColumnLayout {
+            Kirigami.Separator {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                spacing: 0
+            }
 
-                Kirigami.Separator {
-                    Layout.fillWidth: true
+            Kirigami.BasicListItem {
+                icon: "user-trash"
+                label: i18n("Move to trash... (%1)", view.selection.length)
+                visible: view.selection.length>0
+                onClicked: {
+                    trashDialog.visible = true
                 }
+                readonly property var p0: Dialog {
+                    id: trashDialog
+                    title: i18n("Move to trash...")
 
-                Kirigami.BasicListItem {
-                    icon: "user-trash"
-                    label: i18n("Move to trash... (%1)", view.selection.length)
-                    visible: view.selection.length>0
-                    onClicked: {
-                        trashDialog.visible = true
+                    Label {
+                        text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
                     }
-                    readonly property var p0: Dialog {
-                        id: trashDialog
-                        title: i18n("Move to trash...")
 
-                        Label {
-                            text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
-                        }
-
-                        standardButtons: StandardButton.Ok | StandardButton.Cancel
-                        onAccepted: {
-                            console.log("Trash, FFS!!", view.selection);
-                            webcam.trashFiles(view.selection);
-                        }
-                        onVisibleChanged: if (!visible) {
-                            view.selection = []
-                        }
+                    standardButtons: StandardButton.Ok | StandardButton.Cancel
+                    onAccepted: {
+                        console.log("Trash, FFS!!", view.selection);
+                        webcam.trashFiles(view.selection);
+                    }
+                    onVisibleChanged: if (!visible) {
+                        view.selection = []
                     }
                 }
-                Kirigami.BasicListItem {
-                    icon: "document-share"
-                    label: i18n("Share... (%1)", view.selection.length)
-                    onClicked: stack.push({
-                        item: chooseShareComponent,
-                        properties: { selection: view.selection }
-                    })
-                    visible: view.selection.length>0
-                }
-                Kirigami.BasicListItem {
-                    icon: "folder-open"
-                    label: i18n("Open Folder...")
-                    onClicked: Qt.openUrlExternally(config.saveUrl)
-                }
+            }
+            Kirigami.BasicListItem {
+                icon: "document-share"
+                label: i18n("Share... (%1)", view.selection.length)
+                onClicked: stack.push({
+                    item: chooseShareComponent,
+                    properties: { selection: view.selection }
+                })
+                visible: view.selection.length>0
+            }
+            Kirigami.BasicListItem {
+                icon: "folder-open"
+                label: i18n("Open Folder...")
+                onClicked: Qt.openUrlExternally(config.saveUrl)
             }
         }
     }
