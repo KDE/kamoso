@@ -51,6 +51,10 @@ ScrollView
 
             CheckBox {
                 z:1
+                anchors {
+                    right: parent.right
+                    rightMargin: -width/3
+                }
                 checkedState: Qt.Checked
                 visible: scrollView.selection.indexOf(path.toString())>=0
             }
