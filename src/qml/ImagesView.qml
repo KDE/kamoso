@@ -22,7 +22,8 @@ StackView {
                 fillMode: Image.PreserveAspectCrop
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                source: "https://images.unsplash.com/photo-1486893732792-ab0085cb2d43?dpr=1&auto=format&fit=crop&w=767&h=462&q=80&cs=tinysrgb&crop="
+                source: "https://images.unsplash.com/photo-1478809956569-c7ce9654a947?dpr=1&auto=format&fit=crop&w=1500&h=971&q=80&cs=tinysrgb&crop="
+                smooth: true
 
                 Kirigami.Heading {
                     anchors {
@@ -167,7 +168,8 @@ StackView {
                     fillMode: Image.PreserveAspectCrop
                     width: view.width
                     height: Kirigami.Units.gridUnit * 10
-                    source: "https://images.unsplash.com/photo-1481933236927-d92e97e3194c?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=25a62a567881e623a7a9cd5819ed0910"
+                    source: "https://images.unsplash.com/photo-1484781663516-4c4ca4b04a13?dpr=1&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb"
+                    smooth: true
 
                     Kirigami.Heading {
                         anchors {
