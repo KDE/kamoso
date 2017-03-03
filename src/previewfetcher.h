@@ -57,6 +57,8 @@ class PreviewFetcher : public QObject
         void fallbackPreview(const KFileItem& item);
 
     private:
+        void setPreview(const QPixmap& preview);
+
         QSize m_size;
         QUrl m_url;
         QPixmap m_preview;

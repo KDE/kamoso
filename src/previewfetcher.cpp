@@ -42,13 +42,12 @@ QUrl PreviewFetcher::url() const
 void PreviewFetcher::fetchPreview()
 {
     if(m_size.isEmpty() || !m_size.isValid() || m_url.isEmpty()) {
-        m_preview = QPixmap();
-        Q_EMIT previewChanged();
+        setPreview(QPixmap());
         return;
     }
     KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(QUrl(m_url), m_mimetype, 0), m_size);
-    connect(job, SIGNAL(gotPreview(KFileItem,QPixmap)), SLOT(updatePreview(KFileItem,QPixmap)));
-    connect(job, SIGNAL(failed(KFileItem)), SLOT(fallbackPreview(KFileItem)));
+    connect(job, &KIO::PreviewJob::gotPreview, this, &PreviewFetcher::updatePreview);
+    connect(job, &KIO::PreviewJob::failed, this, &PreviewFetcher::fallbackPreview);
     job->start();
 }
 
@@ -66,8 +65,7 @@ void PreviewFetcher::setWidth(int w)
 
 void PreviewFetcher::updatePreview(const KFileItem& changed, const QPixmap& prev)
 {
-    m_preview = prev;
-    Q_EMIT previewChanged();
+    setPreview(prev);
 }
 
 QString PreviewFetcher::mimeType() const
@@ -89,6 +87,13 @@ QPixmap PreviewFetcher::preview() const
 void PreviewFetcher::fallbackPreview(const KFileItem& item)
 {
     QMimeDatabase db;
-    m_preview = QIcon::fromTheme(db.mimeTypeForName(item.mimetype()).iconName()).pixmap(m_size);
-    Q_EMIT previewChanged();
+    setPreview(QIcon::fromTheme(db.mimeTypeForName(item.mimetype()).iconName()).pixmap(m_size));
+}
+
+void PreviewFetcher::setPreview(const QPixmap& preview)
+{
+    if (m_preview.cacheKey() != preview.cacheKey()) {
+        m_preview = preview;
+        Q_EMIT previewChanged();
+    }
 }
