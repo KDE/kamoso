@@ -47,11 +47,9 @@ StackView {
 
                     RowLayout {
                         ImageThumbnail {
-                            fetchWidth: delegate.Layout.minimumHeight
-                            fetchHeight: fetchWidth
-
                             Layout.fillHeight: true
-                            width: fetchWidth
+                            width: height
+
                             path: modelData
                         }
 

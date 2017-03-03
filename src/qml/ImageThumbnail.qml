@@ -3,8 +3,6 @@ import org.kde.kquickcontrolsaddons 2.0
 
 QPixmapItem
 {
-    property alias fetchWidth: fetcher.width
-    property alias fetchHeight: fetcher.height
     property alias path: fetcher.url
     property alias mime: fetcher.mimetype
 
@@ -13,5 +11,7 @@ QPixmapItem
 
     PreviewFetcher {
         id: fetcher
+        width: parent.width
+        height: parent.height
     }
 }

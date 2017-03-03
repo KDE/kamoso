@@ -49,16 +49,6 @@ ScrollView
                 scrollView.selectionChanged(scrollView.selection);
             }
 
-            CheckBox {
-                z:1
-                anchors {
-                    right: parent.right
-                    rightMargin: -width/3
-                }
-                checkedState: Qt.Checked
-                visible: scrollView.selection.indexOf(path.toString())>=0
-            }
-
             Rectangle {
                 anchors {
                     margins: -1
@@ -69,7 +59,11 @@ ScrollView
                 SystemPalette {
                     id: pal
                 }
-                color: pal.highlight
+                opacity: 0.6
+                color: "transparent"
+                border.color: pal.highlight
+                border.width: Kirigami.Units.smallSpacing * 2
+                z: 1
             }
 
             ImageThumbnail {
@@ -79,9 +73,16 @@ ScrollView
                 }
                 path: model.path
                 mime: model.mime
+            }
 
-                fetchWidth: delegateItem.width
-                fetchHeight: delegateItem.height
+            CheckBox {
+                anchors {
+                    right: parent.right
+                    rightMargin: -width/3
+                }
+                checkedState: Qt.Checked
+                enabled: false
+                visible: scrollView.selection.indexOf(path.toString())>=0
             }
         }
     }
