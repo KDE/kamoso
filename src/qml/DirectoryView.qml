@@ -20,9 +20,8 @@ ScrollView
     GridView
     {
         id: view
-        cellWidth: scrollView.delegateWidth + (scrollView.viewport.width - columnCount*scrollView.delegateWidth)/columnCount
+        cellWidth: view.width/scrollView.columnCount
         cellHeight: cellWidth
-        anchors.fill: parent
 
         model: DirModel {
             id: model
@@ -34,8 +33,8 @@ ScrollView
 
         delegate: MouseArea {
             id: delegateItem
-            width: height
-            height: scrollView.delegateWidth
+            width:  GridView.view.cellHeight
+            height: GridView.view.cellWidth
             acceptedButtons: Qt.AllButtons
 
             onClicked: {
@@ -69,7 +68,7 @@ ScrollView
             ImageThumbnail {
                 anchors {
                     fill: parent
-                    margins: 1
+                    leftMargin: 1
                 }
                 path: model.path
                 mime: model.mime
