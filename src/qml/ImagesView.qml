@@ -11,17 +11,78 @@ StackView {
     id: stack
     property string mimeFilter
     property alias nameFilter: view.nameFilter
-    property Component header
     clip: true
 
     Component {
+        id: headerComponent
+        ColumnLayout {
+            spacing: 0
+            Layout.maximumHeight: Kirigami.Units.gridUnit * 10
+            Image {
+                fillMode: Image.PreserveAspectCrop
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                source: "https://images.unsplash.com/photo-1486893732792-ab0085cb2d43?dpr=1&auto=format&fit=crop&w=767&h=462&q=80&cs=tinysrgb&crop="
+
+                Kirigami.Heading {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        margins: Kirigami.Units.smallSpacing * 2
+                    }
+                    level: 1
+                    color: "white"
+                    elide: Text.ElideRight
+                    text: i18n("Share...")
+                }
+            }
+
+            Repeater {
+                model: view.selection
+                delegate: Kirigami.AbstractListItem {
+                    id: delegate
+                    Layout.minimumHeight: Kirigami.Units.gridUnit * 3
+                    spacing: 0
+
+                    RowLayout {
+                        ImageThumbnail {
+                            fetchWidth: delegate.Layout.minimumHeight
+                            fetchHeight: fetchWidth
+
+                            Layout.fillHeight: true
+                            width: fetchWidth
+                            path: modelData
+                        }
+
+                        Kirigami.Label {
+                            Layout.fillWidth: true
+                            text: modelData
+                            elide: Text.ElideLeft
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
         id: chooseShareComponent
-        Item {
+        ColumnLayout {
             id: menu
             property var selection
+            spacing: 0
+
+            Loader {
+                Layout.fillWidth: true
+                Layout.maximumHeight: item.Layout.maximumHeight
+
+                sourceComponent: headerComponent
+            }
             AlternativesView {
                 id: altsView
-                anchors.fill: parent
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 pluginType: "Export"
                 inputData: {
                     "urls": view.selection,
@@ -33,51 +94,21 @@ StackView {
                     onClicked: altsView.createJob(index);
                 }
 
-                header: ColumnLayout {
-                    width: altsView.width
-                    spacing: 0
-                    Image {
-                        fillMode: Image.PreserveAspectCrop
-                        Layout.fillWidth: true
-                        Layout.maximumHeight: Kirigami.Units.gridUnit * 10
-                        source: "http://unsplash.com/photos/RwjciZ9JEfg/download?force=true"
-                    }
-
-                    Repeater {
-                        model: view.selection
-                        delegate: Kirigami.AbstractListItem {
-                            id: delegate
-                            Layout.minimumHeight: Kirigami.Units.gridUnit * 3
-                            spacing: 0
-
-                            RowLayout {
-                                ImageThumbnail {
-                                    fetchWidth: delegate.Layout.minimumHeight
-                                    fetchHeight: fetchWidth
-
-                                    Layout.fillHeight: true
-                                    width: fetchWidth
-                                    path: modelData
-                                }
-
-                                Kirigami.Label {
-                                    text: modelData
-                                }
-                            }
-                        }
-                    }
-                }
-
-                footer: Kirigami.BasicListItem {
-                    label: i18n("Back")
-                    onClicked: stack.pop()
-                }
 
                 onFinished: stack.replace({
                     item: sharedComponent,
                     properties: { text: output.url },
                     replace: true
                 })
+            }
+
+            Kirigami.Separator {
+                Layout.fillWidth: true
+            }
+
+            Kirigami.BasicListItem {
+                label: i18n("Back")
+                onClicked: stack.pop()
             }
         }
     }
@@ -87,6 +118,16 @@ StackView {
         ColumnLayout {
             property alias text: field.text
             spacing: 0
+            Loader {
+                Layout.fillWidth: true
+                Layout.maximumHeight: item.Layout.maximumHeight
+
+                sourceComponent: headerComponent
+            }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
             TextField {
                 id: field
                 Layout.fillWidth: true
@@ -97,9 +138,14 @@ StackView {
                     copy();
                 }
             }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
             Kirigami.Label {
                 Layout.fillHeight: true
-                text: i18n("The media is now shared")
+                Layout.alignment: Qt.AlignCenter
+                text: i18n("Media now exported")
             }
             Kirigami.Separator {
                 Layout.fillWidth: true
@@ -124,6 +170,19 @@ StackView {
                     width: view.width
                     height: Kirigami.Units.gridUnit * 10
                     source: "https://images.unsplash.com/photo-1481933236927-d92e97e3194c?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=25a62a567881e623a7a9cd5819ed0910"
+
+                    Kirigami.Heading {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            bottom: parent.bottom
+                            margins: Kirigami.Units.smallSpacing * 2
+                        }
+                        level: 1
+                        color: "white"
+                        elide: Text.ElideRight
+                        text: i18n("Kamoso Gallery")
+                    }
                 }
 
                 Layout.fillWidth: true

@@ -148,7 +148,7 @@ Kirigami.ApplicationWindow
         handleVisible: true
         modal: true
         contentItem: Config {
-            implicitWidth: Math.min (Kirigami.Units.gridUnit * 20, root.width * 0.8)
+            implicitWidth: Kirigami.Units.gridUnit * 20
             anchors.fill: parent
         }
     }
