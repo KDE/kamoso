@@ -147,10 +147,8 @@ Kirigami.ApplicationWindow
         drawerOpen: false
         handleVisible: true
         modal: true
-        contentItem: Config {
-            implicitWidth: Kirigami.Units.gridUnit * 20
-            anchors.fill: parent
-        }
+        width: Kirigami.Units.gridUnit * 20
+        contentItem: Config {}
     }
 
     pageStack.initialPage: Kirigami.Page {
