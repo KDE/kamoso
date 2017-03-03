@@ -20,14 +20,17 @@
 #include <kdirlister.h>
 
 KamosoDirModel::KamosoDirModel(QObject* parent)
-    : KDirModel(parent)
+    : KDirSortFilterProxyModel(parent)
+    , m_dirModel(new KDirModel(this))
 {
-
+    setSourceModel(m_dirModel);
+    sort(KDirModel::ModifiedTime, Qt::DescendingOrder);
+    setDynamicSortFilter(true);
 }
 
 QHash< int, QByteArray > KamosoDirModel::roleNames() const
 {
-    QHash<int, QByteArray> roles = KDirModel::roleNames();
+    QHash<int, QByteArray> roles = KDirSortFilterProxyModel::roleNames();
     roles.insert(Path, "path");
     roles.insert(MimeType, "mime");
     return roles;
@@ -35,39 +38,39 @@ QHash< int, QByteArray > KamosoDirModel::roleNames() const
 
 void KamosoDirModel::setUrl(const QUrl& url)
 {
-    dirLister()->openUrl(url, KDirLister::Reload);
+    m_dirModel->dirLister()->openUrl(url, KDirLister::Reload);
 }
 
 QUrl KamosoDirModel::url() const
 {
-    return dirLister()->url();
+    return m_dirModel->dirLister()->url();
 }
 
 QString KamosoDirModel::nameFilter() const
 {
-    return dirLister()->nameFilter();
+    return m_dirModel->dirLister()->nameFilter();
 }
 
 void KamosoDirModel::setNameFilter(const QString& filter)
 {
-    dirLister()->setNameFilter(filter);
+    m_dirModel->dirLister()->setNameFilter(filter);
 }
 
 void KamosoDirModel::setMimeFilter(const QStringList& mimes)
 {
-    if(mimes==dirLister()->mimeFilters())
+    if(mimes==m_dirModel->dirLister()->mimeFilters())
         return;
 
-    dirLister()->setMimeFilter(mimes);
-    if(!dirLister()->url().isEmpty()) {
-        dirLister()->openUrl(dirLister()->url(), KDirLister::Reload);
+    m_dirModel->dirLister()->setMimeFilter(mimes);
+    if(!m_dirModel->dirLister()->url().isEmpty()) {
+        m_dirModel->dirLister()->openUrl(m_dirModel->dirLister()->url(), KDirLister::Reload);
     }
     Q_EMIT filterChanged();
 }
 
 QStringList KamosoDirModel::mimeFilter() const
 {
-    return dirLister()->mimeFilters();
+    return m_dirModel->dirLister()->mimeFilters();
 }
 
 QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
@@ -78,6 +81,6 @@ QVariant KamosoDirModel::data(const QModelIndex& index, int role) const
         case MimeType:
             return qvariant_cast<KFileItem>(index.data(KDirModel::FileItemRole)).mimetype();
         default:
-            return KDirModel::data(index, role);
+            return KDirSortFilterProxyModel::data(index, role);
     }
 }
