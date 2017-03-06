@@ -150,7 +150,7 @@ ColumnLayout
         onValueChanged: {
             //We must leave minimumValue at 0 and add it back here, otherwise we get
             //a onValueChanged when minimumValue changes and things break.
-            devicesModel.playingDevice.gamma = value+1
+            devicesModel.playingDevice.gamma = value
         }
     }
     Button {
