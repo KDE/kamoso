@@ -69,23 +69,6 @@ ColumnLayout
             }
         }
     }
-
-    Item { height: 15 }
-
-    Label {
-        font.bold: true
-        text: i18n("Camera Settings")
-    }
-    CheckBox {
-        text: i18n("Use flash")
-        checked: config.useFlash
-        onCheckedChanged: config.useFlash = checked
-    }
-    CheckBox {
-        text: i18n("On screen information")
-        checked: config.showOsd
-        onCheckedChanged: config.showOsd = checked
-    }
     Item { height: 5 }
     Label { text: i18n("Brightness:") }
     Slider {

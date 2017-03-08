@@ -75,8 +75,7 @@ Kirigami.ApplicationWindow
         nameFilter: "picture_*"
 
         onTriggered: {
-            if (config.useFlash)
-                whites.showAll()
+            whites.showAll()
             webcam.takePhoto()
             photosTaken++;
         }
@@ -102,8 +101,7 @@ Kirigami.ApplicationWindow
             interval: 1000
             repeat: true
             onTriggered: {
-                if (config.useFlash)
-                    whites.showAll()
+                whites.showAll()
                 webcam.takePhoto()
                 burstMode.photosTaken++;
             }
@@ -243,7 +241,6 @@ Kirigami.ApplicationWindow
             }
 
             text: root.pageStack.currentItem.actions.main.modeInfo
-            visible: config.showOsd
             color: "white"
             styleColor: "black"
             font.pointSize: 20

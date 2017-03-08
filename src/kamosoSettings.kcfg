@@ -15,12 +15,6 @@
 			<label>Where the photos are saved.</label>
 			<default code="true">QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation))</default>
 		</entry>
-		<entry name="useFlash" type="bool">
-			<default>true</default>
-		</entry>
-		<entry name="showOsd" type="bool">
-			<default>false</default>
-		</entry>
 	</group>
     <group name="WebcamSettings">
         <entry name="deviceUdi" type="String" key="deviceUdi">
