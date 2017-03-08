@@ -39,7 +39,7 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
     m_recordingTime.restart();
     m_recordingTimer.setInterval(30);
 
-    connect(m_webcamControl, SIGNAL(photoTaken(QString)), this, SIGNAL(photoTaken(QString)));
+    connect(m_webcamControl, &WebcamControl::photoTaken, this, &Kamoso::photoTaken);
     connect(&m_recordingTimer, &QTimer::timeout, this, &Kamoso::recordingTimeChanged);
 }
 

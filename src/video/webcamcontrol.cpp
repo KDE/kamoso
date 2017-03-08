@@ -79,8 +79,8 @@ WebcamControl::WebcamControl()
     m_videoSink = surface->videoSink();
     m_videoSink->setProperty("force-aspect-ratio", true);
 
-    connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
-    connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
+    connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, static_cast<bool(WebcamControl::*)()>(&WebcamControl::play));
+    connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
 }
 
 WebcamControl::~WebcamControl()
@@ -198,7 +198,7 @@ void WebcamControl::takePhoto(const QUrl &url)
 void WebcamControl::startRecording()
 {
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
-    m_tmpVideoPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(date);
+    m_tmpVideoPath = QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
 
     m_pipeline->setProperty("mode", 2);
     m_pipeline->setProperty("location", m_tmpVideoPath);
@@ -226,7 +226,7 @@ void WebcamControl::updateSourceFilter()
     m_pipeline->setState(QGst::StateNull);
 
     //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
-    QString filters = "videoflip method=4";
+    QString filters = QStringLiteral("videoflip method=4");
     if (!m_extraFilters.isEmpty()) {
         filters.prepend(m_extraFilters + QStringLiteral(" ! "));
     }

@@ -31,8 +31,8 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     QStringList subsystems;
     subsystems << "video4linux";
     m_client = new UdevQt::Client(subsystems, this);
-    connect(m_client, SIGNAL(deviceAdded(UdevQt::Device)), SLOT(deviceAdded(UdevQt::Device)));
-    connect(m_client, SIGNAL(deviceRemoved(UdevQt::Device)), SLOT(deviceRemoved(UdevQt::Device)));
+    connect(m_client, &UdevQt::Client::deviceAdded, this, &DeviceManager::deviceAdded);
+    connect(m_client, &UdevQt::Client::deviceRemoved, this, &DeviceManager::deviceRemoved);
 
     const UdevQt::DeviceList deviceList = m_client->devicesBySubsystem("video4linux");
 
