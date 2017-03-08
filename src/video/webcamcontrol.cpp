@@ -124,35 +124,32 @@ bool WebcamControl::play(Device *device)
     }
 
     auto source = QGst::Bin::fromDescription(QLatin1String("v4l2src device=") + device->path());
-    //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
-    auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma ! videoflip method=4");
-    m_gamma = bin->getElementByName("gamma");
-    m_videoBalance = bin->getElementByName("video_balance");
 
-    auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
+    m_cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
     // Another option here is to return true, therefore continuing with launching, but
     // in that case the application is mostly useless.
-    if (cameraSource.isNull()) {
+    if (m_cameraSource.isNull()) {
         qWarning() << "The webcam controller was unable to find or load wrappercamerabinsrc plugin;"
                    << "please make sure all required gstreamer plugins are installed.";
         return false;
     }
 
-    cameraSource->setProperty("video-source-filter", bin);
-    cameraSource->setProperty("video-source", source);
+    m_cameraSource->setProperty("video-source", source);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
     auto bus = m_pipeline->bus();
     bus->addSignalWatch();
     QGlib::connect(bus, "message", this, &WebcamControl::onBusMessage);
 
-    m_pipeline->setProperty("camera-source", cameraSource);
+    setVideoSettings();
+
+    m_pipeline->setProperty("camera-source", m_cameraSource);
     m_pipeline->setProperty("viewfinder-sink", m_videoSink);
     m_pipeline->setState(QGst::StateReady);
     m_pipeline->setProperty("viewfinder-caps", QGst::Caps::fromString("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){ YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive"));
-    m_pipeline->setState(QGst::StatePlaying);
 
-    setVideoSettings();
+
+    m_pipeline->setState(QGst::StatePlaying);
     
     m_currentDevice = device->udi();
     return true;
@@ -215,43 +212,36 @@ QString WebcamControl::stopRecording()
     return m_tmpVideoPath;
 }
 
+void WebcamControl::setExtraFilters(const QString& extraFilters)
+{
+    if (extraFilters != m_extraFilters) {
+        m_extraFilters = extraFilters;
+        updateSourceFilter();
+    }
+}
+
+void WebcamControl::updateSourceFilter()
+{
+    const auto prevstate = m_pipeline->currentState();
+    m_pipeline->setState(QGst::StateNull);
+
+    //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
+    QString filters = "videoflip method=4";
+    if (!m_extraFilters.isEmpty()) {
+        filters.prepend(m_extraFilters + QStringLiteral(" ! "));
+    }
+
+    qDebug() << "setting filter" << filters;
+    m_cameraSource->setProperty("video-source-filter", QGst::Bin::fromDescription(filters));
+
+    m_pipeline->setState(prevstate);
+}
+
 void WebcamControl::setVideoSettings()
 {
     Device *device = DeviceManager::self()->playingDevice();
-    connect(device, SIGNAL(brightnessChanged(int)), SLOT(setBrightness(int)));
-    connect(device, SIGNAL(hueChanged(int)), SLOT(setHue(int)));
-    connect(device, SIGNAL(contrastChanged(int)), SLOT(setContrast(int)));
-    connect(device, SIGNAL(gammaChanged(int)), SLOT(setGamma(int)));
-    connect(device, SIGNAL(saturationChanged(int)), SLOT(setSaturation(int)));
+    connect(device, &Device::filtersChanged, this, &WebcamControl::setExtraFilters);
 
-    setBrightness(device->brightness());
-    setContrast(device->contrast());
-    setSaturation(device->saturation());
-    setGamma(device->gamma());
-    setHue(device->hue());
-}
-
-void WebcamControl::setBrightness(int level)
-{
-    m_videoBalance->setProperty("brightness", (double) level / 100);
-}
-
-void WebcamControl::setContrast(int level)
-{
-    m_videoBalance->setProperty("contrast", (double) level / 100);
-}
-
-void WebcamControl::setSaturation(int level)
-{
-    m_videoBalance->setProperty("saturation", (double) level / 100);
-}
-
-void WebcamControl::setGamma(int level)
-{
-    m_gamma->setProperty("gamma", (double) level / 100);
-}
-
-void WebcamControl::setHue(int level)
-{
-    m_videoBalance->setProperty("hue", (double) level / 100);
+    m_extraFilters = device->filters();
+    updateSourceFilter();
 }

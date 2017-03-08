@@ -30,11 +30,7 @@ namespace UdevQt {
 class Device : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int brightness READ brightness WRITE setBrightness NOTIFY brightnessChanged)
-    Q_PROPERTY(int hue READ hue WRITE setHue NOTIFY hueChanged)
-    Q_PROPERTY(int contrast READ contrast WRITE setContrast NOTIFY contrastChanged)
-    Q_PROPERTY(int saturation READ saturation WRITE setSaturation NOTIFY saturationChanged)
-    Q_PROPERTY(int gamma READ gamma WRITE setGamma NOTIFY gammaChanged)
+    Q_PROPERTY(QString filters READ filters WRITE setFilters NOTIFY filtersChanged)
 
     public:
         Device(const UdevQt::Device &device, QObject* parent = 0);
@@ -43,32 +39,20 @@ class Device : public QObject
         QString udi() const;
         QByteArray path() const;
         QString vendor() const;
-        void setBrightness(int level);
-        void setContrast(int level);
-        void setSaturation(int level);
-        void setGamma(int level);
-        void setHue(int level);
-        int brightness() const;
-        int contrast() const;
-        int saturation() const;
-        int gamma() const;
-        int hue() const;
+        void setFilters(const QString &filters);
+        QString filters() const;
 
         void reset();
 
     Q_SIGNALS:
-        void brightnessChanged(int value);
-        void hueChanged(int value);
-        void contrastChanged(int value);
-        void saturationChanged(int value);
-        void gammaChanged(int value);
+        void filtersChanged(const QString &filters);
 
     private:
         const QString m_description;
         const QString m_udi;
         const QByteArray m_path;
         const QString m_vendor;
-        const KSharedConfigPtr m_config;
+        QString m_filters;
 };
 
 #endif //DEVICE_H

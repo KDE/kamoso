@@ -29,7 +29,6 @@ Device::Device(const UdevQt::Device &device, QObject* parent)
     , m_description(device.deviceProperty("ID_MODEL").toString().replace('_', ' '))
     , m_udi(device.sysfsPath())
     , m_path(device.deviceProperty("DEVNAME").toString().toLatin1())
-    , m_config(KSharedConfig::openConfig("kamosoDevices"))
 {
 }
 
@@ -53,102 +52,27 @@ QString Device::vendor() const
 
 void Device::reset()
 {
-    m_config->deleteGroup(m_udi);
+    m_filters.clear();
 
-    Q_EMIT brightnessChanged(brightness());
-    Q_EMIT contrastChanged(contrast());
-    Q_EMIT saturationChanged(saturation());
-    Q_EMIT gammaChanged(gamma());
-    Q_EMIT hueChanged(hue());
+    Q_EMIT filtersChanged(m_filters);
 }
 
-void Device::setBrightness(int level)
+void Device::setFilters(const QString &newFilters)
 {
-    qDebug() << "New brightness " << level;
-    if (level == brightness()) {
+    if (newFilters == m_filters) {
         return;
     }
 
-    m_config->group(m_udi).writeEntry("brightness",level);
-    Q_EMIT brightnessChanged(level);
-    m_config->sync();
+    m_filters = newFilters;
+    Q_EMIT filtersChanged(newFilters);
 }
 
-void Device::setContrast(int level)
+QString Device::filters() const
 {
-    qDebug() << "New contrast " << level;
-    if (level == contrast()) {
-        return;
-    }
-
-    m_config->group(m_udi).writeEntry("contrast",level);
-    Q_EMIT contrastChanged(level);
-    m_config->sync();
-}
-
-void Device::setSaturation(int level)
-{
-    qDebug() << "New saturation " << level;
-    if (level == saturation()) {
-        return;
-    }
-
-    m_config->group(m_udi).writeEntry("saturation",level);
-    Q_EMIT saturationChanged(level);
-    m_config->sync();
-}
-
-void Device::setGamma(int level)
-{
-    qDebug() << "new gamma" << level;
-    if (level == gamma()) {
-        return;
-    }
-
-    m_config->group(m_udi).writeEntry("gamma",level);
-    Q_EMIT gammaChanged(level);
-    m_config->sync();
-}
-
-void Device::setHue(int level)
-{
-    qDebug() << "new hue" << level;
-    if (level == hue()) {
-        return;
-    }
-
-    m_config->group(m_udi).writeEntry("hue",level);
-    Q_EMIT hueChanged(level);
-    m_config->sync();
-}
-
-int Device::brightness() const
-{
-    return m_config->group(m_udi).readEntry("brightness",0);
-}
-
-int Device::contrast() const
-{
-    return m_config->group(m_udi).readEntry("contrast",100);
-}
-
-int Device::saturation() const
-{
-    return m_config->group(m_udi).readEntry("saturation",100);
-}
-
-int Device::gamma() const
-{
-    return m_config->group(m_udi).readEntry("gamma",100);
-}
-
-int Device::hue() const
-{
-    return m_config->group(m_udi).readEntry("hue",0);
+    return m_filters;
 }
 
 QString Device::udi() const
 {
-//     TODO
     return m_path;
 }
