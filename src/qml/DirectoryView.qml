@@ -13,14 +13,14 @@ ScrollView
     property alias mimeFilter: model.mimeFilter
     property alias nameFilter: model.nameFilter
 
-    readonly property real delegateWidth: Kirigami.Units.gridUnit*4
-    readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
     property var selection: []
 
     GridView
     {
         id: view
-        cellWidth: view.width/scrollView.columnCount
+        readonly property real delegateWidth: Kirigami.Units.gridUnit*4
+        readonly property int columnCount: Math.floor(width/delegateWidth)
+        cellWidth: width/columnCount
         cellHeight: cellWidth
 
         model: DirModel {
