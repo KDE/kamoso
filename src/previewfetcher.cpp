@@ -65,6 +65,7 @@ void PreviewFetcher::setWidth(int w)
 
 void PreviewFetcher::updatePreview(const KFileItem& changed, const QPixmap& prev)
 {
+    Q_ASSERT(changed.url() == m_url);
     setPreview(prev);
 }
 

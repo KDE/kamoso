@@ -77,7 +77,6 @@ ColumnLayout
                     }
                     onVisibleChanged: {
                         pipe.playing = true
-                        console.log("mf")
                         pipe.playing = false
                     }
                     surface: pipe.surface
