@@ -30,7 +30,7 @@ ColumnLayout
                 ListElement { filters: "bulge" }
                 ListElement { filters: "frei0r-filter-cartoon" }
                 ListElement { filters: "frei0r-filter-twolay0r" }
-                ListElement { filters: "frei0r-filter-color-distance" }
+//                 ListElement { filters: "frei0r-filter-color-distance" }
                 ListElement { filters: "dicetv" }
                 ListElement { filters: "frei0r-filter-distort0r" }
                 ListElement { filters: "edgetv" }
@@ -38,7 +38,7 @@ ColumnLayout
                 ListElement { filters: "coloreffects preset=heat" }
                 ListElement { filters: "videobalance saturation=0 ! agingtv" }
                 ListElement { filters: "videobalance saturation=1.5 hue=-0.5" }
-                ListElement { filters: "frei0r-filter-invert0r" }
+//                 ListElement { filters: "frei0r-filter-invert0r" }
                 ListElement { filters: "kaleidoscope" }
                 ListElement { filters: "videobalance saturation=1.5 hue=+0.5" }
                 ListElement { filters: "mirror" }
@@ -52,7 +52,7 @@ ColumnLayout
                 ListElement { filters: "videobalance saturation=2" }
                 ListElement { filters: "coloreffects preset=sepia" }
                 ListElement { filters: "shagadelictv" }
-                ListElement { filters: "frei0r-filter-sobel" }
+//                 ListElement { filters: "frei0r-filter-sobel" }
                 ListElement { filters: "square" }
                 ListElement { filters: "streaktv" }
                 ListElement { filters: "stretch" }
@@ -68,13 +68,19 @@ ColumnLayout
                 width:  GridView.view.cellHeight-1
                 height: GridView.view.cellWidth-1
 
-                Text {
-                    text: model.index
-                }
-
-                Rectangle {
-                    color: "green"
+                VideoItem {
                     anchors.fill: parent
+
+                    PipelineItem {
+                        id: pipe
+                        description: "videotestsrc ! " + (model.filters ? model.filters : "identity") + " name=last"
+                    }
+                    onVisibleChanged: {
+                        pipe.playing = true
+                        console.log("mf")
+                        pipe.playing = false
+                    }
+                    surface: pipe.surface
                 }
 
                 onClicked: {

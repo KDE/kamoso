@@ -53,6 +53,85 @@
 #include <kdeclarative/kdeclarative.h>
 #include <KJob>
 
+class PipelineItem : public QObject, public QQmlParserStatus
+{
+Q_OBJECT
+Q_INTERFACES(QQmlParserStatus)
+Q_PROPERTY(QString description READ description WRITE setDescription)
+Q_PROPERTY(QObject* surface READ surface CONSTANT)
+Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
+public:
+    PipelineItem()
+        : QObject()
+        , m_surface(new QGst::Quick::VideoSurface(this))
+    {
+        m_surface->videoSink()->setProperty("force-aspect-ratio", true);
+    }
+    ~PipelineItem() {
+        m_pipeline->setState(QGst::StateNull);
+    }
+
+    void onBusMessage(const QGst::MessagePtr & message)
+    {
+        switch (message->type()) {
+        case QGst::MessageEos: //End of stream. We reached the end of the file.
+            setPlaying(false);
+            break;
+        case QGst::MessageError:  {//Some error occurred.
+            const auto error = message.staticCast<QGst::ErrorMessage>();
+            qCritical() << "error on:" << m_description << error->error() << error->debugMessage();
+            m_pipeline->setState(QGst::StateNull);
+            m_pipeline.clear();
+        }   break;
+        default:
+            break;
+        }
+    }
+
+    void classBegin() override {}
+    void componentComplete() override {
+        if (!m_description.isEmpty()) {
+            m_pipeline = QGst::Parse::launch(m_description).dynamicCast<QGst::Pipeline>();
+            Q_ASSERT(m_pipeline);
+            m_pipeline->add(m_surface->videoSink());
+            auto lastItem = m_pipeline->getElementByName("last");
+            Q_ASSERT(lastItem);
+            lastItem->link(m_surface->videoSink());
+
+            QGst::BusPtr bus = m_pipeline->bus();
+            bus->addSignalWatch();
+            QGlib::connect(bus, "message", this, &PipelineItem::onBusMessage);
+        }
+        setPlaying(m_playing);
+    }
+
+    QGst::Quick::VideoSurface *surface() const { return m_surface; }
+    QString description() const { return m_description; }
+    void setDescription(const QString &desc) { m_description = desc; }
+
+    void setPlaying(bool playing) {
+        m_playing = playing;
+        if (!m_pipeline)
+            return;
+        m_pipeline->setState(playing ? QGst::StatePlaying : QGst::StatePaused);
+        Q_EMIT playingChanged(playing);
+    }
+
+    bool playing() const {
+        return m_pipeline && m_pipeline->currentState() == QGst::StatePlaying;
+    }
+
+Q_SIGNALS:
+    void playingChanged(bool playing);
+    void surfaceChanged();
+
+private:
+    bool m_playing = false;
+    QString m_description;
+    QGst::PipelinePtr m_pipeline;
+    QGst::Quick::VideoSurface * const m_surface;
+};
+
 WebcamControl::WebcamControl()
 {
     QGst::init();
@@ -66,6 +145,7 @@ WebcamControl::WebcamControl()
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+    qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
@@ -245,3 +325,5 @@ void WebcamControl::setVideoSettings()
     m_extraFilters = device->filters();
     updateSourceFilter();
 }
+
+#include "webcamcontrol.moc"
