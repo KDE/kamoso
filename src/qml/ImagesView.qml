@@ -56,7 +56,7 @@ StackView {
 
                         Kirigami.Label {
                             Layout.fillWidth: true
-                            text: modelData
+                            text: modelData.substring(modelData.lastIndexOf('/')+1);
                             elide: Text.ElideLeft
                         }
                     }
