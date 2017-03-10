@@ -70,14 +70,11 @@ Kirigami.ApplicationWindow
         checkable: false
         iconName: "shoot"
         text: i18n("Shoot")
-        property int photosTaken: 0
-        modeInfo: i18np("1 photo", "%1 photos", photosTaken)
         nameFilter: "picture_*"
 
         onTriggered: {
             whites.showAll()
             webcam.takePhoto()
-            photosTaken++;
         }
 
         Connections {
@@ -92,8 +89,11 @@ Kirigami.ApplicationWindow
         iconName: "burst"
         text: i18n("Burst")
         property int photosTaken: 0
-        modeInfo: i18np("1 photo", "%1 photos", photosTaken)
+        modeInfo: (photosTaken>0 ? i18np("1 photo", "%1 photos", photosTaken) : "") + (checked? "..." : "")
         nameFilter: "picture_*"
+        onCheckedChanged: if (checked) {
+            photosTaken = 0
+        }
 
         readonly property var smth: Timer {
             id: burstTimer
@@ -116,7 +116,7 @@ Kirigami.ApplicationWindow
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
 
-        onTriggered: {
+        onCheckedChanged: {
             webcam.isRecording = checked;
         }
     }
@@ -235,8 +235,8 @@ Kirigami.ApplicationWindow
 
         Text {
             anchors {
-                left: parent.left
-                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
                 margins: 20
             }
 
