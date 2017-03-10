@@ -88,11 +88,12 @@ StackView {
                     "mimeType": stack.mimeFilter
                 }
 
+                verticalLayoutDirection: ListView.BottomToTop
                 delegate: Kirigami.BasicListItem {
                     label: display
+                    icon: model.iconName
                     onClicked: altsView.createJob(index);
                 }
-
 
                 onFinished: stack.replace({
                     item: sharedComponent,
