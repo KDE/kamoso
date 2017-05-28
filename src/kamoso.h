@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <QUrl>
 
 class WebcamControl;
 class QWindow;
@@ -34,6 +35,7 @@ class Kamoso : public QObject
 Q_OBJECT
     Q_PROPERTY(bool isRecording READ isRecording WRITE setRecording NOTIFY isRecordingChanged)
     Q_PROPERTY(QString recordingTime READ recordingTime NOTIFY recordingTimeChanged)
+    Q_PROPERTY(QString sampleImage READ sampleImage NOTIFY sampleImageChanged)
 
     public:
         Kamoso(WebcamControl* webcamControl);
@@ -44,6 +46,7 @@ Q_OBJECT
         void setRecording(bool recording);
 
         Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
+        QString sampleImage() const { return m_sampleImagePath; }
 
     public Q_SLOTS:
         const QString takePhoto();
@@ -53,6 +56,7 @@ Q_OBJECT
         void photoTaken(const QString &path);
         void isRecordingChanged(bool isRecording);
         void recordingTimeChanged();
+        void sampleImageChanged(const QString &sampleImage);
 
     private:
         QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;
@@ -60,6 +64,7 @@ Q_OBJECT
         WebcamControl * const m_webcamControl;
         QTimer m_recordingTimer;
         QElapsedTimer m_recordingTime;
+        QString m_sampleImagePath;
 };
 
 #endif // KAMOSO_H

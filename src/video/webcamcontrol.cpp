@@ -57,7 +57,7 @@ class PipelineItem : public QObject, public QQmlParserStatus
 {
 Q_OBJECT
 Q_INTERFACES(QQmlParserStatus)
-Q_PROPERTY(QString description READ description WRITE setDescription)
+Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
 Q_PROPERTY(QObject* surface READ surface CONSTANT)
 Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
 public:
@@ -68,7 +68,8 @@ public:
         m_surface->videoSink()->setProperty("force-aspect-ratio", true);
     }
     ~PipelineItem() {
-        m_pipeline->setState(QGst::StateNull);
+        if (m_pipeline)
+            m_pipeline->setState(QGst::StateNull);
     }
 
     void onBusMessage(const QGst::MessagePtr & message)
@@ -90,10 +91,30 @@ public:
 
     void classBegin() override {}
     void componentComplete() override {
-        if (!m_description.isEmpty()) {
-            m_pipeline = QGst::Parse::launch(m_description).dynamicCast<QGst::Pipeline>();
-            Q_ASSERT(m_pipeline);
+        m_complete = true;
+        refresh();
+    }
+
+    QGst::Quick::VideoSurface *surface() const { return m_surface; }
+    QString description() const { return m_description; }
+    void setDescription(const QString &desc) {
+        if (m_description != desc) {
+            m_description = desc;
+            Q_EMIT descriptionChanged();
+        }
+    }
+
+    Q_SCRIPTABLE void refresh() {
+        if (!m_description.isEmpty() && m_complete) {
+            if(m_pipeline)
+                m_pipeline->setState(QGst::StateNull);
+            try {
+                m_pipeline = QGst::Parse::launch(m_description).dynamicCast<QGst::Pipeline>();
+            } catch(QGlib::Error e) {
+                qDebug() << "error" << e.message();
+            }
             m_pipeline->add(m_surface->videoSink());
+            Q_ASSERT(m_pipeline);
             auto lastItem = m_pipeline->getElementByName("last");
             Q_ASSERT(lastItem);
             lastItem->link(m_surface->videoSink());
@@ -104,10 +125,6 @@ public:
         }
         setPlaying(m_playing);
     }
-
-    QGst::Quick::VideoSurface *surface() const { return m_surface; }
-    QString description() const { return m_description; }
-    void setDescription(const QString &desc) { m_description = desc; }
 
     void setPlaying(bool playing) {
         m_playing = playing;
@@ -124,9 +141,11 @@ public:
 Q_SIGNALS:
     void playingChanged(bool playing);
     void surfaceChanged();
+    void descriptionChanged();
 
 private:
     bool m_playing = false;
+    bool m_complete = false;
     QString m_description;
     QGst::PipelinePtr m_pipeline;
     QGst::Quick::VideoSurface * const m_surface;

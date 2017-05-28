@@ -32,6 +32,8 @@
 #include <KJobWidgets/KJobWidgets>
 #include <QtCore/QFile>
 #include <QtCore/QJsonArray>
+#include <QtCore/QDir>
+#include <QtCore/QTemporaryFile>
 
 Kamoso::Kamoso(WebcamControl *webcamControl)
     : m_webcamControl(webcamControl)
@@ -41,12 +43,26 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
 
     connect(m_webcamControl, &WebcamControl::photoTaken, this, &Kamoso::photoTaken);
     connect(&m_recordingTimer, &QTimer::timeout, this, &Kamoso::recordingTimeChanged);
+
+    if (Settings::saveUrl().isLocalFile()) {
+        const QDir dir(Settings::saveUrl().toLocalFile());
+        const auto dirlist = dir.entryInfoList({"*.jpg"}, QDir::Files, QDir::SortFlag::Time);
+        if (!dirlist.isEmpty())
+            m_sampleImagePath = dirlist.first().absoluteFilePath();
+    }
+
+    if (m_sampleImagePath.isEmpty()) {
+        QTemporaryFile* temporary = new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg"), this);
+        temporary->open();
+        auto sampleIcon = QIcon::fromTheme(QStringLiteral("kde"));
+        sampleIcon.pixmap(200, 200).save(temporary);
+
+        m_sampleImagePath = temporary->fileName();
+        temporary->close();
+    }
 }
 
-Kamoso::~Kamoso()
-{
-
-}
+Kamoso::~Kamoso() = default;
 
 QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const
 {
@@ -66,6 +82,11 @@ const QString Kamoso::takePhoto()
 {
     const QUrl path = fileNameSuggestion(Settings::saveUrl(), "picture", "jpg");
     m_webcamControl->takePhoto(path);
+
+    if (path.isLocalFile()) {
+        m_sampleImagePath = path.toLocalFile();
+        Q_EMIT sampleImageChanged(m_sampleImagePath);
+    }
 
     return path.toDisplayString();
 }

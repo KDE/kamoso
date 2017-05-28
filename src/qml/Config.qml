@@ -26,7 +26,7 @@ ColumnLayout
             }
 
             model: ListModel {
-                ListElement { filters: "" }
+                ListElement { filters: "identity" }
                 ListElement { filters: "bulge" }
                 ListElement { filters: "frei0r-filter-cartoon" }
                 ListElement { filters: "frei0r-filter-twolay0r" }
@@ -73,11 +73,23 @@ ColumnLayout
 
                     PipelineItem {
                         id: pipe
-                        description: "videotestsrc ! " + (model.filters ? model.filters : "identity") + " name=last"
+
+                        function refreshVisible() {
+                            if (visible) {
+                                pipe.playing = true
+                            }
+                            pipe.playing = false
+                        }
+                        description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                        property bool dirty: false
+                        onDescriptionChanged: dirty = true
                     }
                     onVisibleChanged: {
-                        pipe.playing = true
-                        pipe.playing = false
+                        pipe.refreshVisible()
+                        if (pipe.dirty) {
+                            pipe.dirty=false
+                            pipe.refresh()
+                        }
                     }
                     surface: pipe.surface
                 }
