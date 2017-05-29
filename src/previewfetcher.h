@@ -30,18 +30,17 @@ class PreviewFetcher : public QObject
     Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(QPixmap preview READ preview NOTIFY previewChanged)
     Q_PROPERTY(QString mimetype READ mimeType WRITE setMimeType)
-    Q_PROPERTY(int width READ width WRITE setWidth)
-    Q_PROPERTY(int height READ height WRITE setHeight)
+    Q_PROPERTY(QSize size READ size WRITE setSize)
+    Q_PROPERTY(QSize previewSize READ previewSize NOTIFY previewChanged)
     public:
         explicit PreviewFetcher(QObject* parent = 0);
 
         QUrl url() const;
         void setUrl(const QUrl& url);
 
-        int width() const { return m_size.width(); }
-        int height() const { return m_size.height(); }
-        void setWidth(int w);
-        void setHeight(int h);
+        QSize previewSize() const { return m_preview.size(); }
+        QSize size() const { return m_size; }
+        void setSize(const QSize &size);
 
         QPixmap preview() const;
 

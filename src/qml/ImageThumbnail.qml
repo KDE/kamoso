@@ -1,20 +1,27 @@
 import org.kde.kamoso 3.0
-import org.kde.kquickcontrolsaddons 2.0
+import org.kde.kirigami 2.1 as Kirigami
+import QtQuick 2.3
 
-QPixmapItem
+Item
 {
-    id: item
+    id: thumbnailRoot
     property alias path: fetcher.url
     property alias mime: fetcher.mimetype
-
     objectName: path
-    pixmap: fetcher.preview
-    fillMode: QPixmapItem.PreserveAspectCrop
-
     readonly property int biggerSide: Math.max(width, height) * 2
-    PreviewFetcher {
-        id: fetcher
-        width: item.biggerSide
-        height: item.biggerSide
+
+    Kirigami.Icon {
+        id: item
+        anchors.centerIn: parent
+
+        width: fetcher.previewSize.width
+        height: fetcher.previewSize.height
+        source: fetcher.preview
+
+        PreviewFetcher {
+            id: fetcher
+            size: Qt.size(thumbnailRoot.biggerSide, thumbnailRoot.biggerSide)
+        }
     }
+    clip: true
 }

@@ -3,8 +3,6 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 import org.kde.kirigami 2.0 as Kirigami
 import org.kde.kamoso 3.0
-import org.kde.kquickcontrols 2.0
-import org.kde.kquickcontrolsaddons 2.0
 
 ScrollView
 {

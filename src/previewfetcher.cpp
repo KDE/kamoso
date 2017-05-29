@@ -20,6 +20,7 @@
 #include <kio/previewjob.h>
 #include <QIcon>
 #include <QMimeDatabase>
+#include <QDebug>
 
 PreviewFetcher::PreviewFetcher(QObject* parent)
     : QObject(parent)
@@ -45,21 +46,16 @@ void PreviewFetcher::fetchPreview()
         setPreview(QPixmap());
         return;
     }
-    KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(QUrl(m_url), m_mimetype, 0), m_size);
+    KIO::PreviewJob* job = new KIO::PreviewJob(KFileItemList() << KFileItem(m_url, m_mimetype, 0), m_size);
+    job->setScaleType(KIO::PreviewJob::ScaleType::Scaled);
     connect(job, &KIO::PreviewJob::gotPreview, this, &PreviewFetcher::updatePreview);
     connect(job, &KIO::PreviewJob::failed, this, &PreviewFetcher::fallbackPreview);
     job->start();
 }
 
-void PreviewFetcher::setHeight(int h)
+void PreviewFetcher::setSize(const QSize &size)
 {
-    m_size.setHeight(h);
-    fetchPreview();
-}
-
-void PreviewFetcher::setWidth(int w)
-{
-    m_size.setWidth(w);
+    m_size = size;
     fetchPreview();
 }
 

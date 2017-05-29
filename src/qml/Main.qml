@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtGStreamer 1.0
 import org.kde.kirigami 2.0 as Kirigami
-import org.kde.kquickcontrolsaddons 2.0
 import org.kde.kamoso 3.0
 
 Kirigami.ApplicationWindow
