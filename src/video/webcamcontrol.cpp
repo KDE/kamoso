@@ -50,8 +50,8 @@
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
 #include <qqml.h>
-#include <kdeclarative/kdeclarative.h>
 #include <KJob>
+#include <KLocalizedContext>
 
 class PipelineItem : public QObject, public QQmlParserStatus
 {
@@ -156,10 +156,7 @@ WebcamControl::WebcamControl()
     QGst::init();
 
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
-    KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine);
-    kdeclarative.setTranslationDomain("kamoso");
-    kdeclarative.setupBindings();
+    engine->rootContext()->setContextObject(new KLocalizedContext(engine));
 
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
