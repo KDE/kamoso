@@ -222,13 +222,11 @@ StackView {
                     }
                 }
             }
-            Item {
-                Layout.fillHeight: true
-            }
 
             DirectoryView {
                 id: view
 
+                clip: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 mimeFilter: [stack.mimeFilter]

@@ -145,10 +145,17 @@ Kirigami.ApplicationWindow
         handleVisible: true
         modal: true
         width: Kirigami.Units.gridUnit * 20
+
+        leftPadding: 0
+        topPadding: 0
+        rightPadding: 0
+        bottomPadding: 0
+
         contentItem: Config {
+            id: configView
             header: Image {
                     fillMode: Image.PreserveAspectCrop
-                    width: view.width
+                    width: configView.width
                     height: Kirigami.Units.gridUnit * 10
                     source: "https://images.unsplash.com/photo-1484781663516-4c4ca4b04a13?dpr=1&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb"
                     smooth: true
