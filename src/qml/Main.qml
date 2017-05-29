@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
+import QtQuick.Controls 2.1 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtGStreamer 1.0
@@ -153,6 +154,9 @@ Kirigami.ApplicationWindow
 
         contentItem: Config {
             id: configView
+
+            QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
+
             header: Image {
                     fillMode: Image.PreserveAspectCrop
                     width: configView.width

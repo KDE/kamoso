@@ -1,6 +1,7 @@
 import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
@@ -226,6 +227,7 @@ StackView {
             DirectoryView {
                 id: view
 
+                QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
                 clip: true
                 Layout.fillWidth: true
                 Layout.fillHeight: true
