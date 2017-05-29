@@ -10,11 +10,13 @@ ColumnLayout
 {
     spacing: 1
     clip: true
+    property alias header: view.header
 
     ScrollView {
         Layout.fillHeight: true
         Layout.fillWidth: true
         GridView {
+            id: view
             readonly property real delegateWidth: Kirigami.Units.gridUnit*4
             readonly property int columnCount: Math.floor(width/delegateWidth)
             cellWidth: width/columnCount
@@ -99,70 +101,5 @@ ColumnLayout
                 }
             }
         }
-    }
-
-    Item { height: 15 }
-
-    Label {
-        font.bold: true
-        text: i18n("Save to...")
-    }
-
-    function pathOrUrl(url) {
-        var urlstr = url.toString();
-        if (urlstr.indexOf("file://") == 0) {
-            return urlstr.substring(7);
-        }
-        return url;
-    }
-
-    Button {
-        Layout.fillWidth: true
-
-        iconName: "folder-pictures"
-        text: i18n("%1", pathOrUrl(config.saveUrl))
-        onClicked: {
-            dirSelector.visible = true
-        }
-
-        FileDialog {
-            id: dirSelector
-            title: i18n("Select a directory where to save your pictures")
-            folder: config.saveUrl
-            selectMultiple: false
-            selectExisting: true
-            selectFolder: true
-
-            onFileUrlChanged: {
-                config.saveUrl = dirSelector.fileUrl
-                config.save()
-            }
-        }
-    }
-    Button {
-        Layout.fillWidth: true
-
-        iconName: "folder-videos"
-        text: i18n("%1", pathOrUrl(config.saveVideos))
-        onClicked: {
-            videoDirSelector.visible = true
-        }
-
-        FileDialog {
-            id: videoDirSelector
-            title: i18n("Select a directory where to save your videos")
-            folder: config.saveVideos
-            selectMultiple: false
-            selectExisting: true
-            selectFolder: true
-
-            onFileUrlChanged: {
-                config.saveVideos = videoDirSelector.fileUrl
-                config.save()
-            }
-        }
-    }
-    Item {
-        Layout.fillHeight: true
     }
 }

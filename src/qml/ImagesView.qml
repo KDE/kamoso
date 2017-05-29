@@ -163,28 +163,71 @@ StackView {
         ColumnLayout {
             anchors.fill: parent
             spacing: 0
-            DirectoryView {
-                id: view
-                header: Image {
-                    fillMode: Image.PreserveAspectCrop
-                    width: view.width
-                    height: Kirigami.Units.gridUnit * 10
-                    source: "https://images.unsplash.com/photo-1484781663516-4c4ca4b04a13?dpr=1&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb"
-                    smooth: true
+            Label {
+                font.bold: true
+                text: i18n("Save to...")
+            }
 
-                    Kirigami.Heading {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: Kirigami.Units.smallSpacing * 2
-                        }
-                        level: 1
-                        color: "white"
-                        elide: Text.ElideRight
-                        text: i18n("Kamoso Gallery")
+            function pathOrUrl(url) {
+                var urlstr = url.toString();
+                if (urlstr.indexOf("file://") == 0) {
+                    return urlstr.substring(7);
+                }
+                return url;
+            }
+
+            Button {
+                Layout.fillWidth: true
+
+                iconName: "folder-pictures"
+                text: parent.pathOrUrl(config.saveUrl)
+                onClicked: {
+                    dirSelector.visible = true
+                }
+
+                FileDialog {
+                    id: dirSelector
+                    title: i18n("Select a directory where to save your pictures")
+                    folder: config.saveUrl
+                    selectMultiple: false
+                    selectExisting: true
+                    selectFolder: true
+
+                    onFileUrlChanged: {
+                        config.saveUrl = dirSelector.fileUrl
+                        config.save()
                     }
                 }
+            }
+            Button {
+                Layout.fillWidth: true
+
+                iconName: "folder-videos"
+                text: parent.pathOrUrl(config.saveVideos)
+                onClicked: {
+                    videoDirSelector.visible = true
+                }
+
+                FileDialog {
+                    id: videoDirSelector
+                    title: i18n("Select a directory where to save your videos")
+                    folder: config.saveVideos
+                    selectMultiple: false
+                    selectExisting: true
+                    selectFolder: true
+
+                    onFileUrlChanged: {
+                        config.saveVideos = videoDirSelector.fileUrl
+                        config.save()
+                    }
+                }
+            }
+            Item {
+                Layout.fillHeight: true
+            }
+
+            DirectoryView {
+                id: view
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
