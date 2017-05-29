@@ -39,7 +39,7 @@ WhiteWidgetManager::WhiteWidgetManager(QObject* parent) : QObject(parent)
     m_timer->setEndValue(1.0);
     m_timer->setTargetObject(this);
     m_timer->setPropertyName("opacity");
-    connect(m_timer, SIGNAL(finished()), SLOT(hideAll()));
+    connect(m_timer, &QPropertyAnimation::finished, this, &WhiteWidgetManager::hideAll);
 }
 
 /**

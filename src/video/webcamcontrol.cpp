@@ -50,22 +50,118 @@
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
 #include <qqml.h>
-#include <kdeclarative/kdeclarative.h>
 #include <KJob>
+#include <KLocalizedContext>
+
+class PipelineItem : public QObject, public QQmlParserStatus
+{
+Q_OBJECT
+Q_INTERFACES(QQmlParserStatus)
+Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+Q_PROPERTY(QObject* surface READ surface CONSTANT)
+Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
+public:
+    PipelineItem()
+        : QObject()
+        , m_surface(new QGst::Quick::VideoSurface(this))
+    {
+        m_surface->videoSink()->setProperty("force-aspect-ratio", true);
+    }
+    ~PipelineItem() {
+        if (m_pipeline)
+            m_pipeline->setState(QGst::StateNull);
+    }
+
+    void onBusMessage(const QGst::MessagePtr & message)
+    {
+        switch (message->type()) {
+        case QGst::MessageEos: //End of stream. We reached the end of the file.
+            setPlaying(false);
+            break;
+        case QGst::MessageError:  {//Some error occurred.
+            const auto error = message.staticCast<QGst::ErrorMessage>();
+            qCritical() << "error on:" << m_description << error->error() << error->debugMessage();
+            m_pipeline->setState(QGst::StateNull);
+            m_pipeline.clear();
+        }   break;
+        default:
+            break;
+        }
+    }
+
+    void classBegin() override {}
+    void componentComplete() override {
+        m_complete = true;
+        refresh();
+    }
+
+    QGst::Quick::VideoSurface *surface() const { return m_surface; }
+    QString description() const { return m_description; }
+    void setDescription(const QString &desc) {
+        if (m_description != desc) {
+            m_description = desc;
+            Q_EMIT descriptionChanged();
+        }
+    }
+
+    Q_SCRIPTABLE void refresh() {
+        if (!m_description.isEmpty() && m_complete) {
+            if(m_pipeline)
+                m_pipeline->setState(QGst::StateNull);
+            try {
+                m_pipeline = QGst::Parse::launch(m_description).dynamicCast<QGst::Pipeline>();
+            } catch(QGlib::Error e) {
+                qDebug() << "error" << e.message();
+            }
+            m_pipeline->add(m_surface->videoSink());
+            Q_ASSERT(m_pipeline);
+            auto lastItem = m_pipeline->getElementByName("last");
+            Q_ASSERT(lastItem);
+            lastItem->link(m_surface->videoSink());
+
+            QGst::BusPtr bus = m_pipeline->bus();
+            bus->addSignalWatch();
+            QGlib::connect(bus, "message", this, &PipelineItem::onBusMessage);
+        }
+        setPlaying(m_playing);
+    }
+
+    void setPlaying(bool playing) {
+        m_playing = playing;
+        if (!m_pipeline)
+            return;
+        m_pipeline->setState(playing ? QGst::StatePlaying : QGst::StatePaused);
+        Q_EMIT playingChanged(playing);
+    }
+
+    bool playing() const {
+        return m_pipeline && m_pipeline->currentState() == QGst::StatePlaying;
+    }
+
+Q_SIGNALS:
+    void playingChanged(bool playing);
+    void surfaceChanged();
+    void descriptionChanged();
+
+private:
+    bool m_playing = false;
+    bool m_complete = false;
+    QString m_description;
+    QGst::PipelinePtr m_pipeline;
+    QGst::Quick::VideoSurface * const m_surface;
+};
 
 WebcamControl::WebcamControl()
 {
     QGst::init();
 
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
-    KDeclarative::KDeclarative kdeclarative;
-    kdeclarative.setDeclarativeEngine(engine);
-    kdeclarative.setTranslationDomain("kamoso");
-    kdeclarative.setupBindings();
+    engine->rootContext()->setContextObject(new KLocalizedContext(engine));
 
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
+    qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
     QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
@@ -79,8 +175,8 @@ WebcamControl::WebcamControl()
     m_videoSink = surface->videoSink();
     m_videoSink->setProperty("force-aspect-ratio", true);
 
-    connect(DeviceManager::self(), SIGNAL(playingDeviceChanged()), SLOT(play()));
-    connect(DeviceManager::self(), SIGNAL(noDevices()), SLOT(stop()));
+    connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, static_cast<bool(WebcamControl::*)()>(&WebcamControl::play));
+    connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
 }
 
 WebcamControl::~WebcamControl()
@@ -124,35 +220,32 @@ bool WebcamControl::play(Device *device)
     }
 
     auto source = QGst::Bin::fromDescription(QLatin1String("v4l2src device=") + device->path());
-    //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
-    auto bin = QGst::Bin::fromDescription("videobalance name=video_balance ! gamma name=gamma ! videoflip method=4");
-    m_gamma = bin->getElementByName("gamma");
-    m_videoBalance = bin->getElementByName("video_balance");
 
-    auto cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
+    m_cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
     // Another option here is to return true, therefore continuing with launching, but
     // in that case the application is mostly useless.
-    if (cameraSource.isNull()) {
+    if (m_cameraSource.isNull()) {
         qWarning() << "The webcam controller was unable to find or load wrappercamerabinsrc plugin;"
                    << "please make sure all required gstreamer plugins are installed.";
         return false;
     }
 
-    cameraSource->setProperty("video-source-filter", bin);
-    cameraSource->setProperty("video-source", source);
+    m_cameraSource->setProperty("video-source", source);
 
     m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
     auto bus = m_pipeline->bus();
     bus->addSignalWatch();
     QGlib::connect(bus, "message", this, &WebcamControl::onBusMessage);
 
-    m_pipeline->setProperty("camera-source", cameraSource);
+    setVideoSettings();
+
+    m_pipeline->setProperty("camera-source", m_cameraSource);
     m_pipeline->setProperty("viewfinder-sink", m_videoSink);
     m_pipeline->setState(QGst::StateReady);
     m_pipeline->setProperty("viewfinder-caps", QGst::Caps::fromString("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){ YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive"));
-    m_pipeline->setState(QGst::StatePlaying);
 
-    setVideoSettings();
+
+    m_pipeline->setState(QGst::StatePlaying);
     
     m_currentDevice = device->udi();
     return true;
@@ -201,7 +294,7 @@ void WebcamControl::takePhoto(const QUrl &url)
 void WebcamControl::startRecording()
 {
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
-    m_tmpVideoPath = QString(QDir::tempPath() + "/kamoso_%1.mkv").arg(date);
+    m_tmpVideoPath = QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
 
     m_pipeline->setProperty("mode", 2);
     m_pipeline->setProperty("location", m_tmpVideoPath);
@@ -215,43 +308,38 @@ QString WebcamControl::stopRecording()
     return m_tmpVideoPath;
 }
 
+void WebcamControl::setExtraFilters(const QString& extraFilters)
+{
+    if (extraFilters != m_extraFilters) {
+        m_extraFilters = extraFilters;
+        updateSourceFilter();
+    }
+}
+
+void WebcamControl::updateSourceFilter()
+{
+    const auto prevstate = m_pipeline->currentState();
+    m_pipeline->setState(QGst::StateNull);
+
+    //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
+    QString filters = QStringLiteral("videoflip method=4");
+    if (!m_extraFilters.isEmpty()) {
+        filters.prepend(m_extraFilters + QStringLiteral(" ! "));
+    }
+
+    qDebug() << "setting filter" << filters;
+    m_cameraSource->setProperty("video-source-filter", QGst::Bin::fromDescription(filters));
+
+    m_pipeline->setState(prevstate);
+}
+
 void WebcamControl::setVideoSettings()
 {
     Device *device = DeviceManager::self()->playingDevice();
-    connect(device, SIGNAL(brightnessChanged(int)), SLOT(setBrightness(int)));
-    connect(device, SIGNAL(hueChanged(int)), SLOT(setHue(int)));
-    connect(device, SIGNAL(contrastChanged(int)), SLOT(setContrast(int)));
-    connect(device, SIGNAL(gammaChanged(int)), SLOT(setGamma(int)));
-    connect(device, SIGNAL(saturationChanged(int)), SLOT(setSaturation(int)));
+    connect(device, &Device::filtersChanged, this, &WebcamControl::setExtraFilters);
 
-    setBrightness(device->brightness());
-    setContrast(device->contrast());
-    setSaturation(device->saturation());
-    setGamma(device->gamma());
-    setHue(device->hue());
+    m_extraFilters = device->filters();
+    updateSourceFilter();
 }
 
-void WebcamControl::setBrightness(int level)
-{
-    m_videoBalance->setProperty("brightness", (double) level / 100);
-}
-
-void WebcamControl::setContrast(int level)
-{
-    m_videoBalance->setProperty("contrast", (double) level / 100);
-}
-
-void WebcamControl::setSaturation(int level)
-{
-    m_videoBalance->setProperty("saturation", (double) level / 100);
-}
-
-void WebcamControl::setGamma(int level)
-{
-    m_gamma->setProperty("gamma", (double) level / 100);
-}
-
-void WebcamControl::setHue(int level)
-{
-    m_videoBalance->setProperty("hue", (double) level / 100);
-}
+#include "webcamcontrol.moc"

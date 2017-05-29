@@ -4,15 +4,108 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
 import QtGStreamer 1.0
 import org.kde.kamoso 3.0
+import org.kde.kirigami 2.0 as Kirigami
 
 ColumnLayout
 {
     spacing: 1
     clip: true
 
+    ScrollView {
+        Layout.fillHeight: true
+        Layout.fillWidth: true
+        GridView {
+            readonly property real delegateWidth: Kirigami.Units.gridUnit*4
+            readonly property int columnCount: Math.floor(width/delegateWidth)
+            cellWidth: width/columnCount
+            cellHeight: cellWidth
+
+            header: Label {
+                font.bold: true
+                text: i18n("Effects")
+            }
+
+            model: ListModel {
+                ListElement { filters: "identity" }
+                ListElement { filters: "bulge" }
+                ListElement { filters: "frei0r-filter-cartoon" }
+                ListElement { filters: "frei0r-filter-twolay0r" }
+//                 ListElement { filters: "frei0r-filter-color-distance" }
+                ListElement { filters: "dicetv" }
+                ListElement { filters: "frei0r-filter-distort0r" }
+                ListElement { filters: "edgetv" }
+                ListElement { filters: "videoflip method=horizontal-flip" }
+                ListElement { filters: "coloreffects preset=heat" }
+                ListElement { filters: "videobalance saturation=0 ! agingtv" }
+                ListElement { filters: "videobalance saturation=1.5 hue=-0.5" }
+//                 ListElement { filters: "frei0r-filter-invert0r" }
+                ListElement { filters: "kaleidoscope" }
+                ListElement { filters: "videobalance saturation=1.5 hue=+0.5" }
+                ListElement { filters: "mirror" }
+                ListElement { filters: "videobalance saturation=0" }
+                ListElement { filters: "optv" }
+                ListElement { filters: "pinch" }
+                ListElement { filters: "quarktv" }
+                ListElement { filters: "radioactv" }
+                ListElement { filters: "revtv" }
+                ListElement { filters: "rippletv" }
+                ListElement { filters: "videobalance saturation=2" }
+                ListElement { filters: "coloreffects preset=sepia" }
+                ListElement { filters: "shagadelictv" }
+//                 ListElement { filters: "frei0r-filter-sobel" }
+                ListElement { filters: "square" }
+                ListElement { filters: "streaktv" }
+                ListElement { filters: "stretch" }
+                ListElement { filters: "frei0r-filter-delay0r delaytime=1" }
+                ListElement { filters: "twirl" }
+                ListElement { filters: "vertigotv" }
+                ListElement { filters: "warptv" }
+                ListElement { filters: "coloreffects preset=xray" }
+            }
+
+            delegate: MouseArea {
+                id: delegateItem
+                width:  GridView.view.cellHeight-1
+                height: GridView.view.cellWidth-1
+
+                VideoItem {
+                    anchors.fill: parent
+
+                    PipelineItem {
+                        id: pipe
+
+                        function refreshVisible() {
+                            if (visible) {
+                                pipe.playing = true
+                            }
+                            pipe.playing = false
+                        }
+                        description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                        property bool dirty: false
+                        onDescriptionChanged: dirty = true
+                    }
+                    onVisibleChanged: {
+                        pipe.refreshVisible()
+                        if (pipe.dirty) {
+                            pipe.dirty=false
+                            pipe.refresh()
+                        }
+                    }
+                    surface: pipe.surface
+                }
+
+                onClicked: {
+                    devicesModel.playingDevice.filters = model.filters
+                }
+            }
+        }
+    }
+
+    Item { height: 15 }
+
     Label {
         font.bold: true
-        text: i18n("Places")
+        text: i18n("Save to...")
     }
 
     function pathOrUrl(url) {
@@ -26,15 +119,15 @@ ColumnLayout
     Button {
         Layout.fillWidth: true
 
-        iconName: "document-open-folder"
-        text: i18n("Photos: %1", pathOrUrl(config.saveUrl))
+        iconName: "folder-pictures"
+        text: i18n("%1", pathOrUrl(config.saveUrl))
         onClicked: {
             dirSelector.visible = true
         }
 
         FileDialog {
             id: dirSelector
-            title: i18n("Select a directory where to save your pictures and videos")
+            title: i18n("Select a directory where to save your pictures")
             folder: config.saveUrl
             selectMultiple: false
             selectExisting: true
@@ -49,15 +142,15 @@ ColumnLayout
     Button {
         Layout.fillWidth: true
 
-        iconName: "document-open-folder"
-        text: i18n("Videos: %1", pathOrUrl(config.saveVideos))
+        iconName: "folder-videos"
+        text: i18n("%1", pathOrUrl(config.saveVideos))
         onClicked: {
             videoDirSelector.visible = true
         }
 
         FileDialog {
             id: videoDirSelector
-            title: i18n("Select a directory where to save your pictures and videos")
+            title: i18n("Select a directory where to save your videos")
             folder: config.saveVideos
             selectMultiple: false
             selectExisting: true
@@ -67,97 +160,6 @@ ColumnLayout
                 config.saveVideos = videoDirSelector.fileUrl
                 config.save()
             }
-        }
-    }
-
-    Item { height: 15 }
-
-    Label {
-        font.bold: true
-        text: i18n("Camera Settings")
-    }
-    CheckBox {
-        text: i18n("Use flash")
-        checked: config.useFlash
-        onCheckedChanged: config.useFlash = checked
-    }
-    CheckBox {
-        text: i18n("On screen information")
-        checked: config.showOsd
-        onCheckedChanged: config.showOsd = checked
-    }
-    Item { height: 5 }
-    Label { text: i18n("Brightness:") }
-    Slider {
-        id: brightnessSlider
-        Layout.fillWidth: true
-        minimumValue: -100
-        maximumValue: 100
-        value: devicesModel.playingDevice.brightness
-
-        onValueChanged: {
-            devicesModel.playingDevice.brightness = value
-        }
-    }
-
-    Label { text: i18n("Hue:") }
-    Slider {
-        id: hueSlider
-        Layout.fillWidth: true
-        minimumValue: -100
-        maximumValue: 100
-        value: devicesModel.playingDevice.hue
-
-        onValueChanged: {
-            devicesModel.playingDevice.hue = value
-        }
-    }
-
-    Label { text: i18n("Contrast:") }
-    Slider {
-        id: contrastSlider
-        Layout.fillWidth: true
-        minimumValue: 0
-        maximumValue: 200
-        value: devicesModel.playingDevice.contrast
-
-        onValueChanged: {
-            devicesModel.playingDevice.contrast = value
-        }
-    }
-
-    Label { text: i18n("Saturation:") }
-    Slider {
-        id: saturationSlider
-        Layout.fillWidth: true
-        minimumValue: 0
-        maximumValue: 200
-        value: devicesModel.playingDevice.saturation
-
-        onValueChanged: {
-            devicesModel.playingDevice.saturation = value
-        }
-    }
-
-    Label { text: i18n("Gamma:") }
-    Slider {
-        id: gammaSlider
-        Layout.fillWidth: true
-        minimumValue: 0
-        maximumValue: 999
-        value: devicesModel.playingDevice.gamma
-
-        onValueChanged: {
-            //We must leave minimumValue at 0 and add it back here, otherwise we get
-            //a onValueChanged when minimumValue changes and things break.
-            devicesModel.playingDevice.gamma = value+1
-        }
-    }
-    Button {
-        anchors.right: parent.right
-        text: i18n("Reset")
-        onClicked: {
-            webcam.resetDeviceSettings()
         }
     }
     Item {

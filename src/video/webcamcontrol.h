@@ -43,25 +43,22 @@ class WebcamControl : public QObject
         QString stopRecording();
 
     private Q_SLOTS:
-        void setBrightness(int level);
-        void setContrast(int level);
-        void setSaturation(int level);
-        void setGamma(int level);
-        void setHue(int level);
+        void setExtraFilters(const QString &extraFilters);
 
     Q_SIGNALS:
         void photoTaken(const QString &photoUrl);
 
     private:
+        void updateSourceFilter();
         void onBusMessage(const QGst::MessagePtr & msg);
         void setVideoSettings();
 
+        QString m_extraFilters;
         QString m_tmpVideoPath;
         QString m_currentDevice;
         QGst::PipelinePtr m_pipeline;
         QGst::ElementPtr m_videoSink;
-        QGst::ElementPtr m_videoBalance;
-        QGst::ElementPtr m_gamma;
+        QGst::ElementPtr m_cameraSource;
 };
 
 #endif // WEBCAMCONTROL_H

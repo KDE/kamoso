@@ -19,9 +19,10 @@
 #ifndef KAMOSODIRMODEL_H
 #define KAMOSODIRMODEL_H
 
-#include <kdirmodel.h>
+#include <KDirModel>
+#include <KDirSortFilterProxyModel>
 
-class KamosoDirModel : public KDirModel
+class KamosoDirModel : public KDirSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(QUrl url READ url WRITE setUrl NOTIFY urlChanged)
@@ -29,7 +30,7 @@ class KamosoDirModel : public KDirModel
     Q_PROPERTY(QString nameFilter READ nameFilter WRITE setNameFilter)
     public:
         enum Roles {
-            Path = ColumnCount+1,
+            Path = KDirModel::ColumnCount+1,
             MimeType
         };
 
@@ -49,6 +50,9 @@ class KamosoDirModel : public KDirModel
     Q_SIGNALS:
         void urlChanged();
         void filterChanged();
+
+    private:
+        KDirModel* m_dirModel;
 };
 
 #endif // KAMOSODIRMODEL_H

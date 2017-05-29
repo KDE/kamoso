@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
 import org.kde.purpose 1.0
+import org.kde.kirigami 2.0 as Kirigami
 
 StackView {
     id: stack
@@ -12,124 +13,121 @@ StackView {
     property alias nameFilter: view.nameFilter
     clip: true
 
-    Menu {
-        id: menu
-        Instantiator {
-            id: inst
-            model: PurposeAlternativesModel {
-                id: altsModel
+    Component {
+        id: headerComponent
+        ColumnLayout {
+            spacing: 0
+            Layout.maximumHeight: Kirigami.Units.gridUnit * 10
+            Image {
+                fillMode: Image.PreserveAspectCrop
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                source: "https://images.unsplash.com/photo-1478809956569-c7ce9654a947?dpr=1&auto=format&fit=crop&w=1500&h=971&q=80&cs=tinysrgb&crop="
+                smooth: true
+
+                Kirigami.Heading {
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        margins: Kirigami.Units.smallSpacing * 2
+                    }
+                    level: 1
+                    color: "white"
+                    elide: Text.ElideRight
+                    text: i18n("Share...")
+                }
+            }
+
+            Repeater {
+                model: view.selection
+                delegate: Kirigami.AbstractListItem {
+                    id: delegate
+                    Layout.minimumHeight: Kirigami.Units.gridUnit * 3
+                    spacing: 0
+
+                    RowLayout {
+                        ImageThumbnail {
+                            Layout.fillHeight: true
+                            width: height
+
+                            path: modelData
+                        }
+
+                        Kirigami.Label {
+                            Layout.fillWidth: true
+                            text: modelData.substring(modelData.lastIndexOf('/')+1);
+                            elide: Text.ElideLeft
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: chooseShareComponent
+        ColumnLayout {
+            id: menu
+            property var selection
+            spacing: 0
+
+            Loader {
+                Layout.fillWidth: true
+                Layout.maximumHeight: item.Layout.maximumHeight
+
+                sourceComponent: headerComponent
+            }
+            AlternativesView {
+                id: altsView
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 pluginType: "Export"
                 inputData: {
                     "urls": view.selection,
                     "mimeType": stack.mimeFilter
                 }
-            }
-            MenuItem {
-                text: display
-                iconName: model.iconName
-                onTriggered: {
-                    var config = altsModel.configureJob(index)
 
-                    if (config.isReady)
-                        startShareJob(config)
-                    else {
-                        stack.push({
-                            item: shareWizardComponent,
-                            properties: { configuration: config }
-                        })
-                    }
-                    view.selection = []
+                verticalLayoutDirection: ListView.BottomToTop
+                delegate: Kirigami.BasicListItem {
+                    label: display
+                    icon: model.iconName
+                    onClicked: altsView.createJob(index);
                 }
+
+                onFinished: stack.replace({
+                    item: sharedComponent,
+                    properties: { text: output.url },
+                    replace: true
+                })
             }
 
-            onObjectAdded: menu.insertItem(menu.items.count, object)
-            onObjectRemoved: menu.removeItem(object)
-        }
-    }
-
-    initialItem: Item {
-        ColumnLayout {
-            anchors.fill: parent
-            DirectoryView {
-                id: view
-
+            Kirigami.Separator {
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                mimeFilter: [stack.mimeFilter]
             }
-            ToolBar {
-                Layout.fillWidth: true
-                RowLayout {
-                    anchors.fill: parent
-                    Label {
-                        Layout.fillWidth: true
-                        text: view.selection.length==0 ? i18n("Gallery") : i18n("%1 selected", view.selection.length)
-                    }
-                    ToolButton {
-                        iconName: "user-trash"
-                        tooltip: i18n("Move to trash...")
-                        enabled: view.selection.length>0
-                        onClicked: {
-                            trashDialog.visible = true
-                        }
 
-                        Dialog {
-                            id: trashDialog
-                            title: i18n("Move to trash...")
-
-                            Label {
-                                text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
-                            }
-
-                            standardButtons: StandardButton.Ok | StandardButton.Cancel
-                            onAccepted: {
-                                console.log("Trash, FFS!!", view.selection);
-                                webcam.trashFiles(view.selection);
-                            }
-                            onVisibleChanged: if (!visible) {
-                                view.selection = []
-                            }
-                        }
-                    }
-                    ToolButton {
-                        iconName: "document-share"
-                        menu: menu
-                        tooltip: i18n("Share...")
-                        enabled: view.selection.length>0
-                    }
-                    ToolButton {
-                        iconName: "folder-open"
-                        tooltip: i18n("Open Folder")
-                        onClicked: Qt.openUrlExternally(config.saveUrl)
-                    }
-                }
+            Kirigami.BasicListItem {
+                label: i18n("Back")
+                onClicked: stack.pop()
             }
         }
-    }
-
-    function startShareJob(config) {
-        var job = config.createJob();
-        stack.push({
-            item: busyComponent,
-            properties: { job: job }
-        });
-
-        job.start();
-        job.result.connect(function(job) {
-            if (job.output.url=="")
-                return;
-            stack.replace({
-                item: sharedComponent,
-                properties: { text: job.output.url },
-                replace: true
-            })
-        });
     }
 
     Component {
         id: sharedComponent
         ColumnLayout {
             property alias text: field.text
+            spacing: 0
+            Loader {
+                Layout.fillWidth: true
+                Layout.maximumHeight: item.Layout.maximumHeight
+
+                sourceComponent: headerComponent
+            }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+            }
             TextField {
                 id: field
                 Layout.fillWidth: true
@@ -140,12 +138,20 @@ StackView {
                     copy();
                 }
             }
-            Label {
+            Item {
                 Layout.fillHeight: true
-                text: i18n("The URL was just shared")
+                Layout.fillWidth: true
             }
-            Button {
-                text: i18n("Back")
+            Kirigami.Label {
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignCenter
+                text: i18n("Media now exported")
+            }
+            Kirigami.Separator {
+                Layout.fillWidth: true
+            }
+            Kirigami.BasicListItem {
+                label: i18n("Back")
                 onClicked: {
                     stack.pop()
                 }
@@ -153,57 +159,79 @@ StackView {
         }
     }
 
-    Component {
-        id: shareWizardComponent
+    initialItem: Item {
         ColumnLayout {
-            property alias configuration: wiz.configuration
-            PurposeWizard {
-                id: wiz
+            anchors.fill: parent
+            spacing: 0
+            DirectoryView {
+                id: view
+                header: Image {
+                    fillMode: Image.PreserveAspectCrop
+                    width: view.width
+                    height: Kirigami.Units.gridUnit * 10
+                    source: "https://images.unsplash.com/photo-1484781663516-4c4ca4b04a13?dpr=1&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb"
+                    smooth: true
 
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-            RowLayout {
-                Button {
-                    text: i18n("Run")
-                    enabled: wiz.configuration && wiz.configuration.isReady
-                    onClicked: {
-                        stack.pop();
-                        startShareJob(wiz.configuration);
+                    Kirigami.Heading {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            bottom: parent.bottom
+                            margins: Kirigami.Units.smallSpacing * 2
+                        }
+                        level: 1
+                        color: "white"
+                        elide: Text.ElideRight
+                        text: i18n("Kamoso Gallery")
                     }
                 }
-                Button {
-                    text: i18n("Back")
-                    onClicked: {
-                        stack.pop();
-                        wiz.cancel()
-                    }
-                }
-            }
-        }
-    }
 
-    Component {
-        id: busyComponent
-        ColumnLayout {
-            property QtObject job
-
-            BusyIndicator {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                running: true
+                mimeFilter: [stack.mimeFilter]
+            }
+            Kirigami.Separator {
+                Layout.fillWidth: true
             }
 
-            Button {
-                anchors.right: parent.right
-                text: i18n("Cancel")
-                enabled: parent.job && (parent.job.capabilities & KJob.Killable)
-
+            Kirigami.BasicListItem {
+                icon: "user-trash"
+                label: i18n("Move to trash... (%1)", view.selection.length)
+                visible: view.selection.length>0
                 onClicked: {
-                    if (parent.job.kill()) {
-                        stack.pop()
+                    trashDialog.visible = true
+                }
+                readonly property var p0: Dialog {
+                    id: trashDialog
+                    title: i18n("Move to trash...")
+
+                    Label {
+                        text: i18np("Are you sure you want to remove %1 file?", "Are you sure you want to remove %1 files?", view.selection.length)
+                    }
+
+                    standardButtons: StandardButton.Ok | StandardButton.Cancel
+                    onAccepted: {
+                        console.log("Trash, FFS!!", view.selection);
+                        webcam.trashFiles(view.selection);
+                    }
+                    onVisibleChanged: if (!visible) {
+                        view.selection = []
                     }
                 }
+            }
+            Kirigami.BasicListItem {
+                icon: "document-share"
+                label: i18n("Share... (%1)", view.selection.length)
+                onClicked: stack.push({
+                    item: chooseShareComponent,
+                    properties: { selection: view.selection }
+                })
+                visible: view.selection.length>0
+            }
+            Kirigami.BasicListItem {
+                icon: "folder-open"
+                label: i18n("Open Folder...")
+                onClicked: Qt.openUrlExternally(config.saveUrl)
             }
         }
     }

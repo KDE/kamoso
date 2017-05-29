@@ -1,25 +1,25 @@
 import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import org.kde.kirigami 2.0 as Kirigami
 import org.kde.kamoso 3.0
-import org.kde.kquickcontrols 2.0
-import org.kde.kquickcontrolsaddons 2.0
 
 ScrollView
 {
     id: scrollView
+    property alias header: view.header
     property alias mimeFilter: model.mimeFilter
     property alias nameFilter: model.nameFilter
 
-    readonly property real delegateWidth: 70
-    readonly property int columnCount: Math.floor(scrollView.viewport.width/delegateWidth)
     property var selection: []
 
     GridView
     {
-        cellWidth: scrollView.delegateWidth + (scrollView.viewport.width - columnCount*scrollView.delegateWidth)/columnCount
+        id: view
+        readonly property real delegateWidth: Kirigami.Units.gridUnit*4
+        readonly property int columnCount: Math.floor(width/delegateWidth)
+        cellWidth: width/columnCount
         cellHeight: cellWidth
-        anchors.fill: parent
 
         model: DirModel {
             id: model
@@ -31,8 +31,8 @@ ScrollView
 
         delegate: MouseArea {
             id: delegateItem
-            width: height
-            height: scrollView.delegateWidth
+            width:  GridView.view.cellHeight
+            height: GridView.view.cellWidth
             acceptedButtons: Qt.AllButtons
 
             onClicked: {
@@ -56,24 +56,30 @@ ScrollView
                 SystemPalette {
                     id: pal
                 }
-                color: pal.highlight
+                opacity: 0.6
+                color: "transparent"
+                border.color: pal.highlight
+                border.width: Kirigami.Units.smallSpacing * 2
+                z: 1
             }
 
-            QPixmapItem {
+            ImageThumbnail {
                 anchors {
                     fill: parent
-                    margins: 1
+                    leftMargin: 1
                 }
-                objectName: path
-                pixmap: fetcher.preview
+                path: model.path
+                mime: model.mime
+            }
 
-                PreviewFetcher {
-                    id: fetcher
-                    url: path
-                    mimetype: mime
-                    width: delegateItem.width
-                    height: delegateItem.height
+            CheckBox {
+                anchors {
+                    right: parent.right
+                    rightMargin: -width/3
                 }
+                checkedState: Qt.Checked
+                enabled: false
+                visible: scrollView.selection.indexOf(path.toString())>=0
             }
         }
     }

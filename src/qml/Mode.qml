@@ -1,14 +1,19 @@
-import QtQml 2.1
+import org.kde.kirigami 2.0
 
-QtObject {
-    property var mimes: null
-    property bool checkable: false
-    property string icon: ""
-    property string text: ""
+Action {
+    id: modeAction
+    property string mimes: null
+    property string name: ""
     property string modeInfo: ""
     property string nameFilter: ""
 
-    signal trigger(bool checked)
+    readonly property Action adoptAction: Action {
+        iconName: modeAction.iconName
+        tooltip: modeAction.tooltip
+        onTriggered: {
+            visor.state = modeAction.iconName
+        }
+    }
 
     default property var things: []
 }

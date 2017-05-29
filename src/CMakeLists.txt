@@ -25,7 +25,7 @@ add_executable(kamoso
 
 target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick
-    KF5::Declarative KF5::KIOWidgets KF5::KIOWidgets KF5::ConfigGui KF5::I18n
+    KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n
     Qt5GStreamer Qt5GStreamerQuick
     ${UDEV_LIBS}
 )
