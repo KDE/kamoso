@@ -28,9 +28,7 @@ DeviceManager *DeviceManager::s_instance = NULL;
 
 DeviceManager::DeviceManager() : m_playingDevice(0)
 {
-    QStringList subsystems;
-    subsystems << "video4linux";
-    m_client = new UdevQt::Client(subsystems, this);
+    m_client = new UdevQt::Client({"video4linux"}, this);
     connect(m_client, &UdevQt::Client::deviceAdded, this, &DeviceManager::deviceAdded);
     connect(m_client, &UdevQt::Client::deviceRemoved, this, &DeviceManager::deviceRemoved);
 
