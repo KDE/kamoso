@@ -20,27 +20,73 @@
 #include "devicemanager.h"
 
 #include "device.h"
-#include "udev/udevqt.h"
 #include "kamosoSettings.h"
 #include <QDebug>
+#include <QGst/Structure>
+
+#include <gst/gstdevice.h>
+#include <gst/gstdevicemonitor.h>
+#include <gst/gstbus.h>
 
 DeviceManager *DeviceManager::s_instance = NULL;
 
+static gboolean
+deviceMonitorWatch(GstBus     */*bus*/, GstMessage *message, gpointer /*user_data*/)
+{
+    GstDevice *device;
+    switch (GST_MESSAGE_TYPE (message))
+    {
+        case GST_MESSAGE_DEVICE_ADDED:
+            gst_message_parse_device_added (message, &device);
+            DeviceManager::self()->deviceAdded(device);
+            break;
+        case GST_MESSAGE_DEVICE_REMOVED:
+            gst_message_parse_device_removed (message, &device);
+            DeviceManager::self()->deviceRemoved(device);
+            break;
+        default:
+            break;
+    }
+    return G_SOURCE_CONTINUE;
+}
+
 DeviceManager::DeviceManager() : m_playingDevice(0)
 {
-    m_client = new UdevQt::Client({"video4linux"}, this);
-    connect(m_client, &UdevQt::Client::deviceAdded, this, &DeviceManager::deviceAdded);
-    connect(m_client, &UdevQt::Client::deviceRemoved, this, &DeviceManager::deviceRemoved);
+    m_monitor = gst_device_monitor_new();
 
-    const UdevQt::DeviceList deviceList = m_client->devicesBySubsystem("video4linux");
+    GstBus *bus = gst_device_monitor_get_bus (m_monitor);
+    gst_bus_add_watch (bus, deviceMonitorWatch, m_monitor);
+    gst_object_unref (bus);
 
-    Q_FOREACH(const UdevQt::Device &device, deviceList) {
-        m_deviceList.append(new Device(device));
+    GstCaps *caps = gst_caps_new_empty_simple ("video/x-raw");
+    gst_device_monitor_add_filter (m_monitor, "Video/Source", caps);
+    gst_caps_unref (caps);
+
+    gst_device_monitor_start (m_monitor);
+
+    GList* devices = gst_device_monitor_get_devices (m_monitor);
+
+    if (devices == NULL) {
+        qWarning ("No device found");
     }
+
+    /* Initialize camera structures */
+    while(devices) {
+        deviceAdded(GST_DEVICE(devices->data));
+        devices = devices->next;
+    }
+
+    g_list_free (devices);
 
     if (!m_deviceList.isEmpty()) {
         setPlayingDeviceUdi(m_deviceList.first()->udi());
     }
+}
+
+DeviceManager::~DeviceManager()
+{
+    gst_device_monitor_stop(m_monitor);
+    g_clear_object (&m_monitor);
 }
 
 QHash<int, QByteArray> DeviceManager::roleNames() const
@@ -62,9 +108,9 @@ void DeviceManager::save()
 /*
 *Public methods
 */
-int DeviceManager::rowCount(const QModelIndex& ) const
+int DeviceManager::rowCount(const QModelIndex& idx) const
 {
-    return m_deviceList.size();
+    return idx.isValid() ? 0 : m_deviceList.size();
 }
 
 void DeviceManager::setPlayingDeviceUdi(const QString& udi)
@@ -97,7 +143,7 @@ QString DeviceManager::playingDeviceUdi() const
     return m_playingDevice->udi();
 }
 
-QByteArray DeviceManager::playingDevicePath() const
+QString DeviceManager::playingDevicePath() const
 {
     if (!m_playingDevice) {
         return QByteArray();
@@ -121,25 +167,27 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-void DeviceManager::deviceAdded(const UdevQt::Device& device)
+void DeviceManager::deviceAdded(GstDevice* device)
 {
-    m_deviceList.append(new Device(device));
+    QGst::Structure st(gst_device_get_properties(device));
+
+    const int s = m_deviceList.size();
+    beginInsertRows({}, s, s);
+    m_deviceList.append(new Device(st, this));
+    endInsertRows();
 }
 
-void DeviceManager::deviceRemoved(const UdevQt::Device& device)
+void DeviceManager::deviceRemoved(GstDevice* device)
 {
-    Q_FOREACH(Device *mDevice, m_deviceList) {
-        if (mDevice->udi() == device.sysfsPath()) {
-            m_deviceList.removeAll(mDevice);
-        }
-    }
-}
-
-void DeviceManager::webcamPlaying(const QString &udi)
-{
-    Q_FOREACH(Device *device, m_deviceList) {
-        if(device->udi() == udi) {
-            m_playingDevice = device;
+    QGst::Structure st(gst_device_get_properties(device));
+    auto udi = st.value("sysfs.path").toString();
+    for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
+        auto dev = m_deviceList.at(i);
+        if (dev->udi() == udi) {
+            beginRemoveRows({}, i, i);
+            dev->deleteLater();
+            m_deviceList.removeAt(i);
+            endRemoveRows();
             break;
         }
     }

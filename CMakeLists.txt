@@ -9,8 +9,10 @@ find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick)
 find_package(KF5 REQUIRED COMPONENTS Config DocTools KIO I18n)
 
 find_package(Qt5GStreamer 1.1.90 REQUIRED)
+find_package(GStreamer 1.1.90 REQUIRED)
+find_package(GLIB2 REQUIRED)
+find_package(GObject REQUIRED)
 find_package(KDEExperimentalPurpose REQUIRED)
-find_package(UDev REQUIRED)
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)

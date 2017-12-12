@@ -18,37 +18,22 @@
  *************************************************************************************/
 
 #include "device.h"
-#include "udev/udevqt.h"
 #include <KConfigGroup>
 #include <QDebug>
 
 //     for refrence, the properties can be listed with:
-//     udevadm info --query=property --name=/dev/video0
-Device::Device(const UdevQt::Device &device, QObject* parent)
+//     gst-device-monitor-1.0 Video/Source
+Device::Device(const QGst::Structure &device, QObject* parent)
     : QObject(parent)
-    , m_description(device.deviceProperty("ID_MODEL").toString().replace('_', ' '))
-    , m_udi(device.sysfsPath())
-    , m_path(device.deviceProperty("DEVNAME").toString().toLatin1())
+    , m_description(device.value("device.product.name").toString())
+    , m_udi(device.value("sysfs.path").toString())
+    , m_path(device.value("device.path").toString())
 {
+    qDebug() << "new device" << m_description << m_udi << m_path;
 }
 
 Device::~Device()
 {}
-
-QByteArray Device::path() const
-{
-    return m_path;
-}
-
-QString Device::description() const
-{
-    return m_description;
-}
-
-QString Device::vendor() const
-{
-    return m_vendor;
-}
 
 void Device::reset()
 {
@@ -65,14 +50,4 @@ void Device::setFilters(const QString &newFilters)
 
     m_filters = newFilters;
     Q_EMIT filtersChanged(newFilters);
-}
-
-QString Device::filters() const
-{
-    return m_filters;
-}
-
-QString Device::udi() const
-{
-    return m_path;
 }

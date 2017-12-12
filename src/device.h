@@ -20,27 +20,24 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include <QtCore/QObject>
+#include <QObject>
+#include <QGst/Structure>
 
 #include <KSharedConfig>
 
-namespace UdevQt {
-    class Device;
-}
 class Device : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString filters READ filters WRITE setFilters NOTIFY filtersChanged)
 
     public:
-        Device(const UdevQt::Device &device, QObject* parent = 0);
+        Device(const QGst::Structure &structure, QObject* parent);
         ~Device();
-        QString description() const;
-        QString udi() const;
-        QByteArray path() const;
-        QString vendor() const;
+        QString description() const { return m_description; }
+        QString udi() const { return m_udi; }
+        QString path() const { return m_path; }
         void setFilters(const QString &filters);
-        QString filters() const;
+        QString filters() const { return m_filters; }
 
         void reset();
 
@@ -50,8 +47,7 @@ class Device : public QObject
     private:
         const QString m_description;
         const QString m_udi;
-        const QByteArray m_path;
-        const QString m_vendor;
+        const QString m_path;
         QString m_filters;
 };
 

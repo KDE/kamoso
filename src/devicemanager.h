@@ -24,10 +24,9 @@
 #include <QAbstractListModel>
 #include "device.h"
 
-namespace UdevQt{
-    class Device;
-    class Client;
-}
+struct _GstDevice;
+struct _GstDeviceMonitor;
+
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
@@ -39,38 +38,36 @@ class DeviceManager : public QAbstractListModel
         enum {
             Udi=Qt::UserRole+1
         };
-        virtual QHash<int, QByteArray> roleNames() const;
+        virtual QHash<int, QByteArray> roleNames() const override;
 
         Device* playingDevice();
+        QString playingDevicePath() const;
         QString playingDeviceUdi() const;
-        QByteArray playingDevicePath() const;
-        void setPlayingDeviceUdi(const QString& udi);
+        void setPlayingDeviceUdi(const QString& path);
         bool hasDevices() const;
 
-        virtual int rowCount(const QModelIndex& = QModelIndex()) const;
-        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
-        QString udi() const;
+        virtual int rowCount(const QModelIndex& = QModelIndex()) const override;
+        virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+
+        void deviceRemoved(_GstDevice *device);
+        void deviceAdded(_GstDevice *device);
 
     public Q_SLOTS:
-        void webcamPlaying(const QString &udi);
         void save();
-        void deviceRemoved(const UdevQt::Device &device);
-        void deviceAdded(const UdevQt::Device &device);
 
     Q_SIGNALS:
         void playingDeviceChanged();
-        void deviceRegistered( const QString & udi );
-        void deviceUnregistered( const QString & udi );
         void countChanged();
         void noDevices();
 
     private:
         DeviceManager();
+        ~DeviceManager() override;
         static DeviceManager* s_instance;
-        UdevQt::Client *m_client;
 
-        QList<Device*> m_deviceList;
+        QVector<Device*> m_deviceList;
         Device *m_playingDevice;
+        _GstDeviceMonitor *m_monitor;
 };
 
 #endif // DEVICEMANAGER_H
