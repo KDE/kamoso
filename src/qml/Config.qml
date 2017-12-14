@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
-import QtGStreamer 1.0
+import KamosoQtGStreamer 1.0
 import org.kde.kamoso 3.0
 import org.kde.kirigami 2.0 as Kirigami
 

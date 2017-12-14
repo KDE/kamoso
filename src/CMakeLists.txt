@@ -1,4 +1,4 @@
-include_directories(${QTGSTREAMER_INCLUDE_DIR})
+add_subdirectory(elements)
 
 add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
@@ -18,6 +18,9 @@ add_executable(kamoso
     previewfetcher.cpp
     video/webcamcontrol.cpp
 
+    QGst/Quick/videosurface.cpp
+    QGst/Quick/videoitem.cpp
+
     ${kamosoqml_SRCS}
 )
 
@@ -26,7 +29,6 @@ target_include_directories(kamoso PRIVATE "${GSTREAMER_INCLUDE_DIR}" "${GLIB2_IN
 target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick
     KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n
-    Qt5GStreamer Qt5GStreamerQuick
     ${GSTREAMER_LIBRARIES} ${GLIB2_LIBRARIES} ${GOBJECT_LIBRARIES}
 )
 

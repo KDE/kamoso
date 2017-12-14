@@ -20,11 +20,22 @@
 #ifndef WEBCAMCONTROL_H
 #define WEBCAMCONTROL_H
 
-#include <QtCore/QObject>
-
-#include <QQuickView>
-#include <QGst/Pipeline>
+#include <QObject>
 #include <QUrl>
+
+#include <gst/gstpipeline.h>
+#include <gst/gstmessage.h>
+
+namespace QGst { namespace Quick { class VideoSurface; } }
+
+template <typename T>
+struct GstPointerCleanup
+{
+    static inline void cleanup(T *pointer)
+    {
+        if (pointer) gst_object_unref (pointer);
+    }
+};
 
 class Device;
 class WebcamControl : public QObject
@@ -34,9 +45,11 @@ class WebcamControl : public QObject
         WebcamControl();
         virtual ~WebcamControl();
 
+        void onBusMessage(GstMessage* msg);
+
     public Q_SLOTS:
         bool play();
-        bool play(Device* device);
+        bool playDevice(Device* device);
         void stop();
         void takePhoto(const QUrl& url);
         void startRecording();
@@ -50,15 +63,14 @@ class WebcamControl : public QObject
 
     private:
         void updateSourceFilter();
-        void onBusMessage(const QGst::MessagePtr & msg);
         void setVideoSettings();
 
         QString m_extraFilters;
         QString m_tmpVideoPath;
         QString m_currentDevice;
-        QGst::PipelinePtr m_pipeline;
-        QGst::ElementPtr m_videoSink;
-        QGst::ElementPtr m_cameraSource;
+        QScopedPointer<GstPipeline, GstPointerCleanup<GstPipeline> > m_pipeline;
+        QScopedPointer<GstElement, GstPointerCleanup<GstElement> > m_cameraSource;
+        QGst::Quick::VideoSurface* m_surface = nullptr;
 };
 
 #endif // WEBCAMCONTROL_H

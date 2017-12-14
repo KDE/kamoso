@@ -21,9 +21,11 @@
 #define DEVICE_H
 
 #include <QObject>
-#include <QGst/Structure>
+#include <gst/gststructure.h>
 
 #include <KSharedConfig>
+
+QString structureValue(GstStructure* device, const char* key);
 
 class Device : public QObject
 {
@@ -31,7 +33,7 @@ class Device : public QObject
     Q_PROPERTY(QString filters READ filters WRITE setFilters NOTIFY filtersChanged)
 
     public:
-        Device(const QGst::Structure &structure, QObject* parent);
+        Device(GstStructure *structure, QObject* parent);
         ~Device();
         QString description() const { return m_description; }
         QString udi() const { return m_udi; }

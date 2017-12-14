@@ -23,7 +23,6 @@
 #include "video/webcamcontrol.h"
 #include <QApplication>
 
-#include <QGst/Init>
 int main(int argc, char *argv[])
 {
     KAboutData about("kamoso", i18n("Kamoso"), "3.2.3", i18n("Utility for taking photos and videos using a webcam"),
@@ -42,7 +41,7 @@ int main(int argc, char *argv[])
 
     WebcamControl webcamControl;
     if (!webcamControl.play()) {
-        qWarning() << "Unrecoverable error occurred when initializing webcam. Exiting.";
+        qWarning("Unrecoverable error occurred when initializing webcam. Exiting.");
         QApplication::exit(1);
         return 1;
     }

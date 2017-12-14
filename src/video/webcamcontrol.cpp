@@ -26,23 +26,18 @@
 #include <kamoso.h>
 #include <KIO/CopyJob>
 
-#include <QGlib/Connect>
-#include <QGlib/Signal>
-#include <QGlib/Error>
-#include <QGst/Caps>
-#include <QGst/Pad>
-#include <QGst/structure.h>
-#include <QGst/buffer.h>
-#include <QGst/Quick/VideoSurface>
-#include <QGst/Pipeline>
-#include <QGst/ElementFactory>
-#include <QGst/Parse>
-#include <QGst/structs.h>
-#include <QGst/Bus>
-#include <QGst/Init>
-#include <QGst/VideoOverlay>
-#include <QGst/Message>
+#include <gst/gstcaps.h>
+#include <gst/gstpad.h>
+#include <gst/gststructure.h>
+#include <gst/gstbuffer.h>
+#include <gst/gstpipeline.h>
+#include <gst/gstelementfactory.h>
+#include <gst/gstparse.h>
+#include <gst/gstbus.h>
+#include <gst/gstmessage.h>
+#include <gst/gst.h>
 
+#include "QGst/Quick/VideoItem"
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 
@@ -52,6 +47,38 @@
 #include <qqml.h>
 #include <KJob>
 #include <KLocalizedContext>
+
+#include "QGst/Quick/VideoSurface"
+
+static QString debugMessage(GstMessage* msg)
+{
+    gchar *debug = nullptr;
+    GError *e = nullptr;
+    if (GST_MESSAGE_TYPE(msg) == GST_MESSAGE_WARNING) {
+        gst_message_parse_warning(msg, &e, &debug);
+    } else if (GST_MESSAGE_TYPE(msg) == GST_MESSAGE_ERROR) {
+        gst_message_parse_error(msg, &e, &debug);
+    }
+    if (!debug)
+        return {};
+
+    if (e) {
+        qWarning() << "error debugMessage:" << e->message;
+        g_error_free (e);
+    }
+    const auto ret = QString::fromUtf8(debug);
+    g_free(debug);
+    return ret;
+}
+
+template <class T>
+GstState pipelineCurrentState(const T &pipe)
+{
+    GstState currentState, pendingState;
+    GstStateChangeReturn result = gst_element_get_state(GST_ELEMENT(pipe.data()), &currentState, &pendingState, GST_CLOCK_TIME_NONE );
+    Q_ASSERT(result != GST_STATE_CHANGE_FAILURE);
+    return currentState;
+}
 
 class PipelineItem : public QObject, public QQmlParserStatus
 {
@@ -65,24 +92,25 @@ public:
         : QObject()
         , m_surface(new QGst::Quick::VideoSurface(this))
     {
-        m_surface->videoSink()->setProperty("force-aspect-ratio", true);
-    }
-    ~PipelineItem() {
-        if (m_pipeline)
-            m_pipeline->setState(QGst::StateNull);
+        g_object_ref(m_surface->videoSink());
+        g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
     }
 
-    void onBusMessage(const QGst::MessagePtr & message)
+    ~PipelineItem() {
+        if (m_pipeline)
+            gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
+    }
+
+    void onBusMessage(GstMessage* message)
     {
-        switch (message->type()) {
-        case QGst::MessageEos: //End of stream. We reached the end of the file.
+        switch (GST_MESSAGE_TYPE(message)) {
+        case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
             setPlaying(false);
             break;
-        case QGst::MessageError:  {//Some error occurred.
-            const auto error = message.staticCast<QGst::ErrorMessage>();
-            qCritical() << "error on:" << m_description << error->error() << error->debugMessage();
-            m_pipeline->setState(QGst::StateNull);
-            m_pipeline.clear();
+        case GST_MESSAGE_ERROR:  {//Some error occurred.
+            qCritical() << "error on:" << m_description << debugMessage(message);
+            gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
+            m_pipeline.reset(nullptr);
         }   break;
         default:
             break;
@@ -107,35 +135,45 @@ public:
     Q_SCRIPTABLE void refresh() {
         if (!m_description.isEmpty() && m_complete) {
             if(m_pipeline)
-                m_pipeline->setState(QGst::StateNull);
-            try {
-                m_pipeline = QGst::Parse::launch(m_description).dynamicCast<QGst::Pipeline>();
-            } catch(QGlib::Error e) {
-                qDebug() << "error" << e.message();
-            }
-            m_pipeline->add(m_surface->videoSink());
-            Q_ASSERT(m_pipeline);
-            auto lastItem = m_pipeline->getElementByName("last");
-            Q_ASSERT(lastItem);
-            lastItem->link(m_surface->videoSink());
+                gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
-            QGst::BusPtr bus = m_pipeline->bus();
-            bus->addSignalWatch();
-            QGlib::connect(bus, "message", this, &PipelineItem::onBusMessage);
+            GError* e = nullptr;
+            m_pipeline.reset(GST_PIPELINE(gst_parse_launch(m_description.toUtf8().constData(), &e)));
+            if (e) {
+                qWarning() << "error:" << e->message;
+                return;
+            }
+            Q_ASSERT(m_pipeline);
+
+            gst_bin_add(GST_BIN(m_pipeline.data()), m_surface->videoSink());
+            Q_ASSERT(m_pipeline);
+
+            auto lastItem = gst_bin_get_by_name(GST_BIN(m_pipeline.data()), "last");
+            Q_ASSERT(lastItem);
+            bool b = gst_element_link(lastItem, m_surface->videoSink());
+            Q_ASSERT(b);
+            gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &pipelineWatch, this);
         }
         setPlaying(m_playing);
+    }
+
+    static gboolean pipelineWatch(GstBus     */*bus*/, GstMessage *message, gpointer user_data)
+    {
+        PipelineItem* wc = static_cast<PipelineItem*>(user_data);
+        wc->onBusMessage(message);
+        return G_SOURCE_CONTINUE;
     }
 
     void setPlaying(bool playing) {
         m_playing = playing;
         if (!m_pipeline)
             return;
-        m_pipeline->setState(playing ? QGst::StatePlaying : QGst::StatePaused);
+        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
         Q_EMIT playingChanged(playing);
     }
 
     bool playing() const {
-        return m_pipeline && m_pipeline->currentState() == QGst::StatePlaying;
+        return m_pipeline && pipelineCurrentState(m_pipeline) == GST_STATE_PLAYING;
     }
 
 Q_SIGNALS:
@@ -147,13 +185,13 @@ private:
     bool m_playing = false;
     bool m_complete = false;
     QString m_description;
-    QGst::PipelinePtr m_pipeline;
+    QScopedPointer<GstPipeline, GstPointerCleanup<GstPipeline>> m_pipeline;
     QGst::Quick::VideoSurface * const m_surface;
 };
 
 WebcamControl::WebcamControl()
 {
-    QGst::init();
+    gst_init(NULL, NULL);
 
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
     engine->rootContext()->setContextObject(new KLocalizedContext(engine));
@@ -162,20 +200,21 @@ WebcamControl::WebcamControl()
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
+    qmlRegisterType<QGst::Quick::VideoItem>("KamosoQtGStreamer", 1, 0, "VideoItem");
+
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
-    QGst::Quick::VideoSurface *surface = new QGst::Quick::VideoSurface(this);
+    m_surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("config", Settings::self());
     engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
     engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
-    engine->rootContext()->setContextProperty("videoSurface1", surface);
+    engine->rootContext()->setContextProperty("videoSurface1", m_surface);
     engine->load(QUrl("qrc:/qml/Main.qml"));
 
-    m_videoSink = surface->videoSink();
-    m_videoSink->setProperty("force-aspect-ratio", true);
+    g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
 
-    connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, static_cast<bool(WebcamControl::*)()>(&WebcamControl::play));
+    connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, &WebcamControl::play);
     connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
 }
 
@@ -188,40 +227,45 @@ WebcamControl::~WebcamControl()
 void WebcamControl::stop()
 {
     qDebug() << "Stop";
-    //TODO: delete?
+
     if(m_pipeline) {
-        m_pipeline->setState(QGst::StateNull);
-        m_pipeline.clear();
+        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
+        m_pipeline.reset(nullptr);
     }
 }
 
 bool WebcamControl::play()
 {
     auto dev = DeviceManager::self()->playingDevice();
-    return !dev || play(dev);
+    return !dev || playDevice(dev);
 }
 
-bool WebcamControl::play(Device *device)
+static gboolean webcamWatch(GstBus     */*bus*/, GstMessage *message, gpointer user_data)
+{
+    WebcamControl* wc = static_cast<WebcamControl*>(user_data);
+    wc->onBusMessage(message);
+    return G_SOURCE_CONTINUE;
+}
+
+bool WebcamControl::playDevice(Device *device)
 {
     Q_ASSERT(device);
 
     //If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->udi()) {
-        m_pipeline->setProperty("mode", 2);
-        m_pipeline->setProperty("location", m_tmpVideoPath);
+        g_object_set(m_pipeline.data(), "mode", 2, nullptr);
+        g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
         return true;
     }
     
     //If we are changing the device, cleanup and stop old pipeline
     if (m_pipeline && m_currentDevice != device->udi()) {
         //Should we maybe try to just change the device path instead of re-creating?
-        qDebug() << "playing device" << device->path() << m_pipeline->currentState();
-        m_pipeline->setState(QGst::StateNull);
+        qDebug() << "playing device" << device->path() << pipelineCurrentState(m_pipeline);
+        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
     }
 
-    auto source = QGst::Bin::fromDescription(QLatin1String("v4l2src device=") + device->path());
-
-    m_cameraSource = QGst::ElementFactory::make("wrappercamerabinsrc", "video_balance");
+    m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", "video_balance"));
     // Another option here is to return true, therefore continuing with launching, but
     // in that case the application is mostly useless.
     if (m_cameraSource.isNull()) {
@@ -230,41 +274,50 @@ bool WebcamControl::play(Device *device)
         return false;
     }
 
-    m_cameraSource->setProperty("video-source", source);
+    {
+        GError* error = nullptr;
+        auto source = gst_parse_bin_from_description(QByteArray("v4l2src device=") + device->path().toUtf8(), GST_PARSE_FLAG_FATAL_ERRORS, &error);
+        Q_ASSERT(!error);
+        g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
+    }
 
-    m_pipeline = QGst::ElementFactory::make("camerabin").dynamicCast<QGst::Pipeline>();
-    auto bus = m_pipeline->bus();
-    bus->addSignalWatch();
-    QGlib::connect(bus, "message", this, &WebcamControl::onBusMessage);
+    m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
+    gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
 
+    g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
+    g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
     setVideoSettings();
 
-    m_pipeline->setProperty("camera-source", m_cameraSource);
-    m_pipeline->setProperty("viewfinder-sink", m_videoSink);
-    m_pipeline->setState(QGst::StateReady);
-    m_pipeline->setProperty("viewfinder-caps", QGst::Caps::fromString("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){ YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive"));
+    gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_READY);
+    auto caps = gst_caps_from_string("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive");
+    g_object_set(m_pipeline.data(), "viewfinder-caps", caps, nullptr);
 
+    gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 
-    m_pipeline->setState(QGst::StatePlaying);
-    
     m_currentDevice = device->udi();
     return true;
 }
 
-void WebcamControl::onBusMessage(const QGst::MessagePtr &msg)
+void WebcamControl::onBusMessage(GstMessage* message)
 {
-    switch (msg->type()) {
-    case QGst::MessageEos: //End of stream. We reached the end of the file.
+    switch (GST_MESSAGE_TYPE (message)) {
+    case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
         stop();
         break;
-    case QGst::MessageError: //Some error occurred.
-        qCritical() << msg.staticCast<QGst::ErrorMessage>()->error();
+    case GST_MESSAGE_ERROR: //Some error occurred.
+        qCritical() << debugMessage(message);
         stop();
         play();
         break;
-    case QGst::MessageElement:
-        if (msg->internalStructure()->name() == "image-done") {
-            Q_EMIT photoTaken(msg->internalStructure()->value("filename").toString());
+    case GST_MESSAGE_ELEMENT:
+        if (strcmp (GST_MESSAGE_SRC_NAME (message), "camerabin") == 0) {
+            auto structure = gst_message_get_structure (message);
+            if (gst_structure_get_name (structure) == QByteArray("image-done")) {
+                const gchar *filename = gst_structure_get_string (structure, "filename");
+                Q_EMIT photoTaken(QString::fromUtf8(filename));
+            }
+        } else {
+            qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
         }
     default:
 //         qDebug() << msg->type();
@@ -279,12 +332,12 @@ void WebcamControl::takePhoto(const QUrl &url)
         qWarning() << "couldn't take photo, no pipeline";
         return;
     }
-    m_pipeline->setProperty("mode", 1);
+    g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
     const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";
-    m_pipeline->setProperty("location", path);
+    g_object_set(m_pipeline.data(), "location", path.toUtf8().constData(), nullptr);
 
-    QGlib::emit<void>(m_pipeline, "start-capture");
+    g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
 
     if (!url.isLocalFile()) {
         KIO::copy(QUrl::fromLocalFile(path), url);
@@ -296,15 +349,15 @@ void WebcamControl::startRecording()
     QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
     m_tmpVideoPath = QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
 
-    m_pipeline->setProperty("mode", 2);
-    m_pipeline->setProperty("location", m_tmpVideoPath);
+    g_object_set(m_pipeline.data(), "mode", 2, nullptr);
+    g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
 
-    QGlib::emit<void>(m_pipeline, "start-capture");
+    g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
 }
 
 QString WebcamControl::stopRecording()
 {
-    QGlib::emit<void>(m_pipeline, "stop-capture");
+    g_signal_emit_by_name (m_pipeline.data(), "stop-capture", 0);
     return m_tmpVideoPath;
 }
 
@@ -318,8 +371,8 @@ void WebcamControl::setExtraFilters(const QString& extraFilters)
 
 void WebcamControl::updateSourceFilter()
 {
-    const auto prevstate = m_pipeline->currentState();
-    m_pipeline->setState(QGst::StateNull);
+    const auto prevstate = pipelineCurrentState(m_pipeline);
+    gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
     //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
     QString filters = QStringLiteral("videoflip method=4");
@@ -328,9 +381,12 @@ void WebcamControl::updateSourceFilter()
     }
 
     qDebug() << "setting filter" << filters;
-    m_cameraSource->setProperty("video-source-filter", QGst::Bin::fromDescription(filters));
+    GError* error = nullptr;
+    g_object_set(m_cameraSource.data(), "video-source-filter", gst_parse_bin_from_description(filters.toUtf8().constData(), true, &error), nullptr);
+    Q_ASSERT(!error);
 
-    m_pipeline->setState(prevstate);
+    if (prevstate != GST_STATE_NULL)
+        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), prevstate);
 }
 
 void WebcamControl::setVideoSettings()

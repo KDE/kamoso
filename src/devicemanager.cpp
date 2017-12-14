@@ -22,8 +22,8 @@
 #include "device.h"
 #include "kamosoSettings.h"
 #include <QDebug>
-#include <QGst/Structure>
 
+#include <gst/gststructure.h>
 #include <gst/gstdevice.h>
 #include <gst/gstdevicemonitor.h>
 #include <gst/gstbus.h>
@@ -169,7 +169,7 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
 
 void DeviceManager::deviceAdded(GstDevice* device)
 {
-    QGst::Structure st(gst_device_get_properties(device));
+    auto st= gst_device_get_properties(device);
 
     const int s = m_deviceList.size();
     beginInsertRows({}, s, s);
@@ -179,8 +179,9 @@ void DeviceManager::deviceAdded(GstDevice* device)
 
 void DeviceManager::deviceRemoved(GstDevice* device)
 {
-    QGst::Structure st(gst_device_get_properties(device));
-    auto udi = st.value("sysfs.path").toString();
+    auto st(gst_device_get_properties(device));
+    auto udi = structureValue(st, "sysfs.path");
+
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);
         if (dev->udi() == udi) {

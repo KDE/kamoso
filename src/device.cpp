@@ -21,13 +21,18 @@
 #include <KConfigGroup>
 #include <QDebug>
 
+QString structureValue(GstStructure* device, const char* key)
+{
+    return QString::fromUtf8(g_value_get_string(gst_structure_get_value(device, key)));
+}
+
 //     for refrence, the properties can be listed with:
 //     gst-device-monitor-1.0 Video/Source
-Device::Device(const QGst::Structure &device, QObject* parent)
+Device::Device(GstStructure *device, QObject* parent)
     : QObject(parent)
-    , m_description(device.value("device.product.name").toString())
-    , m_udi(device.value("sysfs.path").toString())
-    , m_path(device.value("device.path").toString())
+    , m_description(structureValue(device, "device.product.name"))
+    , m_udi(structureValue(device, "sysfs.path"))
+    , m_path(structureValue(device, "device.path"))
 {
     qDebug() << "new device" << m_description << m_udi << m_path;
 }
