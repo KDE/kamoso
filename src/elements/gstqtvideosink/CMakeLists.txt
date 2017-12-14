@@ -52,7 +52,7 @@ set(GstQtVideoSink_SRCS
 )
 
 add_definitions(
-    -DQTVIDEOSINK_NAME=qt5videosink
+    -DQTVIDEOSINK_NAME=kamoso-qt5videosink
     -DQTGLVIDEOSINK_NAME=${QTGLVIDEOSINK_NAME}
     -DQWIDGETVIDEOSINK_NAME=${QWIDGETVIDEOSINK_NAME}
 )
@@ -66,8 +66,8 @@ else()
     include_directories(${OPENGL_INCLUDE_DIR})
 endif()
 
-add_library(gstqt5videosink MODULE ${GstQtVideoSink_SRCS})
-target_link_libraries(gstqt5videosink
+add_library(kamoso-gstqt5videosink MODULE ${GstQtVideoSink_SRCS})
+target_link_libraries(kamoso-gstqt5videosink
     ${GOBJECT_LIBRARIES}
     ${GSTREAMER_LIBRARIES}
     ${GSTREAMER_BASE_LIBRARY}
@@ -78,7 +78,7 @@ target_link_libraries(gstqt5videosink
     Qt5::Widgets
 )
 
-install(TARGETS gstqt5videosink DESTINATION ${CMAKE_INSTALL_LIBDIR}/gstreamer-${GSTREAMER_ABI_VERSION})
+install(TARGETS kamoso-gstqt5videosink DESTINATION ${CMAKE_INSTALL_LIBDIR}/gstreamer-${GSTREAMER_ABI_VERSION})
 
 add_executable(qtvideosink_autotest
     autotest.cpp
