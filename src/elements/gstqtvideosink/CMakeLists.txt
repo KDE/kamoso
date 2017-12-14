@@ -73,7 +73,6 @@ target_link_libraries(kamoso-gstqt5videosink
     ${GSTREAMER_BASE_LIBRARY}
     ${GSTREAMER_VIDEO_LIBRARY}
     ${GstQtVideoSink_GL_LIBS}
-    Qt5::OpenGL
     Qt5::Quick
     Qt5::Widgets
 )

@@ -24,7 +24,7 @@
 #include <QMutex>
 #include <QMatrix4x4>
 
-#include <QtQuick/QSGMaterial>
+#include <QSGMaterial>
 
 class VideoMaterialShader;
 
@@ -64,7 +64,6 @@ private:
     int m_textureOffsets[Num_Texture_IDs];
     QSize m_textureSize;
 
-    GstVideoFormat m_format;
     GLenum m_textureFormat;
     GLuint m_textureInternalFormat;
     GLenum m_textureType;

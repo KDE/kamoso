@@ -238,7 +238,6 @@ VideoMaterial *VideoMaterial::create(const BufferFormat & format)
 VideoMaterial::VideoMaterial() :
     m_frame(0),
     m_textureCount(0),
-    m_format(GST_VIDEO_FORMAT_UNKNOWN),
     m_textureFormat(0),
     m_textureInternalFormat(0),
     m_textureType(0),

@@ -20,7 +20,7 @@
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
 
 #include "abstractsurfacepainter.h"
-#include <QGLShaderProgram>
+#include <QOpenGLShaderProgram>
 
 #ifndef Q_WS_MAC
 # ifndef APIENTRYP
@@ -127,7 +127,7 @@ protected:
                            const GLfloat *textureCoordArray);
 
 private:
-    QGLShaderProgram m_program;
+    QOpenGLShaderProgram m_program;
 };
 
 #endif // GST_QT_VIDEO_SINK_NO_OPENGL

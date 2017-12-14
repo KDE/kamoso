@@ -16,6 +16,8 @@
 */
 #include "openglsurfacepainter.h"
 #include <QtCore/qmath.h>
+#include <QOpenGLContext>
+#include <QPainter>
 
 #ifndef GL_TEXTURE0
 #  define GL_TEXTURE0    0x84C0
@@ -51,8 +53,7 @@ OpenGLSurfacePainter::OpenGLSurfacePainter()
     , m_videoColorMatrix(GST_VIDEO_COLOR_MATRIX_UNKNOWN)
 {
 #ifndef QT_OPENGL_ES
-    glActiveTexture = (_glActiveTexture) QGLContext::currentContext()->getProcAddress(
-            QLatin1String("glActiveTexture"));
+    glActiveTexture = (_glActiveTexture) QOpenGLContext::currentContext()->getProcAddress("glActiveTexture");
 #endif
 }
 
@@ -381,18 +382,13 @@ ArbFpSurfacePainter::ArbFpSurfacePainter()
     : OpenGLSurfacePainter()
     , m_programId(0)
 {
-    const QGLContext *context = QGLContext::currentContext();
+    const QOpenGLContext *context = QOpenGLContext::currentContext();
 
-    glProgramStringARB = (_glProgramStringARB) context->getProcAddress(
-                QLatin1String("glProgramStringARB"));
-    glBindProgramARB = (_glBindProgramARB) context->getProcAddress(
-                QLatin1String("glBindProgramARB"));
-    glDeleteProgramsARB = (_glDeleteProgramsARB) context->getProcAddress(
-                QLatin1String("glDeleteProgramsARB"));
-    glGenProgramsARB = (_glGenProgramsARB) context->getProcAddress(
-                QLatin1String("glGenProgramsARB"));
-    glProgramLocalParameter4fARB = (_glProgramLocalParameter4fARB) context->getProcAddress(
-                QLatin1String("glProgramLocalParameter4fARB"));
+    glProgramStringARB = (_glProgramStringARB) context->getProcAddress("glProgramStringARB");
+    glBindProgramARB = (_glBindProgramARB) context->getProcAddress("glBindProgramARB");
+    glDeleteProgramsARB = (_glDeleteProgramsARB) context->getProcAddress("glDeleteProgramsARB");
+    glGenProgramsARB = (_glGenProgramsARB) context->getProcAddress("glGenProgramsARB");
+    glProgramLocalParameter4fARB = (_glProgramLocalParameter4fARB) context->getProcAddress("glProgramLocalParameter4fARB");
 }
 
 void ArbFpSurfacePainter::init(const BufferFormat &format)
@@ -702,11 +698,11 @@ void GlslSurfacePainter::init(const BufferFormat &format)
 
     m_videoColorMatrix = format.colorMatrix();
 
-    if (!m_program.addShaderFromSourceCode(QGLShader::Vertex, qt_glsl_vertexShaderProgram)) {
+    if (!m_program.addShaderFromSourceCode(QOpenGLShader::Vertex, qt_glsl_vertexShaderProgram)) {
         throw QString("Vertex shader compile error ") + m_program.log();
     }
 
-    if (!m_program.addShaderFromSourceCode(QGLShader::Fragment, fragmentProgram)) {
+    if (!m_program.addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentProgram)) {
         throw QString("Shader compile error ") + m_program.log();
     }
 

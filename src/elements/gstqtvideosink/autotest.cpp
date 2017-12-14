@@ -35,7 +35,7 @@
 
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
 # include "painters/openglsurfacepainter.h"
-# include <QGLWidget>
+# include <QOpenGLWidget>
 # include <QGLPixelBuffer>
 #endif
 
@@ -123,7 +123,7 @@ private:
 typedef VideoWidgetT<QWidget> VideoWidget;
 
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-typedef VideoWidgetT<QGLWidget> VideoGLWidget;
+typedef VideoWidgetT<QOpenGLWidget> VideoGLWidget;
 #endif
 
 //------------------------------------
@@ -186,7 +186,7 @@ void QtVideoSinkTest::initTestCase()
 # endif
 
 # ifndef QT_OPENGL_ES_2
-    haveGlsl = QGLShaderProgram::hasOpenGLShaderPrograms()
+    haveGlsl = QOpenGLShaderProgram::hasOpenGLShaderPrograms()
                 && extensions.contains("ARB_shader_objects");
 # else
     haveGlsl = true;
@@ -648,7 +648,7 @@ void QtVideoSinkTest::qtVideoSinkTest()
 #ifndef GST_QT_VIDEO_SINK_NO_OPENGL
         if (haveArbFp || haveGlsl) {
             widget.reset(new VideoGLWidget);
-            context = (void*) qobject_cast<QGLWidget*>(widget.data())->context();
+            context = (void*) qobject_cast<QOpenGLWidget*>(widget.data())->context();
             QVERIFY(context != 0);
         } else
 #endif

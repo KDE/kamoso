@@ -98,13 +98,13 @@ void GstQtGLVideoSink::class_init(gpointer g_class, gpointer class_data)
     /**
      * GstQtGLVideoSink::glcontext
      *
-     * This property holds a pointer to the QGLContext that will be used to render
-     * the video using OpenGL acceleration. You must set this to a valid QGLContext
+     * This property holds a pointer to the QOpenGLContext that will be used to render
+     * the video using OpenGL acceleration. You must set this to a valid QOpenGLContext
      * pointer before the element changes state to READY, or else the state change will fail.
      **/
     g_object_class_install_property(object_class, PROP_GLCONTEXT,
         g_param_spec_pointer("glcontext", "GL context",
-                             "The QGLContext that will be used to do OpenGL-accelerated rendering",
+                             "The QOpenGLContext that will be used to do OpenGL-accelerated rendering",
                              static_cast<GParamFlags>(G_PARAM_WRITABLE)));
 }
 
@@ -125,7 +125,7 @@ void GstQtGLVideoSink::set_property(GObject *object, guint prop_id,
 
     switch (prop_id) {
     case PROP_GLCONTEXT:
-        sinkBase->delegate->setGLContext(static_cast<QGLContext*>(g_value_get_pointer(value)));
+        sinkBase->delegate->setGLContext(static_cast<QOpenGLContext*>(g_value_get_pointer(value)));
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
