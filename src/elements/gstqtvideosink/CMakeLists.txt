@@ -27,28 +27,14 @@ set(GstQtVideoSink_SRCS
     utils/utils.cpp
     utils/bufferformat.cpp
 
-    painters/genericsurfacepainter.cpp
-
     delegates/basedelegate.cpp
-    delegates/qtvideosinkdelegate.cpp
-    delegates/qwidgetvideosinkdelegate.cpp
-
     gstqtvideosinkplugin.cpp
-    gstqtvideosinkbase.cpp
-    gstqtvideosink.cpp
-    gstqwidgetvideosink.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/gstqtvideosinkmarshal.c
-
     painters/videomaterial.cpp
     painters/videonode.cpp
 
     delegates/qtquick2videosinkdelegate.cpp
-
     gstqtquick2videosink.cpp
-
-    painters/openglsurfacepainter.cpp
-    gstqtglvideosinkbase.cpp
-    gstqtglvideosink.cpp
 )
 
 add_definitions(

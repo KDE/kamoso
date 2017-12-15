@@ -40,6 +40,7 @@
 #endif
 
 #include "painters/genericsurfacepainter.h"
+#include <QSignalSpy>
 
 Q_DECLARE_METATYPE(Qt::AspectRatioMode)
 
@@ -151,9 +152,6 @@ private Q_SLOTS:
     void glSurfacePainterFormatsTest_data();
     void glSurfacePainterFormatsTest();
 #endif
-
-    void qtVideoSinkTest_data();
-    void qtVideoSinkTest();
 
     void cleanupTestCase();
 
@@ -588,291 +586,12 @@ struct ColorsTuple
     int saturation;
 };
 
-void QtVideoSinkTest::qtVideoSinkTest_data()
-{
-    QTest::addColumn<GstVideoFormat>("format");
-    QTest::addColumn<QSize>("sourceSize");
-    QTest::addColumn<QSize>("widgetSize");
-    QTest::addColumn<bool>("forceAspectRatio");
-    QTest::addColumn<bool>("useGL");
-
-    QTest::newRow("BGRA 320x240 -> 400x240")
-            << GST_VIDEO_FORMAT_BGRA
-            << QSize(320, 240)
-            << QSize(400, 240)
-            << true
-            << true;
-
-    QTest::newRow("I420 320x240 -> 400x240 scaled")
-            << GST_VIDEO_FORMAT_I420
-            << QSize(320, 240)
-            << QSize(400, 240)
-            << false
-            << true;
-
-    QTest::newRow("RGB16 320x240 -> 400x500")
-            << GST_VIDEO_FORMAT_RGB16
-            << QSize(320, 240)
-            << QSize(400, 500)
-            << true
-            << false;
-
-    QTest::newRow("RGB 320x240 -> 400x500 scaled")
-            << GST_VIDEO_FORMAT_RGB
-            << QSize(320, 240)
-            << QSize(400, 500)
-            << false
-            << false;
-}
-
-void QtVideoSinkTest::qtVideoSinkTest()
-{
-    QFETCH(GstVideoFormat, format);
-    QFETCH(QSize, sourceSize);
-    QFETCH(QSize, widgetSize);
-    QFETCH(bool, forceAspectRatio);
-    QFETCH(bool, useGL);
-    Fraction fps(15, 1);
-    Fraction par(1, 1);
-
-#if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
-    GstVideoFormat imageFormat = GST_VIDEO_FORMAT_BGRA;
-#else
-    GstVideoFormat imageFormat = GST_VIDEO_FORMAT_ARGB;
-#endif
-
-    QScopedPointer<QWidget> widget;
-    void *context = 0;
-
-    if (useGL) {
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-        if (haveArbFp || haveGlsl) {
-            widget.reset(new VideoGLWidget);
-            context = (void*) qobject_cast<QOpenGLWidget*>(widget.data())->context();
-            QVERIFY(context != 0);
-        } else
-#endif
-            QSKIP_PORT("Skipping because we have no OpenGL support", SkipSingle);
-    } else {
-        widget.reset(new VideoWidget);
-    }
-
-    GstCaps *caps = BufferFormat::newCaps(format, sourceSize, fps, par);
-    GstCaps *fakesinkCaps = BufferFormat::newCaps(imageFormat, widgetSize, fps, par);
-
-    GstPipelinePtr pipeline(constructPipeline(caps, fakesinkCaps, forceAspectRatio, context));
-
-    gst_caps_unref(fakesinkCaps);
-    gst_caps_unref(caps);
-
-    QVERIFY(!pipeline.isNull());
-
-    GstElementPtr qtvideosink(gst_bin_get_by_name(GST_BIN(pipeline.data()), "qtvideosink"));
-    QVERIFY(G_TYPE_CHECK_INSTANCE(qtvideosink.data()));
-
-    //colorbalance test
-    if (useGL) {
-        GstColorBalance *balance = GST_COLOR_BALANCE(qtvideosink.data());
-        QVERIFY(balance != NULL);
-
-        //set colors using the interface
-        GList *channels = (GList*) gst_color_balance_list_channels(balance);
-        QVERIFY(channels != NULL);
-
-        int successFlags = 0;
-        ColorsTuple colors;
-        colors.randomize();
-
-        while (channels) {
-            GstColorBalanceChannel *channel = GST_COLOR_BALANCE_CHANNEL(channels->data);
-            QVERIFY(channel != NULL);
-            int value;
-
-            if (qstrcmp(channel->label, "contrast") == 0) {
-                value = colors.contrast;
-                successFlags |= 0x1;
-            } else if (qstrcmp(channel->label, "brightness") == 0) {
-                value = colors.brightness;
-                successFlags |= 0x2;
-            } else if (qstrcmp(channel->label, "hue") == 0) {
-                value =  colors.hue;
-                successFlags |= 0x4;
-            } else if (qstrcmp(channel->label, "saturation") == 0) {
-                value = colors.saturation;
-                successFlags |= 0x8;
-            } else {
-                QFAIL("Invalid colorbalance label");
-            }
-
-            QCOMPARE(channel->min_value, -100);
-            QCOMPARE(channel->max_value, 100);
-            QVERIFY(value <= 100 && value >= -100);
-
-            gst_color_balance_set_value(balance, channel, value);
-            channels = g_list_next(channels);
-        }
-
-        //verify that we have set all the channels
-        QCOMPARE(successFlags, 0xF);
-
-        //verify that everything is set correctly using the properties
-        ColorsTuple receivedColors;
-        g_object_get(balance,
-                "contrast", &receivedColors.contrast,
-                "brightness", &receivedColors.brightness,
-                "hue", &receivedColors.hue,
-                "saturation", &receivedColors.saturation,
-                NULL);
-        QCOMPARE(receivedColors.contrast, colors.contrast);
-        QCOMPARE(receivedColors.brightness, colors.brightness);
-        QCOMPARE(receivedColors.hue, colors.hue);
-        QCOMPARE(receivedColors.saturation, colors.saturation);
-
-        //set everything again to new values using the properties
-        colors.randomize();
-
-        g_object_set(balance,
-                "contrast", colors.contrast,
-                "brightness", colors.brightness,
-                "hue", colors.hue,
-                "saturation", colors.saturation,
-                NULL);
-
-        //verify again that everything is set correctly using the interface
-        channels = (GList*) gst_color_balance_list_channels(balance);
-        successFlags = 0;
-
-        while (channels) {
-            GstColorBalanceChannel *channel = GST_COLOR_BALANCE_CHANNEL(channels->data);
-            QVERIFY(channel != NULL);
-
-            if (qstrcmp(channel->label, "contrast") == 0) {
-                receivedColors.contrast = gst_color_balance_get_value(balance, channel);
-                successFlags |= 0x1;
-            } else if (qstrcmp(channel->label, "brightness") == 0) {
-                receivedColors.brightness = gst_color_balance_get_value(balance, channel);
-                successFlags |= 0x2;
-            } else if (qstrcmp(channel->label, "hue") == 0) {
-                receivedColors.hue = gst_color_balance_get_value(balance, channel);
-                successFlags |= 0x4;
-            } else if (qstrcmp(channel->label, "saturation") == 0) {
-                receivedColors.saturation = gst_color_balance_get_value(balance, channel);
-                successFlags |= 0x8;
-            } else {
-                QFAIL("Invalid colorbalance label");
-            }
-            channels = g_list_next(channels);
-        }
-
-        QCOMPARE(successFlags, 0xF);
-
-        //reset back to zero
-        colors = ColorsTuple();
-        g_object_set(balance,
-                "contrast", colors.contrast,
-                "brightness", colors.brightness,
-                "hue", colors.hue,
-                "saturation", colors.saturation,
-                NULL);
-    }
-
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-    if (useGL) {
-        VideoGLWidget *glw = dynamic_cast<VideoGLWidget*>(widget.data());
-        QVERIFY(glw);
-        glw->setVideoSink(GST_ELEMENT(g_object_ref(qtvideosink.data())));
-    } else
-#endif
-    {
-        VideoWidget *w = dynamic_cast<VideoWidget*>(widget.data());
-        QVERIFY(w);
-        w->setVideoSink(GST_ELEMENT(g_object_ref(qtvideosink.data())));
-    }
-    widget->setWindowTitle(G_STRINGIFY(QTVIDEOSINK_NAME));
-    widget->resize(widgetSize);
-    widget->show();
-    widget->raise();
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
-    QTest::qWaitForWindowExposed(widget.data()->windowHandle());
-#else
-    QTest::qWaitForWindowShown(widget.data());
-#endif
-
-    GstStateChangeReturn stateReturn = gst_element_set_state(
-            GST_ELEMENT(pipeline.data()), GST_STATE_PAUSED);
-    QCOMPARE(stateReturn, GST_STATE_CHANGE_ASYNC);
-
-    GstState state = GST_STATE_NULL;
-    stateReturn = gst_element_get_state(GST_ELEMENT(pipeline.data()), &state, NULL, 10 * GST_SECOND);
-    QCOMPARE(stateReturn, GST_STATE_CHANGE_SUCCESS);
-    QCOMPARE(state, GST_STATE_PAUSED);
-
-    //process the pending BufferEvent in qtvideosink and subsequently the QPaintEvent in the widget
-    //and wait a bit for X/window manager/GPU/whatever to actually render the window
-    QTest::qWait(1000);
-
-    GstSample *samplePtr = NULL;
-    gst_child_proxy_get(GST_CHILD_PROXY(pipeline.data()), "fakesink::last-sample", &samplePtr, NULL);
-
-    GstSamplePtr sample(samplePtr);
-    GstMapInfo info;
-    QVERIFY(!sample.isNull());
-    GstBuffer *buffer = gst_sample_get_buffer(sample.data());
-    QVERIFY(buffer);
-    QVERIFY(gst_buffer_map(buffer, &info, GST_MAP_READ));
-
-    { //increased scope so that expectedImage gets deleted before the sample
-        // replacing gst_video_format_get_row_stride(imageFormat, 0, widgetSize.width())
-        const GstVideoFormatInfo *video_info = gst_video_format_get_info(imageFormat);
-        QVERIFY(video_info);
-
-        QImage expectedImage(info.data,
-                widgetSize.width(), widgetSize.height(),
-                GST_VIDEO_FORMAT_INFO_PSTRIDE(video_info, 0) * widgetSize.width(),
-                QImage::Format_ARGB32);
-        QImage actualImage = QPixmap::grabWindow(widget->winId()).toImage();
-
-#if 0
-        // visual debugging
-        QScopedPointer<QWidget> referenceWidget(new QWidget);
-        referenceWidget->setWindowTitle("Results");
-
-        QLabel *label1 = new QLabel(referenceWidget.data());
-        label1->setPixmap(QPixmap::fromImage(actualImage));
-        QLabel *label1Txt = new QLabel(referenceWidget.data());
-        label1Txt->setText("Grabbed image from qtvideosink window");
-
-        QLabel *label2 = new QLabel(referenceWidget.data());
-        label2->setPixmap(QPixmap::fromImage(expectedImage));
-        QLabel *label2Txt = new QLabel(referenceWidget.data());
-        label2Txt->setText("Expected image, as received on fakesink");
-
-        QGridLayout *layout = new QGridLayout(referenceWidget.data());
-        layout->addWidget(label1, 0, 0);
-        layout->addWidget(label1Txt, 1, 0);
-        layout->addWidget(label2, 0, 1);
-        layout->addWidget(label2Txt, 1, 1);
-        referenceWidget->setLayout(layout);
-
-        referenceWidget->show();
-        referenceWidget->raise();
-
-        QTest::qWaitForWindowShown(referenceWidget.data());
-        QTest::qWait(1000); //just for visual feedback
-#endif
-
-        imageCompare(actualImage, expectedImage, forceAspectRatio ? sourceSize : QSize());
-        gst_buffer_unmap(buffer, &info);
-    }
-}
-
 //------------------------------------
 
 #define MAKE_ELEMENT(variable, name) \
     GstElement *variable = gst_element_factory_make(name, #variable); \
     if (!variable) { \
-        QWARN("Failed to create " #variable); \
+        QWARN("Failed to create " name " with name " #variable); \
         return NULL; \
     } else { \
         gst_bin_add(GST_BIN(pipeline.data()), variable); \
@@ -930,8 +649,7 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
     MAKE_ELEMENT(tee, "tee");
 
     MAKE_ELEMENT(queue, "queue");
-    MAKE_ELEMENT(qtvideosink, context ?
-        G_STRINGIFY(QTGLVIDEOSINK_NAME) : G_STRINGIFY(QTVIDEOSINK_NAME));
+    MAKE_ELEMENT(qt5videosink, "qtquick2videosink");
 
     MAKE_ELEMENT(queue2, "queue");
     MAKE_ELEMENT(colorspace, "videoconvert");
@@ -945,10 +663,10 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
     g_object_set(fakesink, "enable-last-sample", TRUE, NULL);
 
     if (context) {
-        g_object_set(qtvideosink, "glcontext", context, NULL);
+        g_object_set(qt5videosink, "glcontext", context, NULL);
     }
 
-    g_object_set(qtvideosink, "force-aspect-ratio", (gboolean) forceAspectRatio, NULL);
+    g_object_set(qt5videosink, "force-aspect-ratio", (gboolean) forceAspectRatio, NULL);
     g_object_set(videoscale, "add-borders", (gboolean) forceAspectRatio, NULL);
 
     if (!gst_element_link_many(videotestsrc, capsfilter, tee, NULL)) {
@@ -956,13 +674,13 @@ GstPipeline *QtVideoSinkTest::constructPipeline(GstCaps *caps,
         return NULL;
     }
 
-    if (!gst_element_link(queue, qtvideosink)) {
-        QWARN("Failed to link qtvideosink branch");
+    if (!gst_element_link(queue, qt5videosink)) {
+        QWARN("Failed to link qt5videosink branch");
         return NULL;
     }
 
     if (!gst_element_link_pads(tee, "src_%u", queue, "sink")) {
-        QWARN("Failed to link tee to qtvideosink");
+        QWARN("Failed to link tee to qt5videosink");
         return NULL;
     }
 

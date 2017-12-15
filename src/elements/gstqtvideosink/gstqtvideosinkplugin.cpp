@@ -16,9 +16,6 @@
 */
 
 #include "gstqtvideosinkplugin.h"
-#include "gstqtvideosink.h"
-#include "gstqtglvideosink.h"
-#include "gstqwidgetvideosink.h"
 #include "gstqtquick2videosink.h"
 
 GST_DEBUG_CATEGORY(gst_qt_video_sink_debug);
