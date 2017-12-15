@@ -44,13 +44,13 @@ add_definitions(
 )
 
 find_package(OpenGL)
-find_package(OpenGLES2)
-if (OPENGLES2_FOUND)
-    set(GstQtVideoSink_GL_LIBS ${OPENGLES2_LIBRARY})
-    include_directories(${OPENGLES2_INCLUDE_DIR})
-else()
+if (OpenGL_FOUND)
     set(GstQtVideoSink_GL_LIBS ${OPENGL_gl_LIBRARY})
     include_directories(${OPENGL_INCLUDE_DIR})
+else()
+    find_package(OpenGLES2 REQUIRED)
+    set(GstQtVideoSink_GL_LIBS ${OPENGLES2_LIBRARY})
+    include_directories(${OPENGLES2_INCLUDE_DIR})
 endif()
 
 add_library(kamoso-gstqt5videosink MODULE ${GstQtVideoSink_SRCS})
