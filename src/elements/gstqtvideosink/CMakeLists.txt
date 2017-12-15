@@ -60,7 +60,6 @@ target_link_libraries(kamoso-gstqt5videosink
     ${GSTREAMER_VIDEO_LIBRARY}
     ${GstQtVideoSink_GL_LIBS}
     Qt5::Quick
-    Qt5::Widgets
 )
 
 install(TARGETS kamoso-gstqt5videosink DESTINATION ${CMAKE_INSTALL_LIBDIR}/gstreamer-${GSTREAMER_ABI_VERSION})
@@ -80,7 +79,6 @@ target_link_libraries(qtvideosink_autotest
     ${GSTREAMER_VIDEO_LIBRARY}
     ${GstQtVideoSink_GL_LIBS}
     Qt5::Test
-    Qt5::Widgets
     Qt5::OpenGL
     Qt5::Quick
 )

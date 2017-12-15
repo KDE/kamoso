@@ -21,8 +21,6 @@
 #include "gstqtvideosinkbase.h"
 #include <gst/video/colorbalance.h>
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-
 #define GST_TYPE_QT_GL_VIDEO_SINK_BASE \
   (GstQtGLVideoSinkBase::get_type())
 #define GST_QT_GL_VIDEO_SINK_BASE(obj) \
@@ -90,5 +88,4 @@ struct GstQtGLVideoSinkBaseClass
     GstQtVideoSinkBaseClass parent_class;
 };
 
-#endif // GST_QT_VIDEO_SINK_NO_OPENGL
 #endif // GST_QT_GL_VIDEO_SINK_BASE_H

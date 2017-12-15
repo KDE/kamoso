@@ -165,7 +165,7 @@ void OpenGLSurfacePainter::updateColors(int brightness, int contrast, int hue, i
 }
 
 void OpenGLSurfacePainter::paint(quint8 *data,
-        const BufferFormat & frameFormat,
+        const BufferFormat & /*frameFormat*/,
         QPainter *painter,
         const PaintAreas & areas)
 {

@@ -17,8 +17,6 @@
 #ifndef OPENGLSURFACEPAINTER_H
 #define OPENGLSURFACEPAINTER_H
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-
 #include "abstractsurfacepainter.h"
 #include <QOpenGLShaderProgram>
 
@@ -129,7 +127,5 @@ protected:
 private:
     QOpenGLShaderProgram m_program;
 };
-
-#endif // GST_QT_VIDEO_SINK_NO_OPENGL
 
 #endif // OPENGLSURFACEPAINTER_H

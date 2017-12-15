@@ -33,11 +33,9 @@
 # define QSKIP_PORT(m, a) QSKIP(m, a)
 #endif
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
 # include "painters/openglsurfacepainter.h"
 # include <QOpenGLWidget>
 # include <QGLPixelBuffer>
-#endif
 
 #include "painters/genericsurfacepainter.h"
 #include <QSignalSpy>
@@ -123,9 +121,7 @@ private:
 
 typedef VideoWidgetT<QWidget> VideoWidget;
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
 typedef VideoWidgetT<QOpenGLWidget> VideoGLWidget;
-#endif
 
 //------------------------------------
 
@@ -148,10 +144,8 @@ private Q_SLOTS:
     void genericSurfacePainterFormatsTest_data();
     void genericSurfacePainterFormatsTest();
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
     void glSurfacePainterFormatsTest_data();
     void glSurfacePainterFormatsTest();
-#endif
 
     void cleanupTestCase();
 
@@ -427,8 +421,6 @@ void QtVideoSinkTest::genericSurfacePainterFormatsTest()
 
 //------------------------------------
 
-#ifndef GST_QT_VIDEO_SINK_NO_OPENGL
-
 void QtVideoSinkTest::glSurfacePainterFormatsTest_data()
 {
     QTest::addColumn<GstVideoFormat>("format");
@@ -563,8 +555,6 @@ void QtVideoSinkTest::glSurfacePainterFormatsTest()
     gst_buffer_unmap(buffer, &info);
 
 }
-
-#endif
 
 //------------------------------------
 
