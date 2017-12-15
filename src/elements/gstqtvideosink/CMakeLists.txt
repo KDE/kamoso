@@ -98,3 +98,5 @@ target_link_libraries(qtvideosink_autotest
     Qt5::OpenGL
     Qt5::Quick
 )
+
+add_test(qtvideosink_autotest qtvideosink_autotest)
