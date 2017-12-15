@@ -43,7 +43,8 @@ add_definitions(
     -DQWIDGETVIDEOSINK_NAME=${QWIDGETVIDEOSINK_NAME}
 )
 
-find_package(OpenGL REQUIRED)
+find_package(OpenGL)
+find_package(OpenGLES2)
 if (OPENGLES2_FOUND)
     set(GstQtVideoSink_GL_LIBS ${OPENGLES2_LIBRARY})
     include_directories(${OPENGLES2_INCLUDE_DIR})
