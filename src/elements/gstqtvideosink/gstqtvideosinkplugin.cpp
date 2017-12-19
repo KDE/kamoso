@@ -20,6 +20,8 @@
 
 GST_DEBUG_CATEGORY(gst_qt_video_sink_debug);
 
+#pragma GCC visibility push(default)
+
 /* entry point to initialize the plug-in */
 static gboolean plugin_init(GstPlugin *plugin)
 {
@@ -47,3 +49,4 @@ GST_PLUGIN_DEFINE (
     PACKAGE_NAME,
     PACKAGE_ORIGIN
 )
+#pragma GCC visibility pop
