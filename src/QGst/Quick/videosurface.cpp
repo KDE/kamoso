@@ -30,8 +30,9 @@ VideoSurface::VideoSurface(QObject *parent)
 
 VideoSurface::~VideoSurface()
 {
-    if (!d->videoSink) {
+    if (d->videoSink) {
         gst_element_set_state(d->videoSink, GST_STATE_NULL);
+        gst_object_unref(d->videoSink);
     }
 
     delete d;
@@ -47,13 +48,17 @@ GstElement* VideoSurface::videoSink() const
     if (!d->videoSink) {
         d->videoSink = gst_element_factory_make("qtquick2videosink", "qtquick2videosink");
 
-        if (!d->videoSink) {
+        if (d->videoSink) {
+            gst_object_ref_sink(d->videoSink);
+        } else {
             qCritical("Failed to create qtquick2videosink. Make sure it is installed correctly");
             return nullptr;
         }
 
-        g_signal_connect(d->videoSink, "update", G_CALLBACK(updateCallback), (gpointer) this);
+        Q_ASSERT(GST_IS_ELEMENT(d->videoSink));
+        Q_ASSERT(G_IS_OBJECT(d->videoSink));
 
+        g_signal_connect(d->videoSink, "update", G_CALLBACK(updateCallback), (gpointer) this);
     }
 
     return d->videoSink;
