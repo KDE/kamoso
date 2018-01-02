@@ -141,6 +141,7 @@ public:
             m_pipeline.reset(GST_PIPELINE(gst_parse_launch(m_description.toUtf8().constData(), &e)));
             if (e) {
                 qWarning() << "error:" << e->message;
+                Q_EMIT failed();
                 return;
             }
             Q_ASSERT(m_pipeline);
@@ -180,6 +181,7 @@ Q_SIGNALS:
     void playingChanged(bool playing);
     void surfaceChanged();
     void descriptionChanged();
+    void failed();
 
 private:
     bool m_playing = false;

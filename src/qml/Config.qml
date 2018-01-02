@@ -61,6 +61,11 @@ GridView {
             PipelineItem {
                 id: pipe
 
+                onFailed: {
+                    delegateItem.visible = false
+//                     view.model.remove(index)
+                }
+
                 function refreshVisible() {
                     if (visible) {
                         pipe.playing = true
