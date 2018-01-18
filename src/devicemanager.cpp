@@ -184,6 +184,11 @@ void DeviceManager::deviceRemoved(GstDevice* device)
 
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);
+        if (m_playingDevice == dev) {
+            m_playingDevice = nullptr;
+            Q_EMIT playingDeviceChanged();
+        }
+
         if (dev->udi() == udi) {
             beginRemoveRows({}, i, i);
             dev->deleteLater();
