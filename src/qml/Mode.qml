@@ -8,6 +8,7 @@ Action {
     property string nameFilter: ""
 
     readonly property Action adoptAction: Action {
+        text: modeAction.text
         iconName: modeAction.iconName
         tooltip: modeAction.tooltip
         onTriggered: {
