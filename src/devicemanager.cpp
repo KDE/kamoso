@@ -175,6 +175,10 @@ void DeviceManager::deviceAdded(GstDevice* device)
     beginInsertRows({}, s, s);
     m_deviceList.append(new Device(st, this));
     endInsertRows();
+
+    if (!m_playingDevice) {
+        setPlayingDeviceUdi(m_deviceList.first()->udi());
+    }
 }
 
 void DeviceManager::deviceRemoved(GstDevice* device)
