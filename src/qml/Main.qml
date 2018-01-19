@@ -234,7 +234,6 @@ Kirigami.ApplicationWindow
         VideoItem {
             id: video
 
-            visible: devicesModel.count>0
             surface: videoSurface1
             anchors.fill: parent
 
@@ -256,12 +255,6 @@ Kirigami.ApplicationWindow
                     }
                 }
             }
-        }
-
-        AnimatedImage {
-            anchors.fill: video
-            visible: !video.visible
-            source: visible ? "http://i.imgur.com/OEiQ6k9.gif" : ""
         }
 
         Text {
