@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Controls 1.1
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
@@ -178,6 +178,11 @@ Kirigami.ApplicationWindow
                     }
                 }
         }
+    }
+
+    Shortcut {
+        sequence: "Return"
+        onActivated: visor.actions.main.triggered(null)
     }
 
     pageStack.initialPage: Kirigami.Page {
