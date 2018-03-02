@@ -19,6 +19,7 @@
 
 #include "abstractsurfacepainter.h"
 #include <QOpenGLShaderProgram>
+#include <QOpenGLFunctions>
 
 #ifndef Q_WS_MAC
 # ifndef APIENTRYP
@@ -34,7 +35,7 @@
 # define APIENTRYP *
 #endif
 
-class OpenGLSurfacePainter : public AbstractSurfacePainter
+class OpenGLSurfacePainter : public AbstractSurfacePainter, public QOpenGLFunctions
 {
 public:
     OpenGLSurfacePainter();
