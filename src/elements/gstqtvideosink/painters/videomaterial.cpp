@@ -20,7 +20,6 @@
 
 #include <qmath.h>
 #include <QOpenGLContext>
-#include <QOpenGLFunctions>
 #include <QtQuick/QSGMaterialShader>
 
 static const char * const qtvideosink_glsl_vertexShader =
@@ -317,6 +316,7 @@ void VideoMaterial::initYuv420PTextureInfo(bool uvSwapped, const QSize &size)
 
 void VideoMaterial::init(GstVideoColorMatrix colorMatrixType)
 {
+    initializeOpenGLFunctions();
     glGenTextures(m_textureCount, m_textureIds);
     m_colorMatrixType = colorMatrixType;
     updateColors(0, 0, 0, 0);
@@ -402,7 +402,6 @@ void VideoMaterial::updateColors(int brightness, int contrast, int hue, int satu
 
 void VideoMaterial::bind()
 {
-    QOpenGLFunctions *functions = QOpenGLContext::currentContext()->functions();
     GstBuffer *frame = NULL;
 
     m_frameMutex.lock();
@@ -413,20 +412,20 @@ void VideoMaterial::bind()
     if (frame) {
         GstMapInfo info;
         gst_buffer_map(frame, &info, GST_MAP_READ);
-        functions->glActiveTexture(GL_TEXTURE1);
+        glActiveTexture(GL_TEXTURE1);
         bindTexture(1, info.data);
-        functions->glActiveTexture(GL_TEXTURE2);
+        glActiveTexture(GL_TEXTURE2);
         bindTexture(2, info.data);
-        functions->glActiveTexture(GL_TEXTURE0); // Finish with 0 as default texture unit
+        glActiveTexture(GL_TEXTURE0); // Finish with 0 as default texture unit
         bindTexture(0, info.data);
         gst_buffer_unmap(frame, &info);
         gst_buffer_unref(frame);
     } else {
-        functions->glActiveTexture(GL_TEXTURE1);
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, m_textureIds[1]);
-        functions->glActiveTexture(GL_TEXTURE2);
+        glActiveTexture(GL_TEXTURE2);
         glBindTexture(GL_TEXTURE_2D, m_textureIds[2]);
-        functions->glActiveTexture(GL_TEXTURE0); // Finish with 0 as default texture unit
+        glActiveTexture(GL_TEXTURE0); // Finish with 0 as default texture unit
         glBindTexture(GL_TEXTURE_2D, m_textureIds[0]);
     }
 }

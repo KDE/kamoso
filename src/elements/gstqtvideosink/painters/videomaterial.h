@@ -25,10 +25,11 @@
 #include <QMatrix4x4>
 
 #include <QSGMaterial>
+#include <QOpenGLFunctions>
 
 class VideoMaterialShader;
 
-class VideoMaterial : public QSGMaterial
+class VideoMaterial : public QSGMaterial, public QOpenGLFunctions
 {
 public:
     static VideoMaterial *create(const BufferFormat & format);
