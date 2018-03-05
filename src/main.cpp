@@ -22,17 +22,21 @@
 #include <klocalizedstring.h>
 #include "video/webcamcontrol.h"
 #include <QApplication>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
-    KAboutData about("kamoso", i18n("Kamoso"), "3.2.3", i18n("Utility for taking photos and videos using a webcam"),
-                KAboutLicense::GPL, i18n("(C) 2008-2015 Alex Fiestas and Aleix Pol"));
-
-    about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
-    about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
     QApplication app(argc, argv);
-
+    KLocalizedString::setApplicationDomain("kamoso");
     {
+        KAboutData about("kamoso", i18n("Kamoso"), "3.2.3", i18n("Utility for taking photos and videos using a webcam"),
+                         KAboutLicense::GPL, i18n("(C) 2008-2015 Alex Fiestas and Aleix Pol"));
+
+        about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
+        about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
+        KAboutData::setApplicationData(about);
+        QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kamoso"), app.windowIcon()));
+
         QCommandLineParser parser;
         about.setupCommandLine(&parser);
         parser.process(app);
