@@ -34,7 +34,7 @@
   <name xml:lang="uk">Kamoso</name>
   <name xml:lang="x-test">xxKamosoxx</name>
   <name xml:lang="zh-TW">Kamoso</name>
-  <summary>Kamoso is a great program to use your webcam to take pictures or make videos.</summary>
+  <summary>Kamoso is a great program to use your webcam to take pictures or make videos</summary>
   <summary xml:lang="ar">«كاموسو» برنامج رائع لاستخدام كاميرا الوِبّ لديك لأخذ الصّور أو تسجيل الفيديوهات.</summary>
   <summary xml:lang="ast">Kamoso ye un perbón programa pa usar la to cámara web pa facer semeyes y vídeos.</summary>
   <summary xml:lang="ca">El Kamoso és un programa magnífic per usar la càmera web per prendre fotografies o fer vídeos.</summary>
@@ -99,7 +99,7 @@
   <url type="help">https://docs.kde.org/stable/en/extragear-multimedia/kamoso/user-guide.html</url>
   <screenshots>
     <screenshot type="default">
-      <image>http://kde.org/images/screenshots/kamoso.png</image>
+      <image>https://origin.cdn.kde.org/screenshots/kamoso/kamoso.png</image>
     </screenshot>
   </screenshots>
   <project_group>KDE</project_group>
