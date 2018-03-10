@@ -35,34 +35,6 @@
   <name xml:lang="x-test">xxKamosoxx</name>
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Kamoso is a great program to use your webcam to take pictures or make videos</summary>
-  <summary xml:lang="ar">«كاموسو» برنامج رائع لاستخدام كاميرا الوِبّ لديك لأخذ الصّور أو تسجيل الفيديوهات.</summary>
-  <summary xml:lang="ast">Kamoso ye un perbón programa pa usar la to cámara web pa facer semeyes y vídeos.</summary>
-  <summary xml:lang="ca">El Kamoso és un programa magnífic per usar la càmera web per prendre fotografies o fer vídeos.</summary>
-  <summary xml:lang="ca-valencia">El Kamoso és un programa magnífic per usar la càmera web per prendre fotografies o fer vídeos.</summary>
-  <summary xml:lang="da">Kamoso er et glimrende program til at bruge dit webkamera til at tage billeder eller lave videoer</summary>
-  <summary xml:lang="de">Kamoso ist ein Programm, um mit Ihrer Webcam Bilder oder Videos aufzunehmen.</summary>
-  <summary xml:lang="el">Το Kamoso είναι ένα καταπληκτικό πρόγραμμα για λήψη με web κάμερα φωτογραφιών ή βίντεο.</summary>
-  <summary xml:lang="en-GB">Kamoso is a great program to use your webcam to take pictures or make videos.</summary>
-  <summary xml:lang="es">Kamoso es un gran programa para usar su webcam para capturar imágenes y hacer vídeos.</summary>
-  <summary xml:lang="fi">Kamoso on ohjelma kuvien ottamiseen ja videoiden tekemiseen nettikameralla.</summary>
-  <summary xml:lang="fr">Kamoso est un super programme qui utilise votre webcam pour prendre des photos ou faire des vidéos.</summary>
-  <summary xml:lang="gl">Kamoso é un programa xenial para usar a súa cámara web para sacar fotos ou gravar vídeos.</summary>
-  <summary xml:lang="id">Kamoso adalah program hebat yang digunakan untuk webcam-mu untuk mengambil gambar atau membuat video.</summary>
-  <summary xml:lang="it">Kamoso è uno splendido programma che ti permette di usare la tua webcam per scattare foto o registrare video.</summary>
-  <summary xml:lang="ko">Kamoso는 웹캠으로 사진을 찍거나 동영상을 찍는 프로그램입니다.</summary>
-  <summary xml:lang="nl">Kamoso is een handig programma om uw webcam te gebruiken om foto's of video's te maken.</summary>
-  <summary xml:lang="nn">Kamoso er eit flott program der du kan bruka nettkameraet ditt for å ta bilete eller laga videoar.</summary>
-  <summary xml:lang="pl">Kamoso jest świetny programem do wykonywania zdjęć i kręcenia filmów przy użyciu kamerki internetowej.</summary>
-  <summary xml:lang="pt">O Kamoso é um óptimo programa para usar a sua Webcam para tirar fotografias ou criar vídeos.</summary>
-  <summary xml:lang="pt-BR">Kamoso é um ótimo programa para tirar fotos ou gravar vídeos com sua webcam.</summary>
-  <summary xml:lang="ru">Kamoso — отличная программа для захвата видео и изображений с вашей веб-камеры.</summary>
-  <summary xml:lang="sk">Kamoso je výborný program na použitie vašej webkamery na tvorbu fotiek alebo natáčanie videa.</summary>
-  <summary xml:lang="sl">Kamoso je odličen program za zajemanje slik in videov s pomočjo vaše spletne kamere.</summary>
-  <summary xml:lang="sv">Kamoso är ett utmärkt program för att använda en egen webbkamera för att ta bilder eller göra videor.</summary>
-  <summary xml:lang="tr">Kamoso, fotoğraf çekmek veya video çekmek için web kameranızı kullanmanıza olanak sağlanyan harika bir programdır.</summary>
-  <summary xml:lang="uk">Kamoso — чудова програма для використання вашої вебкамери для створення знімків та запису відео.</summary>
-  <summary xml:lang="x-test">xxKamoso is a great program to use your webcam to take pictures or make videos.xx</summary>
-  <summary xml:lang="zh-TW">Kamoso 可以讓您用您的攝影機拍照或拍影片。</summary>
   <description>
     <p>Kamoso is a great program to use your webcam to take pictures or make videos. It probably should be the best webcam recorder for Linux. This guide will help you use Kamoso once you have installed it. We tried to make it simple and friendly.</p>
     <p xml:lang="ar">«كاموسو» برنامج رائع لاستخدام كاميرا الوِبّ لديك لأخذ الصّور أو تسجيل الفيديوهات. لربّما يكون هو أفضل مسجّل لكاميرا الوِبّ في لينكس. سيساعدك هذا الدّليل في استخدام «كاموسو» ما إن تثبّته. حاولنا أن يكون بسيطًا وودودًا.</p>
