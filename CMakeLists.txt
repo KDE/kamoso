@@ -2,15 +2,33 @@ project(Kamoso)
 
 cmake_minimum_required(VERSION 2.8.12)
 
-find_package(ECM 0.0.9 REQUIRED NO_MODULE)
+set(KF5_MIN_VERSION 5.38.0)
+
+find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick Test OpenGL)
-find_package(KF5 REQUIRED COMPONENTS Config DocTools KIO I18n Purpose)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Config DocTools KIO I18n Purpose)
 
 find_package(GStreamer 1.1.90 REQUIRED)
 find_package(GLIB2 REQUIRED)
 find_package(GObject REQUIRED)
+
+find_package(KF5Kirigami2)
+set_package_properties(KF5Kirigami2 PROPERTIES
+    DESCRIPTION "A QtQuick based components set"
+    PURPOSE "Required at runtime"
+    TYPE RUNTIME
+)
+
+include(ECMQMLModules)
+ecm_find_qmlmodule(QtGraphicalEffects 1.0)
+ecm_find_qmlmodule(QtQml 2.2)
+ecm_find_qmlmodule(QtQuick 2.5)
+ecm_find_qmlmodule(QtQuick.Controls 1.2)
+ecm_find_qmlmodule(QtQuick.Dialogs 1.0)
+ecm_find_qmlmodule(QtQuick.Layouts 1.1)
+ecm_find_qmlmodule(QtQuick.Window 2.2)
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
