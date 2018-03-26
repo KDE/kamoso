@@ -2,8 +2,6 @@ set(GST_PACKAGE_NAME "KamosoGStreamer" CACHE STRING "The name of this package")
 set(GST_PACKAGE_ORIGIN "http://gstreamer.freedesktop.org/" CACHE STRING "The origin url of this package")
 set(QTGSTREAMER_VERSION 1.2.0)
 set(QTVIDEOSINK_NAME kamoso-qt5videosink)
-set(QTGLVIDEOSINK_NAME kamoso-qt5glvideosink)
-set(QWIDGETVIDEOSINK_NAME kamoso-qwidget5videosink)
 
 add_definitions(-DPACKAGE="kamoso-gstreamer"
                 -DPACKAGE_NAME="${GST_PACKAGE_NAME}"

@@ -37,11 +37,7 @@ set(GstQtVideoSink_SRCS
     gstqtquick2videosink.cpp
 )
 
-add_definitions(
-    -DQTVIDEOSINK_NAME=kamoso-qt5videosink
-    -DQTGLVIDEOSINK_NAME=${QTGLVIDEOSINK_NAME}
-    -DQWIDGETVIDEOSINK_NAME=${QWIDGETVIDEOSINK_NAME}
-)
+add_definitions(-DQTVIDEOSINK_NAME=${QTVIDEOSINK_NAME})
 
 find_package(OpenGL)
 if (OpenGL_FOUND)
