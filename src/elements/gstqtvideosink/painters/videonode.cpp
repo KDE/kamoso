@@ -22,7 +22,8 @@
 #include <QtQuick/QSGFlatColorMaterial>
 
 VideoNode::VideoNode()
-  : m_validGeometry(false), QSGGeometryNode()
+  : QSGGeometryNode()
+  , m_validGeometry(false)
 {
     setFlags(OwnsGeometry | OwnsMaterial, true);
     setMaterialTypeSolidBlack();
