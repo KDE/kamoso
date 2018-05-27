@@ -166,9 +166,10 @@ public:
     }
 
     void setPlaying(bool playing) {
-        m_playing = playing;
-        if (!m_pipeline)
+        if (!m_pipeline || playing == m_playing)
             return;
+
+        m_playing = playing;
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
         Q_EMIT playingChanged(playing);
     }
