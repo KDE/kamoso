@@ -36,8 +36,22 @@
   <name xml:lang="zh-CN">Kamoso</name>
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Use your webcam to take pictures and make videos</summary>
+  <summary xml:lang="ca">Useu la càmera web per prendre fotografies o fer vídeos</summary>
+  <summary xml:lang="ca-valencia">Useu la càmera web per prendre fotografies o fer vídeos</summary>
+  <summary xml:lang="nl">Uw webcam te gebruiken om foto's of video's te maken</summary>
+  <summary xml:lang="pt">Use a sua Webcam para tirar fotografias ou criar vídeos</summary>
+  <summary xml:lang="sv">Använda din webbkamera för att ta bilder eller göra videor</summary>
+  <summary xml:lang="uk">Kamoso — чудова програма для використання вашої вебкамери для створення знімків або запису відео</summary>
+  <summary xml:lang="x-test">xxUse your webcam to take pictures and make videosxx</summary>
   <description>
     <p>Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
+    <p xml:lang="ca">El Kamoso és un programa senzill i amigable per usar la càmera web. Useu-lo per prendre fotografies o fer vídeos per compartir.</p>
+    <p xml:lang="ca-valencia">El Kamoso és un programa senzill i amigable per usar la càmera web. Useu-lo per prendre fotografies o fer vídeos per compartir.</p>
+    <p xml:lang="nl">Kamoso is een eenvoudig en vriendelijk programma om uw camera te gebruiken. Gebruik het om foto's en video's te maken en te delen.</p>
+    <p xml:lang="pt">O Kamoso é um programa simples e amigável para usar a sua Webcam. Use-a para tirar fotografias ou criar vídeos para partilhar.</p>
+    <p xml:lang="sv">Kamoso är ett enkelt och trevligt program för att använda din kamera. Använd det för att ta bilder eller göra videor att dela med dig av.</p>
+    <p xml:lang="uk">Kamoso — проста і дружня до користувача програма для використання вашої вебкамери для створення знімків або запису відео.</p>
+    <p xml:lang="x-test">xxKamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.xx</p>
   </description>
   <url type="homepage">https://userbase.kde.org/Kamoso</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kamoso</url>
