@@ -40,7 +40,7 @@ QSGNode* QtQuick2VideoSinkDelegate::updateNode(QSGNode *node, const QRectF & tar
             vnode->setMaterialTypeSolidBlack();
             sgnodeFormatChanged = true;
         }
-        if (sgnodeFormatChanged || targetArea != m_areas.targetArea) {
+        if (sgnodeFormatChanged || targetArea != m_areas.targetArea || !vnode->geometry()) {
             m_areas.targetArea = targetArea;
             vnode->updateGeometry(m_areas);
         }
