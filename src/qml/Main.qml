@@ -46,8 +46,8 @@ Kirigami.ApplicationWindow
             State { name: "done"
                 PropertyChanges { target: tada; x: 0 }
                 PropertyChanges { target: tada; y: root.height }
-                PropertyChanges { target: tada; width: deviceSelector.height }
-                PropertyChanges { target: tada; height: deviceSelector.height }
+                PropertyChanges { target: tada; width: Kirigami.Units.gridUnit }
+                PropertyChanges { target: tada; height: Kirigami.Units.gridUnit }
                 PropertyChanges { target: tada; opacity: 0.5 }
             }
         ]
@@ -241,7 +241,6 @@ Kirigami.ApplicationWindow
             anchors.fill: parent
 
             ColumnLayout {
-                id: deviceSelector
                 spacing: Kirigami.Units.smallSpacing
                 anchors.margins: Kirigami.Units.smallSpacing
                 anchors.top: parent.top
