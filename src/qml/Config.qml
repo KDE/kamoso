@@ -61,27 +61,13 @@ GridView {
             PipelineItem {
                 id: pipe
 
+                playing: false
                 onFailed: {
                     delegateItem.visible = false
 //                     view.model.remove(index)
                 }
 
-                function refreshVisible() {
-                    if (visible) {
-                        pipe.playing = true
-                    }
-                    pipe.playing = false
-                }
                 description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
-                property bool dirty: false
-                onDescriptionChanged: dirty = true
-            }
-            onVisibleChanged: {
-                pipe.refreshVisible()
-                if (pipe.dirty) {
-                    pipe.dirty=false
-                    pipe.refresh()
-                }
             }
             surface: pipe.surface
         }

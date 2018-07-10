@@ -129,6 +129,8 @@ public:
         if (m_description != desc) {
             m_description = desc;
             Q_EMIT descriptionChanged();
+
+            refresh();
         }
     }
 
@@ -166,12 +168,13 @@ public:
     }
 
     void setPlaying(bool playing) {
-        if (!m_pipeline || playing == m_playing)
-            return;
+        if (playing != m_playing) {
+            m_playing = playing;
+            Q_EMIT playingChanged(playing);
+        }
 
-        m_playing = playing;
-        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
-        Q_EMIT playingChanged(playing);
+        if (m_pipeline)
+            gst_element_set_state(GST_ELEMENT(m_pipeline.data()), playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
     }
 
     bool playing() const {
