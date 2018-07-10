@@ -237,8 +237,6 @@ Kirigami.ApplicationWindow
         }
 
         VideoItem {
-            id: video
-
             surface: videoSurface1
             anchors.fill: parent
 
