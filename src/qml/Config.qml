@@ -64,7 +64,7 @@ GridView {
                 playing: false
                 onFailed: {
                     delegateItem.visible = false
-//                     view.model.remove(index)
+                    view.model.remove(index)
                 }
 
                 description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"

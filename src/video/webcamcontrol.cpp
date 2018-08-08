@@ -111,6 +111,7 @@ public:
             qCritical() << "error on:" << m_description << debugMessage(message);
             gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
             m_pipeline.reset(nullptr);
+            Q_EMIT failed();
         }   break;
         default:
             break;

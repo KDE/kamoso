@@ -23,6 +23,8 @@
 namespace QGst {
 namespace Quick {
 
+static void updateCallback(void*, VideoSurface* vs) { vs->onUpdate(); }
+
 VideoSurface::VideoSurface(QObject *parent)
     : QObject(parent), d(new VideoSurfacePrivate)
 {
@@ -30,17 +32,15 @@ VideoSurface::VideoSurface(QObject *parent)
 
 VideoSurface::~VideoSurface()
 {
+    if (d->updateHandler)
+        g_signal_handler_disconnect(d->videoSink, d->updateHandler);
+
     if (d->videoSink) {
         gst_element_set_state(d->videoSink, GST_STATE_NULL);
         gst_object_unref(d->videoSink);
     }
 
     delete d;
-}
-
-static void updateCallback(void*, VideoSurface* vs)
-{
-    vs->onUpdate();
 }
 
 GstElement* VideoSurface::videoSink() const
@@ -58,7 +58,7 @@ GstElement* VideoSurface::videoSink() const
         Q_ASSERT(GST_IS_ELEMENT(d->videoSink));
         Q_ASSERT(G_IS_OBJECT(d->videoSink));
 
-        g_signal_connect(d->videoSink, "update", G_CALLBACK(updateCallback), (gpointer) this);
+        d->updateHandler = g_signal_connect(d->videoSink, "update", G_CALLBACK(updateCallback), (gpointer) this);
     }
 
     return d->videoSink;

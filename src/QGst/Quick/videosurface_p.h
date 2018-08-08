@@ -29,6 +29,7 @@ class VideoSurfacePrivate
 public:
     QSet<VideoItem*> items;
     GstElement* videoSink = nullptr;
+    int updateHandler = 0;
 };
 
 } // namespace Quick
