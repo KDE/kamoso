@@ -14,6 +14,7 @@
   <name xml:lang="el">Kamoso</name>
   <name xml:lang="en-GB">Kamoso</name>
   <name xml:lang="es">Kamoso</name>
+  <name xml:lang="eu">Kamoso</name>
   <name xml:lang="fi">Kamoso</name>
   <name xml:lang="fr">Kamoso</name>
   <name xml:lang="gl">Kamoso</name>
@@ -42,6 +43,7 @@
   <summary xml:lang="de">Mit Kamoso können Sie mit Ihrer Webcam Bilder und Videos aufnehmen</summary>
   <summary xml:lang="en-GB">Use your webcam to take pictures and make videos</summary>
   <summary xml:lang="es">Use su webcam para capturar imágenes y hacer vídeos</summary>
+  <summary xml:lang="eu">Erabili zure web-kamera argazkiak atera eta bideoak egiteko</summary>
   <summary xml:lang="fi">Ota kuvia ja tee videoita web-kamerallasi</summary>
   <summary xml:lang="fr">Utilisez votre webcam pour prendre des photos et enregistrer des vidéos</summary>
   <summary xml:lang="it">Utilizza la tua webcam per scattare foto o registrare video</summary>
@@ -58,6 +60,7 @@
     <p xml:lang="ca-valencia">El Kamoso és un programa senzill i amigable per usar la càmera web. Useu-lo per prendre fotografies o fer vídeos per compartir.</p>
     <p xml:lang="en-GB">Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
     <p xml:lang="es">Kamoso es un programa simple y amigable para usar su webcam. Úselo para capturar imágenes y hacer vídeos que compartir.</p>
+    <p xml:lang="eu">Kamoso zure kamera erabiltzeko programa erraz eta lagunkoia da. Erabili partekatuko diren argazkiak eta bideoak ateratzeko.</p>
     <p xml:lang="fi">Kamoso on yksinkertainen ja helppo ohjelma kameran käyttöön. Voit ottaa sillä jaettavia kuvia ja videoita.</p>
     <p xml:lang="fr">Kamoso est un programme simple et intuitif qui vous permettra d'utiliser votre caméra. Vous pouvez l'utiliser pour prendre des photos et enregistrer des vidéos afin de les partager.</p>
     <p xml:lang="it">Kamoso è un programma semplice e amichevole per utilizzare la tua webcam. Utilizzalo per scattare foto o registrare video da condividere.</p>
