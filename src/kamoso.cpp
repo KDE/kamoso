@@ -30,10 +30,10 @@
 #include <KIO/JobUiDelegate>
 #include <KFormat>
 #include <KJobWidgets/KJobWidgets>
-#include <QtCore/QFile>
-#include <QtCore/QJsonArray>
-#include <QtCore/QDir>
-#include <QtCore/QTemporaryFile>
+#include <QFile>
+#include <QJsonArray>
+#include <QDir>
+#include <QTemporaryFile>
 #include <QIcon>
 
 Kamoso::Kamoso(WebcamControl *webcamControl)

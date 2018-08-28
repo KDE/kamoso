@@ -38,8 +38,8 @@
 #include <gst/gst.h>
 
 #include "QGst/Quick/VideoItem"
-#include <QtCore/QDir>
-#include <QtCore/QDebug>
+#include <QDir>
+#include <QDebug>
 
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>

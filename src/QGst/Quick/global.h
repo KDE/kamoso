@@ -15,15 +15,15 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef QTGSTREAMERQUICK_EXPORT_H
-#define QTGSTREAMERQUICK_EXPORT_H
+#ifndef QTGSTREAMERQUICK_GLOBAL_H
+#define QTGSTREAMERQUICK_GLOBAL_H
 
 // workaround for https://bugreports.qt-project.org/browse/QTBUG-22829
 #if defined(Q_MOC_RUN) && !defined(BOOST_TT_HAS_OPERATOR_HPP_INCLUDED)
 #define BOOST_TT_HAS_OPERATOR_HPP_INCLUDED
 #endif
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 /* defined by cmake when building this library */
 #if defined(QtGStreamerQuick_EXPORTS) || defined(Qt5GStreamerQuick_EXPORTS)

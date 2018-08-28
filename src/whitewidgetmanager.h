@@ -30,7 +30,7 @@ class WhiteWidgetManager : public QObject
     Q_OBJECT
     Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
     public:
-        WhiteWidgetManager(QObject* parent);
+        explicit WhiteWidgetManager(QObject* parent);
         ~WhiteWidgetManager();
 
         qreal opacity() const;

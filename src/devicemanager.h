@@ -20,7 +20,7 @@
 #ifndef DEVICEMANAGER_H
 #define DEVICEMANAGER_H
 
-#include <QtCore/QObject>
+#include <QObject>
 #include <QAbstractListModel>
 #include "device.h"
 

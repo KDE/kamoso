@@ -21,7 +21,7 @@
 
 #include "videosurface.h"
 #include <QtQuick/QQuickItem>
-#include <QtCore/QPointer>
+#include <QPointer>
 
 namespace QGst {
 namespace Quick {

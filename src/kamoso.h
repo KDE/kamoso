@@ -38,7 +38,7 @@ Q_OBJECT
     Q_PROPERTY(QString sampleImage READ sampleImage NOTIFY sampleImageChanged)
 
     public:
-        Kamoso(WebcamControl* webcamControl);
+        explicit Kamoso(WebcamControl* webcamControl);
         virtual ~Kamoso();
 
         bool isRecording() const;
