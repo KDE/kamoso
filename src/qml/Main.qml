@@ -14,7 +14,7 @@ Kirigami.ApplicationWindow
     height: width*3/4
     visible: true
     title: i18n("Kamoso")
-    header: Item {}
+    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.None
 
     function awesomeAnimation(path) {
 //         tada.x = visor.x
