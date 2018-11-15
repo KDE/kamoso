@@ -26,7 +26,7 @@ QString structureValue(GstStructure* device, const char* key)
     return QString::fromUtf8(g_value_get_string(gst_structure_get_value(device, key)));
 }
 
-//     for refrence, the properties can be listed with:
+//     for reference, the properties can be listed with:
 //     gst-device-monitor-1.0 Video/Source
 Device::Device(GstStructure *device, QObject* parent)
     : QObject(parent)
