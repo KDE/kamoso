@@ -85,6 +85,7 @@
   <url type="help">https://docs.kde.org/stable/en/extragear-multimedia/kamoso/user-guide.html</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Kamoso main window</caption>
       <image>https://cdn.kde.org/screenshots/kamoso/kamoso.png</image>
     </screenshot>
   </screenshots>
