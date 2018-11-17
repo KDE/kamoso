@@ -86,6 +86,12 @@
   <screenshots>
     <screenshot type="default">
       <caption>Kamoso main window</caption>
+      <caption xml:lang="ca">Finestra principal del Kamoso</caption>
+      <caption xml:lang="de">Hauptfenster von Kamoso</caption>
+      <caption xml:lang="nl">Hoofdvenster van Kamoso</caption>
+      <caption xml:lang="pt">Janela principal do Kamoso</caption>
+      <caption xml:lang="uk">Головне вікно Kamoso</caption>
+      <caption xml:lang="x-test">xxKamoso main windowxx</caption>
       <image>https://cdn.kde.org/screenshots/kamoso/kamoso.png</image>
     </screenshot>
   </screenshots>
