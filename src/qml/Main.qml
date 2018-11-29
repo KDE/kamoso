@@ -10,11 +10,13 @@ import org.kde.kamoso 3.0
 Kirigami.ApplicationWindow
 {
     id: root
-    width: 700
-    height: width*3/4
     visible: true
     title: i18n("Kamoso")
     pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.None
+    Component.onCompleted: {
+        width = 700
+        height = width*3/4
+    }
 
     function awesomeAnimation(path) {
 //         tada.x = visor.x
