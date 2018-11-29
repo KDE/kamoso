@@ -69,7 +69,7 @@ Kirigami.ApplicationWindow
         mimes: "image/jpeg"
         checkable: false
         iconName: "shoot"
-        text: i18n("Shoot")
+        text: i18n("Take a Picture")
         nameFilter: "picture_*"
 
         onTriggered: {
