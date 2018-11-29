@@ -192,43 +192,11 @@ Kirigami.ApplicationWindow
         rightPadding: 0
         leftPadding: 0
 
-        state: "shoot"
-        states: [
-            State {
-                name: "shoot"
-                PropertyChanges {
-                    target: visor
-                    actions {
-                        left: videoMode.adoptAction
-                        main: photoMode
-                        right: burstMode.adoptAction
-                    }
-                }
-            },
-            State {
-                name: "record"
-                PropertyChanges {
-                    target: visor
-                    actions {
-                        left: photoMode.adoptAction
-                        main: videoMode
-                        right: burstMode.adoptAction
-                    }
-                }
-            },
-
-            State {
-                name: "burst"
-                PropertyChanges {
-                    target: visor
-                    actions {
-                        left: videoMode.adoptAction
-                        main: burstMode
-                        right: photoMode.adoptAction
-                    }
-                }
-            }
-        ]
+        actions {
+            left: videoMode
+            main: photoMode
+            right: burstMode
+        }
 
         Rectangle {
             anchors.fill: parent
