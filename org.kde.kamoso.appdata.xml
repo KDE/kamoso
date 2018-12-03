@@ -89,6 +89,7 @@
       <caption xml:lang="ca">Finestra principal del Kamoso</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kamoso</caption>
       <caption xml:lang="de">Hauptfenster von Kamoso</caption>
+      <caption xml:lang="en-GB">Kamoso main window</caption>
       <caption xml:lang="fi">Kamoson pääikkuna</caption>
       <caption xml:lang="gl">Xanela principal de Kamoso</caption>
       <caption xml:lang="it">La finestra principale di Kamoso</caption>
@@ -98,6 +99,7 @@
       <caption xml:lang="sv">Huvudfönstret i Kamoso</caption>
       <caption xml:lang="uk">Головне вікно Kamoso</caption>
       <caption xml:lang="x-test">xxKamoso main windowxx</caption>
+      <caption xml:lang="zh-TW">Kamoso 主視窗</caption>
       <image>https://cdn.kde.org/screenshots/kamoso/kamoso.png</image>
     </screenshot>
   </screenshots>
