@@ -70,13 +70,13 @@ QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const 
     const QString date = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_hh-mm-ss"));
     const QString initialName =  QStringLiteral("%1_%2.%3").arg(name, date, extension);
 
-    QUrl path(saveUrl.toString() + '/' + initialName);
+    QUrl url(saveUrl.toString() + '/' + initialName);
 
-    if (path.isLocalFile() && QFile::exists(path.toLocalFile())) {
-        path = saveUrl.toString() + '/' + KIO::suggestName(saveUrl, initialName);
+    if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
+        url.setPath(saveUrl.path() + '/' + KIO::suggestName(saveUrl, initialName));
     }
 
-    return path;
+    return url;
 }
 
 const QString Kamoso::takePhoto()
