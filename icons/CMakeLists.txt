@@ -5,7 +5,6 @@ ecm_install_icons(ICONS
     48-apps-kamoso.png
     64-apps-kamoso.png
     sc-apps-kamoso.svgz
-    sc-actions-shoot.svgz
     sc-actions-burst.svgz
     sc-actions-record.svgz
 THEME hicolor

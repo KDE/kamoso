@@ -70,7 +70,7 @@ Kirigami.ApplicationWindow
         id: photoMode
         mimes: "image/jpeg"
         checkable: false
-        iconName: "shoot"
+        iconName: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
 
