@@ -19,25 +19,11 @@ StackView {
         ColumnLayout {
             spacing: 0
             Layout.maximumHeight: Kirigami.Units.gridUnit * 10
-            Image {
-                fillMode: Image.PreserveAspectCrop
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                source: "https://images.unsplash.com/photo-1478809956569-c7ce9654a947?dpr=1&auto=format&fit=crop&w=1500&h=971&q=80&cs=tinysrgb&crop="
-                smooth: true
-
-                Kirigami.Heading {
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        bottom: parent.bottom
-                        margins: Kirigami.Units.smallSpacing * 2
-                    }
-                    level: 1
-                    color: "white"
-                    elide: Text.ElideRight
-                    text: i18n("Share...")
-                }
+            Kirigami.Heading {
+                level: 1
+                color: Kirigami.Theme.textColor
+                elide: Text.ElideRight
+                text: i18n("Share...")
             }
 
             Repeater {

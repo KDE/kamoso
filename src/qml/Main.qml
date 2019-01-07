@@ -159,26 +159,12 @@ Kirigami.ApplicationWindow
 
             QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
 
-            header: Image {
-                    fillMode: Image.PreserveAspectCrop
-                    width: configView.width
-                    height: Kirigami.Units.gridUnit * 10
-                    source: "https://images.unsplash.com/photo-1484781663516-4c4ca4b04a13?dpr=1&auto=format&fit=crop&w=1500&h=1021&q=80&cs=tinysrgb"
-                    smooth: true
-
-                    Kirigami.Heading {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            bottom: parent.bottom
-                            margins: Kirigami.Units.smallSpacing * 2
-                        }
-                        level: 1
-                        color: "white"
-                        elide: Text.ElideRight
-                        text: i18n("Kamoso Gallery")
-                    }
-                }
+            header: Kirigami.Heading {
+                level: 1
+                color: Kirigami.Theme.textColor
+                elide: Text.ElideRight
+                text: i18n("Effects Gallery")
+            }
         }
     }
 
