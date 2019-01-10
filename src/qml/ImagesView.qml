@@ -259,7 +259,7 @@ StackView {
             }
             Kirigami.BasicListItem {
                 icon: "folder-open"
-                label: i18n("Open Folder...")
+                label: i18n("Open Pictures Folder")
                 onClicked: Qt.openUrlExternally(config.saveUrl)
             }
         }
