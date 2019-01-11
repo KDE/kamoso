@@ -7,10 +7,10 @@ import org.kde.kirigami 2.0 as Kirigami
 
 GridView {
     id: view
-    readonly property real delegateWidth: Kirigami.Units.gridUnit*4
-    readonly property int columnCount: Math.floor(width/delegateWidth)
-    cellWidth: width/columnCount
-    cellHeight: cellWidth
+    readonly property int columnCount: 3
+    cellWidth: Math.floor(width / columnCount)
+    cellHeight: cellWidth * 3/4
+
 
     model: ListModel {
         ListElement { filters: "identity" }
@@ -50,30 +50,41 @@ GridView {
         ListElement { filters: "coloreffects preset=xray" }
     }
 
-    delegate: MouseArea {
+    delegate: Rectangle {
+        readonly property int borderWidth: 2
         id: delegateItem
-        width:  GridView.view.cellHeight
-        height: GridView.view.cellWidth
 
-        VideoItem {
-            anchors.fill: parent
+        width: Math.floor(view.width / columnCount) - Kirigami.Units.smallSpacing
+        height: width * 3/4
 
-            PipelineItem {
-                id: pipe
+        color: Kirigami.Theme.textColor
 
-                playing: false
-                onFailed: {
-                    delegateItem.visible = false
-                    view.model.remove(index)
+        MouseArea {
+            anchors.centerIn: parent
+
+            width:  delegateItem.width - (borderWidth * 2)
+            height: delegateItem.height - (borderWidth * 2)
+
+            VideoItem {
+                anchors.fill: parent
+
+                PipelineItem {
+                    id: pipe
+
+                    playing: false
+                    onFailed: {
+                        delegateItem.visible = false
+                        view.model.remove(index)
+                    }
+
+                    description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
                 }
-
-                description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                surface: pipe.surface
             }
-            surface: pipe.surface
-        }
 
-        onClicked: {
-            devicesModel.playingDevice.filters = model.filters
+            onClicked: {
+                devicesModel.playingDevice.filters = model.filters
+            }
         }
     }
 }

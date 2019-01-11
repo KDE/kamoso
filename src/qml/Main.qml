@@ -149,21 +149,25 @@ Kirigami.ApplicationWindow
         modal: true
         width: Kirigami.Units.gridUnit * 20
 
-        leftPadding: 0
-        topPadding: 0
-        rightPadding: 0
-        bottomPadding: 0
+        leftPadding: Kirigami.Units.smallSpacing
+        topPadding: Kirigami.Units.smallSpacing
+        rightPadding: Kirigami.Units.smallSpacing
+        bottomPadding: Kirigami.Units.smallSpacing
 
         contentItem: Config {
             id: configView
 
             QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
 
-            header: Kirigami.Heading {
-                level: 1
-                color: Kirigami.Theme.textColor
-                elide: Text.ElideRight
-                text: i18n("Effects Gallery")
+            header: QQC2.Control {
+                height: effectsGalleryHeading.height + Kirigami.Units.largeSpacing
+                Kirigami.Heading {
+                    id: effectsGalleryHeading
+                    level: 1
+                    color: Kirigami.Theme.textColor
+                    elide: Text.ElideRight
+                    text: i18n("Effects Gallery")
+                }
             }
         }
     }
