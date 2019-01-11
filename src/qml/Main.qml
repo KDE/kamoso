@@ -226,7 +226,7 @@ Kirigami.ApplicationWindow
                 margins: 20
             }
 
-            text: root.pageStack.currentItem.actions.main.modeInfo
+            text: videoMode.checked ? videoMode.modeInfo : burstMode.checked ? burstMode.modeInfo : ""
             color: "white"
             styleColor: "black"
             font.pointSize: 20
