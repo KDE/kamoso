@@ -1,8 +1,8 @@
 import QtQml 2.2
 import QtQuick 2.0
 import QtQuick.Controls 1.2
-import QtQuick.Controls 2.5 as QQC2
-import QtQuick.Layouts 1.2
+import QtQuick.Controls 2.0 as QQC2
+import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
 import org.kde.purpose 1.0
