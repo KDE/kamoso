@@ -269,6 +269,21 @@ StackView {
                         }
                     }
                 }
+
+                Item {
+                    Kirigami.FormData.isSection: true
+                    Kirigami.FormData.label: i18n("Cameras")
+                }
+
+                ComboBox {
+                    Layout.fillWidth: parent
+                    model: devicesModel
+                    textRole: "display"
+                    enabled: count>1
+                    onAccepted: {
+                        devicesModel.playingDeviceUdi = udi
+                    }
+                }
             }
 
             // Otherwise the back button might not always be right on the bottom

@@ -199,24 +199,6 @@ Kirigami.ApplicationWindow
         VideoItem {
             surface: videoSurface1
             anchors.fill: parent
-
-            ColumnLayout {
-                spacing: Kirigami.Units.smallSpacing
-                anchors.margins: Kirigami.Units.smallSpacing
-                anchors.top: parent.top
-                anchors.left: parent.left
-                visible: devicesModel.count>1
-
-                Repeater {
-                    model: devicesModel
-                    delegate: Button {
-                        width: 30
-                        iconName: "camera-web"
-                        tooltip: display
-                        onClicked: devicesModel.playingDeviceUdi = udi
-                    }
-                }
-            }
         }
 
         Text {
