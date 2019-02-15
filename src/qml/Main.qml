@@ -103,7 +103,6 @@ Kirigami.ApplicationWindow
             interval: 1000
             repeat: true
             onTriggered: {
-                whites.showAll()
                 webcam.takePhoto()
                 burstMode.photosTaken++;
             }
