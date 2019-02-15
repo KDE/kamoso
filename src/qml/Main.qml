@@ -101,7 +101,7 @@ Kirigami.ApplicationWindow
         readonly property var smth: Timer {
             id: burstTimer
             running: burstMode.checked
-            interval: 1000
+            interval: 2500
             repeat: true
             onTriggered: {
                 webcam.takePhoto()
