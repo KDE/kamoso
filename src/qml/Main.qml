@@ -91,7 +91,7 @@ Kirigami.ApplicationWindow
         iconName: checked ? "media-playback-stop" : "burst"
         text: checked? i18n("End Burst") : i18n("Capture a Burst")
         property int photosTaken: 0
-        modeInfo: (photosTaken>0 ? i18np("1 photo", "%1 photos", photosTaken) : "") + (checked? "..." : "")
+        modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
         nameFilter: "picture_*"
         enabled: !videoMode.checked
         onCheckedChanged: if (checked) {
