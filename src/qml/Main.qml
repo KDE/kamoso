@@ -93,7 +93,7 @@ Kirigami.ApplicationWindow
         property int photosTaken: 0
         modeInfo: (photosTaken>0 ? i18np("1 photo", "%1 photos", photosTaken) : "") + (checked? "..." : "")
         nameFilter: "picture_*"
-        visible: !videoMode.checked
+        enabled: !videoMode.checked
         onCheckedChanged: if (checked) {
             photosTaken = 0
         }
@@ -117,7 +117,7 @@ Kirigami.ApplicationWindow
         text: i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
-        visible: !burstMode.checked
+        enabled: !burstMode.checked
 
         onCheckedChanged: {
             webcam.isRecording = checked;
