@@ -89,7 +89,7 @@ Kirigami.ApplicationWindow
         mimes: "image/jpeg"
         checkable: true
         iconName: checked ? "media-playback-stop" : "burst"
-        text: i18n("Capture a Burst")
+        text: checked? i18n("End Burst") : i18n("Capture a Burst")
         property int photosTaken: 0
         modeInfo: (photosTaken>0 ? i18np("1 photo", "%1 photos", photosTaken) : "") + (checked? "..." : "")
         nameFilter: "picture_*"
@@ -114,7 +114,7 @@ Kirigami.ApplicationWindow
         mimes: "video/x-matroska"
         checkable: true
         iconName: checked ? "media-playback-stop" : "record"
-        text: i18n("Record a Video")
+        text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
         enabled: !burstMode.checked
