@@ -43,14 +43,12 @@ Kirigami.ApplicationWindow
                 PropertyChanges { target: tada; y: visor.y }
                 PropertyChanges { target: tada; width: visor.width }
                 PropertyChanges { target: tada; height: visor.height }
-                PropertyChanges { target: tada; opacity: 1 }
             },
             State { name: "done"
-                PropertyChanges { target: tada; x: 0 }
+                PropertyChanges { target: tada; x: root.width }
                 PropertyChanges { target: tada; y: root.height }
                 PropertyChanges { target: tada; width: Kirigami.Units.gridUnit }
                 PropertyChanges { target: tada; height: Kirigami.Units.gridUnit }
-                PropertyChanges { target: tada; opacity: 0.5 }
             }
         ]
         transitions: [
@@ -60,8 +58,6 @@ Kirigami.ApplicationWindow
                                 properties: "width,height"; duration: 700; easing.type: Easing.InCubic }
                     NumberAnimation { target: tada
                                 properties: "x,y"; duration: 700; easing.type: Easing.InCubic }
-                    NumberAnimation { target: tada
-                                properties: "opacity"; duration: 300 }
             }
         ]
     }
