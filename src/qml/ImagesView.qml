@@ -324,6 +324,7 @@ StackView {
 
                 level: 2
                 text: xi18nc("@info", "There are no images in <filename>%1</filename>", stack.pathOrUrl(config.saveUrl))
+                wrapMode: Text.Wrap
                 opacity: 0.6
             }
 
