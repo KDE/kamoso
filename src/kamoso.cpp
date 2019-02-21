@@ -81,7 +81,13 @@ QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const 
 
 const QString Kamoso::takePhoto()
 {
-    const QUrl path = fileNameSuggestion(Settings::saveUrl(), "picture", "jpg");
+    const auto saveUrl = Settings::saveUrl();
+    if (saveUrl.isLocalFile()) {
+        qDebug() << "Creating" << saveUrl;
+        QDir().mkpath(saveUrl.toLocalFile());
+    }
+
+    const QUrl path = fileNameSuggestion(saveUrl, "picture", "jpg");
     m_webcamControl->takePhoto(path);
 
     if (path.isLocalFile()) {
