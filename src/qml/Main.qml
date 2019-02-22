@@ -109,7 +109,7 @@ Kirigami.ApplicationWindow
         id: videoMode
         mimes: "video/x-matroska"
         checkable: true
-        iconName: checked ? "media-playback-stop" : "record"
+        iconName: checked ? "media-playback-stop" : "camera-video-symbolic"
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
