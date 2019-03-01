@@ -25,6 +25,8 @@
 #include <whitewidgetmanager.h>
 #include <kamoso.h>
 #include <KIO/CopyJob>
+#include <KNotification>
+#include <KLocalizedString>
 
 #include <gst/gstcaps.h>
 #include <gst/gstpad.h>
@@ -349,6 +351,8 @@ void WebcamControl::takePhoto(const QUrl &url)
     if (!url.isLocalFile()) {
         KIO::copy(QUrl::fromLocalFile(path), url);
     }
+
+    KNotification::event(QStringLiteral("photoTaken"), i18n("Photo taken"), i18n("Saved in %1", url.toDisplayString(QUrl::PreferLocalFile)));
 }
 
 void WebcamControl::startRecording()

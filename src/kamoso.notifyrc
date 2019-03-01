@@ -1,0 +1,9 @@
+[Global]
+Name=Kamoso
+IconName=kamoso
+
+[Event/photoTaken]
+Name=Photo Taken
+Contexts=group
+Sound=Oxygen-Sys-App-Message.ogg
+Action=Sound

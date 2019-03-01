@@ -28,9 +28,10 @@ target_include_directories(kamoso PRIVATE "${GSTREAMER_INCLUDE_DIR}" "${GLIB2_IN
 
 target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick
-    KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n
+    KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n KF5::Notifications
     ${GSTREAMER_LIBRARIES} ${GLIB2_LIBRARIES} ${GOBJECT_LIBRARIES}
 )
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install(FILES kamoso.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
