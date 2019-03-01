@@ -152,6 +152,11 @@ QString DeviceManager::playingDevicePath() const
     return m_playingDevice->path();
 }
 
+QString DeviceManager::udiAt(int i) const
+{
+    return m_deviceList[i]->udi();
+}
+
 QVariant DeviceManager::data(const QModelIndex& index, int role) const
 {
     int row = index.row();

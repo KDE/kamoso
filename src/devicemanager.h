@@ -52,6 +52,8 @@ class DeviceManager : public QAbstractListModel
         void deviceRemoved(_GstDevice *device);
         void deviceAdded(_GstDevice *device);
 
+        Q_SCRIPTABLE QString udiAt(int i) const;
+
     public Q_SLOTS:
         void save();
 

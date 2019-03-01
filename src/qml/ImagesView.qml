@@ -280,8 +280,8 @@ StackView {
                     model: devicesModel
                     textRole: "display"
                     enabled: count>1
-                    onAccepted: {
-                        devicesModel.playingDeviceUdi = udi
+                    onActivated: {
+                        devicesModel.playingDeviceUdi = devicesModel.udiAt(index)
                     }
                 }
             }
