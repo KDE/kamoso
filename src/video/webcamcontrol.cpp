@@ -78,7 +78,8 @@ GstState pipelineCurrentState(const T &pipe)
 {
     GstState currentState, pendingState;
     GstStateChangeReturn result = gst_element_get_state(GST_ELEMENT(pipe.data()), &currentState, &pendingState, GST_CLOCK_TIME_NONE );
-    Q_ASSERT(result != GST_STATE_CHANGE_FAILURE);
+    if(result == GST_STATE_CHANGE_FAILURE)
+        qDebug() << "broken state";
     return currentState;
 }
 
@@ -266,35 +267,37 @@ bool WebcamControl::playDevice(Device *device)
         g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
         return true;
     }
-    
-    //If we are changing the device, cleanup and stop old pipeline
-    if (m_pipeline && m_currentDevice != device->udi()) {
-        //Should we maybe try to just change the device path instead of re-creating?
-        qDebug() << "playing device" << device->path() << pipelineCurrentState(m_pipeline);
+
+    if (m_pipeline)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
-    }
 
-    m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", "video_balance"));
-    // Another option here is to return true, therefore continuing with launching, but
-    // in that case the application is mostly useless.
-    if (m_cameraSource.isNull()) {
-        qWarning() << "The webcam controller was unable to find or load wrappercamerabinsrc plugin;"
-                   << "please make sure all required gstreamer plugins are installed.";
-        return false;
-    }
+    if (!m_cameraSource) {
+        m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", "video_balance"));
+        // Another option here is to return true, therefore continuing with launching, but
+        // in that case the application is mostly useless.
+        if (m_cameraSource.isNull()) {
+            qWarning() << "The webcam controller was unable to find or load wrappercamerabinsrc plugin;"
+                       << "please make sure all required gstreamer plugins are installed.";
+            return false;
+        }
 
-    {
-        GError* error = nullptr;
-        auto source = gst_parse_bin_from_description(QByteArray("v4l2src device=") + device->path().toUtf8(), GST_PARSE_FLAG_FATAL_ERRORS, &error);
-        Q_ASSERT(!error);
+        auto source = gst_element_factory_make("v4l2src", "v4l2src");
         g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
-    m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
-    gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
+    if (m_currentDevice != device->udi()) {
+        GstElement* source;
+        g_object_get(m_cameraSource.data(), "video-source", &source, nullptr);
+        g_object_set(source, "device", device->path().toUtf8().constData(), nullptr);
+    }
 
-    g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
-    g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
+    if (!m_pipeline) {
+        m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
+        gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
+        g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
+        g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
+    }
+
     setVideoSettings();
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_READY);
@@ -313,11 +316,15 @@ void WebcamControl::onBusMessage(GstMessage* message)
     case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
         stop();
         break;
-    case GST_MESSAGE_ERROR: //Some error occurred.
-        qCritical() << debugMessage(message);
+    case GST_MESSAGE_ERROR: {//Some error occurred.
+        static int error = 0;
+        qCritical() << "errorrrrrrrrrrrrrrrrrrrrrrrrr:" << debugMessage(message);
         stop();
-        play();
-        break;
+        if (error < 3) {
+            play();
+            ++error;
+        }
+    }   break;
     case GST_MESSAGE_ELEMENT:
         if (strcmp (GST_MESSAGE_SRC_NAME (message), "camerabin") == 0) {
             auto structure = gst_message_get_structure (message);
@@ -383,7 +390,8 @@ void WebcamControl::setExtraFilters(const QString& extraFilters)
 void WebcamControl::updateSourceFilter()
 {
     const auto prevstate = pipelineCurrentState(m_pipeline);
-    gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
+    if (prevstate != GST_STATE_NULL)
+        gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
     //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
     QString filters = QStringLiteral("videoflip method=4");
@@ -391,10 +399,11 @@ void WebcamControl::updateSourceFilter()
         filters.prepend(m_extraFilters + QStringLiteral(" ! "));
     }
 
-    qDebug() << "setting filter" << filters;
     GError* error = nullptr;
-    g_object_set(m_cameraSource.data(), "video-source-filter", gst_parse_bin_from_description(filters.toUtf8().constData(), true, &error), nullptr);
+    auto elem = gst_parse_bin_from_description(filters.toUtf8().constData(), true, &error);
     Q_ASSERT(!error);
+
+    g_object_set(m_cameraSource.data(), "video-source-filter", elem, nullptr);
 
     if (prevstate != GST_STATE_NULL)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), prevstate);
