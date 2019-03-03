@@ -53,6 +53,13 @@ IconName=kamoso
 
 [Event/photoTaken]
 Name=Photo Taken
+Name[ca]=Foto presa
+Name[gl]=Foto sacada
+Name[nl]=Foto genomen
+Name[sv]=Foto taget
+Name[uk]=Створено фотографію
+Name[x-test]=xxPhoto Takenxx
+Name[zh_TW]=已拍照
 Contexts=group
 Sound=Oxygen-Sys-App-Message.ogg
 Action=Sound
