@@ -61,5 +61,5 @@ Name[uk]=Створено фотографію
 Name[x-test]=xxPhoto Takenxx
 Name[zh_TW]=已拍照
 Contexts=group
-Sound=Oxygen-Sys-App-Message.ogg
+Sound=kamoso-shutter.wav
 Action=Sound

@@ -33,5 +33,6 @@ target_link_libraries(kamoso
 )
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES kamoso.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
+install(FILES kamoso-shutter.wav DESTINATION ${SOUND_INSTALL_DIR})

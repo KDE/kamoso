@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
         about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), "aleixpol@kde.org" );
         about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), "afiestas@kde.org" );
+        about.addCredit( i18n("caseymoura"), i18n("Uploaded the shutter sound: https://freesound.org/people/caseymoura/sounds/445482/"), {} );
         KAboutData::setApplicationData(about);
         QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("kamoso"), app.windowIcon()));
 
