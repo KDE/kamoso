@@ -54,6 +54,7 @@ IconName=kamoso
 [Event/photoTaken]
 Name=Photo Taken
 Name[ca]=Foto presa
+Name[ca@valencia]=Foto presa
 Name[gl]=Foto sacada
 Name[it]=Foto scattata
 Name[nl]=Foto genomen
