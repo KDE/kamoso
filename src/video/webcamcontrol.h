@@ -51,7 +51,7 @@ class WebcamControl : public QObject
         bool play();
         bool playDevice(Device* device);
         void stop();
-        void takePhoto(const QUrl& url);
+        void takePhoto(const QUrl& url, bool emitTaken);
         void startRecording();
         QString stopRecording();
 
@@ -71,6 +71,7 @@ class WebcamControl : public QObject
         QScopedPointer<GstPipeline, GstPointerCleanup<GstPipeline> > m_pipeline;
         QScopedPointer<GstElement, GstPointerCleanup<GstElement> > m_cameraSource;
         QGst::Quick::VideoSurface* m_surface = nullptr;
+        bool m_emitTaken = true;
 };
 
 #endif // WEBCAMCONTROL_H

@@ -318,7 +318,7 @@ void WebcamControl::onBusMessage(GstMessage* message)
         break;
     case GST_MESSAGE_ERROR: {//Some error occurred.
         static int error = 0;
-        qCritical() << "errorrrrrrrrrrrrrrrrrrrrrrrrr:" << debugMessage(message);
+        qCritical() << "error:" << debugMessage(message);
         stop();
         if (error < 3) {
             play();
@@ -330,7 +330,8 @@ void WebcamControl::onBusMessage(GstMessage* message)
             auto structure = gst_message_get_structure (message);
             if (gst_structure_get_name (structure) == QByteArray("image-done")) {
                 const gchar *filename = gst_structure_get_string (structure, "filename");
-                Q_EMIT photoTaken(QString::fromUtf8(filename));
+                if (m_emitTaken)
+                    Q_EMIT photoTaken(QString::fromUtf8(filename));
             }
         } else {
             qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
@@ -342,12 +343,14 @@ void WebcamControl::onBusMessage(GstMessage* message)
         break;
     }
 }
-void WebcamControl::takePhoto(const QUrl &url)
+void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
 {
     if (!m_pipeline) {
         qWarning() << "couldn't take photo, no pipeline";
         return;
     }
+    m_emitTaken = emitTaken;
+
     g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
     const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";

@@ -51,16 +51,6 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
         if (!dirlist.isEmpty())
             m_sampleImagePath = dirlist.first().absoluteFilePath();
     }
-
-    if (m_sampleImagePath.isEmpty()) {
-        QTemporaryFile* temporary = new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg"), this);
-        temporary->open();
-        auto sampleIcon = QIcon::fromTheme(QStringLiteral("kde"));
-        sampleIcon.pixmap(200, 200).save(temporary);
-
-        m_sampleImagePath = temporary->fileName();
-        temporary->close();
-    }
 }
 
 Kamoso::~Kamoso() = default;
@@ -88,7 +78,7 @@ const QString Kamoso::takePhoto()
     }
 
     const QUrl path = fileNameSuggestion(saveUrl, "picture", "jpg");
-    m_webcamControl->takePhoto(path);
+    m_webcamControl->takePhoto(path, true);
 
     if (path.isLocalFile()) {
         m_sampleImagePath = path.toLocalFile();
@@ -146,4 +136,17 @@ void Kamoso::trashFiles(const QJsonArray& urls)
     KIO::Job* job = KIO::trash(list);
     KIO::FileUndoManager::self()->recordJob(KIO::FileUndoManager::Trash, list, QUrl("trash:/"), job);
 //     KJobWidgets::setWindow(job, window);
+}
+
+QString Kamoso::sampleImage()
+{
+    if (m_sampleImagePath.isEmpty()) {
+        QScopedPointer<QTemporaryFile> temporary(new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg"), this));
+        temporary->open();
+        m_sampleImagePath = temporary->fileName();
+        temporary->close();
+
+        m_webcamControl->takePhoto(QUrl::fromLocalFile(m_sampleImagePath), false);
+    }
+    return m_sampleImagePath;
 }

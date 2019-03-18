@@ -46,7 +46,7 @@ Q_OBJECT
         void setRecording(bool recording);
 
         Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
-        QString sampleImage() const { return m_sampleImagePath; }
+        QString sampleImage();
 
     public Q_SLOTS:
         const QString takePhoto();

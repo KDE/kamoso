@@ -77,7 +77,8 @@ GridView {
                         view.model.remove(index)
                     }
 
-                    description: "filesrc location=\"" + webcam.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                    readonly property string sampleImage: view.visible ? webcam.sampleImage : ""
+                    description: "filesrc location=\"" + sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
                 }
                 surface: pipe.surface
             }
