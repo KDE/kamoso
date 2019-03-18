@@ -50,6 +50,12 @@ GridView {
         ListElement { filters: "coloreffects preset=xray" }
     }
 
+
+    property string sampleImage: ""
+    onVisibleChanged: if (view.visible) {
+        sampleImage = webcam.sampleImage
+    }
+
     delegate: Rectangle {
         readonly property int borderWidth: 2
         id: delegateItem
@@ -77,8 +83,7 @@ GridView {
                         view.model.remove(index)
                     }
 
-                    readonly property string sampleImage: view.visible ? webcam.sampleImage : ""
-                    description: "filesrc location=\"" + sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                    description: "filesrc location=\"" + view.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
                 }
                 surface: pipe.surface
             }

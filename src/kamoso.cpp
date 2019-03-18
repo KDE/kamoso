@@ -44,13 +44,6 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
 
     connect(m_webcamControl, &WebcamControl::photoTaken, this, &Kamoso::photoTaken);
     connect(&m_recordingTimer, &QTimer::timeout, this, &Kamoso::recordingTimeChanged);
-
-    if (Settings::saveUrl().isLocalFile()) {
-        const QDir dir(Settings::saveUrl().toLocalFile());
-        const auto dirlist = dir.entryInfoList({"*.jpg"}, QDir::Files, QDir::SortFlag::Time);
-        if (!dirlist.isEmpty())
-            m_sampleImagePath = dirlist.first().absoluteFilePath();
-    }
 }
 
 Kamoso::~Kamoso() = default;
