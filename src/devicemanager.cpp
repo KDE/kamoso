@@ -58,7 +58,7 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     gst_bus_add_watch (bus, deviceMonitorWatch, m_monitor);
     gst_object_unref (bus);
 
-    GstCaps *caps = gst_caps_new_empty_simple ("video/x-raw");
+    GstCaps *caps = gst_caps_new_empty_simple ("image/jpeg");
     gst_device_monitor_add_filter (m_monitor, "Video/Source", caps);
     gst_caps_unref (caps);
 
@@ -174,7 +174,7 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
 
 void DeviceManager::deviceAdded(GstDevice* device)
 {
-    auto st= gst_device_get_properties(device);
+    auto st = gst_device_get_properties(device);
 
     const int s = m_deviceList.size();
     beginInsertRows({}, s, s);
