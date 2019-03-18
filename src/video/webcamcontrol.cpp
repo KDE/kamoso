@@ -362,7 +362,9 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
         KIO::copy(QUrl::fromLocalFile(path), url);
     }
 
-    KNotification::event(QStringLiteral("photoTaken"), i18n("Photo taken"), i18n("Saved in %1", url.toDisplayString(QUrl::PreferLocalFile)));
+    if (emitTaken) {
+        KNotification::event(QStringLiteral("photoTaken"), i18n("Photo taken"), i18n("Saved in %1", url.toDisplayString(QUrl::PreferLocalFile)));
+    }
 }
 
 void WebcamControl::startRecording()
