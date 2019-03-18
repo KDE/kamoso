@@ -124,6 +124,7 @@ Kirigami.ApplicationWindow
         edge: Qt.RightEdge
         drawerOpen: false
         handleVisible: true
+        handleClosedIcon.source: "configure"
         modal: true
 
         leftPadding: 0
@@ -143,6 +144,9 @@ Kirigami.ApplicationWindow
         edge: Qt.LeftEdge
         drawerOpen: false
         handleVisible: true
+        // TODO: add this once Kirigami gains support for customizing
+        // globalDrawer handle icons in https://bugs.kde.org/show_bug.cgi?id=405598
+        // handleClosedIcon.source: "special-effects-symbolic"
         modal: true
         width: Kirigami.Units.gridUnit * 20
 
