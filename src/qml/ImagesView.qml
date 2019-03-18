@@ -273,13 +273,15 @@ StackView {
                 Item {
                     Kirigami.FormData.isSection: true
                     Kirigami.FormData.label: i18n("Cameras")
+                    visible: camerasCombo.visible
                 }
 
                 ComboBox {
+                    id: camerasCombo
                     Layout.fillWidth: parent
                     model: devicesModel
                     textRole: "display"
-                    enabled: count>1
+                    visible: count>1
                     onActivated: {
                         devicesModel.playingDeviceUdi = devicesModel.udiAt(index)
                     }
