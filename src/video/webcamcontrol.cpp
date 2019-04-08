@@ -394,21 +394,32 @@ void WebcamControl::setExtraFilters(const QString& extraFilters)
 
 void WebcamControl::updateSourceFilter()
 {
+    if (!m_pipeline)
+        return;
+
     const auto prevstate = pipelineCurrentState(m_pipeline);
     if (prevstate != GST_STATE_NULL)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
     //videoflip: use video-direction=horiz, method is deprecated, not changing now because video-direction doesn't seem to be available on gstreamer 1.8 which is still widely used
-    QString filters = QStringLiteral("videoflip method=4");
+    QString filters = m_mirror ? QStringLiteral("videoflip method=4") : QStringLiteral("videoflip method=1");
     if (!m_extraFilters.isEmpty()) {
-        filters.prepend(m_extraFilters + QStringLiteral(" ! "));
+        if (!filters.isEmpty())
+            filters.prepend(QStringLiteral(" ! "));
+        filters.prepend(m_extraFilters);
     }
 
-    GError* error = nullptr;
-    auto elem = gst_parse_bin_from_description(filters.toUtf8().constData(), true, &error);
-    Q_ASSERT(!error);
-
-    g_object_set(m_cameraSource.data(), "video-source-filter", elem, nullptr);
+    if (!filters.isEmpty()) {
+        GError* error = nullptr;
+        auto elem = gst_parse_bin_from_description(filters.toUtf8().constData(), true, &error);
+        if (error) {
+            qDebug() << "error" << error->message;
+        }
+        Q_ASSERT(!error);
+        g_object_set(m_cameraSource.data(), "video-source-filter", elem, nullptr);
+    } else {
+        g_object_set(m_cameraSource.data(), "video-source-filter", nullptr, nullptr);
+    }
 
     if (prevstate != GST_STATE_NULL)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), prevstate);

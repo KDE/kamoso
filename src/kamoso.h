@@ -36,6 +36,7 @@ Q_OBJECT
     Q_PROPERTY(bool isRecording READ isRecording WRITE setRecording NOTIFY isRecordingChanged)
     Q_PROPERTY(QString recordingTime READ recordingTime NOTIFY recordingTimeChanged)
     Q_PROPERTY(QString sampleImage READ sampleImage NOTIFY sampleImageChanged)
+    Q_PROPERTY(bool mirrored READ mirrored WRITE setMirrored NOTIFY mirroredChanged)
 
     public:
         explicit Kamoso(WebcamControl* webcamControl);
@@ -47,6 +48,9 @@ Q_OBJECT
 
         Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
         QString sampleImage();
+        void setMirrored(bool m);
+
+        bool mirrored() const;
 
     public Q_SLOTS:
         const QString takePhoto();
@@ -57,6 +61,7 @@ Q_OBJECT
         void isRecordingChanged(bool isRecording);
         void recordingTimeChanged();
         void sampleImageChanged(const QString &sampleImage);
+        void mirroredChanged(bool mirrored);
 
     private:
         QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;

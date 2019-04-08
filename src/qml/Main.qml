@@ -80,6 +80,13 @@ Kirigami.ApplicationWindow
             onPhotoTaken: awesomeAnimation(path)
         }
     }
+
+    Binding {
+        target: webcam
+        property: "mirrored"
+        value: config.mirrored
+    }
+
     Mode {
         id: burstMode
         mimes: "image/jpeg"

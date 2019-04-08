@@ -21,7 +21,6 @@ GridView {
         ListElement { filters: "dicetv" }
         ListElement { filters: "frei0r-filter-distort0r" }
         ListElement { filters: "edgetv" }
-        ListElement { filters: "videoflip method=horizontal-flip" }
         ListElement { filters: "coloreffects preset=heat" }
         ListElement { filters: "videobalance saturation=0 ! agingtv" }
         ListElement { filters: "videobalance saturation=1.5 hue=-0.5" }

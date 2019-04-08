@@ -46,6 +46,15 @@ class WebcamControl : public QObject
         virtual ~WebcamControl();
 
         void onBusMessage(GstMessage* msg);
+        void setMirrored(bool m) {
+            if (m != m_mirror) {
+                m_mirror = m;
+                updateSourceFilter();
+                Q_EMIT mirroredChanged(m);
+            }
+        }
+
+        bool mirrored() const { return m_mirror; }
 
     public Q_SLOTS:
         bool play();
@@ -60,6 +69,7 @@ class WebcamControl : public QObject
 
     Q_SIGNALS:
         void photoTaken(const QString &photoUrl);
+        void mirroredChanged(bool mirrored);
 
     private:
         void updateSourceFilter();
@@ -72,6 +82,7 @@ class WebcamControl : public QObject
         QScopedPointer<GstElement, GstPointerCleanup<GstElement> > m_cameraSource;
         QGst::Quick::VideoSurface* m_surface = nullptr;
         bool m_emitTaken = true;
+        bool m_mirror = true;
 };
 
 #endif // WEBCAMCONTROL_H

@@ -11,12 +11,16 @@
 			<label>Where the photos are saved.</label>
 			<default code="true">QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation))</default>
 		</entry>
-		<entry name="saveVideos" type="Url" key="saveUrl">
+		<entry name="saveVideos" type="Url" key="saveVideos">
 			<label>Where the photos are saved.</label>
 			<default code="true">QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation))</default>
 		</entry>
 	</group>
     <group name="WebcamSettings">
+        <entry name="mirrored" type="bool">
+            <default>true</default>
+            <label>Vertically mirror the camera view.</label>
+        </entry>
         <entry name="deviceUdi" type="String" key="deviceUdi">
             <label>Points to the last used webcam.</label>
         </entry>

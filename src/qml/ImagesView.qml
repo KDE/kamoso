@@ -286,6 +286,12 @@ StackView {
                         devicesModel.playingDeviceUdi = devicesModel.udiAt(index)
                     }
                 }
+
+                CheckBox {
+                    Kirigami.FormData.label: i18n("Mirror camera")
+                    checked: config.mirrored
+                    onCheckedChanged: config.mirrored = checked
+                }
             }
 
             // Otherwise the back button might not always be right on the bottom
@@ -352,7 +358,6 @@ StackView {
                 label: enabled ? i18np("Move %1 Item to Trash", "Move %1 Items to Trash", view.selection.length) : i18n("Move Item to Trash")
 
                 onClicked: {
-                    console.log("Trash, FFS!!", view.selection);
                     webcam.trashFiles(view.selection);
                 }
             }

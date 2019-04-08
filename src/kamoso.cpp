@@ -42,6 +42,7 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
     m_recordingTime.restart();
     m_recordingTimer.setInterval(30);
 
+    connect(m_webcamControl, &WebcamControl::mirroredChanged, this, &Kamoso::mirroredChanged);
     connect(m_webcamControl, &WebcamControl::photoTaken, this, &Kamoso::photoTaken);
     connect(&m_recordingTimer, &QTimer::timeout, this, &Kamoso::recordingTimeChanged);
 }
@@ -142,4 +143,14 @@ QString Kamoso::sampleImage()
         m_webcamControl->takePhoto(QUrl::fromLocalFile(m_sampleImagePath), false);
     }
     return m_sampleImagePath;
+}
+
+bool Kamoso::mirrored() const
+{
+    return m_webcamControl->mirrored();
+}
+
+void Kamoso::setMirrored(bool m)
+{
+    m_webcamControl->setMirrored(m);
 }
