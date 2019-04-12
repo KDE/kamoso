@@ -50,6 +50,7 @@ Name[x-test]=xxKamosoxx
 Name[zh_CN]=Kamoso
 Name[zh_TW]=Kamoso
 IconName=kamoso
+DesktopEntry=org.kde.kamoso
 
 [Event/photoTaken]
 Name=Photo Taken
