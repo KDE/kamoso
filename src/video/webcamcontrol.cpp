@@ -195,7 +195,7 @@ private:
     bool m_playing = false;
     bool m_complete = false;
     QString m_description;
-    QScopedPointer<GstPipeline, GstPointerCleanup<GstPipeline>> m_pipeline;
+    GstPointer<GstPipeline> m_pipeline;
     QGst::Quick::VideoSurface * const m_surface;
 };
 

@@ -23,19 +23,11 @@
 #include <QObject>
 #include <QUrl>
 
+#include "gstpointer.h"
 #include <gst/gstpipeline.h>
 #include <gst/gstmessage.h>
 
 namespace QGst { namespace Quick { class VideoSurface; } }
-
-template <typename T>
-struct GstPointerCleanup
-{
-    static inline void cleanup(T *pointer)
-    {
-        if (pointer) gst_object_unref (pointer);
-    }
-};
 
 class Device;
 class WebcamControl : public QObject
@@ -78,8 +70,8 @@ class WebcamControl : public QObject
         QString m_extraFilters;
         QString m_tmpVideoPath;
         QString m_currentDevice;
-        QScopedPointer<GstPipeline, GstPointerCleanup<GstPipeline> > m_pipeline;
-        QScopedPointer<GstElement, GstPointerCleanup<GstElement> > m_cameraSource;
+        GstPointer<GstPipeline> m_pipeline;
+        GstPointer<GstElement> m_cameraSource;
         QGst::Quick::VideoSurface* m_surface = nullptr;
         bool m_emitTaken = true;
         bool m_mirror = true;
