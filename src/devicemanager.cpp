@@ -181,6 +181,8 @@ void DeviceManager::deviceAdded(GstDevice* device)
     m_deviceList.append(new Device(st, this));
     endInsertRows();
 
+    gst_structure_free(st);
+
     if (!m_playingDevice) {
         setPlayingDeviceUdi(m_deviceList.first()->udi());
     }
