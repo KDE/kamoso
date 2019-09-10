@@ -12,7 +12,7 @@ Kirigami.ApplicationWindow
     id: root
     visible: true
     title: i18n("Kamoso")
-    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.None
+    pageStack.globalToolBar.toolbarActionAlignment: Qt.AlignCenter
     Component.onCompleted: {
         width = 700
         height = width*3/4
