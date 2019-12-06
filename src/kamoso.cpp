@@ -29,6 +29,7 @@
 #include <KIO/FileUndoManager>
 #include <KIO/JobUiDelegate>
 #include <KFormat>
+#include <KFileUtils>
 #include <KJobWidgets/KJobWidgets>
 #include <QFile>
 #include <QJsonArray>
@@ -57,7 +58,7 @@ QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const 
     QUrl url(saveUrl.toString() + '/' + initialName);
 
     if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-        url.setPath(saveUrl.path() + '/' + KIO::suggestName(saveUrl, initialName));
+        url.setPath(saveUrl.path() + '/' + KFileUtils::suggestName(saveUrl, initialName));
     }
 
     return url;
