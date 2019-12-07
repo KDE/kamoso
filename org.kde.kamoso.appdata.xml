@@ -22,6 +22,7 @@
   <name xml:lang="id">Kamoso</name>
   <name xml:lang="it">Kamoso</name>
   <name xml:lang="ko">Kamoso</name>
+  <name xml:lang="lt">Kamoso</name>
   <name xml:lang="nl">Kamoso</name>
   <name xml:lang="nn">Kamoso</name>
   <name xml:lang="pl">Kamoso</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="id">Gunakan untuk webcam-mu untuk mengambil gambar dan membuat video</summary>
   <summary xml:lang="it">Utilizza la tua webcam per scattare foto o registrare video</summary>
   <summary xml:lang="ko">웹캠으로 사진을 찍거나 동영상 녹화하기</summary>
+  <summary xml:lang="lt">Naudokite savo kamerą norėdami fotografuoti ar filmuoti vaizdo įrašus</summary>
   <summary xml:lang="nl">Uw webcam te gebruiken om foto's of video's te maken</summary>
   <summary xml:lang="nn">Bruk nettkamera for å ta bilete og laga videoar</summary>
   <summary xml:lang="pl">Używaj swojej kamerki do robienia zdjęć i filmów</summary>
@@ -79,6 +81,7 @@
     <p xml:lang="id">Kamoso adalah program yang mudah dan sederhana untuk penggunaan kameramu. Gunakan ini untuk mengambil gambar dan membuat video untuk dibagikan.</p>
     <p xml:lang="it">Kamoso è un programma semplice e amichevole per utilizzare la tua webcam. Utilizzalo per scattare foto o registrare video da condividere.</p>
     <p xml:lang="ko">Kamoso는 카메라를 사용하는 간단하고 편한 프로그램입니다. 사진과 동영상을 찍고 공유할 수 있습니다.</p>
+    <p xml:lang="lt">Kamoso yra paprasta ir draugiška kamerai naudoti skirta programa. Naudokite ją norėdami fotografuoti ar filmuoti vaizdo įrašus, skirtus bendrinti.</p>
     <p xml:lang="nl">Kamoso is een eenvoudig en vriendelijk programma om uw camera te gebruiken. Gebruik het om foto's en video's te maken en te delen.</p>
     <p xml:lang="nn">Kamoso er eit brukarvennleg program der du kan bruka nettkameraet ditt til å ta bilete eller laga videoar for å dela med andre.</p>
     <p xml:lang="pl">Kamoso jest prostym i przyjaznym użytkownikowi programem do używania kamerki internetowej. Używaj go do robienia zdjęć i filmów do udostępnienia w sieci.</p>
@@ -112,6 +115,7 @@
       <caption xml:lang="id">Window utama Kamoso</caption>
       <caption xml:lang="it">La finestra principale di Kamoso</caption>
       <caption xml:lang="ko">Kamoso 주 창</caption>
+      <caption xml:lang="lt">Kamoso pagrindinis langas</caption>
       <caption xml:lang="nl">Hoofdvenster van Kamoso</caption>
       <caption xml:lang="nn">Hovudvindauge i Kamoso</caption>
       <caption xml:lang="pl">Główne okno Kamoso</caption>
