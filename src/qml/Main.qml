@@ -31,6 +31,8 @@ Kirigami.ApplicationWindow
     visible: true
     title: i18n("Kamoso")
     pageStack.globalToolBar.toolbarActionAlignment: Qt.AlignCenter
+    minimumWidth: 320
+    minimumHeight: 240 + pageStack.globalToolBar.height
     Component.onCompleted: {
         width = 700
         height = width*3/4
