@@ -61,6 +61,7 @@
   <summary xml:lang="pt">Use a sua Webcam para tirar fotografias ou criar vídeos</summary>
   <summary xml:lang="pt-BR">Use sua webcam para tirar fotos e gravar vídeos</summary>
   <summary xml:lang="sk">Použite vašu webkameru na tvorbu fotiek alebo natáčanie videa</summary>
+  <summary xml:lang="sl">Uporabite spletno kamero za fotografiranje in video posnetke</summary>
   <summary xml:lang="sv">Använda din webbkamera för att ta bilder eller göra videor</summary>
   <summary xml:lang="uk">Kamoso — чудова програма для використання вашої вебкамери для створення знімків або запису відео</summary>
   <summary xml:lang="x-test">xxUse your webcam to take pictures and make videosxx</summary>
@@ -90,6 +91,7 @@
     <p xml:lang="pt">O Kamoso é um programa simples e amigável para usar a sua Webcam. Use-a para tirar fotografias ou criar vídeos para partilhar.</p>
     <p xml:lang="pt-BR">O Kamoso é um programa simples e amigável para usar sua webcam. Use-o para tirar fotos e gravar vídeos e compartilhá-los.</p>
     <p xml:lang="sk">Kamoso je jednoduchý program na použitie vašej webkamery na tvorbu fotiek alebo natáčanie videa.</p>
+    <p xml:lang="sl">Kamoso je preprost in prijazen program za uporabo foto naprave. Uporabite ga za zajem slik in videov za skupno rabo.</p>
     <p xml:lang="sv">Kamoso är ett enkelt och trevligt program för att använda din kamera. Använd det för att ta bilder eller göra videor att dela med dig av.</p>
     <p xml:lang="uk">Kamoso — проста і дружня до користувача програма для використання вашої вебкамери для створення знімків або запису відео.</p>
     <p xml:lang="x-test">xxKamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.xx</p>
@@ -125,6 +127,7 @@
       <caption xml:lang="pt">Janela principal do Kamoso</caption>
       <caption xml:lang="pt-BR">Janela principal do Kamoso</caption>
       <caption xml:lang="sk">Hlavné okno Kamoso</caption>
+      <caption xml:lang="sl">Glavno okno Kamoso</caption>
       <caption xml:lang="sv">Huvudfönstret i Kamoso</caption>
       <caption xml:lang="uk">Головне вікно Kamoso</caption>
       <caption xml:lang="x-test">xxKamoso main windowxx</caption>
