@@ -302,8 +302,6 @@ bool WebcamControl::playDevice(Device *device)
     setVideoSettings();
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_READY);
-    auto caps = gst_caps_from_string("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive");
-    g_object_set(m_pipeline.data(), "viewfinder-caps", caps, nullptr);
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 
