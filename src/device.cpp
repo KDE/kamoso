@@ -23,7 +23,10 @@
 
 QString structureValue(GstStructure* device, const char* key)
 {
-    return QString::fromUtf8(g_value_get_string(gst_structure_get_value(device, key)));
+    auto x = gst_structure_get_value(device, key);
+    if (!x)
+        return {};
+    return QString::fromUtf8(g_value_get_string(x));
 }
 
 //     for reference, the properties can be listed with:
