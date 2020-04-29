@@ -272,7 +272,7 @@ bool WebcamControl::playDevice(Device *device)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
     if (!m_cameraSource) {
-        m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", "video_balance"));
+        m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", ""));
         // Another option here is to return true, therefore continuing with launching, but
         // in that case the application is mostly useless.
         if (m_cameraSource.isNull()) {
@@ -285,10 +285,11 @@ bool WebcamControl::playDevice(Device *device)
         g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
-    if (m_currentDevice != device->udi()) {
-        GstElement* source;
-        g_object_get(m_cameraSource.data(), "video-source", &source, nullptr);
-        g_object_set(source, "device", device->path().toUtf8().constData(), nullptr);
+    GstElement* source;
+    g_object_get(m_cameraSource.data(), "video-source", &source, nullptr);
+    if (m_currentDevice != device->udi() || !source) {
+        source = device->createElement();
+        g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
     if (!m_pipeline) {
@@ -301,8 +302,6 @@ bool WebcamControl::playDevice(Device *device)
     setVideoSettings();
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_READY);
-    auto caps = gst_caps_from_string("video/x-raw, framerate=(fraction){30/1, 15/1}, width=(int)640, height=(int)480, format=(string){YUY2}, pixel-aspect-ratio=(fraction)1/1, interlace-mode=(string)progressive");
-    g_object_set(m_pipeline.data(), "viewfinder-caps", caps, nullptr);
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 

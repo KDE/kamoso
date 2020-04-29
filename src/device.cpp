@@ -23,18 +23,23 @@
 
 QString structureValue(GstStructure* device, const char* key)
 {
-    return QString::fromUtf8(g_value_get_string(gst_structure_get_value(device, key)));
+    auto x = gst_structure_get_value(device, key);
+    if (!x)
+        return {};
+    return QString::fromUtf8(g_value_get_string(x));
 }
 
 //     for reference, the properties can be listed with:
 //     gst-device-monitor-1.0 Video/Source
-Device::Device(GstStructure *device, QObject* parent)
+Device::Device(GstDevice *device, QObject* parent)
     : QObject(parent)
-    , m_description(structureValue(device, "device.product.name"))
-    , m_udi(structureValue(device, "sysfs.path"))
-    , m_path(structureValue(device, "device.path"))
+    , m_description(gst_device_get_display_name(device))
+    , m_device(device)
 {
-    qDebug() << "new device" << m_description << m_udi << m_path;
+    auto st = gst_device_get_properties(device);
+    m_udi = structureValue(st, "sysfs.path");
+    m_path = structureValue(st, "device.path");
+    gst_structure_free(st);
 }
 
 Device::~Device()
@@ -47,6 +52,11 @@ void Device::reset()
     Q_EMIT filtersChanged(m_filters);
 }
 
+bool Device::isValid() const
+{
+    return !m_udi.isEmpty() && !m_path.isEmpty();
+}
+
 void Device::setFilters(const QString &newFilters)
 {
     if (newFilters == m_filters) {
@@ -55,4 +65,9 @@ void Device::setFilters(const QString &newFilters)
 
     m_filters = newFilters;
     Q_EMIT filtersChanged(newFilters);
+}
+
+GstElement* Device::createElement()
+{
+    return gst_device_create_element(m_device, m_description.toUtf8().constData());
 }
