@@ -21,7 +21,7 @@
 #define DEVICE_H
 
 #include <QObject>
-#include <gst/gststructure.h>
+#include <gst/gstdevice.h>
 
 #include <KSharedConfig>
 
@@ -33,7 +33,7 @@ class Device : public QObject
     Q_PROPERTY(QString filters READ filters WRITE setFilters NOTIFY filtersChanged)
 
     public:
-        Device(GstStructure *structure, QObject* parent);
+        Device(GstDevice* device, QObject* parent);
         ~Device();
         QString description() const { return m_description; }
         QString udi() const { return m_udi; }
@@ -41,6 +41,9 @@ class Device : public QObject
         void setFilters(const QString &filters);
         QString filters() const { return m_filters; }
 
+        GstElement* createElement();
+
+        bool isValid() const;
         void reset();
 
     Q_SIGNALS:
@@ -48,8 +51,9 @@ class Device : public QObject
 
     private:
         const QString m_description;
-        const QString m_udi;
-        const QString m_path;
+        GstDevice *const m_device;
+        QString m_udi;
+        QString m_path;
         QString m_filters;
 };
 
