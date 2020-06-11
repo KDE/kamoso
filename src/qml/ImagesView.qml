@@ -24,7 +24,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
 import org.kde.purpose 1.0
-import org.kde.kirigami 2.4 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 
 StackView {
     id: stack
@@ -338,20 +338,15 @@ StackView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 mimeFilter: [stack.mimeFilter]
-            }
 
-            Kirigami.Heading {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+                Kirigami.PlaceholderMessage {
+                    anchors.centerIn: parent
+                    width: parent.width - (4 * Kirigami.Units.largeSpacing)
 
-                visible: view.count == 0
+                    visible: view.count == 0
 
-                level: 2
-                text: xi18nc("@info", "There are no images in <filename>%1</filename>", stack.pathOrUrl(config.saveUrl))
-                wrapMode: Text.Wrap
-                opacity: 0.6
+                    text: xi18nc("@info", "There are no images in <filename>%1</filename>", stack.pathOrUrl(config.saveUrl))
+                }
             }
 
             Kirigami.Separator {
