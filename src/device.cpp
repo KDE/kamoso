@@ -37,7 +37,13 @@ Device::Device(GstDevice *device, QObject* parent)
     , m_device(device)
 {
     auto st = gst_device_get_properties(device);
-    m_udi = structureValue(st, "sysfs.path");
+    
+    gboolean udev_probed;
+    if (gst_structure_get_boolean(st, "udev-probed", &udev_probed) && !udev_probed)
+        m_udi = structureValue(st, "device.path");
+    else
+        m_udi = structureValue(st, "sysfs.path");
+    
     m_path = structureValue(st, "device.path");
     gst_structure_free(st);
 }

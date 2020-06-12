@@ -191,8 +191,9 @@ void DeviceManager::deviceAdded(GstDevice* device)
 
 void DeviceManager::deviceRemoved(GstDevice* device)
 {
-    auto st(gst_device_get_properties(device));
-    auto udi = structureValue(st, "sysfs.path");
+    auto removedDevice = new Device(device, this);
+    auto udi = removedDevice->udi();
+    delete removedDevice;
 
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);
