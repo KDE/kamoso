@@ -191,9 +191,8 @@ void DeviceManager::deviceAdded(GstDevice* device)
 
 void DeviceManager::deviceRemoved(GstDevice* device)
 {
-    auto removedDevice = new Device(device, this);
-    auto udi = removedDevice->udi();
-    delete removedDevice;
+    auto st = gst_device_get_properties(device);
+    auto udi = udiFromProperties(st);
 
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);

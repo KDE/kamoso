@@ -26,6 +26,7 @@
 #include <KSharedConfig>
 
 QString structureValue(GstStructure* device, const char* key);
+QString udiFromProperties(GstStructure* deviceProperties);
 
 class Device : public QObject
 {

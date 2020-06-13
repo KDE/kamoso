@@ -29,6 +29,18 @@ QString structureValue(GstStructure* device, const char* key)
     return QString::fromUtf8(g_value_get_string(x));
 }
 
+QString udiFromProperties(GstStructure* deviceProperties)
+{
+    QString udi;
+    gboolean udev_probed;
+    if (gst_structure_get_boolean(deviceProperties, "udev-probed", &udev_probed) && !udev_probed)
+        udi = structureValue(deviceProperties, "device.path");
+    else
+        udi = structureValue(deviceProperties, "sysfs.path");
+    
+    return udi;
+}
+
 //     for reference, the properties can be listed with:
 //     gst-device-monitor-1.0 Video/Source
 Device::Device(GstDevice *device, QObject* parent)
@@ -37,13 +49,7 @@ Device::Device(GstDevice *device, QObject* parent)
     , m_device(device)
 {
     auto st = gst_device_get_properties(device);
-    
-    gboolean udev_probed;
-    if (gst_structure_get_boolean(st, "udev-probed", &udev_probed) && !udev_probed)
-        m_udi = structureValue(st, "device.path");
-    else
-        m_udi = structureValue(st, "sysfs.path");
-    
+    m_udi = udiFromProperties(st);
     m_path = structureValue(st, "device.path");
     gst_structure_free(st);
 }
