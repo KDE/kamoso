@@ -34,6 +34,7 @@
   <name xml:lang="sv">Kamoso</name>
   <name xml:lang="tr">Kamoso</name>
   <name xml:lang="uk">Kamoso</name>
+  <name xml:lang="x-test">xxKamosoxx</name>
   <name xml:lang="zh-CN">Kamoso</name>
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Use your webcam to take pictures and make videos</summary>
@@ -63,6 +64,7 @@
   <summary xml:lang="sl">Uporabite spletno kamero za fotografiranje in video posnetke</summary>
   <summary xml:lang="sv">Använda din webbkamera för att ta bilder eller göra videor</summary>
   <summary xml:lang="uk">Kamoso — чудова програма для використання вашої вебкамери для створення знімків або запису відео</summary>
+  <summary xml:lang="x-test">xxUse your webcam to take pictures and make videosxx</summary>
   <summary xml:lang="zh-CN">使用摄像头照相以及制作视频</summary>
   <summary xml:lang="zh-TW">使用您的 Webcam 拍照或錄影</summary>
   <description>
@@ -92,6 +94,7 @@
     <p xml:lang="sl">Kamoso je preprost in prijazen program za uporabo foto naprave. Uporabite ga za zajem slik in videov za skupno rabo.</p>
     <p xml:lang="sv">Kamoso är ett enkelt och trevligt program för att använda din kamera. Använd det för att ta bilder eller göra videor att dela med dig av.</p>
     <p xml:lang="uk">Kamoso — проста і дружня до користувача програма для використання вашої вебкамери для створення знімків або запису відео.</p>
+    <p xml:lang="x-test">xxKamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.xx</p>
     <p xml:lang="zh-CN">Kamoso是一个简单方便的程序，可以使用您的相机拍照并制作视频分享。</p>
     <p xml:lang="zh-TW">Kamoso 是一款使用您相機的友好簡單程式。使用它來拍照或錄影以分享。</p>
   </description>
@@ -127,6 +130,7 @@
       <caption xml:lang="sl">Glavno okno Kamoso</caption>
       <caption xml:lang="sv">Huvudfönstret i Kamoso</caption>
       <caption xml:lang="uk">Головне вікно Kamoso</caption>
+      <caption xml:lang="x-test">xxKamoso main windowxx</caption>
       <caption xml:lang="zh-CN">Kamoso 主窗口</caption>
       <caption xml:lang="zh-TW">Kamoso 主視窗</caption>
       <image>https://cdn.kde.org/screenshots/kamoso/kamoso.png</image>
