@@ -7,7 +7,7 @@ add_definitions(-DQT_NO_KEYWORDS)
 qt5_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS kamosoSettings.kcfgc GENERATE_MOC)
 
-ecm_setup_version(${KDE_APPLICATIONS_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEADER kamoso_version.h)
+ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEADER kamoso_version.h)
 
 add_executable(kamoso
     devicemanager.cpp
