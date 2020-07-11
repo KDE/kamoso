@@ -12,6 +12,7 @@ macro(glib2_genmarshal output_name)
         COMMAND ${GLIB2_GENMARSHAL_UTIL} --body genmarshal_tmp > ${output_name}.c
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     )
+    set_property(SOURCE ${output_name}.c ${output_name}.h PROPERTY SKIP_AUTOMOC ON)
 endmacro()
 
 glib2_genmarshal(gstqtvideosinkmarshal
