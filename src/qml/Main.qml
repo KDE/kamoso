@@ -50,6 +50,11 @@ Kirigami.ApplicationWindow
 
     }
 
+    Connections {
+        target: webcam
+        onError: showPassiveNotification(error)
+    }
+
     Image {
         id: tada
         z: 10

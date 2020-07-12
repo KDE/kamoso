@@ -62,6 +62,7 @@ Q_OBJECT
         void recordingTimeChanged();
         void sampleImageChanged(const QString &sampleImage);
         void mirroredChanged(bool mirrored);
+        void error(const QString &error);
 
     private:
         QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;

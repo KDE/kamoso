@@ -31,6 +31,7 @@
 #include <KFormat>
 #include <KFileUtils>
 #include <KJobWidgets/KJobWidgets>
+#include <KLocalizedString>
 #include <QFile>
 #include <QJsonArray>
 #include <QDir>
@@ -101,8 +102,18 @@ void Kamoso::setRecording(bool recording)
     } else {
         const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
 
-        KJob *job = KIO::move(QUrl::fromLocalFile(m_webcamControl->stopRecording()), path);
+        const auto temp = m_webcamControl->stopRecording();
+        KJob *job = KIO::move(QUrl::fromLocalFile(temp), path);
         job->start();
+        connect(job, &KJob::finished, this, [this, temp, path, job] {
+            if (job->error() == 0) {
+                qDebug() << "video saved successfully";
+                return;
+            }
+
+            qWarning() << "Could not move" << temp << "to" << path;
+            Q_EMIT error(job->errorString());
+        });
 
         m_webcamControl->playDevice(DeviceManager::self()->playingDevice());
         m_recordingTimer.stop();
