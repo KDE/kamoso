@@ -106,7 +106,10 @@ GridView {
             }
 
             onClicked: {
-                devicesModel.playingDevice.filters = model.filters
+                if (devicesModel.playingDevice.filters === model.filters)
+                    devicesModel.playingDevice.filters = ""
+                else
+                    devicesModel.playingDevice.filters = model.filters
             }
         }
     }
