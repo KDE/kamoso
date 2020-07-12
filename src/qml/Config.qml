@@ -100,13 +100,16 @@ GridView {
                         view.model.remove(index)
                     }
 
-                    description: "filesrc location=\"" + view.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
+                    description: view.sampleImage.length === 0 ? "" : "filesrc location=\"" + view.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
                 }
                 surface: pipe.surface
             }
 
             onClicked: {
-                devicesModel.playingDevice.filters = model.filters
+                if (devicesModel.playingDevice.filters === model.filters)
+                    devicesModel.playingDevice.filters = ""
+                else
+                    devicesModel.playingDevice.filters = model.filters
             }
         }
     }
