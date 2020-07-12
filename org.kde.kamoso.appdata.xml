@@ -38,7 +38,7 @@
   <name xml:lang="zh-CN">Kamoso</name>
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Use your webcam to take pictures and make videos</summary>
-  <summary xml:lang="ca">Useu la càmera web per prendre fotografies o fer vídeos</summary>
+  <summary xml:lang="ca">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="ca-valencia">Useu la càmera web per prendre fotografies o fer vídeos</summary>
   <summary xml:lang="cs">Používejte svou webkameru k pořizování snímků a videí</summary>
   <summary xml:lang="de">Mit Kamoso können Sie mit Ihrer Webcam Bilder und Videos aufnehmen</summary>
@@ -61,6 +61,7 @@
   <summary xml:lang="pt">Use a sua Webcam para tirar fotografias ou criar vídeos</summary>
   <summary xml:lang="pt-BR">Use sua webcam para tirar fotos e gravar vídeos</summary>
   <summary xml:lang="sk">Použite vašu webkameru na tvorbu fotiek alebo natáčanie videa</summary>
+  <summary xml:lang="sl">Uporabite spletno kamero za fotografiranje in video posnetke</summary>
   <summary xml:lang="sv">Använda din webbkamera för att ta bilder eller göra videor</summary>
   <summary xml:lang="uk">Kamoso — чудова програма для використання вашої вебкамери для створення знімків або запису відео</summary>
   <summary xml:lang="x-test">xxUse your webcam to take pictures and make videosxx</summary>
@@ -68,7 +69,7 @@
   <summary xml:lang="zh-TW">使用您的 Webcam 拍照或錄影</summary>
   <description>
     <p>Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
-    <p xml:lang="ca">El Kamoso és un programa senzill i fàcil d'emprar per usar la càmera web. Useu-lo per prendre fotografies o fer vídeos per compartir.</p>
+    <p xml:lang="ca">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="ca-valencia">El Kamoso és un programa senzill i fàcil d'emprar per usar la càmera web. Useu-lo per prendre fotografies o fer vídeos per compartir.</p>
     <p xml:lang="de">Kamoso ist ein einfaches und benutzerfreundliches Programm für Ihre Kamera. Benutzen Sie es, um Bilder und Videos  aufzunehmen und freigeben.</p>
     <p xml:lang="el">Το Kamoso είναι ένα απλό και φιλικό πρόγραμμα για τη χρήση της κάμερας. Χρησιμοποιήστε το για λήψη φωτογραφιών ή βίντεο για κοινή χρήση.</p>
@@ -90,6 +91,7 @@
     <p xml:lang="pt">O Kamoso é um programa simples e amigável para usar a sua Webcam. Use-a para tirar fotografias ou criar vídeos para partilhar.</p>
     <p xml:lang="pt-BR">O Kamoso é um programa simples e amigável para usar sua webcam. Use-o para tirar fotos e gravar vídeos e compartilhá-los.</p>
     <p xml:lang="sk">Kamoso je jednoduchý program na použitie vašej webkamery na tvorbu fotiek alebo natáčanie videa.</p>
+    <p xml:lang="sl">Kamoso je preprost in prijazen program za uporabo foto naprave. Uporabite ga za zajem slik in videov za skupno rabo.</p>
     <p xml:lang="sv">Kamoso är ett enkelt och trevligt program för att använda din kamera. Använd det för att ta bilder eller göra videor att dela med dig av.</p>
     <p xml:lang="uk">Kamoso — проста і дружня до користувача програма для використання вашої вебкамери для створення знімків або запису відео.</p>
     <p xml:lang="x-test">xxKamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.xx</p>
@@ -125,6 +127,7 @@
       <caption xml:lang="pt">Janela principal do Kamoso</caption>
       <caption xml:lang="pt-BR">Janela principal do Kamoso</caption>
       <caption xml:lang="sk">Hlavné okno Kamoso</caption>
+      <caption xml:lang="sl">Glavno okno Kamoso</caption>
       <caption xml:lang="sv">Huvudfönstret i Kamoso</caption>
       <caption xml:lang="uk">Головне вікно Kamoso</caption>
       <caption xml:lang="x-test">xxKamoso main windowxx</caption>
