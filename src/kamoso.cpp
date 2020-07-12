@@ -26,6 +26,7 @@
 #include "devicemanager.h"
 #include <KIO/Global>
 #include <KIO/CopyJob>
+#include <KIO/MkpathJob>
 #include <KIO/FileUndoManager>
 #include <KIO/JobUiDelegate>
 #include <KFormat>
@@ -99,6 +100,16 @@ void Kamoso::setRecording(bool recording)
         m_webcamControl->startRecording();
         m_recordingTime.restart();
         m_recordingTimer.start();
+        auto job = KIO::mkpath(Settings::saveVideos());
+        job->start();
+        connect(job, &KJob::finished, this, [this, job] {
+            if (job->error() == 0) {
+                return;
+            }
+
+            qWarning() << "Could not create" << Settings::saveVideos();
+            Q_EMIT error(job->errorString());
+        });
     } else {
         const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
 
