@@ -41,6 +41,7 @@
   <summary xml:lang="ca">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="ca-valencia">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="cs">Používejte svou webkameru k pořizování snímků a videí</summary>
+  <summary xml:lang="da">Brug dit webkamera til at tage billeder eller lave videoer</summary>
   <summary xml:lang="de">Mit Kamoso können Sie mit Ihrer Webcam Bilder und Videos aufnehmen</summary>
   <summary xml:lang="el">Λήψη με web κάμερα φωτογραφιών ή βίντεο</summary>
   <summary xml:lang="en-GB">Use your webcam to take pictures and make videos</summary>
@@ -71,6 +72,7 @@
     <p>Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
     <p xml:lang="ca">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="ca-valencia">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
+    <p xml:lang="da">Kamoso er et simpelt og brugervenligt program til at bruge dit webkamera. Du kan bruge det til at tage billeder eller lave videoer til at dele med andre.</p>
     <p xml:lang="de">Kamoso ist ein einfaches und benutzerfreundliches Programm für Ihre Kamera. Benutzen Sie es, um Bilder und Videos  aufzunehmen und freigeben.</p>
     <p xml:lang="el">Το Kamoso είναι ένα απλό και φιλικό πρόγραμμα για τη χρήση της κάμερας. Χρησιμοποιήστε το για λήψη φωτογραφιών ή βίντεο για κοινή χρήση.</p>
     <p xml:lang="en-GB">Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
@@ -107,6 +109,7 @@
       <caption xml:lang="ca">Finestra principal del Kamoso</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kamoso</caption>
       <caption xml:lang="cs">Hlavní okno Kamoso</caption>
+      <caption xml:lang="da">Kamosos hovedvindue</caption>
       <caption xml:lang="de">Hauptfenster von Kamoso</caption>
       <caption xml:lang="el">Kamoso κύριο παράθυρο</caption>
       <caption xml:lang="en-GB">Kamoso main window</caption>
