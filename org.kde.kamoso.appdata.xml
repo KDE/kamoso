@@ -102,7 +102,7 @@
   </description>
   <url type="homepage">https://userbase.kde.org/Kamoso</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kamoso</url>
-  <url type="help">https://docs.kde.org/stable/en/extragear-multimedia/kamoso/user-guide.html</url>
+  <url type="help">https://docs.kde.org/?application=kamoso</url>
   <screenshots>
     <screenshot type="default">
       <caption>Kamoso main window</caption>
