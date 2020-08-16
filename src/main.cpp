@@ -29,6 +29,7 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps);
     KLocalizedString::setApplicationDomain("kamoso");
     {
         KAboutData about("kamoso", i18n("Kamoso"), KAMOSO_VERSION_STRING, i18n("Utility for taking photos and videos using a webcam"),
