@@ -79,8 +79,8 @@ GridView {
 
         width: Math.floor(view.width / columnCount) - Kirigami.Units.smallSpacing
         height: width * 3/4
-
-        color: Kirigami.Theme.textColor
+        
+        color: devicesModel.playingDevice.filters === model.filters?Kirigami.Theme.selectionFocusColor:Kirigami.Theme.textColor
 
         MouseArea {
             anchors.centerIn: parent
