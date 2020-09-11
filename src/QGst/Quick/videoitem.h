@@ -50,9 +50,8 @@ public:
     void setSurface(VideoSurface *surface);
 
 protected:
-    /*! Reimplemented from QQuickItem. */
     virtual QSGNode* updatePaintNode(QSGNode *oldNode,
-                                     UpdatePaintNodeData *updatePaintNodeData);
+                                     UpdatePaintNodeData *updatePaintNodeData) override;
 
 private:
     struct Private;
