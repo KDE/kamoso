@@ -26,7 +26,7 @@
 #include <KSharedConfig>
 
 QString structureValue(GstStructure* device, const char* key);
-QString udiFromProperties(GstStructure* deviceProperties);
+QString objectIdFromProperties(GstStructure* deviceProperties);
 
 class Device : public QObject
 {
@@ -37,14 +37,12 @@ class Device : public QObject
         Device(GstDevice* device, QObject* parent);
         ~Device();
         QString description() const { return m_description; }
-        QString udi() const { return m_udi; }
-        QString path() const { return m_path; }
+        QString objectId() const;
         void setFilters(const QString &filters);
         QString filters() const { return m_filters; }
 
         GstElement* createElement();
 
-        bool isValid() const;
         void reset();
 
     Q_SIGNALS:
@@ -53,8 +51,7 @@ class Device : public QObject
     private:
         const QString m_description;
         GstDevice *const m_device;
-        QString m_udi;
-        QString m_path;
+        QString m_objectId;
         QString m_filters;
 };
 

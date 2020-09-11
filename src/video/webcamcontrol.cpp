@@ -262,7 +262,7 @@ bool WebcamControl::playDevice(Device *device)
     Q_ASSERT(device);
 
     //If we already have a pipeline for this device, just set it to picture mode
-    if (m_pipeline && m_currentDevice == device->udi()) {
+    if (m_pipeline && m_currentDevice == device->objectId()) {
         g_object_set(m_pipeline.data(), "mode", 2, nullptr);
         g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
         return true;
@@ -284,7 +284,7 @@ bool WebcamControl::playDevice(Device *device)
 
     GstElement* source;
     g_object_get(m_cameraSource.data(), "video-source", &source, nullptr);
-    if (m_currentDevice != device->udi() || !source) {
+    if (m_currentDevice != device->objectId() || !source) {
         source = device->createElement();
         g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
@@ -302,7 +302,7 @@ bool WebcamControl::playDevice(Device *device)
 
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 
-    m_currentDevice = device->udi();
+    m_currentDevice = device->objectId();
     return true;
 }
 
