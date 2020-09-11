@@ -52,7 +52,7 @@ Kirigami.ApplicationWindow
 
     Connections {
         target: webcam
-        onError: showPassiveNotification(error)
+        function onError() { showPassiveNotification(error) }
     }
 
     Image {
@@ -102,7 +102,7 @@ Kirigami.ApplicationWindow
 
         Connections {
             target: webcam
-            onPhotoTaken: awesomeAnimation(path)
+            function onPhotoTaken() { awesomeAnimation(path) }
         }
     }
 
