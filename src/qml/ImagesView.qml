@@ -301,7 +301,7 @@ StackView {
                     textRole: "display"
                     visible: count>1
                     onActivated: {
-                        devicesModel.playingDeviceUdi = devicesModel.udiAt(index)
+                        devicesModel.playingObjectId = devicesModel.objectIdAt(index)
                     }
                 }
 

@@ -29,16 +29,9 @@ QString structureValue(GstStructure* device, const char* key)
     return QString::fromUtf8(g_value_get_string(x));
 }
 
-QString udiFromProperties(GstStructure* deviceProperties)
+QString objectIdFromProperties(GstStructure* st)
 {
-    QString udi;
-    gboolean udev_probed;
-    if (gst_structure_get_boolean(deviceProperties, "udev-probed", &udev_probed) && !udev_probed)
-        udi = structureValue(deviceProperties, "device.path");
-    else
-        udi = structureValue(deviceProperties, "sysfs.path");
-    
-    return udi;
+    return structureValue(st, "object.id");
 }
 
 //     for reference, the properties can be listed with:
@@ -49,8 +42,7 @@ Device::Device(GstDevice *device, QObject* parent)
     , m_device(device)
 {
     auto st = gst_device_get_properties(device);
-    m_udi = udiFromProperties(st);
-    m_path = structureValue(st, "device.path");
+    m_objectId = objectIdFromProperties(st);
     gst_structure_free(st);
 }
 
@@ -64,9 +56,9 @@ void Device::reset()
     Q_EMIT filtersChanged(m_filters);
 }
 
-bool Device::isValid() const
+QString Device::objectId() const
 {
-    return !m_udi.isEmpty() && !m_path.isEmpty();
+    return m_objectId;
 }
 
 void Device::setFilters(const QString &newFilters)

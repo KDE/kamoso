@@ -65,25 +65,20 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     gst_device_monitor_start (m_monitor);
 
     GList* devices = gst_device_monitor_get_devices (m_monitor);
-
-    if (devices == NULL) {
+    if (!devices) {
         qWarning ("No device found");
     }
 
     /* Initialize camera structures */
     for(; devices; devices = devices->next) {
         auto device = new Device(GST_DEVICE(devices->data), this);
-        if (!device->isValid()) {
-            delete device;
-            continue;
-        }
         m_deviceList.append(device);
     }
 
     g_list_free (devices);
 
     if (!m_deviceList.isEmpty()) {
-        setPlayingDeviceUdi(m_deviceList.constFirst()->udi());
+        setPlayingObjectId(m_deviceList.constFirst()->objectId());
     }
 }
 
@@ -96,7 +91,7 @@ DeviceManager::~DeviceManager()
 QHash<int, QByteArray> DeviceManager::roleNames() const
 {
     QHash< int, QByteArray > roles = QAbstractListModel::roleNames();
-    roles.insert(Udi, "udi");
+    roles.insert(ObjectId, "objectId");
     return roles;
 }
 
@@ -106,7 +101,7 @@ void DeviceManager::save()
         return;
     }
 
-    Settings::self()->setDeviceUdi(m_playingDevice->udi());
+    Settings::self()->setDeviceObjectId(m_playingDevice->objectId());
 }
 
 /*
@@ -117,20 +112,20 @@ int DeviceManager::rowCount(const QModelIndex& idx) const
     return idx.isValid() ? 0 : m_deviceList.size();
 }
 
-void DeviceManager::setPlayingDeviceUdi(const QString& udi)
+void DeviceManager::setPlayingObjectId(const QString &objectId)
 {
     Q_FOREACH(Device* d, m_deviceList) {
-        if(d->udi() == udi) {
+        if(d->objectId() == objectId) {
             if (m_playingDevice != d) {
                 m_playingDevice = d;
-                qDebug() << "Playing device changed" << d->path();
+                qDebug() << "Playing device changed" << d->description();
                 Q_EMIT playingDeviceChanged();
             }
             return;
         }
     }
 
-    qWarning() << "could not find device" << udi;
+    qWarning() << "could not find device" << objectId;
     m_playingDevice = nullptr;
 }
 
@@ -139,27 +134,18 @@ Device* DeviceManager::playingDevice()
     return m_playingDevice;
 }
 
-QString DeviceManager::playingDeviceUdi() const
+QString DeviceManager::playingObjectId() const
 {
     if (!m_playingDevice) {
-        return QString();
+        return {};
     }
 
-    return m_playingDevice->udi();
+    return m_playingDevice->objectId();
 }
 
-QString DeviceManager::playingDevicePath() const
+QString DeviceManager::objectIdAt(int i) const
 {
-    if (!m_playingDevice) {
-        return QByteArray();
-    }
-
-    return m_playingDevice->path();
-}
-
-QString DeviceManager::udiAt(int i) const
-{
-    return m_deviceList[i]->udi();
+    return m_deviceList[i]->objectId();
 }
 
 QVariant DeviceManager::data(const QModelIndex& index, int role) const
@@ -171,8 +157,8 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
     switch(role) {
         case Qt::DisplayRole:
             return m_deviceList[row]->description();
-        case Udi:
-            return m_deviceList[row]->udi();
+        case ObjectId:
+            return m_deviceList[row]->objectId();
     }
     return QVariant();
 }
@@ -185,14 +171,14 @@ void DeviceManager::deviceAdded(GstDevice* device)
     endInsertRows();
 
     if (!m_playingDevice) {
-        setPlayingDeviceUdi(m_deviceList.first()->udi());
+        setPlayingObjectId(m_deviceList.first()->objectId());
     }
 }
 
 void DeviceManager::deviceRemoved(GstDevice* device)
 {
     auto st = gst_device_get_properties(device);
-    auto udi = udiFromProperties(st);
+    auto objectId = objectIdFromProperties(st);
 
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);
@@ -201,7 +187,7 @@ void DeviceManager::deviceRemoved(GstDevice* device)
             Q_EMIT playingDeviceChanged();
         }
 
-        if (dev->udi() == udi) {
+        if (dev->objectId() == objectId) {
             beginRemoveRows({}, i, i);
             dev->deleteLater();
             m_deviceList.removeAt(i);

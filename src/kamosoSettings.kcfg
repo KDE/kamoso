@@ -21,7 +21,7 @@
             <default>true</default>
             <label>Vertically mirror the camera view.</label>
         </entry>
-        <entry name="deviceUdi" type="String" key="deviceUdi">
+        <entry name="DeviceObjectId" type="String" key="deviceObjectId">
             <label>Points to the last used webcam.</label>
         </entry>
     </group>

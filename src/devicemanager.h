@@ -30,20 +30,19 @@ struct _GstDeviceMonitor;
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString playingDeviceUdi READ playingDeviceUdi WRITE setPlayingDeviceUdi NOTIFY playingDeviceChanged)
+    Q_PROPERTY(QString playingObjectId READ playingObjectId WRITE setPlayingObjectId NOTIFY playingDeviceChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
     Q_PROPERTY(Device* playingDevice READ playingDevice NOTIFY playingDeviceChanged)
     public:
         static DeviceManager* self();
         enum {
-            Udi=Qt::UserRole+1
+            ObjectId = Qt::UserRole+1
         };
         virtual QHash<int, QByteArray> roleNames() const override;
 
         Device* playingDevice();
-        QString playingDevicePath() const;
-        QString playingDeviceUdi() const;
-        void setPlayingDeviceUdi(const QString& path);
+        QString playingObjectId() const;
+        void setPlayingObjectId(const QString &objectId);
         bool hasDevices() const;
 
         virtual int rowCount(const QModelIndex& = QModelIndex()) const override;
@@ -52,7 +51,7 @@ class DeviceManager : public QAbstractListModel
         void deviceRemoved(_GstDevice *device);
         void deviceAdded(_GstDevice *device);
 
-        Q_SCRIPTABLE QString udiAt(int i) const;
+        Q_SCRIPTABLE QString objectIdAt(int i) const;
 
     public Q_SLOTS:
         void save();
