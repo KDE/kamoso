@@ -280,9 +280,6 @@ bool WebcamControl::playDevice(Device *device)
                        << "please make sure all required gstreamer plugins are installed.";
             return false;
         }
-
-        auto source = gst_element_factory_make("v4l2src", "v4l2src");
-        g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
     GstElement* source;
