@@ -21,9 +21,9 @@ import QtQuick.Controls 1.1
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import KamosoQtGStreamer 1.0
 import org.kde.kirigami 2.9 as Kirigami
 import org.kde.kamoso 3.0
+import org.freedesktop.gstreamer.GLVideoItem 1.0 as GST
 
 Kirigami.ApplicationWindow
 {
@@ -209,6 +209,12 @@ Kirigami.ApplicationWindow
         onActivated: visor.actions.main.triggered(null)
     }
 
+    Binding {
+        target: app
+        property: "widget"
+        value: glVideo
+    }
+
     pageStack.initialPage: Kirigami.Page {
         id: visor
         bottomPadding: 0
@@ -228,8 +234,8 @@ Kirigami.ApplicationWindow
             z: -1
         }
 
-        VideoItem {
-            surface: videoSurface1
+        GST.GstGLVideoItem {
+            id: glVideo
             anchors.fill: parent
         }
 

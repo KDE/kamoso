@@ -202,9 +202,11 @@ private:
 WebcamControl::WebcamControl()
 {
     gst_init(NULL, NULL);
-
-    QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
-    engine->rootContext()->setContextObject(new KLocalizedContext(engine));
+    {
+        m_sink.reset(gst_element_factory_make("qmlglsink", "sink"));
+    }
+    m_engine = new QQmlApplicationEngine(this);
+    m_engine->rootContext()->setContextObject(new KLocalizedContext(m_engine));
 
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
@@ -214,15 +216,24 @@ WebcamControl::WebcamControl()
 
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
-    m_surface = new QGst::Quick::VideoSurface(this);
-    engine->rootContext()->setContextProperty("config", Settings::self());
-    engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
-    engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
-    engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
-    engine->rootContext()->setContextProperty("videoSurface1", m_surface);
-    engine->load(QUrl("qrc:/qml/Main.qml"));
+    m_engine->rootContext()->setContextProperty("config", Settings::self());
+    m_engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
+    m_engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
+    m_engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
+    m_engine->rootContext()->setContextProperty("app", this);
 
-    g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
+    auto f = [this] {
+        if (!play()) {
+            qWarning("Unrecoverable error occurred when initializing webcam. Exiting.");
+            QCoreApplication::instance()->exit(1);
+        }
+        disconnect(qobject_cast<QQuickWindow*>(sender()), &QQuickWindow::beforeRendering, this, nullptr);
+    };
+    connect(m_engine, &QQmlApplicationEngine::objectCreated, this, [this, f] (QObject* object) {
+        QQuickWindow* item = qobject_cast<QQuickWindow*>(object);
+        connect(item, &QQuickWindow::beforeRendering, this, f);
+    });
+    m_engine->load(QUrl("qrc:/qml/Main.qml"));
 
     connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, &WebcamControl::play);
     connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
@@ -257,6 +268,15 @@ static gboolean webcamWatch(GstBus     */*bus*/, GstMessage *message, gpointer u
     return G_SOURCE_CONTINUE;
 }
 
+void WebcamControl::setWidget(QObject* widget)
+{
+    if (widget == m_widget)
+        return;
+
+    m_widget = widget;
+    Q_EMIT widgetChanged(widget);
+}
+
 bool WebcamControl::playDevice(Device *device)
 {
     Q_ASSERT(device);
@@ -270,6 +290,7 @@ bool WebcamControl::playDevice(Device *device)
 
     if (m_pipeline)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
+
 
     if (!m_cameraSource) {
         m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", ""));
@@ -289,11 +310,25 @@ bool WebcamControl::playDevice(Device *device)
         g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
+    g_object_set(m_sink.data(), "widget", m_widget, nullptr);
     if (!m_pipeline) {
         m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
         gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
+
         g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
-        g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
+
+        // Convert video from webcam and set the caps
+        GstElement* videoconvert = gst_element_factory_make("videoconvert", nullptr);
+        GstElement* capsfilter = gst_element_factory_make("capsfilter", nullptr);
+        GstCaps* caps = gst_caps_from_string("video/x-raw, format=RGBA, framerate=30/1");
+        // Add glupload and do the connection with the qmlglsink for the qml widget
+        GstElement* glupload = gst_element_factory_make("glupload", nullptr);
+
+        // Connect and set all elements
+        g_object_set(capsfilter, "caps", caps, nullptr);
+        gst_bin_add_many(GST_BIN(m_pipeline.data()), videoconvert, capsfilter, glupload, m_sink.data(), nullptr);
+        gst_element_link_many(videoconvert, capsfilter, glupload, m_sink.data(), nullptr);
+        g_object_set(m_pipeline.data(), "viewfinder-sink", videoconvert, nullptr);
     }
 
     setVideoSettings();

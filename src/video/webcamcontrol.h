@@ -30,9 +30,12 @@
 namespace QGst { namespace Quick { class VideoSurface; } }
 
 class Device;
+class QQmlApplicationEngine;
+
 class WebcamControl : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QObject* widget READ widget WRITE setWidget NOTIFY widgetChanged)
     public:
         WebcamControl();
         virtual ~WebcamControl();
@@ -48,6 +51,9 @@ class WebcamControl : public QObject
 
         bool mirrored() const { return m_mirror; }
 
+        QObject* widget() const { return m_widget; }
+        void setWidget(QObject* widget);
+
     public Q_SLOTS:
         bool play();
         bool playDevice(Device* device);
@@ -62,6 +68,7 @@ class WebcamControl : public QObject
     Q_SIGNALS:
         void photoTaken(const QString &photoUrl);
         void mirroredChanged(bool mirrored);
+        void widgetChanged(QObject* widget);
 
     private:
         void updateSourceFilter();
@@ -72,9 +79,11 @@ class WebcamControl : public QObject
         QString m_currentDevice;
         GstPointer<GstPipeline> m_pipeline;
         GstPointer<GstElement> m_cameraSource;
-        QGst::Quick::VideoSurface* m_surface = nullptr;
+        GstPointer<GstElement> m_sink;
         bool m_emitTaken = true;
         bool m_mirror = true;
+        QObject* m_widget = nullptr;
+        QQmlApplicationEngine* m_engine;
 };
 
 #endif // WEBCAMCONTROL_H
