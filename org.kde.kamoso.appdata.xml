@@ -28,6 +28,7 @@
   <name xml:lang="pl">Kamoso</name>
   <name xml:lang="pt">Kamoso</name>
   <name xml:lang="pt-BR">Kamoso</name>
+  <name xml:lang="ro">Kamoso</name>
   <name xml:lang="ru">Kamoso</name>
   <name xml:lang="sk">Kamoso</name>
   <name xml:lang="sl">Kamoso</name>
@@ -61,6 +62,7 @@
   <summary xml:lang="pl">Używaj swojej kamerki do robienia zdjęć i filmów</summary>
   <summary xml:lang="pt">Use a sua Webcam para tirar fotografias ou criar vídeos</summary>
   <summary xml:lang="pt-BR">Use sua webcam para tirar fotos e gravar vídeos</summary>
+  <summary xml:lang="ro">Folosiți-vă camera web pentru a face poze și filmulețe</summary>
   <summary xml:lang="sk">Použite vašu webkameru na tvorbu fotiek alebo natáčanie videa</summary>
   <summary xml:lang="sl">Uporabite spletno kamero za fotografiranje in video posnetke</summary>
   <summary xml:lang="sv">Använda din webbkamera för att ta bilder eller göra videor</summary>
@@ -129,6 +131,7 @@
       <caption xml:lang="pl">Główne okno Kamoso</caption>
       <caption xml:lang="pt">Janela principal do Kamoso</caption>
       <caption xml:lang="pt-BR">Janela principal do Kamoso</caption>
+      <caption xml:lang="ro">Fereastra principală Kamoso</caption>
       <caption xml:lang="sk">Hlavné okno Kamoso</caption>
       <caption xml:lang="sl">Glavno okno Kamoso</caption>
       <caption xml:lang="sv">Huvudfönstret i Kamoso</caption>
