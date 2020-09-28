@@ -102,7 +102,7 @@ Kirigami.ApplicationWindow
 
         Connections {
             target: webcam
-            function onPhotoTaken() { awesomeAnimation(path) }
+            function onPhotoTaken(path) { awesomeAnimation(path) }
         }
     }
 
@@ -204,15 +204,15 @@ Kirigami.ApplicationWindow
         }
     }
 
-    Shortcut {
-        sequence: "Return"
-        onActivated: visor.actions.main.triggered(null)
-    }
-
     Binding {
         target: app
         property: "widget"
         value: glVideo
+    }
+
+    Shortcut {
+        sequence: "Return"
+        onActivated: visor.actions.main.triggered(null)
     }
 
     pageStack.initialPage: Kirigami.Page {
@@ -237,6 +237,14 @@ Kirigami.ApplicationWindow
         GST.GstGLVideoItem {
             id: glVideo
             anchors.fill: parent
+
+            Button {
+                anchors.centerIn: parent
+                text: "Go"
+                onClicked: {
+                    app.play()
+                }
+            }
         }
 
         Text {

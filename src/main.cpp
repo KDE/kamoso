@@ -47,9 +47,7 @@ int main(int argc, char *argv[])
         about.processCommandLine(&parser);
     }
 
-    WebcamControl webcamControl;
-
-    QObject::connect(&app, &QCoreApplication::aboutToQuit, &webcamControl, &WebcamControl::stop);
+    new WebcamControl(&app);
 
     return app.exec();
 }

@@ -37,7 +37,7 @@ class WebcamControl : public QObject
     Q_OBJECT
     Q_PROPERTY(QObject* widget READ widget WRITE setWidget NOTIFY widgetChanged)
     public:
-        WebcamControl();
+        WebcamControl(QObject* parent);
         virtual ~WebcamControl();
 
         void onBusMessage(GstMessage* msg);
@@ -71,6 +71,7 @@ class WebcamControl : public QObject
         void widgetChanged(QObject* widget);
 
     private:
+        void initialize();
         void updateSourceFilter();
         void setVideoSettings();
 
@@ -79,7 +80,6 @@ class WebcamControl : public QObject
         QString m_currentDevice;
         GstPointer<GstPipeline> m_pipeline;
         GstPointer<GstElement> m_cameraSource;
-        GstPointer<GstElement> m_sink;
         bool m_emitTaken = true;
         bool m_mirror = true;
         QObject* m_widget = nullptr;

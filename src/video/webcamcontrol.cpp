@@ -43,7 +43,6 @@
 #include <QDir>
 #include <QDebug>
 
-#include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
 #include <qqml.h>
@@ -88,16 +87,12 @@ class PipelineItem : public QObject, public QQmlParserStatus
 Q_OBJECT
 Q_INTERFACES(QQmlParserStatus)
 Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
-Q_PROPERTY(QObject* surface READ surface CONSTANT)
 Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
+Q_PROPERTY(QQuickItem* widget READ widget WRITE setWidget NOTIFY widgetChanged)
 public:
     PipelineItem()
         : QObject()
-        , m_surface(new QGst::Quick::VideoSurface(this))
-    {
-        g_object_ref(m_surface->videoSink());
-        g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
-    }
+    {}
 
     ~PipelineItem() {
         if (m_pipeline)
@@ -124,10 +119,16 @@ public:
     void classBegin() override {}
     void componentComplete() override {
         m_complete = true;
+        if (m_widget) {
+            connect(m_widget->window(), &QQuickWindow::beforeRendering, this, &PipelineItem::initialize);
+        }
+    }
+
+    void initialize() {
+        disconnect(m_widget->window(), &QQuickWindow::beforeRendering, this, &PipelineItem::initialize);
         refresh();
     }
 
-    QGst::Quick::VideoSurface *surface() const { return m_surface; }
     QString description() const { return m_description; }
     void setDescription(const QString &desc) {
         if (m_description != desc) {
@@ -139,7 +140,7 @@ public:
     }
 
     Q_SCRIPTABLE void refresh() {
-        if (!m_description.isEmpty() && m_complete) {
+        if (!m_description.isEmpty() && m_complete && m_widget) {
             if(m_pipeline)
                 gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
@@ -152,13 +153,11 @@ public:
             }
             Q_ASSERT(m_pipeline);
 
-            gst_bin_add(GST_BIN(m_pipeline.data()), m_surface->videoSink());
-            Q_ASSERT(m_pipeline);
+            auto sink = gst_bin_get_by_name(GST_BIN(m_pipeline.data()), "sink");
+            Q_ASSERT(sink);
+            g_object_set(sink, "widget", m_widget, nullptr);
+//             qDebug() << "setting " << m_widget << " to " << sink;
 
-            auto lastItem = gst_bin_get_by_name(GST_BIN(m_pipeline.data()), "last");
-            Q_ASSERT(lastItem);
-            bool b = gst_element_link(lastItem, m_surface->videoSink());
-            Q_ASSERT(b);
             gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &pipelineWatch, this);
         }
         setPlaying(m_playing);
@@ -185,26 +184,38 @@ public:
         return m_pipeline && pipelineCurrentState(m_pipeline) == GST_STATE_PLAYING;
     }
 
+    QQuickItem* widget() const { return m_widget; }
+    void setWidget(QQuickItem* widget)
+    {
+        if (widget == m_widget)
+            return;
+
+        m_widget = widget;
+        Q_EMIT widgetChanged(widget);
+        refresh();
+    }
+
 Q_SIGNALS:
     void playingChanged(bool playing);
     void surfaceChanged();
     void descriptionChanged();
     void failed();
+    void widgetChanged(QQuickItem* widget);
 
 private:
     bool m_playing = false;
     bool m_complete = false;
     QString m_description;
     GstPointer<GstPipeline> m_pipeline;
-    QGst::Quick::VideoSurface * const m_surface;
+    QQuickItem* m_widget = nullptr;
 };
 
-WebcamControl::WebcamControl()
+WebcamControl::WebcamControl(QObject* parent)
+    : QObject(parent)
 {
     gst_init(NULL, NULL);
-    {
-        m_sink.reset(gst_element_factory_make("qmlglsink", "sink"));
-    }
+    gst_element_factory_make("qmlglsink", "sink"); //Necessary to have the QML item available
+
     m_engine = new QQmlApplicationEngine(this);
     m_engine->rootContext()->setContextObject(new KLocalizedContext(m_engine));
 
@@ -222,27 +233,24 @@ WebcamControl::WebcamControl()
     m_engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
     m_engine->rootContext()->setContextProperty("app", this);
 
-    auto f = [this] {
-        if (!play()) {
-            qWarning("Unrecoverable error occurred when initializing webcam. Exiting.");
-            QCoreApplication::instance()->exit(1);
-        }
-        disconnect(qobject_cast<QQuickWindow*>(sender()), &QQuickWindow::beforeRendering, this, nullptr);
-    };
-    connect(m_engine, &QQmlApplicationEngine::objectCreated, this, [this, f] (QObject* object) {
-        QQuickWindow* item = qobject_cast<QQuickWindow*>(object);
-        connect(item, &QQuickWindow::beforeRendering, this, f);
+    //qmlglsink freaks out if it gets initialized before the QSG
+    connect(m_engine, &QQmlApplicationEngine::objectCreated, this, [this] (QObject* object) {
+        QQuickWindow* window = qobject_cast<QQuickWindow*>(object);
+        connect(window, &QQuickWindow::beforeRendering, this, &WebcamControl::initialize);
     });
     m_engine->load(QUrl("qrc:/qml/Main.qml"));
 
     connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, &WebcamControl::play);
     connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
+
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &WebcamControl::deleteLater);
 }
 
 WebcamControl::~WebcamControl()
 {
     DeviceManager::self()->save();
     Settings::self()->save();
+    stop();
 }
 
 void WebcamControl::stop()
@@ -251,7 +259,8 @@ void WebcamControl::stop()
 
     if(m_pipeline) {
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
-        m_pipeline.reset(nullptr);
+        m_pipeline.reset();
+        m_cameraSource.reset();
     }
 }
 
@@ -280,6 +289,7 @@ void WebcamControl::setWidget(QObject* widget)
 bool WebcamControl::playDevice(Device *device)
 {
     Q_ASSERT(device);
+    qDebug() << "play device" << device << m_currentDevice << device->objectId();
 
     //If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->objectId()) {
@@ -287,10 +297,10 @@ bool WebcamControl::playDevice(Device *device)
         g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
         return true;
     }
+    qDebug() << "play device2" << device << m_pipeline << m_currentDevice << device->objectId();
 
     if (m_pipeline)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
-
 
     if (!m_cameraSource) {
         m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", ""));
@@ -310,25 +320,28 @@ bool WebcamControl::playDevice(Device *device)
         g_object_set(m_cameraSource.data(), "video-source", source, nullptr);
     }
 
-    g_object_set(m_sink.data(), "widget", m_widget, nullptr);
     if (!m_pipeline) {
         m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
+
         gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
 
         g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
 
         // Convert video from webcam and set the caps
-        GstElement* videoconvert = gst_element_factory_make("videoconvert", nullptr);
-        GstElement* capsfilter = gst_element_factory_make("capsfilter", nullptr);
-        GstCaps* caps = gst_caps_from_string("video/x-raw, format=RGBA, framerate=30/1");
+//         GstElement* capsfilter = gst_element_factory_make("capsfilter", nullptr);
+//         GstCaps* caps = gst_caps_from_string("video/x-raw, format=RGBA, framerate=30/1");
         // Add glupload and do the connection with the qmlglsink for the qml widget
         GstElement* glupload = gst_element_factory_make("glupload", nullptr);
+        GstElement* colorconvert = gst_element_factory_make("glcolorconvert", nullptr);
 
         // Connect and set all elements
-        g_object_set(capsfilter, "caps", caps, nullptr);
-        gst_bin_add_many(GST_BIN(m_pipeline.data()), videoconvert, capsfilter, glupload, m_sink.data(), nullptr);
-        gst_element_link_many(videoconvert, capsfilter, glupload, m_sink.data(), nullptr);
-        g_object_set(m_pipeline.data(), "viewfinder-sink", videoconvert, nullptr);
+//         g_object_set(capsfilter, "caps", caps, nullptr);
+
+        auto sink = gst_element_factory_make("qmlglsink", nullptr);
+        g_object_set(sink, "widget", m_widget, nullptr);
+        gst_bin_add_many(GST_BIN(m_pipeline.data()), glupload, colorconvert, sink, nullptr);
+        gst_element_link_many(glupload, colorconvert, sink, nullptr);
+        g_object_set(m_pipeline.data(), "viewfinder-sink", glupload, nullptr);
     }
 
     setVideoSettings();
@@ -352,7 +365,7 @@ void WebcamControl::onBusMessage(GstMessage* message)
         qCritical() << "error:" << debugMessage(message);
         stop();
         if (error < 3) {
-            play();
+//             play();
             ++error;
         }
     }   break;
@@ -368,9 +381,7 @@ void WebcamControl::onBusMessage(GstMessage* message)
             qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
         }
     default:
-//         qDebug() << msg->type();
-//         qDebug() << msg->typeName();
-//         qDebug() << msg->internalStructure()->name();
+//         qDebug() << message->type;
         break;
     }
 }
@@ -421,6 +432,16 @@ void WebcamControl::setExtraFilters(const QString& extraFilters)
         m_extraFilters = extraFilters;
         updateSourceFilter();
     }
+}
+
+void WebcamControl::initialize()
+{
+//     if (!play()) {
+//         qWarning("Unrecoverable error occurred when initializing webcam. Exiting.");
+//         QCoreApplication::instance()->exit(1);
+//     }
+//
+//     disconnect(qobject_cast<QQuickWindow*>(m_engine->rootObjects().constFirst()), &QQuickWindow::beforeRendering, this, &WebcamControl::initialize);
 }
 
 void WebcamControl::updateSourceFilter()
