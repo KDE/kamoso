@@ -44,6 +44,7 @@ Device::Device(GstDevice *device, QObject* parent)
     auto st = gst_device_get_properties(device);
     m_objectId = objectIdFromProperties(st);
     gst_structure_free(st);
+    setObjectName(m_objectId);
 }
 
 Device::~Device()
