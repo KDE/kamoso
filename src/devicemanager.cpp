@@ -166,8 +166,16 @@ QVariant DeviceManager::data(const QModelIndex& index, int role) const
 void DeviceManager::deviceAdded(GstDevice* device)
 {
     const int s = m_deviceList.size();
+    auto d = new Device(device, this);
+    for (auto device : qAsConst(m_deviceList)) {
+        if (device->objectId() == d->objectId()) {
+            delete d;
+            return;
+        }
+    }
+
     beginInsertRows({}, s, s);
-    m_deviceList.append(new Device(device, this));
+    m_deviceList.append(d);
     endInsertRows();
 
     if (!m_playingDevice) {
