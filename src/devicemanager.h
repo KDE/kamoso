@@ -30,9 +30,8 @@ struct _GstDeviceMonitor;
 class DeviceManager : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString playingObjectId READ playingObjectId WRITE setPlayingObjectId NOTIFY playingDeviceChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
-    Q_PROPERTY(Device* playingDevice READ playingDevice NOTIFY playingDeviceChanged)
+    Q_PROPERTY(Device* playingDevice READ playingDevice WRITE setPlayingDevice NOTIFY playingDeviceChanged)
     public:
         static DeviceManager* self();
         enum {
@@ -40,9 +39,8 @@ class DeviceManager : public QAbstractListModel
         };
         virtual QHash<int, QByteArray> roleNames() const override;
 
-        Device* playingDevice();
-        QString playingObjectId() const;
-        void setPlayingObjectId(const QString &objectId);
+        Device* playingDevice() const;
+        void setPlayingDevice(Device* device);
         bool hasDevices() const;
 
         virtual int rowCount(const QModelIndex& = QModelIndex()) const override;
@@ -51,7 +49,7 @@ class DeviceManager : public QAbstractListModel
         void deviceRemoved(_GstDevice *device);
         void deviceAdded(_GstDevice *device);
 
-        Q_SCRIPTABLE QString objectIdAt(int i) const;
+        Q_SCRIPTABLE Device* deviceAt(int i) const;
 
     public Q_SLOTS:
         void save();

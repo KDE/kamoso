@@ -78,7 +78,7 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
     g_list_free (devices);
 
     if (!m_deviceList.isEmpty()) {
-        setPlayingObjectId(m_deviceList.constFirst()->objectId());
+        setPlayingDevice(m_deviceList.constFirst());
     }
 }
 
@@ -112,40 +112,23 @@ int DeviceManager::rowCount(const QModelIndex& idx) const
     return idx.isValid() ? 0 : m_deviceList.size();
 }
 
-void DeviceManager::setPlayingObjectId(const QString &objectId)
+void DeviceManager::setPlayingDevice(Device* device)
 {
-    Q_FOREACH(Device* d, m_deviceList) {
-        if(d->objectId() == objectId) {
-            if (m_playingDevice != d) {
-                m_playingDevice = d;
-                qDebug() << "Playing device changed" << d->description();
-                Q_EMIT playingDeviceChanged();
-            }
-            return;
-        }
-    }
+    if (device == m_playingDevice)
+        return;
 
-    qWarning() << "could not find device" << objectId;
-    m_playingDevice = nullptr;
+    m_playingDevice = device;
+    Q_EMIT playingDeviceChanged();
 }
 
-Device* DeviceManager::playingDevice()
+Device* DeviceManager::playingDevice() const
 {
     return m_playingDevice;
 }
 
-QString DeviceManager::playingObjectId() const
+Device* DeviceManager::deviceAt(int i) const
 {
-    if (!m_playingDevice) {
-        return {};
-    }
-
-    return m_playingDevice->objectId();
-}
-
-QString DeviceManager::objectIdAt(int i) const
-{
-    return m_deviceList[i]->objectId();
+    return m_deviceList[i];
 }
 
 QVariant DeviceManager::data(const QModelIndex& index, int role) const
@@ -179,7 +162,7 @@ void DeviceManager::deviceAdded(GstDevice* device)
     endInsertRows();
 
     if (!m_playingDevice) {
-        setPlayingObjectId(m_deviceList.first()->objectId());
+        setPlayingDevice(m_deviceList.constFirst());
     }
 }
 
@@ -191,8 +174,7 @@ void DeviceManager::deviceRemoved(GstDevice* device)
     for(int i = 0, c = m_deviceList.size(); i<c; ++i) {
         auto dev = m_deviceList.at(i);
         if (m_playingDevice == dev) {
-            m_playingDevice = nullptr;
-            Q_EMIT playingDeviceChanged();
+            setPlayingDevice(nullptr);
         }
 
         if (dev->objectId() == objectId) {
