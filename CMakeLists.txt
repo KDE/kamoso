@@ -16,7 +16,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH}  ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick Test OpenGL)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Config DocTools KIO I18n Purpose Notifications)
 
-find_package(GStreamer 1.1.90 REQUIRED)
+find_package(GStreamer 1.10 REQUIRED)
 find_package(GLIB2 REQUIRED)
 find_package(GObject REQUIRED)
 
