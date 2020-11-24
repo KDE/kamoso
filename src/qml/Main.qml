@@ -102,7 +102,7 @@ Kirigami.ApplicationWindow
 
         Connections {
             target: webcam
-            function onPhotoTaken() { awesomeAnimation(path) }
+            function onPhotoTaken(path) { awesomeAnimation(path) }
         }
     }
 
