@@ -51,7 +51,7 @@ Kirigami.ApplicationWindow
 
     Connections {
         target: webcam
-        function onError() { showPassiveNotification(error) }
+        function onError(error) { showPassiveNotification(error) }
     }
 
     Image {
@@ -164,7 +164,6 @@ Kirigami.ApplicationWindow
         bottomPadding: 0
 
         contentItem: ImagesView {
-            id: view
             implicitWidth: Kirigami.Units.gridUnit * 20
             mimeFilter: root.pageStack.currentItem.actions.main.mimes
             nameFilter: root.pageStack.currentItem.actions.main.nameFilter
