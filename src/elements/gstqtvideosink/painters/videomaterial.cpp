@@ -382,12 +382,15 @@ void VideoMaterial::updateColors(int brightness, int contrast, int hue, int satu
 
     switch (m_colorMatrixType) {
     case GST_VIDEO_COLOR_MATRIX_BT709:
-        m_colorMatrix *= QMatrix4x4(
-                    1.164,  0.000,  1.793, -0.5727,
-                    1.164, -0.534, -0.213,  0.3007,
-                    1.164,  2.115,  0.000, -1.1302,
-                    0.0,    0.000,  0.000,  1.0000);
-        break;
+        // With some webcams I see the matrix type falling here, I'm not sure
+        // if it's a problem with the driver but it seems to happen on some
+        // hardware.
+//         m_colorMatrix *= QMatrix4x4(
+//                     1.164,  0.000,  1.793, -0.5727,
+//                     1.164, -0.534, -0.213,  0.3007,
+//                     1.164,  2.115,  0.000, -1.1302,
+//                     0.0,    0.000,  0.000,  1.0000);
+//         break;
     case GST_VIDEO_COLOR_MATRIX_BT601:
         m_colorMatrix *= QMatrix4x4(
                     1.164,  0.000,  1.596, -0.8708,
