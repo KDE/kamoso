@@ -18,7 +18,7 @@
 
 import QtQml 2.2
 import QtQuick 2.0
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.4
 import org.kde.kirigami 2.0 as Kirigami
 import org.kde.kamoso 3.0
 
@@ -92,7 +92,7 @@ GridView
                 right: parent.right
                 rightMargin: -width/3
             }
-            checkedState: Qt.Checked
+            checkState: Qt.Checked
             enabled: false
             visible: view.selection.indexOf(path.toString())>=0
         }

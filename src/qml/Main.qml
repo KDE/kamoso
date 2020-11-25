@@ -17,7 +17,6 @@
  ************************************************************************************/
 
 import QtQuick 2.5
-import QtQuick.Controls 1.1
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
@@ -52,7 +51,7 @@ Kirigami.ApplicationWindow
 
     Connections {
         target: webcam
-        function onError() { showPassiveNotification(error) }
+        function onError(error) { showPassiveNotification(error) }
     }
 
     Image {
@@ -102,7 +101,7 @@ Kirigami.ApplicationWindow
 
         Connections {
             target: webcam
-            function onPhotoTaken() { awesomeAnimation(path) }
+            function onPhotoTaken(path) { awesomeAnimation(path) }
         }
     }
 
@@ -165,7 +164,6 @@ Kirigami.ApplicationWindow
         bottomPadding: 0
 
         contentItem: ImagesView {
-            id: view
             implicitWidth: Kirigami.Units.gridUnit * 20
             mimeFilter: root.pageStack.currentItem.actions.main.mimes
             nameFilter: root.pageStack.currentItem.actions.main.nameFilter
