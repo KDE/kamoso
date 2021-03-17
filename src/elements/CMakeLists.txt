@@ -10,7 +10,4 @@ add_definitions(-DPACKAGE="kamoso-gstreamer"
                 -DGST_DISABLE_XML
                 -DGST_DISABLE_LOADSAVE)
 
-include_directories(${GSTREAMER_INCLUDE_DIR} ${GLIB2_INCLUDE_DIR})
-
-include_directories(${GSTREAMER_BASE_INCLUDE_DIR} ${GSTREAMER_VIDEO_INCLUDE_DIR})
 add_subdirectory(gstqtvideosink)

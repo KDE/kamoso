@@ -16,9 +16,9 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH}  ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 find_package(Qt5 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick Test OpenGL)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Config DocTools KIO I18n Purpose Notifications)
 
-find_package(GStreamer 1.10 REQUIRED)
-find_package(GLIB2 REQUIRED)
-find_package(GObject REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GStreamer IMPORTED_TARGET gstreamer-1.0)
+pkg_check_modules(GStreamerVideo IMPORTED_TARGET gstreamer-video-1.0)
 
 find_package(KF5Kirigami2)
 set_package_properties(KF5Kirigami2 PROPERTIES

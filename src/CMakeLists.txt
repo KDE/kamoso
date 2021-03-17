@@ -26,12 +26,10 @@ add_executable(kamoso
     ${kamosoqml_SRCS}
 )
 
-target_include_directories(kamoso PRIVATE "${GSTREAMER_INCLUDE_DIR}" "${GLIB2_INCLUDE_DIR}")
-
 target_link_libraries(kamoso
     Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick
     KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n KF5::Notifications
-    ${GSTREAMER_LIBRARIES} ${GLIB2_LIBRARIES} ${GOBJECT_LIBRARIES}
+    PkgConfig::GStreamer
 )
 
 install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})

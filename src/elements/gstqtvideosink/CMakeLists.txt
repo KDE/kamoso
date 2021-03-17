@@ -52,10 +52,7 @@ endif()
 
 add_library(gst${QTVIDEOSINK_NAME} MODULE ${GstQtVideoSink_SRCS})
 target_link_libraries(gst${QTVIDEOSINK_NAME}
-    ${GOBJECT_LIBRARIES}
-    ${GSTREAMER_LIBRARIES}
-    ${GSTREAMER_BASE_LIBRARY}
-    ${GSTREAMER_VIDEO_LIBRARY}
+    PkgConfig::GStreamerVideo
     ${GstQtVideoSink_GL_LIBS}
     Qt5::Quick
 )
