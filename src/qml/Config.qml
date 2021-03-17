@@ -21,7 +21,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.0
 import KamosoQtGStreamer 1.0
 import org.kde.kamoso 3.0
-import org.kde.kirigami 2.0 as Kirigami
+import org.kde.kirigami 2.9 as Kirigami
 
 GridView {
     id: view
