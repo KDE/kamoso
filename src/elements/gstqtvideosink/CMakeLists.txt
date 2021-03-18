@@ -67,10 +67,7 @@ ecm_add_test(
         painters/openglsurfacepainter.cpp
         ${GstQtVideoSink_test_GL_SRCS}
     LINK_LIBRARIES
-        ${GOBJECT_LIBRARIES}
-        ${GSTREAMER_LIBRARIES}
-        ${GSTREAMER_BASE_LIBRARY}
-        ${GSTREAMER_VIDEO_LIBRARY}
+        PkgConfig::GStreamerVideo
         ${GstQtVideoSink_GL_LIBS}
         Qt5::Test
         Qt5::OpenGL
