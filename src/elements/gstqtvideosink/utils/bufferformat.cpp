@@ -1,18 +1,8 @@
 /*
-    Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies). <qt-info@nokia.com>
-    Copyright (C) 2011-2012 Collabora Ltd. <info@collabora.com>
+    SPDX-FileCopyrightText: 2010 Nokia Corporation and /or its subsidiary(-ies). <qt-info@nokia.com>
+    SPDX-FileCopyrightText: 2011-2012 Collabora Ltd. <info@collabora.com>
 
-    This library is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License version 2.1
-    as published by the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: LGPL-2.1-only
 */
 #include "bufferformat.h"
 #include <QByteArray>

@@ -1,19 +1,9 @@
 /*
-    Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
-    Copyright (C) 2013 basysKom GmbH <info@basyskom.com>
-    Copyright (C) 2013 Collabora Ltd. <info@collabora.com>
+    SPDX-FileCopyrightText: 2013 Digia Plc and /or its subsidiary(-ies).
+    SPDX-FileCopyrightText: 2013 basysKom GmbH <info@basyskom.com>
+    SPDX-FileCopyrightText: 2013 Collabora Ltd. <info@collabora.com>
 
-    This library is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License version 2.1
-    as published by the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: LGPL-2.1-only
 */
 
 #ifndef VIDEOMATERIAL_H
