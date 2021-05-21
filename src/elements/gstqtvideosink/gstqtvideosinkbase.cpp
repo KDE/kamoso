@@ -1,5 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2010 Nokia Corporation and /or its subsidiary(-ies). <qt-info@nokia.com>
+    SPDX-FileCopyrightText: 2010 Nokia Corporation and/or its subsidiary(-ies). <qt-info@nokia.com>
     SPDX-FileCopyrightText: 2011-2012 Collabora Ltd. <info@collabora.com>
 
     SPDX-License-Identifier: LGPL-2.1-only
