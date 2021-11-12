@@ -98,11 +98,9 @@ QQC2.StackView {
                     onClicked: altsView.createJob(index);
                 }
 
-                onFinished: stack.replace({
-                    item: sharedComponent,
-                    properties: { text: output.url },
-                    replace: true
-                })
+                onFinished: {
+                    stack.replace(sharedComponent, { text: output.url })
+                }
             }
 
             Kirigami.BasicListItem {
