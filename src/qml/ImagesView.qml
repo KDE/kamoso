@@ -10,7 +10,7 @@ import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
-import org.kde.purpose 1.0
+import org.kde.purpose 1.0 as Purpose
 import org.kde.kirigami 2.12 as Kirigami
 
 QQC2.StackView {
@@ -81,14 +81,13 @@ QQC2.StackView {
 
                 sourceComponent: headerComponent
             }
-            AlternativesView {
+            Purpose.AlternativesView {
                 id: altsView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                pluginType: "Export"
-                inputData: {
-                    "urls": view.selection,
-                    "mimeType": stack.mimeFilter
+                model: Purpose.Export {
+                    urls: view.selection
+                    mimeType: stack.mimeFilter
                 }
 
                 verticalLayoutDirection: ListView.BottomToTop
