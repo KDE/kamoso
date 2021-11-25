@@ -19,7 +19,15 @@ QString structureValue(GstStructure* device, const char* key)
 
 QString objectIdFromProperties(GstStructure* st)
 {
-    return structureValue(st, "object.id");
+    // The value returned here is later used to identify
+    // the camera device we are dealing with.
+    QString objectId = structureValue(st, "object.id");
+    if (!objectId.isEmpty()) {
+        return objectId;
+    } else {
+        // fallback value in-case the above returns empty string.
+        return structureValue(st, "device.path");
+    }
 }
 
 //     for reference, the properties can be listed with:
