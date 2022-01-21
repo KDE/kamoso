@@ -39,6 +39,7 @@
   <name xml:lang="zh-CN">Kamoso</name>
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Use your webcam to take pictures and make videos</summary>
+  <summary xml:lang="ar">استخدام كاميرا الوِبّ لديك لأخذ الصّور و تسجيل الفيديوهات.</summary>
   <summary xml:lang="ca">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="ca-valencia">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="cs">Používejte svou webkameru k pořizování snímků a videí</summary>
@@ -73,6 +74,7 @@
   <summary xml:lang="zh-TW">使用您的 Webcam 拍照或錄影</summary>
   <description>
     <p>Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
+    <p xml:lang="ar">«كاموسو» برنامج رائع وبسيط لاستخدام كاميرا الوِبّ لديك لأخذ الصّور أو تسجيل الفيديوهات.</p>
     <p xml:lang="ca">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="ca-valencia">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="da">Kamoso er et simpelt og brugervenligt program til at bruge dit webkamera. Du kan bruge det til at tage billeder eller lave videoer til at dele med andre.</p>
@@ -111,6 +113,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Kamoso main window</caption>
+      <caption xml:lang="ar">النافذة الرئيسة لكاموسو</caption>
       <caption xml:lang="ca">Finestra principal del Kamoso</caption>
       <caption xml:lang="ca-valencia">Finestra principal del Kamoso</caption>
       <caption xml:lang="cs">Hlavní okno Kamoso</caption>
