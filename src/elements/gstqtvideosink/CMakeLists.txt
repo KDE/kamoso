@@ -59,19 +59,22 @@ target_link_libraries(gst${QTVIDEOSINK_NAME}
 
 install(TARGETS gst${QTVIDEOSINK_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR}/gstreamer-${GSTREAMER_ABI_VERSION})
 
-ecm_add_test(
-        autotest.cpp
-        utils/utils.cpp
-        utils/bufferformat.cpp
-        painters/genericsurfacepainter.cpp
-        painters/openglsurfacepainter.cpp
-        ${GstQtVideoSink_test_GL_SRCS}
-    LINK_LIBRARIES
-        PkgConfig::GStreamerVideo
-        ${GstQtVideoSink_GL_LIBS}
-        Qt5::Test
-        Qt5::OpenGL
-        Qt5::Quick
-    TEST_NAME qtvideosink_autotest
-)
-
+if(BUILD_TESTING)
+    find_package(Qt5 NO_MODULE REQUIRED COMPONENTS OpenGL Test)
+    ecm_add_test(
+            autotest.cpp
+            utils/utils.cpp
+            utils/bufferformat.cpp
+            painters/genericsurfacepainter.cpp
+            painters/openglsurfacepainter.cpp
+            ${GstQtVideoSink_test_GL_SRCS}
+        LINK_LIBRARIES
+            PkgConfig::GStreamerVideo
+            ${GstQtVideoSink_GL_LIBS}
+            Qt5::Test
+            Qt5::OpenGL
+            Qt5::Quick
+            Qt5::Widgets
+        TEST_NAME qtvideosink_autotest
+    )
+endif()
