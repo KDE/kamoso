@@ -25,6 +25,7 @@
   <name xml:lang="lt">Kamoso</name>
   <name xml:lang="nl">Kamoso</name>
   <name xml:lang="nn">Kamoso</name>
+  <name xml:lang="pa">ਕਮੋਸੋ</name>
   <name xml:lang="pl">Kamoso</name>
   <name xml:lang="pt">Kamoso</name>
   <name xml:lang="pt-BR">Kamoso</name>
@@ -60,6 +61,7 @@
   <summary xml:lang="lt">Naudokite savo kamerą norėdami fotografuoti ar filmuoti vaizdo įrašus</summary>
   <summary xml:lang="nl">Uw webcam te gebruiken om foto's of video's te maken</summary>
   <summary xml:lang="nn">Bruk nettkamera for å ta bilete og laga videoar</summary>
+  <summary xml:lang="pa">ਆਪਣੇ ਕੈਮਰੇ ਨੂੰ ਤਸਵੀਰ ਖਿੱਚਣ ਤੇ ਵਿਡੀਓ ਬਣਾਉਣ ਲਈ ਵਰਤੋਂ</summary>
   <summary xml:lang="pl">Używaj swojej kamerki do robienia zdjęć i filmów</summary>
   <summary xml:lang="pt">Use a sua Webcam para tirar fotografias ou criar vídeos</summary>
   <summary xml:lang="pt-BR">Use sua webcam para tirar fotos e gravar vídeos</summary>
@@ -136,6 +138,7 @@
       <caption xml:lang="lt">Kamoso pagrindinis langas</caption>
       <caption xml:lang="nl">Hoofdvenster van Kamoso</caption>
       <caption xml:lang="nn">Hovudvindauge i Kamoso</caption>
+      <caption xml:lang="pa">ਕਮੋਸੋ ਮੁੱਖ ਵਿੰਡੋ</caption>
       <caption xml:lang="pl">Główne okno Kamoso</caption>
       <caption xml:lang="pt">Janela principal do Kamoso</caption>
       <caption xml:lang="pt-BR">Janela principal do Kamoso</caption>
