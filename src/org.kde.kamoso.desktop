@@ -132,5 +132,4 @@ Exec=kamoso -qwindowtitle %c
 Icon=kamoso
 Type=Application
 X-DocPath=kamoso/index.html
-Terminal=false
 Categories=Qt;KDE;AudioVideo;
