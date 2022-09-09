@@ -56,7 +56,7 @@ DesktopEntry=org.kde.kamoso
 [Event/photoTaken]
 Name=Photo Taken
 Name[ar]=أخذت الصورة
-Name[bg]=Снимката е направена
+Name[bg]=Заснета снимка
 Name[ca]=Foto presa
 Name[ca@valencia]=Foto presa
 Name[cs]=Pořízena fotografie
