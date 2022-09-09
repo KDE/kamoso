@@ -5,6 +5,7 @@
   <project_license>GPL-2.0+</project_license>
   <name>Kamoso</name>
   <name xml:lang="ar">كاموسو</name>
+  <name xml:lang="bg">Kamoso</name>
   <name xml:lang="ca">Kamoso</name>
   <name xml:lang="ca-valencia">Kamoso</name>
   <name xml:lang="cs">Kamoso</name>
@@ -40,6 +41,7 @@
   <name xml:lang="zh-TW">Kamoso</name>
   <summary>Use your webcam to take pictures and make videos</summary>
   <summary xml:lang="ar">استخدام كاميرا الوِبّ لديك لأخذ الصّور و تسجيل الفيديوهات.</summary>
+  <summary xml:lang="bg">Използвайте уеб камерата си, за да правите снимки или видеоклипове</summary>
   <summary xml:lang="ca">Useu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="ca-valencia">Utilitzeu la càmera web per a prendre fotografies o fer vídeos</summary>
   <summary xml:lang="cs">Používejte svou webkameru k pořizování snímků a videí</summary>
@@ -76,6 +78,7 @@
   <description>
     <p>Kamoso is a simple and friendly program to use your camera. Use it to take pictures and make videos to share.</p>
     <p xml:lang="ar">«كاموسو» برنامج رائع وبسيط لاستخدام كاميرا الوِبّ لديك لأخذ الصّور أو تسجيل الفيديوهات.</p>
+    <p xml:lang="bg">Kamoso е проста и удобна програма за използване на вашата камера. Използвайте я, за да правите снимки и да правите видеоклипове, които да споделяте.</p>
     <p xml:lang="ca">El Kamoso és un programa senzill i fàcil d'emprar per a usar la càmera web. Useu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="ca-valencia">Kamoso és un programa senzill i fàcil d'emprar per a utilitzar la càmera web. Utilitzeu-lo per a prendre fotografies o fer vídeos per a compartir.</p>
     <p xml:lang="da">Kamoso er et simpelt og brugervenligt program til at bruge dit webkamera. Du kan bruge det til at tage billeder eller lave videoer til at dele med andre.</p>
@@ -116,6 +119,7 @@
     <screenshot type="default">
       <caption>Kamoso main window</caption>
       <caption xml:lang="ar">النافذة الرئيسة لكاموسو</caption>
+      <caption xml:lang="bg">Главният прозорец на Kamoso</caption>
       <caption xml:lang="ca">Finestra principal del Kamoso</caption>
       <caption xml:lang="ca-valencia">Finestra principal de Kamoso</caption>
       <caption xml:lang="cs">Hlavní okno Kamoso</caption>
