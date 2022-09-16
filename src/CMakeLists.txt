@@ -32,7 +32,7 @@ target_link_libraries(kamoso
     PkgConfig::GStreamer
 )
 
-install(TARGETS kamoso ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES kamoso.notifyrc DESTINATION ${KNOTIFYRC_INSTALL_DIR})
-install(FILES kamoso-shutter.wav DESTINATION ${SOUND_INSTALL_DIR})
+install(TARGETS kamoso ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES kamoso.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(FILES kamoso-shutter.wav DESTINATION ${KDE_INSTALL_SOUNDDIR})

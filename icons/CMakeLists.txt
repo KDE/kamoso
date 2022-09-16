@@ -8,4 +8,4 @@ ecm_install_icons(ICONS
     sc-apps-kamoso.svgz
     sc-actions-burst.svgz
 THEME hicolor
-DESTINATION ${ICON_INSTALL_DIR} )
+DESTINATION ${KDE_INSTALL_ICONDIR} )
