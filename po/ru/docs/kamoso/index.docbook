@@ -1,0 +1,276 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Руководство пользователя Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Данное руководство создано на основе страницы <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> пользовательской базы знаний KDE и обновлено командой составителей документации &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>Дмитрий</firstname
+><surname
+>Астанков</surname
+><affiliation
+><address
+><email
+>mornie@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Редактирование перевода</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24 августа 2016 г.</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Фотографирование</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; позволяет делать снимки с помощью веб-камеры и загружать их в Интернет</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Запись видео</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; позволяет записывать видеоролики с помощью веб-камеры и загружать их в Интернет</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Руководство пользователя</title>
+<para
+>Добро пожаловать в &kamoso;! </para>
+<para
+>&kamoso; — отличная программа для захвата видео и изображений с веб-камеры. Это руководство поможет в использовании &kamoso; сразу после установки. </para>
+<sect1 id="quick-start"
+><title
+>Начало работы</title>
+<para
+>При запуске &kamoso; открывается следующее окно с кнопками в нижней его части: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Переключиться в режим <guibutton
+>съёмки</guibutton
+> для получения одиночного снимка </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Переключиться в режим <guibutton
+>серии</guibutton
+> для непрерывной съёмки фотографий до повторного нажатия средней кнопки </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Переключиться в режим <guibutton
+>записи</guibutton
+> для захвата видео </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Начать или остановить фотосъёмку или запись видео</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Показать галерею</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Показать параметры</guibutton>
+</member
+></simplelist>
+
+<para
+>Фотографии и видео нумеруются последовательно и автоматически сохраняются в <guilabel
+>каталог захваченных элементов</guilabel
+>, указанный в параметрах программы. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Управление захваченными элементами</title>
+
+<para
+>Для просмотра и управления захваченными изображениями и видеозаписями нажмите кнопку <guibutton
+>Показать галерею</guibutton
+>. В контекстном меню каждого элемента галереи присутствуют команды для управления этим элементом: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Используйте <guimenuitem
+>Открыть</guimenuitem
+> для просмотра захваченных элементов в соответствующем приложении. </para>
+
+<para
+>Если необходимо удалить снимки или видео, откройте папку с захваченными элементами в диспетчере файлов. </para>
+
+<para
+>Следующие действия позволяют загрузить элементы в Интернет, а также отправить их контакту или на устройство. </para>
+
+<para
+>Нажмите <guimenuitem
+>Сохранить как</guimenuitem
+> для полного копирования содержимого галереи в новую папку. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Настройка</title>
+<para
+>Нажмите кнопку <guibutton
+>Показать параметры</guibutton
+>, чтобы открыть панель параметров программы. Повторное нажатие кнопки закрывает панель. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Для изменения каталога, в который программа &kamoso; сохраняет снимки и видеозаписи, укажите нужный каталог в поле <guilabel
+>каталога захваченных элементов</guilabel
+> в верхней части окна. </para>
+
+<para
+>Установите флажок <guibutton
+>Использовать вспышку</guibutton
+> для подсвечивания окна перед получением снимка. </para>
+
+<para
+>С помощью ползунков возможно изменить параметры камеры, такие как яркость, тон, контрастность, насыщенность и гамма. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Авторские права и лицензия</title>
+      <para
+>Сведения об авторских правах на документацию доступны в <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>журнале страницы Kamoso</ulink
+> пользовательской базы знаний KDE.</para>
+      <para
+>Дмитрий Астанков<email
+>mornie@basealt.ru</email
+></para
+><para
+>Олеся Герасименко<email
+>translation-team@basealt.ru</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

@@ -1,0 +1,272 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Spanish "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>El manual de Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Esta documentación se convirtió desde la página <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> de KDE UserBase y fue actualizada por el equipo de documentación de &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+> <firstname
+>Javier</firstname
+> <surname
+>Viñal</surname
+> <affiliation
+><address
+><email
+>fjvinal@gmail.com</email
+> </address
+></affiliation
+> <contrib
+>Traductor</contrib
+> </othercredit
+> <othercredit role="translator"
+> <firstname
+>Víctor</firstname
+> <surname
+>Rodrigo</surname
+> <affiliation
+><address
+><email
+>vrcordoba@gmail.com</email
+> </address
+></affiliation
+> <contrib
+>Traductor</contrib
+> </othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Tomar una foto</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; le proporciona la oportunidad de hacer fotos desde su cámara web y subirlas a Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Grabar video</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; le permite grabar videos desde su cámara web y subirlos a Internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Guía de usuario</title>
+<para
+>¡Bienvenido a &kamoso;! </para>
+<para
+>&kamoso; es un magnífico programa para usar su cámara web para tomar fotos o hacer videos. Esta guía le ayudará a usar &kamoso; una vez que lo haya instalado. </para>
+<sect1 id="quick-start"
+><title
+>Inicio rápido</title>
+<para
+>Al lanzarse &kamoso;, se muestra esta ventana con botones en la parte inferior: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Cambie al modo <guibutton
+>Disparo</guibutton
+> para capturar una imagen </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Cambie al modo <guibutton
+>Ráfaga</guibutton
+> y capture imágenes de manera continua hasta pare haciendo clic de nuevo en el botón central </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Cambie al modo <guibutton
+>Grabar</guibutton
+> para grabar vídeo </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Empiece o pare de capturar imágenes o grabar vídeo</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostrar galería</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostrar preferencias</guibutton>
+</member
+></simplelist>
+
+<para
+>Las imágenes y vídeos se numeran consecutivamente y se guardan automáticamente en el <guilabel
+>directorio de capturas</guilabel
+> definido en las preferencias. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Administrar capturas</title>
+
+<para
+>Para ver y administrar sus imágenes y vídeos capturados, haga clic en el botón <guibutton
+>Mostrar galería</guibutton
+>. En el menú contextual de cada entrada de la galería encontrará acciones para administrarlas: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Use <guimenuitem
+>Abrir</guimenuitem
+> para ver las capturas en la aplicación asociada. </para>
+
+<para
+>Si quiere borrar imágenes y vídeos, abra la carpeta de capturas en el gestor de archivos. </para>
+
+<para
+>Las siguientes acciones le permitirán subir capturas a Internet o enviarlas a un contacto o dispositivo. </para>
+
+<para
+>Use <guimenuitem
+>Guardar como</guimenuitem
+> para copiar el contenido completo de la galería a una nueva carpeta. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Personalización</title>
+<para
+>Haga clic en el botón <guibutton
+>Mostrar preferencias</guibutton
+> para abrir el panel de preferencias. Haga clic en el botón de nuevo para ocultar el panel de preferencias. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Si usted quiere cambiar la carpeta donde &kamoso; guarda las imágenes y vídeos, cambie el <guilabel
+>directorio de capturas</guilabel
+> en la parte superior. </para>
+
+<para
+>Active <guibutton
+>Usar flash</guibutton
+> para hacer resaltar la ventana antes de tomar fotos. </para>
+
+<para
+>Usando los deslizadores puede modificar las preferencias de la cámara como brillo, tono, contraste, saturación y gamma. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Créditos y licencia</title>
+      <para
+>Derechos de autor de la documentación, consulte la <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>Página de historia de Kamoso</ulink
+> de UserBase</para>
+      <para
+>Traducido por Javier Viñal <email
+>fjvinal@gmail.com</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

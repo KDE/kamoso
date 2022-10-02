@@ -1,0 +1,258 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Handbok Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Det här dokumentet är konverterad från <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+>-sidan på KDE:s användarbas och uppdaterat av &kde;:s dokumentationsgrupp.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>Kamoso 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Ta en bild</emphasis
+></term>
+    <listitem>
+    <para
+>Kamoso ger dig möjlighet att ta foton med din webbkamera och ladda upp dem på Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Spela in video</emphasis
+></term>
+    <listitem>
+    <para
+>Kamoso ger dig möjlighet att spela in video med din webbkamera och ladda upp på Internet.</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Användarguide</title>
+<para
+>Välkommen till Kamoso! </para>
+<para
+>Kamoso är ett utmärkt program för att använda en webbkamera för att ta bilder eller spela in video. Den här guiden hjälper dig använda Kamoso, när du väl har installerat det. </para>
+<sect1 id="quick-start"
+><title
+>Snabbstart</title>
+<para
+>När Kamoso startas, visas det hör fönstret med knappar längst ner: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Använd <guibutton
+>Ta</guibutton
+> för att ta en bild </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Använd <guibutton
+>Ta flera</guibutton
+> för att kontinuerligt ta bilder tills du stoppar genom att klicka på mittenknappen igen </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Använd <guibutton
+>Spela in</guibutton
+> för att spela in en video </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Starta eller stoppa tagning av bilder eller inspelning av en video</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Visa galleri</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Visa inställningar</guibutton>
+</member
+></simplelist>
+
+<para
+>Bilder och videor numreras i ordning och sparas automatiskt i <guilabel
+>Katalog för tagna bilder</guilabel
+> definierad i inställningarna. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Hantera tagningar</title>
+
+<para
+>För att visa och hantera tagna bilder och videor, klicka på knappen <guibutton
+>Visa galleri</guibutton
+>. I den sammanhangsberoende menyn för varje post i galleriet finns åtgärder för att hantera den: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Använd <guimenuitem
+>Öppna</guimenuitem
+> för att visa tagningar i det associerade programmet. </para>
+
+<para
+>Öppna katalogen för tagna bilder i filhanteraren om du vill ta bort bilder och videor. </para>
+
+<para
+>Följande åtgärder låter dig ladda upp tagningar till Internet eller skicka dem till en kontakt eller enhet. </para>
+
+<para
+>Använd <guimenuitem
+>Spara som</guimenuitem
+> för att kopiera hela innehållet i galleriet till en ny katalog. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Anpassning</title>
+<para
+>Klicka på knappen <guibutton
+>Visa inställningar</guibutton
+> för att visa inställningsrutan. Klicka på knappen igen för att dölja inställningsrutan. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Om du vill ändra katalogen där Kamoso sparar bilder och videor, ändra <guilabel
+>Katalog för tagna bilder</guilabel
+> längst upp. </para>
+
+<para
+>Aktivera <guibutton
+>Använd blixt</guibutton
+> för att gör fönstret ljust innan foton tas. </para>
+
+<para
+>Genom att använda skjutreglagen kan du ändra kamerainställningar som ljusstyrka, färgton, kontrast, färgmättnad och gamma. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Tack till och licens</title>
+      <para
+>Dokumentation Copyright, se användarbasens <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>sidhistorik för Kamoso</ulink
+></para>
+      <para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

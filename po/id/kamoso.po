@@ -1,0 +1,329 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# wantoyo <wantoyo@yahoo.com>, 2014-2015.
+# Wantoyo <wantoyek@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2022.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: KDE Frameworks 5 Applications\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2022-03-24 06:21+0700\n"
+"Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
+"Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Wantoyo"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "wantoyek@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Dimana foto tersimpan."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Tampilan kamera dicerminkan secara menegak."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Poin terakhir yang digunakan webcam."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Utilitas untuk pengambilan foto dan video menggunakan webcam"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas dan Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Peretas semafor"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Peminum kopi"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Suara jepretan yang diunggah: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Bagikan"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Kembali"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Sekarang media diekspor"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Konfigurasi Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Lokasi Simpan"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Gambar:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Pilih folder di mana Kamoso akan menyimpan gambar"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Video:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Pilih folder di mana Kamoso akan menyimpan video"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Kamera"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Kamera cermin"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Tidak ada citra di dalam folder <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Bagikan %1 Item..."
+msgstr[1] "Bagikan %1 Item..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Bagikan Item..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Pindahkan %1 Item ke Tong Sampah"
+msgstr[1] "Pindahkan %1 Item ke Tong Sampah"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Pindahkan  Item ke Tong Sampah"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Buka Folder Gambar"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Konfigurasikan Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Ambil sebuah Gambar"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Akhiri Rentetan"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Tangkap secara Rentet"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 foto diambil"
+msgstr[1] "%1 foto diambil"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Hentikan Perekaman"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Rekam sebuah Video"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galeri Efek"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Foto yang terambil"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Simpan di dalam %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Simpan ke..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Pilih sebuah direktori mana untuk menyimpan gambar-gambarmu"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Pilih sebuah direktori mana untuk menyimpan video-videomu"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Pindah ke sesampahan... (%1)"
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Apakah kamu yakin ingin membuang file %1?"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Bagikan... (%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Jepret"
+
+#~ msgid "Places"
+#~ msgstr "Tempat"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Foto-foto: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Gunakan kilat"
+
+#~ msgid "On screen information"
+#~ msgstr "Informasi layar yang on"
+
+#~ msgid "Brightness:"
+#~ msgstr "Kecerahan:"
+
+#~ msgid "Hue:"
+#~ msgstr "Warna:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Kontras:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Penjenuhan:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gamma:"
+
+#~ msgid "Reset"
+#~ msgstr "Setel ulang"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 dipilih"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "URL yang hanya dibagikan"
+
+#~ msgid "Run"
+#~ msgstr "Jalankan"
+
+#~ msgid "Cancel"
+#~ msgstr "Batalkan"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Beralih ke mode '%1'"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Tunjukkan gallery..."
+
+#~ msgid "Show settings..."
+#~ msgstr "Tunjukkan setelan..."
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Putar sebuah suara saat foto di ambil."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Berapa detik kamoso menunggu sebelum membuat gambar."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Pengambil gambar webcam"
+
+#~ msgid "Open..."
+#~ msgstr "Buka..."
+
+#~ msgid "Smile! :)"
+#~ msgstr "Senyum! :)"

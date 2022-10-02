@@ -1,0 +1,241 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2013, 2014, 2015, 2017, 2018, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-09-02 17:01+0200\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 19.08.0\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Pavel Fric, Vít Pelčák"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pavelfric@seznam.cz, vit@pelcak.org"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Kde jsou fotografie uloženy."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Zrcadlit pohled fotoaparátu svisle."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Ukazuje na naposled použitou webovou kameru."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Nástroj pro pořizování fotek a videa pomocí web kamery"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas a Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Hacker semaforů"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Piják kafe"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Odeslán zvuk závěrky: https://freesound.org/people/caseymoura/sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Sdílet"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Zpět"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Média jsou právě exportována"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Nastavit Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Uložit umístění"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Obrázky:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Vyberte složku, kam bude Kamoso ukládat fotografie"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Videa:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Vyberte složku, kam bude Kamoso ukládat video"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Fotoaparáty"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Zrcadlit fotoaparát"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "V <filename>%1</filename> nejsou žádné obrázky"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Sdílet %1 položku"
+msgstr[1] "Sdílet %1 položky"
+msgstr[2] "Sdílet %1 položek"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Položka byla sdílena..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Přesunout %1 položku do koše"
+msgstr[1] "Přesunout %1 položky do koše"
+msgstr[2] "Přesunout %1 položek do koše"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Přesunout položku do koše"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Otevřít složku obrázků"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Nastavit Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Pořídit obrázek"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Ukončit dávku"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Zachytit dávku"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "Pořízena 1 fotografie"
+msgstr[1] "Pořízeny %1 fotografie"
+msgstr[2] "Pořízeno %1 fotografií"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Zastavit nahrávání"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Nahrávat video"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galerie efektů"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Pořízena fotografie"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Uloženo v %1"

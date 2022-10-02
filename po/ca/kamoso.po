@@ -1,0 +1,244 @@
+# Translation of kamoso.po to Catalan
+# Copyright (C) 2009-2019 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kamoso package.
+#
+# Aleix Pol <aleixpol@kde.org>, 2009.
+# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2014, 2015, 2016, 2017, 2018, 2019.
+# Manue Tortosa <manutortosa@chakra-project.org>, 2011.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-04-09 18:51+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Josep M. Ferrer"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "txemaq@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "A on es desen les fotos."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Emmiralla verticalment la vista de la càmera."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Apunta a la darrera càmera web usada."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Una utilitat per a fer fotos i vídeos emprant una càmera web"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol i Gonzàlez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Hacker de semàfors"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Bevedor de cafè"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Ha pujat el so del disparador: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Comparteix"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Enrere"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Ara s'ha exportat el suport"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Configura el Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Desa les ubicacions"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Imatges:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Trieu la carpeta a on el Kamoso desarà les imatges"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Vídeos:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Trieu la carpeta a on el Kamoso desarà els vídeos"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Càmeres"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Mirall vertical"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "No hi ha imatges a <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Comparteix %1 element..."
+msgstr[1] "Comparteix %1 elements..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Comparteix element..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Mou %1 element a la paperera"
+msgstr[1] "Mou %1 elements a la paperera"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Mou l'element a la paperera"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Obre la carpeta d'imatges"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Configura el Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Pren una fotografia"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Fi de ràfega"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Captura una ràfega"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "S'ha pres 1 foto"
+msgstr[1] "S'han pres %1 fotos"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Atura l'enregistrament"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Enregistra un vídeo"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galeria d'efectes"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Foto presa"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Desada a %1"

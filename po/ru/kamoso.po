@@ -1,0 +1,464 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yuri Efremov <yur.arh@gmail.com>, 2011.
+# Alexander Lakhin <exclusion@gmail.com>, 2013.
+# Victor Ryzhykh <victorr2007@yandex.ru>, 2015.
+# Alexander Potashev <aspotashev@gmail.com>, 2015, 2016.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2020-11-11 08:51+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.08.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: \n"
+"X-Text-Markup: \n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Юрий Ефремов,Виктор Рыжих,Александр Поташев,Дмитрий Астанков"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"yur.arh@gmail.com,victorr2007@ya.ru,aspotashev@gmail.com,mornie@basealt.ru"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Расположение, в которое будут сохраняться снимки."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Зеркально отразить изображение с камеры."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Идентификатор последней использованной веб-камеры."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Программа для создания фотоснимков и записи видео с помощью веб-камеры"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "© Alex Fiestas и Aleix Pol, 2008-2015"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Эксперт по семафорам"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Любитель кофе"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Загрузка звука затвора камеры: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Опубликовать"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Назад"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Файлы экспортированы"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Настроить Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Пути для сохранения"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Изображения:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Выбор папки для сохранения изображений"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Видеозаписи:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Выбор папки для сохранения видеофайлов"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Фотокамеры"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Зеркальное изображение"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "В каталоге <filename>%1</filename> фотографии отсутствуют"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Опубликовать %1 объект..."
+msgstr[1] "Опубликовать %1 объекта..."
+msgstr[2] "Опубликовать %1 объектов..."
+msgstr[3] "Опубликовать объект..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Опубликовать..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Переместить %1 объект в корзину"
+msgstr[1] "Переместить %1 объекта в корзину"
+msgstr[2] "Переместить %1 объектов в корзину"
+msgstr[3] "Переместить объект в корзину"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Переместить объект в корзину"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Открыть папку изображений"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Настроить Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Сделать снимок"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Закончить серию"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Серия снимков"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "Созданы %1 фотография"
+msgstr[1] "Созданы %1 фотографии"
+msgstr[2] "Созданы %1 фотографий"
+msgstr[3] "Создана одна фотография"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Остановить запись"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Записать видео"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Галерея эффектов"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Фотография создана"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Сохранено %1"
+
+#, fuzzy
+#~| msgid "Move to Trash"
+#~ msgid "Save to..."
+#~ msgstr "Переместить в корзину"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Выбор каталога для сохранения снимков и видео"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Выбор каталога для сохранения снимков и видео"
+
+#, fuzzy
+#~| msgid "Move to Trash"
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Переместить в корзину"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete this file?"
+#~| msgid_plural "Are you sure you want to delete these %1 files?"
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Удалить %1 файл?"
+#~ msgstr[1] "Удалить %1 файла?"
+#~ msgstr[2] "Удалить %1 файлов?"
+#~ msgstr[3] "Удалить файл?"
+
+#~ msgid "Shoot"
+#~ msgstr "Снимок"
+
+#~ msgid "Places"
+#~ msgstr "Размещение"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Фотографии: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Использовать вспышку"
+
+#, fuzzy
+#~| msgid "Video information:"
+#~ msgid "On screen information"
+#~ msgstr "Сведения о видеоклипе:"
+
+#~ msgid "Brightness:"
+#~ msgstr "Яркость:"
+
+#~ msgid "Hue:"
+#~ msgstr "Тон:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Контрастность:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Насыщенность:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Гамма:"
+
+#~ msgid "Reset"
+#~ msgstr "Сбросить"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "Файл был опубликован по указанному адресу"
+
+#~ msgid "Run"
+#~ msgstr "Выполнить"
+
+#~ msgid "Cancel"
+#~ msgstr "Отмена"
+
+# BUGME: please use Transcript to make it more human-readable, e.g. "Переключиться в режим серийной съёмки" --aspotashev
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Переключиться в режим «%1»"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Показать галерею"
+
+#~ msgid "Show settings..."
+#~ msgstr "Настроить Kamoso..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "Открыть каталог..."
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Издать звук в момент снимка"
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Задержка получения снимка в секундах."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Программа для создания снимков"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Улыбочку! :)"
+
+#~ msgid "Video Information:"
+#~ msgstr "Сведения о видео:"
+
+#~ msgid "Title"
+#~ msgstr "Заголовок"
+
+#~ msgid "Tags:"
+#~ msgstr "Метки:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Для публикации видео на YouTube требуется указать имя пользователя и "
+#~ "пароль."
+
+#~ msgid "Server:"
+#~ msgstr "Сервер:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Аутентификация на YouTube"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "Заголовок"
+
+#, fuzzy
+#~| msgid "Kamoso"
+#~ msgid "KDE, Kamoso"
+#~ msgstr "Kamoso"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Description:"
+#~ msgstr "Описание"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Каталог для сохранения снимков"
+
+#~ msgid "General"
+#~ msgstr "Основное"
+
+#~ msgid "Video Settings"
+#~ msgstr "Параметры видео"
+
+#~ msgid "Trash"
+#~ msgstr "Корзина"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Завершено: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "© Alex Fiestas и Aleix Pol, 2008-2010"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Веб-камера не найдена."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Выберите веб-камеру:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Задержка перед снимком:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Публикация видеоклипа на YouTube"
+
+#~ msgid "Video information:"
+#~ msgstr "Сведения о видеоклипе:"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Это видео было записано с помощью Kamoso, программы KDE для работы с веб-"
+#~ "камерами!"
+
+#~ msgid "Brightness"
+#~ msgstr "Яркость"
+
+#~ msgid "Hue"
+#~ msgstr "Тон"
+
+#~ msgid "Contrast"
+#~ msgstr "Контрастность"
+
+#~ msgid "Saturation"
+#~ msgstr "Насыщенность"
+
+#~ msgid "Gamma"
+#~ msgstr "Гамма"

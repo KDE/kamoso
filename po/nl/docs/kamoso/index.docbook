@@ -1,0 +1,240 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Het handboek van Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Deze documentatie is geconverteerd vanuit de KDE UserBase pagina <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> en bijgewerkt door het &kde; documentatieteam.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+&Freek.de.Kruijf; 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Afbeelding nemen</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; biedt u de mogelijkheid foto's met uw webcam te maken en ze te uploaden naar het internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Video opnemen</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; biedt u de mogelijkheid video's met uw webcam te maken en ze te uploaden naar het internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Gebruikersgids</title>
+<para
+>Welkom bij &kamoso;! </para>
+<para
+>&kamoso; is een handig programma voor het gebruik van uw webcam voor het maken van foto's en video's. Deze gids helpt u bij het gebruik van &kamoso; na de installatie. </para>
+<sect1 id="quick-start"
+><title
+>Snelstart</title>
+<para
+>Bij opstarten van &kamoso; toont het dit venster met onderaan knoppen: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Schakel naar modus <guibutton
+>Schieten</guibutton
+> om één foto te maken </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Schakel naar modus <guibutton
+>Salvo</guibutton
+> en maak continue foto's totdat u stopt door met de middelste knop opnieuw te klikken </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Schakel naar modus <guibutton
+>Opnemen</guibutton
+> om een video op te nemen </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Start of stop het maken van foto's of opnemen van een video</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Galerij tonen</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Instellingen tonen</guibutton>
+</member
+></simplelist>
+
+<para
+>Foto's en video's worden opeenvolgend genummerd en automatisch opgeslagen in de map <guilabel
+>Opnamen</guilabel
+> gedefinieerd in de instellingen. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Opnamen beheren</title>
+
+<para
+>Om uw opgenomen foto's of video's te bekijken en te beheren, klik op de knop <guibutton
+>Galerij tonen</guibutton
+>. In het contextmenu voor elk item in de galerij vindt u acties om ze te beheren: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Gebruik <guimenuitem
+>Openen</guimenuitem
+> om uw opnamen te bekijken in de geassocieerde toepassing. </para>
+
+<para
+>Als u foto's en video's wilt verwijderen open dan de map voor opnamen in de bestandsbeheerder. </para>
+
+<para
+>De volgende acties stellen u in staat om opnamen naar het internet te uploaden of ze te verzenden naar een contactpersoon of apparaat. </para>
+
+<para
+>Gebruik <guimenuitem
+>Opslaan als</guimenuitem
+> om de volledige inhoud van de galerij te kopiëren naar een nieuwe map. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Aanpassen</title>
+<para
+>Klik op de knop <guibutton
+>Instellingen tonen</guibutton
+> om het instellingenpaneel te opnen. Klik opnieuw op de knop om het paneel te verbergen. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Als u de map waar &kamoso; foto's en video's opslaat wilt wijzigen, wijzig dan bovenaan de map <guilabel
+>Opnamen</guilabel
+>. </para>
+
+<para
+>Schakel <guibutton
+>Flits gebruiken</guibutton
+> om het venster te laten oplichten voor het nemen van de foto's. </para>
+
+<para
+>Met behulp van de schuifregelaars kunt u de instellingen van de camera, zoals helderheid, tint, contrast, verzadiging en gamma, wijzigen. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Dankbetuigingen en licentie</title>
+      <para
+>Documentatie Copyright zie de UserBase geschiedenis van de pagina <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>Kamoso</ulink
+></para>
+      &meld.fouten;&vertaling.freek; &underFDL; </chapter>
+&documentation.index;
+</book>

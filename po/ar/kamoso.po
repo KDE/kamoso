@@ -1,0 +1,371 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015, ٢٠١٦.
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2022-01-20 19:38+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 21.07.70\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "صفا الفليج"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "safa1996alfulaij@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "مكان حفظ الصّور."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "عكس عرض الكاميرا رأسيًا."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "يشير إلى آخر كاميرا وِبّ مستخدمة."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "كاموسو"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "أداة لأخذ الصّور والفيديوهات باستخدام كاميرا الوِبّ"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "ألكس بول غنزالز"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "سيمافور هاكر"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "ألكس فياستز"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "شارب قهوة"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"تحميل صوت الغالق: https://freesound.org/people/caseymoura/sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "شارك"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "ارجع"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "صدرت الوسائط"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "اضبط كاموسو"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "احفظ الأماكن"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "الصور:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "اختر المجلد الذي سيحفظ كاموسو الصور فيه"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "الفيديوهات:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "اختر المجلد الذي سيحفظ كاموسو الفيديوهات فيه"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "الكمرات"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "عكس الكاميرا"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "لا يوجد صور في <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "شارك العنصر..."
+msgstr[1] "شارك عنصر واحد..."
+msgstr[2] "شارك عنصرين..."
+msgstr[3] "شارك %1 عناصر..."
+msgstr[4] "شارك %1 عنصراً..."
+msgstr[5] "شارك %1 عنصر..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "شارك العنصر..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "انقل العنصر إلى المهملات"
+msgstr[1] "انقل عنصر للمهملات"
+msgstr[2] "انقل عنصرين للمهملات"
+msgstr[3] "انقل %1 عناصر للمهملات"
+msgstr[4] "انقل %1 عنصراً للمهملات"
+msgstr[5] "انقل %1 عنصر للمهملات"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "انقل العنصر إلى المهملات"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "افتح ملجد الصور"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "اضبط كاموسو..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "خذ صورة"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "أنهي الانفجار"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "التقط انفجار"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "أخذت صورة"
+msgstr[1] "أخذت صورة واحد"
+msgstr[2] "أخذت صورتين"
+msgstr[3] "أخذت %1 صور"
+msgstr[4] "أخذت %1 صورة"
+msgstr[5] "أخذت %1 صورة"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "أوقف التسجيل"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "سجّل فيديو"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "معرض التأثيرات"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "أخذت الصورة"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "حفظت في %1"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "اختر دليلًا حيث ستُحفظ فيها صورك وفيديوهاتك"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "اختر دليلًا حيث ستُحفظ فيها صورك وفيديوهاتك"
+
+#~ msgid "Places"
+#~ msgstr "الأماكن"
+
+#~ msgid "Photos: %1"
+#~ msgstr "الصّور: %1"
+
+#, fuzzy
+#~| msgid "Share random information"
+#~ msgid "On screen information"
+#~ msgstr "شارك معلومات عشوائيّة"
+
+#~ msgid "Brightness:"
+#~ msgstr "السّطوع:"
+
+#~ msgid "Hue:"
+#~ msgstr "التّدرّج:"
+
+#~ msgid "Contrast:"
+#~ msgstr "التّباين:"
+
+#~ msgid "Saturation:"
+#~ msgstr "التّشبّع:"
+
+#~ msgid "Gamma:"
+#~ msgstr "غاما:"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "شُورِك العنوان للتّوّ"
+
+#~ msgid "Run"
+#~ msgstr "شغّل"
+
+#~ msgid "Show gallery..."
+#~ msgstr "أظهر المعرض..."
+
+#~ msgid "Show settings..."
+#~ msgstr "أظهر الإعدادات..."
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "شغّل صوتًا عند أخذ صورة."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "كَم من الزّمن (بالثّواني) الذي سينتظره كاموسو قبل التقاط صورة."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "مسترجع صورة كاميرا الوِبّ"
+
+#~ msgid "Smile! :)"
+#~ msgstr "ابتسم! :)"
+
+#~ msgid "Dummy export Output: "
+#~ msgstr "خَرْج التّصدير الدّمية: "
+
+#~ msgid "Video Information:"
+#~ msgstr "معلومات الفيديو:"
+
+#~ msgid "Title"
+#~ msgstr "العنوان"
+
+#~ msgid "Tags:"
+#~ msgstr "الوسوم:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "كاموسو، كدي"
+
+#~ msgid "Description"
+#~ msgstr "الوصف"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr "عليك تقديم اسم مستخدم وكلمة مرور لتستطيع رفع الفيديوهات إلى يوتيوب"
+
+#~ msgid "Server:"
+#~ msgstr "الخادوم:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "استيثاق ليوتيوب"
+
+#~ msgid "Title:"
+#~ msgstr "العنوان:"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "أدخِل عنوانًا للفيديو..."
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "كدي، كاموسو"
+
+#~ msgid "Description:"
+#~ msgstr "الوصف:"
+
+#~ msgid "Implementation"
+#~ msgstr "الإنجاز"
+
+#~ msgid "Files to share"
+#~ msgstr "الملفّات لمشاركتها"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "عليك تحديد بعض الملفّات لمشاركتها"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "خطأ في تنسيق معاملات البيانات: %1 عند %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr "خطأ في نوع معامل البيانات، يجب أن يكون كائن json."
+
+#~ msgid "Use"
+#~ msgstr "استخدم"

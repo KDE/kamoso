@@ -1,0 +1,259 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Підручник з Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Цю документацію було створено на основі сторінки UserBase KDE <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> і оновлено командою з документування &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24 серпня 2016 року</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Створюйте знімки</emphasis
+></term>
+    <listitem>
+    <para
+>За допомогою програми &kamoso; ви зможете робити фотографії з вашої вебкамери і викладати ці фотографії у інтернеті.</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Записуйте відео</emphasis
+></term>
+    <listitem>
+    <para
+>За допомогою &kamoso; ви зможете записувати відео з вебкамери і викладати його у інтернеті.</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Інструкція користувача</title>
+<para
+>Вітаємо у &kamoso;! </para>
+<para
+>&kamoso; — чудова програма для створення знімків та відео за допомогою вебкамери вашого комп’ютера. За допомогою цього підручника ви навчитеся користуватися &kamoso; після встановлення цієї програми у вашій системі. </para>
+<sect1 id="quick-start"
+><title
+>Початкові зауваження</title>
+<para
+>Після запуску &kamoso; покаже таке вікно із кнопками внизу: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> Перемикання у режим <guibutton
+>Знімок</guibutton
+> для створення одного знімка </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> Перемикання у режим <guibutton
+>Серія</guibutton
+> зі створенням неперервної послідовності знімків, доки ви не натиснете середню кнопку ще раз </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> Перемикання у режим <guibutton
+>Запис</guibutton
+> для запису відео </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject>
+</inlinemediaobject
+>Почати або припинити знімання або запис відео</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Показати галерею</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Показати параметри</guibutton>
+</member
+></simplelist>
+
+<para
+>Знімки і відео буде послідовно пронумеровано і автоматично збережено у <guilabel
+>каталозі захопленого</guilabel
+>, визначеному у параметрах програми. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Керування знятим</title>
+
+<para
+>Щоб переглянути або отримати керування над захопленими знімками та відео, натисніть кнопку <guibutton
+>Показати галерею</guibutton
+>. У контекстному меню для кожного з записів галереї ви знайдете такі пункти керування: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Пункт <guimenuitem
+>Відкрити</guimenuitem
+>, який призначено для перегляду захоплених мультимедійних даних у відповідній програмі. </para>
+
+<para
+>Якщо вам потрібно вилучити знімки та відео, відкрийте теку захоплених даних у програмі для керування файлами. </para>
+
+<para
+>Наступні пункти дій нададуть вам змогу вивантажити захоплені дані до інтернету або надіслати їх комусь чи записати на пристрій. </para>
+
+<para
+>Пунктом <guimenuitem
+>Зберегти як</guimenuitem
+> можна скористатися для копіювання даних з галереї до іншої теки. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Налаштовування</title>
+<para
+>Натисніть кнопку <guibutton
+>Показати параметри</guibutton
+>, щоб відкрити панель параметрів. Щоб приховати цю панель, натисніть цю кнопку ще раз. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Якщо вам потрібно змінити каталог, у якому &kamoso; зберігатиме знімки і відео, скористайтеся полем <guilabel
+>Каталог захоплення даних</guilabel
+> у верхній частині вікна. </para>
+
+<para
+>Натисніть кнопку <guibutton
+>Використовувати спалах</guibutton
+>, щоб наказати програмі підсвітити вікно перед зйомкою. </para>
+
+<para
+>За допомогою повзунків ви можете змінити параметри камери, зокрема яскравість, відтінок, контрастність, насиченість та гаму зображення. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Авторські права та ліцензування</title>
+      <para
+>Список власників авторських прав на документацію до програми можна знайти у <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>журналі сторінки Kamoso</ulink
+> UserBase.</para>
+      <para
+>Переклад українською: Юрій Чорноіван<email
+>yurchor@ukr.net</email
+></para
+> 
+&underFDL; </chapter>
+&documentation.index;
+</book>

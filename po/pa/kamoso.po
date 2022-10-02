@@ -1,0 +1,415 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# A S Alam <aalam@users.sf.net>, 2010, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2021-05-02 00:07-0700\n"
+"Last-Translator: A S Alam <aalam@satluj.org>\n"
+"Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.12.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ ੨੦੨੧"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "alam.yellow@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "ਫੋਟੋ ਕਿੱਥੇ ਸੰਭਾਲਣੀਆਂ ਹਨ।"
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr ""
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr ""
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "ਕਮੋਸੋ"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "ਵੈਬਕੈਮ ਵਰਤ ਕੇ ਫੋਟੋ ਖਿੱਚਣ ਅਤੇ ਵਿਡੀਓ ਬਣਾਉਣ ਵਾਲੀ ਸਹੂਲਤ ਹੈ"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "ਐਲਿਕਸ ਪੋਲ ਗੋਨਜ਼ਾਵੇਜ"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr ""
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr ""
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "ਕਾਫ਼ੀ ਪੀਣ ਵਾਲਾ"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "ਸਾਂਝਾ ਕਰੋ"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "ਪਿੱਛੇ"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr ""
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "ਕਮੋਸੋ ਦੀ ਸੰਰਚਨਾ"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "ਟਿਕਾਣਿਆਂ ਨੂੰ ਸੰਭਾਲੋ"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "ਤਸਵੀਰਾਂ:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr ""
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr " ਵਿਡੀਓ:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr ""
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "ਕੈਮਰੇ"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr ""
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr ""
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr ""
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr ""
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "ਤਸਵੀਰ ਫੋਲਡਰ ਨੂੰ ਖੋਲ੍ਹੋ"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "...ਕਮੋਸੋ ਦੀ ਸੰਰਚਨਾ"
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "ਤਸਵੀਰ ਲਵੋ"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr ""
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr ""
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 ਤਸਵੀਰ ਖਿੱਚ"
+msgstr[1] "%1 ਤਸਵੀਰਾਂ ਖਿੱਚੀਆਂ"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "ਰਿਕਾਰਡਿੰਗ ਨੂੰ ਰੋਕੋ"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "ਵਿਡੀਓ ਬਣਾਓ"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "ਪਰਭਾਵ ਗੈਲਰੀ"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "ਫੋਟੋ ਖਿੱਚੀ"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "%1 ਵਿੱਚ ਸੰਭਾਲੀ"
+
+#, fuzzy
+#~| msgid "Directory where kamoso saves the photos"
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "ਡਾਇਰੈਕਟਰੀ, ਜਿੱਥੇ ਕਮੋਸੋ ਫੋਟੋ ਨੂੰ ਸੰਭਾਲੇ"
+
+#, fuzzy
+#~| msgid "Directory where kamoso saves the photos"
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "ਡਾਇਰੈਕਟਰੀ, ਜਿੱਥੇ ਕਮੋਸੋ ਫੋਟੋ ਨੂੰ ਸੰਭਾਲੇ"
+
+#, fuzzy
+#~| msgid "Use Flash"
+#~ msgid "Use flash"
+#~ msgstr "ਫਲੈਸ਼ ਵਰਤੋਂ"
+
+#, fuzzy
+#~| msgid "Video information:"
+#~ msgid "On screen information"
+#~ msgstr "ਵਿਡੀਓ ਜਾਣਕਾਰੀ:"
+
+#, fuzzy
+#~| msgid "Brightness"
+#~ msgid "Brightness:"
+#~ msgstr "ਚਮਕ"
+
+#, fuzzy
+#~| msgid "Contrast"
+#~ msgid "Contrast:"
+#~ msgstr "ਕਨਟਰਾਸਟ"
+
+#, fuzzy
+#~| msgid "Saturation"
+#~ msgid "Saturation:"
+#~ msgstr "ਸੰਤ੍ਰਿਪਤ"
+
+#, fuzzy
+#~| msgid "Gamma"
+#~ msgid "Gamma:"
+#~ msgstr "ਗਾਮਾ"
+
+#, fuzzy
+#~| msgid "Photo Settings"
+#~ msgid "Show settings..."
+#~ msgstr "ਫੋਟੋ ਸੈਟਿੰਗ"
+
+#, fuzzy
+#~| msgid "Time until the photo is taken:"
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "ਫੋਟੋ ਲੈਂਦੇ ਰਹਿਣ ਦਾ ਸਮਾਂ:"
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "ਤਸਵੀਰ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਕਮੋਸੋ ਕਿੰਨੇ ਸਕਿੰਟ ਉਡੀਕੇ।"
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "ਵੈੱਬ ਤਸਵੀਰ ਲੈਣ ਵਾਲਾ"
+
+#~ msgid "Smile! :)"
+#~ msgstr "ਹੱਸੋ!:)"
+
+#~ msgid "Video Information:"
+#~ msgstr "ਵਿਡੀਓ ਜਾਣਕਾਰੀ:"
+
+#~ msgid "Title"
+#~ msgstr "ਟਾਈਟਲ"
+
+#~ msgid "Tags:"
+#~ msgstr "ਟੈਗ:"
+
+#, fuzzy
+#~| msgid "Kamoso"
+#~ msgid "Kamoso, KDE"
+#~ msgstr "ਕਮੋਸੋ"
+
+#~ msgid "Description"
+#~ msgstr "ਵੇਰਵਾ"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr "ਤੁਹਾਨੂੰ ਯੂਟਿਊਬ ਉੱਤੇ ਵਿਡੀਓ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਯੂਜ਼ਰ ਨਾਂ ਤੇ ਪਾਸਵਰਡ ਦੇਣਾ ਪਵੇਗਾ"
+
+#, fuzzy
+#~| msgid "Server"
+#~ msgid "Server:"
+#~ msgstr "ਸਰਵਰ"
+
+#, fuzzy
+#~| msgid "Authentication for "
+#~ msgid "Authentication for YouTube"
+#~ msgstr "ਇਸ ਲਈ ਪਰਮਾਣਿਕਤਾ "
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "ਟਾਈਟਲ"
+
+#, fuzzy
+#~| msgid "Kamoso"
+#~ msgid "KDE, Kamoso"
+#~ msgstr "ਕਮੋਸੋ"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Description:"
+#~ msgstr "ਵੇਰਵਾ"
+
+#~ msgid "General"
+#~ msgstr "ਆਮ"
+
+#~ msgid "Video Settings"
+#~ msgstr "ਵਿਡੀਓ ਸੈਟਿੰਗ"
+
+#, fuzzy
+#~| msgid "Tags:"
+#~ msgid "Trash"
+#~ msgstr "ਟੈਗ:"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "ਮੁਕੰਮਲ: %1"
+
+#, fuzzy
+#~| msgid "(C) 2008-2009 Alex Fiestas and Aleix Pol"
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "(C) 2008-2009 Alex Fiestas and Aleix Pol"
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "ਵਰਤਣ ਲਈ ਵੈੱਬਕੈਮ ਚੁਣੋ:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "ਫੋਟੋ ਲੈਂਦੇ ਰਹਿਣ ਦਾ ਸਮਾਂ:"
+
+#~ msgid "YouTube"
+#~ msgstr "ਯੂਟਿਊਬ"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "ਯੂਟਿਊਬ ਉੱਤੇ ਫਾਇਲਾਂ ਅੱਪਲੋਡ ਕਰੋ"
+
+#~ msgid "Video information:"
+#~ msgstr "ਵਿਡੀਓ ਜਾਣਕਾਰੀ:"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "ਇਹ ਵਿਡੀਓ ਨੂੰ ਕਮੋਸੋ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਰਿਕਾਰਡ ਕੀਤਾ ਗਿਆ ਹੈ, ਜੋ ਕਿ ਵੈੱਬਕੈਮ ਦੀ ਵਰਤੋਂ ਕਰਨ ਵਾਲਾ "
+#~ "KDE ਸਾਫਟਵੇਅਰ ਹੈ!"
+
+#~ msgid "Brightness"
+#~ msgstr "ਚਮਕ"
+
+#~ msgid "Hue"
+#~ msgstr "ਆਭਾ"
+
+#~ msgid "Contrast"
+#~ msgstr "ਕਨਟਰਾਸਟ"
+
+#~ msgid "Saturation"
+#~ msgstr "ਸੰਤ੍ਰਿਪਤ"
+
+#~ msgid "Gamma"
+#~ msgstr "ਗਾਮਾ"
+
+#~ msgid "Video recorded using Kamoso"
+#~ msgstr "ਕਮੋਸੋ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵਿਡੀਓ ਰਿਕਾਰਡ ਕਰੋ"
+
+#~ msgid "Form"
+#~ msgstr "ਫਾਰਮ"

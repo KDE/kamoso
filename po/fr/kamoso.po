@@ -1,0 +1,482 @@
+# translation of kamoso.po to Français
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Joëlle Cornavin <jcorn@free.fr>, 2010, 2011, 2013.
+# Thomas Vergnaud <thomas.vergnaud@gmx.fr>, 2015, 2016.
+# Vincent Pinon <vpinon@kde.org>, 2018.
+# Simon Depiets <sdepiets@gmail.com>, 2018, 2019.
+# Xavier Besnard <xavier.besnard@neuf.fr>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2021-01-02 16:36+0100\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
+"Language-Team: French <kde-francophone@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 20.12.0\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Joëlle Cornavin, Thomas Vergnaud, Simon Depiets"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "jcorn@free.fr, thomas.vergnaud@gmx.fr, sdepiets@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Le dossier où les photos sont enregistrées."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Miroir vertical de l'image de la caméra."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Pointe vers la dernière webcam utilisée."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Utilitaire pour prendre des photos et des vidéos avec une webcam"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "© 2008-2015 Alex Fiestas et Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Développeur de sémaphores"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Buveur de café"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Envoi du son de l'obturateur : https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Partager"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Retour"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Média maintenant exporté"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Configurer Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Enregistrer les emplacements"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Images :"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Sélectionnez le dossier dans lequel Kamoso enregistrera les images"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Vidéos :"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Sélectionnez le dossier dans lequel Kamoso enregistrera les vidéos"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Appareils photo"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Caméra miroir"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Il n'y a aucune image dans <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Partager %1 élément..."
+msgstr[1] "Partager %1 éléments..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Partager l'élément..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Déplacer %1 élément dans la corbeille"
+msgstr[1] "Déplacer %1 éléments dans la corbeille"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Déplacer l'élément dans la corbeille"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Ouvrir le dossier des images"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Configurer Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Prendre une photo"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Terminer la rafale"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Capturer en rafale"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 photo prise"
+msgstr[1] "%1 photos prises"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Arrêter l'enregistrement"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Enregistrer une vidéo"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galerie des effets"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Photo prise"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Enregistré sous %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Enregistrer vers..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Sélectionner un dossier dans lequel enregistrer vos images"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Sélectionner un dossier dans lequel enregistrer vos vidéos"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Mettre à la Corbeille… (%1)"
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Voulez-vous vraiment supprimer %1 fichier ?"
+#~ msgstr[1] "Voulez-vous vraiment supprimer %1 fichiers ?"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Partager… (%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Prendre un cliché"
+
+#~ msgid "Places"
+#~ msgstr "Emplacements"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Photos : %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Utiliser le flash"
+
+#~ msgid "On screen information"
+#~ msgstr "Informations à l'écran"
+
+#~ msgid "Brightness:"
+#~ msgstr "Luminosité :"
+
+#~ msgid "Hue:"
+#~ msgstr "Teinte :"
+
+#~ msgid "Contrast:"
+#~ msgstr "Contraste :"
+
+#~ msgid "Saturation:"
+#~ msgstr "Saturation :"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gamma :"
+
+#~ msgid "Reset"
+#~ msgstr "Réinitialiser"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 sélectionné"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "L'URL vient d'être partagée"
+
+#~ msgid "Run"
+#~ msgstr "Exécuter"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Basculer vers le mode « %1 »"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Afficher la galerie"
+
+#~ msgid "Show settings..."
+#~ msgstr "Afficher les paramètres…"
+
+#~ msgid "Open..."
+#~ msgstr "Ouvrir..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "Ouvrir le dossier…"
+
+#~ msgid "Action!"
+#~ msgstr "Action !"
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Lire un son lors de la prise d'une photo."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Le nombre de secondes que Kamoso attend avant de créer l'image."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Outils de recherche d'images pour une webcam"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Sourire ! :)"
+
+#~ msgid "Video Information:"
+#~ msgstr "Informations vidéo :"
+
+#~ msgid "Title"
+#~ msgstr "Titre"
+
+#~ msgid "Tags:"
+#~ msgstr "Étiquettes :"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Description"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Vous devez fournir un nom d'utilisateur et un mot de passe pour être en "
+#~ "mesure d'envoyer des vidéos vers YouTube"
+
+#~ msgid "Server:"
+#~ msgstr "Serveur :"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Authentification pour YouTube"
+
+#~ msgid "Title:"
+#~ msgstr "Titre :"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "Entrez un titre pour la vidéo…"
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "KDE, Kamoso"
+
+#~ msgid "Description:"
+#~ msgstr "Description :"
+
+#~ msgid "Share Tool"
+#~ msgstr "Outil de partage"
+
+#~ msgid "Implementation"
+#~ msgstr "Implantation"
+
+#~ msgid "Files to share"
+#~ msgstr "Fichiers à partager"
+
+#~ msgid "Data tuple to initialize the process with"
+#~ msgstr "Jeu de données avec lequel initier le processus"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "Vous devez spécifier des fichiers à partager"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "Erreur dans le formattage de l'argument de la donnée : %1 à %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr ""
+#~ "Erreur dans le type de l'argument de la donnée ; ça devrait être un objet "
+#~ "JSON."
+
+#~ msgid "Use"
+#~ msgstr "Utiliser"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Dossier dans lequel Kamoso enregistre les photos"
+
+#~ msgid "General"
+#~ msgstr "Général"
+
+#~ msgid "Photo Settings"
+#~ msgstr "Paramètres de la photo"
+
+#~ msgid "Video Settings"
+#~ msgstr "Paramètres de la vidéo"
+
+#~ msgid "Trash"
+#~ msgstr "Corbeille"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Fait : %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "(C) 2008-2010 Alex Fiestas et Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Aucune webcam n'a été trouvée."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Choisissez la webcam à utiliser :"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Temps jusqu'à ce que la photo soit prise :"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Envoie des fichiers vers YouTube"
+
+#~ msgid "Video information:"
+#~ msgstr "Informations vidéo :"
+
+#~ msgid "Kamoso %1"
+#~ msgstr "Kamoso %1"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Cette vidéo a été enregistrée à l'aide de Kamoso, un logiciel KDE pour "
+#~ "jouer avec les webcams !"
+
+#~ msgid "Brightness"
+#~ msgstr "Brillance"
+
+#~ msgid "Hue"
+#~ msgstr "Teinte"
+
+#~ msgid "Contrast"
+#~ msgstr "Contraste"
+
+#~ msgid "Saturation"
+#~ msgstr "Saturation"
+
+#~ msgid "Gamma"
+#~ msgstr "Gamma"

@@ -1,0 +1,258 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Indonesian "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Buku Petunjuk Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Dokumen ini telah dikonversikan dari halaman KDE UserBase <ulink url="http://userbasekde.org/Kamoso"
+>Kamoso</ulink
+> dan diperbarui oleh tim dokumentasi &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>Wantoyo</firstname
+><surname
+></surname
+><affiliation
+><address
+><email
+>wantoyek@gmail.com</email
+></address
+></affiliation
+><contrib
+>Terjemahan</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24-08-2016</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Ambil sebuah jepretan</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; memberikanmu kesempatan untuk membuat foto dari webcam-mu dan mengunggahnya ke Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Rekam video</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; memperkenankanmu untuk merekam video dari webcam-mu dan mengunggahnya ke Internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Panduan Penggunaan</title>
+<para
+>Selamat datang di &kamoso;! </para>
+<para
+>&kamoso; adalah program unggul untuk menggunakan webcam-mu untuk mengambil gambar atau membuat video. Panduan ini akan membantumu untuk menggunakan &kamoso; setelah kamu menginstalnya. </para>
+<sect1 id="quick-start"
+><title
+>Mulai Cepat</title>
+<para
+>Saat peluncuran &kamoso;, akan menampilkan window ini dengan tombol di bagian bawah: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Beralih ke mode <guibutton
+>Jepret</guibutton
+> untuk mengambil satu gambar </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Beralih ke mode <guibutton
+>Rentet</guibutton
+> dan ambil gambar secara terus-menerus sampai kamu menghentikannya dengan mengeklik tombol pusat lagi </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Beralih ke mode <guibutton
+>Rekam</guibutton
+> untuk merekam sebuah video </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Mulaikan atau hentikan pengambilan gambar atau perekaman sebuah video</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Tampilkan galeri</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Tampilkan pengaturan</guibutton>
+</member
+></simplelist>
+
+<para
+>Gambar dan video dinomori secara berurutan dan disimpan secara otomatis di <guilabel
+>Direktori Tangkapan</guilabel
+> yang dijelaskan dalam pengaturan. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Mengelola Tangkapan</title>
+
+<para
+>Untuk menampilkan dan mengelola gambar tangkapan atau video-videomu klik tombol <guibutton
+>Tampilkan Gallery</guibutton
+> </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Gunakan <guimenuitem
+>Buka</guimenuitem
+> untuk menampilkan tangkapanmu di aplikasi yang berhubungan. </para>
+
+<para
+>Jika kamu ingin menghapus gambar dan video bukalah folder tangkapan di pengelola file. </para>
+
+<para
+>Aksi selanjutnya memperkenankanmu untuk mengunggah tangkapan ke Internet atau mengirimnya ke sebuah kontak atau perangkat. </para>
+
+<para
+>Gunakan <guimenuitem
+>Simpan sebagai</guimenuitem
+> untuk menyalin seluruh konten galeri ke sebuah folder baru. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Menyesuaikan</title>
+<para
+>Klik tombol <guibutton
+>Tampilkan Pengesetan</guibutton
+> untuk membuka panel pengaturan. Klik tombol lagi untuk menyembunyikan panel pengaturan. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Jika kamu ingin mengubah folder di mana &kamoso; menyimpan gambar dan video, ubahlah <guilabel
+>Direktori Tangkapan</guilabel
+> ke atas. </para>
+
+<para
+>Fungsikan <guibutton
+>Gunakan Kilat</guibutton
+> untuk menyoroti window sebelum pengambilan foto. </para>
+
+<para
+>Menggunakan penggeser kamu bisa memodifikasi pengaturan kamera sepertihalnya kecerahan, rona, kontras, suram dan gamma. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Pujian dan Lisensi</title>
+      <para
+>Hak Cipta Dokumentasi lihat <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>histori halaman Kamoso</ulink
+> UserBase</para>
+      <para
+>Wantoyo<email
+>wantoyek@gmail.com</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

@@ -1,0 +1,359 @@
+# Lithuanian translations for l package.
+# Copyright (C) 2010 This_file_is_part_of_KDE
+# This file is distributed under the same license as the l package.
+#
+# Andrius Štikonas <andrius@stikonas.eu>, 2010.
+# Liudas Ališauskas <liudas@akmc.lt>, 2015.
+# Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-12-06 22:21+0200\n"
+"Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
+"Language-Team: lt <kde-i18n-lt@kde.org>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
+"%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Liudas Ališauskas, Moo"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "liudas@akmc.lt, <>"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Kur yra įrašomos nuotraukos."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Rodyti kamerą vertikaliu veidrodiniu atspindžiu."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Nurodo į paskutinę naudotą internetinę kamerą."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr ""
+"Paslaugų programa, skirta daryti nuotraukas bei įrašinėti vaizdo įrašus "
+"naudojant internetinę kamerą"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas ir Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Semaphore hacker"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Kavos gėrikas"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Išsiųstas sklendės garsas: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Bendrinti"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Atgal"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Dabar, medija eksportuota"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Konfigūruoti Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Įrašymo vietos"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Paveikslai:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Pasirinkite aplanką į kurį Kamoso įrašinės paveikslus"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Vaizdo įrašai:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Pasirinkite aplanką į kurį Kamoso įrašinės vaizdo įrašus"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Kameros"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Rodyti kamerą veidrodiniu atspindžiu"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Aplanke <filename>%1</filename> nėra jokių paveikslų"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Bendrinti %1 elementą..."
+msgstr[1] "Bendrinti %1 elementus..."
+msgstr[2] "Bendrinti %1 elementų..."
+msgstr[3] "Bendrinti %1 elementą..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Bendrinti elementą..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Perkelti %1 elementą į šiukšlinę"
+msgstr[1] "Perkelti %1 elementus į šiukšlinę"
+msgstr[2] "Perkelti %1 elementų į šiukšlinę"
+msgstr[3] "Perkelti %1 elementą į šiukšlinę"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Perkelti elementą į šiukšlinę"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Atverti paveikslų aplanką"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Konfigūruoti Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Fotografuoti"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Baigti nuotraukų pliūpsnį"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Fotografuoti nuotraukų pliūpsnį"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "Padaryta 1 nuotrauka"
+msgstr[1] "Padarytos %1 nuotraukos"
+msgstr[2] "Padaryta %1 nuotraukų"
+msgstr[3] "Padaryta %1 nuotrauka"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Stabdyti įrašinėjimą"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Įrašinėti vaizdo įrašą"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Efektų galerija"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Nufotografuota"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Įrašyta į %1"
+
+#, fuzzy
+#~| msgid "Share random information"
+#~ msgid "On screen information"
+#~ msgstr "Bendrinti atsitiktinę informaciją"
+
+#~ msgid "Brightness:"
+#~ msgstr "Ryškumas:"
+
+#~ msgid "Hue:"
+#~ msgstr "Atspalvis:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Kontrastas:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Sodrumas:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gama:"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "Ką tik pasidalinta URL"
+
+#~ msgid "Run"
+#~ msgstr "Vykdyti"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Rodyti galeriją..."
+
+#~ msgid "Show settings..."
+#~ msgstr "Rodyti nuostatas..."
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Groti garsą kai padaroma nuotrauka."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Kiek sekundžių kamoso laukia prieš darydama nuotrauką."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Internetinės vaizdo kameros paveikslėlių gavėjas"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Šypsokitės! :)"
+
+#~ msgid "Dummy export Output: "
+#~ msgstr "Fiktyvaus eksporto išvestis: "
+
+#~ msgid "Video Information:"
+#~ msgstr "Video informacija:"
+
+#~ msgid "Title"
+#~ msgstr "Pavadinimas"
+
+#~ msgid "Tags:"
+#~ msgstr "Žymės:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Aprašymas"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Reikia pateikti naudotojo vardą ir slaptažodį, kad įkelti vaizdo įrašus į "
+#~ "YouTube"
+
+#~ msgid "Server:"
+#~ msgstr "Serveris:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "YouTube autentikacija"
+
+#~ msgid "Title:"
+#~ msgstr "Pavadinimas:"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "Įveskite pavadinimą vaizdo įrašui..."
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "KDE, Kamoso"
+
+#~ msgid "Description:"
+#~ msgstr "Aprašymas:"
+
+#~ msgid "Implementation"
+#~ msgstr "Suprogramavimas"
+
+#~ msgid "Files to share"
+#~ msgstr "Failai bendrinimui"
+
+#~ msgid "Data tuple to initialize the process with"
+#~ msgstr "Duomenų seka, kad inicijuoti procesą su"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "Privalote nurodyti kelis failus bendrinimui"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "Klaida duomenų argumento formate: %1 ties %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr "Klaida duomenų argumento tipe, jis turėtų būti json objektas."
+
+#~ msgid "Use"
+#~ msgstr "Naudoti"

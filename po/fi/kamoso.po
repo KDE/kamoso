@@ -1,0 +1,479 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Tommi Nieminen <translator@legisign.org>, 2011, 2018, 2019.
+# Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
+#
+# KDE Finnish translation sprint participants:
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-05-10 19:08+0200\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-POT-Import-Date: 2012-12-01 22:20:49+0000\n"
+"X-Generator: Lokalize 2.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Tommi Nieminen,Lasse Liehu"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "translator@legisign.org,lasse.liehu@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Minne valokuvat tallennetaan."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Peilaa kameranäkymä pystysuunnassa."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Osoittaa viimeksi käytettyyn nettikameraan."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Apuohjelma valokuvien ja videoiden ottamiseen nettikameralla"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "© 2008–2015 Alex Fiestas ja Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Semaphore-hakkeri"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Kahvinjuoja"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Lähetti suljinäänen: https://freesound.org/people/caseymoura/sounds/445482/"
+"Lähetti suljinäänen: https://freesound.org/people/caseymoura/sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Jaa"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Takaisin"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Media on nyt viety"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Kamoson asetukset"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Tallennussijainnit"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Kuvat:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Valitse kansio, johon Kamoso tallentaa kuvat"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Videot:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Valitse kansio, johon Kamoso tallentaa videot"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Kamerat"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Peilaa kamera"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Kansiossa <filename>%1</filename> ei ole kuvia"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Jaa %1 tiedosto…"
+msgstr[1] "Jaa %1 tiedostoa…"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Jaa kohde…"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Siirrä %1 kohde roskakoriin"
+msgstr[1] "Siirrä %1 kohdetta roskakoriin"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Siirrä kohde roskakoriin"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Avaa kuvakansio"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Kamoson asetukset…"
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Ota kuva"
+
+#: src/qml/Main.qml:107
+#, fuzzy, kde-format
+#| msgid "Burst"
+msgid "End Burst"
+msgstr "Sarjakuvaus"
+
+#: src/qml/Main.qml:107
+#, fuzzy, kde-format
+#| msgid "Captures directory"
+msgid "Capture a Burst"
+msgstr "Otoskansio"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 kuva otettu"
+msgstr[1] "%1 kuvaa otettu"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Lopeta nauhoitus"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Nauhoita video"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Tehostegalleria"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Kuva otettu"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Tallennettu kansioon %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Tallenna kohteeseen..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Valitse kansio, johon kuvat tallennetaan"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Valitse kansio, johon videot tallennetaan"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Siirrä roskakoriin… (%1)"
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Haluatko varmasti poistaa yhden tiedoston?"
+#~ msgstr[1] "Haluatko varmasti poistaa %1 tiedostoa?"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Jaa… (%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Ota kuva"
+
+#~ msgid "Places"
+#~ msgstr "Sijainnit"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Kuvat: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Käytä salamaa"
+
+#~ msgid "On screen information"
+#~ msgstr "Näytettävät tiedot"
+
+#~ msgid "Brightness:"
+#~ msgstr "Kirkkaus:"
+
+#~ msgid "Hue:"
+#~ msgstr "Sävy:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Kontrasti:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Kylläisyys:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gamma:"
+
+#~ msgid "Reset"
+#~ msgstr "Nollaa"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 valittu"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "Verkko-osoite jaettiin juuri"
+
+#~ msgid "Run"
+#~ msgstr "Suorita"
+
+#~ msgid "Cancel"
+#~ msgstr "Peru"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Vaihda ”%1”-tilaan"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Näytä galleria…"
+
+#~ msgid "Show settings..."
+#~ msgstr "Näytä asetukset…"
+
+#~ msgid "Open..."
+#~ msgstr "Avaa…"
+
+#~ msgid "Open Directory..."
+#~ msgstr "Avaa kansio…"
+
+#~ msgid "Action!"
+#~ msgstr "Kuvaa"
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Toista ääni, kun kuva otetaan."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Montako sekuntia kamoso odottaa ennen kuin ottaa valokuvan."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Web-kamerakuvien käsittelijä"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Hymyile! :)"
+
+#~ msgid "Dummy export Output: "
+#~ msgstr "Testiviennin tuloste: "
+
+#~ msgid "Video Information:"
+#~ msgstr "Videotiedot:"
+
+#~ msgid "Title"
+#~ msgstr "Otsikko"
+
+#~ msgid "Tags:"
+#~ msgstr "Tunnisteet:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Kuvaus"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Lähettääksesi videoita YouTubeen tarvitset käyttäjätunnuksen ja salasanan"
+
+#~ msgid "Server:"
+#~ msgstr "Palvelin:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Tunnistautuminen YouTubeen"
+
+#~ msgid "Title:"
+#~ msgstr "Otsikko:"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "Anna videolle otsikko…"
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "KDE, Kamoso"
+
+#~ msgid "Description:"
+#~ msgstr "Kuvaus:"
+
+#~ msgid "Share Tool"
+#~ msgstr "Jakamistyökalu"
+
+#~ msgid "Implementation"
+#~ msgstr "Toteutus"
+
+#~ msgid "Files to share"
+#~ msgstr "Jaettavat tiedostot"
+
+#~ msgid "Data tuple to initialize the process with"
+#~ msgstr "Datamonikko, jolla prosessi alustetaan"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "Joitain tiedostoja on pakko valita jaettavaksi"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "Virhe data-parametrin muotoilussa: %1 kohdassa %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr "Virhe data-parametrin tyypissä; sen pitäisi olla JSON-olio."
+
+#~ msgid "Use"
+#~ msgstr "Käytä"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Kansio, jonne kamoso tallentaa valokuvat"
+
+#~ msgid "General"
+#~ msgstr "Yleistä"
+
+#~ msgid "Photo Settings"
+#~ msgstr "Valokuva-asetukset"
+
+#~ msgid "Video Settings"
+#~ msgstr "Videoasetukset"
+
+#~ msgid "Trash"
+#~ msgstr "Roskakori"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Valmis: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "© 2008–2010 Alex Fiestas ja Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Web-kameraa ei löytynyt."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Valitse käytettävä web-kamera:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Aika ennen valokuvan ottamista:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Lähettää tiedostot YouTubeen"
+
+#~ msgid "Video information:"
+#~ msgstr "Videotiedot:"
+
+#~ msgid "Kamoso %1"
+#~ msgstr "Kamoso %1"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Tämä video on tallennettu Kamosolla, KDE-ohjelmalla, jolla voit käyttää "
+#~ "web-kameroita!"
+
+#~ msgid "Brightness"
+#~ msgstr "Kirkkaus"
+
+#~ msgid "Hue"
+#~ msgstr "Sävy"
+
+#~ msgid "Contrast"
+#~ msgstr "Kontrasti"
+
+#~ msgid "Saturation"
+#~ msgstr "Kylläisyys"
+
+#~ msgid "Gamma"
+#~ msgstr "Gamma"

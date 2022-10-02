@@ -1,0 +1,228 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Brazilian-Portuguese "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Manual do Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Esta documentação foi convertida a partir da página KDE UserBase <ulink url=" http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+>.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>André Marcelo</firstname
+><surname
+>Alvarenga</surname
+><affiliation
+><address
+><email
+>alvarenga@kde.org</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>05/12/2012</date>
+      <releaseinfo
+>2.0.2 (&kde; SC 4.10)</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Tirar uma foto</emphasis
+></term>
+    <listitem>
+    <para
+>O <application
+>Kamoso</application
+> lhe dá a oportunidade de tirar fotos a partir da sua webcam e enviá-las para o Facebook.</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Gravar um vídeo</emphasis
+></term>
+    <listitem>
+    <para
+>O <application
+>Kamoso</application
+> permite-lhe gravar vídeos a partir da sua webcam e enviá-los para o YouTube</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Guia do Usuário</title>
+<para
+>Bem-vindo ao <application
+>Kamoso</application
+>! </para>
+<para
+>O <application
+>Kamoso</application
+> é um ótimo programa para usar a sua webcam para tirar fotos ou criar vídeos. Será provavelmente o melhor gravador com webcam para &Linux;. Este guia irá ajudá-lo a usar o Kamoso assim que o tiver instalado. Tentamos torná-lo simples e amigável. Boa sorte! </para>
+<sect1 id="quick-start"
+><title
+>Introdução</title>
+<para
+>Ao executar o <application
+>Kamoso</application
+>, serão apresentados dois grupos de botões à esquerda e à direita, além de um botão central. </para>
+<para
+>O botão central ajuda-o a tirar uma foto! Vá em frente e experimente! SORRIA! <inlinemediaobject
+> <imageobject
+> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject
+> </inlinemediaobject>
+</para>
+<para
+>O <application
+>Kamoso</application
+> levará 3 segundos para que você possa fazer uma pose para sua foto, pedindo-lhe para sorrir pouco antes de disparar! </para>
+<para
+>Se clicar no segundo botão à esquerda, o <application
+>Kamoso</application
+> irá mudar para o modo de disparo contínuo. O <application
+>Kamoso</application
+> irá continuar a tirar fotografias rapidamente até que não clique mais no botão central, informando que deseja parar. As fotos serão alinhadas em ordem cronológica na parte inferior da janela, que poderão ser vistas ao clicar duas vezes sobre elas. Alternativamente, você pode clicar no botão direito do mouse e escolher <guilabel
+>Abrir</guilabel
+> para ver as fotos também! Se não estiver satisfeito com algumas fotos, basta clicar no botão direito do mouse e selecionar <guilabel
+>Lixeira</guilabel
+> para excluir essa foto em particular. </para>
+</sect1>
+<sect1 id="upload-image-to-facebook"
+><title
+>Enviar imagem para o Facebook</title>
+<para
+>Se achar que as suas fotos recém-tiradas devem ser enviadas para o seu perfil do Facebook, basta clicar no botão direito do mouse sobre a foto e selecionar <guilabel
+>Importar/Exportar para o Facebook</guilabel
+>. Aparecerá uma janela no seu navegador pedindo-lhe permissão para o <application
+>Kamoso</application
+>. Assim que fizer isso, estará pronto para enviar! </para>
+<para
+><note
+><para
+>Você precisa ter uma conta no Facebook para enviar a foto tirada </para
+></note>
+</para>
+<para
+>Se quiser evitar todos os cliques com o botão direito do mouse, clique no segundo botão à direita, sendo-lhe apresentadas as mesmas opções do botão direito. </para>
+</sect1>
+<sect1 id="upload-video-to-youtube"
+><title
+>Enviar vídeo para o YouTube</title>
+<para
+>O <application
+>Kamoso</application
+> também permite-lhe capturar vídeos! Ao clicar no botão vermelho à esquerda, irá mudar para o modo de vídeo. Clique no botão central para começar a gravar o seu vídeo! Clique com o botão direito do mouse no vídeo e selecione <guilabel
+>YouTube</guilabel
+> para enviá-lo para o YouTube. </para>
+<para
+><note
+><para
+>Você precisa ter uma conta no YouTube e providenciar o acesso do <application
+>Kamoso</application
+> com o seu usuário e senha - não se preocupe, é totalmente seguro!</para
+></note>
+</para>
+</sect1>
+<sect1 id="customising"
+><title
+>Personalizando</title>
+<para>
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para
+>Se achar que a qualidade da sua foto não está muito boa, clique no botão mais à direita e selecione <guilabel
+>Configurações</guilabel
+>. Este é o painel de configuração. </para>
+<para
+>Caso queira alterar a pasta onde o <application
+>Kamoso</application
+> salva as fotos, vá para o painel <guilabel
+>Geral</guilabel
+> e altere a pasta. </para>
+<para
+>Se quiser alterar o tempo de espera antes do <application
+>Kamoso</application
+> tirar a foto, vá para <guilabel
+>Configurações da foto</guilabel
+>. </para>
+<para
+>Se for um usuário realmente técnico, vá para <guilabel
+>Configurações do vídeo</guilabel
+>, onde poderá ajustar algumas definições, como brilho, contraste, &etc; </para>
+</sect1>
+<sect1 id="the-end"
+><title
+>Fim</title>
+<para
+>Bem, chegou ao fim do tutorial. Acreditamos que suas dúvidas tenham sido devidamente esclarecidas! </para>
+<para
+>Divirta-se usando o <application
+>Kamoso</application
+>! <inlinemediaobject
+> <imageobject
+> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject
+> </inlinemediaobject>
+</para>
+</sect1>
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Créditos e Licença</title>
+      <para
+>Direitos autorais da documentação, veja a <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>página do histórico do Kamoso</ulink
+> na UserBase.</para>
+      <para
+>Tradução de André Marcelo Alvarenga <email
+>alvarenga@kde.org</email
+></para
+> 
+&underFDL; </chapter>
+&documentation.index;
+</book>

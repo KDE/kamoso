@@ -1,0 +1,592 @@
+# Panagiotis Papadopoulos <pano_90@gmx.net>, 2009, 2010, 2011.
+# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2013, 2015, 2016, 2017.
+# Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2021-04-14 06:29+0200\n"
+"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Panagiotis Papadopoulos"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pano_90@gmx.net"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Ort, an dem die Fotos gespeichert werden"
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Kameraansicht senkrecht spiegeln."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Verweist auf die zuletzt benutzte Webcam."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Dienstprogramm zur Aufnahme von Fotos und Videos mit einer Webcam"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "© 2008–2015 Alex Fiestas und Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Semaphoren-Hacker"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Kaffeetrinker"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Verschluss-Geräusch hochgeladen: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Teilen"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Zurück"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Das Medium ist jetzt exportiert"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Kamoso einrichten"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Orte speichern"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Bilder:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Wählen Sie den Ordner, in den Kamoso Bilder speichert"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Videos:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Wählen Sie den Ordner, in den Kamoso Videos speichert"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Kameras"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Kamera spiegeln"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Es gibt keine Bilder in <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "%1 Eintrag teilen ..."
+msgstr[1] "%1 Einträge teilen ..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Eintrag teilen ..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "%1 Eintrag in den Papierkorb verschieben"
+msgstr[1] "%1 Einträge in den Papierkorb verschieben"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Eintrag in den Papierkorb verschieben"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Bilderordner öffnen ..."
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Kamoso einrichten ..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Bild aufnehmen"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Aufnahme-Sequenz beendet"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Eine Aufnahme-Sequenz starten"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 Foto aufgenommen"
+msgstr[1] "%1 Fotos aufgenommen"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Aufnahme beenden"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Ein Video aufnehmen"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Effekt-Galerie"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Foto aufgenommen"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Gespeichert in %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Speichern unter ..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Wählen Sie einen Ordner, in dem Ihre Bilder gespeichert werden"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Wählen Sie einen Ordner, in dem Ihre Videos gespeichert werden"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "In den Papierkorb werfen ... (%1)"
+
+#~ msgid "Move to trash..."
+#~ msgstr "In den Papierkorb werfen ..."
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Möchten Sie die %1 Datei wirklich entfernen?"
+#~ msgstr[1] "Möchten Sie %1 Dateien wirklich entfernen?"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Freigeben ... (%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Aufnahme"
+
+#~ msgid "Places"
+#~ msgstr "Orte"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Fotos: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Blitz verwenden"
+
+#~ msgid "On screen information"
+#~ msgstr "On-Screen-Informationen"
+
+#~ msgid "Brightness:"
+#~ msgstr "Helligkeit:"
+
+#~ msgid "Hue:"
+#~ msgstr "Farbton:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Kontrast:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Sättigung:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gamma:"
+
+#~ msgid "Reset"
+#~ msgstr "Zurücksetzen"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 ausgewählt"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "Die Adresse (URL) wurde gerade freigegeben"
+
+#~ msgid "Run"
+#~ msgstr "Starten"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Zum Modus „%1“ wechseln"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Galerie anzeigen ..."
+
+#~ msgid "Show settings..."
+#~ msgstr "Einstellungen anzeigen ..."
+
+#~ msgid "Open..."
+#~ msgstr "Öffnen ..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "Ordner öffnen ..."
+
+#~ msgid "Action!"
+#~ msgstr "Aktion"
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Klang abspielen wenn ein Foto aufgenommen wird."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Wie viele Sekunden Kamoso wartet, bevor das Bild aufgenommen wird."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Aufnahme von Bildern mit einer Webcam"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Lächeln! :-)"
+
+#~ msgid "Video Information:"
+#~ msgstr "Video-Informationen:"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Tags:"
+#~ msgstr "Stichwörter:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Beschreibung"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Sie müssen einen Benutzernamen und Passwort angeben, damit Sie Videos auf "
+#~ "YouTube hochladen können."
+
+#~ msgid "Server:"
+#~ msgstr "Server:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Authentifizierung für YouTube"
+
+#~ msgid "Title:"
+#~ msgstr "Titel:"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "Geben Sie einen Titel für das Video ein ..."
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "KDE, Kamoso"
+
+#~ msgid "Description:"
+#~ msgstr "Beschreibung:"
+
+#~ msgid "Share Tool"
+#~ msgstr "Freigabe-Werkzeug"
+
+#~ msgid "Implementation"
+#~ msgstr "Implementierung"
+
+#~ msgid "Files to share"
+#~ msgstr "Freizugebenden Dateien"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "Es müssen einige Dateien zur Freigabe angegeben werden"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "Fehler beim Formatieren des Daten-Arguments: %1 an %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr "Fehler beim Typ des Daten-Arguments, es muss ein JSON-Objekt sein."
+
+#~ msgid "Use"
+#~ msgstr "Anwendung"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Ordner, in dem Kamoso die Fotos speichert"
+
+#~ msgid "General"
+#~ msgstr "Allgemein"
+
+#~ msgid "Photo Settings"
+#~ msgstr "Fotoeinstellungen"
+
+#~ msgid "Video Settings"
+#~ msgstr "Videoeinstellungen"
+
+#~ msgid "Trash"
+#~ msgstr "Papierkorb"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Fertig: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "© 2008–2010 Alex Fiestas und Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Es wurde keine Webcam gefunden."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Wählen Sie die zu verwendende Webcam aus:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Zeit bis das Bild aufgenommen wird:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Lädt Dateien auf YouTube hoch"
+
+#~ msgid "Video information:"
+#~ msgstr "Video-Informationen:"
+
+#~ msgid "Kamoso %1"
+#~ msgstr "Kamoso %1"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Dieses Video ist mit Kamoso, einem KDE-Programm zum Spielen mit Webcams, "
+#~ "aufgenommen worden."
+
+#~ msgid "Taken with kamoso"
+#~ msgstr "Aufgenommen mit Kamoso"
+
+#~ msgid "Plugin tester"
+#~ msgstr "Modultester"
+
+#~ msgid "asdasd"
+#~ msgstr "asdasd"
+
+#~ msgid "Brightness"
+#~ msgstr "Helligkeit"
+
+#~ msgid "Hue"
+#~ msgstr "Farbton"
+
+#~ msgid "Contrast"
+#~ msgstr "Kontrast"
+
+#~ msgid "Saturation"
+#~ msgstr "Sättigung"
+
+#~ msgid "Gamma"
+#~ msgstr "Gamma"
+
+#~ msgid "Video recorded using Kamoso"
+#~ msgstr "Mit Kamoso aufgenommenes Video"
+
+# TODO:
+# do not extract
+#~ msgid "Form"
+#~ msgstr "Form"
+
+#~ msgid "Error while loading the plugin '%1'"
+#~ msgstr "Beim Laden des Moduls „%1“ ist ein Fehler aufgetreten."
+
+#~ msgid "Execute"
+#~ msgstr "Ausführen"
+
+#~ msgid "Could not open %1"
+#~ msgstr "%1 kann nicht geöffnet werden"
+
+#~ msgid "Facebook support"
+#~ msgstr "Facebook-Unterstützung"
+
+#~ msgid "Allows to communicate with Facebook"
+#~ msgstr "Ermöglicht die Kommunikation mit Facebook"
+
+#~ msgid "Upload to Facebook..."
+#~ msgstr "Auf Facebook hochladen ..."
+
+#~ msgid "Facebook New Album"
+#~ msgstr "Neues Facebook-Album"
+
+#~ msgid "Title of the album that will be created (required)."
+#~ msgstr "Titel des zu erstellenden Albums (erforderlich)."
+
+#~ msgid "Location of the album that will be created (optional)."
+#~ msgstr "Ort an dem das Album erstellt wird (optional)."
+
+#~ msgid "Description of the album that will be created (optional)."
+#~ msgstr "Beschreibung des Albums, das erstellt wird (optional)."
+
+#~ msgid "Privacy setting of the album that will be created (required)."
+#~ msgstr ""
+#~ "Einstellungen zur Privatsphäre des Albums, das erstellt wird (benötigt)."
+
+#~ msgid "Only Friends"
+#~ msgstr "Nur Freunde"
+
+#~ msgid "Friends of Friends"
+#~ msgstr "Freunde von Freunden"
+
+#~ msgid "My Networks and Friends"
+#~ msgstr "Mein Netzwerk und Freunde"
+
+#~ msgid "Everyone"
+#~ msgstr "Jeder"
+
+#~ msgid "Privacy:"
+#~ msgstr "Privatsphäre:"
+
+#~ msgid "Validate previous session..."
+#~ msgstr "Vorangegangene Sitzung wird überprüft ..."
+
+#~ msgid "Logging in to Facebook service..."
+#~ msgstr "Anmeldung am Facebook-Dienst ..."
+
+#~ msgid ""
+#~ "Please follow the instructions in the browser window. Press \"OK\" when "
+#~ "done."
+#~ msgstr ""
+#~ "Bitte folgen Sie den Anweisungen im Browserfenster und drücken Sie „Ok“ "
+#~ "wenn Sie fertig sind."
+
+#~ msgid "Facebook Application Authorization"
+#~ msgstr "Facebook-Anwendungsautorisierung"
+
+#~ msgid "The service is not available at this time."
+#~ msgstr "Der Dienst ist zurzeit nicht verfügbar."
+
+#~ msgid "The application has reached the maximum number of requests allowed."
+#~ msgstr ""
+#~ "Die Anwendung hat die maximal erlaubte Anzahl von Anfragen erreicht."
+
+#~ msgid "Invalid session key or session expired. Try to log in again."
+#~ msgstr ""
+#~ "Ungültiger Sitzungsschlüssel oder abgelaufene Sitzung. Versuchen Sie sich "
+#~ "bitte neu anzumelden."
+
+#~ msgid "Invalid album ID."
+#~ msgstr "Ungültige Album-ID."
+
+#~ msgid "Album is full."
+#~ msgstr "Das Album ist voll."
+
+#~ msgid "Missing or invalid file."
+#~ msgstr "Fehlende oder ungültige Datei."
+
+#~ msgid "Too many unapproved photos pending."
+#~ msgstr "Zu viele ungenehmigte Fotos anstehend."
+
+#~ msgid ""
+#~ "Please follow the instructions in the browser window. Press \"Yes\" if "
+#~ "you have authenticated and \"No\" if you failed."
+#~ msgstr ""
+#~ "Bitte folgen Sie den Anweisungen im Browser-Fenster. Drücken Sie „Ja“, "
+#~ "wenn Sie angemeldet sind und „Nein“ wenn Sie sich nicht anmelden konnten."
+
+#~ msgid "Facebook Service Web Authorization"
+#~ msgstr "Web-Autorisierung für Facebook-Dienst"
+
+#~ msgid "Canceled by user."
+#~ msgstr "Vom Benutzer abgebrochen."
+
+#~ msgid "Upload to YouTube"
+#~ msgstr "Auf YouTube hochladen"

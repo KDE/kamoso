@@ -1,0 +1,242 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>El manual del &kamoso;</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>aquesta documentació ha estat convertida des de la pàgina <ulink url="http://userbase.kde.org/Kamoso"
+>&kamoso;</ulink
+> de KDE UserBase i actualitzada per l'equip de documentació del &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+&traductor.Antoni.Bella; 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24 d'agost de 2016</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Prendre una fotografia</emphasis
+></term>
+    <listitem>
+    <para
+>El &kamoso; dona l'oportunitat de prendre fotografies des de la vostra càmera web i pujar-les a Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Enregistrar vídeo</emphasis
+></term>
+    <listitem>
+    <para
+>El &kamoso; dona l'oportunitat d'enregistrar vídeos des de la vostra càmera web i pujar-los a Internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Guia d'usuari</title>
+<para
+>Us donem la benvinguda al &kamoso;! </para>
+<para
+>El &kamoso; és un gran programa per emprar la vostra càmera web per fer fotografies o gravar vídeos. Aquesta guia us ajudarà a utilitzar el &kamoso; una vegada instal·lat. </para>
+<sect1 id="quick-start"
+><title
+>Inici ràpid</title>
+<para
+>En llançar el &kamoso; es mostra aquesta finestra amb botons a la part inferior: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Canvieu al mode <guibutton
+>Dispara</guibutton
+> per a prendre una imatge </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Canvieu al mode <guibutton
+>Ràfega</guibutton
+> i preneu imatges contínues fins que atureu fent clic al botó central de nou </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Canvieu al mode <guibutton
+>Enregistra</guibutton
+> per enregistrar un vídeo </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Inicia o atura en prendre imatges o enregistrar un vídeo</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostra la galeria</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostra l'arranjament</guibutton>
+</member
+></simplelist>
+
+<para
+>Les imatges i vídeos estan numerats consecutivament i es desen automàticament al <guilabel
+>Directori de captures</guilabel
+> definit a la configuració. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Gestionar les captures</title>
+
+<para
+>Per a veure i gestionar les vostres imatges o vídeos capturats feu clic al botó <guibutton
+>Mostra la galeria</guibutton
+>. Al menú contextual per a cada entrada a la galeria trobareu les accions per a controlar-los: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Utilitzeu <guimenuitem
+>Obre</guimenuitem
+> per a veure les vostres captures a l'aplicació associada. </para>
+
+<para
+>Si voleu suprimir les imatges i vídeos, obriu la carpeta de captures al gestor de fitxers. </para>
+
+<para
+>Les següents accions permeten pujar les captures a Internet o enviar-les a un contacte o dispositiu. </para>
+
+<para
+>Utilitzeu <guimenuitem
+>Desa com a</guimenuitem
+> per a copiar tot el contingut de la galeria a una carpeta nova. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Personalitzar</title>
+<para
+>Feu clic al botó <guibutton
+>Mostra l'arranjament...</guibutton
+> per obrir el plafó de configuració. Feu clic al botó de nou per ocultar el plafó de configuració. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Si voleu canviar la carpeta on el &kamoso; desa les imatges i els vídeos, canvieu el <guilabel
+>Directori de les captures</guilabel
+> a la part superior. </para>
+
+<para
+>Activeu <guibutton
+>Usa el flaix</guibutton
+> per a ressaltar la finestra abans de prendre les fotografies. </para>
+
+<para
+>Utilitzant els controls lliscants podreu modificar les opcions de configuració de la càmera com la lluminositat, to, contrast, saturació i gamma. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Crèdits i llicència</title>
+      <para
+>Copyright de la documentació, vegeu la <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>pàgina historial del «&kamoso;»</ulink
+> a UserBase.</para>
+      <para
+>Traductor/Revisor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

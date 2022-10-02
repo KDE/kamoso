@@ -1,0 +1,258 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Manuale di Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Questa documentazione è stata convertita dalla pagina <ulink url=" http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> della KDE UserBase e aggiornata dalla squadra della documentazione di &kde;.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>Vincenzo</firstname
+><surname
+>Reale</surname
+><affiliation
+><address
+><email
+>smart2128vr@gmail.com</email
+></address
+></affiliation
+><contrib
+>Traduzione della documentazione</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24/08/2016</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Scattare una foto</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; fornisce la possibilità di scattare foto dalla propria webcam e caricarle su Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Registrare un video</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; consente di registrare video dalla propria webcam e caricarli su Internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Guida dell'utente</title>
+<para
+>Benvenuto in &kamoso;! </para>
+<para
+>&kamoso; è un bel programma da utilizzare con la propria webcam per scattare foto e registrare video. Questa guida vi aiuterà a utilizzare &kamoso; dopo averlo installato. </para>
+<sect1 id="quick-start"
+><title
+>Avvio rapido</title>
+<para
+>All'avvio, &kamoso; mostra questa finestra con pulsanti nella parte inferiore: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Passare alla modalità <guibutton
+>Scatta</guibutton
+> per acquisire un'immagine </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Passare alla modalità <guibutton
+>Sequenza</guibutton
+> e scattare continuamente foto fino a quando si interrompe con un nuovo clic del tasto centrale </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Passare alla modalità <guibutton
+>Registra</guibutton
+> per registrare un video </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Iniziare o interrompere lo scatto di foto o la registrazione di un video</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostrare la galleria</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Mostrare le impostazioni</guibutton>
+</member
+></simplelist>
+
+<para
+>Immagini e video sono numerate consecutivamente e salvati automaticamente nella <guilabel
+>Cartella delle acquisizioni</guilabel
+> definita nelle impostazioni. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Gestione delle acquisizioni</title>
+
+<para
+>Per visualizzare e gestire le immagini o i video acquisiti, fare clic sul pulsante <guibutton
+>Mostra galleria</guibutton
+> . Nel menu contestuale, per ogni voce nella Galleria, trovi le azioni per gestirle: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Utilizzare <guimenuitem
+>Apri</guimenuitem
+> per visualizzare le acquisizioni nell'applicazione associata. </para>
+
+<para
+>Se si desidera eliminare le foto e video aprire la cartella la cartella delle acquisizioni nel gestore dei file. </para>
+
+<para
+>Le azioni successive consentono di caricare le acquisizioni su Internet o inviarle a un contatto o a un dispositivo. </para>
+
+<para
+>Utilizzare <guimenuitem
+>Salva come</guimenuitem
+> per copiare il contenuto completo della Galleria in una nuova cartella. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Personalizzazione</title>
+<para
+>Fare clic sul pulsante <guibutton
+>Mostra impostazioni</guibutton
+> per aprire il pannello delle impostazioni. Fare clic di nuovo sul pulsante per nascondere il pannello delle impostazioni. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Se si desidera cambiare la cartella in cui &kamoso; salva immagini e video, cambiare la <guilabel
+>cartella delle acquisizioni</guilabel
+> nella parte alta. </para>
+
+<para
+>Abilitare <guibutton
+>Usa flash</guibutton
+> per evidenziare la finestra prima di scattare le foto </para>
+
+<para
+>Utilizzando i cursori. è possibile modificare le impostazioni della fotocamera come luminosità, tonalità, contrasto, saturazione e gamma. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Riconoscimenti e licenza</title>
+      <para
+>Per il copyright della documentazione, vedere la <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>cronologia della pagina di Kamoso</ulink
+> della UserBase </para>
+      <para
+>Traduzione: Vincenzo Reale <email
+>smart2128vr@gmail.com</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

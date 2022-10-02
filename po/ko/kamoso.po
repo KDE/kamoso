@@ -1,0 +1,435 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Shinjo Park <kde@peremen.name>, 2013, 2014, 2015, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-04-22 01:54+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 18.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "사진을 저장할 경로입니다."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "카메라 보기를 수직으로 반전합니다."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "마지막으로 사용한 웹캠을 가리킵니다."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "웹캠을 사용하여 사진과 동영상을 찍는 유틸리티"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "세마포어 해커"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "커피 소비자"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"셔터음을 업로드했습니다: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "공유"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "뒤로"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "미디어를 내보냄"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Kamoso 설정"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "저장 위치"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "사진:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Kamoso에서 사진을 저장할 폴더 선택"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "동영상:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Kamoso에서 동영상을 저장할 폴더 선택"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "카메라"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "카메라 뒤집기"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "<filename>%1</filename>에 사진이 없음"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "항목 %1개 공유..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "항목 공유..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "항목 %1개 휴지통으로 이동"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "휴지통으로 항목 이동"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "사진 폴더 열기"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Kamoso 설정..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "사진 찍기"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "연속 촬영 끝"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "연속 촬영 시작"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "사진 %1장 찍음"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "녹화 중지"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "동영상 녹화"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "효과 갤러리"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "찍은 사진"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "%1에 저장됨"
+
+#, fuzzy
+#~| msgid "Move to Trash"
+#~ msgid "Save to..."
+#~ msgstr "휴지통으로 이동"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "사진과 동영상을 저장할 디렉터리를 선택하십시오"
+
+#, fuzzy
+#~| msgid "Select a directory where to save your pictures and videos"
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "사진과 동영상을 저장할 디렉터리를 선택하십시오"
+
+#, fuzzy
+#~| msgid "Move to Trash"
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "휴지통으로 이동"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete this file?"
+#~| msgid_plural "Are you sure you want to delete these %1 files?"
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "파일 %1개를 삭제하시겠습니까?"
+
+#~ msgid "Shoot"
+#~ msgstr "찍기"
+
+#~ msgid "Places"
+#~ msgstr "위치"
+
+#~ msgid "Use flash"
+#~ msgstr "플래시 사용"
+
+#, fuzzy
+#~| msgid "Video information:"
+#~ msgid "On screen information"
+#~ msgstr "동영상 정보:"
+
+#~ msgid "Brightness:"
+#~ msgstr "밝기:"
+
+#~ msgid "Hue:"
+#~ msgstr "색조:"
+
+#~ msgid "Contrast:"
+#~ msgstr "명암:"
+
+#~ msgid "Saturation:"
+#~ msgstr "색 농도:"
+
+#~ msgid "Gamma:"
+#~ msgstr "감마:"
+
+#~ msgid "Reset"
+#~ msgstr "초기화"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "URL을 공유했습니다"
+
+#~ msgid "Run"
+#~ msgstr "실행"
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "'%1' 모드로 전환"
+
+#~ msgid "Show gallery..."
+#~ msgstr "갤러리 보이기..."
+
+#~ msgid "Show settings..."
+#~ msgstr "설정 보이기..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "디렉터리 열기..."
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "사진을 찍을 때 소리를 재생합니다."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Kamoso에서 사진을 찍기까지 기다릴 시간입니다."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "웹캠 사진 가져오기"
+
+#~ msgid "Smile! :)"
+#~ msgstr "웃으세요! :)"
+
+#~ msgid "Video Information:"
+#~ msgstr "동영상 정보:"
+
+#~ msgid "Title"
+#~ msgstr "제목"
+
+#~ msgid "Tags:"
+#~ msgstr "태그:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "설명"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr "YouTube에 동영상을 업로드하려면 사용자 이름과 암호가 필요합니다"
+
+#~ msgid "Server:"
+#~ msgstr "서버:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "YouTube 인증"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "제목"
+
+#, fuzzy
+#~| msgid "Kamoso"
+#~ msgid "KDE, Kamoso"
+#~ msgstr "Kamoso"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Description:"
+#~ msgstr "설명"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Kamoso에서 사진을 저장할 경로"
+
+#~ msgid "General"
+#~ msgstr "일반"
+
+#~ msgid "Video Settings"
+#~ msgstr "동영상 설정"
+
+#~ msgid "Trash"
+#~ msgstr "삭제"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "완료: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "웹캠을 찾을 수 없습니다."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "사용할 웹캠 선택:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "사진 찍기까지 기다릴 시간:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "YouTube에 파일 업로드"
+
+#~ msgid "Video information:"
+#~ msgstr "동영상 정보:"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr "이 동영상은 KDE 웹캠 소프트웨어 Kamoso로 녹화되었습니다!"
+
+#~ msgid "Brightness"
+#~ msgstr "밝기"
+
+#~ msgid "Hue"
+#~ msgstr "휘도"
+
+#~ msgid "Contrast"
+#~ msgstr "명암"
+
+#~ msgid "Saturation"
+#~ msgstr "선명도"
+
+#~ msgid "Gamma"
+#~ msgstr "감마"

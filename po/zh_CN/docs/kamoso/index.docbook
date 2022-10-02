@@ -1,0 +1,248 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Continental-Chinese "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Kamoso 手册</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>本文档转化自 KDE UserBase <ulink url=" http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> 页面并由 &kde; 文档组维护。</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<author
+><firstname
+>Yunhe</firstname
+> <surname
+>Guo</surname
+></author
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>拍摄照片</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; 使您能够用摄像头拍摄照片，并且上传到互联网</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>录制视频</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; 使您可以用摄像头录制视频并且上传到互联网上</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>用户指南</title>
+<para
+>欢迎使用 &kamoso; ！ </para>
+<para
+>&kamoso; 是一个优秀的用摄像头来拍摄照片与视频的程序。本向导指导您在安装 &kamoso; 之后如何使用它。 </para>
+<sect1 id="quick-start"
+><title
+>快速入门</title>
+<para
+>启动 &kamoso;，后，它会显示底端包含这些按钮的窗口： </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> 切换到 <guibutton
+>照相</guibutton
+> 模式来拍摄一张相片。 </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> 切换到 <guibutton
+>连拍</guibutton
+> 模式，您可以连续不断地拍摄相片，直到您再次点击中央的按钮来停止。 </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> 切换到 <guibutton
+>录像</guibutton
+> 模式来录制视频 </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>开始或停止拍摄照片或录制视频</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>显示相册</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>显示设置</guibutton>
+</member
+></simplelist>
+
+<para
+>照片和视频会被顺序编号，保存在设置中的 <guilabel
+>拍摄内容目录</guilabel
+>。 </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>管理拍摄内容</title>
+
+<para
+>点击 <guibutton
+>显示相册</guibutton
+> 按钮可以查看并管理您拍摄的照片及视频。在相册中项目的右键菜单中，您可以找到用于管理它们的操作： </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>用 <guimenuitem
+>打开</guimenuitem
+> 操作来使用对应的程序查看您的拍摄内容。 </para>
+
+<para
+>如果您想要删除照片或视频，使用文件管理器打开录制文件夹。 </para>
+
+<para
+>接下来的操作使您可以将拍摄内容上传到互联网或者发给联系人或设备。 </para>
+
+<para
+>使用 <guimenuitem
+>另存为</guimenuitem
+> 可将相册的完整内容保存到一个新目录。 </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>自定义</title>
+<para
+>点击 <guibutton
+>显示设置</guibutton
+> 按钮来打开设置面板。再次点击可隐藏设置面板。 </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>如果您想要更改 &kamoso; 保存照片和视频的目录，更改顶端的 <guilabel
+>拍摄内容目录</guilabel
+>。 </para>
+
+<para
+>启用 <guibutton
+>使用高亮</guibutton
+> 可在拍摄照片前使窗口高亮。 </para>
+
+<para
+>利用这些滑块，您可以修改相机设置，例如亮度，色调，对比度，饱和度和伽玛值。 </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>致谢和授权</title>
+      <para
+>文档版权参见 UserBase <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>Kamoso 页面历史</ulink
+></para>
+      <para
+>本文档由 Guo Yunhe 同学翻译。</para
+> &underFDL; </chapter>
+&documentation.index;
+</book>

@@ -1,0 +1,488 @@
+# translation of kamoso.po to Slovak
+# Richard Fric <Richard.Fric@kdemail.net>, 2011.
+# Roman Paholík <wizzardsk@gmail.com>, 2013, 2014, 2015, 2016, 2017.
+# Matej Mrenica <matejm98mthw@gmail.com>, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-10-10 19:44+0200\n"
+"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
+"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 19.08.2\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Richard Frič,Peter Adamka,Michal Šulek,Roman Paholík"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"Richard.Fric@kdemail.net,peter.adamka@gmail.com,misurel@gmail.com,"
+"wizzardsk@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Kam sa ukladajú fotografie."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Vertikálne zrkadlenie pohľadu kamery."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Ukazuje na poslednú použitú webkameru."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Nástroj na tvorbu fotografií a videa pomocou webkamery"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas a Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Hacker semaforov"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Piják kávy"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Nahral zvuk uzávierky: https://freesound.org/people/caseymoura/sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Zdieľať"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Späť"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Médiá teraz exportované"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Nastaviť Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Uložiť umiestnenia"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Obrázky:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Vyberte priečinok, do ktorého Kamoso ukladá obrázky"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Videá:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Vyberte priečinok, do ktorého Kamoso ukladá videá"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Fotoaparáty"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Zrkadliť fotoaparát"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "V <filename>%1</filename> nie sú žiadne obrázky"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Zdieľať %1 položku..."
+msgstr[1] "Zdieľať %1 položky..."
+msgstr[2] "Zdieľať %1 položiek..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Zdieľať položku..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Presunúť %1 položku do koša"
+msgstr[1] "Presunúť %1 položky do koša"
+msgstr[2] "Presunúť %1 položiek do koša"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Presunúť do koša"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Otvoriť priečinok s obrázkami..."
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Nastaviť Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Urobiť fotku"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Ukončiť dávku"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Zachytiť dávku"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 fotka urobená"
+msgstr[1] "%1 fotky 1 fotka urobené"
+msgstr[2] "%1 fotiek 1 fotka urobených"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Zastaviť nahrávanie"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Nahrať video"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galéria efektov"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Fotka urobená"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Uložené v %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Uložiť do..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Vyberte adresár, kam ukladať vaše fotky"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Vyberte adresár, kam ukladať vaše ideá"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Presunúť do koša... (%1)"
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Naozaj chcete odstrániť tento %1 súbor?"
+#~ msgstr[1] "Naozaj chcete odstrániť tieto %1 súbory?"
+#~ msgstr[2] "Naozaj chcete odstrániť týchto %1 súborov?"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Zdieľať... (%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Snímka"
+
+#~ msgid "Places"
+#~ msgstr "Miesta"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Fotografie: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Použiť blesk"
+
+#~ msgid "On screen information"
+#~ msgstr "Informácia na obrazovke"
+
+#~ msgid "Brightness:"
+#~ msgstr "Jas:"
+
+#~ msgid "Hue:"
+#~ msgstr "Odtieň:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Kontrast:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Sýtosť:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Gama:"
+
+#~ msgid "Reset"
+#~ msgstr "Vynulovať"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 vybrané"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "URL bolo práve zdieľané"
+
+#~ msgid "Run"
+#~ msgstr "Spustiť"
+
+#~ msgid "Cancel"
+#~ msgstr "Zrušiť"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Prepnúť na režim '%1'"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Zobraziť galériu..."
+
+#~ msgid "Show settings..."
+#~ msgstr "Zobraziť nastavenia..."
+
+#~ msgid "Open..."
+#~ msgstr "Otvoriť..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "Otvoriť adresár..."
+
+#~ msgid "Action!"
+#~ msgstr "Akcia!"
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Prehrať zvuk, keď sa urobí fotka."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr "Koľko sekúnd Kamoso čaká pred vytvorením fotografie."
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Zbierač fotiek webkamery"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Úsmev! :)"
+
+#~ msgid "Dummy export Output: "
+#~ msgstr "Prázdny exportný výstup: "
+
+#~ msgid "Video Information:"
+#~ msgstr "Informácie o videu:"
+
+#~ msgid "Title"
+#~ msgstr "Názov"
+
+#~ msgid "Tags:"
+#~ msgstr "Značky:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Popis"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Potrebujete zadať používateľské meno a heslo na nahranie videa na YouTube"
+
+#~ msgid "Server:"
+#~ msgstr "Server:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Autentifikácia pre YouTube"
+
+#~ msgid "Title:"
+#~ msgstr "Názov:"
+
+#~ msgid "Enter a title for the video..."
+#~ msgstr "Zadajte názov pre video..."
+
+#~ msgid "KDE, Kamoso"
+#~ msgstr "KDE, Kamoso"
+
+#~ msgid "Description:"
+#~ msgstr "Popis:"
+
+#~ msgid "Share Tool"
+#~ msgstr "Nástroj na zdieľanie"
+
+#~ msgid "Implementation"
+#~ msgstr "Implementácia"
+
+#~ msgid "Files to share"
+#~ msgstr "Súbory na zdieľanie"
+
+#~ msgid "Data tuple to initialize the process with"
+#~ msgstr "Dáta na inicializáciu procesu"
+
+#~ msgid "Must specify some files to share"
+#~ msgstr "Treba určiť nejaké súbory na zdieľanie"
+
+#~ msgid "Error in the data argument formatting: %1 at %2"
+#~ msgstr "Chyba pri formátovaní dátového argumentu: %1 na %2"
+
+#~ msgid "Error in the data argument type, it should be a json object."
+#~ msgstr "Chyba v type dátového argumentu, mal by to byť json objekt."
+
+#~ msgid "Use"
+#~ msgstr "Použiť"
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Adresár, kam Kamoso ukladá fotografie"
+
+#~ msgid "General"
+#~ msgstr "Všeobecné"
+
+#~ msgid "Photo Settings"
+#~ msgstr "Nastavenia fotiek"
+
+#~ msgid "Video Settings"
+#~ msgstr "Nastavenia videa"
+
+#~ msgid "Trash"
+#~ msgstr "Kôš"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Hotovo: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "(C) 2008-2010 Alex Fiestas a Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Nenašla sa web kamera."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Vyberte webkameru na použitie:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Čas kým sa urobí fotografia:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Nahrá súbory na YouTube"
+
+#~ msgid "Video information:"
+#~ msgstr "Informácie o videu:"
+
+#~ msgid "Kamoso %1"
+#~ msgstr "Kamoso %1"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Toto video bolo nahraté pomocou Kamoso, KDE softvérom na hranie sa s "
+#~ "webkamerami!"
+
+#~ msgid "Taken with kamoso"
+#~ msgstr "Vytvorené v Kamoso"
+
+#~ msgid "Plugin tester"
+#~ msgstr "Tester pluginov"
+
+#~ msgid "asdasd"
+#~ msgstr "asdasd"
+
+#~ msgid "Brightness"
+#~ msgstr "Jas"
+
+#~ msgid "Hue"
+#~ msgstr "Odtieň"
+
+#~ msgid "Contrast"
+#~ msgstr "Kontrast"
+
+#~ msgid "Saturation"
+#~ msgstr "Sýtosť"
+
+#~ msgid "Gamma"
+#~ msgstr "Gama"

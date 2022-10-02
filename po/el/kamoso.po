@@ -1,0 +1,572 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Eleftherios Kosmas, 2009.
+# Dimitrios Glentadakis <dglent@gmail.com>, 2011.
+# Dimitris Kardarakos <dimkard@gmail.com>, 2014, 2015.
+# Stelios <sstavra@gmail.com>, 2014, 2015, 2017, 2019.
+# Petros Vidalis <pvidalis@gmail.com>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2019-08-07 11:16+0300\n"
+"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 18.12.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Stelios, Πέτρος Βιδάλης"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "sstavra@gmail.com, pvidalis@gmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Όπου αποθηκεύονται οι φωτογραφίες."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Να καθρεπτιστεί κατακόρυφα η προβολή της κάμερας."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Υποδεικνύει την web κάμερα που χρησιμοποιήθηκε τελευταία."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Εργαλείο για λήψη φωτογραφιών και βίντεο με web κάμερα"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas και Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Χάκερ σηματοφόρων"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Καταναλωτής Καφέ"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Εστάλη ο ήχος του κλείστρου: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Κοινή χρήση"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Πίσω"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Τα μέσον τώρα εξάγεται"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Διαμόρφωση Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Apou;hkeysh u;esevn"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Φωτογραφίες:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Επιλογή του φακέλου όπου το Kamoso θα αποθηκεύει εικόνες"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Βίντεο:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Επιλογή του φακέλου όπου το Kamoso θα αποθηκεύει βίντεο"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Φωτογραφικές μηχανές"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Καθρέπτισμα καερας"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Δεν υπάρχουν εικόνες στο <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Κοινή χρήση %1 αντικειμένου..."
+msgstr[1] "Κοινή χρήση %1 αντικειμένων..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Κοινή χρήση αντικειμένου..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Μετακίνηση %1 αντικειμένου στα απορρίμματα"
+msgstr[1] "Μετακίνηση %1 αντικειμένων στα απορρίμματα"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Μετακίνηση αντικειμένου στα απορρίμματα"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Άνοιγμα φακέλου εικόνων..."
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Διαμόρφωση Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Λήψη μιας φωτογραφίας"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Τέλος έκρηξης"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Σύλληψη έκρηξης"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 φωτογραφία ελήφθη"
+msgstr[1] "%1 φωτογραφίες ελήφθησαν"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Διακοπή εγγραφής"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Εγγραφή βίντεο"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Συλλογή εφέ"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Φωτογραφία ελήφθη"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Αποθηκεύθηκε στο %1"
+
+#~ msgid "Save to..."
+#~ msgstr "Αποθήκευση σε..."
+
+#~ msgid "Select a directory where to save your pictures"
+#~ msgstr "Επιλέγει κατάλογο αποθήκευσης για τις φωτογραφίες σας"
+
+#~ msgid "Select a directory where to save your videos"
+#~ msgstr "Επιλέγει κατάλογο αποθήκευσης για τα βίντεο"
+
+#~ msgid "Move to trash... (%1)"
+#~ msgstr "Μετακίνηση στα σκουπίδια... (%1)"
+
+#~ msgid "Move to trash..."
+#~ msgstr "Μετακίνηση στα σκουπίδια"
+
+#~ msgid "Are you sure you want to remove %1 file?"
+#~ msgid_plural "Are you sure you want to remove %1 files?"
+#~ msgstr[0] "Σίγουρα θέλετε να διαγράψετε αυτό το αρχείο %1;"
+#~ msgstr[1] "Σίγουρα θέλετε να διαγράψετε αυτά τα αρχεία %1;"
+
+#~ msgid "Share... (%1)"
+#~ msgstr "Μοιραστείτε...(%1)"
+
+#~ msgid "Shoot"
+#~ msgstr "Λήψη"
+
+#~ msgid "Places"
+#~ msgstr "Τοποθεσίες"
+
+#~ msgid "Photos: %1"
+#~ msgstr "Φωτογραφίες: %1"
+
+#~ msgid "Use flash"
+#~ msgstr "Χρήση φλας"
+
+#~ msgid "On screen information"
+#~ msgstr "Πληροφορίες οθόνης"
+
+#~ msgid "Brightness:"
+#~ msgstr "Λαμπρότητα:"
+
+#~ msgid "Hue:"
+#~ msgstr "Απόχρωση:"
+
+#~ msgid "Contrast:"
+#~ msgstr "Αντίθεση:"
+
+#~ msgid "Saturation:"
+#~ msgstr "Κορεσμός:"
+
+#~ msgid "Gamma:"
+#~ msgstr "Γάμμα:"
+
+#~ msgid "Reset"
+#~ msgstr "Επαναφορά"
+
+#~ msgid "%1 selected"
+#~ msgstr "%1 επιλεγμένα"
+
+#~ msgid "The URL was just shared"
+#~ msgstr "Μόλις έγινε κοινή χρήση του URL"
+
+#~ msgid "Run"
+#~ msgstr "Εκτέλεση"
+
+#~ msgid "Cancel"
+#~ msgstr "Ακύρωση"
+
+#~ msgid "Switch to '%1' mode"
+#~ msgstr "Εναλλαγή σε '%1' λειτουργία"
+
+#~ msgid "Show gallery..."
+#~ msgstr "Εμφάνιση συλλογής εικόνων..."
+
+#~ msgid "Show settings..."
+#~ msgstr "Εμφάνιση ρυθμίσεων..."
+
+#~ msgid "Open..."
+#~ msgstr "Άνοιγμα..."
+
+#~ msgid "Open Directory..."
+#~ msgstr "Άνοιγμα καταλόγου..."
+
+#, fuzzy
+#~| msgid "Location:"
+#~ msgid "Action!"
+#~ msgstr "Τοθεσία:"
+
+#~ msgid "Play a sound when a photo is taken."
+#~ msgstr "Αναπαραγωγή ενός ήχου κατά τη λήψη μιας φωτογραφίας."
+
+#~ msgid "How much seconds kamoso waits before make the picture."
+#~ msgstr ""
+#~ "Πόσα δευτερόλεπτα το kamoso είναι σε αναμονή πριν να πάρει τη φωτογραφία"
+
+#~ msgid "Webcam picture retriever"
+#~ msgstr "Εξαγωγέας φωτογραφιών web κάμερας"
+
+#~ msgid "Smile! :)"
+#~ msgstr "Χαμογελάστε! :)"
+
+#~ msgid "Video Information:"
+#~ msgstr "Πληροφορίες βίντεο."
+
+#~ msgid "Title"
+#~ msgstr "Τίτλος"
+
+#~ msgid "Tags:"
+#~ msgstr "Ετικέτες:"
+
+#~ msgid "Kamoso, KDE"
+#~ msgstr "Kamoso, KDE"
+
+#~ msgid "Description"
+#~ msgstr "Περιγραφή"
+
+#~ msgid ""
+#~ "You need to supply a username and a password to be able to upload videos "
+#~ "to YouTube"
+#~ msgstr ""
+#~ "Χρειάζεται να δώσετε όνομα χρήστη και κωδικό πρόσβασης για να μπορέσετε "
+#~ "να στείλετε βίντεο στο Youtube"
+
+#~ msgid "Server:"
+#~ msgstr "Εξυπηρετητής:"
+
+#~ msgid "Authentication for YouTube"
+#~ msgstr "Ταυτοποίηση για το YouTube"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "Τίτλος"
+
+#, fuzzy
+#~| msgid "Kamoso"
+#~ msgid "KDE, Kamoso"
+#~ msgstr "Kamoso"
+
+#, fuzzy
+#~| msgid "Description"
+#~ msgid "Description:"
+#~ msgstr "Περιγραφή"
+
+#, fuzzy
+#~| msgid "Moves the specified file to trash."
+#~ msgid "Must specify some files to share"
+#~ msgstr "Μεταφέρε τον εν λόγω αρχείο στα σκουπίδια."
+
+#~ msgid "Directory where kamoso saves the photos"
+#~ msgstr "Κατάλογος όπου το Kamoso αποθηκεύει φωτογραφίες"
+
+#~ msgid "General"
+#~ msgstr "Γενικά"
+
+#~ msgid "Photo Settings"
+#~ msgstr "Ρυθμίσεις φωτογραφίας"
+
+#~ msgid "Video Settings"
+#~ msgstr "Ρυθμίσεις βίντεο"
+
+#~ msgid "Trash"
+#~ msgstr "Απορρίμματα"
+
+#~ msgctxt "Used to join urls"
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "Done: %1"
+#~ msgstr "Ολοκληρώθηκε: %1"
+
+#~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
+#~ msgstr "(C) 2008-2010 Alex Fiestas και Aleix Pol"
+
+#~ msgid "No webcam was found."
+#~ msgstr "Δεν βρέθηκε κάμερα."
+
+#~ msgid "Choose the webcam to use:"
+#~ msgstr "Επιλέξτε την web κάμερα που θα χρησιμοποιήσετε:"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "Time until the photo is taken:"
+#~ msgstr "Ο χρόνος μέχρι τη λήψη της φωτογραφίας:"
+
+#~ msgid "YouTube"
+#~ msgstr "YouTube"
+
+#~ msgid "Uploads files to YouTube"
+#~ msgstr "Στέλνει αρχεία στο YouTube"
+
+#~ msgid "Video information:"
+#~ msgstr "Πληροφορίες βίντεο:"
+
+#~ msgid "Kamoso %1"
+#~ msgstr "Kamoso %1"
+
+#~ msgid ""
+#~ "This video has been recorded using Kamoso, a KDE software to play with "
+#~ "webcams!"
+#~ msgstr ""
+#~ "Αυτό το βίντεο έχει καταγραφεί χρησιμοποιώντας το Kamoso, ένα πρόγραμμα "
+#~ "του KDE για να παίζετε με web-κάμερες!"
+
+#, fuzzy
+#~| msgid "Plugin List"
+#~ msgid "Plugin tester"
+#~ msgstr "Λίστα Πρόσθετων"
+
+#~ msgid "Brightness"
+#~ msgstr "Λαμπρότητα"
+
+#~ msgid "Hue"
+#~ msgstr "Απόχρωση"
+
+#~ msgid "Contrast"
+#~ msgstr "Αντίθεση"
+
+#~ msgid "Saturation"
+#~ msgstr "Κορεσμός"
+
+#~ msgid "Gamma"
+#~ msgstr "Γάμμα"
+
+#~ msgid "Video recorded using Kamoso"
+#~ msgstr "Βίντεο καταγεγραμένο με το Kamoso"
+
+#~ msgid "Error while loading the plugin '%1'"
+#~ msgstr "Σφάλμα κατά την φόρτωση του πρόσθετου \"%1\""
+
+#~ msgid "Execute"
+#~ msgstr "Εκτέλεση"
+
+#~ msgid "Runs a viewer for the specified file."
+#~ msgstr "Τρέχει ένα viewer για το συγκεκριμένο αρχείο"
+
+#~ msgid "Could not open %1"
+#~ msgstr "Αδυναμία ανοίγματος %1"
+
+#~ msgid "Facebook support"
+#~ msgstr "Υποστήριξη Facebook"
+
+#~ msgid "Allows to communicate with Facebook"
+#~ msgstr "Επιτρέπει επικοινωνία με το Facebook"
+
+#~ msgid "Upload to Facebook..."
+#~ msgstr "Ανέβασμα στο Facebook..."
+
+#~ msgid "Facebook New Album"
+#~ msgstr "Νέο Άλμπουν στο Facebook"
+
+#~ msgid "Title of the album that will be created (required)."
+#~ msgstr "Τίτλος του άλμπουμ που θα δημιουργηθεί (απαιτούμενος)."
+
+#~ msgid "Location of the album that will be created (optional)."
+#~ msgstr "Τοποθεσία του άλμπουμ που θα δημιουργηθεί (προαιρετική)."
+
+#~ msgid "Description of the album that will be created (optional)."
+#~ msgstr "Περιγραφή του άλμπουμ που θα δημιουργηθεί (προαιρετική)."
+
+#~ msgid "Privacy setting of the album that will be created (required)."
+#~ msgstr "Ρυθμίσεις Απορρήτου του άλμπουμ που θα δημιουργηθεί (απαιτείται)."
+
+#~ msgid "Only Friends"
+#~ msgstr "Μόνο Φίλοι"
+
+#~ msgid "Friends of Friends"
+#~ msgstr "Φίλοι Φίλων"
+
+#~ msgid "My Networks and Friends"
+#~ msgstr "Τα δίκτυα μου και φίλοι"
+
+#~ msgid "Everyone"
+#~ msgstr "Όλοι"
+
+#~ msgid "Privacy:"
+#~ msgstr "Ρυθμίσεις απορρήτου:"
+
+#~ msgid "Validate previous session..."
+#~ msgstr "Επικύρωση της προηγούμενης συνόδου..."
+
+#~ msgid "Logging in to Facebook service..."
+#~ msgstr "Είσοδος στην υπηρεσία Facebook"
+
+#~ msgid ""
+#~ "Please follow the instructions in the browser window. Press \"OK\" when "
+#~ "done."
+#~ msgstr ""
+#~ "Παρακαλώ ακολουθήστε τις οδηγίες στο παράθυρο του περιηγητή σας. Πατήστε "
+#~ "\"OK\" όταν τελειώσετε."
+
+#~ msgid "The service is not available at this time."
+#~ msgstr "Η υπηρεσία δεν είναι διαθέσιμη αυτή την στιγμή"
+
+#~ msgid "The application has reached the maximum number of requests allowed."
+#~ msgstr "Η εφαρμογή έχει φτάσει το μέγιστο αριθμό αιτήσων που επιτρέπονται."
+
+#~ msgid "Invalid session key or session expired. Try to log in again."
+#~ msgstr "Άκυρο κλειδί συνόδου ή λήξη της. Προσπαθήστε να συνδεθείτε ξανά."
+
+#~ msgid "Invalid album ID."
+#~ msgstr "μη έγκυρο Άλμπουμ ID"
+
+#~ msgid "Album is full."
+#~ msgstr "Το Άλμπου είναι γεμάτο."
+
+#~ msgid "Missing or invalid file."
+#~ msgstr "Το αρχείο λήπει ή δεν είναι έγκυρο"
+
+#~ msgid "Too many unapproved photos pending."
+#~ msgstr "Πάρα πολλές μη εγγεκριμένες φωτογραφίες σε αναμονή,"
+
+#~ msgid ""
+#~ "Please follow the instructions in the browser window. Press \"Yes\" if "
+#~ "you have authenticated and \"No\" if you failed."
+#~ msgstr ""
+#~ "Παρακαλώ ακολουθήστε τις οδηγίες στο παράθυρο του περιηγητή σας, πατήστε "
+#~ "\"Ναι\" αν έχετε πιστοποιήσει την ταυτότητα σας και \"όχι\" αν αποτύχατε"
+
+#~ msgid "Canceled by user."
+#~ msgstr "Ακυρώθηκε από το χρήστη"
+
+#~ msgid "Upload to YouTube"
+#~ msgstr "Ανεβάστε στο YouTube"
