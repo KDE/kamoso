@@ -54,13 +54,14 @@ add_library(gst${QTVIDEOSINK_NAME} MODULE ${GstQtVideoSink_SRCS})
 target_link_libraries(gst${QTVIDEOSINK_NAME}
     PkgConfig::GStreamerVideo
     ${GstQtVideoSink_GL_LIBS}
-    Qt5::Quick
+    Qt::Quick
 )
 
 install(TARGETS gst${QTVIDEOSINK_NAME} DESTINATION ${KDE_INSTALL_LIBDIR}/gstreamer-${GSTREAMER_ABI_VERSION})
 
 if(BUILD_TESTING)
-    find_package(Qt5 NO_MODULE REQUIRED COMPONENTS OpenGL Test)
+    find_package(Qt${QT_MAJOR_VERSION} NO_MODULE REQUIRED COMPONENTS OpenGL Test)
+
     ecm_add_test(
             autotest.cpp
             utils/utils.cpp
@@ -71,10 +72,10 @@ if(BUILD_TESTING)
         LINK_LIBRARIES
             PkgConfig::GStreamerVideo
             ${GstQtVideoSink_GL_LIBS}
-            Qt5::Test
-            Qt5::OpenGL
-            Qt5::Quick
-            Qt5::Widgets
+            Qt::Test
+            Qt::OpenGL
+            Qt::Quick
+            Qt::Widgets
         TEST_NAME qtvideosink_autotest
     )
 endif()

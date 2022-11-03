@@ -4,7 +4,7 @@ add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
 add_definitions(-DQT_NO_KEYWORDS)
 
-qt5_add_resources(kamosoqml_SRCS resources.qrc)
+qt_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS kamosoSettings.kcfgc GENERATE_MOC)
 
 ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEADER kamoso_version.h)
@@ -27,12 +27,12 @@ add_executable(kamoso
 )
 
 target_link_libraries(kamoso
-    Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Quick
+    Qt::Core Qt::Gui Qt::Widgets Qt::Quick
     KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n KF5::Notifications
     PkgConfig::GStreamer
 )
 
 install(TARGETS kamoso ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES kamoso.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(FILES kamoso.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
 install(FILES kamoso-shutter.wav DESTINATION ${KDE_INSTALL_SOUNDDIR})
