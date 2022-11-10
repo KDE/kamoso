@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kamoso package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kamoso\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"PO-Revision-Date: 2022-11-10 01:18+0700\n"
+"Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
+"Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
+"Language: ie\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.12\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "OIS"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mistresssilvara@hotmail.com"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "U on garda li fotos."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Reflecter li vise verticalmen"
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Li ultim usat cámera."
+
+#: src/main.cpp:23 src/qml/Main.qml:19
+#, kde-format
+msgid "Kamoso"
+msgstr "Kamoso"
+
+#: src/main.cpp:23
+#, kde-format
+msgid "Utility for taking photos and videos using a webcam"
+msgstr "Utensile por far fotos e videos med un cámera web"
+
+#: src/main.cpp:24
+#, kde-format
+msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas e Aleix Pol"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Aleix Pol Gonzalez"
+msgstr "Aleix Pol Gonzalez"
+
+#: src/main.cpp:26
+#, kde-format
+msgid "Semaphore hacker"
+msgstr "Semaphore hacker"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Alex Fiestas"
+msgstr "Alex Fiestas"
+
+#: src/main.cpp:27
+#, kde-format
+msgid "Coffee drinker"
+msgstr "Coffee drinker"
+
+#: src/main.cpp:28
+#, kde-format
+msgid "caseymoura"
+msgstr "caseymoura"
+
+#: src/main.cpp:28
+#, kde-format
+msgid ""
+"Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+msgstr ""
+"Cargat li son de obturator: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
+
+#: src/qml/ImagesView.qml:42
+#, kde-format
+msgid "Share"
+msgstr "Partir"
+
+#: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
+#: src/qml/ImagesView.qml:306
+#, kde-format
+msgid "Back"
+msgstr "Retro"
+
+#: src/qml/ImagesView.qml:146
+#, kde-format
+msgid "Media now exported"
+msgstr "Li medie sta exportat"
+
+#: src/qml/ImagesView.qml:173
+#, kde-format
+msgid "Configure Kamoso"
+msgstr "Configurar Kamoso"
+
+#: src/qml/ImagesView.qml:181
+#, kde-format
+msgid "Save Locations"
+msgstr "Localisationes de gardation"
+
+#: src/qml/ImagesView.qml:188
+#, kde-format
+msgid "Pictures:"
+msgstr "Images:"
+
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#, kde-format
+msgid "Choose the folder where Kamoso will save pictures"
+msgstr "Selecter li fólder u Kamoso va gardar fotos"
+
+#: src/qml/ImagesView.qml:234
+#, kde-format
+msgid "Videos:"
+msgstr "Videos:"
+
+#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#, kde-format
+msgid "Choose the folder where Kamoso will save videos"
+msgstr "Selecter li fólder u Kamoso va gardar videos"
+
+#: src/qml/ImagesView.qml:278
+#, kde-format
+msgid "Cameras"
+msgstr "Cámeras"
+
+#: src/qml/ImagesView.qml:294
+#, kde-format
+msgid "Mirror camera"
+msgstr "Reflecter li cámera"
+
+#: src/qml/ImagesView.qml:333
+#, kde-kuit-format
+msgctxt "@info"
+msgid "There are no images in <filename>%1</filename>"
+msgstr "Hay null images in <filename>%1</filename>"
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share %1 Item..."
+msgid_plural "Share %1 Items..."
+msgstr[0] "Partir %1 element..."
+msgstr[1] "Partir %1 elementes..."
+
+#: src/qml/ImagesView.qml:345
+#, kde-format
+msgid "Share Item..."
+msgstr "Partir li element..."
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move %1 Item to Trash"
+msgid_plural "Move %1 Items to Trash"
+msgstr[0] "Mover %1 element al Paper-corb"
+msgstr[1] "Mover %1 elementes al Paper-corb"
+
+#: src/qml/ImagesView.qml:353
+#, kde-format
+msgid "Move Item to Trash"
+msgstr "Mover li element al Paper-corb"
+
+#: src/qml/ImagesView.qml:362
+#, kde-format
+msgid "Open Pictures Folder"
+msgstr "Aperter li fólder de images"
+
+#: src/qml/ImagesView.qml:369
+#, kde-format
+msgid "Configure Kamoso..."
+msgstr "Configurar Kamoso..."
+
+#: src/qml/Main.qml:82
+#, kde-format
+msgid "Take a Picture"
+msgstr "Far un foto"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "End Burst"
+msgstr "Finir li salve"
+
+#: src/qml/Main.qml:107
+#, kde-format
+msgid "Capture a Burst"
+msgstr "Salve de fotos"
+
+#: src/qml/Main.qml:109
+#, kde-format
+msgid "1 photo taken"
+msgid_plural "%1 photos taken"
+msgstr[0] "1 foto fat"
+msgstr[1] "%1 fotos fat"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Stop Recording"
+msgstr "Finir li registration"
+
+#: src/qml/Main.qml:132
+#, kde-format
+msgid "Record a Video"
+msgstr "Registrar un video"
+
+#: src/qml/Main.qml:187
+#, kde-format
+msgid "Effects Gallery"
+msgstr "Galerie de efectes"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Photo taken"
+msgstr "Li foto sta fat"
+
+#: src/video/webcamcontrol.cpp:350
+#, kde-format
+msgid "Saved in %1"
+msgstr "Gardat a %1"
