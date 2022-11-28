@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-11-13 00:26+0000\n"
-"PO-Revision-Date: 2022-09-30 21:05+0200\n"
+"PO-Revision-Date: 2022-11-27 11:21+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -85,7 +85,7 @@ msgstr "ყავისმსმელი"
 #: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
-msgstr ""
+msgstr "caseymoura"
 
 #: src/main.cpp:28
 #, kde-format
@@ -155,7 +155,7 @@ msgstr "კამერის ანარეკლი"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
-msgstr ""
+msgstr "<filename>%1</filename>-ში სურათები არაა"
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
@@ -199,12 +199,12 @@ msgstr "სურათის გადაღება"
 #: src/qml/Main.qml:107
 #, kde-format
 msgid "End Burst"
-msgstr ""
+msgstr "Burst-ის დასრულება"
 
 #: src/qml/Main.qml:107
 #, kde-format
 msgid "Capture a Burst"
-msgstr ""
+msgstr "Burst-ის ჩაჭერა"
 
 #: src/qml/Main.qml:109
 #, kde-format
