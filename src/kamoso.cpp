@@ -2,6 +2,7 @@
     SPDX-FileCopyrightText: 2008-2011 Aleix Pol <aleixpol@kde.org>
     SPDX-FileCopyrightText: 2008-2011 Alex Fiestas <alex@eyeos.org>
     SPDX-FileCopyrightText: 2013 Michael G. Hansen <mike@mghansen.de>
+    SPDX-FileCopyrightText: 2022 Dmitrii Fomchenkov <fomchenkovda@basealt.ru>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -81,6 +82,12 @@ void Kamoso::resetDeviceSettings()
 
 void Kamoso::setRecording(bool recording)
 {
+    if (!DeviceManager::self()->playingDevice()) {
+        qWarning() << "No device found";
+        Q_EMIT error(i18n("No device found"));
+        return;
+    }
+
     if (recording == m_recordingTimer.isActive())
         return;
 
