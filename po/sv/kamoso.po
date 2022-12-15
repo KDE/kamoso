@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-04-14 09:07+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -27,6 +27,12 @@ msgstr "Stefan Asserhäll"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "stefan.asserhall@bredband.net"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Ingen webbkamera hittades."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -425,9 +431,6 @@ msgstr "Sparat i %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "© 2008-2010 Alex Fiestas och Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Ingen webbkamera hittades."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Välj webbkamera att använda:"

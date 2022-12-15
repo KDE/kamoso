@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-04-10 09:18+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -27,6 +27,12 @@ msgstr "Vincenzo Reale"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "smart2128vr@gmail.com"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Nessuna webcam trovata."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -426,9 +432,6 @@ msgstr "Salvata in %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-2010 Alex Fiestas e Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Nessuna webcam trovata."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Scegli la webcam da utilizzare:"

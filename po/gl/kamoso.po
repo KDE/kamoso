@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-04-12 23:02+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
@@ -29,6 +29,12 @@ msgstr "Manuel A. Vazquez"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xixirei@yahoo.es"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Non se atopou ningunha cámara web."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -403,9 +409,6 @@ msgstr "Gardada en %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-20010 Alex Fiestas e Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Non se atopou ningunha cámara web."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Escolla a cámara para web a usar:"

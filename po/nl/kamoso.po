@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-04-09 11:49+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -26,6 +26,12 @@ msgstr "Freek de Kruijf - t/m 2019"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Geen webcam gevonden."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -426,9 +432,6 @@ msgstr "Opgeslagen in %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-2010 Alex Fiestas and Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Geen webcam gevonden."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Kies de te gebruiken webcam:"

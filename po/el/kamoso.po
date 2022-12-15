@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-08-07 11:16+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -30,6 +30,12 @@ msgstr "Stelios, Πέτρος Βιδάλης"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sstavra@gmail.com, pvidalis@gmail.com"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Δεν βρέθηκε κάμερα."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -415,9 +421,6 @@ msgstr "Αποθηκεύθηκε στο %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-2010 Alex Fiestas και Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Δεν βρέθηκε κάμερα."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Επιλέξτε την web κάμερα που θα χρησιμοποιήσετε:"

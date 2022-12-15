@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-10-10 19:44+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -28,6 +28,12 @@ msgid "Your emails"
 msgstr ""
 "Richard.Fric@kdemail.net,peter.adamka@gmail.com,misurel@gmail.com,"
 "wizzardsk@gmail.com"
+
+#: src/kamoso.cpp:87
+#, fuzzy, kde-format
+#| msgid "No webcam was found."
+msgid "No device found"
+msgstr "Nenašla sa web kamera."
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -428,9 +434,6 @@ msgstr "Uložené v %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-2010 Alex Fiestas a Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Nenašla sa web kamera."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Vyberte webkameru na použitie:"

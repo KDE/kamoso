@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-13 00:26+0000\n"
+"POT-Creation-Date: 2022-12-15 00:47+0000\n"
 "PO-Revision-Date: 2019-04-13 16:55+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -32,6 +32,11 @@ msgstr "Kira J. Fernández,Víctor Rodrigo"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kirajfdez@gmail.com,vrcordoba@gmail.com"
+
+#: src/kamoso.cpp:87
+#, kde-format
+msgid "No device found"
+msgstr ""
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
