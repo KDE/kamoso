@@ -27,7 +27,7 @@ msgstr "zepires@gmail.com"
 #: src/kamoso.cpp:87
 #, kde-format
 msgid "No device found"
-msgstr ""
+msgstr "Nenhum dispositivo encontrado"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
