@@ -3,13 +3,13 @@
 #
 # Pawel Slomski <pawlerson@gmail.com>, 2011.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2011.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2014, 2015, 2016, 2017, 2019.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2014, 2015, 2016, 2017, 2019, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-15 00:47+0000\n"
-"PO-Revision-Date: 2019-07-21 09:39+0200\n"
+"PO-Revision-Date: 2023-01-02 20:48+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 19.07.70\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,10 +31,9 @@ msgid "Your emails"
 msgstr "pawlerson@gmail.com, lukasz.wojnilowicz@gmail.com"
 
 #: src/kamoso.cpp:87
-#, fuzzy, kde-format
-#| msgid "No webcam was found."
+#, kde-format
 msgid "No device found"
-msgstr "Nie znaleziono kamery internetowej."
+msgstr "Nie znaleziono żadnego urządzenia"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
