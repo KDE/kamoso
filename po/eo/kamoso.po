@@ -1,13 +1,15 @@
 # Translation of kamoso into esperanto.
+# Copyright (C) 2010 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2010.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-15 00:47+0000\n"
-"PO-Revision-Date: 2010-06-20 20:01+0200\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-01-04 22:00+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -19,46 +21,46 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "okellogg@users.sourceforge.net"
 
 #: src/kamoso.cpp:87
 #, kde-format
 msgid "No device found"
-msgstr ""
+msgstr "Neniu aparato trovata"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
 #: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
 #, kde-format
 msgid "Where the photos are saved."
-msgstr ""
+msgstr "Kie la fotoj estas konservataj."
 
 #. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:22
 #, kde-format
 msgid "Vertically mirror the camera view."
-msgstr ""
+msgstr "Vertikale speguli la fotilan rigardon."
 
 #. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:25
 #, kde-format
 msgid "Points to the last used webcam."
-msgstr ""
+msgstr "Montras al la laste uzata retkamerao."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
 msgid "Kamoso"
-msgstr ""
+msgstr "Kamoso"
 
 #: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
-msgstr ""
+msgstr "Utilaĵo por preni fotojn kaj filojn uzante retkameraon"
 
 #: src/main.cpp:24
 #, kde-format
@@ -100,13 +102,13 @@ msgstr ""
 #: src/qml/ImagesView.qml:42
 #, kde-format
 msgid "Share"
-msgstr ""
+msgstr "Kunhavigi"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
 #: src/qml/ImagesView.qml:306
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Reen"
 
 #: src/qml/ImagesView.qml:146
 #, kde-format
@@ -116,38 +118,37 @@ msgstr ""
 #: src/qml/ImagesView.qml:173
 #, kde-format
 msgid "Configure Kamoso"
-msgstr ""
+msgstr "Agordi Kamoso-n"
 
 #: src/qml/ImagesView.qml:181
 #, kde-format
 msgid "Save Locations"
-msgstr ""
+msgstr "Konservadlokoj"
 
 #: src/qml/ImagesView.qml:188
 #, kde-format
 msgid "Pictures:"
-msgstr ""
+msgstr "Bildoj:"
 
 #: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
-msgstr ""
+msgstr "Elekti la dosierujon kie Kamoso konservos bildojn"
 
 #: src/qml/ImagesView.qml:234
 #, kde-format
 msgid "Videos:"
-msgstr ""
+msgstr "Filmoj:"
 
 #: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
-msgstr ""
+msgstr "Elekti la dosierujon kie Kamoso konservos filmojn"
 
 #: src/qml/ImagesView.qml:278
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Cameras"
-msgstr "Agordo"
+msgstr "Kameraoj"
 
 #: src/qml/ImagesView.qml:294
 #, kde-format
@@ -240,16 +241,3 @@ msgstr ""
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
-
-#, fuzzy
-#~| msgid "Settings"
-#~ msgid "Show settings..."
-#~ msgstr "Agordo"
-
-#, fuzzy
-#~| msgid "Server"
-#~ msgid "Server:"
-#~ msgstr "Servilo"
-
-#~ msgid "General"
-#~ msgstr "Ĝeneralo"
