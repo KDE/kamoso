@@ -4,21 +4,21 @@
 # Eleftherios Kosmas, 2009.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2011.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014, 2015.
-# Stelios <sstavra@gmail.com>, 2014, 2015, 2017, 2019.
+# Stelios <sstavra@gmail.com>, 2014, 2015, 2017, 2019, 2023.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-11-13 00:26+0000\n"
-"PO-Revision-Date: 2019-08-07 11:16+0300\n"
+"PO-Revision-Date: 2023-01-05 10:20+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 18.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -123,7 +123,7 @@ msgstr "Διαμόρφωση Kamoso"
 #: src/qml/ImagesView.qml:181
 #, kde-format
 msgid "Save Locations"
-msgstr "Apou;hkeysh u;esevn"
+msgstr "Αποθήκευση τοποθεσιών"
 
 #: src/qml/ImagesView.qml:188
 #, kde-format
@@ -153,7 +153,7 @@ msgstr "Φωτογραφικές μηχανές"
 #: src/qml/ImagesView.qml:294
 #, kde-format
 msgid "Mirror camera"
-msgstr "Καθρέπτισμα καερας"
+msgstr "Καθρέπτισμα κάμερας"
 
 #: src/qml/ImagesView.qml:333
 #, kde-kuit-format
@@ -240,7 +240,10 @@ msgstr "Φωτογραφία ελήφθη"
 #: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
-msgstr "Αποθηκεύθηκε στο %1"
+msgstr "Αποθηκεύτηκε στο %1"
+
+#~ msgid "No device found"
+#~ msgstr "Δεν βρέθηκε συσκευή"
 
 #~ msgid "Save to..."
 #~ msgstr "Αποθήκευση σε..."
@@ -415,9 +418,6 @@ msgstr "Αποθηκεύθηκε στο %1"
 
 #~ msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 #~ msgstr "(C) 2008-2010 Alex Fiestas και Aleix Pol"
-
-#~ msgid "No webcam was found."
-#~ msgstr "Δεν βρέθηκε κάμερα."
 
 #~ msgid "Choose the webcam to use:"
 #~ msgstr "Επιλέξτε την web κάμερα που θα χρησιμοποιήσετε:"
