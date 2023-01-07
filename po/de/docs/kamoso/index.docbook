@@ -1,166 +1,258 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY kamoso     "<application>Kamoso</application>">
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE">
+  <!ENTITY % German "INCLUDE">
 ]>
 <book lang="&language;">
 <bookinfo>
-<title>The Kamoso Handbook</title>
+<title
+>Das Handbuch zu Kamoso</title>
 <authorgroup>
 <author>
-<personname>
-      <firstname>This documentation was converted from the KDE UserBase <ulink url="http://userbase.kde.org/Kamoso">Kamoso</ulink> page and updated by the &kde; documentation team.</firstname>
-<surname></surname>
-</personname>
+<personname
+><firstname
+>Dieses Handbuch wurde aus der <ulink url=" http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+>-Webseite der &kde;-Userbase erstellt und durch das &kde;-Dokumentationsteam aktualisiert.</firstname
+> <surname
+></surname
+> </personname>
       </author>
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<othercredit role="translator"
+><firstname
+>Burkhard</firstname
+><surname
+>Lück</surname
+><affiliation
+><address
+><email
+>lueck@hube-lueck.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
       </authorgroup>
-<legalnotice>&FDLNotice;</legalnotice>
-<date>2016-08-24</date>
-      <releaseinfo>&kamoso; 3.2</releaseinfo>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
 <abstract>
 <para>
 <variablelist>
-  <varlistentry><term><emphasis role="bold">Take a shot</emphasis></term>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Fotos aufnehmen</emphasis
+></term>
     <listitem>
-    <para>&kamoso; gives you an opportunity to make photos from your webcam and upload them to Internet</para>
+    <para
+>&kamoso; gibt Ihnen die Möglichkeit, Fotos mit Ihrer Webcam aufzunehmen und ins Internet hochzuladen</para>
      </listitem>
   </varlistentry>
-  <varlistentry><term><emphasis role="bold">Record video</emphasis></term>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Videoaufnahmen</emphasis
+></term>
     <listitem>
-    <para>&kamoso; allows to record videos from your webcam and upload them to the Internet</para>
+    <para
+>&kamoso; gibt Ihnen die Möglichkeit, Videos mit Ihrer Webcam aufzunehmen und ins Internet hochzuladen</para>
      </listitem>
   </varlistentry>
 </variablelist>
 </para>
       </abstract>
       <keywordset>
-<keyword>KDE</keyword>
+<keyword
+>KDE</keyword>
 </keywordset>
 </bookinfo>
-<!--userbase <timestamp>2012-12-05T19:30:21Z</timestamp>-->
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
 
 <!--userbase-content-->
-<chapter id="user-guide"><title>User Guide</title>
-<para>Welcome to &kamoso;!
-</para>
-<para>&kamoso; is a great program to use your webcam to take pictures or make videos. This guide will help you to use &kamoso; once you have installed it.
-</para>
-<sect1 id="quick-start"><title>Quick Start</title>
-<para>On launching &kamoso;, it displays this window with buttons at the bottom:
-</para>
+<chapter id="user-guide"
+><title
+>Benutzerhandbuch</title>
+<para
+>Willkommen zu &kamoso;. </para>
+<para
+>&kamoso; ist ein Programm, um mit Ihrer Webcam Bilder oder Videos aufzunehmen. Diese Anleitung hilft Ihnen &kamoso; zu benutzen, nachdem Sie das Programm installiert haben. </para>
+<sect1 id="quick-start"
+><title
+>Einführung</title>
+<para
+>Beim Start von &kamoso; wird dieses Fenster mit Knöpfen unten angezeigt: </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="mainwindow.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
 <simplelist>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Shoot</guibutton> mode to take one picture
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Burst</guibutton> mode and take continuously pictures until you stop by clicking the middle button again
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Record</guibutton> mode to record a video
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="start-stop.png" format="PNG"/></imageobject>
-</inlinemediaobject>Start or stop taking pictures or recording a video</member>
-<member><inlinemediaobject><imageobject>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Wechselt zu <guibutton
+>Aufnahme</guibutton
+>, um ein Bild aufzunehmen </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Wechselt zu <guibutton
+>Aufnahme-Sequenz</guibutton
+> und nimmt fortlaufend Bilder auf, bis Sie durch Klicken mit der mittleren Maustaste die Aufnahme anhalten </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Wechselt zu <guibutton
+>Aufnehmen</guibutton
+>, um ein Video aufzunehmen </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Aufnahme von Bildern oder Videos starten oder anhalten</member>
+<member
+><inlinemediaobject
+><imageobject>
 <imagedata fileref="folder-images.png" format="PNG"/></imageobject>
-</inlinemediaobject> <guibutton>Show gallery</guibutton>
+</inlinemediaobject
+> <guibutton
+>Galerie anzeigen</guibutton>
 </member>
-<member><inlinemediaobject><imageobject>
+<member
+><inlinemediaobject
+><imageobject>
 <imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
-</inlinemediaobject> <guibutton>Show settings</guibutton>
-</member></simplelist>
+</inlinemediaobject
+> <guibutton
+>Einstellungen anzeigen</guibutton>
+</member
+></simplelist>
 
-<para>Pictures and videos are numbered consecutively and saved automatically in the <guilabel>Captures directory</guilabel> defined in the settings.
-</para>
+<para
+>Bilder und Videos werden fortlaufend nummeriert und automatisch im <guilabel
+>Aufnahme-Ordner</guilabel
+> gespeichert, der in den Einstellungen festgelegt ist. </para>
 
 </sect1>
 
-<sect1 id="managing-captures"><title>Managing Captures</title>
+<sect1 id="managing-captures"
+><title
+>Aufnahmen verwalten</title>
 
-<para>To view and manage your captured pictures or videos click the <guibutton>Show gallery</guibutton> button.
-In the context menu for each entry in the gallery you find actions to manage them:
-</para>
+<para
+>Um Ihre aufgenommenen Bilder und Videos anzuzeigen und zu verwalten, klicken Sie auf <guibutton
+>Galerie anzeigen</guibutton
+>. Im Kontextmenü für jeden Eintrag in der Galerie finden Sie Aktionen zur Verwaltung: </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="gallery-actions.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
-<para>Use <guimenuitem>Open</guimenuitem> to view your captures in the associated application.
-</para>
+<para
+>Verwenden Sie <guimenuitem
+>Öffnen</guimenuitem
+>, um Ihre Aufnahmen in der zugehörigen Anwendung zu starten. </para>
 
-<para>If you want to delete pictures and videos open the captures folder in the filemanager.
-</para>
+<para
+>Möchten Sie Bilder und Videos löschen, öffnen Sie den Aufnahmeordner in der Dateiverwaltung. </para>
 
-<para>The next actions allow you to upload captures to the Internet or send them to a contact or device.
-</para>
+<para
+>Mit der nächsten Aktion können Sie Aufnahmen ins Internet hochladen oder sie an einen Kontakt oder ein Gerät senden. </para>
 
-<para>Use <guimenuitem>Save as</guimenuitem> to copy the complete content of the gallery to a new folder.
-</para>
+<para
+>Verwenden Sie <guimenuitem
+>Speichern unter</guimenuitem
+>, um den vollständigen Inhalt der Galerie in einen neuen Ordner zu kopieren. </para>
 
 </sect1>
 
-<sect1 id="customizing"><title>Customizing</title>
-<para>Click the <guibutton>Show settings</guibutton> button to open the settings panel. Click the button again to hide the settings panel.
-</para>
+<sect1 id="customizing"
+><title
+>Anpassung</title>
+<para
+>Klicken Sie auf <guibutton
+>Einstellungen anzeigen</guibutton
+>, um die Seitenleiste mit den Einstellungen zu öffnen. Klicken Sie wieder auf diesen Knopf, wird die Seitenleiste wieder ausgeblendet. </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="kamoso-settings.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
-<para>If you want to change the folder where &kamoso; saves pictures and videos, change the <guilabel>Captures directory</guilabel> at the top.
-</para>
+<para
+>Möchten Sie den Ordner ändern, in dem &kamoso;  die Bilder und Videos speichert, ändern Sie den <guilabel
+>Aufnahme-Ordner</guilabel
+> oben. </para>
 
-<para>Enable <guibutton>Use flash</guibutton> to highlight the window before taking photos.
-</para>
+<para
+>Aktivieren Sie <guibutton
+>Blitz verwenden</guibutton
+> um das Fenster vor der Aufnahme hervorzuheben. </para>
 
-<para>Using the sliders you can modify camera settings like brightness, hue, contrast, saturation and gamma.
-</para>
+<para
+>Mit den Schiebereglern können Sie Kamera-Einstellungen wie Helligkeit, Farbton, Kontrast, Sättigung und den Gamma-Wert verändern.  </para>
 </sect1>
 
 </chapter>
 
 <!--userbase-content-->
 <chapter id="credits">
-<title>Credits and License</title>
-      <para>
-Documentation Copyright see the UserBase
-      <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history">Kamoso page history</ulink></para>
-      <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-&underFDL;
-</chapter>
+<title
+>Danksagungen und Lizenz</title>
+      <para
+>Copyright der Dokumentation: siehe <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>Versionsgeschichte der Kamoso-Seite</ulink
+></para>
+      <para
+>Übersetzung Burkhard Lück<email
+>lueck@hube-lueck.de</email
+></para
+> &underFDL; </chapter>
 &documentation.index;
 </book>
