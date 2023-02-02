@@ -3,13 +3,13 @@
 #
 # Translators:
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-multimedia-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-15 00:47+0000\n"
-"PO-Revision-Date: 2022-12-15 19:26+0300\n"
+"PO-Revision-Date: 2023-02-01 20:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -136,7 +136,7 @@ msgstr "Resimler:"
 #: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
-msgstr "Kamoso'nun resimleri kaydedeceği klasörü seçin"
+msgstr "Kamoso'nun resimleri kaydedeceği klasörü seç"
 
 #: src/qml/ImagesView.qml:234
 #, kde-format
@@ -146,7 +146,7 @@ msgstr "Videolar:"
 #: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
-msgstr "Kamoso'nun videoları kaydedeceği klasörü seçin"
+msgstr "Kamoso'nun videoları kaydedeceği klasörü seç"
 
 #: src/qml/ImagesView.qml:278
 #, kde-format
@@ -180,13 +180,13 @@ msgstr "Ögeyi Paylaş..."
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
-msgstr[0] "%1 Ögeyi Çöpe Taşı"
-msgstr[1] "%1 Ögeyi Çöpe Taşı"
+msgstr[0] "%1 Ögeyi Çöp Kutusuna Taşı"
+msgstr[1] "%1 Ögeyi Çöp Kutusuna Taşı"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move Item to Trash"
-msgstr "Ögeyi Çöpe Taşı"
+msgstr "Ögeyi Çöp Kutusuna Taşı"
 
 #: src/qml/ImagesView.qml:362
 #, kde-format
@@ -201,7 +201,7 @@ msgstr "Kamoso'yu Yapılandır..."
 #: src/qml/Main.qml:82
 #, kde-format
 msgid "Take a Picture"
-msgstr "Bir Resim Çek"
+msgstr "Resim Çek"
 
 #: src/qml/Main.qml:107
 #, kde-format
@@ -211,7 +211,7 @@ msgstr "Şipşakı Bitir"
 #: src/qml/Main.qml:107
 #, kde-format
 msgid "Capture a Burst"
-msgstr "Bir Şipşak Yakala"
+msgstr "Şipşak Çek"
 
 #: src/qml/Main.qml:109
 #, kde-format
