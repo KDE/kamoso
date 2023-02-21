@@ -1,0 +1,37 @@
+{
+    "id": "org.kde.kamoso",
+    "branch": "master",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "kamoso",
+    "tags": [
+        "nightly"
+    ],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": [
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--filesystem=host",
+        "--share=network",
+        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0/:/usr/lib/gstreamer-1.0/",
+        "--device=all"
+    ],
+    "modules": [
+        {
+            "name": "kamoso",
+            "config-opts": [
+                "-DENABLE_TESTING=OFF"
+            ],
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}
