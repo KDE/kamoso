@@ -324,7 +324,7 @@ msgstr "حفظت في %1"
 #~ msgstr "الوسوم:"
 
 #~ msgid "Kamoso, KDE"
-#~ msgstr "كاموسو، كدي"
+#~ msgstr "كاموسو، كِيدِي"
 
 #~ msgid "Description"
 #~ msgstr "الوصف"
@@ -347,7 +347,7 @@ msgstr "حفظت في %1"
 #~ msgstr "أدخِل عنوانًا للفيديو..."
 
 #~ msgid "KDE, Kamoso"
-#~ msgstr "كدي، كاموسو"
+#~ msgstr "كِيدِي، كاموسو"
 
 #~ msgid "Description:"
 #~ msgstr "الوصف:"
