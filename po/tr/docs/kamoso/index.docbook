@@ -1,0 +1,166 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application>Kamoso</application>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title>The Kamoso Handbook</title>
+<authorgroup>
+<author>
+<personname>
+      <firstname>This documentation was converted from the KDE UserBase <ulink url="http://userbase.kde.org/Kamoso">Kamoso</ulink> page and updated by the &kde; documentation team.</firstname>
+<surname></surname>
+</personname>
+      </author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+      </authorgroup>
+<legalnotice>&FDLNotice;</legalnotice>
+<date>2016-08-24</date>
+      <releaseinfo>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry><term><emphasis role="bold">Take a shot</emphasis></term>
+    <listitem>
+    <para>&kamoso; gives you an opportunity to make photos from your webcam and upload them to Internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry><term><emphasis role="bold">Record video</emphasis></term>
+    <listitem>
+    <para>&kamoso; allows to record videos from your webcam and upload them to the Internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp>2012-12-05T19:30:21Z</timestamp>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"><title>User Guide</title>
+<para>Welcome to &kamoso;!
+</para>
+<para>&kamoso; is a great program to use your webcam to take pictures or make videos. This guide will help you to use &kamoso; once you have installed it.
+</para>
+<sect1 id="quick-start"><title>Quick Start</title>
+<para>On launching &kamoso;, it displays this window with buttons at the bottom:
+</para>
+
+<screenshot>
+<screeninfo></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject>
+</inlinemediaobject> Switch to <guibutton>Shoot</guibutton> mode to take one picture
+</member>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject>
+</inlinemediaobject> Switch to <guibutton>Burst</guibutton> mode and take continuously pictures until you stop by clicking the middle button again
+</member>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject>
+</inlinemediaobject> Switch to <guibutton>Record</guibutton> mode to record a video
+</member>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject>
+</inlinemediaobject>Start or stop taking pictures or recording a video</member>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject> <guibutton>Show gallery</guibutton>
+</member>
+<member><inlinemediaobject><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject> <guibutton>Show settings</guibutton>
+</member></simplelist>
+
+<para>Pictures and videos are numbered consecutively and saved automatically in the <guilabel>Captures directory</guilabel> defined in the settings.
+</para>
+
+</sect1>
+
+<sect1 id="managing-captures"><title>Managing Captures</title>
+
+<para>To view and manage your captured pictures or videos click the <guibutton>Show gallery</guibutton> button.
+In the context menu for each entry in the gallery you find actions to manage them:
+</para>
+
+<screenshot>
+<screeninfo></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para>Use <guimenuitem>Open</guimenuitem> to view your captures in the associated application.
+</para>
+
+<para>If you want to delete pictures and videos open the captures folder in the filemanager.
+</para>
+
+<para>The next actions allow you to upload captures to the Internet or send them to a contact or device.
+</para>
+
+<para>Use <guimenuitem>Save as</guimenuitem> to copy the complete content of the gallery to a new folder.
+</para>
+
+</sect1>
+
+<sect1 id="customizing"><title>Customizing</title>
+<para>Click the <guibutton>Show settings</guibutton> button to open the settings panel. Click the button again to hide the settings panel.
+</para>
+
+<screenshot>
+<screeninfo></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para>If you want to change the folder where &kamoso; saves pictures and videos, change the <guilabel>Captures directory</guilabel> at the top.
+</para>
+
+<para>Enable <guibutton>Use flash</guibutton> to highlight the window before taking photos.
+</para>
+
+<para>Using the sliders you can modify camera settings like brightness, hue, contrast, saturation and gamma.
+</para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title>Credits and License</title>
+      <para>
+Documentation Copyright see the UserBase
+      <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history">Kamoso page history</ulink></para>
+      <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underFDL;
+</chapter>
+&documentation.index;
+</book>
