@@ -1,166 +1,258 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY kamoso     "<application>Kamoso</application>">
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE">
+  <!ENTITY % Turkish "INCLUDE">
 ]>
 <book lang="&language;">
 <bookinfo>
-<title>The Kamoso Handbook</title>
+<title
+>Kamoso El Kitabı</title>
 <authorgroup>
 <author>
-<personname>
-      <firstname>This documentation was converted from the KDE UserBase <ulink url="http://userbase.kde.org/Kamoso">Kamoso</ulink> page and updated by the &kde; documentation team.</firstname>
-<surname></surname>
-</personname>
+<personname
+><firstname
+>Bu belgelendirme KDE Kullanıcı Tabanı<ulink url=" http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> sayfasından dönüştürülmüştür ve &kde; belgelendirme takımı tarafından güncellenmiştir.</firstname
+> <surname
+></surname
+> </personname>
       </author>
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<othercredit role="translator"
+><firstname
+>Volkan</firstname
+><surname
+>Gezer</surname
+><affiliation
+><address
+><email
+>volkangezer@gmail.com</email
+></address
+></affiliation
+><contrib
+>Çeviri</contrib
+></othercredit
+> 
       </authorgroup>
-<legalnotice>&FDLNotice;</legalnotice>
-<date>2016-08-24</date>
-      <releaseinfo>&kamoso; 3.2</releaseinfo>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>2016-08-24</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
 <abstract>
 <para>
 <variablelist>
-  <varlistentry><term><emphasis role="bold">Take a shot</emphasis></term>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Resim çek</emphasis
+></term>
     <listitem>
-    <para>&kamoso; gives you an opportunity to make photos from your webcam and upload them to Internet</para>
+    <para
+>&kamoso;, web kameranızdan fotoğraflar yapıp internete yüklemenizi sağlar</para>
      </listitem>
   </varlistentry>
-  <varlistentry><term><emphasis role="bold">Record video</emphasis></term>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Video kaydet</emphasis
+></term>
     <listitem>
-    <para>&kamoso; allows to record videos from your webcam and upload them to the Internet</para>
+    <para
+>&kamoso;, web kameranızdan videolar kaydedip internete yüklemenizi sağlar</para>
      </listitem>
   </varlistentry>
 </variablelist>
 </para>
       </abstract>
       <keywordset>
-<keyword>KDE</keyword>
+<keyword
+>KDE</keyword>
 </keywordset>
 </bookinfo>
-<!--userbase <timestamp>2012-12-05T19:30:21Z</timestamp>-->
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
 
 <!--userbase-content-->
-<chapter id="user-guide"><title>User Guide</title>
-<para>Welcome to &kamoso;!
-</para>
-<para>&kamoso; is a great program to use your webcam to take pictures or make videos. This guide will help you to use &kamoso; once you have installed it.
-</para>
-<sect1 id="quick-start"><title>Quick Start</title>
-<para>On launching &kamoso;, it displays this window with buttons at the bottom:
-</para>
+<chapter id="user-guide"
+><title
+>Kullanıcı Kılavuzu</title>
+<para
+>&kamoso;'ya hoş geldiniz! </para>
+<para
+>&kamoso;, web kameranızı kullanarak fotoğraflar çekmek veya video yapmak için harika bir programdır. Bu kılavuz, kurulumdan sonra &kamoso;'yu kullanmanızda size yardımcı olacak. </para>
+<sect1 id="quick-start"
+><title
+>Hızlı Başlangıç</title>
+<para
+>&kamoso; başlatıldığında, alttaki düğmelerle bu pencereyi görüntüler: </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="mainwindow.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
 <simplelist>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Shoot</guibutton> mode to take one picture
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Burst</guibutton> mode and take continuously pictures until you stop by clicking the middle button again
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject>
-</inlinemediaobject> Switch to <guibutton>Record</guibutton> mode to record a video
-</member>
-<member><inlinemediaobject><imageobject>
-<imagedata fileref="start-stop.png" format="PNG"/></imageobject>
-</inlinemediaobject>Start or stop taking pictures or recording a video</member>
-<member><inlinemediaobject><imageobject>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Bir fotoğraf çekmek için <guibutton
+>Resim Çek</guibutton
+> kipine geçin </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <guibutton
+>Şipşak Çek</guibutton
+> kipine geçin ve yeniden orta düğmeye basarak durana kadar kesintisiz fotoğraflar çekin </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Bir video kaydetmek için <guibutton
+>Video Kaydet</guibutton
+> kipine geçin </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Fotoğraf çekmeye veya video kaydetmeye başla ya da durdur</member>
+<member
+><inlinemediaobject
+><imageobject>
 <imagedata fileref="folder-images.png" format="PNG"/></imageobject>
-</inlinemediaobject> <guibutton>Show gallery</guibutton>
+</inlinemediaobject
+> <guibutton
+>Galeriyi göster</guibutton>
 </member>
-<member><inlinemediaobject><imageobject>
+<member
+><inlinemediaobject
+><imageobject>
 <imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
-</inlinemediaobject> <guibutton>Show settings</guibutton>
-</member></simplelist>
+</inlinemediaobject
+> <guibutton
+>Ayarları göster</guibutton>
+</member
+></simplelist>
 
-<para>Pictures and videos are numbered consecutively and saved automatically in the <guilabel>Captures directory</guilabel> defined in the settings.
-</para>
+<para
+>Fotoğraflar ve videolar sıralı olarak numaralandırılırlar ve ayarlarda belirtilen <guilabel
+>Çekimler dizinine</guilabel
+> otomatik olarak kaydedilirler. </para>
 
 </sect1>
 
-<sect1 id="managing-captures"><title>Managing Captures</title>
+<sect1 id="managing-captures"
+><title
+>Çekimlerin Yönetimi</title>
 
-<para>To view and manage your captured pictures or videos click the <guibutton>Show gallery</guibutton> button.
-In the context menu for each entry in the gallery you find actions to manage them:
-</para>
+<para
+>Çekilen fotoğraflarınız veya videolarınızı görüntülemek ve yönetmek için <guibutton
+>Galeriyi Göster</guibutton
+> düğmesine tıklayın. Galerideki her bir ögenin içerik menüsünde yönetim için eylemler bulacaksınız: </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="gallery-actions.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
-<para>Use <guimenuitem>Open</guimenuitem> to view your captures in the associated application.
-</para>
+<para
+>Çekimlerinizi ilişkili uygulamada görüntülemek için <guimenuitem
+>Aç</guimenuitem
+> seçeneğini kullanın. </para>
 
-<para>If you want to delete pictures and videos open the captures folder in the filemanager.
-</para>
+<para
+>Fotoğrafları ve videoları silmek isterseniz çekim dizininizi dosya yöneticisinde açın. </para>
 
-<para>The next actions allow you to upload captures to the Internet or send them to a contact or device.
-</para>
+<para
+>Sıradaki eylemler çekimlerinizi internete yüklemenizi veya bir kişiye veya aygıta göndermenizi sağlar. </para>
 
-<para>Use <guimenuitem>Save as</guimenuitem> to copy the complete content of the gallery to a new folder.
-</para>
+<para
+>Galerinin tüm içeriğini yeni bir dizine kopyalamak için <guimenuitem
+>Farklı Kaydet</guimenuitem
+> kullanın. </para>
 
 </sect1>
 
-<sect1 id="customizing"><title>Customizing</title>
-<para>Click the <guibutton>Show settings</guibutton> button to open the settings panel. Click the button again to hide the settings panel.
-</para>
+<sect1 id="customizing"
+><title
+>Özelleştirme</title>
+<para
+>Ayarlar panosunu açmak için <guibutton
+>Ayarları Göster</guibutton
+> düğmesine tıklayın. Ayarlar panosunu gizlemek için düğmeye yeniden tıklayın. </para>
 
 <screenshot>
-<screeninfo></screeninfo>
+<screeninfo
+></screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="kamoso-settings.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase></phrase>
+      <phrase
+></phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 
-<para>If you want to change the folder where &kamoso; saves pictures and videos, change the <guilabel>Captures directory</guilabel> at the top.
-</para>
+<para
+>&kamoso;'nun fotoğrafları ve videoları sakladığı dizini değiştirmek isterseniz, yukarıdan <guilabel
+>Çekim dizinini</guilabel
+> değiştirin. </para>
 
-<para>Enable <guibutton>Use flash</guibutton> to highlight the window before taking photos.
-</para>
+<para
+>Fotoğraf çekmeden önce pencereyi aydınlatmak için <guibutton
+>flaş kullan</guibutton
+> seçeneğini etkinleştirin. </para>
 
-<para>Using the sliders you can modify camera settings like brightness, hue, contrast, saturation and gamma.
-</para>
+<para
+>Kaydırıcıları kullanarak aydınlık, ton, karşıtlık ve gama gibi kamera ayarlarını değiştirebilirsiniz. </para>
 </sect1>
 
 </chapter>
 
 <!--userbase-content-->
 <chapter id="credits">
-<title>Credits and License</title>
-      <para>
-Documentation Copyright see the UserBase
-      <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history">Kamoso page history</ulink></para>
-      <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-&underFDL;
-</chapter>
+<title
+>Emeği Geçenler ve Lisans</title>
+      <para
+>Belgelendirme telif hakkı için Kullanıcı Tabanı'nda <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>Kamoso sayfa geçmişi</ulink
+>'ne bakın.</para>
+      <para
+>Volkan Gezer<email
+>volkangezer@gmail.com</email
+></para
+> &underFDL; </chapter>
 &documentation.index;
 </book>
