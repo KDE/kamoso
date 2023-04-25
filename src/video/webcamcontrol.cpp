@@ -385,7 +385,10 @@ void WebcamControl::updateSourceFilter()
     if (prevstate != GST_STATE_NULL)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
-    QString filters = m_mirror ? QStringLiteral("videoflip video-direction=horiz") : QStringLiteral("videoflip method=none");
+    QString filters = QStringLiteral("videoflip video-direction=auto");
+    if (m_mirror)
+        filters += QStringLiteral(" ! videoflip video-direction=horiz");
+
     if (!m_extraFilters.isEmpty()) {
         if (!filters.isEmpty())
             filters.prepend(QStringLiteral(" ! "));
