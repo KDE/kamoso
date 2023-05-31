@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 "X-Generator: KBabel 1.11.4\n"
@@ -167,7 +167,6 @@ msgstr ""
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
@@ -179,7 +178,6 @@ msgstr ""
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
@@ -216,7 +214,6 @@ msgstr ""
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/qml/Main.qml:132
 #, kde-format
