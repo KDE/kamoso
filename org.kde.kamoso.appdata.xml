@@ -13,6 +13,7 @@
   <name xml:lang="de">Kamoso</name>
   <name xml:lang="el">Kamoso</name>
   <name xml:lang="en-GB">Kamoso</name>
+  <name xml:lang="eo">Kamoso</name>
   <name xml:lang="es">Kamoso</name>
   <name xml:lang="et">Kamoso</name>
   <name xml:lang="eu">Kamoso</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="de">Mit Kamoso können Sie mit Ihrer Webcam Bilder und Videos aufnehmen</summary>
   <summary xml:lang="el">Λήψη με web κάμερα φωτογραφιών ή βίντεο</summary>
   <summary xml:lang="en-GB">Use your webcam to take pictures and make videos</summary>
+  <summary xml:lang="eo">Uzu vian retkameraon por preni bildojn kaj fari videofilmojn</summary>
   <summary xml:lang="es">Use su webcam para capturar imágenes y hacer vídeos</summary>
   <summary xml:lang="et">Veebikaameraga piltide ja videode tegemine</summary>
   <summary xml:lang="eu">Erabili zure web-kamera argazkiak atera eta bideoak egiteko</summary>
@@ -133,6 +135,7 @@
       <caption xml:lang="de">Hauptfenster von Kamoso</caption>
       <caption xml:lang="el">Kamoso κύριο παράθυρο</caption>
       <caption xml:lang="en-GB">Kamoso main window</caption>
+      <caption xml:lang="eo">Ĉefa fenestro de Kamoso</caption>
       <caption xml:lang="es">Ventana principal de Kamoso</caption>
       <caption xml:lang="et">Kamoso peaaken</caption>
       <caption xml:lang="eu">Kamoso leiho nagusia</caption>
