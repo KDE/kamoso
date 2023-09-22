@@ -67,6 +67,12 @@ DeviceManager::DeviceManager() : m_playingDevice(0)
 
     if (!m_deviceList.isEmpty()) {
         setPlayingDevice(m_deviceList.constFirst());
+        // Override if set in configuration
+        for (auto d : m_deviceList){
+            if (d->objectId() == Settings::self()->deviceObjectId()) {
+                setPlayingDevice(d);
+            }
+        }
     }
 }
 
