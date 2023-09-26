@@ -69,7 +69,7 @@
 ><title
 >Guide de l'utilisateur</title>
 <para
->Bienvenu dans &kamoso; ! </para>
+>Bienvenue dans &kamoso; ! </para>
 <para
 >&kamoso; est un excellent programme pour utiliser votre webcam pour prendre des photos ou enregistrer des vidéos. Ce guide vous aidera à utiliser &kamoso; une fois que vous l'aurez installé. </para>
 <sect1 id="quick-start"
@@ -142,7 +142,7 @@
 ></simplelist>
 
 <para
->Les images et les vidéos sont numérotées consécutivement et enregistrées automatique dans le <guilabel
+>Les images et les vidéos sont numérotées consécutivement et enregistrées automatiquement dans le <guilabel
 >dossier de captures</guilabel
 >, défini dans les paramètres. </para>
 
@@ -195,7 +195,7 @@
 <para
 >Cliquez sur le bouton <guibutton
 >Afficher les paramètres</guibutton
-> pour ouvrir le panneau de paramètres. Cliquez </para>
+> pour ouvrir le panneau de paramètres. Cliquez sur le bouton à nouveau pour master le panneau de paramètres. </para>
 
 <screenshot>
 <screeninfo
@@ -241,6 +241,6 @@
 ></para>
       <para
 >Traduction française par &JoelleCornavin;.</para
->  &underFDL; </chapter>
+> &underFDL; </chapter>
 &documentation.index;
 </book>
