@@ -81,6 +81,7 @@ Kirigami.ApplicationWindow
         iconName: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
+        enabled: devicesModel.playingDevice
 
         onTriggered: {
             whites.showAll()
@@ -108,7 +109,7 @@ Kirigami.ApplicationWindow
         property int photosTaken: 0
         modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
         nameFilter: "picture_*"
-        enabled: !videoMode.checked
+        enabled: devicesModel.playingDevice && !videoMode.checked
         onCheckedChanged: if (checked) {
             photosTaken = 0
         }
@@ -132,7 +133,7 @@ Kirigami.ApplicationWindow
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
-        enabled: !burstMode.checked
+        enabled: devicesModel.playingDevice && !burstMode.checked
 
         onCheckedChanged: {
             webcam.isRecording = checked;
@@ -226,7 +227,18 @@ Kirigami.ApplicationWindow
                 margins: 20
             }
 
-            text: videoMode.checked ? videoMode.modeInfo : burstMode.checked ? burstMode.modeInfo : ""
+            text: {
+                if (!devicesModel.playingDevice) {
+                    return i18n("No device found");
+                }
+                if (videoMode.checked) {
+                    return videoMode.modeInfo;
+                }
+                if (burstMode.checked) {
+                    return burstMode.modeInfo;
+                }
+                return "";
+            }
             color: "white"
             styleColor: "black"
             font.pointSize: 20
