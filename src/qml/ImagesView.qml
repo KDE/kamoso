@@ -291,7 +291,7 @@ QQC2.StackView {
                 }
 
                 QQC2.CheckBox {
-                    Kirigami.FormData.label: i18n("Mirror camera")
+                    Kirigami.FormData.label: i18nc("@option:check as in, 'mirror the camera'", "Mirror camera")
                     checked: config.mirrored
                     onCheckedChanged: config.mirrored = checked
                 }
