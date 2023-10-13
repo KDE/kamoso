@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-15 00:47+0000\n"
+"POT-Creation-Date: 2023-10-13 00:42+0000\n"
 "PO-Revision-Date: 2015-09-04 15:20+0200\n"
 "Last-Translator: Kristóf Kiszel <ulysses@kubuntu.org>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ulysses@kubuntu.org"
 
-#: src/kamoso.cpp:87
+#: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, fuzzy, kde-format
 #| msgid "No webcam was found."
 msgid "No device found"
@@ -208,38 +208,38 @@ msgstr ""
 msgid "Take a Picture"
 msgstr "Képek készítése"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, fuzzy, kde-format
 #| msgid "Burst"
 msgid "End Burst"
 msgstr "Sorozat"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, fuzzy, kde-format
 #| msgid "Captures directory"
 msgid "Capture a Burst"
 msgstr "Mentés helye"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, fuzzy, kde-format
 #| msgid "Record"
 msgid "Stop Recording"
 msgstr "Felvétel"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, fuzzy, kde-format
 #| msgid "Take a video"
 msgid "Record a Video"
 msgstr "Videó készítése"
 
-#: src/qml/Main.qml:187
+#: src/qml/Main.qml:188
 #, fuzzy, kde-format
 #| msgid "Kamoso %1"
 msgid "Effects Gallery"

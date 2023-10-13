@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-15 00:47+0000\n"
+"POT-Creation-Date: 2023-10-13 00:42+0000\n"
 "PO-Revision-Date: 2022-12-20 19:40+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "mkondarev@yahoo.de"
 
-#: src/kamoso.cpp:87
+#: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, kde-format
 msgid "No device found"
 msgstr "Не е открито устройство"
@@ -202,34 +202,34 @@ msgstr "Настройване на Kamoso..."
 msgid "Take a Picture"
 msgstr "Снимане"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "End Burst"
 msgstr "Край на серията"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Заснемане на серия"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 заснета снимка"
 msgstr[1] "%1 заснети снимки"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, kde-format
 msgid "Stop Recording"
 msgstr "Спиране на записа"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, kde-format
 msgid "Record a Video"
 msgstr "Запис на видео"
 
-#: src/qml/Main.qml:187
+#: src/qml/Main.qml:188
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Галерия с ефекти"

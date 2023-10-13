@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-15 00:47+0000\n"
+"POT-Creation-Date: 2023-10-13 00:42+0000\n"
 "PO-Revision-Date: 2014-05-24 01:10+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "m.j.wiese@web.de"
 
-#: src/kamoso.cpp:87
+#: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, fuzzy, kde-format
 #| msgid "No webcam was found."
 msgid "No device found"
@@ -209,36 +209,36 @@ msgstr ""
 msgid "Take a Picture"
 msgstr "Biller opnehmen"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "End Burst"
 msgstr ""
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "Capture a Burst"
 msgstr ""
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, fuzzy, kde-format
 #| msgid "Record Audio"
 msgid "Stop Recording"
 msgstr "Klang opnehmen"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, fuzzy, kde-format
 #| msgid "Take a video"
 msgid "Record a Video"
 msgstr "En Video opnehmen"
 
-#: src/qml/Main.qml:187
+#: src/qml/Main.qml:188
 #, fuzzy, kde-format
 #| msgid "Kamoso %1"
 msgid "Effects Gallery"
