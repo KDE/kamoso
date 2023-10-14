@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:42+0000\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
 "PO-Revision-Date: 2023-04-23 06:52+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -156,7 +156,9 @@ msgid "Cameras"
 msgstr "Cámaras"
 
 #: src/qml/ImagesView.qml:294
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mirror camera"
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Replicar a cámara"
 

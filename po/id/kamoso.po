@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:42+0000\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
 "PO-Revision-Date: 2022-03-24 06:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -154,7 +154,9 @@ msgid "Cameras"
 msgstr "Kamera"
 
 #: src/qml/ImagesView.qml:294
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mirror camera"
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Kamera cermin"
 

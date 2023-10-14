@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:42+0000\n"
-"PO-Revision-Date: 2023-01-04 22:00+0100\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
+"PO-Revision-Date: 2023-10-13 22:03+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -65,32 +65,32 @@ msgstr "Utilaĵo por preni fotojn kaj filojn uzante retkameraon"
 #: src/main.cpp:24
 #, kde-format
 msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
-msgstr ""
+msgstr "(C) 2008-2015 Alex Fiestas kaj Aleix Pol"
 
 #: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr ""
+msgstr "Aleix Pol Gonzalez"
 
 #: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
-msgstr ""
+msgstr "Semafor-kodumulo"
 
 #: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
-msgstr ""
+msgstr "Alex Fiestas"
 
 #: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
-msgstr ""
+msgstr "Kaftrinkulo"
 
 #: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
-msgstr ""
+msgstr "caseymoura"
 
 #: src/main.cpp:28
 #, kde-format
@@ -98,6 +98,8 @@ msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
 "sounds/445482/"
 msgstr ""
+"Alŝutis la shutter-sonon: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
 
 #: src/qml/ImagesView.qml:42
 #, kde-format
@@ -113,7 +115,7 @@ msgstr "Reen"
 #: src/qml/ImagesView.qml:146
 #, kde-format
 msgid "Media now exported"
-msgstr ""
+msgstr "Aŭdvidaĵo nun eksportita"
 
 #: src/qml/ImagesView.qml:173
 #, kde-format
@@ -151,93 +153,95 @@ msgid "Cameras"
 msgstr "Kameraoj"
 
 #: src/qml/ImagesView.qml:294
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mirror camera"
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
-msgstr ""
+msgstr "Speguli fotilon"
 
 #: src/qml/ImagesView.qml:333
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
-msgstr ""
+msgstr "Ne estas bildoj en <filename>%1</filename>"
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kundividi %1 Eron..."
+msgstr[1] "Kundividi %1 Erojn..."
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
 msgid "Share Item..."
-msgstr ""
+msgstr "Kundividi Eron..."
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Movi %1 Eron al Rubujo"
+msgstr[1] "Movi %1 Erojn al Rubujo"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move Item to Trash"
-msgstr ""
+msgstr "Movi Eron al Rubujo"
 
 #: src/qml/ImagesView.qml:362
 #, kde-format
 msgid "Open Pictures Folder"
-msgstr ""
+msgstr "Malfermi Bilddosierujon"
 
 #: src/qml/ImagesView.qml:369
 #, kde-format
 msgid "Configure Kamoso..."
-msgstr ""
+msgstr "Agordi Kamoso..."
 
 #: src/qml/Main.qml:82
 #, kde-format
 msgid "Take a Picture"
-msgstr ""
+msgstr "Preni Foton"
 
 #: src/qml/Main.qml:108
 #, kde-format
 msgid "End Burst"
-msgstr ""
+msgstr "Fini Sekvencon"
 
 #: src/qml/Main.qml:108
 #, kde-format
 msgid "Capture a Burst"
-msgstr ""
+msgstr "Kapti Sekvencon"
 
 #: src/qml/Main.qml:110
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "prenis 1 foton"
+msgstr[1] "prenis %1 fotojn"
 
 #: src/qml/Main.qml:133
 #, kde-format
 msgid "Stop Recording"
-msgstr ""
+msgstr "Ĉesi Registri"
 
 #: src/qml/Main.qml:133
 #, kde-format
 msgid "Record a Video"
-msgstr ""
+msgstr "Registri Filemton"
 
 #: src/qml/Main.qml:188
 #, kde-format
 msgid "Effects Gallery"
-msgstr ""
+msgstr "Efektgalerio"
 
 #: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Photo taken"
-msgstr ""
+msgstr "Foto preniĝis"
 
 #: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
-msgstr ""
+msgstr "Konservita en %1"

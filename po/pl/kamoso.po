@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:42+0000\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
 "PO-Revision-Date: 2023-01-02 20:48+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -156,7 +156,9 @@ msgid "Cameras"
 msgstr "Aparaty"
 
 #: src/qml/ImagesView.qml:294
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Mirror camera"
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Odbij lustrzanie kamerę"
 

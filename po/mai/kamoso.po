@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:42+0000\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
 "PO-Revision-Date: 2010-09-24 13:04+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -153,6 +153,7 @@ msgstr "जमावट"
 
 #: src/qml/ImagesView.qml:294
 #, kde-format
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr ""
 
