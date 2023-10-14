@@ -54,7 +54,7 @@ msgstr "Emmiralla verticalment la vista de la càmera."
 #: src/kamosoSettings.kcfg:25
 #, kde-format
 msgid "Points to the last used webcam."
-msgstr "Apunta a l'última càmera web utilitzada."
+msgstr "Apunta cap a l'última càmera web utilitzada."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
