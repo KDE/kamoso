@@ -23,7 +23,7 @@ apps:
         - unity7
         - network
         - network-bind
-        - harware-observe
+        - hardware-observe
         command-chain:
         - snap/command-chain/desktop-launch
 assumes:
