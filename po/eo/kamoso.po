@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 00:42+0000\n"
-"PO-Revision-Date: 2023-10-13 22:03+0100\n"
+"PO-Revision-Date: 2023-10-14 11:54+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -153,8 +153,7 @@ msgid "Cameras"
 msgstr "Kameraoj"
 
 #: src/qml/ImagesView.qml:294
-#, fuzzy, kde-format
-#| msgid "Mirror camera"
+#, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Speguli fotilon"
