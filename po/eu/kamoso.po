@@ -1,35 +1,35 @@
 # Translation for kamoso.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2022 This file is copyright:
+# Copyright (C) 2011-2023 This file is copyright:
 # This file is distributed under the same license as the kamoso package.
-# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-14 00:42+0000\n"
-"PO-Revision-Date: 2022-12-15 07:26+0100\n"
+"PO-Revision-Date: 2023-10-15 09:39+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
-"Language-Team: Basque\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 23.08.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Iñaki Larrañaga Murgoitio,Iñigo Salvador Azurmendi"
+msgstr "Iñigo Salvador Azurmendi,Iñaki Larrañaga Murgoitio"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "dooteo@euskalgnu.org,xalba@euskalnet.net"
+msgstr "xalba@ni.eus,dooteo@euskalgnu.org"
 
 #: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, kde-format
@@ -156,8 +156,7 @@ msgid "Cameras"
 msgstr "Kamerak"
 
 #: src/qml/ImagesView.qml:294
-#, fuzzy, kde-format
-#| msgid "Mirror camera"
+#, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Ispilatu kamera"
