@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-15 00:47+0000\n"
+"POT-Creation-Date: 2023-10-14 00:42+0000\n"
 "PO-Revision-Date: 2023-01-15 12:25+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "karl@huftis.org"
 
-#: src/kamoso.cpp:87
+#: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, kde-format
 msgid "No device found"
 msgstr "Fann inga eining"
@@ -155,8 +155,9 @@ msgstr "Kamera"
 
 #: src/qml/ImagesView.qml:294
 #, kde-format
+msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
-msgstr "Spegelvend biletet"
+msgstr ""
 
 #: src/qml/ImagesView.qml:333
 #, kde-kuit-format
@@ -203,34 +204,34 @@ msgstr "Set opp Kamoso …"
 msgid "Take a Picture"
 msgstr "Ta eit bilete"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "End Burst"
 msgstr "Avslutt sekvens"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:108
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Ta ein biletsekvens"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 foto teke"
 msgstr[1] "%1 foto tekne"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, kde-format
 msgid "Stop Recording"
 msgstr "Stopp opptak"
 
-#: src/qml/Main.qml:132
+#: src/qml/Main.qml:133
 #, kde-format
 msgid "Record a Video"
 msgstr "Ta opp video"
 
-#: src/qml/Main.qml:187
+#: src/qml/Main.qml:188
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Effektgalleri"
