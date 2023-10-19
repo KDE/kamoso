@@ -151,11 +151,10 @@ msgid "Cameras"
 msgstr "Fotoaparáty"
 
 #: src/qml/ImagesView.qml:294
-#, fuzzy, kde-format
-#| msgid "Mirror camera"
+#, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
-msgstr "Zrcadlit fotoaparát"
+msgstr ""
 
 #: src/qml/ImagesView.qml:333
 #, kde-kuit-format
