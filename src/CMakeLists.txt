@@ -12,7 +12,7 @@ ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEAD
 add_executable(kamoso
     devicemanager.cpp
     device.cpp
-    whitewidgetmanager.cpp 
+    whitewidgetmanager.cpp
     whitewidget.cpp
     kamosodirmodel.cpp
     main.cpp
@@ -35,4 +35,3 @@ target_link_libraries(kamoso
 install(TARGETS kamoso ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES kamoso.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
-install(FILES kamoso-shutter.wav DESTINATION ${KDE_INSTALL_SOUNDDIR})
