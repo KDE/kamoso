@@ -98,5 +98,5 @@ Name[x-test]=xxPhoto Takenxx
 Name[zh_CN]=拍摄的照片
 Name[zh_TW]=已拍照
 Contexts=group
-Sound=kamoso-shutter.wav
+Sound=camera-shutter
 Action=Sound
