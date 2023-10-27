@@ -51,6 +51,7 @@ environment:
     GST_PLUGIN_SYSTEM_PATH: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gstreamer-1.0"
     GST_PLUGIN_SCANNER: "$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
     QML2_IMPORT_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml:$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/qml"
+    QT_QUICK_CONTROLS_STYLE: org.kde.desktop
 hooks:
     configure:
         plugs:
@@ -131,6 +132,7 @@ parts:
         - qml-module-qtquick-layouts
         - qml-module-qtquick-window2
         - qml-module-org-kde-purpose
+        - qml-module-org-kde-qqc2desktopstyle
         source: .
         source-type: local
         cmake-parameters:
