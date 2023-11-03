@@ -6,7 +6,7 @@
 
 import QtQml 2.2
 import QtQuick 2.0
-import QtQuick.Controls 2.0 as QQC2
+import QtQuick.Controls 2.15 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 import org.kde.kamoso 3.0
@@ -45,21 +45,21 @@ QQC2.StackView {
 
             Repeater {
                 model: view.selection
-                delegate: Kirigami.AbstractListItem {
-                    id: delegate
-                    Layout.minimumHeight: Kirigami.Units.gridUnit * 3
-                    spacing: 0
+                delegate: QQC2.ItemDelegate {
+                    height: Kirigami.Units.gridUnit * 3
 
-                    RowLayout {
+                    contentItem: RowLayout {
+                        spacing: Kirigami.Units.smallSpacing
                         ImageThumbnail {
                             Layout.fillHeight: true
-                            width: height
+                            Layout.preferredWidth: height
 
                             path: modelData
                         }
 
                         QQC2.Label {
                             Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
                             text: modelData.substring(modelData.lastIndexOf('/')+1);
                             elide: Text.ElideLeft
                         }
