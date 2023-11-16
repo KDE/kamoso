@@ -184,13 +184,13 @@ msgstr "Compartix element..."
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
-msgstr[0] "Mou %1 element a la paperera"
-msgstr[1] "Mou %1 elements a la paperera"
+msgstr[0] "Mou %1 element cap a dins de la paperera"
+msgstr[1] "Mou %1 elements cap a dins de la paperera"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move Item to Trash"
-msgstr "Mou l'element a la paperera"
+msgstr "Mou l'element cap a dins de la paperera"
 
 #: src/qml/ImagesView.qml:362
 #, kde-format
