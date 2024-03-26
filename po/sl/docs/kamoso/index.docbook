@@ -1,0 +1,258 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Slovenian "INCLUDE">
+]>
+<book lang="&language;">
+<bookinfo>
+<title
+>Priročnik Kamoso</title>
+<authorgroup>
+<author>
+<personname
+><firstname
+>Ta dokumentacija je bila pretvorjena s strani KDE UserBase <ulink url="http://userbase.kde.org/Kamoso"
+>Kamoso</ulink
+> in posodobljena s strani &kde; ekipa za dokumentacijo.</firstname
+> <surname
+></surname
+> </personname>
+      </author>
+<othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+>matjaz.jeran@amis.net</email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+      </authorgroup>
+<legalnotice
+>&FDLNotice;</legalnotice>
+<date
+>24.08.2016</date>
+      <releaseinfo
+>&kamoso; 3.2</releaseinfo>
+<abstract>
+<para>
+<variablelist>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Posnemi fotografijo</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; vam omogoča, da s svojo spletno kamero naredite fotografije in jih naložite na internet</para>
+     </listitem>
+  </varlistentry>
+  <varlistentry
+><term
+><emphasis role="bold"
+>Posnemi video</emphasis
+></term>
+    <listitem>
+    <para
+>&kamoso; omogoča snemanje videoposnetkov s spletne kamere in njihovo nalaganje na internet</para>
+     </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+      </abstract>
+      <keywordset>
+<keyword
+>KDE</keyword>
+</keywordset>
+</bookinfo>
+<!--userbase <timestamp
+>2012-12-05T19:30:21Z</timestamp
+>-->
+
+<!--userbase-content-->
+<chapter id="user-guide"
+><title
+>Uporabniška navodila</title>
+<para
+>Dobrodošli v &kamoso;! </para>
+<para
+>&kamoso; je odličen program za uporabo spletne kamere za fotografiranje ali ustvarjanje videoposnetkov. Ta vodnik vam bo pomagal pri uporabi &kamoso; ko ga namestite. </para>
+<sect1 id="quick-start"
+><title
+>Hitri začetek</title>
+<para
+>Ko zažene &kamoso;, prikaže to okno z gumbi na dnu: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Preklopite v način <guibutton
+>Zajemi sliko</guibutton
+>, da posnamete eno sliko </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Preklopite v način <guibutton
+>Zajemi slikovni rafal</guibutton
+> in neprekinjeno fotografirajte, dokler se ne ustavite s ponovnim klikom na srednji gumb </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Preklopite v način <guibutton
+>Posnemi video</guibutton
+>, da posnamete video </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Začnite ali ustavite fotografiranje ali snemanje videa</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Prikaži galerijo</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Pokaži nastavitve</guibutton>
+</member
+></simplelist>
+
+<para
+>Slike in videi so zaporedno oštevilčeni in samodejno shranjeni v <guilabel
+>imeniku posnetkov</guilabel
+>, ki je določen v nastavitvah. </para>
+
+</sect1>
+
+<sect1 id="managing-captures"
+><title
+>Upravljanje posnetkov</title>
+
+<para
+>Za ogled in upravljanje zajetih slik ali videoposnetkov kliknite gumb <guibutton
+>Prikaži galerijo</guibutton
+>. V kontekstnem meniju za vsak vnos v galeriji najdete dejanja za njihovo upravljanje: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Uporabite <guimenuitem
+>Odpri</guimenuitem
+> za ogled vaših posnetkov v povezani aplikaciji. </para>
+
+<para
+>Če želite izbrisati slike in videoposnetke, odprite mapo posnetkov v upravitelju datotek. </para>
+
+<para
+>Naslednja dejanja vam omogočajo, da posnetke naložite na internet ali jih pošljete stiku ali napravi. </para>
+
+<para
+>Uporabite <guimenuitem
+>Shrani kot</guimenuitem
+> za kopiranje celotne vsebine galerije v novo mapo. </para>
+
+</sect1>
+
+<sect1 id="customizing"
+><title
+>Prilagajanje</title>
+<para
+>Kliknite gumb <guibutton
+>Pokaži nastavitve</guibutton
+>, da odprete ploščo z nastavitvami. Ponovno kliknite gumb, da skrijete ploščo z nastavitvami. </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="kamoso-settings.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<para
+>Če želite spremeniti mapo, v kateri je &kamoso; shrani slike in videoposnetke, spremenite <guilabel
+>imenik Captures</guilabel
+> na vrhu. </para>
+
+<para
+>Omogoči <guibutton
+>Uporabi bliskavico</guibutton
+>, da označite okno pred fotografiranjem. </para>
+
+<para
+>Z drsniki lahko spreminjate nastavitve kamere, kot so svetlost, odtenek, kontrast, nasičenost in gama. </para>
+</sect1>
+
+</chapter>
+
+<!--userbase-content-->
+<chapter id="credits">
+<title
+>Zasluge in licenca</title>
+      <para
+>Dokumentacija Avtorske pravice glejte UserBase <ulink url="http://userbase.kde.org/index.php?title=Kamoso&amp;action=history"
+>zgodovino strani Kamoso</ulink
+></para>
+      <para
+>Prevod: Matjaž Jeran <email
+>matjaz.jeran@amis.net</email
+></para
+> &underFDL; </chapter>
+&documentation.index;
+</book>
