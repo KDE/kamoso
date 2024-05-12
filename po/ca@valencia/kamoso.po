@@ -172,13 +172,13 @@ msgstr "No hi ha imatges a <filename>%1</filename>"
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
-msgstr[0] "Compartix %1 element..."
-msgstr[1] "Compartix %1 elements..."
+msgstr[0] "Compartix %1 element…"
+msgstr[1] "Compartix %1 elements…"
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
 msgid "Share Item..."
-msgstr "Compartix element..."
+msgstr "Compartix l'element…"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
@@ -200,7 +200,7 @@ msgstr "Obri la carpeta d'imatges"
 #: src/qml/ImagesView.qml:369
 #, kde-format
 msgid "Configure Kamoso..."
-msgstr "Configura Kamoso..."
+msgstr "Configura Kamoso…"
 
 #: src/qml/Main.qml:82
 #, kde-format
