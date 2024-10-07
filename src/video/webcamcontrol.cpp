@@ -4,46 +4,44 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-
 #include "webcamcontrol.h"
 #include "kamosoSettings.h"
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KNotification>
 #include <devicemanager.h>
+#include <kamoso.h>
 #include <kamosodirmodel.h>
 #include <previewfetcher.h>
-#include <whitewidgetmanager.h>
-#include <kamoso.h>
-#include <KIO/CopyJob>
-#include <KNotification>
-#include <KLocalizedString>
 
-#include <gst/gstcaps.h>
-#include <gst/gstpad.h>
-#include <gst/gststructure.h>
-#include <gst/gstbuffer.h>
-#include <gst/gstpipeline.h>
-#include <gst/gstelementfactory.h>
-#include <gst/gstparse.h>
-#include <gst/gstbus.h>
-#include <gst/gstmessage.h>
 #include <gst/gst.h>
+#include <gst/gstbuffer.h>
+#include <gst/gstbus.h>
+#include <gst/gstcaps.h>
+#include <gst/gstelementfactory.h>
+#include <gst/gstmessage.h>
+#include <gst/gstpad.h>
+#include <gst/gstparse.h>
+#include <gst/gstpipeline.h>
+#include <gst/gststructure.h>
 
 #include "QGst/Quick/VideoItem"
-#include <QDir>
 #include <QDebug>
+#include <QDir>
 
-#include <QtQml/QQmlEngine>
-#include <QtQml/QQmlContext>
-#include <QtQml/QQmlApplicationEngine>
-#include <qqml.h>
 #include <KJob>
 #include <KLocalizedContext>
+#include <QtQml/QQmlApplicationEngine>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlEngine>
+#include <qqml.h>
 
 #include "QGst/Quick/VideoSurface"
 
 static QString debugMessage(GstMessage* msg)
 {
-    gchar *debug = nullptr;
-    GError *e = nullptr;
+    gchar* debug = nullptr;
+    GError* e = nullptr;
     if (GST_MESSAGE_TYPE(msg) == GST_MESSAGE_WARNING) {
         gst_message_parse_warning(msg, &e, &debug);
     } else if (GST_MESSAGE_TYPE(msg) == GST_MESSAGE_ERROR) {
@@ -54,7 +52,7 @@ static QString debugMessage(GstMessage* msg)
 
     if (e) {
         qWarning() << "error debugMessage:" << e->message;
-        g_error_free (e);
+        g_error_free(e);
     }
     const auto ret = QString::fromUtf8(debug);
     g_free(debug);
@@ -62,22 +60,21 @@ static QString debugMessage(GstMessage* msg)
 }
 
 template <class T>
-GstState pipelineCurrentState(const T &pipe)
+GstState pipelineCurrentState(const T& pipe)
 {
     GstState currentState, pendingState;
-    GstStateChangeReturn result = gst_element_get_state(GST_ELEMENT(pipe.data()), &currentState, &pendingState, GST_CLOCK_TIME_NONE );
-    if(result == GST_STATE_CHANGE_FAILURE)
+    GstStateChangeReturn result = gst_element_get_state(GST_ELEMENT(pipe.data()), &currentState, &pendingState, GST_CLOCK_TIME_NONE);
+    if (result == GST_STATE_CHANGE_FAILURE)
         qDebug() << "broken state";
     return currentState;
 }
 
-class PipelineItem : public QObject, public QQmlParserStatus
-{
-Q_OBJECT
-Q_INTERFACES(QQmlParserStatus)
-Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
-Q_PROPERTY(QObject* surface READ surface CONSTANT)
-Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
+class PipelineItem : public QObject, public QQmlParserStatus {
+    Q_OBJECT
+    Q_INTERFACES(QQmlParserStatus)
+    Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QObject* surface READ surface CONSTANT)
+    Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
 public:
     PipelineItem()
         : QObject()
@@ -87,7 +84,8 @@ public:
         g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
     }
 
-    ~PipelineItem() {
+    ~PipelineItem()
+    {
         if (m_pipeline)
             gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
     }
@@ -95,29 +93,31 @@ public:
     void onBusMessage(GstMessage* message)
     {
         switch (GST_MESSAGE_TYPE(message)) {
-        case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
+        case GST_MESSAGE_EOS: // End of stream. We reached the end of the file.
             setPlaying(false);
             break;
-        case GST_MESSAGE_ERROR:  {//Some error occurred.
+        case GST_MESSAGE_ERROR: { // Some error occurred.
             qCritical() << "error on:" << m_description << debugMessage(message);
             gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
             m_pipeline.reset(nullptr);
             Q_EMIT failed();
-        }   break;
+        } break;
         default:
             break;
         }
     }
 
-    void classBegin() override {}
-    void componentComplete() override {
+    void classBegin() override { }
+    void componentComplete() override
+    {
         m_complete = true;
         refresh();
     }
 
-    QGst::Quick::VideoSurface *surface() const { return m_surface; }
+    QGst::Quick::VideoSurface* surface() const { return m_surface; }
     QString description() const { return m_description; }
-    void setDescription(const QString &desc) {
+    void setDescription(const QString& desc)
+    {
         if (m_description != desc) {
             m_description = desc;
             Q_EMIT descriptionChanged();
@@ -126,9 +126,10 @@ public:
         }
     }
 
-    Q_SCRIPTABLE void refresh() {
+    Q_SCRIPTABLE void refresh()
+    {
         if (!m_description.isEmpty() && m_complete) {
-            if(m_pipeline)
+            if (m_pipeline)
                 gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
             GError* e = nullptr;
@@ -147,19 +148,20 @@ public:
             Q_ASSERT(lastItem);
             bool b = gst_element_link(lastItem, m_surface->videoSink());
             Q_ASSERT(b);
-            gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &pipelineWatch, this);
+            gst_bus_add_watch(gst_pipeline_get_bus(m_pipeline.data()), &pipelineWatch, this);
         }
         setPlaying(m_playing);
     }
 
-    static gboolean pipelineWatch(GstBus     */*bus*/, GstMessage *message, gpointer user_data)
+    static gboolean pipelineWatch(GstBus* /*bus*/, GstMessage* message, gpointer user_data)
     {
         PipelineItem* wc = static_cast<PipelineItem*>(user_data);
         wc->onBusMessage(message);
         return G_SOURCE_CONTINUE;
     }
 
-    void setPlaying(bool playing) {
+    void setPlaying(bool playing)
+    {
         if (playing != m_playing) {
             m_playing = playing;
             Q_EMIT playingChanged(playing);
@@ -169,7 +171,8 @@ public:
             gst_element_set_state(GST_ELEMENT(m_pipeline.data()), playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
     }
 
-    bool playing() const {
+    bool playing() const
+    {
         return m_pipeline && pipelineCurrentState(m_pipeline) == GST_STATE_PLAYING;
     }
 
@@ -184,7 +187,7 @@ private:
     bool m_complete = false;
     QString m_description;
     GstPointer<GstPipeline> m_pipeline;
-    QGst::Quick::VideoSurface * const m_surface;
+    QGst::Quick::VideoSurface* const m_surface;
 };
 
 WebcamControl::WebcamControl()
@@ -204,7 +207,6 @@ WebcamControl::WebcamControl()
 
     m_surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("config", Settings::self());
-    engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
     engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
     engine->rootContext()->setContextProperty("videoSurface1", m_surface);
@@ -226,7 +228,7 @@ void WebcamControl::stop()
 {
     qDebug() << "Stop";
 
-    if(m_pipeline) {
+    if (m_pipeline) {
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
         m_pipeline.reset(nullptr);
     }
@@ -238,18 +240,18 @@ bool WebcamControl::play()
     return !dev || playDevice(dev);
 }
 
-static gboolean webcamWatch(GstBus     */*bus*/, GstMessage *message, gpointer user_data)
+static gboolean webcamWatch(GstBus* /*bus*/, GstMessage* message, gpointer user_data)
 {
     WebcamControl* wc = static_cast<WebcamControl*>(user_data);
     wc->onBusMessage(message);
     return G_SOURCE_CONTINUE;
 }
 
-bool WebcamControl::playDevice(Device *device)
+bool WebcamControl::playDevice(Device* device)
 {
     Q_ASSERT(device);
 
-    //If we already have a pipeline for this device, just set it to picture mode
+    // If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->objectId()) {
         g_object_set(m_pipeline.data(), "mode", 2, nullptr);
         g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
@@ -279,7 +281,7 @@ bool WebcamControl::playDevice(Device *device)
 
     if (!m_pipeline) {
         m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
-        gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
+        gst_bus_add_watch(gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
         g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
         g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
     }
@@ -296,11 +298,11 @@ bool WebcamControl::playDevice(Device *device)
 
 void WebcamControl::onBusMessage(GstMessage* message)
 {
-    switch (GST_MESSAGE_TYPE (message)) {
-    case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
+    switch (GST_MESSAGE_TYPE(message)) {
+    case GST_MESSAGE_EOS: // End of stream. We reached the end of the file.
         stop();
         break;
-    case GST_MESSAGE_ERROR: {//Some error occurred.
+    case GST_MESSAGE_ERROR: { // Some error occurred.
         static int error = 0;
         qCritical() << "error:" << debugMessage(message);
         stop();
@@ -308,26 +310,26 @@ void WebcamControl::onBusMessage(GstMessage* message)
             play();
             ++error;
         }
-    }   break;
+    } break;
     case GST_MESSAGE_ELEMENT:
-        if (strcmp (GST_MESSAGE_SRC_NAME (message), "camerabin") == 0) {
-            auto structure = gst_message_get_structure (message);
-            if (gst_structure_get_name (structure) == QByteArray("image-done")) {
-                const gchar *filename = gst_structure_get_string (structure, "filename");
+        if (strcmp(GST_MESSAGE_SRC_NAME(message), "camerabin") == 0) {
+            auto structure = gst_message_get_structure(message);
+            if (gst_structure_get_name(structure) == QByteArray("image-done")) {
+                const gchar* filename = gst_structure_get_string(structure, "filename");
                 if (m_emitTaken)
                     Q_EMIT photoTaken(QString::fromUtf8(filename));
             }
         } else {
-            qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
+            qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME(message);
         }
     default:
-//         qDebug() << msg->type();
-//         qDebug() << msg->typeName();
-//         qDebug() << msg->internalStructure()->name();
+        //         qDebug() << msg->type();
+        //         qDebug() << msg->typeName();
+        //         qDebug() << msg->internalStructure()->name();
         break;
     }
 }
-void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
+void WebcamControl::takePhoto(const QUrl& url, bool emitTaken)
 {
     if (!m_pipeline) {
         qWarning() << "couldn't take photo, no pipeline";
@@ -337,10 +339,10 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
 
     g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
-    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";
+    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/kamoso_photo.jpg";
     g_object_set(m_pipeline.data(), "location", path.toUtf8().constData(), nullptr);
 
-    g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
+    g_signal_emit_by_name(m_pipeline.data(), "start-capture", 0);
 
     if (!url.isLocalFile()) {
         KIO::copy(QUrl::fromLocalFile(path), url);
@@ -359,12 +361,12 @@ void WebcamControl::startRecording()
     g_object_set(m_pipeline.data(), "mode", 2, nullptr);
     g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
 
-    g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
+    g_signal_emit_by_name(m_pipeline.data(), "start-capture", 0);
 }
 
 QString WebcamControl::stopRecording()
 {
-    g_signal_emit_by_name (m_pipeline.data(), "stop-capture", 0);
+    g_signal_emit_by_name(m_pipeline.data(), "stop-capture", 0);
     return m_tmpVideoPath;
 }
 
@@ -413,7 +415,7 @@ void WebcamControl::updateSourceFilter()
 
 void WebcamControl::setVideoSettings()
 {
-    Device *device = DeviceManager::self()->playingDevice();
+    Device* device = DeviceManager::self()->playingDevice();
     connect(device, &Device::filtersChanged, this, &WebcamControl::setExtraFilters);
 
     m_extraFilters = device->filters();

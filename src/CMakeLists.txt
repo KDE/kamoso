@@ -7,30 +7,33 @@ add_definitions(-DQT_NO_KEYWORDS)
 qt_add_resources(kamosoqml_SRCS resources.qrc)
 kconfig_add_kcfg_files(kamosoqml_SRCS kamosoSettings.kcfgc GENERATE_MOC)
 
-ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEADER kamoso_version.h)
+ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO
+                  VERSION_HEADER kamoso_version.h)
 
-add_executable(kamoso
-    devicemanager.cpp
-    device.cpp
-    whitewidgetmanager.cpp
-    whitewidget.cpp
-    kamosodirmodel.cpp
-    main.cpp
-    kamoso.cpp
-    previewfetcher.cpp
-    video/webcamcontrol.cpp
+add_executable(
+  kamoso
+  devicemanager.cpp
+  device.cpp
+  kamosodirmodel.cpp
+  main.cpp
+  kamoso.cpp
+  previewfetcher.cpp
+  video/webcamcontrol.cpp
+  QGst/Quick/videosurface.cpp
+  QGst/Quick/videoitem.cpp
+  ${kamosoqml_SRCS})
 
-    QGst/Quick/videosurface.cpp
-    QGst/Quick/videoitem.cpp
-
-    ${kamosoqml_SRCS}
-)
-
-target_link_libraries(kamoso
-    Qt::Core Qt::Gui Qt::Widgets Qt::Quick
-    KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n KF5::Notifications
-    PkgConfig::GStreamer
-)
+target_link_libraries(
+  kamoso
+  Qt::Core
+  Qt::Gui
+  Qt::Widgets
+  Qt::Quick
+  KF5::KIOFileWidgets
+  KF5::ConfigGui
+  KF5::I18n
+  KF5::Notifications
+  PkgConfig::GStreamer)
 
 install(TARGETS kamoso ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS org.kde.kamoso.desktop DESTINATION ${KDE_INSTALL_APPDIR})
