@@ -83,10 +83,7 @@ Kirigami.ApplicationWindow
         nameFilter: "picture_*"
         enabled: devicesModel.playingDevice
 
-        onTriggered: {
-            whites.showAll()
-            webcam.takePhoto()
-        }
+        onTriggered: webcam.takePhoto()
 
         Connections {
             target: webcam

@@ -10,7 +10,6 @@
 #include <devicemanager.h>
 #include <kamosodirmodel.h>
 #include <previewfetcher.h>
-#include <whitewidgetmanager.h>
 #include <kamoso.h>
 #include <KIO/CopyJob>
 #include <KNotification>
@@ -205,7 +204,6 @@ WebcamControl::WebcamControl()
     m_kamoso = new Kamoso(this);
     m_surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("config", Settings::self());
-    engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
     engine->rootContext()->setContextProperty("webcam", m_kamoso);
     engine->rootContext()->setContextProperty("videoSurface1", m_surface);

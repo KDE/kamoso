@@ -12,8 +12,6 @@ ecm_setup_version(${RELEASE_SERVICE_VERSION} VARIABLE_PREFIX KAMOSO VERSION_HEAD
 add_executable(kamoso
     devicemanager.cpp
     device.cpp
-    whitewidgetmanager.cpp
-    whitewidget.cpp
     kamosodirmodel.cpp
     main.cpp
     kamoso.cpp
