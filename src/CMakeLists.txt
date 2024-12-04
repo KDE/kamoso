@@ -28,7 +28,7 @@ add_executable(kamoso
 
 target_link_libraries(kamoso
     Qt::Core Qt::Gui Qt::Widgets Qt::Quick
-    KF5::KIOFileWidgets KF5::ConfigGui KF5::I18n KF5::Notifications
+    KF6::KIOFileWidgets KF6::ConfigGui KF6::I18n KF6::Notifications
     PkgConfig::GStreamer
 )
 
