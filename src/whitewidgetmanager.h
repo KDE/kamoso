@@ -9,7 +9,6 @@
 #define WHITEWIDGETMANAGER_H
 
 #include <QObject>
-#include <QDesktopWidget>
 #include "whitewidget.h"
 
 class QPropertyAnimation;

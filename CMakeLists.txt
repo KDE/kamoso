@@ -39,7 +39,6 @@ pkg_check_modules(GStreamerVideo IMPORTED_TARGET gstreamer-video-1.0)
 # ecm_find_qmlmodule(QtQuick.Layouts 1.1)
 # ecm_find_qmlmodule(QtQuick.Window 2.2)
 
-add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 add_subdirectory(src)
 # TODO: maybe use ECMAddAppIcon

@@ -1,5 +1,3 @@
-add_subdirectory(elements)
-
 add_definitions(-DGST_DISABLE_DEPRECATED)
 add_definitions(-fexceptions)
 add_definitions(-DQT_NO_KEYWORDS)
@@ -19,9 +17,6 @@ add_executable(kamoso
     kamoso.cpp
     previewfetcher.cpp
     video/webcamcontrol.cpp
-
-    QGst/Quick/videosurface.cpp
-    QGst/Quick/videoitem.cpp
 
     ${kamosoqml_SRCS}
 )
