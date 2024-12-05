@@ -39,7 +39,9 @@ void WhiteWidgetManager::createWhiteWidgets()
 {
     QList<QScreen*> screens = qGuiApp->screens();
 
-    Q_FOREACH (QScreen* screen, screens)
+
+
+    for (QScreen* screen: screens)
     {
         WhiteWidget *whiteWidget = new WhiteWidget;
         whiteWidget->setScreen(screen);
@@ -55,7 +57,7 @@ void WhiteWidgetManager::showAll()
 {
     m_timer->start();
 
-    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
+    for (WhiteWidget *iteratorWidget: whitewidgetList)
     {
         iteratorWidget->setOpacity(0);
         iteratorWidget->showFullScreen();
@@ -63,11 +65,11 @@ void WhiteWidgetManager::showAll()
 }
 
 /**
-*This method is usually called by timeout, and hide all the whiteWidgets 
+*This method is usually called by timeout, and hide all the whiteWidgets
 */
 void WhiteWidgetManager::hideAll()
 {
-    Q_FOREACH(WhiteWidget *iteratorWidget, whitewidgetList)
+    for (WhiteWidget *iteratorWidget:  whitewidgetList)
     {
         iteratorWidget->hide();
     }
@@ -76,7 +78,7 @@ void WhiteWidgetManager::hideAll()
 
 void WhiteWidgetManager::setOpacity(qreal op)
 {
-    Q_FOREACH(WhiteWidget* iteratorWidget, whitewidgetList)
+    for (WhiteWidget* iteratorWidget: whitewidgetList)
     {
         iteratorWidget->setOpacity(op);
     }

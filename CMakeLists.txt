@@ -24,7 +24,7 @@ include(ECMSetupVersion)
 include(ECMFindQmlModule)
 
 find_package(Qt6 ${QT_MIN_VERSION} NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick QuickControls2)
-find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami Config DocTools KIO I18n Purpose Notifications)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami Config DocTools KIO I18n Purpose Notifications JobWidgets)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GStreamer IMPORTED_TARGET gstreamer-1.0)

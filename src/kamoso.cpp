@@ -20,7 +20,7 @@
 #include <KIO/JobUiDelegate>
 #include <KFormat>
 #include <KFileUtils>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KLocalizedString>
 #include <QFile>
 #include <QJsonArray>
@@ -46,10 +46,10 @@ QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const 
     const QString date = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_hh-mm-ss"));
     const QString initialName =  QStringLiteral("%1_%2.%3").arg(name, date, extension);
 
-    QUrl url(saveUrl.toString() + '/' + initialName);
+    QUrl url(saveUrl.toString() + QStringLiteral("/") + initialName);
 
     if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-        url.setPath(saveUrl.path() + '/' + KFileUtils::suggestName(saveUrl, initialName));
+        url.setPath(saveUrl.path() + QStringLiteral("/") + KFileUtils::suggestName(saveUrl, initialName));
     }
 
     return url;
@@ -63,7 +63,7 @@ const QString Kamoso::takePhoto()
         QDir().mkpath(saveUrl.toLocalFile());
     }
 
-    const QUrl path = fileNameSuggestion(saveUrl, "picture", "jpg");
+    const QUrl path = fileNameSuggestion(saveUrl, QStringLiteral("picture"), QStringLiteral("jpg"));
     m_webcamControl->takePhoto(path, true);
 
     if (path.isLocalFile()) {
@@ -106,7 +106,7 @@ void Kamoso::setRecording(bool recording)
             Q_EMIT error(job->errorString());
         });
     } else {
-        const QUrl path = fileNameSuggestion(Settings::saveVideos(), "video", "mkv");
+        const QUrl path = fileNameSuggestion(Settings::saveVideos(), QStringLiteral("video"), QStringLiteral("mkv"));
 
         const auto temp = m_webcamControl->stopRecording();
         KJob *job = KIO::move(QUrl::fromLocalFile(temp), path);
@@ -141,19 +141,19 @@ bool Kamoso::isRecording() const
 void Kamoso::trashFiles(const QJsonArray& urls)
 {
     QList<QUrl> list;
-    Q_FOREACH(const QJsonValue& val, urls) {
+    for (const QJsonValue& val: urls) {
         list += QUrl(val.toString());
     }
 
     KIO::Job* job = KIO::trash(list);
-    KIO::FileUndoManager::self()->recordJob(KIO::FileUndoManager::Trash, list, QUrl("trash:/"), job);
+    KIO::FileUndoManager::self()->recordJob(KIO::FileUndoManager::Trash, list, QUrl(QStringLiteral("trash:/")), job);
 //     KJobWidgets::setWindow(job, window);
 }
 
 QString Kamoso::sampleImage()
 {
     if (m_sampleImagePath.isEmpty()) {
-        QScopedPointer<QTemporaryFile> temporary(new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg"), this));
+        QScopedPointer<QTemporaryFile> temporary(new QTemporaryFile(QDir::temp().absoluteFilePath(QStringLiteral("XXXXXX-sampleimage.jpg")), this));
         temporary->open();
         m_sampleImagePath = temporary->fileName();
         temporary->close();

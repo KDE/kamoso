@@ -14,5 +14,5 @@
 WhiteWidget::WhiteWidget()
     : QQuickView()
 {
-    setSource(QUrl("qrc:/qml/White.qml"));
+    setSource(QUrl(QStringLiteral("qrc:/qml/White.qml")));
 }
