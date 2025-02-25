@@ -306,8 +306,11 @@ void VideoMaterial::initYuv420PTextureInfo(bool uvSwapped, const QSize &size)
 
 void VideoMaterial::init(GstVideoColorMatrix colorMatrixType)
 {
-    initializeOpenGLFunctions();
-    glGenTextures(m_textureCount, m_textureIds);
+    QOpenGLContext *glctx = QOpenGLContext::currentContext();
+    if (glctx) {
+        initializeOpenGLFunctions();
+        glGenTextures(m_textureCount, m_textureIds);
+    }
     m_colorMatrixType = colorMatrixType;
     updateColors(0, 0, 0, 0);
 }
