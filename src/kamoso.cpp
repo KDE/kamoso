@@ -66,7 +66,7 @@ const QString Kamoso::takePhoto()
     const QUrl path = fileNameSuggestion(saveUrl, "picture", "jpg");
     m_webcamControl->takePhoto(path, true);
 
-    if (path.isLocalFile()) {
+    if (m_sampleImagePath.isEmpty() && path.isLocalFile()) {
         m_sampleImagePath = path.toLocalFile();
         Q_EMIT sampleImageChanged(m_sampleImagePath);
     }
