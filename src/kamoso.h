@@ -14,6 +14,7 @@
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QUrl>
+#include <QTemporaryFile>
 
 class WebcamControl;
 class QWindow;
@@ -59,6 +60,7 @@ Q_OBJECT
         QTimer m_recordingTimer;
         QElapsedTimer m_recordingTime;
         QString m_sampleImagePath;
+        QScopedPointer<QTemporaryFile> m_temporaryFile;
 };
 
 #endif // KAMOSO_H

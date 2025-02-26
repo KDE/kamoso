@@ -14,6 +14,7 @@
 #include "gstpointer.h"
 #include <gst/gstpipeline.h>
 #include <gst/gstmessage.h>
+#include <kamoso.h>
 
 namespace QGst { namespace Quick { class VideoSurface; } }
 
@@ -60,6 +61,7 @@ class WebcamControl : public QObject
         QString m_currentDevice;
         GstPointer<GstPipeline> m_pipeline;
         GstPointer<GstElement> m_cameraSource;
+        Kamoso* m_kamoso;
         QGst::Quick::VideoSurface* m_surface = nullptr;
         bool m_emitTaken = true;
         bool m_mirror = true;

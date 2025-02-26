@@ -153,10 +153,10 @@ void Kamoso::trashFiles(const QJsonArray& urls)
 QString Kamoso::sampleImage()
 {
     if (m_sampleImagePath.isEmpty()) {
-        QScopedPointer<QTemporaryFile> temporary(new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg"), this));
-        temporary->open();
-        m_sampleImagePath = temporary->fileName();
-        temporary->close();
+        m_temporaryFile.reset(new QTemporaryFile(QDir::temp().absoluteFilePath("XXXXXX-sampleimage.jpg")));
+        m_temporaryFile->open();
+        m_sampleImagePath = m_temporaryFile->fileName();
+        m_temporaryFile->close();
 
         m_webcamControl->takePhoto(QUrl::fromLocalFile(m_sampleImagePath), false);
     }

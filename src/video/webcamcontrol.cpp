@@ -202,11 +202,12 @@ WebcamControl::WebcamControl()
 
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
 
+    m_kamoso = new Kamoso(this);
     m_surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty("config", Settings::self());
     engine->rootContext()->setContextProperty("whites", new WhiteWidgetManager(this));
     engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
-    engine->rootContext()->setContextProperty("webcam", new Kamoso(this));
+    engine->rootContext()->setContextProperty("webcam", m_kamoso);
     engine->rootContext()->setContextProperty("videoSurface1", m_surface);
     engine->load(QUrl("qrc:/qml/Main.qml"));
 
@@ -220,6 +221,7 @@ WebcamControl::~WebcamControl()
 {
     DeviceManager::self()->save();
     Settings::self()->save();
+    delete m_kamoso;
 }
 
 void WebcamControl::stop()
