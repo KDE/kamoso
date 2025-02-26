@@ -58,7 +58,17 @@ GridView {
 
     property string sampleImage: ""
     onVisibleChanged: if (view.visible) {
-        sampleImage = webcam.sampleImage
+        webcam.sampleImage
+        delayedUpdateTimer.restart()
+    }
+
+    Timer {
+        id: delayedUpdateTimer
+        interval: 500
+        repeat: false
+        onTriggered: {
+            sampleImage = webcam.sampleImage;
+        }
     }
 
     delegate: Rectangle {
