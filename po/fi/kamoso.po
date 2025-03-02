@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:30+0000\n"
+"POT-Creation-Date: 2025-03-02 01:55+0000\n"
 "PO-Revision-Date: 2023-11-19 19:16+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -235,12 +235,12 @@ msgstr "Nauhoita video"
 msgid "Effects Gallery"
 msgstr "Tehostegalleria"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Photo taken"
 msgstr "Kuva otettu"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Saved in %1"
 msgstr "Tallennettu kansioon %1"

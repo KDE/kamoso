@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:30+0000\n"
+"POT-Creation-Date: 2025-03-02 01:55+0000\n"
 "PO-Revision-Date: 2012-01-31 00:23+0200\n"
 "Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -246,13 +246,13 @@ msgstr "Uzņemt video"
 msgid "Effects Gallery"
 msgstr "Kamoso %1"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, fuzzy, kde-format
 #| msgid "Photo Settings"
 msgid "Photo taken"
 msgstr "Fotogrāfiju iestatījumi"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Saved in %1"
 msgstr ""

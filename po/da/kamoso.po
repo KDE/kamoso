@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:30+0000\n"
+"POT-Creation-Date: 2025-03-02 01:55+0000\n"
 "PO-Revision-Date: 2020-04-08 20:45+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -235,12 +235,12 @@ msgstr "Optag en video"
 msgid "Effects Gallery"
 msgstr "Effektgalleri"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Photo taken"
 msgstr "Foto taget"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Saved in %1"
 msgstr "Gemt i %1"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:30+0000\n"
+"POT-Creation-Date: 2025-03-02 01:55+0000\n"
 "PO-Revision-Date: 2023-10-14 10:19+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -239,12 +239,12 @@ msgstr "Enregistra un vídeo"
 msgid "Effects Gallery"
 msgstr "Galeria d'efectes"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Photo taken"
 msgstr "Foto presa"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Saved in %1"
 msgstr "Desada a %1"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:30+0000\n"
+"POT-Creation-Date: 2025-03-02 01:55+0000\n"
 "PO-Revision-Date: 2022-03-24 06:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -237,12 +237,12 @@ msgstr "Rekam sebuah Video"
 msgid "Effects Gallery"
 msgstr "Galeri Efek"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Photo taken"
 msgstr "Foto yang terambil"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:352
 #, kde-format
 msgid "Saved in %1"
 msgstr "Simpan di dalam %1"
