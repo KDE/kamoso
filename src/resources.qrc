@@ -5,7 +5,6 @@
     <file>qml/DirectoryView.qml</file>
     <file>qml/OverlayFrame.qml</file>
     <file>qml/Config.qml</file>
-    <file>qml/White.qml</file>
     <file>qml/Mode.qml</file>
     <file>qml/ImageThumbnail.qml</file>
  </qresource>
