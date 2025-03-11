@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-03-11 01:57+0000\n"
 "PO-Revision-Date: 2023-10-14 11:04+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pawlerson@gmail.com, lukasz.wojnilowicz@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:232
+#: src/kamoso.cpp:87 src/qml/Main.qml:229
 #, kde-format
 msgid "No device found"
 msgstr "Nie znaleziono żadnego urządzenia"
@@ -207,17 +207,17 @@ msgstr "Ustawienia Kamoso..."
 msgid "Take a Picture"
 msgstr "Zrób zdjęcie"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "End Burst"
 msgstr "Zakończ szereg zdjęć"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Zrób szereg zdjęć"
 
-#: src/qml/Main.qml:110
+#: src/qml/Main.qml:107
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -225,27 +225,27 @@ msgstr[0] "Zrobiono 1 zdjęcie"
 msgstr[1] "Zrobiono %1 zdjęcia"
 msgstr[2] "Zrobiono %1 zdjęć"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Stop Recording"
 msgstr "Zatrzymaj nagrywanie"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Record a Video"
 msgstr "Nagraj film"
 
-#: src/qml/Main.qml:188
+#: src/qml/Main.qml:185
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Galeria efektów"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Photo taken"
 msgstr "Zrobiono zdjęcie"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
 msgstr "Zapisano w %1"

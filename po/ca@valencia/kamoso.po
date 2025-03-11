@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-03-11 01:57+0000\n"
 "PO-Revision-Date: 2023-10-14 10:19+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -32,7 +32,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:232
+#: src/kamoso.cpp:87 src/qml/Main.qml:229
 #, kde-format
 msgid "No device found"
 msgstr "No s'ha trobat cap dispositiu"
@@ -207,44 +207,44 @@ msgstr "Configura Kamoso…"
 msgid "Take a Picture"
 msgstr "Pren una fotografia"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "End Burst"
 msgstr "Fi de ràfega"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Captura una ràfega"
 
-#: src/qml/Main.qml:110
+#: src/qml/Main.qml:107
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "S'ha pres 1 foto"
 msgstr[1] "S'han pres %1 fotos"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Stop Recording"
 msgstr "Para la gravació"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Record a Video"
 msgstr "Grava un vídeo"
 
-#: src/qml/Main.qml:188
+#: src/qml/Main.qml:185
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Galeria d'efectes"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Photo taken"
 msgstr "Foto presa"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
 msgstr "Guardada a %1"

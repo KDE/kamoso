@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-03-11 01:57+0000\n"
 "PO-Revision-Date: 2023-10-14 10:25+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:232
+#: src/kamoso.cpp:87 src/qml/Main.qml:229
 #, kde-format
 msgid "No device found"
 msgstr "Geen apparaat gevonden"
@@ -202,44 +202,44 @@ msgstr "Kamoso configureren..."
 msgid "Take a Picture"
 msgstr "Afbeelding nemen"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "End Burst"
 msgstr "Burst (meer opnamen na elkaar) beëindigen"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Een reeks vangen"
 
-#: src/qml/Main.qml:110
+#: src/qml/Main.qml:107
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 foto genomen"
 msgstr[1] "%1 foto's genomen"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Stop Recording"
 msgstr "Opnemen stoppen"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, kde-format
 msgid "Record a Video"
 msgstr "Een video opnemen"
 
-#: src/qml/Main.qml:188
+#: src/qml/Main.qml:185
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Galerij met effecten"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Photo taken"
 msgstr "Foto genomen"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
 msgstr "Opgeslagen in %1"

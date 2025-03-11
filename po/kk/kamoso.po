@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-03-11 01:57+0000\n"
 "PO-Revision-Date: 2012-04-24 02:40+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sairan@computer.org"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:232
+#: src/kamoso.cpp:87 src/qml/Main.qml:229
 #, kde-format
 msgid "No device found"
 msgstr ""
@@ -205,47 +205,47 @@ msgstr ""
 msgid "Take a Picture"
 msgstr "Суреттерді түсіру"
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "End Burst"
 msgstr ""
 
-#: src/qml/Main.qml:108
+#: src/qml/Main.qml:105
 #, kde-format
 msgid "Capture a Burst"
 msgstr ""
 
-#: src/qml/Main.qml:110
+#: src/qml/Main.qml:107
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, fuzzy, kde-format
 #| msgid "Record Audio"
 msgid "Stop Recording"
 msgstr "Дыбысты жазу"
 
-#: src/qml/Main.qml:133
+#: src/qml/Main.qml:130
 #, fuzzy, kde-format
 #| msgid "Take a video"
 msgid "Record a Video"
 msgstr "Видео түсіру"
 
-#: src/qml/Main.qml:188
+#: src/qml/Main.qml:185
 #, fuzzy, kde-format
 #| msgid "Kamoso %1"
 msgid "Effects Gallery"
 msgstr "Kamoso %1"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, fuzzy, kde-format
 #| msgid "Photo Settings"
 msgid "Photo taken"
 msgstr "Фото параметрлері"
 
-#: src/video/webcamcontrol.cpp:352
+#: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
