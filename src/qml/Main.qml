@@ -74,16 +74,20 @@ Kirigami.ApplicationWindow
         ]
     }
 
+    property Mode lastMode: photoMode
     Mode {
         id: photoMode
         mimes: "image/jpeg"
         checkable: false
-        iconName: "camera-photo-symbolic"
+        icon.name: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
         enabled: devicesModel.playingDevice
 
-        onTriggered: webcam.takePhoto()
+        onTriggered: {
+            webcam.takePhoto()
+            lastMode = photoMode
+        }
 
         Connections {
             target: webcam
@@ -101,7 +105,7 @@ Kirigami.ApplicationWindow
         id: burstMode
         mimes: "image/jpeg"
         checkable: true
-        iconName: checked ? "media-playback-stop" : "burst"
+        icon.name: checked ? "media-playback-stop" : "burst"
         text: checked? i18n("End Burst") : i18n("Capture a Burst")
         property int photosTaken: 0
         modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
@@ -109,6 +113,7 @@ Kirigami.ApplicationWindow
         enabled: devicesModel.playingDevice && !videoMode.checked
         onCheckedChanged: if (checked) {
             photosTaken = 0
+            lastMode = burstMode
         }
 
         readonly property var smth: Timer {
@@ -126,14 +131,15 @@ Kirigami.ApplicationWindow
         id: videoMode
         mimes: "video/x-matroska"
         checkable: true
-        iconName: checked ? "media-playback-stop" : "camera-video-symbolic"
+        icon.name: checked ? "media-playback-stop" : "camera-video-symbolic"
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
         enabled: devicesModel.playingDevice && !burstMode.checked
 
-        onCheckedChanged: {
+        onCheckedChanged: checked => {
             webcam.isRecording = checked;
+            lastMode = videoMode
         }
     }
 
@@ -149,10 +155,11 @@ Kirigami.ApplicationWindow
         rightPadding: 0
         bottomPadding: 0
 
+        // Should probably make it switch modes without having to trigger them, or maybe just show all modes at once?
         contentItem: ImagesView {
             implicitWidth: Kirigami.Units.gridUnit * 20
-            mimeFilter: root.pageStack.currentItem.actions.main.mimes
-            nameFilter: root.pageStack.currentItem.actions.main.nameFilter
+            mimeFilter: lastMode.mimes
+            nameFilter: lastMode.nameFilter
         }
     }
 
@@ -190,7 +197,7 @@ Kirigami.ApplicationWindow
 
     Shortcut {
         sequence: "Return"
-        onActivated: visor.actions.main.triggered(null)
+        onActivated: lastMode.triggered(null)
     }
 
     pageStack.initialPage: Kirigami.Page {
@@ -200,11 +207,7 @@ Kirigami.ApplicationWindow
         rightPadding: 0
         leftPadding: 0
 
-        actions {
-            left: videoMode
-            main: photoMode
-            right: burstMode
-        }
+        actions: [ videoMode, photoMode, burstMode ]
 
         Rectangle {
             anchors.fill: parent

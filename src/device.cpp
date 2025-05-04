@@ -34,7 +34,7 @@ QString objectIdFromProperties(GstStructure* st)
 //     gst-device-monitor-1.0 Video/Source
 Device::Device(GstDevice *device, QObject* parent)
     : QObject(parent)
-    , m_description(gst_device_get_display_name(device))
+    , m_description(QString::fromUtf8(gst_device_get_display_name(device)))
     , m_device(device)
 {
     auto st = gst_device_get_properties(device);

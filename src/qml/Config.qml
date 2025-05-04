@@ -4,12 +4,12 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.0
 import KamosoQtGStreamer 1.0
-import org.kde.kamoso 3.0
-import org.kde.kirigami 2.9 as Kirigami
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import org.kde.kamoso
+import org.kde.kirigami as Kirigami
 
 GridView {
     id: view
