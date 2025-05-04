@@ -4,7 +4,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import org.kde.kirigami 2.0
+import org.kde.kirigami
 
 Action {
     id: modeAction

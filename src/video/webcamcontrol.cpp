@@ -193,21 +193,21 @@ WebcamControl::WebcamControl()
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
     engine->rootContext()->setContextObject(new KLocalizedContext(engine));
 
-    qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", "You're not supposed to mess with this yo");
+    qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", QStringLiteral("You're not supposed to mess with this yo"));
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
     qmlRegisterType<QGst::Quick::VideoItem>("KamosoQtGStreamer", 1, 0, "VideoItem");
 
-    qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", "you're not supposed to do that");
+    qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", QStringLiteral("you're not supposed to do that"));
 
     m_kamoso = new Kamoso(this);
     m_surface = new QGst::Quick::VideoSurface(this);
-    engine->rootContext()->setContextProperty("config", Settings::self());
-    engine->rootContext()->setContextProperty("devicesModel", DeviceManager::self());
-    engine->rootContext()->setContextProperty("webcam", m_kamoso);
-    engine->rootContext()->setContextProperty("videoSurface1", m_surface);
-    engine->load(QUrl("qrc:/qml/Main.qml"));
+    engine->rootContext()->setContextProperty(QStringLiteral("config"), Settings::self());
+    engine->rootContext()->setContextProperty(QStringLiteral("devicesModel"), DeviceManager::self());
+    engine->rootContext()->setContextProperty(QStringLiteral("webcam"), m_kamoso);
+    engine->rootContext()->setContextProperty(QStringLiteral("videoSurface1"), m_surface);
+    engine->load(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
 
     g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
 
@@ -337,7 +337,7 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
 
     g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
-    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/kamoso_photo.jpg";
+    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation) + u"/kamoso_photo.jpg";
     g_object_set(m_pipeline.data(), "location", path.toUtf8().constData(), nullptr);
 
     g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
@@ -353,7 +353,7 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
 
 void WebcamControl::startRecording()
 {
-    QString date = QDateTime::currentDateTime().toString("ddmmyyyy_hhmmss");
+    QString date = QDateTime::currentDateTime().toString(u"ddmmyyyy_hhmmss");
     m_tmpVideoPath = QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
 
     g_object_set(m_pipeline.data(), "mode", 2, nullptr);

@@ -21,7 +21,7 @@ class PreviewFetcher : public QObject
     Q_PROPERTY(QSize size READ size WRITE setSize)
     Q_PROPERTY(QSize previewSize READ previewSize NOTIFY previewChanged)
     public:
-        explicit PreviewFetcher(QObject* parent = 0);
+        explicit PreviewFetcher(QObject* parent = nullptr);
 
         QUrl url() const;
         void setUrl(const QUrl& url);
