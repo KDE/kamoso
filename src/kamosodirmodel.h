@@ -22,7 +22,7 @@ class KamosoDirModel : public KDirSortFilterProxyModel
             MimeType
         };
 
-        explicit KamosoDirModel(QObject* parent = 0);
+        explicit KamosoDirModel(QObject* parent = nullptr);
         void setUrl(const QUrl& url);
         QUrl url() const;
 

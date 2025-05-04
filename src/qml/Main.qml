@@ -78,7 +78,7 @@ Kirigami.ApplicationWindow
         id: photoMode
         mimes: "image/jpeg"
         checkable: false
-        iconName: "camera-photo-symbolic"
+        icon.name: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
         enabled: devicesModel.playingDevice
@@ -101,7 +101,7 @@ Kirigami.ApplicationWindow
         id: burstMode
         mimes: "image/jpeg"
         checkable: true
-        iconName: checked ? "media-playback-stop" : "burst"
+        icon.name: checked ? "media-playback-stop" : "burst"
         text: checked? i18n("End Burst") : i18n("Capture a Burst")
         property int photosTaken: 0
         modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
@@ -126,7 +126,7 @@ Kirigami.ApplicationWindow
         id: videoMode
         mimes: "video/x-matroska"
         checkable: true
-        iconName: checked ? "media-playback-stop" : "camera-video-symbolic"
+        icon.name: checked ? "media-playback-stop" : "camera-video-symbolic"
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: webcam.recordingTime
         nameFilter: "video_*"
@@ -151,8 +151,8 @@ Kirigami.ApplicationWindow
 
         contentItem: ImagesView {
             implicitWidth: Kirigami.Units.gridUnit * 20
-            mimeFilter: root.pageStack.currentItem.actions.main.mimes
-            nameFilter: root.pageStack.currentItem.actions.main.nameFilter
+            mimeFilter: root.pageStack.currentItem.actions[1].mimes
+            nameFilter: root.pageStack.currentItem.actions[1].nameFilter
         }
     }
 
@@ -190,7 +190,7 @@ Kirigami.ApplicationWindow
 
     Shortcut {
         sequence: "Return"
-        onActivated: visor.actions.main.triggered(null)
+        onActivated: visor.actions[1].triggered(null)
     }
 
     pageStack.initialPage: Kirigami.Page {
@@ -200,11 +200,7 @@ Kirigami.ApplicationWindow
         rightPadding: 0
         leftPadding: 0
 
-        actions {
-            left: videoMode
-            main: photoMode
-            right: burstMode
-        }
+        actions: [ videoMode, photoMode, burstMode ]
 
         Rectangle {
             anchors.fill: parent
