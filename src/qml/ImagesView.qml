@@ -4,14 +4,14 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQml 2.2
-import QtQuick 2.0
-import QtQuick.Controls 2.15 as QQC2
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.2
-import org.kde.kamoso 3.0
-import org.kde.purpose 1.0
-import org.kde.kirigami 2.12 as Kirigami
+import QtQml
+import QtQuick
+import QtQuick.Controls as QQC2
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import org.kde.kamoso
+import org.kde.purpose
+import org.kde.kirigami as Kirigami
 
 QQC2.StackView {
     id: stack
@@ -92,9 +92,9 @@ QQC2.StackView {
                 }
 
                 verticalLayoutDirection: ListView.BottomToTop
-                delegate: Kirigami.BasicListItem {
-                    label: display
-                    icon: model.iconName
+                delegate: QQC2.ItemDelegate {
+                    text: display
+                    icon.name: model.iconName
                     onClicked: altsView.createJob(index);
                 }
 
@@ -103,9 +103,9 @@ QQC2.StackView {
                 }
             }
 
-            Kirigami.BasicListItem {
-                label: i18n("Back")
-                icon: "go-previous"
+            QQC2.ItemDelegate {
+                text: i18n("Back")
+                icon.name: "go-previous"
                 onClicked: stack.pop()
             }
         }
@@ -148,8 +148,8 @@ QQC2.StackView {
             Kirigami.Separator {
                 Layout.fillWidth: true
             }
-            Kirigami.BasicListItem {
-                label: i18n("Back")
+            QQC2.ItemDelegate {
+                text: i18n("Back")
                 onClicked: {
                     stack.pop()
                 }
@@ -211,16 +211,13 @@ QQC2.StackView {
                             dirSelector.visible = true
                         }
 
-                        FileDialog {
+                        FolderDialog {
                             id: dirSelector
                             title: i18n("Choose the folder where Kamoso will save pictures")
-                            folder: config.saveUrl
-                            selectMultiple: false
-                            selectExisting: true
-                            selectFolder: true
+                            currentFolder: config.saveUrl
 
-                            onFileUrlChanged: {
-                                config.saveUrl = dirSelector.fileUrl
+                            onSelectedFolderChanged: {
+                                config.saveUrl = dirSelector.selectedFolder
                                 config.save()
                             }
                         }
@@ -258,16 +255,16 @@ QQC2.StackView {
                         }
                     }
 
-                    FileDialog {
+                    FolderDialog {
                         id: videoDirSelector
                         title: i18n("Choose the folder where Kamoso will save videos")
-                        folder: config.saveVideos
-                        selectMultiple: false
-                        selectExisting: true
-                        selectFolder: true
+                        currentFolder: config.saveVideos
+                        // selectMultiple: false
+                        // selectExisting: true
+                        // selectFolder: true
 
-                        onFileUrlChanged: {
-                            config.saveVideos = videoDirSelector.fileUrl
+                        onSelectedFolderChanged: {
+                            config.saveVideos = videoDirSelector.selectedFolder
                             config.save()
                         }
                     }
@@ -286,7 +283,7 @@ QQC2.StackView {
                     textRole: "display"
                     visible: count>1
                     onActivated: {
-                        devicesModel.playingDevice = devicesModel.deviceAt(index)
+                        DevicesModel.playingDevice = DevicesModel.data(index, ObjectSerialRole)
                     }
                 }
 
@@ -302,9 +299,9 @@ QQC2.StackView {
                 Layout.fillHeight: true
             }
 
-            Kirigami.BasicListItem {
-                label: i18n("Back")
-                icon: "go-previous"
+            QQC2.ItemDelegate {
+                text: i18n("Back")
+                icon.name: "go-previous"
                 onClicked: stack.pop()
             }
         }
@@ -338,35 +335,35 @@ QQC2.StackView {
                 Layout.fillWidth: true
             }
 
-            Kirigami.BasicListItem {
+            QQC2.ItemDelegate {
                 enabled: view.selection.length > 0
 
-                icon: "document-share"
-                label: enabled? i18np("Share %1 Item...", "Share %1 Items...", view.selection.length) : i18n("Share Item...")
+                icon.name: "document-share"
+                text: enabled? i18np("Share %1 Item...", "Share %1 Items...", view.selection.length) : i18n("Share Item...")
                 onClicked: stack.push(chooseShareComponent, { selection: view.selection })
             }
 
-            Kirigami.BasicListItem {
+            QQC2.ItemDelegate {
                 enabled: view.selection.length > 0
 
-                icon: "user-trash"
-                label: enabled ? i18np("Move %1 Item to Trash", "Move %1 Items to Trash", view.selection.length) : i18n("Move Item to Trash")
+                icon.name: "user-trash"
+                text: enabled ? i18np("Move %1 Item to Trash", "Move %1 Items to Trash", view.selection.length) : i18n("Move Item to Trash")
 
                 onClicked: {
                     webcam.trashFiles(view.selection);
                 }
             }
 
-            Kirigami.BasicListItem {
-                icon: "folder-open"
-                label: i18n("Open Pictures Folder")
+            QQC2.ItemDelegate {
+                icon.name: "folder-open"
+                text: i18n("Open Pictures Folder")
 
                 onClicked: Qt.openUrlExternally(config.saveUrl)
             }
 
-            Kirigami.BasicListItem {
-                icon: "configure"
-                label: i18n("Configure Kamoso...")
+            QQC2.ItemDelegate {
+                icon.name: "configure"
+                text: i18n("Configure Kamoso...")
                 onClicked: {
                     stack.push(configureComponent, { selection: view.selection })
                 }
