@@ -73,7 +73,7 @@ msgstr "© 2008-2015 Alex Fiestas e Aleix Pol"
 #: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr "Aleix Pol Gonzalez"
+msgstr "Aleix Pol i Gonzàlez"
 
 #: src/main.cpp:26
 #, kde-format
