@@ -26,18 +26,18 @@
 #include <gst/gstmessage.h>
 #include <gst/gst.h>
 
-#include "QGst/Quick/VideoItem"
 #include <QDir>
 #include <QDebug>
+#include <QRunnable>
+#include <QThread>
 
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlApplicationEngine>
+#include <QQuickWindow>
 #include <qqml.h>
 #include <KJob>
 #include <KLocalizedContext>
-
-#include "QGst/Quick/VideoSurface"
 
 static QString debugMessage(GstMessage* msg)
 {
@@ -75,15 +75,11 @@ class PipelineItem : public QObject, public QQmlParserStatus
 Q_OBJECT
 Q_INTERFACES(QQmlParserStatus)
 Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
-Q_PROPERTY(QObject* surface READ surface CONSTANT)
 Q_PROPERTY(bool playing READ playing WRITE setPlaying NOTIFY playingChanged)
 public:
     PipelineItem()
         : QObject()
-        , m_surface(new QGst::Quick::VideoSurface(this))
     {
-        g_object_ref(m_surface->videoSink());
-        g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
     }
 
     ~PipelineItem() {
@@ -114,7 +110,6 @@ public:
         refresh();
     }
 
-    QGst::Quick::VideoSurface *surface() const { return m_surface; }
     QString description() const { return m_description; }
     void setDescription(const QString &desc) {
         if (m_description != desc) {
@@ -126,7 +121,7 @@ public:
     }
 
     Q_SCRIPTABLE void refresh() {
-        if (!m_description.isEmpty() && m_complete) {
+        if (!m_description.isEmpty() && m_complete && parent()) {
             if(m_pipeline)
                 gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
@@ -139,13 +134,17 @@ public:
             }
             Q_ASSERT(m_pipeline);
 
-            gst_bin_add(GST_BIN(m_pipeline.data()), m_surface->videoSink());
-            Q_ASSERT(m_pipeline);
-
             auto lastItem = gst_bin_get_by_name(GST_BIN(m_pipeline.data()), "last");
             Q_ASSERT(lastItem);
-            bool b = gst_element_link(lastItem, m_surface->videoSink());
-            Q_ASSERT(b);
+
+            auto glupload = gst_element_factory_make_full("glupload", nullptr);
+            auto sink = gst_element_factory_make_full("qml6glsink", "name", "videosink"
+                                                                          , "widget", qobject_cast<QQuickItem *>(parent())
+                                                                          , "async", true
+                                                                          , nullptr);
+            gst_bin_add_many(GST_BIN(m_pipeline.data()), glupload, sink, nullptr);
+            bool correct = gst_element_link_many(lastItem, glupload, sink, nullptr);
+            Q_ASSERT(correct);
             gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &pipelineWatch, this);
         }
         setPlaying(m_playing);
@@ -183,13 +182,26 @@ private:
     bool m_complete = false;
     QString m_description;
     GstPointer<GstPipeline> m_pipeline;
-    QGst::Quick::VideoSurface * const m_surface;
+    GstPointer<GstElement> m_viewfinder;
+};
+
+class PlayWebcam : public QRunnable
+{
+public:
+    PlayWebcam(WebcamControl *wc)
+        : m_wc(wc)
+    {}
+
+    void run() override {
+        m_wc->play();
+    }
+
+private:
+    WebcamControl *const m_wc;
 };
 
 WebcamControl::WebcamControl()
 {
-    gst_init(NULL, NULL);
-
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
     engine->rootContext()->setContextObject(new KLocalizedContext(engine));
 
@@ -197,22 +209,23 @@ WebcamControl::WebcamControl()
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
-    qmlRegisterType<QGst::Quick::VideoItem>("KamosoQtGStreamer", 1, 0, "VideoItem");
 
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", QStringLiteral("you're not supposed to do that"));
 
     m_kamoso = new Kamoso(this);
-    m_surface = new QGst::Quick::VideoSurface(this);
     engine->rootContext()->setContextProperty(QStringLiteral("config"), Settings::self());
     engine->rootContext()->setContextProperty(QStringLiteral("devicesModel"), DeviceManager::self());
     engine->rootContext()->setContextProperty(QStringLiteral("webcam"), m_kamoso);
-    engine->rootContext()->setContextProperty(QStringLiteral("videoSurface1"), m_surface);
     engine->load(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
-
-    g_object_set(m_surface->videoSink(), "force-aspect-ratio", true, NULL);
+    auto rootObject = qobject_cast<QQuickWindow *> (engine->rootObjects().constFirst());
+    m_surface = rootObject->findChild<QQuickItem *>("sink");
+    Q_ASSERT(m_surface);
 
     connect(DeviceManager::self(), &DeviceManager::playingDeviceChanged, this, &WebcamControl::play);
     connect(DeviceManager::self(), &DeviceManager::noDevices, this, &WebcamControl::stop);
+
+    // If we call play too early, qml6glsink freaks out
+    rootObject->scheduleRenderJob(new PlayWebcam(this), QQuickWindow::BeforeSynchronizingStage);
 }
 
 WebcamControl::~WebcamControl()
@@ -224,8 +237,6 @@ WebcamControl::~WebcamControl()
 
 void WebcamControl::stop()
 {
-    qDebug() << "Stop";
-
     if(m_pipeline) {
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
         m_pipeline.reset(nullptr);
@@ -269,6 +280,22 @@ bool WebcamControl::playDevice(Device *device)
             return false;
         }
     }
+    if (!m_viewfinder) {
+        Q_ASSERT(m_surface);
+        m_viewfinder.reset(gst_bin_new("viewfinder"));
+        auto glupload = gst_element_factory_make_full("glupload", nullptr);
+        auto sink = gst_element_factory_make_full("qml6glsink", "name", "videosink"
+                                                                    , "widget", m_surface
+                                                                    , "async", true
+                                                                    , nullptr);
+        gst_bin_add_many(GST_BIN(m_viewfinder.data()), glupload, sink, nullptr);
+        gst_element_link(glupload, sink);
+
+        // Add ghost pad to expose sink pad of glupload as the bin's pad
+        GstPad *sink_pad = gst_element_get_static_pad(glupload, "sink");
+        gst_element_add_pad(m_viewfinder.data(), gst_ghost_pad_new("sink", sink_pad));
+        gst_object_unref(sink_pad);
+    }
 
     GstElement* source;
     g_object_get(m_cameraSource.data(), "video-source", &source, nullptr);
@@ -281,7 +308,7 @@ bool WebcamControl::playDevice(Device *device)
         m_pipeline.reset(GST_PIPELINE(gst_element_factory_make("camerabin", "camerabin")));
         gst_bus_add_watch (gst_pipeline_get_bus(m_pipeline.data()), &webcamWatch, this);
         g_object_set(m_pipeline.data(), "camera-source", m_cameraSource.data(), nullptr);
-        g_object_set(m_pipeline.data(), "viewfinder-sink", m_surface->videoSink(), nullptr);
+        g_object_set(m_pipeline.data(), "viewfinder-sink", m_viewfinder.data(), nullptr);
     }
 
     setVideoSettings();
