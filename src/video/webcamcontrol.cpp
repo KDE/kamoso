@@ -40,8 +40,6 @@
 #include <KJob>
 #include <KLocalizedContext>
 
-#include "QGst/Quick/VideoSurface"
-
 static QString debugMessage(GstMessage* msg)
 {
     gchar *debug = nullptr;
