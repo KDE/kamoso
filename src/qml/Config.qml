@@ -4,12 +4,12 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import KamosoQtGStreamer 1.0
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Dialogs
 import org.kde.kamoso
 import org.kde.kirigami as Kirigami
+import org.freedesktop.gstreamer.Qt6GLVideoItem
 
 GridView {
     id: view
@@ -86,12 +86,11 @@ GridView {
             width:  delegateItem.width - (borderWidth * 2)
             height: delegateItem.height - (borderWidth * 2)
 
-            VideoItem {
+            GstGLQt6VideoItem {
                 anchors.fill: parent
+                acceptEvents: false
 
                 PipelineItem {
-                    id: pipe
-
                     playing: false
                     onFailed: {
                         delegateItem.visible = false
@@ -100,7 +99,6 @@ GridView {
 
                     description: view.sampleImage.length === 0 ? "" : "filesrc location=\"" + view.sampleImage + "\" ! decodebin ! imagefreeze ! videoconvert ! " + model.filters + " name=last"
                 }
-                surface: pipe.surface
             }
 
             onClicked: {
