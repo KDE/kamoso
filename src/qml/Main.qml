@@ -8,9 +8,9 @@ import QtQuick 2.5
 import QtQuick.Controls 2.0 as QQC2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
-import KamosoQtGStreamer 1.0
 import org.kde.kirigami 2.9 as Kirigami
 import org.kde.kamoso 3.0
+import org.freedesktop.gstreamer.Qt6GLVideoItem
 
 Kirigami.ApplicationWindow
 {
@@ -215,8 +215,9 @@ Kirigami.ApplicationWindow
             z: -1
         }
 
-        VideoItem {
-            surface: videoSurface1
+        GstGLQt6VideoItem {
+            acceptEvents: false
+            objectName: "sink"
             anchors.fill: parent
         }
 
