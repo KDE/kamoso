@@ -58,7 +58,6 @@ GridView {
 
     property string sampleImage: ""
     onVisibleChanged: if (view.visible) {
-        webcam.sampleImage
         delayedUpdateTimer.restart()
     }
 
