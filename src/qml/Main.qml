@@ -177,19 +177,19 @@ Kirigami.ApplicationWindow
         rightPadding: Kirigami.Units.smallSpacing
         bottomPadding: Kirigami.Units.smallSpacing
 
-        contentItem: Config {
-            id: configView
+        contentItem: QQC2.ScrollView {
+            Config {
+                id: configView
 
-            QQC2.ScrollBar.vertical: QQC2.ScrollBar {}
-
-            header: QQC2.Control {
-                height: effectsGalleryHeading.height + Kirigami.Units.largeSpacing
-                Kirigami.Heading {
-                    id: effectsGalleryHeading
-                    level: 1
-                    color: Kirigami.Theme.textColor
-                    elide: Text.ElideRight
-                    text: i18n("Effects Gallery")
+                header: QQC2.Control {
+                    height: effectsGalleryHeading.height + Kirigami.Units.largeSpacing
+                    Kirigami.Heading {
+                        id: effectsGalleryHeading
+                        level: 1
+                        color: Kirigami.Theme.textColor
+                        elide: Text.ElideRight
+                        text: i18n("Effects Gallery")
+                    }
                 }
             }
         }
