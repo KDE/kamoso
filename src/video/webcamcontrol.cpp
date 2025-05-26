@@ -204,18 +204,18 @@ WebcamControl::WebcamControl()
 {
     QQmlApplicationEngine* engine = new QQmlApplicationEngine(this);
     engine->rootContext()->setContextObject(new KLocalizedContext(engine));
+    m_kamoso = new Kamoso(this);
 
     qmlRegisterUncreatableType<Device>("org.kde.kamoso", 3, 0, "Device", QStringLiteral("You're not supposed to mess with this yo"));
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
+    qmlRegisterSingletonInstance<Kamoso>("org.kde.kamoso", 3, 0, "Kamoso", m_kamoso);
+    qmlRegisterSingletonInstance<DeviceManager>("org.kde.kamoso", 3, 0, "DeviceManager", DeviceManager::self());
+    qmlRegisterSingletonInstance<Settings>("org.kde.kamoso", 3, 0, "Settings", Settings::self());
 
     qmlRegisterUncreatableType<KJob>("org.kde.kamoso", 3, 0, "KJob", QStringLiteral("you're not supposed to do that"));
 
-    m_kamoso = new Kamoso(this);
-    engine->rootContext()->setContextProperty(QStringLiteral("config"), Settings::self());
-    engine->rootContext()->setContextProperty(QStringLiteral("devicesModel"), DeviceManager::self());
-    engine->rootContext()->setContextProperty(QStringLiteral("webcam"), m_kamoso);
     engine->load(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
     auto rootObject = qobject_cast<QQuickWindow *> (engine->rootObjects().constFirst());
     m_surface = rootObject->findChild<QQuickItem *>("sink");

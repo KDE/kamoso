@@ -190,7 +190,7 @@ QQC2.StackView {
                     QQC2.TextField {
                         readOnly: true
                         Layout.fillWidth: true
-                        text: stack.pathOrUrl(config.saveUrl)
+                        text: stack.pathOrUrl(Settings.saveUrl)
                     }
 
                     QQC2.Button {
@@ -214,11 +214,11 @@ QQC2.StackView {
                         FolderDialog {
                             id: dirSelector
                             title: i18n("Choose the folder where Kamoso will save pictures")
-                            currentFolder: config.saveUrl
+                            currentFolder: Settings.saveUrl
 
                             onSelectedFolderChanged: {
-                                config.saveUrl = dirSelector.selectedFolder
-                                config.save()
+                                Settings.saveUrl = dirSelector.selectedFolder
+                                Settings.save()
                             }
                         }
                     }
@@ -233,7 +233,7 @@ QQC2.StackView {
                     QQC2.TextField {
                         readOnly: true
                         Layout.fillWidth: true
-                        text: stack.pathOrUrl(config.saveVideos)
+                        text: stack.pathOrUrl(Settings.saveVideos)
                     }
 
                     QQC2.Button {
@@ -258,14 +258,14 @@ QQC2.StackView {
                     FolderDialog {
                         id: videoDirSelector
                         title: i18n("Choose the folder where Kamoso will save videos")
-                        currentFolder: config.saveVideos
+                        currentFolder: Settings.saveVideos
                         // selectMultiple: false
                         // selectExisting: true
                         // selectFolder: true
 
                         onSelectedFolderChanged: {
-                            config.saveVideos = videoDirSelector.selectedFolder
-                            config.save()
+                            Settings.saveVideos = videoDirSelector.selectedFolder
+                            Settings.save()
                         }
                     }
                 }
@@ -279,7 +279,7 @@ QQC2.StackView {
                 QQC2.ComboBox {
                     id: camerasCombo
                     Layout.fillWidth: parent
-                    model: devicesModel
+                    model: DeviceManager
                     textRole: "display"
                     visible: count>1
                     onActivated: {
@@ -289,8 +289,8 @@ QQC2.StackView {
 
                 QQC2.CheckBox {
                     text: i18nc("@option:check as in, 'mirror the camera'", "Mirror camera")
-                    checked: config.mirrored
-                    onCheckedChanged: config.mirrored = checked
+                    checked: Settings.mirrored
+                    onCheckedChanged: Settings.mirrored = checked
                 }
             }
 
@@ -327,7 +327,7 @@ QQC2.StackView {
 
                     visible: view.count == 0
 
-                    text: xi18nc("@info", "There are no images in <filename>%1</filename>", stack.pathOrUrl(config.saveUrl))
+                    text: xi18nc("@info", "There are no images in <filename>%1</filename>", stack.pathOrUrl(Settings.saveUrl))
                 }
             }
 
@@ -350,7 +350,7 @@ QQC2.StackView {
                 text: enabled ? i18np("Move %1 Item to Trash", "Move %1 Items to Trash", view.selection.length) : i18n("Move Item to Trash")
 
                 onClicked: {
-                    webcam.trashFiles(view.selection);
+                    Kamoso.trashFiles(view.selection);
                 }
             }
 
@@ -358,7 +358,7 @@ QQC2.StackView {
                 icon.name: "folder-open"
                 text: i18n("Open Pictures Folder")
 
-                onClicked: Qt.openUrlExternally(config.saveUrl)
+                onClicked: Qt.openUrlExternally(Settings.saveUrl)
             }
 
             QQC2.ItemDelegate {
