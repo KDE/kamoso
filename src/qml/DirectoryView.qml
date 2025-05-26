@@ -26,7 +26,7 @@ GridView
 
     model: DirModel {
         id: model
-        url: config.saveUrl
+        url: Settings.saveUrl
     }
     onCountChanged: {
         view.selection = []
