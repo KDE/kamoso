@@ -150,15 +150,24 @@ void Kamoso::trashFiles(const QJsonArray& urls)
 //     KJobWidgets::setWindow(job, window);
 }
 
-QString Kamoso::sampleImage()
+void Kamoso::setSampleImage(const QString &path)
 {
-    if (m_sampleImagePath.isEmpty()) {
-        m_temporaryFile.reset(new QTemporaryFile(QDir::temp().absoluteFilePath(QStringLiteral("XXXXXX-sampleimage.jpg"))));
-        m_temporaryFile->open();
-        m_sampleImagePath = m_temporaryFile->fileName();
-        m_temporaryFile->close();
+    if (path == m_sampleImagePath)
+        return;
+    m_sampleImagePath = path;
+    Q_EMIT sampleImageChanged(path);
+}
 
-        m_webcamControl->takePhoto(QUrl::fromLocalFile(m_sampleImagePath), false);
+QString Kamoso::sampleImage() const
+{
+    if (!m_sampleRequested && m_sampleImagePath.isEmpty()) {
+        m_sampleRequested = true;
+        auto temporaryFile = std::make_unique<QTemporaryFile>(QDir::temp().absoluteFilePath(QStringLiteral("XXXXXX-sampleimage.jpg")));
+        temporaryFile->open();
+        const auto path = temporaryFile->fileName();
+        temporaryFile->close();
+
+        m_webcamControl->takePhoto(QUrl::fromLocalFile(path), false);
     }
     return m_sampleImagePath;
 }

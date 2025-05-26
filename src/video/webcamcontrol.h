@@ -23,6 +23,7 @@ class Device;
 class WebcamControl : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString currentDevice READ currentDevice NOTIFY currentDeviceChanged)
     public:
         WebcamControl();
         virtual ~WebcamControl();
@@ -36,6 +37,7 @@ class WebcamControl : public QObject
             }
         }
 
+        QString currentDevice() const { return m_currentDevice; }
         bool mirrored() const { return m_mirror; }
 
     public Q_SLOTS:
@@ -52,6 +54,7 @@ class WebcamControl : public QObject
     Q_SIGNALS:
         void photoTaken(const QString &photoUrl);
         void mirroredChanged(bool mirrored);
+        void currentDeviceChanged();
 
     private:
         void updateSourceFilter();
