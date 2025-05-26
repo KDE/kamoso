@@ -36,9 +36,11 @@ Q_OBJECT
         void setRecording(bool recording);
 
         Q_SCRIPTABLE void trashFiles(const QJsonArray& urls);
-        QString sampleImage();
-        void setMirrored(bool m);
 
+        void setSampleImage(const QString &path);
+        QString sampleImage() const;
+
+        void setMirrored(bool m);
         bool mirrored() const;
 
     public Q_SLOTS:
@@ -60,7 +62,7 @@ Q_OBJECT
         QTimer m_recordingTimer;
         QElapsedTimer m_recordingTime;
         QString m_sampleImagePath;
-        QScopedPointer<QTemporaryFile> m_temporaryFile;
+        mutable bool m_sampleRequested = false;
 };
 
 #endif // KAMOSO_H

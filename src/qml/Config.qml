@@ -55,20 +55,7 @@ GridView {
         ListElement { filters: "coloreffects preset=xray" }
     }
 
-
-    property string sampleImage: ""
-    onVisibleChanged: if (view.visible) {
-        delayedUpdateTimer.restart()
-    }
-
-    Timer {
-        id: delayedUpdateTimer
-        interval: 500
-        repeat: false
-        onTriggered: {
-            sampleImage = Kamoso.sampleImage;
-        }
-    }
+    readonly property string sampleImage: view.visible && WebcamControl.currentDevice.length > 0 && sampleImage !== Kamoso.sampleImage ? Kamoso.sampleImage : ""
 
     delegate: Rectangle {
         readonly property int borderWidth: 2

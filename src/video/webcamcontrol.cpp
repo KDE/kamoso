@@ -52,7 +52,7 @@ static QString debugMessage(GstMessage* msg)
         return {};
 
     if (e) {
-        qWarning() << "error debugMessage:" << e->message;
+        // qWarning() << "error debugMessage:" << e->message;
         g_error_free (e);
     }
     const auto ret = QString::fromUtf8(debug);
@@ -210,6 +210,7 @@ WebcamControl::WebcamControl()
     qmlRegisterType<KamosoDirModel>("org.kde.kamoso", 3, 0, "DirModel");
     qmlRegisterType<PreviewFetcher>("org.kde.kamoso", 3, 0, "PreviewFetcher");
     qmlRegisterType<PipelineItem>("org.kde.kamoso", 3, 0, "PipelineItem");
+    qmlRegisterSingletonInstance<WebcamControl>("org.kde.kamoso", 3, 0, "WebcamControl", this);
     qmlRegisterSingletonInstance<Kamoso>("org.kde.kamoso", 3, 0, "Kamoso", m_kamoso);
     qmlRegisterSingletonInstance<DeviceManager>("org.kde.kamoso", 3, 0, "DeviceManager", DeviceManager::self());
     qmlRegisterSingletonInstance<Settings>("org.kde.kamoso", 3, 0, "Settings", Settings::self());
@@ -318,6 +319,7 @@ bool WebcamControl::playDevice(Device *device)
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 
     m_currentDevice = device->objectId();
+    Q_EMIT currentDeviceChanged();
     return true;
 }
 
@@ -341,8 +343,12 @@ void WebcamControl::onBusMessage(GstMessage* message)
             auto structure = gst_message_get_structure (message);
             if (gst_structure_get_name (structure) == QByteArray("image-done")) {
                 const gchar *filename = gst_structure_get_string (structure, "filename");
+                const QString file = QString::fromUtf8(filename);
                 if (m_emitTaken)
-                    Q_EMIT photoTaken(QString::fromUtf8(filename));
+                    Q_EMIT photoTaken(file);
+                else {
+                    m_kamoso->setSampleImage(file);
+                }
             }
         } else {
             qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
