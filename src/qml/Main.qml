@@ -38,7 +38,7 @@ Kirigami.ApplicationWindow
     }
 
     Connections {
-        target: webcam
+        target: Kamoso
         function onError(error) { showPassiveNotification(error) }
     }
 
@@ -82,23 +82,23 @@ Kirigami.ApplicationWindow
         icon.name: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
-        enabled: devicesModel.playingDevice
+        enabled: DeviceManager.playingDevice
 
         onTriggered: {
-            webcam.takePhoto()
+            Kamoso.takePhoto()
             lastMode = photoMode
         }
 
         Connections {
-            target: webcam
+            target: Kamoso
             function onPhotoTaken(path) { awesomeAnimation(path) }
         }
     }
 
     Binding {
-        target: webcam
+        target: Kamoso
         property: "mirrored"
-        value: config.mirrored
+        value: Settings.mirrored
     }
 
     Mode {
@@ -110,7 +110,7 @@ Kirigami.ApplicationWindow
         property int photosTaken: 0
         modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
         nameFilter: "picture_*"
-        enabled: devicesModel.playingDevice && !videoMode.checked
+        enabled: DeviceManager.playingDevice && !videoMode.checked
         onCheckedChanged: if (checked) {
             photosTaken = 0
             lastMode = burstMode
@@ -122,7 +122,7 @@ Kirigami.ApplicationWindow
             interval: 2500
             repeat: true
             onTriggered: {
-                webcam.takePhoto()
+                Kamoso.takePhoto()
                 burstMode.photosTaken++;
             }
         }
@@ -133,12 +133,12 @@ Kirigami.ApplicationWindow
         checkable: true
         icon.name: checked ? "media-playback-stop" : "camera-video-symbolic"
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
-        modeInfo: webcam.recordingTime
+        modeInfo: Kamoso.recordingTime
         nameFilter: "video_*"
-        enabled: devicesModel.playingDevice && !burstMode.checked
+        enabled: DeviceManager.playingDevice && !burstMode.checked
 
         onCheckedChanged: checked => {
-            webcam.isRecording = checked;
+            Kamoso.isRecording = checked;
             lastMode = videoMode
         }
     }
@@ -229,7 +229,7 @@ Kirigami.ApplicationWindow
             }
 
             text: {
-                if (!devicesModel.playingDevice) {
+                if (!DeviceManager.playingDevice) {
                     return i18n("No device found");
                 }
                 if (videoMode.checked) {

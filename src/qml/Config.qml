@@ -66,7 +66,7 @@ GridView {
         interval: 500
         repeat: false
         onTriggered: {
-            sampleImage = webcam.sampleImage;
+            sampleImage = Kamoso.sampleImage;
         }
     }
 
@@ -77,7 +77,7 @@ GridView {
         width: Math.floor(view.width / columnCount) - Kirigami.Units.smallSpacing
         height: width * 3/4
 
-        color: devicesModel.playingDevice.filters === model.filters ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
+        color: DeviceManager.playingDevice.filters === model.filters ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
 
         MouseArea {
             anchors.centerIn: parent
@@ -101,10 +101,10 @@ GridView {
             }
 
             onClicked: {
-                if (devicesModel.playingDevice.filters === model.filters)
-                    devicesModel.playingDevice.filters = ""
+                if (DeviceManager.playingDevice.filters === model.filters)
+                    DeviceManager.playingDevice.filters = ""
                 else
-                    devicesModel.playingDevice.filters = model.filters
+                    DeviceManager.playingDevice.filters = model.filters
             }
         }
     }
