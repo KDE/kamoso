@@ -314,8 +314,6 @@ bool WebcamControl::playDevice(Device *device)
 
     setVideoSettings();
 
-    gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_READY);
-
     gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_PLAYING);
 
     m_currentDevice = device->objectId();
@@ -325,6 +323,7 @@ bool WebcamControl::playDevice(Device *device)
 
 void WebcamControl::onBusMessage(GstMessage* message)
 {
+    // qDebug() << "bus message" << GST_MESSAGE_SRC_NAME (message) << gst_structure_to_string(gst_message_get_structure (message));
     switch (GST_MESSAGE_TYPE (message)) {
     case GST_MESSAGE_EOS: //End of stream. We reached the end of the file.
         stop();
@@ -349,14 +348,26 @@ void WebcamControl::onBusMessage(GstMessage* message)
                 else {
                     m_kamoso->setSampleImage(file);
                 }
+            } else if (gst_structure_get_name (structure) == QByteArray("video-done")) {
+                if (!m_videoDestination.isLocalFile()) {
+                    KJob *job = KIO::move(QUrl::fromLocalFile(m_tmpVideoPath), m_videoDestination);
+                    job->start();
+                    connect(job, &KJob::finished, this, [this, job] {
+                        if (job->error() == 0) {
+                            qDebug() << "video saved successfully";
+                            return;
+                        }
+
+                        qWarning() << "Could not move" << m_tmpVideoPath << "to" << m_videoDestination;
+                        Q_EMIT m_kamoso->error(job->errorString());
+                    });
+                }
+            } else {
+                qDebug() << "Ignoring message from camerabin" << gst_structure_get_name (structure);
             }
-        } else {
-            qDebug() << "skipping message..." << GST_MESSAGE_SRC_NAME (message);
         }
+        break;
     default:
-//         qDebug() << msg->type();
-//         qDebug() << msg->typeName();
-//         qDebug() << msg->internalStructure()->name();
         break;
     }
 }
@@ -384,10 +395,16 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
     }
 }
 
-void WebcamControl::startRecording()
+static QString temporaryVideoFile()
 {
     QString date = QDateTime::currentDateTime().toString(u"ddmmyyyy_hhmmss");
-    m_tmpVideoPath = QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
+    return QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
+}
+
+void WebcamControl::startRecording(const QUrl &destination)
+{
+    m_videoDestination = destination;
+    m_tmpVideoPath = destination.isLocalFile() ? destination.toLocalFile() : temporaryVideoFile();
 
     g_object_set(m_pipeline.data(), "mode", 2, nullptr);
     g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
@@ -395,10 +412,9 @@ void WebcamControl::startRecording()
     g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
 }
 
-QString WebcamControl::stopRecording()
+void WebcamControl::stopRecording()
 {
     g_signal_emit_by_name (m_pipeline.data(), "stop-capture", 0);
-    return m_tmpVideoPath;
 }
 
 void WebcamControl::setExtraFilters(const QString& extraFilters)
