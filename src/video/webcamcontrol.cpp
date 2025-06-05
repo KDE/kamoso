@@ -257,6 +257,15 @@ static gboolean webcamWatch(GstBus     */*bus*/, GstMessage *message, gpointer u
     return G_SOURCE_CONTINUE;
 }
 
+void WebcamControl::captureReadyChanged(GObject *camera_bin, GParamSpec *pspec, gpointer user_data)
+{
+    gboolean is_ready;
+    g_object_get(camera_bin, "ready-for-capture", &is_ready, nullptr);
+
+    WebcamControl* wc = static_cast<WebcamControl*>(user_data);
+    wc->setReadyForCapture(is_ready);
+}
+
 bool WebcamControl::playDevice(Device *device)
 {
     Q_ASSERT(device);
@@ -273,6 +282,10 @@ bool WebcamControl::playDevice(Device *device)
 
     if (!m_cameraSource) {
         m_cameraSource.reset(gst_element_factory_make("wrappercamerabinsrc", ""));
+        g_object_set(m_cameraSource.data(), "async-handling", true, nullptr);
+        g_signal_connect(m_cameraSource.get(), "notify::ready-for-capture",
+                         G_CALLBACK(captureReadyChanged), this);
+
         // Another option here is to return true, therefore continuing with launching, but
         // in that case the application is mostly useless.
         if (m_cameraSource.isNull()) {
@@ -348,22 +361,27 @@ void WebcamControl::onBusMessage(GstMessage* message)
                 else {
                     m_kamoso->setSampleImage(file);
                 }
-            } else if (gst_structure_get_name (structure) == QByteArray("video-done")) {
-                if (!m_videoDestination.isLocalFile()) {
-                    KJob *job = KIO::move(QUrl::fromLocalFile(m_tmpVideoPath), m_videoDestination);
-                    job->start();
-                    connect(job, &KJob::finished, this, [this, job] {
-                        if (job->error() == 0) {
-                            qDebug() << "video saved successfully";
-                            return;
-                        }
+            } else if (gst_structure_get_name(structure) ==
+                       QByteArray("video-done")) {
+              g_object_set(m_pipeline.data(), "mode", 1, nullptr);
+              if (!m_videoDestination.isLocalFile()) {
+                KJob *job = KIO::move(QUrl::fromLocalFile(m_tmpVideoPath),
+                                      m_videoDestination);
+                job->start();
+                connect(job, &KJob::finished, this, [this, job] {
+                  if (job->error() == 0) {
+                    qDebug() << "video saved successfully";
+                    return;
+                  }
 
-                        qWarning() << "Could not move" << m_tmpVideoPath << "to" << m_videoDestination;
-                        Q_EMIT m_kamoso->error(job->errorString());
-                    });
-                }
+                  qWarning() << "Could not move" << m_tmpVideoPath << "to"
+                             << m_videoDestination;
+                  Q_EMIT m_kamoso->error(job->errorString());
+                });
+              }
             } else {
-                qDebug() << "Ignoring message from camerabin" << gst_structure_get_name (structure);
+              qDebug() << "Ignoring message from camerabin"
+                       << gst_structure_get_name(structure);
             }
         }
         break;
@@ -406,15 +424,16 @@ void WebcamControl::startRecording(const QUrl &destination)
     m_videoDestination = destination;
     m_tmpVideoPath = destination.isLocalFile() ? destination.toLocalFile() : temporaryVideoFile();
 
-    g_object_set(m_pipeline.data(), "mode", 2, nullptr);
-    g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
+    g_object_set(m_pipeline.data(), "mode", 2,
+                                    "location", m_tmpVideoPath.toUtf8().constData(),
+                                    nullptr);
 
     g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
 }
 
 void WebcamControl::stopRecording()
 {
-    g_signal_emit_by_name (m_pipeline.data(), "stop-capture", 0);
+    g_signal_emit_by_name(m_pipeline.data(), "stop-capture", 0);
 }
 
 void WebcamControl::setExtraFilters(const QString& extraFilters)
@@ -467,6 +486,16 @@ void WebcamControl::setVideoSettings()
 
     m_extraFilters = device->filters();
     updateSourceFilter();
+}
+
+void WebcamControl::setReadyForCapture(bool readyForCapture)
+{
+    if (m_readyForCapture == readyForCapture) {
+        return;
+    }
+    qDebug() << "camera ready:" << readyForCapture;
+    m_readyForCapture = readyForCapture;
+    Q_EMIT readyForCaptureChanged();
 }
 
 #include "webcamcontrol.moc"
