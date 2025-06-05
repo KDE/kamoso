@@ -45,8 +45,8 @@ class WebcamControl : public QObject
         bool playDevice(Device* device);
         void stop();
         void takePhoto(const QUrl& url, bool emitTaken);
-        void startRecording();
-        QString stopRecording();
+        void startRecording(const QUrl &destination);
+        void stopRecording();
 
     private Q_SLOTS:
         void setExtraFilters(const QString &extraFilters);
@@ -62,6 +62,7 @@ class WebcamControl : public QObject
 
         QString m_extraFilters;
         QString m_tmpVideoPath;
+        QUrl m_videoDestination;
         QString m_currentDevice;
         GstPointer<GstPipeline> m_pipeline;
         GstPointer<GstElement> m_cameraSource;

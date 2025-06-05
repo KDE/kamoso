@@ -92,7 +92,7 @@ void Kamoso::setRecording(bool recording)
         return;
 
     if (recording) {
-        m_webcamControl->startRecording();
+        m_webcamControl->startRecording(fileNameSuggestion(Settings::saveVideos(), QStringLiteral("video"), QStringLiteral("mkv")));
         m_recordingTime.restart();
         m_recordingTimer.start();
         auto job = KIO::mkpath(Settings::saveVideos());
@@ -106,21 +106,7 @@ void Kamoso::setRecording(bool recording)
             Q_EMIT error(job->errorString());
         });
     } else {
-        const QUrl path = fileNameSuggestion(Settings::saveVideos(), QStringLiteral("video"), QStringLiteral("mkv"));
-
-        const auto temp = m_webcamControl->stopRecording();
-        KJob *job = KIO::move(QUrl::fromLocalFile(temp), path);
-        job->start();
-        connect(job, &KJob::finished, this, [this, temp, path, job] {
-            if (job->error() == 0) {
-                qDebug() << "video saved successfully";
-                return;
-            }
-
-            qWarning() << "Could not move" << temp << "to" << path;
-            Q_EMIT error(job->errorString());
-        });
-
+        m_webcamControl->stopRecording();
         m_webcamControl->playDevice(DeviceManager::self()->playingDevice());
         m_recordingTimer.stop();
     }
