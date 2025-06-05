@@ -343,12 +343,15 @@ void WebcamControl::onBusMessage(GstMessage* message)
             if (gst_structure_get_name (structure) == QByteArray("image-done")) {
                 const gchar *filename = gst_structure_get_string (structure, "filename");
                 const QString file = QString::fromUtf8(filename);
+                setBusy(false);
                 if (m_emitTaken)
                     Q_EMIT photoTaken(file);
                 else {
                     m_kamoso->setSampleImage(file);
                 }
             } else if (gst_structure_get_name (structure) == QByteArray("video-done")) {
+                setBusy(false);
+                g_object_set(m_pipeline.data(), "mode", 1, nullptr);
                 if (!m_videoDestination.isLocalFile()) {
                     KJob *job = KIO::move(QUrl::fromLocalFile(m_tmpVideoPath), m_videoDestination);
                     job->start();
@@ -378,6 +381,7 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
         return;
     }
     m_emitTaken = emitTaken;
+    setBusy(true);
 
     g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
@@ -414,6 +418,7 @@ void WebcamControl::startRecording(const QUrl &destination)
 
 void WebcamControl::stopRecording()
 {
+    setBusy(true);
     g_signal_emit_by_name (m_pipeline.data(), "stop-capture", 0);
 }
 

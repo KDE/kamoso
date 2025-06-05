@@ -24,6 +24,7 @@ class WebcamControl : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString currentDevice READ currentDevice NOTIFY currentDeviceChanged)
+    Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
     public:
         WebcamControl();
         virtual ~WebcamControl();
@@ -39,6 +40,7 @@ class WebcamControl : public QObject
 
         QString currentDevice() const { return m_currentDevice; }
         bool mirrored() const { return m_mirror; }
+        bool busy() const { return m_busy > 0; }
 
     public Q_SLOTS:
         bool play();
@@ -55,8 +57,14 @@ class WebcamControl : public QObject
         void photoTaken(const QString &photoUrl);
         void mirroredChanged(bool mirrored);
         void currentDeviceChanged();
+        void busyChanged();
 
     private:
+        void setBusy(bool b) {
+            Q_ASSERT(m_busy != b);
+            m_busy = b;
+            Q_EMIT busyChanged();
+        }
         void updateSourceFilter();
         void setVideoSettings();
 
@@ -71,6 +79,7 @@ class WebcamControl : public QObject
         QQuickItem* m_surface = nullptr;
         bool m_emitTaken = true;
         bool m_mirror = true;
+        bool m_busy = false;
 };
 
 #endif // WEBCAMCONTROL_H

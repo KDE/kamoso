@@ -82,7 +82,7 @@ Kirigami.ApplicationWindow
         icon.name: "camera-photo-symbolic"
         text: i18n("Take a Picture")
         nameFilter: "picture_*"
-        enabled: DeviceManager.playingDevice
+        enabled: DeviceManager.playingDevice && !WebcamControl.busy
 
         onTriggered: {
             Kamoso.takePhoto()
@@ -110,7 +110,7 @@ Kirigami.ApplicationWindow
         property int photosTaken: 0
         modeInfo:  photosTaken > 0 ? i18np("1 photo taken", "%1 photos taken", photosTaken) : ""
         nameFilter: "picture_*"
-        enabled: DeviceManager.playingDevice && !videoMode.checked
+        enabled: DeviceManager.playingDevice && !videoMode.checked && !WebcamControl.busy
         onCheckedChanged: if (checked) {
             photosTaken = 0
             lastMode = burstMode
@@ -135,7 +135,7 @@ Kirigami.ApplicationWindow
         text: checked? i18n("Stop Recording") : i18n("Record a Video")
         modeInfo: Kamoso.recordingTime
         nameFilter: "video_*"
-        enabled: DeviceManager.playingDevice && !burstMode.checked
+        enabled: DeviceManager.playingDevice && !burstMode.checked && !WebcamControl.busy
 
         onCheckedChanged: checked => {
             Kamoso.isRecording = checked;
