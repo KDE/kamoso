@@ -1,19 +1,19 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for kamoso.po package.
+# Copyright (C) 2009-2025 This file is copyright:
+# This file is distributed under the same license as the kamoso package.
 #
-# Alex Fiestas <alex@eyeos.org>, 2009.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2010, 2015, 2017.
-# Kira J. Fernandez <kirajfdez@gmail.com>, 2011.
-# Javier Vinal <fjvinal@gmail.com>, 2012, 2013.
-# Javier Viñal <francisco-javie.vinal@seg-social.es>, 2013.
-# Sergio Ahumada <sahumada@texla.cl>, 2015, 2016.
-# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2018, 2019, 2022, 2023.
+# SPDX-FileCopyrightText: 2009 Alex Fiestas <alex@eyeos.org>
+# SPDX-FileCopyrightText: 2010, 2015, 2017 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2011 Kira J. Fernandez <kirajfdez@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013 Javier Viñal <francisco-javie.vinal@seg-social.es>
+# SPDX-FileCopyrightText: 2015, 2016 Sergio Ahumada <sahumada@texla.cl>
+# SPDX-FileCopyrightText: 2018, 2019, 2022, 2023, 2025 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 01:55+0000\n"
-"PO-Revision-Date: 2023-10-14 17:56+0200\n"
+"PO-Revision-Date: 2025-06-09 02:51+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -173,13 +173,13 @@ msgstr "No hay ninguna imagen en <filename>%1</filename>"
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
-msgstr[0] "Compartir %1 elemento..."
-msgstr[1] "Compartir %1 elementos..."
+msgstr[0] "Compartir %1 elemento…"
+msgstr[1] "Compartir %1 elementos…"
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
 msgid "Share Item..."
-msgstr "Compartir elemento..."
+msgstr "Compartir elemento…"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
@@ -201,7 +201,7 @@ msgstr "Abrir carpeta de fotografías"
 #: src/qml/ImagesView.qml:369
 #, kde-format
 msgid "Configure Kamoso..."
-msgstr "Configurar Kamoso..."
+msgstr "Configurar Kamoso…"
 
 #: src/qml/Main.qml:82
 #, kde-format
