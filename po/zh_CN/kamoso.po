@@ -20,17 +20,20 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "KDE 中国"
+msgstr ""
+"KDE 中国, Guo Yunhe, Henru Hu, liushuyu, njlyf2011, Tyson Tan, Zhou Wenqing"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "kde-china@kde.org"
+msgstr ""
+"kde-china@kde.org, i@GuoYunhe.me, HenruHu@kde.org, liushuyu@kde.org, "
+"njlyf2011@kde.org, tds00@qq.com, ZhouWenqing@kde.org"
 
 #: src/kamoso.cpp:87 src/qml/Main.qml:229
 #, kde-format
 msgid "No device found"
-msgstr ""
+msgstr "没有找到设备"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -43,7 +46,7 @@ msgstr "保存照片的位置。"
 #: src/kamosoSettings.kcfg:22
 #, kde-format
 msgid "Vertically mirror the camera view."
-msgstr "垂直镜像相机。"
+msgstr "垂直镜像相机画面。"
 
 #. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:25
@@ -54,12 +57,12 @@ msgstr "指向最后使用的摄像头"
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
 msgid "Kamoso"
-msgstr "Kamoso"
+msgstr "Kamoso 摄像头"
 
 #: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
-msgstr "使用摄像头照相和录制视频的工具"
+msgstr "使用摄像头拍摄照片和录制视频的工具程序"
 
 #: src/main.cpp:24
 #, kde-format
@@ -74,7 +77,7 @@ msgstr "Aleix Pol Gonzalez"
 #: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
-msgstr "Semaphore 管理器"
+msgstr "Semaphore 黑客"
 
 #: src/main.cpp:27
 #, kde-format
@@ -84,7 +87,7 @@ msgstr "Alex Fiestas"
 #: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
-msgstr "喝咖啡的家伙"
+msgstr "咖啡爱好者"
 
 #: src/main.cpp:28
 #, kde-format
@@ -96,18 +99,18 @@ msgstr "caseymoura"
 msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
 "sounds/445482/"
-msgstr "上传快门声音：https://freesound.org/people/caseymoura/sounds/445482/"
+msgstr "提供快门声音：https://freesound.org/people/caseymoura/sounds/445482/"
 
 #: src/qml/ImagesView.qml:42
 #, kde-format
 msgid "Share"
-msgstr "共享"
+msgstr "分享"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
 #: src/qml/ImagesView.qml:306
 #, kde-format
 msgid "Back"
-msgstr "背面"
+msgstr "返回"
 
 #: src/qml/ImagesView.qml:146
 #, kde-format
@@ -153,7 +156,7 @@ msgstr "摄像头"
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
-msgstr ""
+msgstr "镜像相机画面"
 
 #: src/qml/ImagesView.qml:333
 #, kde-kuit-format
@@ -165,23 +168,23 @@ msgstr "<filename>%1</filename> 中没有图像"
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
-msgstr[0] "共享 %1 项..."
+msgstr[0] "分享 %1 个项目..."
 
 #: src/qml/ImagesView.qml:345
 #, kde-format
 msgid "Share Item..."
-msgstr "共享项..."
+msgstr "分享项目..."
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
-msgstr[0] "移动 %1 项到回收站"
+msgstr[0] "移动 %1 个项目到回收站"
 
 #: src/qml/ImagesView.qml:353
 #, kde-format
 msgid "Move Item to Trash"
-msgstr "移动项到回收站"
+msgstr "移动项目到回收站"
 
 #: src/qml/ImagesView.qml:362
 #, kde-format
@@ -196,7 +199,7 @@ msgstr "配置 Kamoso..."
 #: src/qml/Main.qml:82
 #, kde-format
 msgid "Take a Picture"
-msgstr "拍照"
+msgstr "拍摄照片"
 
 #: src/qml/Main.qml:105
 #, kde-format
@@ -206,7 +209,7 @@ msgstr "结束连拍"
 #: src/qml/Main.qml:105
 #, kde-format
 msgid "Capture a Burst"
-msgstr "捕捉爆发"
+msgstr "快速连拍"
 
 #: src/qml/Main.qml:107
 #, kde-format
@@ -232,7 +235,7 @@ msgstr "效果库"
 #: src/video/webcamcontrol.cpp:350
 #, kde-format
 msgid "Photo taken"
-msgstr "拍摄的照片"
+msgstr "已拍摄照片"
 
 #: src/video/webcamcontrol.cpp:350
 #, kde-format
