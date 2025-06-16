@@ -20,7 +20,6 @@
 #include <KIO/JobUiDelegate>
 #include <KFormat>
 #include <KFileUtils>
-#include <KJobWidgets>
 #include <KLocalizedString>
 #include <QFile>
 #include <QJsonArray>
@@ -133,7 +132,6 @@ void Kamoso::trashFiles(const QJsonArray& urls)
 
     KIO::Job* job = KIO::trash(list);
     KIO::FileUndoManager::self()->recordJob(KIO::FileUndoManager::Trash, list, QUrl(QStringLiteral("trash:/")), job);
-//     KJobWidgets::setWindow(job, window);
 }
 
 void Kamoso::setSampleImage(const QString &path)
