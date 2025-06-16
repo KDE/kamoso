@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 01:57+0000\n"
+"POT-Creation-Date: 2025-06-16 00:41+0000\n"
 "PO-Revision-Date: 2023-01-05 10:20+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -31,7 +31,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sstavra@gmail.com, pvidalis@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:229
+#: src/kamoso.cpp:87 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr "Δεν βρέθηκε συσκευή"
@@ -110,7 +110,7 @@ msgid "Share"
 msgstr "Κοινή χρήση"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:306
+#: src/qml/ImagesView.qml:303
 #, kde-format
 msgid "Back"
 msgstr "Πίσω"
@@ -140,111 +140,111 @@ msgstr "Φωτογραφίες:"
 msgid "Choose the folder where Kamoso will save pictures"
 msgstr "Επιλογή του φακέλου όπου το Kamoso θα αποθηκεύει εικόνες"
 
-#: src/qml/ImagesView.qml:234
+#: src/qml/ImagesView.qml:231
 #, kde-format
 msgid "Videos:"
 msgstr "Βίντεο:"
 
-#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Επιλογή του φακέλου όπου το Kamoso θα αποθηκεύει βίντεο"
 
-#: src/qml/ImagesView.qml:278
+#: src/qml/ImagesView.qml:275
 #, kde-format
 msgid "Cameras"
 msgstr "Φωτογραφικές μηχανές"
 
-#: src/qml/ImagesView.qml:294
+#: src/qml/ImagesView.qml:291
 #, fuzzy, kde-format
 #| msgid "Mirror camera"
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Καθρέπτισμα κάμερας"
 
-#: src/qml/ImagesView.qml:333
+#: src/qml/ImagesView.qml:330
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Δεν υπάρχουν εικόνες στο <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "Κοινή χρήση %1 αντικειμένου..."
 msgstr[1] "Κοινή χρήση %1 αντικειμένων..."
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share Item..."
 msgstr "Κοινή χρήση αντικειμένου..."
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "Μετακίνηση %1 αντικειμένου στα απορρίμματα"
 msgstr[1] "Μετακίνηση %1 αντικειμένων στα απορρίμματα"
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Μετακίνηση αντικειμένου στα απορρίμματα"
 
-#: src/qml/ImagesView.qml:362
+#: src/qml/ImagesView.qml:359
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Άνοιγμα φακέλου εικόνων..."
 
-#: src/qml/ImagesView.qml:369
+#: src/qml/ImagesView.qml:366
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Διαμόρφωση Kamoso..."
 
-#: src/qml/Main.qml:82
+#: src/qml/Main.qml:83
 #, kde-format
 msgid "Take a Picture"
 msgstr "Λήψη μιας φωτογραφίας"
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "End Burst"
 msgstr "Τέλος έκρηξης"
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Σύλληψη έκρηξης"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:111
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 φωτογραφία ελήφθη"
 msgstr[1] "%1 φωτογραφίες ελήφθησαν"
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, kde-format
 msgid "Stop Recording"
 msgstr "Διακοπή εγγραφής"
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, kde-format
 msgid "Record a Video"
 msgstr "Εγγραφή βίντεο"
 
-#: src/qml/Main.qml:185
+#: src/qml/Main.qml:200
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Συλλογή εφέ"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Photo taken"
 msgstr "Φωτογραφία ελήφθη"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Saved in %1"
 msgstr "Αποθηκεύτηκε στο %1"

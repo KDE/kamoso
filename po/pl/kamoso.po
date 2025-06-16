@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 01:57+0000\n"
+"POT-Creation-Date: 2025-06-16 00:41+0000\n"
 "PO-Revision-Date: 2023-10-14 11:04+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pawlerson@gmail.com, lukasz.wojnilowicz@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:229
+#: src/kamoso.cpp:87 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr "Nie znaleziono żadnego urządzenia"
@@ -109,7 +109,7 @@ msgid "Share"
 msgstr "Udostępnij"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:306
+#: src/qml/ImagesView.qml:303
 #, kde-format
 msgid "Back"
 msgstr "Wstecz"
@@ -139,34 +139,34 @@ msgstr "Obrazy:"
 msgid "Choose the folder where Kamoso will save pictures"
 msgstr "Wybierz katalog, w którym Kamoso będzie zapisywać zdjęcia"
 
-#: src/qml/ImagesView.qml:234
+#: src/qml/ImagesView.qml:231
 #, kde-format
 msgid "Videos:"
 msgstr "Filmy:"
 
-#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Wybierz katalog, w którym Kamoso będzie zapisywać filmy"
 
-#: src/qml/ImagesView.qml:278
+#: src/qml/ImagesView.qml:275
 #, kde-format
 msgid "Cameras"
 msgstr "Aparaty"
 
-#: src/qml/ImagesView.qml:294
+#: src/qml/ImagesView.qml:291
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Odbij lustrzanie kamerę"
 
-#: src/qml/ImagesView.qml:333
+#: src/qml/ImagesView.qml:330
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Nie ma obrazów w <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -174,12 +174,12 @@ msgstr[0] "Udostępnij %1 element..."
 msgstr[1] "Udostępnij %1 elementy..."
 msgstr[2] "Udostępnij %1 elementów..."
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share Item..."
 msgstr "Udostępnij element..."
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -187,37 +187,37 @@ msgstr[0] "Przenieś %1 element do kosza"
 msgstr[1] "Przenieś %1 elementy do kosza"
 msgstr[2] "Przenieś %1 elementów do kosza"
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Przenieś element do kosza"
 
-#: src/qml/ImagesView.qml:362
+#: src/qml/ImagesView.qml:359
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Otwórz katalog zdjęć"
 
-#: src/qml/ImagesView.qml:369
+#: src/qml/ImagesView.qml:366
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Ustawienia Kamoso..."
 
-#: src/qml/Main.qml:82
+#: src/qml/Main.qml:83
 #, kde-format
 msgid "Take a Picture"
 msgstr "Zrób zdjęcie"
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "End Burst"
 msgstr "Zakończ szereg zdjęć"
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Zrób szereg zdjęć"
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:111
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -225,27 +225,27 @@ msgstr[0] "Zrobiono 1 zdjęcie"
 msgstr[1] "Zrobiono %1 zdjęcia"
 msgstr[2] "Zrobiono %1 zdjęć"
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, kde-format
 msgid "Stop Recording"
 msgstr "Zatrzymaj nagrywanie"
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, kde-format
 msgid "Record a Video"
 msgstr "Nagraj film"
 
-#: src/qml/Main.qml:185
+#: src/qml/Main.qml:200
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Galeria efektów"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Photo taken"
 msgstr "Zrobiono zdjęcie"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Saved in %1"
 msgstr "Zapisano w %1"

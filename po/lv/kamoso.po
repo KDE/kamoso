@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 01:57+0000\n"
+"POT-Creation-Date: 2025-06-16 00:41+0000\n"
 "PO-Revision-Date: 2012-01-31 00:23+0200\n"
 "Last-Translator: Einars Sprugis <einars8@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "einars8@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:229
+#: src/kamoso.cpp:87 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr ""
@@ -106,7 +106,7 @@ msgid "Share"
 msgstr ""
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:306
+#: src/qml/ImagesView.qml:303
 #, kde-format
 msgid "Back"
 msgstr ""
@@ -137,35 +137,35 @@ msgstr "Uzņemt attēlus"
 msgid "Choose the folder where Kamoso will save pictures"
 msgstr ""
 
-#: src/qml/ImagesView.qml:234
+#: src/qml/ImagesView.qml:231
 #, kde-format
 msgid "Videos:"
 msgstr ""
 
-#: src/qml/ImagesView.qml:249 src/qml/ImagesView.qml:263
+#: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
 msgstr ""
 
-#: src/qml/ImagesView.qml:278
+#: src/qml/ImagesView.qml:275
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Cameras"
 msgstr "Iestatījumi"
 
-#: src/qml/ImagesView.qml:294
+#: src/qml/ImagesView.qml:291
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr ""
 
-#: src/qml/ImagesView.qml:333
+#: src/qml/ImagesView.qml:330
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr ""
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -173,12 +173,12 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/qml/ImagesView.qml:345
+#: src/qml/ImagesView.qml:342
 #, kde-format
 msgid "Share Item..."
 msgstr ""
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, fuzzy, kde-format
 #| msgid "Move to Trash"
 msgid "Move %1 Item to Trash"
@@ -187,40 +187,40 @@ msgstr[0] "Pārvietot uz miskasti"
 msgstr[1] "Pārvietot uz miskasti"
 msgstr[2] "Pārvietot uz miskasti"
 
-#: src/qml/ImagesView.qml:353
+#: src/qml/ImagesView.qml:350
 #, fuzzy, kde-format
 #| msgid "Move to Trash"
 msgid "Move Item to Trash"
 msgstr "Pārvietot uz miskasti"
 
-#: src/qml/ImagesView.qml:362
+#: src/qml/ImagesView.qml:359
 #, fuzzy, kde-format
 #| msgid "Open..."
 msgid "Open Pictures Folder"
 msgstr "Atvērt..."
 
-#: src/qml/ImagesView.qml:369
+#: src/qml/ImagesView.qml:366
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr ""
 
-#: src/qml/Main.qml:82
+#: src/qml/Main.qml:83
 #, fuzzy, kde-format
 #| msgid "Take pictures"
 msgid "Take a Picture"
 msgstr "Uzņemt attēlus"
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "End Burst"
 msgstr ""
 
-#: src/qml/Main.qml:105
+#: src/qml/Main.qml:109
 #, kde-format
 msgid "Capture a Burst"
 msgstr ""
 
-#: src/qml/Main.qml:107
+#: src/qml/Main.qml:111
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -228,31 +228,31 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, fuzzy, kde-format
 #| msgid "Record Audio"
 msgid "Stop Recording"
 msgstr "Ierakstīt audio"
 
-#: src/qml/Main.qml:130
+#: src/qml/Main.qml:137
 #, fuzzy, kde-format
 #| msgid "Take a video"
 msgid "Record a Video"
 msgstr "Uzņemt video"
 
-#: src/qml/Main.qml:185
+#: src/qml/Main.qml:200
 #, fuzzy, kde-format
 #| msgid "Kamoso %1"
 msgid "Effects Gallery"
 msgstr "Kamoso %1"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, fuzzy, kde-format
 #| msgid "Photo Settings"
 msgid "Photo taken"
 msgstr "Fotogrāfiju iestatījumi"
 
-#: src/video/webcamcontrol.cpp:350
+#: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
