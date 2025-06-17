@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kamoso package.
 #
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:41+0000\n"
-"PO-Revision-Date: 2024-12-07 11:37+0200\n"
+"PO-Revision-Date: 2025-06-16 16:08+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -164,13 +164,13 @@ msgid "There are no images in <filename>%1</filename>"
 msgstr "אין תמונות ב־<filename>%1</filename>"
 
 #: src/qml/ImagesView.qml:342
-#, fuzzy, kde-format
+#, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "שיתוף פריט…"
-msgstr[1] "שיתוף %1 פריטים…"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[1] "שיתוף שני פריטים…"
+msgstr[2] "שיתוף %1 פריטים…"
+msgstr[3] "שיתוף %1 פריטים…"
 
 #: src/qml/ImagesView.qml:342
 #, kde-format
@@ -178,13 +178,13 @@ msgid "Share Item..."
 msgstr "שיתוף פריט…"
 
 #: src/qml/ImagesView.qml:350
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "העברת פריט לאשפה"
-msgstr[1] "העברת %1 פריטים לאשפה"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[1] "העברת שני פריטים לאשפה"
+msgstr[2] "העברת %1 פריטים לאשפה"
+msgstr[3] "העברת %1 פריטים לאשפה"
 
 #: src/qml/ImagesView.qml:350
 #, kde-format
@@ -217,13 +217,13 @@ msgid "Capture a Burst"
 msgstr "צילום מתפרצת"
 
 #: src/qml/Main.qml:111
-#, fuzzy, kde-format
+#, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "צולמה תמונה"
-msgstr[1] "צולמו %1 תמונות"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[1] "צולמו שתי תמונות"
+msgstr[2] "צולמו %1 תמונות"
+msgstr[3] "צולמו %1 תמונות"
 
 #: src/qml/Main.qml:137
 #, kde-format
