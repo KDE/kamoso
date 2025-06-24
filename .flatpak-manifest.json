@@ -59,6 +59,7 @@
         {
             "name": "kamoso",
             "config-opts": [
+                "-DPATCHED_GSTREAMER=ON",
                 "-DENABLE_TESTING=OFF"
             ],
             "buildsystem": "cmake-ninja",

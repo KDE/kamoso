@@ -27,8 +27,15 @@ include(ECMSetupVersion)
 find_package(Qt6 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick)
 find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS Config DocTools KIO I18n Purpose Notifications)
 
+option(PATCHED_GSTREAMER "GStreamer includes https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/9085" OFF)
+if (NOT PATCHED_GSTREAMER)
+    set(GSTREAMER_MIN_VERSION "1.26.3")
+else()
+    set(GSTREAMER_MIN_VERSION "1.22")
+endif()
+
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GStreamer IMPORTED_TARGET gstreamer-1.0)
+pkg_check_modules(GStreamer IMPORTED_TARGET gstreamer-1.0>=${GSTREAMER_MIN_VERSION})
 pkg_check_modules(GStreamerVideo IMPORTED_TARGET gstreamer-video-1.0)
 
 include(ECMQMLModules)
