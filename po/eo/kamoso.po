@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2023-10-14 11:54+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -32,6 +32,25 @@ msgstr "okellogg@users.sourceforge.net"
 #, kde-format
 msgid "No device found"
 msgstr "Neniu aparato trovata"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Kie la fotoj estas konservataj."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Vertikale speguli la fotilan rigardon."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Montras al la laste uzata retkamerao."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -225,12 +244,3 @@ msgstr "Foto preniĝis"
 #, kde-format
 msgid "Saved in %1"
 msgstr "Konservita en %1"
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "Kie la fotoj estas konservataj."
-
-#~ msgid "Vertically mirror the camera view."
-#~ msgstr "Vertikale speguli la fotilan rigardon."
-
-#~ msgid "Points to the last used webcam."
-#~ msgstr "Montras al la laste uzata retkamerao."

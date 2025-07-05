@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2023-12-25 18:53+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -34,6 +34,25 @@ msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
 #, kde-format
 msgid "No device found"
 msgstr "找不到裝置"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "相片儲存的位置。"
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "垂直鏡像相機檢視畫面。"
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "指向上次使用的攝影機。"
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -222,12 +241,3 @@ msgstr "已拍照"
 #, kde-format
 msgid "Saved in %1"
 msgstr "已儲存於 %1"
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "相片儲存的位置。"
-
-#~ msgid "Vertically mirror the camera view."
-#~ msgstr "垂直鏡像相機檢視畫面。"
-
-#~ msgid "Points to the last used webcam."
-#~ msgstr "指向上次使用的攝影機。"

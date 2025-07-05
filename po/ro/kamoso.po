@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2024-02-18 14:40+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -32,6 +32,25 @@ msgstr "sergiu@cip.md"
 #, kde-format
 msgid "No device found"
 msgstr "Niciun dispozitiv găsit"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Unde se salvează fotografiile."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Oglindește vizualizarea camerei pe verticală."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Indică spre ultima cameră web folosită."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -228,15 +247,6 @@ msgstr "Poză făcută"
 #, kde-format
 msgid "Saved in %1"
 msgstr "Salvat în %1"
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "Unde se salvează fotografiile."
-
-#~ msgid "Vertically mirror the camera view."
-#~ msgstr "Oglindește vizualizarea camerei pe verticală."
-
-#~ msgid "Points to the last used webcam."
-#~ msgstr "Indică spre ultima cameră web folosită."
 
 #, fuzzy
 #~| msgid "Move to Trash"

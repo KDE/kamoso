@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2013-02-23 17:39+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -30,6 +30,25 @@ msgstr "chetan@kompkin.com"
 #: src/kamoso.cpp:87 src/qml/Main.qml:232
 #, kde-format
 msgid "No device found"
+msgstr ""
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "जेथे फोटो साठवले जातात."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr ""
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
 msgstr ""
 
 #: src/main.cpp:23 src/qml/Main.qml:19
@@ -233,9 +252,6 @@ msgstr "फोटो संयोजना"
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "जेथे फोटो साठवले जातात."
 
 #, fuzzy
 #~| msgid "Move to Trash"

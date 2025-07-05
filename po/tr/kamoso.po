@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-multimedia-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2024-09-23 15:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -33,6 +33,25 @@ msgstr "volkangezer@gmail.com, emir_sari@icloud.com"
 #, kde-format
 msgid "No device found"
 msgstr "Aygıt bulunamadı"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Fotoğrafların kaydedileceği konum."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Kamera görünümünü dikey olarak yansıla."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Son kullanılan web kamerasına işaret eder."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -226,15 +245,6 @@ msgstr "Fotoğraf çekildi"
 #, kde-format
 msgid "Saved in %1"
 msgstr "%1 içine kaydedildi"
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "Fotoğrafların kaydedileceği konum."
-
-#~ msgid "Vertically mirror the camera view."
-#~ msgstr "Kamera görünümünü dikey olarak yansıla."
-
-#~ msgid "Points to the last used webcam."
-#~ msgstr "Son kullanılan web kamerasına işaret eder."
 
 #~ msgid "Save to..."
 #~ msgstr "Şuraya kaydet..."

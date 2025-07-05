@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:21+0000\n"
+"POT-Creation-Date: 2025-07-05 05:54+0000\n"
 "PO-Revision-Date: 2023-12-06 19:08+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -33,6 +33,25 @@ msgstr ""
 #, kde-format
 msgid "No device found"
 msgstr "Nenašlo sa zariadenie"
+
+#. i18n: ectx: label, entry (saveUrl), group (General)
+#. i18n: ectx: label, entry (saveVideos), group (General)
+#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
+#, kde-format
+msgid "Where the photos are saved."
+msgstr "Kam sa ukladajú fotografie."
+
+#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:22
+#, kde-format
+msgid "Vertically mirror the camera view."
+msgstr "Vertikálne zrkadlenie pohľadu kamery."
+
+#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
+#: src/kamosoSettings.kcfg:25
+#, kde-format
+msgid "Points to the last used webcam."
+msgstr "Ukazuje na poslednú použitú webkameru."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -228,15 +247,6 @@ msgstr "Fotka urobená"
 #, kde-format
 msgid "Saved in %1"
 msgstr "Uložené v %1"
-
-#~ msgid "Where the photos are saved."
-#~ msgstr "Kam sa ukladajú fotografie."
-
-#~ msgid "Vertically mirror the camera view."
-#~ msgstr "Vertikálne zrkadlenie pohľadu kamery."
-
-#~ msgid "Points to the last used webcam."
-#~ msgstr "Ukazuje na poslednú použitú webkameru."
 
 #~ msgid "Save to..."
 #~ msgstr "Uložiť do..."
