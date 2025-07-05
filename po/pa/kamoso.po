@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-16 00:41+0000\n"
+"POT-Creation-Date: 2025-07-05 00:41+0000\n"
 "PO-Revision-Date: 2021-05-02 00:07-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "alam.yellow@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr ""

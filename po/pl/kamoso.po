@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-16 00:41+0000\n"
+"POT-Creation-Date: 2025-07-05 00:41+0000\n"
 "PO-Revision-Date: 2023-10-14 11:04+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pawlerson@gmail.com, lukasz.wojnilowicz@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr "Nie znaleziono żadnego urządzenia"

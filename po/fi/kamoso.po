@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-16 00:41+0000\n"
+"POT-Creation-Date: 2025-07-05 00:41+0000\n"
 "PO-Revision-Date: 2023-11-19 19:16+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "translator@legisign.org,lasse.liehu@gmail.com"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr "Laitteita ei löytynyt"

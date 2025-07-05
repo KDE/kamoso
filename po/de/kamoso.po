@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-16 00:41+0000\n"
+"POT-Creation-Date: 2025-07-05 00:41+0000\n"
 "PO-Revision-Date: 2024-09-28 20:22+0200\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-i18n-de@kde.org"
 
-#: src/kamoso.cpp:87 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
 msgstr "Kein Gerät gefunden"
