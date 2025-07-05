@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2023-01-05 10:20+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -35,25 +35,6 @@ msgstr "sstavra@gmail.com, pvidalis@gmail.com"
 #, kde-format
 msgid "No device found"
 msgstr "Δεν βρέθηκε συσκευή"
-
-#. i18n: ectx: label, entry (saveUrl), group (General)
-#. i18n: ectx: label, entry (saveVideos), group (General)
-#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
-#, kde-format
-msgid "Where the photos are saved."
-msgstr "Όπου αποθηκεύονται οι φωτογραφίες."
-
-#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:22
-#, kde-format
-msgid "Vertically mirror the camera view."
-msgstr "Να καθρεπτιστεί κατακόρυφα η προβολή της κάμερας."
-
-#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:25
-#, kde-format
-msgid "Points to the last used webcam."
-msgstr "Υποδεικνύει την web κάμερα που χρησιμοποιήθηκε τελευταία."
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -248,6 +229,15 @@ msgstr "Φωτογραφία ελήφθη"
 #, kde-format
 msgid "Saved in %1"
 msgstr "Αποθηκεύτηκε στο %1"
+
+#~ msgid "Where the photos are saved."
+#~ msgstr "Όπου αποθηκεύονται οι φωτογραφίες."
+
+#~ msgid "Vertically mirror the camera view."
+#~ msgstr "Να καθρεπτιστεί κατακόρυφα η προβολή της κάμερας."
+
+#~ msgid "Points to the last used webcam."
+#~ msgstr "Υποδεικνύει την web κάμερα που χρησιμοποιήθηκε τελευταία."
 
 #~ msgid "Save to..."
 #~ msgstr "Αποθήκευση σε..."

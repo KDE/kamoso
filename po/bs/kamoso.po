@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2014-01-10 10:39+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -35,25 +35,6 @@ msgstr "Dazinovic1@etf.unsa.ba,samir.ribic@etf.unsa.ba"
 #| msgid "No webcam was found."
 msgid "No device found"
 msgstr "Nijedna web kamera nije nađena."
-
-#. i18n: ectx: label, entry (saveUrl), group (General)
-#. i18n: ectx: label, entry (saveVideos), group (General)
-#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
-#, kde-format
-msgid "Where the photos are saved."
-msgstr "Gdje su slike sačuvane."
-
-#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:22
-#, kde-format
-msgid "Vertically mirror the camera view."
-msgstr ""
-
-#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:25
-#, kde-format
-msgid "Points to the last used webcam."
-msgstr ""
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -257,6 +238,9 @@ msgstr ""
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
+
+#~ msgid "Where the photos are saved."
+#~ msgstr "Gdje su slike sačuvane."
 
 #, fuzzy
 #~| msgid "Move to Trash"

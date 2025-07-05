@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 01:55+0000\n"
+"POT-Creation-Date: 2025-07-05 03:21+0000\n"
 "PO-Revision-Date: 2014-05-24 01:10+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -34,25 +34,6 @@ msgstr "m.j.wiese@web.de"
 #| msgid "No webcam was found."
 msgid "No device found"
 msgstr "Keen Nettkamera funnen"
-
-#. i18n: ectx: label, entry (saveUrl), group (General)
-#. i18n: ectx: label, entry (saveVideos), group (General)
-#: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
-#, kde-format
-msgid "Where the photos are saved."
-msgstr "Woneem de Fotos sekert warrt"
-
-#. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:22
-#, kde-format
-msgid "Vertically mirror the camera view."
-msgstr ""
-
-#. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
-#: src/kamosoSettings.kcfg:25
-#, kde-format
-msgid "Points to the last used webcam."
-msgstr ""
 
 #: src/main.cpp:23 src/qml/Main.qml:19
 #, kde-format
@@ -255,6 +236,9 @@ msgstr "Foto-Instellen"
 #, kde-format
 msgid "Saved in %1"
 msgstr ""
+
+#~ msgid "Where the photos are saved."
+#~ msgstr "Woneem de Fotos sekert warrt"
 
 #, fuzzy
 #~| msgid "Move to Trash"
