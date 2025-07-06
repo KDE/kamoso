@@ -24,8 +24,18 @@ include(ECMAddTests)
 include(FeatureSummary)
 include(ECMSetupVersion)
 
+option(BUILD_DOC "Whether to build the documentation" ON)
+
 find_package(Qt6 NO_MODULE REQUIRED COMPONENTS Core Gui Widgets Quick)
-find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS Config DocTools KIO I18n Purpose Notifications)
+find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS Config KIO I18n Purpose Notifications)
+
+if (BUILD_DOC)
+    find_package(KF6DocTools ${KF6_MIN_VERSION})
+    set_package_properties(KF6DocTools PROPERTIES DESCRIPTION
+        "Tools to generate documentation"
+        TYPE REQUIRED
+    )
+endif()
 
 option(PATCHED_GSTREAMER "GStreamer includes https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/9085" OFF)
 if (NOT PATCHED_GSTREAMER)
@@ -47,10 +57,12 @@ add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
 add_subdirectory(src)
 add_subdirectory(icons)
-add_subdirectory(doc)
 
+if (BUILD_DOC)
+    add_subdirectory(doc)
+    kdoctools_install(po)
+endif()
 ki18n_install(po)
-kdoctools_install(po)
 
 install(FILES org.kde.kamoso.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
