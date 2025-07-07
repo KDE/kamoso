@@ -10,6 +10,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import org.kde.kirigami 2.9 as Kirigami
 import org.kde.kamoso 3.0
+import org.kde.coreaddons as KCoreAddons
 import org.freedesktop.gstreamer.Qt6GLVideoItem
 
 Kirigami.ApplicationWindow
@@ -216,7 +217,20 @@ Kirigami.ApplicationWindow
         rightPadding: 0
         leftPadding: 0
 
-        actions: [ videoMode, photoMode, burstMode ]
+        actions: [ videoMode, photoMode, burstMode, about ]
+
+        Kirigami.Action {
+            readonly property var p0: Component {
+                id: aboutComponent
+
+                Kirigami.AboutPage {
+                    aboutData: KCoreAddons.AboutData
+                }
+            }
+            id: about
+            icon.name: "help-feedback"
+            onTriggered: root.pageStack.pushDialogLayer(aboutComponent)
+        }
 
         Rectangle {
             anchors.fill: parent

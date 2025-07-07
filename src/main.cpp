@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("kamoso");
     {
         KAboutData about(QStringLiteral("kamoso"), i18n("Kamoso"), QStringLiteral(KAMOSO_VERSION_STRING), i18n("Utility for taking photos and videos using a webcam"),
-                         KAboutLicense::GPL, i18n("(C) 2008-2015 Alex Fiestas and Aleix Pol"));
+                         KAboutLicense::GPL, i18n("(C) 2008-2025 Alex Fiestas and Aleix Pol"));
 
         about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("Semaphore hacker"), QStringLiteral("aleixpol@kde.org"));
         about.addAuthor( i18n("Alex Fiestas"), i18n("Coffee drinker"), QStringLiteral("afiestas@kde.org"));
