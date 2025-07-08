@@ -26,6 +26,7 @@
   <name xml:lang="fr">Kamoso</name>
   <name xml:lang="gl">Kamoso</name>
   <name xml:lang="he">Kamoso</name>
+  <name xml:lang="hu">Kamoso</name>
   <name xml:lang="ia">Kamoso</name>
   <name xml:lang="id">Kamoso</name>
   <name xml:lang="ie">Kamoso</name>
@@ -68,6 +69,7 @@
   <summary xml:lang="fr">Utilisez votre webcam pour prendre des photos et enregistrer des vidéos</summary>
   <summary xml:lang="gl">Usa a túa cámara web para sacar fotos e gravar vídeos</summary>
   <summary xml:lang="he">להשתמש במצלמת המחשב שלך כדי לצלם תמונות ולהקליט סרטונים</summary>
+  <summary xml:lang="hu">Használja webkameráját fényképek és videók készítésére</summary>
   <summary xml:lang="ia">Usa tu webcam per prender photos e facer videos.</summary>
   <summary xml:lang="id">Gunakan untuk webcam-mu untuk mengambil gambar dan membuat video</summary>
   <summary xml:lang="it">Utilizza la tua webcam per scattare foto o registrare video</summary>
@@ -109,6 +111,7 @@
     <p xml:lang="fr">Kamoso est un programme simple et intuitif qui vous permettra d'utiliser votre caméra. Vous pouvez l'utiliser pour prendre des photos et enregistrer des vidéos afin de les partager.</p>
     <p xml:lang="gl">Kamoso é un programa simple para usar facilmente a súa cámara. Úseo para sacar fotos e gravar vídeos para compartir.</p>
     <p xml:lang="he">Kamoso היא תוכנית פשוטה וידידותית לשימוש במצלמה שלך. אפשר להשתמש בה כדי לצלם תמונות וליצור סרטונים לשיתוף.</p>
+    <p xml:lang="hu">A Kamoso egy egyszerű és felhasználóbarát program kamerája használatához. Használja fényképek és videók készítéséhez és megosztásához.</p>
     <p xml:lang="ia">Kamoso es un simple e amicale programma per usar tu camera. Tu usa lo per prender photos e facer videos de compartir. </p>
     <p xml:lang="id">Kamoso adalah program yang mudah dan sederhana untuk penggunaan kameramu. Gunakan ini untuk mengambil gambar dan membuat video untuk dibagikan.</p>
     <p xml:lang="it">Kamoso è un programma semplice e amichevole per utilizzare la tua webcam. Utilizzalo per scattare foto o registrare video da condividere.</p>
@@ -155,6 +158,7 @@
       <caption xml:lang="fr">La fenêtre principale de Kamoso</caption>
       <caption xml:lang="gl">Xanela principal de Kamoso</caption>
       <caption xml:lang="he">החלון הראשי של Kamoso</caption>
+      <caption xml:lang="hu">A Kamoso főablaka</caption>
       <caption xml:lang="ia">Fenestra principal de Kamoso</caption>
       <caption xml:lang="id">Jendela utama Kamoso</caption>
       <caption xml:lang="ie">Fenestre principal de Kamoso</caption>
