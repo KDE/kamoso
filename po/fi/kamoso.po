@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2023-11-19 19:16+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "translator@legisign.org,lasse.liehu@gmail.com"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr "Laitteita ei löytynyt"
@@ -52,7 +52,7 @@ msgstr "Peilaa kameranäkymä pystysuunnassa."
 msgid "Points to the last used webcam."
 msgstr "Osoittaa viimeksi käytettyyn nettikameraan."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -63,8 +63,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Apuohjelma valokuvien ja videoiden ottamiseen nettikameralla"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "© 2008–2015 Alex Fiestas ja Aleix Pol"
 
 #: src/main.cpp:26
@@ -198,39 +199,39 @@ msgstr "Avaa kuvakansio"
 msgid "Configure Kamoso..."
 msgstr "Kamoson asetukset…"
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "Ota kuva"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "Lopeta purkaus"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Kaappaa purkaus"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 kuva otettu"
 msgstr[1] "%1 kuvaa otettu"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "Lopeta nauhoitus"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "Nauhoita video"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Tehostegalleria"

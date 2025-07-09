@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2016-04-08 22:57+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sv1@fellsnet.is"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr ""
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Points to the last used webcam."
 msgstr ""
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, fuzzy, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: src/main.cpp:24
 #, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr ""
 
 #: src/main.cpp:26
@@ -197,39 +197,39 @@ msgstr "Opna..."
 msgid "Configure Kamoso..."
 msgstr ""
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr ""
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr ""
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr ""
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr ""
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr ""
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, fuzzy, kde-format
 msgid "Effects Gallery"
 msgstr "Kamoso"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2025-06-16 16:08+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-l10n-he@kde.org"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr "לא נמצאו התקנים"
@@ -52,7 +52,7 @@ msgstr "היפוך תצוגת המצלמה אנכית."
 msgid "Points to the last used webcam."
 msgstr "מצביע למצלמת המחשב האחרונה שהייתה בשימוש."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -63,8 +63,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "כלי לצילום תמונות והקלטת סרטונים באמצעות מצלמת מחשב"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(C) 2008‏-2015 אלכס פיאסטס ואלש פול"
 
 #: src/main.cpp:26
@@ -201,22 +202,22 @@ msgstr "פתיחת תיקיית התמונות"
 msgid "Configure Kamoso..."
 msgstr "הגדרת Kamoso…"
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "צילום תמונה"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "סיום מתפרצת"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "צילום מתפרצת"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -225,17 +226,17 @@ msgstr[1] "צולמו שתי תמונות"
 msgstr[2] "צולמו %1 תמונות"
 msgstr[3] "צולמו %1 תמונות"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "עצירת ההקלטה"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "הקלטת סרטון"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "גלריית אפקטים"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2014-05-24 01:10+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -29,7 +29,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "m.j.wiese@web.de"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, fuzzy, kde-format
 #| msgid "No webcam was found."
 msgid "No device found"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Points to the last used webcam."
 msgstr ""
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -67,7 +67,7 @@ msgstr ""
 #: src/main.cpp:24
 #, fuzzy, kde-format
 #| msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "© 2008-2010: Alex Fiestas un Aleix Pol"
 
 #: src/main.cpp:26
@@ -204,42 +204,42 @@ msgstr "Opmaken..."
 msgid "Configure Kamoso..."
 msgstr ""
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, fuzzy, kde-format
 #| msgid "Take pictures"
 msgid "Take a Picture"
 msgstr "Biller opnehmen"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr ""
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr ""
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, fuzzy, kde-format
 #| msgid "Record Audio"
 msgid "Stop Recording"
 msgstr "Klang opnehmen"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, fuzzy, kde-format
 #| msgid "Take a video"
 msgid "Record a Video"
 msgstr "En Video opnehmen"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, fuzzy, kde-format
 #| msgid "Kamoso %1"
 msgid "Effects Gallery"

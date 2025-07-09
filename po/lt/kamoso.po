@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2019-12-06 22:21+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -31,7 +31,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "liudas@akmc.lt, <>"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr ""
@@ -55,7 +55,7 @@ msgstr "Rodyti kamerą vertikaliu veidrodiniu atspindžiu."
 msgid "Points to the last used webcam."
 msgstr "Nurodo į paskutinę naudotą internetinę kamerą."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -68,8 +68,9 @@ msgstr ""
 "naudojant internetinę kamerą"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(C) 2008-2015 Alex Fiestas ir Aleix Pol"
 
 #: src/main.cpp:26
@@ -208,22 +209,22 @@ msgstr "Atverti paveikslų aplanką"
 msgid "Configure Kamoso..."
 msgstr "Konfigūruoti Kamoso..."
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "Fotografuoti"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "Baigti nuotraukų pliūpsnį"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Fotografuoti nuotraukų pliūpsnį"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -232,17 +233,17 @@ msgstr[1] "Padarytos %1 nuotraukos"
 msgstr[2] "Padaryta %1 nuotraukų"
 msgstr[3] "Padaryta %1 nuotrauka"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "Stabdyti įrašinėjimą"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "Įrašinėti vaizdo įrašą"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Efektų galerija"

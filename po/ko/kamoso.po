@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2024-02-09 23:15+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr "장치를 찾을 수 없음"
@@ -51,7 +51,7 @@ msgstr "카메라 보기를 수직으로 반전합니다."
 msgid "Points to the last used webcam."
 msgstr "마지막으로 사용한 웹캠을 가리킵니다."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -62,8 +62,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "웹캠을 사용하여 사진과 동영상을 찍는 유틸리티"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
 
 #: src/main.cpp:26
@@ -195,38 +196,38 @@ msgstr "사진 폴더 열기"
 msgid "Configure Kamoso..."
 msgstr "Kamoso 설정..."
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "사진 찍기"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "연속 촬영 끝"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "연속 촬영 시작"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "사진 %1장 찍음"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "녹화 중지"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "동영상 녹화"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "효과 갤러리"

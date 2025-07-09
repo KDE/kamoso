@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2023-01-05 10:20+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -31,7 +31,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sstavra@gmail.com, pvidalis@gmail.com"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr "Δεν βρέθηκε συσκευή"
@@ -55,7 +55,7 @@ msgstr "Να καθρεπτιστεί κατακόρυφα η προβολή τ�
 msgid "Points to the last used webcam."
 msgstr "Υποδεικνύει την web κάμερα που χρησιμοποιήθηκε τελευταία."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -66,8 +66,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Εργαλείο για λήψη φωτογραφιών και βίντεο με web κάμερα"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(C) 2008-2015 Alex Fiestas και Aleix Pol"
 
 #: src/main.cpp:26
@@ -202,39 +203,39 @@ msgstr "Άνοιγμα φακέλου εικόνων..."
 msgid "Configure Kamoso..."
 msgstr "Διαμόρφωση Kamoso..."
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "Λήψη μιας φωτογραφίας"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "Τέλος έκρηξης"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Σύλληψη έκρηξης"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
 msgstr[0] "1 φωτογραφία ελήφθη"
 msgstr[1] "%1 φωτογραφίες ελήφθησαν"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "Διακοπή εγγραφής"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "Εγγραφή βίντεο"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Συλλογή εφέ"

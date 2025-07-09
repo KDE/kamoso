@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-07-09 00:42+0000\n"
 "PO-Revision-Date: 2024-04-11 14:14+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -37,7 +37,7 @@ msgid "Your emails"
 msgstr ""
 "yur.arh@gmail.com,victorr2007@ya.ru,aspotashev@gmail.com,mornie@basealt.ru"
 
-#: src/kamoso.cpp:86 src/qml/Main.qml:242
+#: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
 msgstr "Не обнаружено ни одного устройства"
@@ -61,7 +61,7 @@ msgstr "Зеркально отразить изображение с камер
 msgid "Points to the last used webcam."
 msgstr "Идентификатор последней использованной веб-камеры."
 
-#: src/main.cpp:23 src/qml/Main.qml:19
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
@@ -72,8 +72,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Программа для создания фотоснимков и записи видео с помощью веб-камеры"
 
 #: src/main.cpp:24
-#, kde-format
-msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, fuzzy, kde-format
+#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "© Alex Fiestas и Aleix Pol, 2008-2015"
 
 #: src/main.cpp:26
@@ -211,22 +212,22 @@ msgstr "Открыть папку изображений"
 msgid "Configure Kamoso..."
 msgstr "Настроить Kamoso..."
 
-#: src/qml/Main.qml:83
+#: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
 msgstr "Сделать снимок"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
 msgstr "Закончить серию"
 
-#: src/qml/Main.qml:109
+#: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
 msgstr "Серия снимков"
 
-#: src/qml/Main.qml:111
+#: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
@@ -235,17 +236,17 @@ msgstr[1] "Созданы %1 фотографии"
 msgstr[2] "Созданы %1 фотографий"
 msgstr[3] "Создана одна фотография"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
 msgstr "Остановить запись"
 
-#: src/qml/Main.qml:137
+#: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
 msgstr "Записать видео"
 
-#: src/qml/Main.qml:200
+#: src/qml/Main.qml:201
 #, kde-format
 msgid "Effects Gallery"
 msgstr "Галерея эффектов"
