@@ -3,20 +3,20 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-09 00:42+0000\n"
-"PO-Revision-Date: 2023-10-14 09:00+0300\n"
+"PO-Revision-Date: 2025-07-09 09:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
@@ -65,10 +65,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Програма для створення знімків та відео за допомогою вебкамери"
 
 #: src/main.cpp:24
-#, fuzzy, kde-format
-#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr "© Alex Fiestas і Aleix Pol, 2008–2015"
+msgstr "© Alex Fiestas і Aleix Pol, 2008–2025"
 
 #: src/main.cpp:26
 #, kde-format
