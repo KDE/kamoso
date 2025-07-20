@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-09 00:42+0000\n"
-"PO-Revision-Date: 2025-06-09 02:35+0100\n"
+"PO-Revision-Date: 2025-07-20 00:13+0100\n"
 "Last-Translator: Víctor Rodrigo Córdoba <vrcordoba@gmail.com>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -69,10 +69,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Utilidad para capturar fotos y vídeos usando una cámara web"
 
 #: src/main.cpp:24
-#, fuzzy, kde-format
-#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr "© 2008-2015 Alex Fiestas y Aleix Pol"
+msgstr "(C) 2008-2025 Alex Fiestas y Aleix Pol"
 
 #: src/main.cpp:26
 #, kde-format
