@@ -282,8 +282,8 @@ QQC2.StackView {
                     model: DeviceManager
                     textRole: "display"
                     visible: count>1
-                    onActivated: {
-                        DevicesModel.playingDevice = DevicesModel.data(index, ObjectSerialRole)
+                    onActivated: (row) => {
+                        DeviceManager.playingDevice = DeviceManager.deviceAt(row);
                     }
                 }
 
