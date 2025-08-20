@@ -336,6 +336,8 @@ QQC2.StackView {
             }
 
             QQC2.ItemDelegate {
+                Layout.fillWidth: true
+
                 enabled: view.selection.length > 0
 
                 icon.name: "document-share"
@@ -344,6 +346,8 @@ QQC2.StackView {
             }
 
             QQC2.ItemDelegate {
+                Layout.fillWidth: true
+
                 enabled: view.selection.length > 0
 
                 icon.name: "user-trash"
@@ -355,6 +359,8 @@ QQC2.StackView {
             }
 
             QQC2.ItemDelegate {
+                Layout.fillWidth: true
+
                 icon.name: "folder-open"
                 text: i18n("Open Pictures Folder")
 
@@ -362,6 +368,8 @@ QQC2.StackView {
             }
 
             QQC2.ItemDelegate {
+                Layout.fillWidth: true
+
                 icon.name: "configure"
                 text: i18n("Configure Kamoso...")
                 onClicked: {
