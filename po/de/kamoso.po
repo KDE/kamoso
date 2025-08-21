@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-08-21 02:45+0000\n"
 "PO-Revision-Date: 2024-09-28 20:22+0200\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -164,36 +164,36 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Es gibt keine Bilder in <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "%1 Eintrag teilen ..."
 msgstr[1] "%1 Einträge teilen ..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Eintrag teilen ..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "%1 Eintrag in den Papierkorb verschieben"
 msgstr[1] "%1 Einträge in den Papierkorb verschieben"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Eintrag in den Papierkorb verschieben"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Bilderordner öffnen ..."
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Kamoso einrichten ..."

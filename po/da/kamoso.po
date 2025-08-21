@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-08-21 02:45+0000\n"
 "PO-Revision-Date: 2020-04-08 20:45+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -164,36 +164,36 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Der er ingen billeder i <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "Del %1 element"
 msgstr[1] "Del %1 elementer"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Del element..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "Flyt %1 element til papirkurv"
 msgstr[1] "Flyt %1 elementer til papirkurv"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Flyt element til papirkurv"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Åbn billedmappe"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Indstil Kamoso..."

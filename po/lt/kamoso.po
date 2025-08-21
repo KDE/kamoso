@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-08-21 02:45+0000\n"
 "PO-Revision-Date: 2019-12-06 22:21+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -170,7 +170,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Aplanke <filename>%1</filename> nėra jokių paveikslų"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -179,12 +179,12 @@ msgstr[1] "Bendrinti %1 elementus..."
 msgstr[2] "Bendrinti %1 elementų..."
 msgstr[3] "Bendrinti %1 elementą..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Bendrinti elementą..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -193,17 +193,17 @@ msgstr[1] "Perkelti %1 elementus į šiukšlinę"
 msgstr[2] "Perkelti %1 elementų į šiukšlinę"
 msgstr[3] "Perkelti %1 elementą į šiukšlinę"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Perkelti elementą į šiukšlinę"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Atverti paveikslų aplanką"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Konfigūruoti Kamoso..."

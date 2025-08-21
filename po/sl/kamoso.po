@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 00:41+0000\n"
+"POT-Creation-Date: 2025-08-21 02:45+0000\n"
 "PO-Revision-Date: 2023-10-14 07:32+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -165,7 +165,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Ni nobene slike v <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -174,12 +174,12 @@ msgstr[1] "Deli %1 postavki..."
 msgstr[2] "Deli %1 postavke..."
 msgstr[3] "Deli %1 postavk..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Deli postavko..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -188,17 +188,17 @@ msgstr[1] "Premakni %1 postavki v smeti"
 msgstr[2] "Premakni %1 postavke v smeti"
 msgstr[3] "Premakni %1 postavk v smeti"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Premakni postavko v smeti"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Odpri mapo s slikami"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Nastavi Kamoso..."
