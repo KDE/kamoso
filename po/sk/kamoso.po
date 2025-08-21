@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-09 00:42+0000\n"
+"POT-Creation-Date: 2025-08-21 00:42+0000\n"
 "PO-Revision-Date: 2023-12-06 19:08+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -165,7 +165,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "V <filename>%1</filename> nie sú žiadne obrázky"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -173,12 +173,12 @@ msgstr[0] "Zdieľať %1 položku..."
 msgstr[1] "Zdieľať %1 položky..."
 msgstr[2] "Zdieľať %1 položiek..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Zdieľať položku..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -186,17 +186,17 @@ msgstr[0] "Presunúť %1 položku do koša"
 msgstr[1] "Presunúť %1 položky do koša"
 msgstr[2] "Presunúť %1 položiek do koša"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Presunúť do koša"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Otvoriť priečinok s obrázkami..."
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Nastaviť Kamoso..."

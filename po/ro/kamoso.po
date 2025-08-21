@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-09 00:42+0000\n"
+"POT-Creation-Date: 2025-08-21 00:42+0000\n"
 "PO-Revision-Date: 2024-02-18 14:40+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -165,7 +165,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Nu sunt imagini în <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -173,12 +173,12 @@ msgstr[0] "Partajează %1 element..."
 msgstr[1] "Partajează %1 elemente..."
 msgstr[2] "Partajează %1 de elemente..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Partajează element..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -186,17 +186,17 @@ msgstr[0] "Mută %1 element la gunoi"
 msgstr[1] "Mută %1 elemente la gunoi"
 msgstr[2] "Mută %1 de elemente la gunoi"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Mută elementul la gunoi"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Deschide dosarul cu poze"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Configurează Kamoso..."

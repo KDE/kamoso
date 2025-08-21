@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-09 00:42+0000\n"
+"POT-Creation-Date: 2025-08-21 00:42+0000\n"
 "PO-Revision-Date: 2025-07-09 09:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -166,7 +166,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "У <filename>%1</filename> немає зображень"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -175,12 +175,12 @@ msgstr[1] "Оприлюднити %1 об'єкти…"
 msgstr[2] "Оприлюднити %1 об'єктів…"
 msgstr[3] "Оприлюднити об'єкт…"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Оприлюднити об'єкт…"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -189,17 +189,17 @@ msgstr[1] "Пересунути %1 об'єкти до смітника"
 msgstr[2] "Пересунути %1 об'єктів до смітника"
 msgstr[3] "Пересунути об'єкт до смітника"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Пересунути об'єкт до смітника"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Відкрити теку із зображеннями"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Налаштувати Kamoso…"

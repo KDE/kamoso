@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-09 00:42+0000\n"
+"POT-Creation-Date: 2025-08-21 00:42+0000\n"
 "PO-Revision-Date: 2024-04-11 14:14+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -174,7 +174,7 @@ msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "В каталоге <filename>%1</filename> фотографии отсутствуют"
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -183,12 +183,12 @@ msgstr[1] "Опубликовать %1 объекта..."
 msgstr[2] "Опубликовать %1 объектов..."
 msgstr[3] "Опубликовать объект..."
 
-#: src/qml/ImagesView.qml:342
+#: src/qml/ImagesView.qml:344
 #, kde-format
 msgid "Share Item..."
 msgstr "Опубликовать..."
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -197,17 +197,17 @@ msgstr[1] "Переместить %1 объекта в корзину"
 msgstr[2] "Переместить %1 объектов в корзину"
 msgstr[3] "Переместить объект в корзину"
 
-#: src/qml/ImagesView.qml:350
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Переместить объект в корзину"
 
-#: src/qml/ImagesView.qml:359
+#: src/qml/ImagesView.qml:365
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Открыть папку изображений"
 
-#: src/qml/ImagesView.qml:366
+#: src/qml/ImagesView.qml:374
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Настроить Kamoso..."
