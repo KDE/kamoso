@@ -62,10 +62,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Nástroj pro pořizování fotek a videa pomocí web kamery"
 
 #: src/main.cpp:24
-#, fuzzy, kde-format
-#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr "(C) 2008-2015 Alex Fiestas a Aleix Pol"
+msgstr ""
 
 #: src/main.cpp:26
 #, kde-format
