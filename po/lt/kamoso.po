@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 02:45+0000\n"
-"PO-Revision-Date: 2019-12-06 22:21+0200\n"
+"PO-Revision-Date: 2025-09-02 00:25+0300\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -34,7 +34,7 @@ msgstr "liudas@akmc.lt, <>"
 #: src/kamoso.cpp:86 src/qml/Main.qml:242
 #, kde-format
 msgid "No device found"
-msgstr ""
+msgstr "Nerasta jokio įrenginio"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
@@ -158,8 +158,7 @@ msgid "Cameras"
 msgstr "Kameros"
 
 #: src/qml/ImagesView.qml:291
-#, fuzzy, kde-format
-#| msgid "Mirror camera"
+#, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Rodyti kamerą veidrodiniu atspindžiu"
