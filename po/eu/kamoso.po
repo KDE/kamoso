@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 02:45+0000\n"
+"POT-Creation-Date: 2025-09-19 02:37+0000\n"
 "PO-Revision-Date: 2023-10-15 09:39+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -110,7 +110,7 @@ msgid "Share"
 msgstr "Partekatu"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:303
+#: src/qml/ImagesView.qml:300
 #, kde-format
 msgid "Back"
 msgstr "Atzera"
@@ -150,53 +150,53 @@ msgstr "Bideoak:"
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Aukeratu Kamosok bideoak gordeko ditueneko karpeta"
 
-#: src/qml/ImagesView.qml:275
+#: src/qml/ImagesView.qml:272
 #, kde-format
 msgid "Cameras"
 msgstr "Kamerak"
 
-#: src/qml/ImagesView.qml:291
+#: src/qml/ImagesView.qml:288
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Ispilatu kamera"
 
-#: src/qml/ImagesView.qml:330
+#: src/qml/ImagesView.qml:327
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Hemen ez dago irudirik: <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "Partekatu elementu %1..."
 msgstr[1] "Partekatu %1 elementu..."
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share Item..."
 msgstr "Partekatu elementua..."
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "Bota elementu %1 zakarrontzira"
 msgstr[1] "Bota %1 elementu zakarrontzira"
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Bota elementua zakarrontzira"
 
-#: src/qml/ImagesView.qml:365
+#: src/qml/ImagesView.qml:362
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Ireki irudien karpeta"
 
-#: src/qml/ImagesView.qml:374
+#: src/qml/ImagesView.qml:371
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Konfiguratu Kamoso..."

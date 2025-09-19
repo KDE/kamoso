@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 02:45+0000\n"
+"POT-Creation-Date: 2025-09-19 02:37+0000\n"
 "PO-Revision-Date: 2023-12-25 18:53+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -107,7 +107,7 @@ msgid "Share"
 msgstr "分享"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:303
+#: src/qml/ImagesView.qml:300
 #, kde-format
 msgid "Back"
 msgstr "返回"
@@ -147,51 +147,51 @@ msgstr "影片："
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "選擇 Kamoso 儲存影片的資料夾"
 
-#: src/qml/ImagesView.qml:275
+#: src/qml/ImagesView.qml:272
 #, kde-format
 msgid "Cameras"
 msgstr "相機"
 
-#: src/qml/ImagesView.qml:291
+#: src/qml/ImagesView.qml:288
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "鏡像相機"
 
-#: src/qml/ImagesView.qml:330
+#: src/qml/ImagesView.qml:327
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "<filename>%1</filename> 中未找到圖片"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "分享 %1 個項目…"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share Item..."
 msgstr "分享項目..."
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "將 %1 個項目移到垃圾桶"
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "將項目移到垃圾桶"
 
-#: src/qml/ImagesView.qml:365
+#: src/qml/ImagesView.qml:362
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "開啟圖片資料夾"
 
-#: src/qml/ImagesView.qml:374
+#: src/qml/ImagesView.qml:371
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "設定 Kamoso…"

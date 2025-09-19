@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 02:45+0000\n"
+"POT-Creation-Date: 2025-09-19 02:37+0000\n"
 "PO-Revision-Date: 2019-04-09 15:35+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -103,7 +103,7 @@ msgid "Share"
 msgstr "Partilhar"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:303
+#: src/qml/ImagesView.qml:300
 #, kde-format
 msgid "Back"
 msgstr "Recuar"
@@ -143,54 +143,54 @@ msgstr "Vídeos:"
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Escolha a pasta onde o Kamoso irá gravar os vídeos"
 
-#: src/qml/ImagesView.qml:275
+#: src/qml/ImagesView.qml:272
 #, kde-format
 msgid "Cameras"
 msgstr "Máquinas Fotográficas"
 
-#: src/qml/ImagesView.qml:291
+#: src/qml/ImagesView.qml:288
 #, fuzzy, kde-format
 #| msgid "Mirror camera"
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Espelho da câmara"
 
-#: src/qml/ImagesView.qml:330
+#: src/qml/ImagesView.qml:327
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Não existem imagens em <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "Partilhar %1 Item..."
 msgstr[1] "Partilhar %1 Itens..."
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:341
 #, kde-format
 msgid "Share Item..."
 msgstr "Partilhar o Item..."
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "Enviar %1 Item para o Lixo"
 msgstr[1] "Enviar %1 Itens para o Lixo"
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:351
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Enviar o Item para o Lixo"
 
-#: src/qml/ImagesView.qml:365
+#: src/qml/ImagesView.qml:362
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Abrir a Pasta de Imagens"
 
-#: src/qml/ImagesView.qml:374
+#: src/qml/ImagesView.qml:371
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Configurar o Kamoso..."
