@@ -216,8 +216,8 @@ QQC2.StackView {
                             title: i18n("Choose the folder where Kamoso will save pictures")
                             currentFolder: Settings.saveUrl
 
-                            onSelectedFolderChanged: {
-                                Settings.saveUrl = dirSelector.selectedFolder
+                            onAccepted: {
+                                Settings.saveUrl = selectedFolder
                                 Settings.save()
                             }
                         }
@@ -259,12 +259,9 @@ QQC2.StackView {
                         id: videoDirSelector
                         title: i18n("Choose the folder where Kamoso will save videos")
                         currentFolder: Settings.saveVideos
-                        // selectMultiple: false
-                        // selectExisting: true
-                        // selectFolder: true
 
-                        onSelectedFolderChanged: {
-                            Settings.saveVideos = videoDirSelector.selectedFolder
+                        onAccepted: {
+                            Settings.saveVideos = selectedFolder
                             Settings.save()
                         }
                     }
