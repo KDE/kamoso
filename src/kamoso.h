@@ -56,7 +56,7 @@ Q_OBJECT
         void error(const QString &error);
 
     private:
-        QUrl fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const;
+        QString fileNameSuggestion(const QString &destinationPath, const QString &name, const QString& extension) const;
 
         WebcamControl * const m_webcamControl;
         QTimer m_recordingTimer;

@@ -273,7 +273,7 @@ bool WebcamControl::playDevice(Device *device)
     //If we already have a pipeline for this device, just set it to picture mode
     if (m_pipeline && m_currentDevice == device->objectId()) {
         g_object_set(m_pipeline.data(), "mode", 2, nullptr);
-        g_object_set(m_pipeline.data(), "location", m_tmpVideoPath.toUtf8().constData(), nullptr);
+        g_object_set(m_pipeline.data(), "location", m_videoDestination.toUtf8().constData(), nullptr);
         return true;
     }
 
@@ -364,21 +364,6 @@ void WebcamControl::onBusMessage(GstMessage* message)
             } else if (gst_structure_get_name(structure) ==
                        QByteArray("video-done")) {
               g_object_set(m_pipeline.data(), "mode", 1, nullptr);
-              if (!m_videoDestination.isLocalFile()) {
-                KJob *job = KIO::move(QUrl::fromLocalFile(m_tmpVideoPath),
-                                      m_videoDestination);
-                job->start();
-                connect(job, &KJob::finished, this, [this, job] {
-                  if (job->error() == 0) {
-                    qDebug() << "video saved successfully";
-                    return;
-                  }
-
-                  qWarning() << "Could not move" << m_tmpVideoPath << "to"
-                             << m_videoDestination;
-                  Q_EMIT m_kamoso->error(job->errorString());
-                });
-              }
             } else {
               qDebug() << "Ignoring message from camerabin"
                        << gst_structure_get_name(structure);
@@ -389,7 +374,8 @@ void WebcamControl::onBusMessage(GstMessage* message)
         break;
     }
 }
-void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
+
+void WebcamControl::takePhoto(const QString &path, bool emitTaken)
 {
     if (!m_pipeline) {
         qWarning() << "couldn't take photo, no pipeline";
@@ -399,33 +385,21 @@ void WebcamControl::takePhoto(const QUrl &url, bool emitTaken)
 
     g_object_set(m_pipeline.data(), "mode", 1, nullptr);
 
-    const QString path = url.isLocalFile() ? url.toLocalFile() : QStandardPaths::writableLocation(QStandardPaths::TempLocation) + u"/kamoso_photo.jpg";
     g_object_set(m_pipeline.data(), "location", path.toUtf8().constData(), nullptr);
 
     g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);
 
-    if (!url.isLocalFile()) {
-        KIO::copy(QUrl::fromLocalFile(path), url);
-    }
-
     if (emitTaken) {
-        KNotification::event(QStringLiteral("photoTaken"), i18n("Photo taken"), i18n("Saved in %1", url.toDisplayString(QUrl::PreferLocalFile)));
+        KNotification::event(QStringLiteral("photoTaken"), i18n("Photo taken"), i18n("Saved in %1", path));
     }
 }
 
-static QString temporaryVideoFile()
-{
-    QString date = QDateTime::currentDateTime().toString(u"ddmmyyyy_hhmmss");
-    return QDir::tempPath() + QStringLiteral("/kamoso_%1.mkv").arg(date);
-}
-
-void WebcamControl::startRecording(const QUrl &destination)
+void WebcamControl::startRecording(const QString &destination)
 {
     m_videoDestination = destination;
-    m_tmpVideoPath = destination.isLocalFile() ? destination.toLocalFile() : temporaryVideoFile();
 
     g_object_set(m_pipeline.data(), "mode", 2,
-                                    "location", m_tmpVideoPath.toUtf8().constData(),
+                                    "location", m_videoDestination.toUtf8().constData(),
                                     nullptr);
 
     g_signal_emit_by_name (m_pipeline.data(), "start-capture", 0);

@@ -40,37 +40,32 @@ Kamoso::Kamoso(WebcamControl *webcamControl)
 
 Kamoso::~Kamoso() = default;
 
-QUrl Kamoso::fileNameSuggestion(const QUrl &saveUrl, const QString &name, const QString& extension) const
+QString Kamoso::fileNameSuggestion(const QString &destination, const QString &name, const QString& extension) const
 {
     const QString date = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_hh-mm-ss"));
     const QString initialName =  QStringLiteral("%1_%2.%3").arg(name, date, extension);
 
-    QUrl url(saveUrl.toString() + u'/' + initialName);
+    QString suggestion (destination + u'/' + initialName);
 
-    if (url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-        url.setPath(saveUrl.path() + u'/' + KFileUtils::suggestName(saveUrl, initialName));
+    if (QFile f(suggestion); f.exists()) {
+        suggestion = destination + u'/' + KFileUtils::suggestName(QUrl::fromLocalFile(destination), initialName);
     }
 
-    return url;
+    return suggestion;
 }
 
 const QString Kamoso::takePhoto()
 {
-    const auto saveUrl = Settings::saveUrl();
-    if (saveUrl.isLocalFile()) {
-        qDebug() << "Creating" << saveUrl;
-        QDir().mkpath(saveUrl.toLocalFile());
-    }
-
-    const QUrl path = fileNameSuggestion(saveUrl, QStringLiteral("picture"), QStringLiteral("jpg"));
+    const auto savePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+    const QString path = fileNameSuggestion(savePath, QStringLiteral("picture"), QStringLiteral("jpg"));
     m_webcamControl->takePhoto(path, true);
 
-    if (m_sampleImagePath.isEmpty() && path.isLocalFile()) {
-        m_sampleImagePath = path.toLocalFile();
+    if (m_sampleImagePath.isEmpty()) {
+        m_sampleImagePath = path;
         Q_EMIT sampleImageChanged(m_sampleImagePath);
     }
 
-    return path.toDisplayString();
+    return path;
 }
 
 void Kamoso::resetDeviceSettings()
@@ -91,19 +86,10 @@ void Kamoso::setRecording(bool recording)
         return;
 
     if (recording) {
-        m_webcamControl->startRecording(fileNameSuggestion(Settings::saveVideos(), QStringLiteral("video"), QStringLiteral("mkv")));
+        const auto savePath = QStandardPaths::writableLocation(QStandardPaths::MoviesLocation);
+        m_webcamControl->startRecording(fileNameSuggestion(savePath, QStringLiteral("video"), QStringLiteral("mkv")));
         m_recordingTime.restart();
         m_recordingTimer.start();
-        auto job = KIO::mkpath(Settings::saveVideos());
-        job->start();
-        connect(job, &KJob::finished, this, [this, job] {
-            if (job->error() == 0) {
-                return;
-            }
-
-            qWarning() << "Could not create" << Settings::saveVideos();
-            Q_EMIT error(job->errorString());
-        });
     } else {
         m_webcamControl->stopRecording();
         m_webcamControl->playDevice(DeviceManager::self()->playingDevice());
@@ -151,7 +137,7 @@ QString Kamoso::sampleImage() const
         const auto path = temporaryFile->fileName();
         temporaryFile->close();
 
-        m_webcamControl->takePhoto(QUrl::fromLocalFile(path), false);
+        m_webcamControl->takePhoto(path, false);
     }
     return m_sampleImagePath;
 }
