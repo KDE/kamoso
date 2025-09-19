@@ -201,10 +201,6 @@ QQC2.StackView {
                         QQC2.ToolTip {
                             visible: parent.hovered
                             text: i18n("Choose the folder where Kamoso will save pictures")
-
-                            // TODO: Remove this once Kamoso can depend on
-                            // Frameworks 5.55, where this is fixed upstream
-                            z: 999
                         }
 
                         onClicked: {
@@ -244,10 +240,6 @@ QQC2.StackView {
                         QQC2.ToolTip {
                             visible: parent.hovered
                             text: i18n("Choose the folder where Kamoso will save videos")
-
-                            // TODO: Remove this once Kamoso can depend on
-                            // Frameworks 5.55, where this is fixed upstream
-                            z: 999
                         }
 
                         onClicked: {
