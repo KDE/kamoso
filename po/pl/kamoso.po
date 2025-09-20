@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:42+0000\n"
+"POT-Creation-Date: 2025-09-20 00:42+0000\n"
 "PO-Revision-Date: 2025-09-06 05:41+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -110,7 +110,7 @@ msgid "Share"
 msgstr "Udostępnij"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:303
+#: src/qml/ImagesView.qml:292
 #, kde-format
 msgid "Back"
 msgstr "Wstecz"
@@ -135,39 +135,39 @@ msgstr "Miejsca zapisywania"
 msgid "Pictures:"
 msgstr "Obrazy:"
 
-#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:212
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
 msgstr "Wybierz katalog, w którym Kamoso będzie zapisywać zdjęcia"
 
-#: src/qml/ImagesView.qml:231
+#: src/qml/ImagesView.qml:227
 #, kde-format
 msgid "Videos:"
 msgstr "Filmy:"
 
-#: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
+#: src/qml/ImagesView.qml:242 src/qml/ImagesView.qml:252
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Wybierz katalog, w którym Kamoso będzie zapisywać filmy"
 
-#: src/qml/ImagesView.qml:275
+#: src/qml/ImagesView.qml:264
 #, kde-format
 msgid "Cameras"
 msgstr "Aparaty"
 
-#: src/qml/ImagesView.qml:291
+#: src/qml/ImagesView.qml:280
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Odbij lustrzanie kamerę"
 
-#: src/qml/ImagesView.qml:330
+#: src/qml/ImagesView.qml:319
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Nie ma obrazów w <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
@@ -175,12 +175,12 @@ msgstr[0] "Udostępnij %1 element..."
 msgstr[1] "Udostępnij %1 elementy..."
 msgstr[2] "Udostępnij %1 elementów..."
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share Item..."
 msgstr "Udostępnij element..."
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:343
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
@@ -188,17 +188,17 @@ msgstr[0] "Przenieś %1 element do kosza"
 msgstr[1] "Przenieś %1 elementy do kosza"
 msgstr[2] "Przenieś %1 elementów do kosza"
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:343
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Przenieś element do kosza"
 
-#: src/qml/ImagesView.qml:365
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Otwórz katalog zdjęć"
 
-#: src/qml/ImagesView.qml:374
+#: src/qml/ImagesView.qml:363
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Ustawienia Kamoso..."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:42+0000\n"
+"POT-Creation-Date: 2025-09-20 00:42+0000\n"
 "PO-Revision-Date: 2022-03-24 06:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -109,7 +109,7 @@ msgid "Share"
 msgstr "Bagikan"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
-#: src/qml/ImagesView.qml:303
+#: src/qml/ImagesView.qml:292
 #, kde-format
 msgid "Back"
 msgstr "Kembali"
@@ -134,69 +134,69 @@ msgstr "Lokasi Simpan"
 msgid "Pictures:"
 msgstr "Gambar:"
 
-#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
+#: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:212
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
 msgstr "Pilih folder di mana Kamoso akan menyimpan gambar"
 
-#: src/qml/ImagesView.qml:231
+#: src/qml/ImagesView.qml:227
 #, kde-format
 msgid "Videos:"
 msgstr "Video:"
 
-#: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
+#: src/qml/ImagesView.qml:242 src/qml/ImagesView.qml:252
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
 msgstr "Pilih folder di mana Kamoso akan menyimpan video"
 
-#: src/qml/ImagesView.qml:275
+#: src/qml/ImagesView.qml:264
 #, kde-format
 msgid "Cameras"
 msgstr "Kamera"
 
-#: src/qml/ImagesView.qml:291
+#: src/qml/ImagesView.qml:280
 #, fuzzy, kde-format
 #| msgid "Mirror camera"
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
 msgstr "Kamera cermin"
 
-#: src/qml/ImagesView.qml:330
+#: src/qml/ImagesView.qml:319
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
 msgstr "Tidak ada citra di dalam folder <filename>%1</filename>"
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
 msgstr[0] "Bagikan %1 Item..."
 msgstr[1] "Bagikan %1 Item..."
 
-#: src/qml/ImagesView.qml:344
+#: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share Item..."
 msgstr "Bagikan Item..."
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:343
 #, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
 msgstr[0] "Pindahkan %1 Item ke Tong Sampah"
 msgstr[1] "Pindahkan %1 Item ke Tong Sampah"
 
-#: src/qml/ImagesView.qml:354
+#: src/qml/ImagesView.qml:343
 #, kde-format
 msgid "Move Item to Trash"
 msgstr "Pindahkan  Item ke Tong Sampah"
 
-#: src/qml/ImagesView.qml:365
+#: src/qml/ImagesView.qml:354
 #, kde-format
 msgid "Open Pictures Folder"
 msgstr "Buka Folder Gambar"
 
-#: src/qml/ImagesView.qml:374
+#: src/qml/ImagesView.qml:363
 #, kde-format
 msgid "Configure Kamoso..."
 msgstr "Konfigurasikan Kamoso..."
