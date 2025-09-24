@@ -11,6 +11,7 @@ Dependencies:
     'frameworks/ki18n': '@stable-kf6'
     'frameworks/purpose': '@stable-kf6'
     'frameworks/knotifications': '@stable-kf6'
+    'libraries/kirigami-addons': '@latest-kf6'
 
 Options:
  require-passing-tests-on: ['@all']
