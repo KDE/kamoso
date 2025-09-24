@@ -48,10 +48,11 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GStreamer IMPORTED_TARGET gstreamer-1.0>=${GSTREAMER_MIN_VERSION})
 pkg_check_modules(GStreamerVideo IMPORTED_TARGET gstreamer-video-1.0)
 
-include(ECMQMLModules)
+include(ECMFindQmlModule)
 
 ecm_find_qmlmodule(org.kde.purpose 1.0)
 ecm_find_qmlmodule(org.kde.kirigami 1.0)
+find_package(KF6KirigamiAddons 1.10.0 REQUIRED)
 
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
