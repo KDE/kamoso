@@ -110,32 +110,32 @@
 <member
 ><inlinemediaobject
 ><imageobject>
-<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject>
-</inlinemediaobject
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
 > Перемикання у режим <guibutton
 >Знімок</guibutton
 > для створення одного знімка </member>
 <member
 ><inlinemediaobject
 ><imageobject>
-<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject>
-</inlinemediaobject
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
 > Перемикання у режим <guibutton
 >Серія</guibutton
 > зі створенням неперервної послідовності знімків, доки ви не натиснете середню кнопку ще раз </member>
 <member
 ><inlinemediaobject
 ><imageobject>
-<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject>
-</inlinemediaobject
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
 > Перемикання у режим <guibutton
 >Запис</guibutton
 > для запису відео </member>
 <member
 ><inlinemediaobject
 ><imageobject>
-<imagedata fileref="start-stop.png" format="PNG"/></imageobject>
-</inlinemediaobject
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
 >Почати або припинити знімання або запис відео</member>
 <member
 ><inlinemediaobject
@@ -253,7 +253,6 @@
 >Переклад українською: Юрій Чорноіван<email
 >yurchor@ukr.net</email
 ></para
-> 
-&underFDL; </chapter>
+> &underFDL; </chapter>
 &documentation.index;
 </book>
