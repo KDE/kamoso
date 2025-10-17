@@ -2,10 +2,10 @@
 # Copyright (C) 2009-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kamoso package.
 #
-# Aleix Pol <aleixpol@kde.org>, 2009.
-# Manue Tortosa <manutortosa@chakra-project.org>, 2011.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016.
-# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2023, 2025.
+# SPDX-FileCopyrightText: 2009 Aleix Pol <aleixpol@kde.org>
+# SPDX-FileCopyrightText: 2011 Manue Tortosa <manutortosa@chakra-project.org>
+# SPDX-FileCopyrightText: 2015, 2016 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2010, 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2023, 2025 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
