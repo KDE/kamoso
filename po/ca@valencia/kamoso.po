@@ -2,10 +2,10 @@
 # Copyright (C) 2009-2023 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kamoso package.
 #
-# Aleix Pol <aleixpol@kde.org>, 2009.
+# SPDX-FileCopyrightText: 2009 Aleix Pol <aleixpol@kde.org>
 # SPDX-FileCopyrightText: 2010, 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2023 Josep M. Ferrer <txemaq@gmail.com>
-# Manue Tortosa <manutortosa@chakra-project.org>, 2011.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2015, 2016.
+# SPDX-FileCopyrightText: 2011 Manue Tortosa <manutortosa@chakra-project.org>
+# SPDX-FileCopyrightText: 2015, 2016 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
@@ -69,7 +69,7 @@ msgstr "Una utilitat per a fer fotos i vídeos emprant una càmera web"
 #: src/main.cpp:24
 #, kde-format
 msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
-msgstr "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+msgstr "(C) 2008-2015 Alex Fiestas i Aleix Pol"
 
 #: src/main.cpp:26
 #, kde-format
@@ -139,7 +139,7 @@ msgstr "Imatges:"
 #: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:216
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
-msgstr "Seleccioneu la carpeta a on Kamoso guardarà les imatges"
+msgstr "Trieu la carpeta a on Kamoso guardarà les imatges"
 
 #: src/qml/ImagesView.qml:231
 #, kde-format
@@ -149,7 +149,7 @@ msgstr "Vídeos:"
 #: src/qml/ImagesView.qml:246 src/qml/ImagesView.qml:260
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
-msgstr "Seleccioneu la carpeta a on Kamoso guardarà els vídeos"
+msgstr "Trieu la carpeta a on Kamoso guardarà els vídeos"
 
 #: src/qml/ImagesView.qml:272
 #, kde-format
