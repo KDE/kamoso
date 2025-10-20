@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Sergiu Bivol <sergiu@cip.md>, 2011, 2013, 2020, 2024.
+# SPDX-FileCopyrightText: 2011, 2013, 2020, 2024, 2025 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-08 00:42+0000\n"
-"PO-Revision-Date: 2024-02-18 14:40+0000\n"
+"PO-Revision-Date: 2025-10-19 02:20+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -63,10 +63,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Utilitar pentru făcut poze și video folosind camera web"
 
 #: src/main.cpp:27
-#, fuzzy, kde-format
-#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr "(C) 2008-2015 Alex Fiestas și Aleix Pol"
+msgstr "(C) 2008-2025 Alex Fiestas și Aleix Pol"
 
 #: src/main.cpp:29
 #, kde-format
