@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-08 00:42+0000\n"
-"PO-Revision-Date: 2024-07-21 14:21+0200\n"
+"PO-Revision-Date: 2025-10-26 13:42+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 25.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -63,10 +63,9 @@ msgid "Utility for taking photos and videos using a webcam"
 msgstr "Verktøy for å ta bilete og ta opp video med nettkamera"
 
 #: src/main.cpp:27
-#, fuzzy, kde-format
-#| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
+#, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr "© 2008–2015 Alex Fiestas og Aleix Pol"
+msgstr "© 2008–2025 Alex Fiestas og Aleix Pol"
 
 #: src/main.cpp:29
 #, kde-format
