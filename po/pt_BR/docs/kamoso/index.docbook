@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kamoso     "<application
+>Kamoso</application
+>">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Brazilian-Portuguese "INCLUDE">
 ]>
@@ -13,7 +16,7 @@
 ><firstname
 >Esta documentação foi convertida a partir da página KDE UserBase <ulink url="http://userbase.kde.org/Kamoso"
 >Kamoso</ulink
->.</firstname
+> página e atualização pelo time de documentação &kde;.</firstname
 > <surname
 ></surname
 > </personname>
@@ -37,9 +40,9 @@
 <legalnotice
 >&FDLNotice;</legalnotice>
 <date
->05/12/2012</date>
+>24/08/2016</date>
       <releaseinfo
->2.0.2 (&kde; SC 4.10)</releaseinfo>
+>&kamoso; 3.2</releaseinfo>
 <abstract>
 <para>
 <variablelist>
@@ -50,9 +53,7 @@
 ></term>
     <listitem>
     <para
->O <application
->Kamoso</application
-> lhe dá a oportunidade de tirar fotos a partir da sua webcam e enviá-las para o Facebook.</para>
+>O &kamoso; lhe dá a oportunidade de tirar fotos a partir da sua webcam e enviá-las para a Internet</para>
      </listitem>
   </varlistentry>
   <varlistentry
@@ -62,9 +63,7 @@
 ></term>
     <listitem>
     <para
->O <application
->Kamoso</application
-> permite-lhe gravar vídeos a partir da sua webcam e enviá-los para o YouTube</para>
+>O &kamoso; permite gravar vídeos a partir da sua webcam e enviá-los para a Internet</para>
      </listitem>
   </varlistentry>
 </variablelist>
@@ -84,81 +83,134 @@
 ><title
 >Guia do Usuário</title>
 <para
->Bem-vindo ao <application
->Kamoso</application
->! </para>
+>Bem-vindo ao &kamoso;! </para>
 <para
->O <application
->Kamoso</application
-> é um ótimo programa para usar a sua webcam para tirar fotos ou criar vídeos. Será provavelmente o melhor gravador com webcam para &Linux;. Este guia irá ajudá-lo a usar o Kamoso assim que o tiver instalado. Tentamos torná-lo simples e amigável. Boa sorte! </para>
+>O &kamoso; é um ótimo programa para usar a sua webcam para tirar fotos ou criar vídeos. Este guia irá ajudá-lo a usar o &kamoso;assim que o tiver instalado. </para>
 <sect1 id="quick-start"
 ><title
->Introdução</title>
+>Início rápido</title>
 <para
->Ao executar o <application
->Kamoso</application
->, serão apresentados dois grupos de botões à esquerda e à direita, além de um botão central. </para>
+>Ao iniciar o &kamoso;, ele exibe esta janela com botões na parte inferior: </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="mainwindow.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<simplelist>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-shoot.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Muda para o modo <guibutton
+>Foto</guibutton
+> para tirar uma foto </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-burst.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Muda para o modo <guibutton
+>Disparo contínuo</guibutton
+> e tira fotos continuamente até que você pare clicando novamente no botão do meio </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="sc-actions-record.png" format="PNG"/></imageobject
+></inlinemediaobject
+> Muda para o modo <guibutton
+>Gravar</guibutton
+> para gravar um vídeo </member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="start-stop.png" format="PNG"/></imageobject
+></inlinemediaobject
+>Começa ou para de tirar fotos ou gravar um vídeo</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="folder-images.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Exibir galeria</guibutton>
+</member>
+<member
+><inlinemediaobject
+><imageobject>
+<imagedata fileref="preferences-other.png" format="PNG"/></imageobject>
+</inlinemediaobject
+> <guibutton
+>Exibir configurações</guibutton>
+</member
+></simplelist>
+
 <para
->O botão central ajuda-o a tirar uma foto! Vá em frente e experimente! SORRIA! <inlinemediaobject
-> <imageobject
-> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject
-> </inlinemediaobject>
-</para>
-<para
->O <application
->Kamoso</application
-> levará 3 segundos para que você possa fazer uma pose para sua foto, pedindo-lhe para sorrir pouco antes de disparar! </para>
-<para
->Se clicar no segundo botão à esquerda, o <application
->Kamoso</application
-> irá mudar para o modo de disparo contínuo. O <application
->Kamoso</application
-> irá continuar a tirar fotografias rapidamente até que não clique mais no botão central, informando que deseja parar. As fotos serão alinhadas em ordem cronológica na parte inferior da janela, que poderão ser vistas ao clicar duas vezes sobre elas. Alternativamente, você pode clicar no botão direito do mouse e escolher <guilabel
->Abrir</guilabel
-> para ver as fotos também! Se não estiver satisfeito com algumas fotos, basta clicar no botão direito do mouse e selecionar <guilabel
->Lixeira</guilabel
-> para excluir essa foto em particular. </para>
+>Fotos e vídeos são numeradas de maneira consecutiva e salvas automaticamente nas <guilabel
+>Pastas de Capturas</guilabel
+> definidas nas configurações. </para>
+
 </sect1>
-<sect1 id="upload-image-to-facebook"
+
+<sect1 id="managing-captures"
 ><title
->Enviar imagem para o Facebook</title>
+>Gerenciando capturas</title>
+
 <para
->Se achar que as suas fotos recém-tiradas devem ser enviadas para o seu perfil do Facebook, basta clicar no botão direito do mouse sobre a foto e selecionar <guilabel
->Importar/Exportar para o Facebook</guilabel
->. Aparecerá uma janela no seu navegador pedindo-lhe permissão para o <application
->Kamoso</application
->. Assim que fizer isso, estará pronto para enviar! </para>
+>Para visualizar e gerir suas capturas de fotos e vídeos clique no botão <guibutton
+>Exibir galeria</guibutton
+>. No menu de contexto para cada entrada na galeria você pode localizar ações para gerir  </para>
+
+<screenshot>
+<screeninfo
+></screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="gallery-actions.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase
+></phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
 <para
-><note
-><para
->Você precisa ter uma conta no Facebook para enviar a foto tirada </para
-></note>
-</para>
+>Use <guimenuitem
+>Abrir</guimenuitem
+> para visualizar suas capturas no aplicativo associado. </para>
+
 <para
->Se quiser evitar todos os cliques com o botão direito do mouse, clique no segundo botão à direita, sendo-lhe apresentadas as mesmas opções do botão direito. </para>
+>Se você quiser excluir fotos e vídeos, abra a pasta de capturas no gerenciador de arquivos. </para>
+
+<para
+>As próximas ações permitem que você envie as capturas para a Internet ou as envie para um contato ou dispositivo. </para>
+
+<para
+>Use <guimenuitem
+>Salvar como</guimenuitem
+> para copiar todo o conteúdo da galeria para uma nova pasta. </para>
+
 </sect1>
-<sect1 id="upload-video-to-youtube"
-><title
->Enviar vídeo para o YouTube</title>
-<para
->O <application
->Kamoso</application
-> também permite-lhe capturar vídeos! Ao clicar no botão vermelho à esquerda, irá mudar para o modo de vídeo. Clique no botão central para começar a gravar o seu vídeo! Clique com o botão direito do mouse no vídeo e selecione <guilabel
->YouTube</guilabel
-> para enviá-lo para o YouTube. </para>
-<para
-><note
-><para
->Você precisa ter uma conta no YouTube e providenciar o acesso do <application
->Kamoso</application
-> com o seu usuário e senha - não se preocupe, é totalmente seguro!</para
-></note>
-</para>
-</sect1>
-<sect1 id="customising"
+
+<sect1 id="customizing"
 ><title
 >Personalizando</title>
-<para>
+<para
+>Clique em <guibutton
+>Exibir configurações</guibutton
+> botão para abrir as configurações do painel. Clique novamente para ocultar o painel de configurações. </para>
+
 <screenshot>
 <screeninfo
 ></screeninfo>
@@ -172,42 +224,21 @@
     </textobject>
   </mediaobject>
 </screenshot>
-</para>
+
 <para
->Se achar que a qualidade da sua foto não está muito boa, clique no botão mais à direita e selecione <guilabel
->Configurações</guilabel
->. Este é o painel de configuração. </para>
+>Se você quiser alterar a pasta onde o &kamoso; salva fotos e vídeos, altere o <guilabel
+>Diretório de capturas</guilabel
+> na parte superior. </para>
+
 <para
->Caso queira alterar a pasta onde o <application
->Kamoso</application
-> salva as fotos, vá para o painel <guilabel
->Geral</guilabel
-> e altere a pasta. </para>
+>Ative <guibutton
+>Usar flash</guibutton
+> para iluminar a janela antes de tirar fotos. </para>
+
 <para
->Se quiser alterar o tempo de espera antes do <application
->Kamoso</application
-> tirar a foto, vá para <guilabel
->Configurações da foto</guilabel
->. </para>
-<para
->Se for um usuário realmente técnico, vá para <guilabel
->Configurações do vídeo</guilabel
->, onde poderá ajustar algumas definições, como brilho, contraste, &etc; </para>
+>Usando os controles deslizantes, você pode modificar as configurações da câmera como brilho, matiz, contraste, saturação e gama. </para>
 </sect1>
-<sect1 id="the-end"
-><title
->Fim</title>
-<para
->Bem, chegou ao fim do tutorial. Acreditamos que suas dúvidas tenham sido devidamente esclarecidas! </para>
-<para
->Divirta-se usando o <application
->Kamoso</application
->! <inlinemediaobject
-> <imageobject
-> <imagedata fileref="Face-smile.png" format="PNG"/> </imageobject
-> </inlinemediaobject>
-</para>
-</sect1>
+
 </chapter>
 
 <!--userbase-content-->
@@ -222,7 +253,6 @@
 >Tradução de André Marcelo Alvarenga <email
 >alvarenga@kde.org</email
 ></para
-> 
-&underFDL; </chapter>
+> &underFDL; </chapter>
 &documentation.index;
 </book>
