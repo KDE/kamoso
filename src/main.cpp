@@ -11,16 +11,13 @@
 #include "video/webcamcontrol.h"
 #include <QApplication>
 #include <QIcon>
-#include <KirigamiApp>
 
 #include "kamoso_version.h"
 #include <gst/gst.h>
 
 int main(int argc, char *argv[])
 {
-    KirigamiApp::App app(argc, argv);
-    KirigamiApp kapp;
-
+    QApplication app(argc, argv);
     KLocalizedString::setApplicationDomain("kamoso");
     {
         KAboutData about(QStringLiteral("kamoso"), i18n("Kamoso"), QStringLiteral(KAMOSO_VERSION_STRING), i18n("Utility for taking photos and videos using a webcam"),
