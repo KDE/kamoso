@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-21 00:42+0000\n"
 "PO-Revision-Date: 2022-03-24 06:21+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -53,48 +53,48 @@ msgstr "Tampilan kamera dicerminkan secara menegak."
 msgid "Points to the last used webcam."
 msgstr "Poin terakhir yang digunakan webcam."
 
-#: src/main.cpp:26 src/qml/Main.qml:20
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
 
-#: src/main.cpp:26
+#: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
 msgstr "Utilitas untuk pengambilan foto dan video menggunakan webcam"
 
-#: src/main.cpp:27
+#: src/main.cpp:24
 #, fuzzy, kde-format
 #| msgid "(C) 2008-2015 Alex Fiestas and Aleix Pol"
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(C) 2008-2015 Alex Fiestas dan Aleix Pol"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
 msgstr "Peretas semafor"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
 msgstr "Alex Fiestas"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
 msgstr "Peminum kopi"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
 msgstr "caseymoura"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"

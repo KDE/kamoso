@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-21 00:42+0000\n"
 "PO-Revision-Date: 2025-07-14 20:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -53,47 +53,47 @@ msgstr "عكس عرض الكاميرا رأسيًا."
 msgid "Points to the last used webcam."
 msgstr "يشير إلى آخر كاميرا وِبّ مستخدمة."
 
-#: src/main.cpp:26 src/qml/Main.qml:20
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "كاموسو"
 
-#: src/main.cpp:26
+#: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
 msgstr "أداة لأخذ الصّور والفيديوهات باستخدام كاميرا الوِبّ"
 
-#: src/main.cpp:27
+#: src/main.cpp:24
 #, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "(ج) 2008-2025 أليكس فيستاس وأليكس بول"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "ألكس بول غنزالز"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
 msgstr "سيمافور هاكر"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
 msgstr "ألكس فياستز"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
 msgstr "شارب قهوة"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
 msgstr "caseymoura"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:51+0000\n"
+"POT-Creation-Date: 2025-12-21 00:42+0000\n"
 "PO-Revision-Date: 2025-07-09 09:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -54,47 +54,47 @@ msgstr "Вертикально віддзеркалити зображення �
 msgid "Points to the last used webcam."
 msgstr "Вказує на останню використану вебкамеру."
 
-#: src/main.cpp:26 src/qml/Main.qml:20
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
 
-#: src/main.cpp:26
+#: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
 msgstr "Програма для створення знімків та відео за допомогою вебкамери"
 
-#: src/main.cpp:27
+#: src/main.cpp:24
 #, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "© Alex Fiestas і Aleix Pol, 2008–2025"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
 msgstr "Робота з семафорами"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
 msgstr "Alex Fiestas"
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
 msgstr "Поглинання кави"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
 msgstr "caseymoura"
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
