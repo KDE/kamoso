@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:40+0000\n"
+"POT-Creation-Date: 2025-12-23 02:38+0000\n"
 "PO-Revision-Date: 2010-03-18 00:57-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -51,48 +51,48 @@ msgstr ""
 msgid "Points to the last used webcam."
 msgstr ""
 
-#: src/main.cpp:26 src/qml/Main.qml:20
+#: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
 
-#: src/main.cpp:26
+#: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
 msgstr ""
 
-#: src/main.cpp:27
+#: src/main.cpp:24
 #, fuzzy, kde-format
 #| msgid "(C) 2008-2010 Alex Fiestas and Aleix Pol"
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
 msgstr "© 2008-2010 Alex Fiestas agus Aleix Pol"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
 msgstr "Aleix Pol Gonzalez"
 
-#: src/main.cpp:29
+#: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
 msgstr ""
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
 msgstr ""
 
-#: src/main.cpp:30
+#: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
 msgstr ""
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
 msgstr ""
 
-#: src/main.cpp:31
+#: src/main.cpp:28
 #, kde-format
 msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
