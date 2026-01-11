@@ -126,7 +126,7 @@ msgstr "Kamoso’yu Yapılandır"
 #: src/qml/ImagesView.qml:181
 #, kde-format
 msgid "Save Locations"
-msgstr "Konumları Kaydet"
+msgstr "Kayıt Konumları"
 
 #: src/qml/ImagesView.qml:188
 #, kde-format
