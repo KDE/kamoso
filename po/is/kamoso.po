@@ -2,29 +2,29 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sveinki@nett.is>, 2011, 2016.
+# SPDX-FileCopyrightText: 2011, 2016, 2026 Sveinn í Felli <sveinki@nett.is>
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-21 00:42+0000\n"
-"PO-Revision-Date: 2016-04-08 22:57+0000\n"
+"PO-Revision-Date: 2026-01-16 12:51+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 23.08.5\n"
 
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Sveinn í Felli"
 
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sv1@fellsnet.is"
@@ -32,66 +32,66 @@ msgstr "sv1@fellsnet.is"
 #: src/kamoso.cpp:86 src/qml/Main.qml:256
 #, kde-format
 msgid "No device found"
-msgstr ""
+msgstr "Ekkert tæki fannst"
 
 #. i18n: ectx: label, entry (saveUrl), group (General)
 #. i18n: ectx: label, entry (saveVideos), group (General)
 #: src/kamosoSettings.kcfg:11 src/kamosoSettings.kcfg:15
 #, kde-format
 msgid "Where the photos are saved."
-msgstr ""
+msgstr "Þar sem myndirnar verða vistaðar."
 
 #. i18n: ectx: label, entry (mirrored), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:22
 #, kde-format
 msgid "Vertically mirror the camera view."
-msgstr ""
+msgstr "Spegla sjónarhorni myndavélar lóðrétt."
 
 #. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:25
 #, kde-format
 msgid "Points to the last used webcam."
-msgstr ""
+msgstr "Bendir á síðast notuðu vefmyndavélina."
 
 #: src/main.cpp:23 src/qml/Main.qml:20
-#, fuzzy, kde-format
+#, kde-format
 msgid "Kamoso"
 msgstr "Kamoso"
 
 #: src/main.cpp:23
 #, kde-format
 msgid "Utility for taking photos and videos using a webcam"
-msgstr ""
+msgstr "Nytjatól til að taka myndir og myndskeið með vefmyndavél"
 
 #: src/main.cpp:24
 #, kde-format
 msgid "(C) 2008-2025 Alex Fiestas and Aleix Pol"
-msgstr ""
+msgstr "(C) 2008-2025 Alex Fiestas og Aleix Pol"
 
 #: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr ""
+msgstr "Aleix Pol Gonzalez"
 
 #: src/main.cpp:26
 #, kde-format
 msgid "Semaphore hacker"
-msgstr ""
+msgstr "Hakkari í frístundum"
 
 #: src/main.cpp:27
 #, kde-format
 msgid "Alex Fiestas"
-msgstr ""
+msgstr "Alex Fiestas"
 
 #: src/main.cpp:27
 #, kde-format
 msgid "Coffee drinker"
-msgstr ""
+msgstr "Kaffibelgur"
 
 #: src/main.cpp:28
 #, kde-format
 msgid "caseymoura"
-msgstr ""
+msgstr "caseymoura"
 
 #: src/main.cpp:28
 #, kde-format
@@ -99,150 +99,152 @@ msgid ""
 "Uploaded the shutter sound: https://freesound.org/people/caseymoura/"
 "sounds/445482/"
 msgstr ""
+"Sendi inn hljóð lokara: https://freesound.org/people/caseymoura/"
+"sounds/445482/"
 
 #: src/qml/ImagesView.qml:42
 #, kde-format
 msgid "Share"
-msgstr ""
+msgstr "Deila"
 
 #: src/qml/ImagesView.qml:107 src/qml/ImagesView.qml:152
 #: src/qml/ImagesView.qml:292
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Til baka"
 
 #: src/qml/ImagesView.qml:146
 #, kde-format
 msgid "Media now exported"
-msgstr ""
+msgstr "Myndefni hefur núna verið flutt út"
 
 #: src/qml/ImagesView.qml:173
 #, kde-format
 msgid "Configure Kamoso"
-msgstr ""
+msgstr "Grunnstilla Kamoso"
 
 #: src/qml/ImagesView.qml:181
 #, kde-format
 msgid "Save Locations"
-msgstr ""
+msgstr "Staðsetningar fyrir vistun"
 
 #: src/qml/ImagesView.qml:188
 #, kde-format
 msgid "Pictures:"
-msgstr ""
+msgstr "Myndir:"
 
 #: src/qml/ImagesView.qml:203 src/qml/ImagesView.qml:212
 #, kde-format
 msgid "Choose the folder where Kamoso will save pictures"
-msgstr ""
+msgstr "Veldu möppuna þar sem Kamoso mun vista ljósmyndir"
 
 #: src/qml/ImagesView.qml:227
 #, kde-format
 msgid "Videos:"
-msgstr ""
+msgstr "Myndskeið:"
 
 #: src/qml/ImagesView.qml:242 src/qml/ImagesView.qml:252
 #, kde-format
 msgid "Choose the folder where Kamoso will save videos"
-msgstr ""
+msgstr "Veldu möppuna þar sem Kamoso mun vista myndskeið"
 
 #: src/qml/ImagesView.qml:264
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cameras"
-msgstr "Stillingar"
+msgstr "Myndavélar"
 
 #: src/qml/ImagesView.qml:280
 #, kde-format
 msgctxt "@option:check as in, 'mirror the camera'"
 msgid "Mirror camera"
-msgstr ""
+msgstr "Spegla myndavél"
 
 #: src/qml/ImagesView.qml:319
 #, kde-kuit-format
 msgctxt "@info"
 msgid "There are no images in <filename>%1</filename>"
-msgstr ""
+msgstr " Það eru engar myndir í <filename>%1</filename>"
 
 #: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share %1 Item..."
 msgid_plural "Share %1 Items..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Deila %1 atriði..."
+msgstr[1] "Deila %1 atriðum..."
 
 #: src/qml/ImagesView.qml:333
 #, kde-format
 msgid "Share Item..."
-msgstr ""
+msgstr "Deila atriði..."
 
 #: src/qml/ImagesView.qml:343
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move %1 Item to Trash"
 msgid_plural "Move %1 Items to Trash"
-msgstr[0] "Setja í ruslið"
-msgstr[1] "Setja í ruslið"
+msgstr[0] "Færa %1 atriði í ruslið"
+msgstr[1] "Færa %1 atriði í ruslið"
 
 #: src/qml/ImagesView.qml:343
-#, fuzzy, kde-format
+#, kde-format
 msgid "Move Item to Trash"
-msgstr "Setja í ruslið"
+msgstr "Færa atriði í ruslið"
 
 #: src/qml/ImagesView.qml:354
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open Pictures Folder"
-msgstr "Opna..."
+msgstr "Opna myndamöppu"
 
 #: src/qml/ImagesView.qml:363
 #, kde-format
 msgid "Configure Kamoso..."
-msgstr ""
+msgstr "Grunnstilla Kamoso..."
 
 #: src/qml/Main.qml:84
 #, kde-format
 msgid "Take a Picture"
-msgstr ""
+msgstr "Taka mynd"
 
 #: src/qml/Main.qml:110
 #, kde-format
 msgid "End Burst"
-msgstr ""
+msgstr "Ljúka runu"
 
 #: src/qml/Main.qml:110
 #, kde-format
 msgid "Capture a Burst"
-msgstr ""
+msgstr "Taka myndarunu"
 
 #: src/qml/Main.qml:112
 #, kde-format
 msgid "1 photo taken"
 msgid_plural "%1 photos taken"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 mynd tekin"
+msgstr[1] "%1 myndir teknar"
 
 #: src/qml/Main.qml:138
 #, kde-format
 msgid "Stop Recording"
-msgstr ""
+msgstr "Stöðva upptöku"
 
 #: src/qml/Main.qml:138
 #, kde-format
 msgid "Record a Video"
-msgstr ""
+msgstr "Taka upp myndskeið"
 
 #: src/qml/Main.qml:201
-#, fuzzy, kde-format
+#, kde-format
 msgid "Effects Gallery"
-msgstr "Kamoso"
+msgstr "Sjónhverfingasafn"
 
 #: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Photo taken"
-msgstr ""
+msgstr "Mynd tekin"
 
 #: src/video/webcamcontrol.cpp:412
 #, kde-format
 msgid "Saved in %1"
-msgstr ""
+msgstr "Vistað í %1"
 
 #, fuzzy
 #~ msgid "Save to..."
