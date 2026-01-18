@@ -30,6 +30,7 @@
   <name xml:lang="ia">Kamoso</name>
   <name xml:lang="id">Kamoso</name>
   <name xml:lang="ie">Kamoso</name>
+  <name xml:lang="is">Kamoso</name>
   <name xml:lang="it">Kamoso</name>
   <name xml:lang="ka">Kamoso</name>
   <name xml:lang="ko">Kamoso</name>
@@ -71,6 +72,7 @@
   <summary xml:lang="hu">Használja webkameráját fényképek és videók készítésére</summary>
   <summary xml:lang="ia">Usa tu webcam per prender photos e facer videos.</summary>
   <summary xml:lang="id">Gunakan untuk webcam-mu untuk mengambil gambar dan membuat video</summary>
+  <summary xml:lang="is">Notaðu vefmyndavélina þína til að taka myndir eða myndskeið</summary>
   <summary xml:lang="it">Utilizza la tua webcam per scattare foto o registrare video</summary>
   <summary xml:lang="ka">გამოიყენეთ კამერა სურათების გადასაღებად და ვიდეოების ჩასაწერად</summary>
   <summary xml:lang="ko">웹캠으로 사진을 찍거나 동영상 녹화하기</summary>
@@ -159,6 +161,7 @@
       <caption xml:lang="ia">Fenestra principal de Kamoso</caption>
       <caption xml:lang="id">Jendela utama Kamoso</caption>
       <caption xml:lang="ie">Fenestre principal de Kamoso</caption>
+      <caption xml:lang="is">Aðalgluggi Kamoso</caption>
       <caption xml:lang="it">La finestra principale di Kamoso</caption>
       <caption xml:lang="ka">Kamoso -ის მთავარი ფანჯარა</caption>
       <caption xml:lang="ko">Kamoso 주 창</caption>
