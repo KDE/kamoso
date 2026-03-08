@@ -14,7 +14,7 @@
 <author>
 <personname
 ><firstname
->Bu belgelendirme KDE Kullanıcı Tabanı<ulink url="http://userbase.kde.org/Kamoso"
+>Bu belgelendirme, KDE kullanıcı tabanındaki <ulink url="http://userbase.kde.org/Kamoso"
 >Kamoso</ulink
 > sayfasından dönüştürülmüştür ve &kde; belgelendirme takımı tarafından güncellenmiştir.</firstname
 > <surname
@@ -49,7 +49,7 @@
   <varlistentry
 ><term
 ><emphasis role="bold"
->Resim çek</emphasis
+>Resim Çek</emphasis
 ></term>
     <listitem>
     <para
@@ -59,7 +59,7 @@
   <varlistentry
 ><term
 ><emphasis role="bold"
->Video kaydet</emphasis
+>Video Kaydet</emphasis
 ></term>
     <listitem>
     <para
@@ -83,9 +83,9 @@
 ><title
 >Kullanıcı Kılavuzu</title>
 <para
->&kamoso;'ya hoş geldiniz! </para>
+>&kamoso;’ya hoş geldiniz! </para>
 <para
->&kamoso;, web kameranızı kullanarak fotoğraflar çekmek veya video yapmak için harika bir programdır. Bu kılavuz, kurulumdan sonra &kamoso;'yu kullanmanızda size yardımcı olacak. </para>
+>&kamoso;, web kameranızı kullanarak fotoğraflar çekmek veya video yapmak için harika bir programdır. Bu kılavuz, kurulumdan sonra &kamoso;’yu kullanmanızda size yardımcı olacak. </para>
 <sect1 id="quick-start"
 ><title
 >Hızlı Başlangıç</title>
@@ -158,7 +158,7 @@
 <para
 >Fotoğraflar ve videolar sıralı olarak numaralandırılırlar ve ayarlarda belirtilen <guilabel
 >Çekimler dizinine</guilabel
-> otomatik olarak kaydedilirler. </para>
+> kendiliğinden kaydedilirler. </para>
 
 </sect1>
 
@@ -226,17 +226,17 @@
 </screenshot>
 
 <para
->&kamoso;'nun fotoğrafları ve videoları sakladığı dizini değiştirmek isterseniz, yukarıdan <guilabel
->Çekim dizinini</guilabel
-> değiştirin. </para>
+>&kamoso;’nun fotoğrafları ve videoları sakladığı dizini değiştirmek isterseniz yukarıdan <guilabel
+>Çekim dizini</guilabel
+>’ni değiştirin. </para>
 
 <para
 >Fotoğraf çekmeden önce pencereyi aydınlatmak için <guibutton
->flaş kullan</guibutton
+>Flaş kullan</guibutton
 > seçeneğini etkinleştirin. </para>
 
 <para
->Kaydırıcıları kullanarak aydınlık, ton, karşıtlık ve gama gibi kamera ayarlarını değiştirebilirsiniz. </para>
+>Sürgüleri kullanarak aydınlık, ton, karşıtlık ve gama gibi kamera ayarlarını değiştirebilirsiniz. </para>
 </sect1>
 
 </chapter>
