@@ -4,7 +4,7 @@
 >Kamoso</application
 >">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE">
+  <!ENTITY % Arabic "INCLUDE">
 ]>
 <book lang="&language;">
 <bookinfo>
