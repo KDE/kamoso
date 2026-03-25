@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015, 2016.
-# SPDX-FileCopyrightText: 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-21 00:42+0000\n"
-"PO-Revision-Date: 2025-07-14 20:25+0400\n"
+"PO-Revision-Date: 2026-03-24 11:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -45,7 +45,7 @@ msgstr "مكان حفظ الصّور."
 #: src/kamosoSettings.kcfg:22
 #, kde-format
 msgid "Vertically mirror the camera view."
-msgstr "عكس عرض الكاميرا رأسيًا."
+msgstr "عكس عرض الكاميرا عموديًا."
 
 #. i18n: ectx: label, entry (DeviceObjectId), group (WebcamSettings)
 #: src/kamosoSettings.kcfg:25
