@@ -52,6 +52,7 @@ include(ECMQMLModules)
 
 ecm_find_qmlmodule(org.kde.purpose 1.0)
 ecm_find_qmlmodule(org.kde.kirigami 1.0)
+ecm_find_qmlmodule(org.freedesktop.gstreamer.Qt6GLVideoItem 1.0)
 
 add_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 
