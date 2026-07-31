@@ -50,7 +50,7 @@ msgstr "Kameraansicht senkrecht spiegeln."
 #: src/kamosoSettings.kcfg:25
 #, kde-format
 msgid "Points to the last used webcam."
-msgstr "Verweist auf die zuletzt benutzte Webcam."
+msgstr "Verweist auf die zuletzt verwendete Webcam."
 
 #: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
