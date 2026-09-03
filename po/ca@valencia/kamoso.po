@@ -4,8 +4,8 @@
 #
 # SPDX-FileCopyrightText: 2009 Aleix Pol <aleixpol@kde.org>
 # SPDX-FileCopyrightText: 2011 Manue Tortosa <manutortosa@chakra-project.org>
-# SPDX-FileCopyrightText: 2015, 2016 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2010, 2014, 2015, 2016, 2017, 2018, 2019, 2022, 2023, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2015-2016 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2010, 2014-2019, 2022-2023, 2025-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kamoso\n"
