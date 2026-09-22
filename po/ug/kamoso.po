@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: kamoso\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-21 00:42+0000\n"
-"PO-Revision-Date: 2026-05-30 16:49-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgstr ""
 #: src/main.cpp:23 src/qml/Main.qml:20
 #, kde-format
 msgid "Kamoso"
-msgstr "Kamoso"
+msgstr ""
 
 #: src/main.cpp:23
 #, kde-format
@@ -70,7 +70,7 @@ msgstr ""
 #: src/main.cpp:26
 #, kde-format
 msgid "Aleix Pol Gonzalez"
-msgstr "Aleix Pol Gonzalez"
+msgstr ""
 
 #: src/main.cpp:26
 #, kde-format
