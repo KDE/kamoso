@@ -26,6 +26,7 @@ class Device : public QObject
         ~Device();
         QString description() const { return m_description; }
         QString objectId() const;
+        bool requiresSafeRawMode() const { return m_requiresSafeRawMode; }
         void setFilters(const QString &filters);
         QString filters() const { return m_filters; }
 
@@ -40,6 +41,7 @@ class Device : public QObject
         const QString m_description;
         GstDevice *const m_device;
         QString m_objectId;
+        bool m_requiresSafeRawMode = false;
         QString m_filters;
 };
 

@@ -17,6 +17,14 @@ QString structureValue(GstStructure* device, const char* key)
     return QString::fromUtf8(g_value_get_string(x));
 }
 
+QString withoutHexPrefix(QString value)
+{
+    if (value.startsWith(QStringLiteral("0x"), Qt::CaseInsensitive)) {
+        value.remove(0, 2);
+    }
+    return value;
+}
+
 QString objectIdFromProperties(GstStructure* st)
 {
     // The value returned here is later used to identify
@@ -39,6 +47,11 @@ Device::Device(GstDevice *device, QObject* parent)
 {
     auto st = gst_device_get_properties(device);
     m_objectId = objectIdFromProperties(st);
+    const auto vendorId = withoutHexPrefix(structureValue(st, "device.vendor.id"));
+    const auto productId = withoutHexPrefix(structureValue(st, "device.product.id"));
+    // This USB2 UVC camera's high-resolution raw modes are too slow and can reset it.
+    m_requiresSafeRawMode = vendorId.compare(QStringLiteral("04f2"), Qt::CaseInsensitive) == 0
+        && productId.compare(QStringLiteral("b65e"), Qt::CaseInsensitive) == 0;
     gst_structure_free(st);
     setObjectName(m_objectId);
 }

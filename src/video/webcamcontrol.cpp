@@ -453,7 +453,11 @@ void WebcamControl::updateSourceFilter()
     if (prevstate != GST_STATE_NULL)
         gst_element_set_state(GST_ELEMENT(m_pipeline.data()), GST_STATE_NULL);
 
-    QString filters = QStringLiteral("videoflip video-direction=auto");
+    QString filters;
+    if (DeviceManager::self()->playingDevice()->requiresSafeRawMode()) {
+        filters = QStringLiteral("capsfilter caps=video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! ");
+    }
+    filters += QStringLiteral("videoflip video-direction=auto");
     if (m_mirror)
         filters += QStringLiteral(" ! videoflip video-direction=horiz");
 
