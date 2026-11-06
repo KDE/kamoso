@@ -100,7 +100,6 @@ msgid ""
 "sounds/445482/"
 msgstr ""
 "Lähetti suljinäänen: https://freesound.org/people/caseymoura/sounds/445482/"
-"Lähetti suljinäänen: https://freesound.org/people/caseymoura/sounds/445482/"
 
 #: src/qml/ImagesView.qml:42
 #, kde-format
